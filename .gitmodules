@@ -1,0 +1,45 @@
+[submodule "bundle/airline"]
+	path = bundle/airline
+	url = git://github.com/bling/vim-airline
+[submodule "bundle/easymotion"]
+	path = bundle/easymotion
+	url = git://github.com/Lokaltog/vim-easymotion.git
+[submodule "bundle/fugitive"]
+	path = bundle/fugitive
+	url = git://github.com/tpope/vim-fugitive.git
+[submodule "bundle/csv"]
+	path = bundle/csv
+	url = git://github.com/chrisbra/csv.vim.git
+[submodule "bundle/ctrlp"]
+	path = bundle/ctrlp
+	url = git://github.com/kien/ctrlp.vim.git
+[submodule "bundle/jellybeans"]
+	path = bundle/jellybeans
+	url = git://github.com/nanotech/jellybeans.vim
+[submodule "bundle/snipmate"]
+	path = bundle/snipmate
+	url = git://github.com/msanders/snipmate.vim.git
+[submodule "bundle/tagbar-phpctags"]
+	path = bundle/tagbar-phpctags
+	url = git://github.com/vim-php/tagbar-phpctags.vim.git
+[submodule "bundle/gitgutter"]
+	path = bundle/gitgutter
+	url = git://github.com/airblade/vim-gitgutter.git
+[submodule "bundle/markdown"]
+	path = bundle/markdown
+	url = git://github.com/plasticboy/vim-markdown.git
+[submodule "bundle/php-refactoring"]
+	path = bundle/php-refactoring
+	url = git://github.com/vim-php/vim-php-refactoring.git
+[submodule "bundle/nerdtree"]
+	path = bundle/nerdtree
+	url = git://github.com/scrooloose/nerdtree.git
+[submodule "bundle/syntastic"]
+	path = bundle/syntastic
+	url = git://github.com/scrooloose/syntastic.git
+[submodule "bundle/tagbar"]
+	path = bundle/tagbar
+	url = git://github.com/majutsushi/tagbar.git
+[submodule "bundle/surround"]
+	path = bundle/surround
+	url = git://github.com/tpope/vim-surround.git
