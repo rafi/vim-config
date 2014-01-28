@@ -103,6 +103,36 @@ set cursorline
 set colorcolumn=+1
 let &colorcolumn=join(range(91,200),",")
 
+" Changing cursor shape per mode
+" 1 or 0 -> blinking block
+" 2 -> solid block
+" 3 -> blinking underscore
+" 4 -> solid underscore
+if exists('$TMUX')
+	" tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
+	" cursor color in insert mode
+	let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]12;9\x7\<Esc>\\"
+	" cursor color otherwise
+	let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]12;11\x7\<Esc>\\"
+	silent !echo -ne "\033Ptmux;\033\033]12;11\007\033\\"
+	" reset cursor when vim exits
+	autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033]12;4\007\033\\"
+	let &t_SI .= "\<Esc>Ptmux;\<Esc>\<Esc>[4 q\<Esc>\\"
+	let &t_EI .= "\<Esc>Ptmux;\<Esc>\<Esc>[2 q\<Esc>\\"
+	autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033[0 q\033\\"
+else
+	" cursor color in insert mode
+	let &t_SI = "\<Esc>]12;9\x7"
+	" cursor color otherwise
+	let &t_EI = "\<Esc>]12;11\x7"
+	silent !echo -ne "\033]12;11\007"
+	" reset cursor when vim exits
+	autocmd VimLeave * silent !echo -ne "\033]12;4\007"
+	let &t_SI .= "\<Esc>[4 q"
+	let &t_EI .= "\<Esc>[2 q"
+	autocmd VimLeave * silent !echo -ne "\033[0 q"
+endif
+
 "==============================================================================
 " Plugin configuration
 "------------------------------------------------------------------------------
