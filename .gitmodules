@@ -1,6 +1,3 @@
-[submodule "bundle/airline"]
-	path = bundle/airline
-	url = git://github.com/bling/vim-airline
 [submodule "bundle/easymotion"]
 	path = bundle/easymotion
 	url = git://github.com/Lokaltog/vim-easymotion.git
@@ -13,9 +10,6 @@
 [submodule "bundle/ctrlp"]
 	path = bundle/ctrlp
 	url = git://github.com/kien/ctrlp.vim.git
-[submodule "bundle/jellybeans"]
-	path = bundle/jellybeans
-	url = git://github.com/nanotech/jellybeans.vim
 [submodule "bundle/snipmate"]
 	path = bundle/snipmate
 	url = git://github.com/msanders/snipmate.vim.git
@@ -28,9 +22,6 @@
 [submodule "bundle/markdown"]
 	path = bundle/markdown
 	url = git://github.com/plasticboy/vim-markdown.git
-[submodule "bundle/php-refactoring"]
-	path = bundle/php-refactoring
-	url = git://github.com/vim-php/vim-php-refactoring.git
 [submodule "bundle/nerdtree"]
 	path = bundle/nerdtree
 	url = git://github.com/scrooloose/nerdtree.git
@@ -43,3 +34,21 @@
 [submodule "bundle/surround"]
 	path = bundle/surround
 	url = git://github.com/tpope/vim-surround.git
+[submodule "bundle/lightline"]
+	path = bundle/lightline
+	url = git://github.com/itchyny/lightline.vim
+[submodule "bundle/hybrid"]
+	path = bundle/hybrid
+	url = git://github.com/w0ng/vim-hybrid.git
+[submodule "bundle/tabular"]
+	path = bundle/tabular
+	url = git://github.com/godlygeek/tabular.git
+[submodule "bundle/autocomplpop"]
+	path = bundle/autocomplpop
+	url = git://github.com/vim-scripts/AutoComplPop.git
+[submodule "bundle/supertab"]
+	path = bundle/supertab
+	url = git://github.com/ervandew/supertab.git
+[submodule "bundle/mustache"]
+	path = bundle/mustache
+	url = git://github.com/juvenn/mustache.vim.git
