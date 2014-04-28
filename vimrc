@@ -29,13 +29,15 @@ set visualbell t_vb=          " and don't make faces
 set lazyredraw                " don't redraw while in macros
 set wrap                      " soft wrap long lines
 set list                      " show invisible characters
+set noswapfile
 set nobackup                  " do not backup when overwriting files
 set hidden                    " hide buffers when abandoned instead of unload
-set clipboard=unnamed
+set encoding=utf-8
+set foldmethod=marker
 
 set wildmenu                  " turn on wild menu :e <Tab>
 set wildmode=list:longest     " set wildmenu to list choice
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/cache/*,*.sassc
 
 " REMOTE hosts
 "set ttyfast
@@ -45,11 +47,9 @@ execute pathogen#infect()
 filetype plugin indent on
 syntax on
 
-"set shell=/bin/bash
-
 set smartindent
 set autoindent
-set backspace=indent,eol,start
+set backspace=indent,eol,start  " Intuitive backspacing in insert mode
 set complete-=i
 set smarttab
 
@@ -61,9 +61,12 @@ set ttimeoutlen=50
 
 set laststatus=2
 set display+=lastline
-set autoread
+set autoread                  " Files are read as soon as they are changed
 set history=1000
 set tabpagemax=50
+
+set splitbelow
+set splitright
 
 " Load matchit.vim, but only if the user hasn't installed a newer version.
 if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
@@ -73,7 +76,7 @@ endif
 " Searching
 set incsearch                 " incremental search
 set ignorecase                " search ignoring case
-set smartcase
+set smartcase                 " keep case when searching with *
 set hlsearch                  " highlight the search
 set showmatch                 " show matching bracket
 set diffopt=filler,iwhite     " ignore all whitespace and sync
@@ -92,7 +95,7 @@ setlocal noexpandtab          " Don't expand tabs to spaces.
 set tabstop=2
 set shiftwidth=2
 set showtabline=2
-set scrolloff=2               " keep at least 3 lines above/below
+set scrolloff=3               " keep at least 3 lines above/below
 set sidescrolloff=3           " keep at least 3 lines left/right
 
 set foldenable
@@ -101,7 +104,7 @@ set cursorline
 
 " Highlight 91 and onward
 set colorcolumn=+1
-let &colorcolumn=join(range(91,200),",")
+"let &colorcolumn=join(range(91,200),",")
 
 " Changing cursor shape per mode
 " 1 or 0 -> blinking block
@@ -111,31 +114,37 @@ let &colorcolumn=join(range(91,200),",")
 if exists('$TMUX')
 	" tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
 	" cursor color in insert mode
-	let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]12;9\x7\<Esc>\\"
+"	let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]12;9\x7\<Esc>\\"
 	" cursor color otherwise
-	let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]12;11\x7\<Esc>\\"
-	silent !echo -ne "\033Ptmux;\033\033]12;11\007\033\\"
+"	let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]12;11\x7\<Esc>\\"
+"	silent !echo -ne "\033Ptmux;\033\033]12;11\007\033\\"
 	" reset cursor when vim exits
-	autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033]12;4\007\033\\"
-	let &t_SI .= "\<Esc>Ptmux;\<Esc>\<Esc>[4 q\<Esc>\\"
-	let &t_EI .= "\<Esc>Ptmux;\<Esc>\<Esc>[2 q\<Esc>\\"
-	autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033[0 q\033\\"
+"	autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033]12;4\007\033\\"
+"	let &t_SI .= "\<Esc>Ptmux;\<Esc>\<Esc>[4 q\<Esc>\\"
+"	let &t_EI .= "\<Esc>Ptmux;\<Esc>\<Esc>[2 q\<Esc>\\"
+"	autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033[0 q\033\\"
 else
 	" cursor color in insert mode
-	let &t_SI = "\<Esc>]12;9\x7"
+"	let &t_SI = "\<Esc>]12;9\x7"
 	" cursor color otherwise
-	let &t_EI = "\<Esc>]12;11\x7"
-	silent !echo -ne "\033]12;11\007"
+"	let &t_EI = "\<Esc>]12;11\x7"
+"	silent !echo -ne "\033]12;11\007"
 	" reset cursor when vim exits
-	autocmd VimLeave * silent !echo -ne "\033]12;4\007"
-	let &t_SI .= "\<Esc>[4 q"
-	let &t_EI .= "\<Esc>[2 q"
-	autocmd VimLeave * silent !echo -ne "\033[0 q"
+"	autocmd VimLeave * silent !echo -ne "\033]12;4\007"
+"	let &t_SI .= "\<Esc>[4 q"
+"	let &t_EI .= "\<Esc>[2 q"
+"	autocmd VimLeave * silent !echo -ne "\033[0 q"
 endif
 
 "==============================================================================
 " Plugin configuration
 "------------------------------------------------------------------------------
+
+let g:lightline = {
+	\ 'colorscheme': 'jellybeans',
+	\ 'separator': { 'left': '░', 'right': '<' },
+	\ 'subseparator': { 'left': '|', 'right': '|' }
+	\ }
 
 " tagbar autoopen and compact view
 let g:tagbar_compact = 1
@@ -151,21 +160,16 @@ let g:vim_markdown_initial_foldlevel=5
 " http://kien.github.io/ctrlp.vim/
 let g:ctrlp_working_path_mode = 'ra'
 
-" Integrating vim-airline with powerline fokkknts
-let g:airline_theme='wombat' " zenburn, serene, simple, ubaryd, understated
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = '░'
-"let g:airline#extensions#tabline#left_alt_sep = '/'
-
 " NERDTree custom configuration
 let NERDTreeShowHidden=1
 let NERDTreeMinimalUI=1
+let NERDTreeQuitOnOpen=1
 
 " Open NERDTree automatically when vim starts up with no files
 autocmd vimenter * if !argc() | NERDTree | endif
 
 " Close vim if the only window left open is a NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " Syntastic
 let g:syntastic_check_on_open=1
@@ -178,13 +182,26 @@ let g:syntastic_auto_loc_list=1
 "------------------------------------------------------------------------------
 
 " Want a different map leader than \
-let mapleader=","
+let mapleader=" "
 
-" Maps the spacebar to colon
-nmap <space> :
+" Maps the semicolon to colon in normal mode
+nmap ; :
+
+" Trick by Steve Losh: save a file if you forgot to sudo before editing
+" http://forrst.com/posts/Use_w_to_sudo_write_a_file_with_Vim-uAN
+cmap w!! w !sudo tee % >/dev/null
 
 " Quick insert mode exit
 imap jk <Esc>
+
+" Create splits
+nnoremap <leader>sh :sp<CR>
+nnoremap <leader>sv :vsp<CR>
+" Move across splits with Alt+m,n.
+nnoremap m <C-w>j
+nnoremap , <C-w>k
+nnoremap n <C-w>h
+nnoremap . <C-w>l
 
 " Fast saving
 nnoremap <Leader>w :w<CR>
@@ -193,18 +210,22 @@ nnoremap <C-s> :w<CR>
 inoremap <C-s> <Esc>:w<CR>
 vnoremap <C-s> <Esc>:w<CR>
 
+" Select blocks after indenting
+vnoremap < <gv
+vnoremap > >gv
+
 " Line number type toggle
 nnoremap <Leader>l :set nonumber!<CR>
 
 " Clear the highlighting of :set hlsearch
-nnoremap <Leader>h :nohlsearch<CR>
+nmap <silent> <Leader>h :silent :nohlsearch<CR>
 
 " CtrlP
-nnoremap <Leader>t :CtrlP getcwd()<CR>
-nnoremap <Leader>f :CtrlPClearAllCaches<CR>
+"nnoremap <Leader>t :CtrlP getcwd()<CR>
+"nnoremap <Leader>f :CtrlPClearAllCaches<CR>
 nnoremap <Leader>b :CtrlPBuffer<CR>
 nnoremap <Leader>j :CtrlP ~/<CR>
-nnoremap <Leader>p :CtrlP<CR>
+nnoremap <Leader>r :CtrlP<CR>
 
 " Instead of 1 line, move 3 at a time
 nnoremap <C-e> 3<C-e>
@@ -219,16 +240,19 @@ nmap <silent> <leader>s :set nolist!<CR>
 "vnoremap <C-d> :call PhpDocRange()<CR>
 
 " Fugitive shortcuts
-nnoremap <Leader>c :Gcommit -a<CR>i
-nnoremap <Leader>g :Git
-nnoremap <Leader>a :Git add %:p<CR>
+"nnoremap <Leader>c :Gcommit -a<CR>i
+"nnoremap <Leader>g :Git
+"nnoremap <Leader>a :Git add %:p<CR>
+
+map <Leader>y "+y
+map <Leader>p "+p
 
 " Yank to primary clipboard with Ctrl+c
-map <C-c> "+y<CR>
+map <C-c> "+y
 
 " Tagbar keys
 nmap <F8> :TagbarToggle<CR>
-noremap <silent> <Leader>y :TagbarToggle<CR>
+nnoremap <Leader>t :TagbarToggle<CR>
 
 " When pressing <leader>cd switch to the directory of the open buffer
 map <Leader>cd :cd %:p:h<CR>
@@ -242,23 +266,20 @@ noremap! <Nul> <C-n>
 " Shortcut to fold tags
 "nnoremap <Leader>ft Vatzf
 
-" Opens a vertical split and switches over
-nnoremap <Leader>wv :vsplit<CR><C-w>l
-nnoremap <Leader>ws :split<CR><C-w>j
-
 " Edit the vimrc file
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>es :so $MYVIMRC<CR>
 
 " NERDTree keys
 nmap <F1> :NERDTreeToggle<CR>
-noremap <silent> <Leader>n :NERDTreeToggle<CR>
+noremap <silent> <Leader>f :NERDTreeToggle<CR>
 
 " Buffers
 map <Esc>[27;5;9~ <C-Tab>
 map <Esc>[27;6;9~ <C-S-Tab>
 nnoremap <C-Tab> :bn<CR>
 nnoremap <C-S-Tab> :bp<CR>
+
 " Closes current buffer
 nnoremap <silent> <Leader>q :close<CR>
 
@@ -266,21 +287,6 @@ nnoremap <silent> <Leader>q :close<CR>
 "map <C-t> :tabnew<CR>
 map <S-Left> :tabp<CR>
 map <S-Right> :tabn<CR>
-"map í <C-W>j
-"map ¬ <C-W>k
-
-" Bubble single lines
-" http://vimcasts.org/episodes/bubbling-text/
-"nmap <C-Up> ddkP
-"nmap <C-Down> ddp
-
-" Show trailing white space
-"match ExtraSpace /\s\+$/
-"autocmd BufWinEnter * match ExtraSpace /\s\+$/
-"autocmd InsertEnter * match ExtraSpace /\s\+\%#\@<!$/
-"autocmd InsertLeave * match ExtraSpace /\s\+$/
-"autocmd BufWinLeave * call clearmatches()
-"nnoremap <leader>z :%s/\s\+$//<cr>:let @/=''<CR>
 
 " Make Vim recognize xterm escape sequences for Page and Arrow
 " keys combined with modifiers such as Shift, Control, and Alt.
@@ -308,28 +314,28 @@ endif
 set t_Co=256
 set background=dark
 
-colorscheme mustang " wombat256mod, jellybeans, kraihlight, pablo
-
-" mustang changes
-highlight CursorLine   ctermbg=235 cterm=NONE
-"highlight CursorLineNr ctermfg=240
-highlight SpecialKey   ctermfg=235 ctermbg=234
-highlight SignColumn   ctermbg=234
-highlight LineNr       ctermfg=235 ctermbg=234
-highlight ColorColumn  ctermbg=0
+colorscheme hybrid " wombat256mod, mustang, jellybeans, kraihlight, pablo
 
 " wombat256mod changes
 "highlight Normal       ctermbg=235
+"highlight ColorColumn  ctermbg=0
 "highlight CursorLine   ctermbg=236
 "highlight CursorLineNr ctermfg=240
 "highlight CursorColumn ctermbg=234
 "highlight SpecialKey   ctermfg=237 ctermbg=235
 "highlight SignColumn   ctermbg=236
 "highlight LineNr       ctermfg=238 ctermbg=0
-"highlight ColorColumn  ctermbg=0
 "highlight TabLineFill  ctermfg=236
 "highlight TabLine      ctermfg=242 ctermbg=235
 "highlight TabLineSel   ctermfg=250 ctermbg=236
+
+" mustang changes
+"highlight CursorLine   ctermbg=235 cterm=NONE
+""highlight CursorLineNr ctermfg=240
+"highlight SpecialKey   ctermfg=235 ctermbg=234
+"highlight SignColumn   ctermbg=234
+"highlight LineNr       ctermfg=235 ctermbg=234
+"highlight ColorColumn  ctermbg=0
 
 "==============================================================================
 " Fonts
@@ -369,7 +375,6 @@ set backupdir+=.
 set backupdir-=~/
 set backupdir^=~/.vim/backup/
 set backupdir^=./.vim-backup/
-" set backup
 
 " Save your swp files to a less annoying place than the current directory.
 " If you have .vim-swap in the current directory, it'll use that.
