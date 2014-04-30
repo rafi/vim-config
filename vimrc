@@ -12,6 +12,9 @@
 " Basic
 "------------------------------------------------------------------------------
 
+set runtimepath=$XDG_CONFIG_HOME/vim,$VIM,$VIMRUNTIME
+let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
+
 set nocompatible              " break away from old vi compatibility
 set esckeys                   " allow func keys that start with an <Esc> in insert mode
 set mouse=a                   " allows mouse scrolling and selection in terminal
@@ -142,9 +145,13 @@ endif
 
 let g:lightline = {
 	\ 'colorscheme': 'jellybeans',
+	\ 'enable': { 'tabline': 0 },
 	\ 'separator': { 'left': '░', 'right': '<' },
 	\ 'subseparator': { 'left': '|', 'right': '|' }
 	\ }
+
+let g:acp_enableAtStartup = 0
+let g:acp_mappingDriven = 1
 
 " tagbar autoopen and compact view
 let g:tagbar_compact = 1
@@ -275,18 +282,18 @@ nmap <F1> :NERDTreeToggle<CR>
 noremap <silent> <Leader>f :NERDTreeToggle<CR>
 
 " Buffers
-map <Esc>[27;5;9~ <C-Tab>
-map <Esc>[27;6;9~ <C-S-Tab>
-nnoremap <C-Tab> :bn<CR>
-nnoremap <C-S-Tab> :bp<CR>
+"map <C-t> :tabnew<CR>
+map <S-Left> :bp<CR>
+map <S-Right> :bn<CR>
 
 " Closes current buffer
 nnoremap <silent> <Leader>q :close<CR>
 
 " tab shortcuts
-"map <C-t> :tabnew<CR>
-map <S-Left> :tabp<CR>
-map <S-Right> :tabn<CR>
+map <Esc>[27;5;9~ <C-Tab>
+map <Esc>[27;6;9~ <C-S-Tab>
+nnoremap <C-Tab> :tabn<CR>
+nnoremap <C-S-Tab> :tabp<CR>
 
 " Make Vim recognize xterm escape sequences for Page and Arrow
 " keys combined with modifiers such as Shift, Control, and Alt.
@@ -315,6 +322,11 @@ set t_Co=256
 set background=dark
 
 colorscheme hybrid " wombat256mod, mustang, jellybeans, kraihlight, pablo
+
+" hybrid
+highlight TabLineFill  ctermfg=8
+highlight TabLine      ctermfg=8 ctermbg=0
+highlight TabLineSel   ctermfg=8 ctermbg=0
 
 " wombat256mod changes
 "highlight Normal       ctermbg=235
@@ -364,36 +376,36 @@ endif
 " Storage and Directories
 "------------------------------------------------------------------------------
 
-" Saves file when Vim window loses focus
-autocmd BufLeave,FocusLost * silent! wall
+" Saves file when Vim (or buffer) loses focus
+"autocmd BufLeave,FocusLost * silent! wall
 
 " Save your backups to a less annoying place than the current directory.
 " If you have .vim-backup in the current directory, it'll use that.
-" Otherwise it saves it to ~/.vim/backup or . if all else fails.
+" Otherwise it saves it to ~/.cache/vim/backup or . if all else fails.
 set backupdir-=.
 set backupdir+=.
 set backupdir-=~/
-set backupdir^=~/.vim/backup/
+set backupdir^=~/.cache/vim/backup/
 set backupdir^=./.vim-backup/
 
 " Save your swp files to a less annoying place than the current directory.
 " If you have .vim-swap in the current directory, it'll use that.
-" Otherwise it saves it to ~/.vim/swap, ~/tmp or .
+" Otherwise it saves it to ~/.cache/vim/swap, ~/tmp or .
 set directory=./.vim-swap//
-set directory+=~/.vim/swap//
+set directory+=~/.cache/vim/swap//
 set directory+=~/tmp//
 set directory+=.
 
 " viminfo stores the the state of your previous editing session
-set viminfo+=n~/.vim/viminfo
+set viminfo+=n~/.cache/vim/viminfo
 
 if exists("+undofile")
 	" undofile - This allows you to use undos after exiting and restarting
-	" This, like swap and backups, uses .vim-undo first, then ~/.vim/undo
+	" This, like swap and backups, uses .vim-undo first, then ~/.cache/vim/undo
 	" :help undo-persistence
 	" This is only present in 7.3+
 	set undodir=./.vim-undo//
-	set undodir+=~/.vim/undo//
+	set undodir+=~/.cache/vim/undo//
 	set undofile
 endif
 
