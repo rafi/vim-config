@@ -12,12 +12,17 @@
 " Basic
 "------------------------------------------------------------------------------
 
-set runtimepath=$XDG_CONFIG_HOME/vim,$VIM,$VIMRUNTIME
+" Respect XDG
+set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
 let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
+
+" Load pathogen
+runtime bundle/pathogen/autoload/pathogen.vim
 
 set nocompatible              " break away from old vi compatibility
 set esckeys                   " allow func keys that start with an <Esc> in insert mode
 set mouse=a                   " allows mouse scrolling and selection in terminal
+set autowriteall              " automatically save in many states
 
 set report=0                  " report back on all changes
 set shortmess=atI             " shorten messages and don't show intro
@@ -32,7 +37,7 @@ set visualbell t_vb=          " and don't make faces
 set lazyredraw                " don't redraw while in macros
 set wrap                      " soft wrap long lines
 set list                      " show invisible characters
-set noswapfile
+set noswapfile                " disable swap files
 set nobackup                  " do not backup when overwriting files
 set hidden                    " hide buffers when abandoned instead of unload
 set encoding=utf-8
@@ -60,7 +65,8 @@ set nrformats-=octal
 set shiftround
 
 set ttimeout
-set ttimeoutlen=50
+set timeoutlen=1200           " A little bit more time for macros
+set ttimeoutlen=50            " Make esc work faster
 
 set laststatus=2
 set display+=lastline
@@ -94,50 +100,22 @@ set nostartofline             " leave my cursor position alone!
 " l - don't format already long lines
 set formatoptions=crql
 
-setlocal noexpandtab          " Don't expand tabs to spaces.
-set tabstop=2
-set shiftwidth=2
+setlocal noexpandtab    " Don't expand tabs to spaces.
+set tabstop=2           " The number of spaces a tab is
+set shiftwidth=2        " Number of spaces to use in auto(indent)
+set softtabstop=2       " Just to be clear
 set showtabline=2
-set scrolloff=3               " keep at least 3 lines above/below
-set sidescrolloff=3           " keep at least 3 lines left/right
+set scrolloff=3         " keep at least 3 lines above/below
+set sidescrolloff=3     " keep at least 3 lines left/right
 
 set foldenable
 set textwidth=90
 set cursorline
 
-" Highlight 91 and onward
-set colorcolumn=+1
-"let &colorcolumn=join(range(91,200),",")
+set colorcolumn=+1      " Highlight 91 vertical line
 
-" Changing cursor shape per mode
-" 1 or 0 -> blinking block
-" 2 -> solid block
-" 3 -> blinking underscore
-" 4 -> solid underscore
-if exists('$TMUX')
-	" tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
-	" cursor color in insert mode
-"	let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]12;9\x7\<Esc>\\"
-	" cursor color otherwise
-"	let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]12;11\x7\<Esc>\\"
-"	silent !echo -ne "\033Ptmux;\033\033]12;11\007\033\\"
-	" reset cursor when vim exits
-"	autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033]12;4\007\033\\"
-"	let &t_SI .= "\<Esc>Ptmux;\<Esc>\<Esc>[4 q\<Esc>\\"
-"	let &t_EI .= "\<Esc>Ptmux;\<Esc>\<Esc>[2 q\<Esc>\\"
-"	autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033[0 q\033\\"
-else
-	" cursor color in insert mode
-"	let &t_SI = "\<Esc>]12;9\x7"
-	" cursor color otherwise
-"	let &t_EI = "\<Esc>]12;11\x7"
-"	silent !echo -ne "\033]12;11\007"
-	" reset cursor when vim exits
-"	autocmd VimLeave * silent !echo -ne "\033]12;4\007"
-"	let &t_SI .= "\<Esc>[4 q"
-"	let &t_EI .= "\<Esc>[2 q"
-"	autocmd VimLeave * silent !echo -ne "\033[0 q"
-endif
+set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:.,trail:·
+set showbreak=↪
 
 "==============================================================================
 " Plugin configuration
@@ -157,15 +135,13 @@ let g:acp_mappingDriven = 1
 let g:tagbar_compact = 1
 "autocmd VimEnter * nested :call tagbar#autoopen(1)
 
-" php refactor phar path
-let g:php_refactor_command='php ~/bin/refactor.phar'
-
 let g:vim_markdown_initial_foldlevel=5
 
 " When invoked, unless a starting directory is specified, CtrlP will set its local working
 " directory according to this variable:
-" http://kien.github.io/ctrlp.vim/
 let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_custom_ignore = 'node_modules'
+let g:ctrlp_reuse_window = 'startify'
 
 " NERDTree custom configuration
 let NERDTreeShowHidden=1
@@ -174,9 +150,6 @@ let NERDTreeQuitOnOpen=1
 
 " Open NERDTree automatically when vim starts up with no files
 autocmd vimenter * if !argc() | NERDTree | endif
-
-" Close vim if the only window left open is a NERDTree
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " Syntastic
 let g:syntastic_check_on_open=1
@@ -194,6 +167,20 @@ let mapleader=" "
 " Maps the semicolon to colon in normal mode
 nmap ; :
 
+" Disable arrow keys (force good habits)
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+vnoremap <up> <nop>
+vnoremap <down> <nop>
+vnoremap <left> <nop>
+vnoremap <right> <nop>
+
 " Trick by Steve Losh: save a file if you forgot to sudo before editing
 " http://forrst.com/posts/Use_w_to_sudo_write_a_file_with_Vim-uAN
 cmap w!! w !sudo tee % >/dev/null
@@ -204,7 +191,7 @@ imap jk <Esc>
 " Create splits
 nnoremap <leader>sh :sp<CR>
 nnoremap <leader>sv :vsp<CR>
-" Move across splits with Alt+m,n.
+" Move across splits with Alt+m/,/n/.
 nnoremap m <C-w>j
 nnoremap , <C-w>k
 nnoremap n <C-w>h
@@ -250,12 +237,17 @@ nmap <silent> <leader>s :set nolist!<CR>
 "nnoremap <Leader>c :Gcommit -a<CR>i
 "nnoremap <Leader>g :Git
 "nnoremap <Leader>a :Git add %:p<CR>
+nnoremap <silent> <leader>gs :Gstatus<CR>
+nnoremap <silent> <leader>gd :Gdiff<CR>
+nnoremap <silent> <leader>gc :Gcommit<CR>
+nnoremap <silent> <leader>gb :Gbrowse<CR>
+nnoremap <silent> <leader>gl :Glog<CR>
+nnoremap <silent> <leader>gp :Git push<CR>
+nnoremap <silent> <leader>gg :Ggrep --ignore-case
+map <silent> <leader>gbd :Gbrowse origin/develop^{}:%<CR>
 
 map <Leader>y "+y
 map <Leader>p "+p
-
-" Yank to primary clipboard with Ctrl+c
-map <C-c> "+y
 
 " Tagbar keys
 nmap <F8> :TagbarToggle<CR>
@@ -280,6 +272,13 @@ nmap <silent> <leader>es :so $MYVIMRC<CR>
 " NERDTree keys
 nmap <F1> :NERDTreeToggle<CR>
 noremap <silent> <Leader>f :NERDTreeToggle<CR>
+
+" Disable help key
+inoremap <F1> <ESC>
+vnoremap <F1> <ESC>
+
+" Toggle paste mode (particularly useful to temporarily disable autoindent)
+set pastetoggle=<F2>
 
 " Buffers
 "map <C-t> :tabnew<CR>
@@ -313,6 +312,17 @@ endif
 "==============================================================================
 " Functions
 "------------------------------------------------------------------------------
+
+" History niceties
+if has("autocmd")
+" When editing a file, always jump to the last known cursor position.
+" Don't do it when the position is invalid or when inside an event handler
+" (happens when dropping a file on gvim).
+autocmd BufReadPost *
+	\ if line("'\"") > 0 && line("'\"") <= line("$") |
+	\	exe 'normal! g`"zvzz' |
+	\ endif
+endif
 
 "==============================================================================
 " Colors
@@ -350,26 +360,37 @@ highlight TabLineSel   ctermfg=8 ctermbg=0
 "highlight ColorColumn  ctermbg=0
 
 "==============================================================================
-" Fonts
+" Cursor
 "------------------------------------------------------------------------------
 
-set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:.,trail:·
-"set listchars=tab:>·,trail:·
-set showbreak=↪
-
-"==============================================================================
-" History Niceties
-"------------------------------------------------------------------------------
-
-" Only do this part when compiled with support for autocommands.
-if has("autocmd")
-" When editing a file, always jump to the last known cursor position.
-" Don't do it when the position is invalid or when inside an event handler
-" (happens when dropping a file on gvim).
-autocmd BufReadPost *
-	\ if line("'\"") > 0 && line("'\"") <= line("$") |
-	\	exe 'normal! g`"zvzz' |
-	\ endif
+" Changing cursor shape per mode
+" 1 or 0 -> blinking block
+" 2 -> solid block
+" 3 -> blinking underscore
+" 4 -> solid underscore
+if exists('$TMUX')
+	" tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
+	" cursor color in insert mode
+"	let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]12;9\x7\<Esc>\\"
+	" cursor color otherwise
+"	let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]12;11\x7\<Esc>\\"
+"	silent !echo -ne "\033Ptmux;\033\033]12;11\007\033\\"
+	" reset cursor when vim exits
+"	autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033]12;4\007\033\\"
+"	let &t_SI .= "\<Esc>Ptmux;\<Esc>\<Esc>[4 q\<Esc>\\"
+"	let &t_EI .= "\<Esc>Ptmux;\<Esc>\<Esc>[2 q\<Esc>\\"
+"	autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033[0 q\033\\"
+else
+	" cursor color in insert mode
+"	let &t_SI = "\<Esc>]12;9\x7"
+	" cursor color otherwise
+"	let &t_EI = "\<Esc>]12;11\x7"
+"	silent !echo -ne "\033]12;11\007"
+	" reset cursor when vim exits
+"	autocmd VimLeave * silent !echo -ne "\033]12;4\007"
+"	let &t_SI .= "\<Esc>[4 q"
+"	let &t_EI .= "\<Esc>[2 q"
+"	autocmd VimLeave * silent !echo -ne "\033[0 q"
 endif
 
 "==============================================================================
@@ -385,14 +406,14 @@ endif
 set backupdir-=.
 set backupdir+=.
 set backupdir-=~/
-set backupdir^=~/.cache/vim/backup/
+set backupdir^=$XDG_CACHE_HOME/vim/backup/
 set backupdir^=./.vim-backup/
 
 " Save your swp files to a less annoying place than the current directory.
 " If you have .vim-swap in the current directory, it'll use that.
 " Otherwise it saves it to ~/.cache/vim/swap, ~/tmp or .
 set directory=./.vim-swap//
-set directory+=~/.cache/vim/swap//
+set directory+=$XDG_CACHE_HOME/vim/swap//
 set directory+=~/tmp//
 set directory+=.
 
@@ -405,7 +426,7 @@ if exists("+undofile")
 	" :help undo-persistence
 	" This is only present in 7.3+
 	set undodir=./.vim-undo//
-	set undodir+=~/.cache/vim/undo//
+	set undodir+=$XDG_CACHE_HOME/vim/undo//
 	set undofile
 endif
 

@@ -49,6 +49,12 @@
 [submodule "bundle/supertab"]
 	path = bundle/supertab
 	url = git://github.com/ervandew/supertab.git
+[submodule "bundle/editorconfig"]
+	path = bundle/editorconfig
+	url = git://github.com/editorconfig/editorconfig-vim.git
+[submodule "bundle/pathogen"]
+	path = bundle/pathogen
+	url = git://github.com/tpope/vim-pathogen.git
 [submodule "bundle/mustache"]
 	path = bundle/mustache
-	url = git://github.com/juvenn/mustache.vim.git
+	url = git://github.com/mustache/vim-mustache-handlebars.git
