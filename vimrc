@@ -22,7 +22,7 @@ runtime bundle/pathogen/autoload/pathogen.vim
 set nocompatible              " break away from old vi compatibility
 set esckeys                   " allow func keys that start with an <Esc> in insert mode
 set mouse=a                   " allows mouse scrolling and selection in terminal
-set autowriteall              " automatically save in many states
+set autowrite                 " automatically save in many states
 
 set report=0                  " report back on all changes
 set shortmess=atI             " shorten messages and don't show intro
@@ -366,34 +366,20 @@ highlight TabLineSel   ctermfg=8 ctermbg=0
 " Cursor
 "------------------------------------------------------------------------------
 
-" Changing cursor shape per mode
+" Changing cursor shape per mode (I'm using rxvt-unicode)
 " 1 or 0 -> blinking block
 " 2 -> solid block
 " 3 -> blinking underscore
 " 4 -> solid underscore
+" Recent versions of xterm (282 or above) also support
+" 5 -> blinking vertical bar
+" 6 -> solid vertical bar
 if exists('$TMUX')
-	" tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
-	" cursor color in insert mode
-"	let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]12;9\x7\<Esc>\\"
-	" cursor color otherwise
-"	let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]12;11\x7\<Esc>\\"
-"	silent !echo -ne "\033Ptmux;\033\033]12;11\007\033\\"
-	" reset cursor when vim exits
-"	autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033]12;4\007\033\\"
-"	let &t_SI .= "\<Esc>Ptmux;\<Esc>\<Esc>[4 q\<Esc>\\"
-"	let &t_EI .= "\<Esc>Ptmux;\<Esc>\<Esc>[2 q\<Esc>\\"
-"	autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033[0 q\033\\"
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>[3 q\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>[0 q\<Esc>\\"
 else
-	" cursor color in insert mode
-"	let &t_SI = "\<Esc>]12;9\x7"
-	" cursor color otherwise
-"	let &t_EI = "\<Esc>]12;11\x7"
-"	silent !echo -ne "\033]12;11\007"
-	" reset cursor when vim exits
-"	autocmd VimLeave * silent !echo -ne "\033]12;4\007"
-"	let &t_SI .= "\<Esc>[4 q"
-"	let &t_EI .= "\<Esc>[2 q"
-"	autocmd VimLeave * silent !echo -ne "\033[0 q"
+  let &t_SI = "\<Esc>[3 q"
+  let &t_EI = "\<Esc>[0 q"
 endif
 
 "==============================================================================
