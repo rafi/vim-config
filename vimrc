@@ -41,7 +41,7 @@ set noswapfile                " disable swap files
 set nobackup                  " do not backup when overwriting files
 set hidden                    " hide buffers when abandoned instead of unload
 set encoding=utf-8
-set foldmethod=marker
+set ffs=unix,dos,mac          " Use Unix as the standard file type
 
 set wildmenu                  " turn on wild menu :e <Tab>
 set wildmode=list:longest     " set wildmenu to list choice
@@ -109,6 +109,8 @@ set scrolloff=3         " keep at least 3 lines above/below
 set sidescrolloff=3     " keep at least 3 lines left/right
 
 set foldenable
+set foldmethod=indent
+set foldlevel=999
 set textwidth=90
 set cursorline
 
@@ -162,7 +164,7 @@ let g:syntastic_auto_loc_list=1
 "------------------------------------------------------------------------------
 
 " Want a different map leader than \
-let mapleader=" "
+let mapleader="\<Space>"
 
 " Maps the semicolon to colon in normal mode
 nmap ; :
@@ -191,11 +193,6 @@ imap jk <Esc>
 " Create splits
 nnoremap <leader>sh :sp<CR>
 nnoremap <leader>sv :vsp<CR>
-" Move across splits with Alt+m/,/n/.
-nnoremap m <C-w>j
-nnoremap , <C-w>k
-nnoremap n <C-w>h
-nnoremap . <C-w>l
 
 " Fast saving
 nnoremap <Leader>w :w<CR>
@@ -207,6 +204,10 @@ vnoremap <C-s> <Esc>:w<CR>
 " Select blocks after indenting
 vnoremap < <gv
 vnoremap > >gv
+nnoremap <Tab> >>_
+nnoremap <S-Tab> <<_
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
 
 " Line number type toggle
 nnoremap <Leader>l :set nonumber!<CR>
@@ -257,13 +258,13 @@ nnoremap <Leader>t :TagbarToggle<CR>
 map <Leader>cd :cd %:p:h<CR>
 
 " Remap <C-space> to word completion
-noremap! <Nul> <C-n>
+"noremap! <Nul> <C-n>
 
 " Faster shortcut for commenting. Requires T-Comment plugin
 "map <Leader>c <c-_><c-_>
 
-" Shortcut to fold tags
-"nnoremap <Leader>ft Vatzf
+" Focus the current fold by closing all others
+nnoremap <leader>flf mzzM`zzv
 
 " Edit the vimrc file
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
@@ -281,16 +282,18 @@ vnoremap <F1> <ESC>
 set pastetoggle=<F2>
 
 " Buffers
-"map <C-t> :tabnew<CR>
 map <S-Left> :bp<CR>
 map <S-Right> :bn<CR>
 
 " Closes current buffer
 nnoremap <silent> <Leader>q :close<CR>
 
-" tab shortcuts
+" Make the Ctrk+Tab work in console, see also Xresources
 map <Esc>[27;5;9~ <C-Tab>
 map <Esc>[27;6;9~ <C-S-Tab>
+
+" tab shortcuts
+"map <C-t> :tabnew<CR>
 nnoremap <C-Tab> :tabn<CR>
 nnoremap <C-S-Tab> :tabp<CR>
 

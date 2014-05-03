@@ -58,3 +58,9 @@
 [submodule "bundle/mustache"]
 	path = bundle/mustache
 	url = git://github.com/mustache/vim-mustache-handlebars.git
+[submodule "bundle/tmux-navigator"]
+	path = bundle/tmux-navigator
+	url = git://github.com/christoomey/vim-tmux-navigator.git
+[submodule "bundle/ansible-yaml"]
+	path = bundle/ansible-yaml
+	url = git://github.com/chase/vim-ansible-yaml.git

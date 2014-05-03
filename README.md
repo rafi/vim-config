@@ -19,6 +19,7 @@ And this environment variable:
 
 Name           | Description
 -------------- | ----------------------
+[ansible-yaml] | Additional support for Ansible
 [autocomplpop] | Automatically opens popup menu for completions
 [csv] | Handling column separated data
 [ctrlp] | Fuzzy file, buffer, mru, tag, etc finder
@@ -39,7 +40,9 @@ Name           | Description
 [tabular] | Text filtering and alignment
 [tagbar] | Displays tags in a window, ordered by scope
 [tagbar-phpctags] | Addon for tagbar using phpctags
+[tmux-navigator] | Seamless navigation between tmux panes and vim splits
 
+[ansible-yaml]: https://github.com/chase/vim-ansible-yaml
 [autocomplpop]: https://github.com/vim-scripts/AutoComplPop
 [csv]: https://github.com/chrisbra/csv.vim
 [ctrlp]: https://github.com/kien/ctrlp.vim
@@ -60,6 +63,7 @@ Name           | Description
 [tabular]: https://github.com/godlygeek/tabular
 [tagbar]: https://github.com/majutsushi/tagbar
 [tagbar-phpctags]: https://github.com/vim-php/tagbar-phpctags.vim
+[tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator
 
 ## Key bindings
 
@@ -72,14 +76,18 @@ Arrows | _All_ | **Disabled**! Force good habits
 `jk` | Insert | Exit insert mode
 `<leader>`+`sh` | Normal | Split (:sp)
 `<leader>`+`sv` | Normal | Vertical split (:vsp)
-`Alt`+`m` | Normal | Move to split below (<C-w>j)
-`Alt`+`,` | Normal | Move to upper split (<C-w>k)
-`Alt`+`n` | Normal | Move to left split (<C-w>h)
-`Alt`+`.` | Normal | Move to right split (<C-w>l)
+`Ctrl`+`j` | Normal | Move to split below (<C-w>j)
+`Ctrl`+`k` | Normal | Move to upper split (<C-w>k)
+`Ctrl`+`h` | Normal | Move to left split (<C-w>h)
+`Ctrl`+`l` | Normal | Move to right split (<C-w>l)
 `<leader>`+`w` | Normal/visual | Write (:w)
 `Ctrl`+`s` | Normal/visual/insert | Write (:w)
+`>` | Visual | Indent to right and re-select (>gv)
 `<` | Visual | Indent to left and re-select (<gv)
-`>` | Visual | Indent to left and re-select (>gv)
+`Tab` | Normal | Indent to right (>>_)
+`Shift`+`Tab` | Normal | Indent to left (<<_)
+`Tab` | Visual | Indent to right and re-select (>gv)
+`Shift`+`Tab` | Normal | Indent to left and re-select (<gv)
 `<leader>`+`l` | Normal | Toggle line numbers (:set nonumber!)
 `<leader>`+`h` | Normal | Clear highlighted search (:set nohlsearch)
 `<leader>`+`s` | Normal | Toggle hidden characters (:set nolist!)
@@ -90,7 +98,7 @@ Arrows | _All_ | **Disabled**! Force good habits
 `F8` | Normal | Toggle Tagbar (:TagbarToggle)
 `<leader>`+`t` | Normal | Toggle Tagbar (:TagbarToggle)
 `<leader>`+`cd` | Normal | Switch to the directory of opened buffer (:cd %:p:h)
-`Ctrl`+`Space` | Insert | Word completion (Ctrl+N)
+`<leader>`+`flf` | Normal | Focus the current fold by closing all others (mzzM`zzv)
 `<leader>`+`ev` | Normal | Load vimrc file (:e $MYVIMRC)
 `<leader>`+`es` | Normal | Source vimrc file (:so $MYVIMRC)
 `F1` | Normal | Toggle NERD Tree (:NERDTreeToggle)
