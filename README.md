@@ -1,6 +1,7 @@
 # Vim config
 
-This is my Vim configuration, with a few colorschemes and plugins loaded with pathogen.
+This is my Vim configuration, crafted with love and care. It contains useful plugins and
+a few colorschemes, awesome configurations and keybindings.
 
 ## XDG conformity
 
@@ -11,7 +12,13 @@ Notice these topmost lines in `vimrc`:
     set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
     let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
 
-And this environment variable:
+## Install
+
+Very simple:
+
+    git clone git://github.com/rafi/vim-config.git ~/.config/vim
+
+Make sure you have this environment variable in your `.bashrc` or `.[bash_]profile`:
 
     export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 

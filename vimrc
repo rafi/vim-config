@@ -40,8 +40,9 @@ set list                      " show invisible characters
 set noswapfile                " disable swap files
 set nobackup                  " do not backup when overwriting files
 set hidden                    " hide buffers when abandoned instead of unload
-set encoding=utf-8
+set encoding=utf-8            " Set utf8 as standard encoding
 set ffs=unix,dos,mac          " Use Unix as the standard file type
+set magic                     " For regular expressions turn magic on
 
 set wildmenu                  " turn on wild menu :e <Tab>
 set wildmode=list:longest     " set wildmenu to list choice
@@ -58,6 +59,7 @@ syntax on
 set smartindent
 set autoindent
 set backspace=indent,eol,start  " Intuitive backspacing in insert mode
+set whichwrap+=<,>,h,l
 set complete-=i
 set smarttab
 
@@ -71,7 +73,7 @@ set ttimeoutlen=50            " Make esc work faster
 set laststatus=2
 set display+=lastline
 set autoread                  " Files are read as soon as they are changed
-set history=1000
+set history=700
 set tabpagemax=50
 
 set splitbelow
@@ -89,7 +91,7 @@ set smartcase                 " keep case when searching with *
 set hlsearch                  " highlight the search
 set showmatch                 " show matching bracket
 set diffopt=filler,iwhite     " ignore all whitespace and sync
-set matchtime=5               " blink matching chars for .x seconds
+set matchtime=5               " blink matching chars for 0.x seconds
 set nostartofline             " leave my cursor position alone!
 
 " Formatting
@@ -215,6 +217,9 @@ nnoremap <Leader>l :set nonumber!<CR>
 " Clear the highlighting of :set hlsearch
 nmap <silent> <Leader>h :silent :nohlsearch<CR>
 
+" Toggle spell checking
+map <leader>ss :setlocal spell!<cr>
+
 " CtrlP
 "nnoremap <Leader>t :CtrlP getcwd()<CR>
 "nnoremap <Leader>f :CtrlPClearAllCaches<CR>
@@ -255,7 +260,7 @@ nmap <F8> :TagbarToggle<CR>
 nnoremap <Leader>t :TagbarToggle<CR>
 
 " When pressing <leader>cd switch to the directory of the open buffer
-map <Leader>cd :cd %:p:h<CR>
+map <Leader>cd :cd %:p:h<CR>:pwd<CR>
 
 " Remap <C-space> to word completion
 "noremap! <Nul> <C-n>
