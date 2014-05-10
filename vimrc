@@ -4,8 +4,9 @@
 " github.com/rafi vim config
 
 " references:
-" https://github.com/indraniel/dotfiles/
-" https://github.com/justinforce/dotfiles/
+" https://github.com/ajh17/dotfiles
+" https://github.com/indraniel/dotfiles
+" https://github.com/justinforce/dotfiles
 " https://github.com/joonty/myvim
 
 " Runtime and Plugins {{{1
@@ -62,13 +63,14 @@ set wildignorecase
 set wildignore+=.hg,.git,.svn,*.pyc,*.spl,*.o,*.out,*.DS_Store,*.class,*.manifest,*~,#*#,%*
 set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,**/temp/***.obj
 
-" History, Backup and Undo settings {{{1
+" History, Backup, Undo and Spelling settings {{{1
 set history=700
 set nobackup undofile noswapfile
 set backupdir=$XDG_CACHE_HOME/vim/backup/
 set directory=$XDG_CACHE_HOME/vim/swap//
 set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
 set undodir=$XDG_CACHE_HOME/vim/undo//
+set spellfile=$XDG_CONFIG_HOME/vim/spell/{encoding}.add
 
 " Indent and Fold Settings {{{1
 setlocal noexpandtab    " Don't expand tabs to spaces.
@@ -125,26 +127,26 @@ let mapleader="\<Space>"
 " Maps the semicolon to colon in normal mode
 nmap ; :
 
-" Disable arrow keys (force good habits)
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
-vnoremap <up> <nop>
-vnoremap <down> <nop>
-vnoremap <left> <nop>
-vnoremap <right> <nop>
+" Make arrow keys useful
+nnoremap <left> :vertical resize +2 <CR>
+nnoremap <right> :vertical resize -2 <CR>
+nnoremap <up> :resize +2 <CR>
+nnoremap <down> :resize -2 <CR>
+
+" Use backspace key for matchit.vim
+nmap <BS> %
+xmap <BS> %
+
+" Remap some keys to be more useful
+nnoremap ' `
+nnoremap Q gq
+nnoremap S i<CR><ESC>^m`gk:silent! s/\v +$//<CR>:noh<CR>``
+nnoremap Y y$
+nnoremap <CR> za
 
 " Trick by Steve Losh: save a file if you forgot to sudo before editing
 " http://forrst.com/posts/Use_w_to_sudo_write_a_file_with_Vim-uAN
 cmap w!! w !sudo tee % >/dev/null
-
-" Quick insert mode exit
-imap jk <Esc>
 
 " Create splits
 nnoremap <leader>sh :sp<CR>
@@ -158,8 +160,8 @@ inoremap <C-s> <Esc>:w<CR>
 vnoremap <C-s> <Esc>:w<CR>
 
 " Select blocks after indenting
-vnoremap < <gv
-vnoremap > >gv
+xnoremap < <gv
+xnoremap > >gv
 nnoremap <Tab> >>_
 nnoremap <S-Tab> <<_
 vnoremap <Tab> >gv

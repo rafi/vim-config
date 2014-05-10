@@ -27,27 +27,26 @@ Make sure you have this environment variable in your `.bashrc` or `.[bash_]profi
 Name           | Description
 -------------- | ----------------------
 [ansible-yaml] | Additional support for Ansible
-[autocomplpop] | Automatically opens popup menu for completions
 [csv] | Handling column separated data
 [ctrlp] | Fuzzy file, buffer, mru, tag, etc finder
 [easymotion] | Motions on speed
 [editorconfig] | Applies EditorConfig properties
 [fugitive] | Git wrapper
 [gitgutter] | Shows a git diff in the gutter and stages/reverts hunks
+[gocode] | Go bundle
 [hybrid] | Dark colour scheme
 [lightline] | Light and configurable statusline/tabline
 [markdown] | Markdown syntax highlighting
 [mustache] | Mustache and handlebars mode
 [nerdtree] | Tree explorer
 [pathogen] | Manage your runtimepath
-[snipmate] | Snippets features
-[supertab] | Perform all your vim insert mode completions with Tab
 [surround] | Quoting/parenthesizing made simple
 [syntastic] | Syntax checking hacks
 [tabular] | Text filtering and alignment
 [tagbar] | Displays tags in a window, ordered by scope
 [tagbar-phpctags] | Addon for tagbar using phpctags
 [tmux-navigator] | Seamless navigation between tmux panes and vim splits
+[vimcompletesme] | Super simple, minimal and light-weight tab completion
 
 [ansible-yaml]: https://github.com/chase/vim-ansible-yaml
 [autocomplpop]: https://github.com/vim-scripts/AutoComplPop
@@ -57,6 +56,7 @@ Name           | Description
 [editorconfig]: https://github.com/editorconfig/editorconfig-vim
 [fugitive]: https://github.com/tpope/vim-fugitive
 [gitgutter]: https://github.com/airblade/vim-gitgutter
+[gocode]: https://github.com/Blackrush/vim-gocode
 [hybrid]: https://github.com/w0ng/vim-hybrid
 [lightline]: https://github.com/itchyny/lightline.vim
 [markdown]: https://github.com/plasticboy/vim-markdown
@@ -71,6 +71,7 @@ Name           | Description
 [tagbar]: https://github.com/majutsushi/tagbar
 [tagbar-phpctags]: https://github.com/vim-php/tagbar-phpctags.vim
 [tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator
+[vimcompletesme]: https://github.com/ajh17/VimCompletesMe
 
 ## Key bindings
 
@@ -78,9 +79,14 @@ Key   | Mode | Action
 ----- | ---- | ------------------
 `Space` | Normal | **Leader**
 `;` | Normal | **Command mode**
-Arrows | _All_ | **Disabled**! Force good habits
+Arrows | Normal | Resize splits
+`Backspace` | Normal | Match bracket (%)
+`'` | Normal | Jump to mark (`)
+`Q` | Normal | Format lines with motion (gq)
+`S` | Normal | Insert new line above and stay in Normal mode
+`Y` | Normal | Yank to the end of line (y$)
+`Enter` | Normal | Toggle fold (za)
 `w!!` | Command | Sudo write
-`jk` | Insert | Exit insert mode
 `<leader>`+`sh` | Normal | Split (:sp)
 `<leader>`+`sv` | Normal | Vertical split (:vsp)
 `Ctrl`+`j` | Normal | Move to split below (<C-w>j)
