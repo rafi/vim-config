@@ -62,6 +62,7 @@ set wildmenu                   " turn on wild menu :e <Tab>
 set wildignorecase
 set wildignore+=.hg,.git,.svn,*.pyc,*.spl,*.o,*.out,*.DS_Store,*.class,*.manifest,*~,#*#,%*
 set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,**/temp/***.obj
+set wildignore+=**/.sass-cache/**,**/cache/??,**/cache/mustache,**/cache/media,**/logs/????
 
 " History, Backup, Undo and Spelling settings {{{1
 set history=700
@@ -116,6 +117,7 @@ set sidescrolloff=3     " keep at least 3 lines left/right
 set textwidth=80
 "set cursorline
 "set colorcolumn=+1
+
 call matchadd('ColorColumn', '\%81v', 100)
 
 " Key bindings {{{1
@@ -146,7 +148,7 @@ nnoremap <CR> za
 
 " Trick by Steve Losh: save a file if you forgot to sudo before editing
 " http://forrst.com/posts/Use_w_to_sudo_write_a_file_with_Vim-uAN
-cmap w!! w !sudo tee % >/dev/null
+cmap W!! w !sudo tee % >/dev/null
 
 " Create splits
 nnoremap <leader>sh :sp<CR>
@@ -177,9 +179,6 @@ nmap <silent> <Leader>h :silent :nohlsearch<CR>
 map <leader>ss :setlocal spell!<cr>
 
 " CtrlP
-"nnoremap <Leader>t :CtrlP getcwd()<CR>
-"nnoremap <Leader>f :CtrlPClearAllCaches<CR>
-"nnoremap <Leader>b :CtrlPBuffer<CR>
 nnoremap <Leader>. :CtrlPBufTagAll<CR>
 nnoremap <Leader>r :CtrlP<CR>
 
@@ -196,13 +195,12 @@ nmap <silent> <leader>s :set nolist!<CR>
 "vnoremap <C-d> :call PhpDocRange()<CR>
 
 " Fugitive shortcuts
-"nnoremap <Leader>c :Gcommit -a<CR>i
-"nnoremap <Leader>g :Git
-"nnoremap <Leader>a :Git add %:p<CR>
+nnoremap <silent> <leader>ga :Git add %:p<CR>
 nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gd :Gdiff<CR>
 nnoremap <silent> <leader>gc :Gcommit<CR>
-nnoremap <silent> <leader>gb :Gbrowse<CR>
+nnoremap <silent> <leader>gb :Gblame<CR>
+nnoremap <silent> <leader>gB :Gbrowse<CR>
 nnoremap <silent> <leader>gl :Glog<CR>
 nnoremap <silent> <leader>gp :Git push<CR>
 nnoremap <silent> <leader>gg :Ggrep --ignore-case
@@ -258,7 +256,7 @@ map <Esc>[27;6;9~ <C-S-Tab>
 nnoremap <C-Tab> :tabn<CR>
 nnoremap <C-S-Tab> :tabp<CR>
 
-" Make Vim recognize xterm escape sequences for Page and Arrow
+" Under Tmux, make Vim recognize xterm escape sequences for Page and Arrow
 " keys combined with modifiers such as Shift, Control, and Alt.
 " See http://www.reddit.com/r/vim/comments/1a29vk/_/c8tze8p
 if &term =~ '^screen'
@@ -310,10 +308,10 @@ set background=dark
 
 colorscheme hybrid " wombat256mod, mustang, jellybeans, kraihlight, pablo
 
-" hybrid
-highlight TabLineFill  ctermfg=8
-highlight TabLine      ctermfg=8 ctermbg=0
-highlight TabLineSel   ctermfg=8 ctermbg=0
+" lightline disabled tabline
+"highlight TabLineFill  ctermfg=8
+"highlight TabLine      ctermfg=8 ctermbg=0
+"highlight TabLineSel   ctermfg=8 ctermbg=0
 
 " wombat256mod changes
 "highlight Normal       ctermbg=235

@@ -86,7 +86,7 @@ Arrows | Normal | Resize splits
 `S` | Normal | Insert new line above and stay in Normal mode
 `Y` | Normal | Yank to the end of line (y$)
 `Enter` | Normal | Toggle fold (za)
-`w!!` | Command | Sudo write
+`W!!` | Command | Sudo write
 `<leader>`+`sh` | Normal | Split (:sp)
 `<leader>`+`sv` | Normal | Vertical split (:vsp)
 `Ctrl`+`j` | Normal | Move to split below (<C-w>j)

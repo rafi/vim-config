@@ -13,7 +13,7 @@ let g:ctrlp_show_hidden = 1
 let g:ctrlp_use_caching = 1
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_reuse_window = 'netrw\|help\|quickfix'
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)\/|node_modules|vendor\/bundle$'
 let g:ctrlp_buftag_types = {
 	\ 'go':       '--language-force=go --golang-types=ftv',
 	\ 'coffee':   '--language-force=coffee --coffee-types=cmfvf',
