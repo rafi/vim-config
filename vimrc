@@ -8,63 +8,88 @@
 " https://github.com/justinforce/dotfiles/
 " https://github.com/joonty/myvim
 
-"==============================================================================
-" Basic
+" Runtime and Plugins {{{1
 "------------------------------------------------------------------------------
 
 " Respect XDG
 set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
 let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
 
-" Load pathogen
+" Load pathogen plugin itself
 runtime bundle/pathogen/autoload/pathogen.vim
 
-set nocompatible              " break away from old vi compatibility
-set esckeys                   " allow func keys that start with an <Esc> in insert mode
-set mouse=a                   " allows mouse scrolling and selection in terminal
-set autowrite                 " automatically save in many states
-
-set report=0                  " report back on all changes
-set shortmess=atI             " shorten messages and don't show intro
-
-set cmdheight=1               " explicitly set the height of the command line
-set showcmd                   " Show (partial) command in status line.
-set showmode                  " Show the current mode
-set number                    " yay line numbers
-set ruler                     " show current position at bottom
-set noerrorbells              " don't whine
-set visualbell t_vb=          " and don't make faces
-set lazyredraw                " don't redraw while in macros
-set wrap                      " soft wrap long lines
-set list                      " show invisible characters
-set noswapfile                " disable swap files
-set nobackup                  " do not backup when overwriting files
-set hidden                    " hide buffers when abandoned instead of unload
-set encoding=utf-8            " Set utf8 as standard encoding
-set ffs=unix,dos,mac          " Use Unix as the standard file type
-set magic                     " For regular expressions turn magic on
-
-set wildmenu                  " turn on wild menu :e <Tab>
-set wildmode=list:longest     " set wildmenu to list choice
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/cache/*,*.sassc
-
-" REMOTE hosts
-"set ttyfast
-"set nofsync
-
+" Load all plugins from bundle/
 execute pathogen#infect()
-filetype plugin indent on
 syntax on
+filetype plugin indent on
 
+" Load matchit.vim, but only if the user hasn't installed a newer version.
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+	runtime! macros/matchit.vim
+endif
+
+" General Settings {{{1
+"------------------------------------------------------------------------------
+
+set nocompatible               " break away from old vi compatibility
+set autoread                   " Files are read as soon as they are changed
+set backspace=indent,eol,start " Intuitive backspacing in insert mode
+set formatoptions+=1j          " Automatic formatting
+set mouse=nv                   " enable mouse use for normal and visual modes
+set modeline                   " automatically setting options from modelines
+set report=2                   " report when 3 or more lines are changed
+"set shortmess=atI              " shorten messages and don't show intro
+set cmdheight=1                " explicitly set the height of the command line
+set showcmd                    " Show (partial) command in status line.
+set number                     " line numbers
+set noerrorbells               " don't whine
+set visualbell t_vb=           " and don't make faces
+set lazyredraw                 " don't redraw while in macros
+set hidden                     " hide buffers when abandoned instead of unload
+set encoding=utf-8             " Set utf8 as standard encoding
+set ffs=unix,dos,mac           " Use Unix as the standard file type
+set sessionoptions-=options    " Don't save options and runtime in sessions
+set magic                      " For regular expressions turn magic on
+set path=.,**                  " Directories to search when using gf
+set virtualedit=block          " Position cursor anywhere in visual block
+set splitbelow splitright
+set switchbuf=useopen
+
+" Wildignore Settings {{{1
+set wildmenu                   " turn on wild menu :e <Tab>
+"set wildmode=list:longest      " set wildmenu to list choice
+set wildignorecase
+set wildignore+=.hg,.git,.svn,*.pyc,*.spl,*.o,*.out,*.DS_Store,*.class,*.manifest,*~,#*#,%*
+set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,**/temp/***.obj
+
+" History, Backup and Undo settings {{{1
+set history=700
+set nobackup undofile noswapfile
+set backupdir=$XDG_CACHE_HOME/vim/backup/
+set directory=$XDG_CACHE_HOME/vim/swap//
+set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
+set undodir=$XDG_CACHE_HOME/vim/undo//
+
+" Indent and Fold Settings {{{1
+setlocal noexpandtab    " Don't expand tabs to spaces.
+set tabstop=2           " The number of spaces a tab is
+set shiftwidth=2        " Number of spaces to use in auto(indent)
+set softtabstop=2       " Just to be clear
+set shiftround
 set smartindent
 set autoindent
-set backspace=indent,eol,start  " Intuitive backspacing in insert mode
-set whichwrap+=<,>,h,l
-set complete-=i
 set smarttab
+set foldenable
+set foldmethod=indent
+set foldlevelstart=99
 
-set nrformats-=octal
-set shiftround
+set whichwrap+=<,>,h,l
+"set complete-=i
+set completeopt-=preview       " No extra info buffer in completion menu
+set nostartofline              " Cursor in same column for several commands
+
+set list listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:.,trail:·
+set showbreak=↪
 
 set ttimeout
 set timeoutlen=1200           " A little bit more time for macros
@@ -72,19 +97,8 @@ set ttimeoutlen=50            " Make esc work faster
 
 set laststatus=2
 set display+=lastline
-set autoread                  " Files are read as soon as they are changed
-set history=700
 set tabpagemax=50
 
-set splitbelow
-set splitright
-
-" Load matchit.vim, but only if the user hasn't installed a newer version.
-if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
-	runtime! macros/matchit.vim
-endif
-
-" Searching
 set incsearch                 " incremental search
 set ignorecase                " search ignoring case
 set smartcase                 " keep case when searching with *
@@ -94,75 +108,15 @@ set diffopt=filler,iwhite     " ignore all whitespace and sync
 set matchtime=5               " blink matching chars for 0.x seconds
 set nostartofline             " leave my cursor position alone!
 
-" Formatting
-" t - autowrap to textwidth
-" c - autowrap comments to textwidth
-" r - autoinsert comment leader with <Enter>
-" q - allow formatting of comments with :gq
-" l - don't format already long lines
-set formatoptions=crql
-
-setlocal noexpandtab    " Don't expand tabs to spaces.
-set tabstop=2           " The number of spaces a tab is
-set shiftwidth=2        " Number of spaces to use in auto(indent)
-set softtabstop=2       " Just to be clear
 set showtabline=2
 set scrolloff=3         " keep at least 3 lines above/below
 set sidescrolloff=3     " keep at least 3 lines left/right
+set textwidth=80
+"set cursorline
+"set colorcolumn=+1
+call matchadd('ColorColumn', '\%81v', 100)
 
-set foldenable
-set foldmethod=indent
-set foldlevel=999
-set textwidth=90
-set cursorline
-
-set colorcolumn=+1      " Highlight 91 vertical line
-
-set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:.,trail:·
-set showbreak=↪
-
-"==============================================================================
-" Plugin configuration
-"------------------------------------------------------------------------------
-
-let g:lightline = {
-	\ 'colorscheme': 'jellybeans',
-	\ 'enable': { 'tabline': 0 },
-	\ 'separator': { 'left': '░', 'right': '<' },
-	\ 'subseparator': { 'left': '|', 'right': '|' }
-	\ }
-
-let g:acp_enableAtStartup = 0
-let g:acp_mappingDriven = 1
-
-" tagbar autoopen and compact view
-let g:tagbar_compact = 1
-"autocmd VimEnter * nested :call tagbar#autoopen(1)
-
-let g:vim_markdown_initial_foldlevel=5
-
-" When invoked, unless a starting directory is specified, CtrlP will set its local working
-" directory according to this variable:
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_custom_ignore = 'node_modules'
-let g:ctrlp_reuse_window = 'startify'
-
-" NERDTree custom configuration
-let NERDTreeShowHidden=1
-let NERDTreeMinimalUI=1
-let NERDTreeQuitOnOpen=1
-
-" Open NERDTree automatically when vim starts up with no files
-autocmd vimenter * if !argc() | NERDTree | endif
-
-" Syntastic
-let g:syntastic_check_on_open=1
-let g:syntastic_enable_signs=1
-let g:syntastic_enable_balloons = 1
-let g:syntastic_auto_loc_list=1
-
-"==============================================================================
-" Key bindings
+" Key bindings {{{1
 "------------------------------------------------------------------------------
 
 " Want a different map leader than \
@@ -223,8 +177,8 @@ map <leader>ss :setlocal spell!<cr>
 " CtrlP
 "nnoremap <Leader>t :CtrlP getcwd()<CR>
 "nnoremap <Leader>f :CtrlPClearAllCaches<CR>
-nnoremap <Leader>b :CtrlPBuffer<CR>
-nnoremap <Leader>j :CtrlP ~/<CR>
+"nnoremap <Leader>b :CtrlPBuffer<CR>
+nnoremap <Leader>. :CtrlPBufTagAll<CR>
 nnoremap <Leader>r :CtrlP<CR>
 
 " Instead of 1 line, move 3 at a time
@@ -317,12 +271,11 @@ if &term =~ '^screen'
 	execute "set <xLeft>=\e[1;*D"
 endif
 
-"==============================================================================
-" Functions
+" Functions and Commands {{{1
 "------------------------------------------------------------------------------
 
-" History niceties
-if has("autocmd")
+autocmd BufWritePost *.go,*.c,*.cpp,*.h,*.php silent! !ctags -R &
+
 " When editing a file, always jump to the last known cursor position.
 " Don't do it when the position is invalid or when inside an event handler
 " (happens when dropping a file on gvim).
@@ -330,10 +283,24 @@ autocmd BufReadPost *
 	\ if line("'\"") > 0 && line("'\"") <= line("$") |
 	\	exe 'normal! g`"zvzz' |
 	\ endif
+
+" Changing cursor shape per mode (rxvt-unicode)
+" 1 or 0 -> blinking block
+" 2 -> solid block
+" 3 -> blinking underscore
+" 4 -> solid underscore
+" Recent versions of xterm (282 or above) also support
+" 5 -> blinking vertical bar
+" 6 -> solid vertical bar
+if exists('$TMUX')
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>[3 q\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>[0 q\<Esc>\\"
+else
+  let &t_SI = "\<Esc>[3 q"
+  let &t_EI = "\<Esc>[0 q"
 endif
 
-"==============================================================================
-" Colors
+" Colors {{{1
 "------------------------------------------------------------------------------
 
 set t_Co=256
@@ -366,62 +333,5 @@ highlight TabLineSel   ctermfg=8 ctermbg=0
 "highlight SignColumn   ctermbg=234
 "highlight LineNr       ctermfg=235 ctermbg=234
 "highlight ColorColumn  ctermbg=0
-
-"==============================================================================
-" Cursor
-"------------------------------------------------------------------------------
-
-" Changing cursor shape per mode (I'm using rxvt-unicode)
-" 1 or 0 -> blinking block
-" 2 -> solid block
-" 3 -> blinking underscore
-" 4 -> solid underscore
-" Recent versions of xterm (282 or above) also support
-" 5 -> blinking vertical bar
-" 6 -> solid vertical bar
-if exists('$TMUX')
-  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>[3 q\<Esc>\\"
-  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>[0 q\<Esc>\\"
-else
-  let &t_SI = "\<Esc>[3 q"
-  let &t_EI = "\<Esc>[0 q"
-endif
-
-"==============================================================================
-" Storage and Directories
-"------------------------------------------------------------------------------
-
-" Saves file when Vim (or buffer) loses focus
-"autocmd BufLeave,FocusLost * silent! wall
-
-" Save your backups to a less annoying place than the current directory.
-" If you have .vim-backup in the current directory, it'll use that.
-" Otherwise it saves it to ~/.cache/vim/backup or . if all else fails.
-set backupdir-=.
-set backupdir+=.
-set backupdir-=~/
-set backupdir^=$XDG_CACHE_HOME/vim/backup/
-set backupdir^=./.vim-backup/
-
-" Save your swp files to a less annoying place than the current directory.
-" If you have .vim-swap in the current directory, it'll use that.
-" Otherwise it saves it to ~/.cache/vim/swap, ~/tmp or .
-set directory=./.vim-swap//
-set directory+=$XDG_CACHE_HOME/vim/swap//
-set directory+=~/tmp//
-set directory+=.
-
-" viminfo stores the the state of your previous editing session
-set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
-
-if exists("+undofile")
-	" undofile - This allows you to use undos after exiting and restarting
-	" This, like swap and backups, uses .vim-undo first, then ~/.cache/vim/undo
-	" :help undo-persistence
-	" This is only present in 7.3+
-	set undodir=./.vim-undo//
-	set undodir+=$XDG_CACHE_HOME/vim/undo//
-	set undofile
-endif
 
 "-------8<---------------------------------------------------------------------

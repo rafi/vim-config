@@ -10,9 +10,6 @@
 [submodule "bundle/ctrlp"]
 	path = bundle/ctrlp
 	url = git://github.com/kien/ctrlp.vim.git
-[submodule "bundle/snipmate"]
-	path = bundle/snipmate
-	url = git://github.com/msanders/snipmate.vim.git
 [submodule "bundle/tagbar-phpctags"]
 	path = bundle/tagbar-phpctags
 	url = git://github.com/vim-php/tagbar-phpctags.vim.git
@@ -43,12 +40,6 @@
 [submodule "bundle/tabular"]
 	path = bundle/tabular
 	url = git://github.com/godlygeek/tabular.git
-[submodule "bundle/autocomplpop"]
-	path = bundle/autocomplpop
-	url = git://github.com/vim-scripts/AutoComplPop.git
-[submodule "bundle/supertab"]
-	path = bundle/supertab
-	url = git://github.com/ervandew/supertab.git
 [submodule "bundle/editorconfig"]
 	path = bundle/editorconfig
 	url = git://github.com/editorconfig/editorconfig-vim.git
@@ -64,3 +55,9 @@
 [submodule "bundle/ansible-yaml"]
 	path = bundle/ansible-yaml
 	url = git://github.com/chase/vim-ansible-yaml.git
+[submodule "bundle/gocode"]
+	path = bundle/gocode
+	url = git://github.com/Blackrush/vim-gocode.git
+[submodule "bundle/vimcompletesme"]
+	path = bundle/vimcompletesme
+	url = git://github.com/ajh17/VimCompletesMe.git
