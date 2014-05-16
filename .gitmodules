@@ -61,3 +61,21 @@
 [submodule "bundle/vimcompletesme"]
 	path = bundle/vimcompletesme
 	url = git://github.com/ajh17/VimCompletesMe.git
+[submodule "bundle/css3-syntax"]
+	path = bundle/css3-syntax
+	url = git://github.com/hail2u/vim-css3-syntax.git
+[submodule "bundle/less"]
+	path = bundle/less
+	url = git://github.com/groenewege/vim-less.git
+[submodule "bundle/json"]
+	path = bundle/json
+	url = git://github.com/elzr/vim-json.git
+[submodule "bundle/visual-star-search"]
+	path = bundle/visual-star-search
+	url = git://github.com/nelstrom/vim-visual-star-search.git
+[submodule "bundle/javascript"]
+	path = bundle/javascript
+	url = git://github.com/pangloss/vim-javascript.git
+[submodule "bundle/minibufexpl"]
+	path = bundle/minibufexpl
+	url = git://github.com/techlivezheng/vim-plugin-minibufexpl.git

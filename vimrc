@@ -58,11 +58,12 @@ set switchbuf=useopen
 
 " Wildignore Settings {{{1
 set wildmenu                   " turn on wild menu :e <Tab>
-"set wildmode=list:longest      " set wildmenu to list choice
+set wildmode=list:longest      " set wildmenu to list choice
 set wildignorecase
 set wildignore+=.hg,.git,.svn,*.pyc,*.spl,*.o,*.out,*.DS_Store,*.class,*.manifest,*~,#*#,%*
 set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,**/temp/***.obj
-set wildignore+=**/.sass-cache/**,**/cache/??,**/cache/mustache,**/cache/media,**/logs/????
+set wildignore+=**/cache/??,**/cache/mustache,**/cache/media,**/logs/????
+set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
 
 " History, Backup, Undo and Spelling settings {{{1
 set history=700
@@ -71,7 +72,7 @@ set backupdir=$XDG_CACHE_HOME/vim/backup/
 set directory=$XDG_CACHE_HOME/vim/swap//
 set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
 set undodir=$XDG_CACHE_HOME/vim/undo//
-set spellfile=$XDG_CONFIG_HOME/vim/spell/{encoding}.add
+set spellfile=$XDG_CONFIG_HOME/vim/spell/en.utf-8.add
 
 " Indent and Fold Settings {{{1
 setlocal noexpandtab    " Don't expand tabs to spaces.
@@ -87,7 +88,7 @@ set foldmethod=indent
 set foldlevelstart=99
 
 set whichwrap+=<,>,h,l
-"set complete-=i
+set complete-=i                " Don't scan current and included files
 set completeopt-=preview       " No extra info buffer in completion menu
 set nostartofline              " Cursor in same column for several commands
 
@@ -112,8 +113,8 @@ set matchtime=5               " blink matching chars for 0.x seconds
 set nostartofline             " leave my cursor position alone!
 
 set showtabline=2
-set scrolloff=3         " keep at least 3 lines above/below
-set sidescrolloff=3     " keep at least 3 lines left/right
+set scrolloff=2         " keep at least 2 lines above/below
+set sidescrolloff=2     " keep at least 2 lines left/right
 set textwidth=80
 "set cursorline
 "set colorcolumn=+1
@@ -189,11 +190,6 @@ nnoremap <C-y> 3<C-y>
 " Show hidden characters (spaces, tabs, etc)
 nmap <silent> <leader>s :set nolist!<CR>
 
-" PHPDoc commands
-"inoremap <C-d> <ESC>:call PhpDocSingle()<CR>i
-"nnoremap <C-d> :call PhpDocSingle()<CR>
-"vnoremap <C-d> :call PhpDocRange()<CR>
-
 " Fugitive shortcuts
 nnoremap <silent> <leader>ga :Git add %:p<CR>
 nnoremap <silent> <leader>gs :Gstatus<CR>
@@ -213,14 +209,11 @@ map <Leader>p "+p
 nmap <F8> :TagbarToggle<CR>
 nnoremap <Leader>t :TagbarToggle<CR>
 
+" Append modeline to EOF
+nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
+
 " When pressing <leader>cd switch to the directory of the open buffer
 map <Leader>cd :cd %:p:h<CR>:pwd<CR>
-
-" Remap <C-space> to word completion
-"noremap! <Nul> <C-n>
-
-" Faster shortcut for commenting. Requires T-Comment plugin
-"map <Leader>c <c-_><c-_>
 
 " Focus the current fold by closing all others
 nnoremap <leader>flf mzzM`zzv
@@ -274,7 +267,16 @@ endif
 " Functions and Commands {{{1
 "------------------------------------------------------------------------------
 
-autocmd BufWritePost *.go,*.c,*.cpp,*.h,*.php silent! !ctags -R &
+"autocmd BufWritePost *.go,*.c,*.cpp,*.h,*.php silent! !ctags -R &
+
+" Append modeline after last line in buffer
+" http://vim.wikia.com/wiki/Modeline_magic
+function! AppendModeline()
+	let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :",
+				\ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
+	let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
+	call append(line("$"), l:modeline)
+endfunction
 
 " When editing a file, always jump to the last known cursor position.
 " Don't do it when the position is invalid or when inside an event handler
