@@ -2,7 +2,38 @@
 " Tagbar
 " ------
 let g:tagbar_compact = 1
-let g:tagbar_phpctags_bin = 'phpctags'
+let g:tagbar_type_php = {
+    \ 'ctagsbin'  : 'ctags',
+    \ 'ctagsargs' : '-f -',
+    \ 'kinds'     : [
+        \ 'd:Constants:0:0',
+        \ 'v:Variables:0:0',
+        \ 'f:Functions:1',
+        \ 'i:Interfaces:0',
+        \ 'c:Classes:0',
+        \ 'p:Properties:0:0',
+        \ 'm:Methods:1',
+        \ 'n:Namespaces:0',
+        \ 't:Traits:0',
+    \ ],
+    \ 'sro'        : '::',
+    \ 'kind2scope' : {
+        \ 'c' : 'class',
+        \ 'm' : 'method',
+        \ 'f' : 'function',
+        \ 'i' : 'interface',
+        \ 'n' : 'namespace',
+        \ 't' : 'trait',
+    \ },
+    \ 'scope2kind' : {
+        \ 'class'     : 'c',
+        \ 'method'    : 'm',
+        \ 'function'  : 'f',
+        \ 'interface' : 'i',
+        \ 'namespace' : 'n',
+        \ 'trait'     : 't',
+    \ }
+\ }
 let g:tagbar_type_markdown = {
 	\ 'ctagstype' : 'markdown',
 	\ 'kinds' : [

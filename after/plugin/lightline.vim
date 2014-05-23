@@ -17,6 +17,9 @@ let g:lightline = {
 	\   'fileencoding': 'StatusFileencoding',
 	\   'mode': 'StatusMode',
 	\ },
+	\ 'tab_component_function': {
+	\   'filename': 'TabFilePath',
+	\ },
 	\ 'separator': { 'left': '', 'right': '' },
 	\ 'subseparator': { 'left': '', 'right': '' }
 	\ }
@@ -60,4 +63,12 @@ endfunction
 
 function! StatusMode()
 	return winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+
+function! TabFilePath(n)
+	let bufnr = tabpagebuflist(a:n)[tabpagewinnr(a:n) - 1]
+	let bufname = expand('#' . bufnr . ':t')
+	let buffullname = expand('#' . bufnr . ':p')
+	let fname = substitute(buffullname, getcwd().'/', '', 'N/A')
+	return fname
 endfunction

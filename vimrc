@@ -234,8 +234,8 @@ vnoremap <F1> <ESC>
 set pastetoggle=<F2>
 
 " Buffers
-map <S-Left> :bp<CR>
-map <S-Right> :bn<CR>
+map <S-Left> :tabp<CR>
+map <S-Right> :tabn<CR>
 
 " Closes current buffer
 nnoremap <silent> <Leader>q :close<CR>
@@ -246,8 +246,8 @@ map <Esc>[27;6;9~ <C-S-Tab>
 
 " tab shortcuts
 "map <C-t> :tabnew<CR>
-nnoremap <C-Tab> :tabn<CR>
-nnoremap <C-S-Tab> :tabp<CR>
+noremap <C-Tab> :MBEbn<CR>
+noremap <C-S-Tab> :MBEbp<CR>
 
 " Under Tmux, make Vim recognize xterm escape sequences for Page and Arrow
 " keys combined with modifiers such as Shift, Control, and Alt.

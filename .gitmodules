@@ -10,9 +10,6 @@
 [submodule "bundle/ctrlp"]
 	path = bundle/ctrlp
 	url = git://github.com/kien/ctrlp.vim.git
-[submodule "bundle/tagbar-phpctags"]
-	path = bundle/tagbar-phpctags
-	url = git://github.com/vim-php/tagbar-phpctags.vim.git
 [submodule "bundle/gitgutter"]
 	path = bundle/gitgutter
 	url = git://github.com/airblade/vim-gitgutter.git
