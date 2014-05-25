@@ -27,40 +27,49 @@ Make sure you have this environment variable in your `.bashrc` or `.[bash_]profi
 Name           | Description
 -------------- | ----------------------
 [ansible-yaml] | Additional support for Ansible
+[css3-syntax] | CSS3 syntax support to vim's built-in `syntax/css.vim`
 [csv] | Handling column separated data
 [ctrlp] | Fuzzy file, buffer, mru, tag, etc finder
 [easymotion] | Motions on speed
-[editorconfig] | Applies EditorConfig properties
 [fugitive] | Git wrapper
 [gitgutter] | Shows a git diff in the gutter and stages/reverts hunks
 [gocode] | Go bundle
 [hybrid] | Dark colour scheme
+[javascript] | Vastly improved Javascript indentation and syntax support
+[json] | Better JSON support
+[less] | Syntax for LESS
 [lightline] | Light and configurable statusline/tabline
 [markdown] | Markdown syntax highlighting
+[minibufexpl] | Elegant buffer explorer
 [mustache] | Mustache and handlebars mode
+[nerdcommenter] | Intense commenting
 [nerdtree] | Tree explorer
 [pathogen] | Manage your runtimepath
 [surround] | Quoting/parenthesizing made simple
 [syntastic] | Syntax checking hacks
 [tabular] | Text filtering and alignment
 [tagbar] | Displays tags in a window, ordered by scope
-[tagbar-phpctags] | Addon for tagbar using phpctags
 [tmux-navigator] | Seamless navigation between tmux panes and vim splits
 [vimcompletesme] | Super simple, minimal and light-weight tab completion
+[visual-star-search] | Start a * or # search from a visual block
 
 [ansible-yaml]: https://github.com/chase/vim-ansible-yaml
-[autocomplpop]: https://github.com/vim-scripts/AutoComplPop
+[css3-syntax]: https://github.com/hail2u/vim-css3-syntax
 [csv]: https://github.com/chrisbra/csv.vim
 [ctrlp]: https://github.com/kien/ctrlp.vim
 [easymotion]: https://github.com/vim-scripts/AutoComplPop
-[editorconfig]: https://github.com/editorconfig/editorconfig-vim
 [fugitive]: https://github.com/tpope/vim-fugitive
 [gitgutter]: https://github.com/airblade/vim-gitgutter
 [gocode]: https://github.com/Blackrush/vim-gocode
 [hybrid]: https://github.com/w0ng/vim-hybrid
+[javascript]: https://github.com/pangloss/vim-javascript
+[json]: https://github.com/elzr/vim-json
+[less]: https://github.com/groenewege/vim-less
 [lightline]: https://github.com/itchyny/lightline.vim
 [markdown]: https://github.com/plasticboy/vim-markdown
+[minibufexpl]: https://github.com/techlivezheng/vim-plugin-minibufexpl
 [mustache]: https://github.com/mustache/vim-mustache-handlebars
+[nerdcommenter]: https://github.com/scrooloose/nerdcommenter
 [nerdtree]: https://github.com/scrooloose/nerdtree
 [pathogen]: https://github.com/tpope/vim-pathogen
 [snipmate]: https://github.com/msanders/snipmate.vim
@@ -69,9 +78,9 @@ Name           | Description
 [syntastic]: https://github.com/scrooloose/syntastic
 [tabular]: https://github.com/godlygeek/tabular
 [tagbar]: https://github.com/majutsushi/tagbar
-[tagbar-phpctags]: https://github.com/vim-php/tagbar-phpctags.vim
 [tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator
 [vimcompletesme]: https://github.com/ajh17/VimCompletesMe
+[visual-star-search]: https://github.com/nelstrom/vim-visual-star-search
 
 ## Key bindings
 
