@@ -25,7 +25,7 @@ let g:lightline = {
 	\ }
 
 function! StatusModified()
-	return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+	return &ft =~ 'help\|vimfiler\|gundo\|minibufexpl' ? '' : &modified ? '+' : &modifiable ? '' : '-'
 endfunction
 
 function! StatusReadonly()
@@ -37,6 +37,7 @@ function! StatusFilename()
 				\ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
 				\  &ft == 'unite' ? unite#get_status_string() : 
 				\  &ft == 'vimshell' ? vimshell#get_status_string() :
+				\  &ft == 'minibufexpl' ? '' :
 				\ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
 				\ ('' != StatusModified() ? ' ' . StatusModified() : '')
 endfunction
