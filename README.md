@@ -26,6 +26,7 @@ Make sure you have this environment variable in your `.bashrc` or `.[bash_]profi
 
 Name           | Description
 -------------- | ----------------------
+[ag] | Plugin for the_silver_searcher
 [ansible-yaml] | Additional support for Ansible
 [css3-syntax] | CSS3 syntax support to vim's built-in `syntax/css.vim`
 [csv] | Handling column separated data
@@ -40,19 +41,20 @@ Name           | Description
 [less] | Syntax for LESS
 [lightline] | Light and configurable statusline/tabline
 [markdown] | Markdown syntax highlighting
-[minibufexpl] | Elegant buffer explorer
 [mustache] | Mustache and handlebars mode
 [nerdcommenter] | Intense commenting
-[nerdtree] | Tree explorer
 [pathogen] | Manage your runtimepath
 [surround] | Quoting/parenthesizing made simple
 [syntastic] | Syntax checking hacks
 [tabular] | Text filtering and alignment
 [tagbar] | Displays tags in a window, ordered by scope
 [tmux-navigator] | Seamless navigation between tmux panes and vim splits
+[unite] | Unite and create user interfaces
 [vimcompletesme] | Super simple, minimal and light-weight tab completion
+[vimfiler] | Powerful file explorer
 [visual-star-search] | Start a * or # search from a visual block
 
+[ag]: https://github.com/rking/ag.vim
 [ansible-yaml]: https://github.com/chase/vim-ansible-yaml
 [css3-syntax]: https://github.com/hail2u/vim-css3-syntax
 [csv]: https://github.com/chrisbra/csv.vim
@@ -67,19 +69,17 @@ Name           | Description
 [less]: https://github.com/groenewege/vim-less
 [lightline]: https://github.com/itchyny/lightline.vim
 [markdown]: https://github.com/plasticboy/vim-markdown
-[minibufexpl]: https://github.com/techlivezheng/vim-plugin-minibufexpl
 [mustache]: https://github.com/mustache/vim-mustache-handlebars
 [nerdcommenter]: https://github.com/scrooloose/nerdcommenter
-[nerdtree]: https://github.com/scrooloose/nerdtree
 [pathogen]: https://github.com/tpope/vim-pathogen
-[snipmate]: https://github.com/msanders/snipmate.vim
-[supertab]: https://github.com/ervandew/supertab
 [surround]: https://github.com/tpope/vim-surround
 [syntastic]: https://github.com/scrooloose/syntastic
 [tabular]: https://github.com/godlygeek/tabular
 [tagbar]: https://github.com/majutsushi/tagbar
 [tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator
+[unite]: https://github.com/Shougo/unite.vim
 [vimcompletesme]: https://github.com/ajh17/VimCompletesMe
+[vimfiler]: https://github.com/Shougo/vimfiler.vim
 [visual-star-search]: https://github.com/nelstrom/vim-visual-star-search
 
 ## Key bindings
@@ -96,8 +96,8 @@ Arrows | Normal | Resize splits
 `Y` | Normal | Yank to the end of line (y$)
 `Enter` | Normal | Toggle fold (za)
 `W!!` | Command | Sudo write
-`<leader>`+`sh` | Normal | Split (:sp)
-`<leader>`+`sv` | Normal | Vertical split (:vsp)
+`<leader>`+`sv` | Normal | Split (:sp)
+`<leader>`+`sg` | Normal | Vertical split (:vsp)
 `Ctrl`+`j` | Normal | Move to split below (<C-w>j)
 `Ctrl`+`k` | Normal | Move to upper split (<C-w>k)
 `Ctrl`+`h` | Normal | Move to left split (<C-w>h)
@@ -111,7 +111,7 @@ Arrows | Normal | Resize splits
 `Tab` | Visual | Indent to right and re-select (>gv)
 `Shift`+`Tab` | Normal | Indent to left and re-select (<gv)
 `<leader>`+`l` | Normal | Toggle line numbers (:set nonumber!)
-`<leader>`+`h` | Normal | Clear highlighted search (:set nohlsearch)
+`<leader>`+`hh` | Normal | Clear highlighted search (:set nohlsearch)
 `<leader>`+`s` | Normal | Toggle hidden characters (:set nolist!)
 `Ctrl`+`e` | _All_ | Scroll window downwards three lines (3<C-e>)
 `Ctrl`+`y` | _All_ | Scroll window upwards three lines (3<C-y>)
@@ -123,11 +123,14 @@ Arrows | Normal | Resize splits
 `<leader>`+`flf` | Normal | Focus the current fold by closing all others (mzzM`zzv)
 `<leader>`+`ev` | Normal | Load vimrc file (:e $MYVIMRC)
 `<leader>`+`es` | Normal | Source vimrc file (:so $MYVIMRC)
-`F1` | Normal | Toggle NERD Tree (:NERDTreeToggle)
+`F1` | Normal | Toggle file explorer
+`<leader>`+`f` | Normal | Toggle file explorer
+`<leader>`+`b` | Normal | Opens Unite buffers
 `F2` | _All_ | Toggle paste mode
-`Shift`+`Right` | _All_ | Switch to next buffer (:bn)
-`Shift`+`Left` | _All_ | Switch to previous buffer (:bp)
+`Shift`+`Right` | _All_ | Switch to next buffer (:bnext)
+`Shift`+`Left` | _All_ | Switch to previous buffer (:bprev)
 `<leader>`+`q` | Normal | Closes current buffer (:close)
+`<leader>`+`x` | Normal | Removes current buffer (:bdelete)
 `Ctrl`+`Tab` | Normal | Switch to next tab (:tabn)
 `Ctrl`+`Shift`+`Tab` | Normal | Switch to previous tab (:tabn)
 

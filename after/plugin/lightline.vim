@@ -1,6 +1,12 @@
 
 " Lightline
 " ---------
+" Icons:
+"   Regular | Powerline
+"           |  
+"   / •     |  
+"   § ‡     |  
+
 let g:lightline = {
 	\ 'colorscheme': 'jellybeans',
 	\ 'active': {
@@ -20,16 +26,16 @@ let g:lightline = {
 	\ 'tab_component_function': {
 	\   'filename': 'TabFilePath',
 	\ },
-	\ 'separator': { 'left': '', 'right': '' },
-	\ 'subseparator': { 'left': '', 'right': '' }
+	\ 'separator': { 'left': '', 'right': '' },
+	\ 'subseparator': { 'left': '/', 'right': '•' }
 	\ }
 
 function! StatusModified()
-	return &ft =~ 'help\|vimfiler\|gundo\|minibufexpl' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+	return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
 endfunction
 
 function! StatusReadonly()
-	return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? '' : ''
+	return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? '§' : ''
 endfunction
 
 function! StatusFilename()
@@ -45,7 +51,7 @@ endfunction
 function! StatusFugitive()
 	if &ft !~? 'vimfiler\|gundo' && exists("*fugitive#head")
 		let _ = fugitive#head()
-		return strlen(_) ? ' '._ : ''
+		return strlen(_) ? '‡ '._ : ''
 	endif
 	return ''
 endfunction

@@ -42,7 +42,7 @@ set report=2                   " report when 3 or more lines are changed
 "set shortmess=atI              " shorten messages and don't show intro
 set cmdheight=1                " explicitly set the height of the command line
 set showcmd                    " Show (partial) command in status line.
-set number                     " line numbers
+set nonumber                   " no line numbers
 set noerrorbells               " don't whine
 set visualbell t_vb=           " and don't make faces
 set lazyredraw                 " don't redraw while in macros
@@ -116,8 +116,9 @@ set showtabline=2
 set scrolloff=2         " keep at least 2 lines above/below
 set sidescrolloff=2     " keep at least 2 lines left/right
 set textwidth=80
-"set cursorline
-"set colorcolumn=+1
+set nocursorline
+
+let g:loaded_netrwPlugin = 1  " Disable netrw.vim
 
 call matchadd('ColorColumn', '\%81v', 100)
 
@@ -152,8 +153,8 @@ nnoremap <CR> za
 cmap W!! w !sudo tee % >/dev/null
 
 " Create splits
-nnoremap <leader>sh :sp<CR>
-nnoremap <leader>sv :vsp<CR>
+nnoremap <leader>sv :sp<CR>
+nnoremap <leader>sg :vsp<CR>
 
 " Fast saving
 nnoremap <Leader>w :w<CR>
@@ -182,6 +183,9 @@ map <leader>ss :setlocal spell!<cr>
 " CtrlP
 nnoremap <Leader>. :CtrlPBufTagAll<CR>
 nnoremap <Leader>r :CtrlP<CR>
+
+" Unite
+nnoremap <Leader>b :Unite buffer<CR>
 
 " Instead of 1 line, move 3 at a time
 nnoremap <C-e> 3<C-e>
@@ -216,15 +220,15 @@ nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 map <Leader>cd :cd %:p:h<CR>:pwd<CR>
 
 " Focus the current fold by closing all others
-nnoremap <leader>flf mzzM`zzv
+"nnoremap <leader>flf mzzM`zzv
 
 " Edit the vimrc file
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>es :so $MYVIMRC<CR>
 
 " NERDTree keys
-nmap <F1> :NERDTreeToggle<CR>
-noremap <silent> <Leader>f :NERDTreeToggle<CR>
+nmap <F1> :VimFilerExplorer<CR>
+noremap <silent> <Leader>f :VimFilerExplorer -winwidth=20<CR>
 
 " Disable help key
 inoremap <F1> <ESC>
@@ -234,11 +238,14 @@ vnoremap <F1> <ESC>
 set pastetoggle=<F2>
 
 " Buffers
-map <S-Left> :tabp<CR>
-map <S-Right> :tabn<CR>
+map <S-Right> :bnext<CR>
+map <S-Left> :bprev<CR>
 
 " Closes current buffer
 nnoremap <silent> <Leader>q :close<CR>
+
+" Remove current buffer
+nnoremap <silent> <Leader>x :bdelete<CR>
 
 " Make the Ctrk+Tab work in console, see also Xresources
 map <Esc>[27;5;9~ <C-Tab>
@@ -246,8 +253,8 @@ map <Esc>[27;6;9~ <C-S-Tab>
 
 " tab shortcuts
 "map <C-t> :tabnew<CR>
-noremap <C-Tab> :MBEbn<CR>
-noremap <C-S-Tab> :MBEbp<CR>
+noremap <C-Tab> :tabn<CR>
+noremap <C-S-Tab> :tabp<CR>
 
 " Under Tmux, make Vim recognize xterm escape sequences for Page and Arrow
 " keys combined with modifiers such as Shift, Control, and Alt.
@@ -309,6 +316,9 @@ set t_Co=256
 set background=dark
 
 colorscheme hybrid " wombat256mod, mustang, jellybeans, kraihlight, pablo
+
+highlight Search       ctermfg=9 ctermbg=236
+highlight SpecialKey   ctermfg=235 ctermbg=234
 
 " lightline disabled tabline
 "highlight TabLineFill  ctermfg=8
