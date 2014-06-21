@@ -4,7 +4,7 @@
 let g:tagbar_compact = 1
 let g:tagbar_type_php = {
     \ 'ctagsbin'  : 'ctags',
-    \ 'ctagsargs' : '-f -',
+    \ 'ctagsargs' : '--fields=+aimS -f -',
     \ 'kinds'     : [
         \ 'd:Constants:0:0',
         \ 'v:Variables:0:0',
