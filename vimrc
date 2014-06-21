@@ -309,6 +309,33 @@ nnoremap <silent> [unite]ma :<C-u>Unite mapping -silent<CR>
 nnoremap <silent> [unite]me :<C-u>Unite output:message -silent<CR>
 nnoremap <silent> [unite]r  :<C-u>UniteResume -no-start-insert<CR>
 
+autocmd FileType unite call s:unite_settings()
+function! s:unite_settings()
+	nunmap <buffer> <C-h>
+	nunmap <buffer> <C-k>
+	nunmap <buffer> <C-l>
+	nunmap <buffer> <C-r>
+	nmap <silent><buffer> <C-r> <Plug>(unite_redraw)
+	imap <silent><buffer> <C-j> <Plug>(unite_select_next_line)
+	imap <silent><buffer> <C-k> <Plug>(unite_select_previous_line)
+	nmap <silent><buffer> '     <Plug>(unite_toggle_mark_current_candidate_up)
+	nmap <silent><buffer> ;     <Plug>(unite_insert_enter)
+	nmap <silent><buffer> e     <Plug>(unite_do_default_action)
+	nmap <silent><buffer><expr> <C-v> unite#do_action('split')
+	nmap <silent><buffer><expr> <C-s> unite#do_action('vsplit')
+	nmap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
+	nmap <buffer> <ESC> <Plug>(unite_exit)
+	imap <buffer> jj    <Plug>(unite_insert_leave)
+	imap <buffer> kk    <Plug>(unite_insert_leave)
+
+	let unite = unite#get_current_unite()
+	if unite.profile_name ==# '^search'
+		nnoremap <silent><buffer><expr> r unite#do_action('replace')
+	else
+		nnoremap <silent><buffer><expr> r unite#do_action('rename')
+	endif
+endfunction
+
 " Fugitive {{{3
 nnoremap <silent> <leader>ga :Git add %:p<CR>
 nnoremap <silent> <leader>gs :Gstatus<CR>
@@ -330,6 +357,16 @@ noremap <silent> <Leader>f :VimFilerExplorer -winwidth=20 -split -toggle -no-qui
 noremap <silent> <Leader>db :VimFilerBufferDir<CR>
 noremap <silent> <Leader>ds :VimFilerSplit<CR>
 nmap <F1> :VimFilerExplorer<CR>
+
+autocmd FileType vimfiler call s:vimfiler_settings()
+function! s:vimfiler_settings()
+	nunmap <buffer> <C-l>
+	nunmap <buffer> <C-j>
+	nmap <buffer> ' <Plug>(vimfiler_toggle_mark_current_line)
+	nmap <buffer> <C-q> <Plug>(vimfiler_quick_look)
+	nmap <buffer> <C-w> <Plug>(vimfiler_switch_to_history_directory)
+	nnoremap <buffer> <C-r> <Plug>(vimfiler_redraw_screen)
+endfunction
 
 " Disable help key
 inoremap <F1> <ESC>

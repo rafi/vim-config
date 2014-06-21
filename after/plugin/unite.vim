@@ -12,9 +12,10 @@ let g:unite_source_directory_mru_long_limit = 6000
 let g:unite_source_grep_command = 'ag'
 let g:unite_source_grep_default_opts = '--nocolor --nogroup --column'
 let g:unite_source_grep_recursive_opt = ''
-" For unite-outline until it doesn't use this deprecated variable:
-let g:unite_data_directory="~/.cache/unite"
-let g:unite_abbr_highlight = "Normal"
+
+" For unite-outline until it doesn't use these deprecated variables:
+let g:unite_data_directory=$XDG_CACHE_HOME . "/unite"
+let g:unite_abbr_highlight="Normal"
 
 call unite#custom#profile('default', 'context', {
 	\   'update_time': 5,
@@ -48,21 +49,3 @@ call unite#custom#source(
 	\ 'target/',
 	\ ], '\|'))
 
-autocmd FileType unite call s:unite_settings()
-
-function! s:unite_settings()
-	imap <silent><buffer> <C-j> <Plug>(unite_select_next_line)
-	imap <silent><buffer> <C-k> <Plug>(unite_select_previous_line)
-	nmap <silent><buffer><expr> <C-v> unite#do_action('split')
-	nmap <silent><buffer><expr> <C-s> unite#do_action('vsplit')
-	nmap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
-	nmap <buffer> <ESC> <Plug>(unite_exit)
-	imap <buffer>  jj   <Plug>(unite_insert_leave)
-
-	let unite = unite#get_current_unite()
-	if unite.profile_name ==# '^search'
-		nnoremap <silent><buffer><expr> r unite#do_action('replace')
-	else
-		nnoremap <silent><buffer><expr> r unite#do_action('rename')
-	endif
-endfunction
