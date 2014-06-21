@@ -1,18 +1,9 @@
-[submodule "bundle/easymotion"]
-	path = bundle/easymotion
-	url = git://github.com/Lokaltog/vim-easymotion.git
 [submodule "bundle/fugitive"]
 	path = bundle/fugitive
 	url = git://github.com/tpope/vim-fugitive.git
 [submodule "bundle/csv"]
 	path = bundle/csv
 	url = git://github.com/chrisbra/csv.vim.git
-[submodule "bundle/ctrlp"]
-	path = bundle/ctrlp
-	url = git://github.com/kien/ctrlp.vim.git
-[submodule "bundle/gitgutter"]
-	path = bundle/gitgutter
-	url = git://github.com/airblade/vim-gitgutter.git
 [submodule "bundle/markdown"]
 	path = bundle/markdown
 	url = git://github.com/plasticboy/vim-markdown.git
@@ -79,3 +70,27 @@
 [submodule "bundle/vimfiler"]
 	path = bundle/vimfiler
 	url = git://github.com/Shougo/vimfiler.vim.git
+[submodule "bundle/autotag"]
+	path = bundle/autotag
+	url = git://github.com/craigemery/vim-autotag.git
+[submodule "bundle/unite-tag"]
+	path = bundle/unite-tag
+	url = git://github.com/tsukkee/unite-tag.git
+[submodule "bundle/unite-outline"]
+	path = bundle/unite-outline
+	url = git://github.com/h1mesuke/unite-outline.git
+[submodule "bundle/vimproc"]
+	path = bundle/vimproc
+	url = git://github.com/Shougo/vimproc.vim.git
+[submodule "bundle/emmet"]
+	path = bundle/emmet
+	url = git://github.com/mattn/emmet-vim.git
+[submodule "bundle/signify"]
+	path = bundle/signify
+	url = git://github.com/mhinz/vim-signify.git
+[submodule "bundle/phpcomplete"]
+	path = bundle/phpcomplete
+	url = git://github.com/shawncplus/phpcomplete.vim.git
+[submodule "bundle/unite-neomru"]
+	path = bundle/unite-neomru
+	url = git://github.com/Shougo/neomru.vim.git
