@@ -30,10 +30,7 @@ Name           | Description
 [ansible-yaml] | Additional support for Ansible
 [css3-syntax] | CSS3 syntax support to vim's built-in `syntax/css.vim`
 [csv] | Handling column separated data
-[ctrlp] | Fuzzy file, buffer, mru, tag, etc finder
-[easymotion] | Motions on speed
 [fugitive] | Git wrapper
-[gitgutter] | Shows a git diff in the gutter and stages/reverts hunks
 [gocode] | Go bundle
 [hybrid] | Dark colour scheme
 [javascript] | Vastly improved Javascript indentation and syntax support
@@ -58,10 +55,7 @@ Name           | Description
 [ansible-yaml]: https://github.com/chase/vim-ansible-yaml
 [css3-syntax]: https://github.com/hail2u/vim-css3-syntax
 [csv]: https://github.com/chrisbra/csv.vim
-[ctrlp]: https://github.com/kien/ctrlp.vim
-[easymotion]: https://github.com/vim-scripts/AutoComplPop
 [fugitive]: https://github.com/tpope/vim-fugitive
-[gitgutter]: https://github.com/airblade/vim-gitgutter
 [gocode]: https://github.com/Blackrush/vim-gocode
 [hybrid]: https://github.com/w0ng/vim-hybrid
 [javascript]: https://github.com/pangloss/vim-javascript

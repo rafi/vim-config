@@ -3,7 +3,7 @@
 "
 " github.com/rafi vim config
 
-" references:
+" references and credits:
 " https://github.com/ajh17/dotfiles
 " https://github.com/indraniel/dotfiles
 " https://github.com/justinforce/dotfiles
@@ -31,7 +31,7 @@ endif
 
 " General Settings {{{1
 "------------------------------------------------------------------------------
-
+" Vim core {{{2
 set nocompatible               " break away from old vi compatibility
 set autoread                   " Files are read as soon as they are changed
 set backspace=indent,eol,start " Intuitive backspacing in insert mode
@@ -44,7 +44,7 @@ set cmdheight=1                " explicitly set the height of the command line
 set showcmd                    " Show (partial) command in status line.
 set nonumber                   " no line numbers
 set noerrorbells               " don't whine
-set visualbell t_vb=           " and don't make faces
+set novisualbell t_vb=         " and don't make faces
 set lazyredraw                 " don't redraw while in macros
 set hidden                     " hide buffers when abandoned instead of unload
 set encoding=utf-8             " Set utf8 as standard encoding
@@ -55,8 +55,10 @@ set path=.,**                  " Directories to search when using gf
 set virtualedit=block          " Position cursor anywhere in visual block
 set splitbelow splitright
 set switchbuf=useopen
+set synmaxcol=256              " Don't syntax highlight long lines
+syntax sync minlines=256       " Update syntax highlighting for more lines
 
-" Wildignore Settings {{{1
+" Wildmenu/ignore Settings {{{2
 set wildmenu                   " turn on wild menu :e <Tab>
 set wildmode=list:longest      " set wildmenu to list choice
 set wildignorecase
@@ -65,7 +67,7 @@ set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,**/temp/***.obj
 set wildignore+=**/cache/??,**/cache/mustache,**/cache/media,**/logs/????
 set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
 
-" History, Backup, Undo and Spelling settings {{{1
+" Caches and Directories {{{2
 set history=700
 set nobackup undofile noswapfile
 set backupdir=$XDG_CACHE_HOME/vim/backup/
@@ -74,7 +76,8 @@ set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
 set undodir=$XDG_CACHE_HOME/vim/undo//
 set spellfile=$XDG_CONFIG_HOME/vim/spell/en.utf-8.add
 
-" Indent and Fold Settings {{{1
+" Indent and Fold Settings {{{2
+set textwidth=80
 setlocal noexpandtab    " Don't expand tabs to spaces.
 set tabstop=2           " The number of spaces a tab is
 set shiftwidth=2        " Number of spaces to use in auto(indent)
@@ -92,17 +95,11 @@ set complete-=i                " Don't scan current and included files
 set completeopt-=preview       " No extra info buffer in completion menu
 set nostartofline              " Cursor in same column for several commands
 
-set list listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:.,trail:·
-set showbreak=↪
-
 set ttimeout
 set timeoutlen=1200           " A little bit more time for macros
 set ttimeoutlen=50            " Make esc work faster
 
-set laststatus=2
-set display+=lastline
-set tabpagemax=50
-
+" Search Settings {{{2
 set incsearch                 " incremental search
 set ignorecase                " search ignoring case
 set smartcase                 " keep case when searching with *
@@ -112,153 +109,37 @@ set diffopt=filler,iwhite     " ignore all whitespace and sync
 set matchtime=5               " blink matching chars for 0.x seconds
 set nostartofline             " leave my cursor position alone!
 
+" Editor UI Appearance {{{2
 set showtabline=2
 set scrolloff=2         " keep at least 2 lines above/below
 set sidescrolloff=2     " keep at least 2 lines left/right
-set textwidth=80
 set nocursorline
 
-let g:loaded_netrwPlugin = 1  " Disable netrw.vim
+set laststatus=2
+set display+=lastline
+set tabpagemax=50
 
+set list listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:.,trail:·
+set showbreak=↪
+
+" disable netrw
+let g:loaded_netrwPlugin = 1  " Disable netrw.vim, I use VimFiler
+
+" highlight just a single character on the 80th column
 call matchadd('ColorColumn', '\%81v', 100)
 
-" Key bindings {{{1
+" Terminal Hacks {{{1
 "------------------------------------------------------------------------------
 
-" Want a different map leader than \
-let mapleader="\<Space>"
-
-" Maps the semicolon to colon in normal mode
-nmap ; :
-
-" Make arrow keys useful
-nnoremap <left> :vertical resize +2 <CR>
-nnoremap <right> :vertical resize -2 <CR>
-nnoremap <up> :resize +2 <CR>
-nnoremap <down> :resize -2 <CR>
-
-" Use backspace key for matchit.vim
-nmap <BS> %
-xmap <BS> %
-
-" Remap some keys to be more useful
-nnoremap ' `
-nnoremap Q gq
-nnoremap S i<CR><ESC>^m`gk:silent! s/\v +$//<CR>:noh<CR>``
-nnoremap Y y$
-nnoremap <CR> za
-
-" Trick by Steve Losh: save a file if you forgot to sudo before editing
-" http://forrst.com/posts/Use_w_to_sudo_write_a_file_with_Vim-uAN
-cmap W!! w !sudo tee % >/dev/null
-
-" Create splits
-nnoremap <leader>sv :sp<CR>
-nnoremap <leader>sg :vsp<CR>
-
-" Fast saving
-nnoremap <Leader>w :w<CR>
-vnoremap <Leader>w <Esc>:w<CR>
-nnoremap <C-s> :w<CR>
-inoremap <C-s> <Esc>:w<CR>
-vnoremap <C-s> <Esc>:w<CR>
-
-" Select blocks after indenting
-xnoremap < <gv
-xnoremap > >gv
-nnoremap <Tab> >>_
-nnoremap <S-Tab> <<_
-vnoremap <Tab> >gv
-vnoremap <S-Tab> <gv
-
-" Line number type toggle
-nnoremap <Leader>l :set nonumber!<CR>
-
-" Clear the highlighting of :set hlsearch
-nmap <silent> <Leader>h :silent :nohlsearch<CR>
-
-" Toggle spell checking
-map <leader>ss :setlocal spell!<cr>
-
-" CtrlP
-nnoremap <Leader>. :CtrlPBufTagAll<CR>
-nnoremap <Leader>r :CtrlP<CR>
-
-" Unite
-nnoremap <Leader>b :Unite buffer<CR>
-
-" Instead of 1 line, move 3 at a time
-nnoremap <C-e> 3<C-e>
-nnoremap <C-y> 3<C-y>
-
-" Show hidden characters (spaces, tabs, etc)
-nmap <silent> <leader>s :set nolist!<CR>
-
-" Fugitive shortcuts
-nnoremap <silent> <leader>ga :Git add %:p<CR>
-nnoremap <silent> <leader>gs :Gstatus<CR>
-nnoremap <silent> <leader>gd :Gdiff<CR>
-nnoremap <silent> <leader>gc :Gcommit<CR>
-nnoremap <silent> <leader>gb :Gblame<CR>
-nnoremap <silent> <leader>gB :Gbrowse<CR>
-nnoremap <silent> <leader>gl :Glog<CR>
-nnoremap <silent> <leader>gp :Git push<CR>
-nnoremap <silent> <leader>gg :Ggrep --ignore-case
-map <silent> <leader>gbd :Gbrowse origin/develop^{}:%<CR>
-
-map <Leader>y "+y
-map <Leader>p "+p
-
-" Tagbar keys
-nmap <F8> :TagbarToggle<CR>
-nnoremap <Leader>t :TagbarToggle<CR>
-
-" Append modeline to EOF
-nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
-
-" When pressing <leader>cd switch to the directory of the open buffer
-map <Leader>cd :cd %:p:h<CR>:pwd<CR>
-
-" Focus the current fold by closing all others
-"nnoremap <leader>flf mzzM`zzv
-
-" Edit the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>es :so $MYVIMRC<CR>
-
-" NERDTree keys
-nmap <F1> :VimFilerExplorer<CR>
-noremap <silent> <Leader>f :VimFilerExplorer -winwidth=20<CR>
-
-" Disable help key
-inoremap <F1> <ESC>
-vnoremap <F1> <ESC>
-
-" Toggle paste mode (particularly useful to temporarily disable autoindent)
-set pastetoggle=<F2>
-
-" Buffers
-map <S-Right> :bnext<CR>
-map <S-Left> :bprev<CR>
-
-" Closes current buffer
-nnoremap <silent> <Leader>q :close<CR>
-
-" Remove current buffer
-nnoremap <silent> <Leader>x :bdelete<CR>
-
 " Make the Ctrk+Tab work in console, see also Xresources
+" I'm using rxvt-unicode
 map <Esc>[27;5;9~ <C-Tab>
 map <Esc>[27;6;9~ <C-S-Tab>
 
-" tab shortcuts
-"map <C-t> :tabnew<CR>
-noremap <C-Tab> :tabn<CR>
-noremap <C-S-Tab> :tabp<CR>
-
-" Under Tmux, make Vim recognize xterm escape sequences for Page and Arrow
-" keys combined with modifiers such as Shift, Control, and Alt.
-" See http://www.reddit.com/r/vim/comments/1a29vk/_/c8tze8p
+" Under URxvt and Tmux, make Vim recognize xterm escape
+" sequences for Page and Arrow keys combined with modifiers
+" such as Shift, Control, and Alt.
+" See: http://www.reddit.com/r/vim/comments/1a29vk/_/c8tze8p
 if &term =~ '^screen'
 	" Ctrl+Page keys http://sourceforge.net/p/tmux/tmux-code/ci/master/tree/FAQ
 	execute "set t_kP=\e[5;*~"
@@ -271,29 +152,8 @@ if &term =~ '^screen'
 	execute "set <xLeft>=\e[1;*D"
 endif
 
-" Functions and Commands {{{1
-"------------------------------------------------------------------------------
-
-"autocmd BufWritePost *.go,*.c,*.cpp,*.h,*.php silent! !ctags -R &
-
-" Append modeline after last line in buffer
-" http://vim.wikia.com/wiki/Modeline_magic
-function! AppendModeline()
-	let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :",
-				\ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
-	let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
-	call append(line("$"), l:modeline)
-endfunction
-
-" When editing a file, always jump to the last known cursor position.
-" Don't do it when the position is invalid or when inside an event handler
-" (happens when dropping a file on gvim).
-autocmd BufReadPost *
-	\ if line("'\"") > 0 && line("'\"") <= line("$") |
-	\	exe 'normal! g`"zvzz' |
-	\ endif
-
-" Changing cursor shape per mode (rxvt-unicode)
+" Changing cursor shape per mode {{{2
+" For rxvt-unicode:
 " 1 or 0 -> blinking block
 " 2 -> solid block
 " 3 -> blinking underscore
@@ -309,7 +169,234 @@ else
   let &t_EI = "\<Esc>[0 q"
 endif
 
-" Colors {{{1
+" Key bindings {{{1
+"------------------------------------------------------------------------------
+
+" Non-standard {{{2
+" ------------
+
+" Want a different map leader than \
+let mapleader="\<Space>"
+
+" Maps the semicolon to colon in normal mode
+nmap ; :
+
+" Make arrow keys useful
+nnoremap <left> :vertical resize +1<CR>
+nnoremap <right> :vertical resize -1<CR>
+nnoremap <up> :resize +1<CR>
+nnoremap <down> :resize -1<CR>
+
+" Use backspace key for matchit.vim
+nmap <BS> %
+xmap <BS> %
+
+" Global niceties {{{2
+" ---------------
+
+" I do not use clipboard=unnamed, these
+" yank and paste from X11's clipboard.
+map <Leader>y "+y
+map <Leader>p "+p
+
+" Instead of 1 line, move 3 at a time
+nnoremap <C-e> 3<C-e>
+nnoremap <C-y> 3<C-y>
+
+" Remap some keys to be more useful
+nnoremap ' `
+nnoremap Q gq
+nnoremap S i<CR><ESC>^m`gk:silent! s/\v +$//<CR>:noh<CR>``
+nnoremap Y y$
+nnoremap <CR> za
+
+" Select blocks after indenting
+xnoremap < <gv
+xnoremap > >gv
+
+" Use tab for indenting in normal/visual modes
+nnoremap <Tab> >>_
+nnoremap <S-Tab> <<_
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+
+" File operations {{{2
+" ---------------
+
+" When pressing <leader>cd switch to the directory of the open buffer
+map <Leader>cd :cd %:p:h<CR>:pwd<CR>
+
+" Edit the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>es :so $MYVIMRC<CR>
+
+" Fast saving
+nnoremap <Leader>w :w<CR>
+vnoremap <Leader>w <Esc>:w<CR>
+nnoremap <C-s> :w<CR>
+inoremap <C-s> <Esc>:w<CR>
+vnoremap <C-s> <Esc>:w<CR>
+
+" Trick by Steve Losh: save a file if you forgot to sudo before editing
+" http://forrst.com/posts/Use_w_to_sudo_write_a_file_with_Vim-uAN
+cmap W!! w !sudo tee % >/dev/null
+
+" Editor UI {{{2
+
+" Toggle paste mode
+" Particularly useful to temporarily disable autoindent
+set pastetoggle=<F2>
+
+" Line number type toggle
+nnoremap <Leader>l :set nonumber!<CR>
+
+" Show hidden characters (spaces, tabs, etc)
+nmap <silent> <leader>s :set nolist!<CR>
+
+" Clear the highlighting of :set hlsearch
+nmap <silent> <Leader>h :silent :nohlsearch<CR>
+
+" Toggle spell checking
+map <leader>ss :setlocal spell!<cr>
+
+" Tabs
+map <C-t> :tabnew<CR>
+map <C-x> :tabclose<CR>
+noremap <C-Tab> :tabn<CR>
+noremap <C-S-Tab> :tabp<CR>
+
+" Splits
+" I imagine v as an arrow, split below
+nnoremap <leader>sv :sp<CR>
+nnoremap <leader>sg :vsp<CR>
+
+" Buffers
+map <S-Right> :bnext<CR>
+map <S-Left> :bprev<CR>
+
+" Closes current buffer
+nnoremap <silent> <Leader>q :close<CR>
+
+" Remove current buffer
+nnoremap <silent> <Leader>x :bdelete<CR>
+
+" Totally Custom {{{2
+" --------------
+
+" Append modeline to EOF
+nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
+
+" Focus the current fold by closing all others
+nnoremap <leader>ef mzzM`zzv
+
+" Plugins {{{2
+" -------
+
+" Unite {{{3
+nnoremap [unite]  <Nop>
+nmap     f [unite]
+nnoremap <silent> [unite]f  :<C-u>Unite file_rec/async -start-insert -buffer-name=files<CR>
+nnoremap <silent> [unite]g  :<C-u>Unite file_rec/git -start-insert<CR>
+nnoremap <silent> [unite]u  :<C-u>Unite source -silent -vertical -start-insert<CR>
+nnoremap <silent> [unite]b  :<C-u>Unite buffer file_mru bookmark -auto-resize -silent<CR>
+nnoremap <silent> [unite]/  :<C-u>Unite grep:. -auto-resize -silent -no-quit<CR>
+nnoremap <silent> [unite]t  :<C-u>Unite tag -silent -start-insert<CR>
+nnoremap <silent> [unite]R  :<C-u>Unite register -silent -buffer-name=register<CR>
+nnoremap <silent> [unite]j  :<C-u>Unite change jump -silent<CR>
+nnoremap <silent> [unite]y  :<C-u>Unite history/yank<CR>
+nnoremap <silent> [unite]o  :<C-u>Unite outline -no-quit -keep-focus -vertical<CR>
+nnoremap <silent> [unite]ma :<C-u>Unite mapping -silent<CR>
+nnoremap <silent> [unite]me :<C-u>Unite output:message -silent<CR>
+nnoremap <silent> [unite]r  :<C-u>UniteResume -no-start-insert<CR>
+
+" Fugitive {{{3
+nnoremap <silent> <leader>ga :Git add %:p<CR>
+nnoremap <silent> <leader>gs :Gstatus<CR>
+nnoremap <silent> <leader>gd :Gdiff<CR>
+nnoremap <silent> <leader>gc :Gcommit<CR>
+nnoremap <silent> <leader>gb :Gblame<CR>
+nnoremap <silent> <leader>gB :Gbrowse<CR>
+nnoremap <silent> <leader>gl :Glog<CR>
+nnoremap <silent> <leader>gp :Git push<CR>
+nnoremap <silent> <leader>gg :Ggrep --ignore-case
+map <silent> <leader>gbd :Gbrowse origin/develop^{}:%<CR>
+
+" Tagbar {{{3
+nmap <F8> :TagbarToggle<CR>
+nnoremap <Leader>t :TagbarToggle<CR>
+
+" VimFiler {{{3
+noremap <silent> <Leader>f :VimFilerExplorer -winwidth=20 -split -toggle -no-quit<CR>
+noremap <silent> <Leader>db :VimFilerBufferDir<CR>
+noremap <silent> <Leader>ds :VimFilerSplit<CR>
+nmap <F1> :VimFilerExplorer<CR>
+
+" Disable help key
+inoremap <F1> <ESC>
+vnoremap <F1> <ESC>
+
+" gvim {{{2
+" ----
+
+" toggle display of a GUI widget (menu/toolbar/scrollbar)
+nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
+nnoremap <C-F2> :if &go=~#'T'<Bar>set go-=T<Bar>else<Bar>set go+=T<Bar>endif<CR>
+nnoremap <C-F3> :if &go=~#'r'<Bar>set go-=r<Bar>else<Bar>set go+=r<Bar>endif<CR>
+
+" Functions and Commands {{{1
+"------------------------------------------------------------------------------
+
+" TODO: Figure out the best way to update ctags.
+"       Currently using vim-autotag plugin
+"autocmd BufWritePost *.go,*.c,*.cpp,*.h,*.php silent! !ctags -R &
+
+" Simple way to turn off Gdiff splitscreen
+" works only when diff buffer is focused
+if !exists(":Gdiffoff")
+	command Gdiffoff diffoff | q | Gedit
+endif
+
+" When editing a file, always jump to the last known cursor position.
+" Don't do it when the position is invalid or when inside an event handler
+" (happens when dropping a file on gvim).
+autocmd BufReadPost *
+	\ if line("'\"") > 0 && line("'\"") <= line("$") |
+	\	exe 'normal! g`"zvzz' |
+	\ endif
+
+" Append modeline after last line in buffer
+" See: http://vim.wikia.com/wiki/Modeline_magic
+function! AppendModeline()
+	let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :",
+				\ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
+	let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
+	call append(line("$"), l:modeline)
+endfunction
+
+" gvim Fonts {{{1
+"------------------------------------------------------------------------------
+
+if has("gui_running")
+"	set guioptions-=m  " remove menu bar
+	set guioptions-=T  " remove toolbar
+	set guioptions-=r  " remove right-hand scroll bar
+	set guioptions-=L  " remove left-hand scroll bar
+
+	" font
+  if has("gui_gtk2")
+    set guifont=Inconsolata\ 12
+    "set guifont=envypn\ 11
+  elseif has("gui_macvim")
+    set guifont=Menlo\ Regular:h14
+  elseif has("gui_win32")
+    set guifont=Consolas:h11:cANSI
+  endif
+
+  " Maximize gvim window
+  set lines=58 columns=190
+endif
+
+" Theme and Colors {{{1
 "------------------------------------------------------------------------------
 
 set t_Co=256
@@ -317,15 +404,27 @@ set background=dark
 
 colorscheme hybrid " wombat256mod, mustang, jellybeans, kraihlight, pablo
 
-highlight Search       ctermfg=9 ctermbg=236
+highlight Search       ctermfg=9 ctermbg=236 guibg=Black guifg=Magenta
 highlight SpecialKey   ctermfg=235 ctermbg=234
 
-" lightline disabled tabline
+" VimFiler {{{2
+highlight vimfilerNormalFile  ctermfg=245 ctermbg=234 guifg=#777777
+highlight vimfilerClosedFile  ctermfg=249 ctermbg=234 guifg=#AAAAAA
+highlight vimfilerOpenedFile  ctermfg=254 ctermbg=234 guifg=#FFFFFF
+highlight vimfilerNonMark     ctermfg=239 ctermbg=234 guifg=#555555
+highlight vimfilerLeaf        ctermfg=235 ctermbg=234 guifg=#333333
+
+" Signify {{{2
+highlight SignifySignAdd    ctermbg=234 ctermfg=2 guifg=#009900 guibg=#1C1C1C
+highlight SignifySignDelete ctermbg=234 ctermfg=1 guifg=#ff2222 guibg=#1C1C1C
+highlight SignifySignChange ctermbg=234 ctermfg=3 guifg=#bbbb00 guibg=#1C1C1C
+
+" Disabled: Lightline when disabling tabline {{{2
 "highlight TabLineFill  ctermfg=8
 "highlight TabLine      ctermfg=8 ctermbg=0
 "highlight TabLineSel   ctermfg=8 ctermbg=0
 
-" wombat256mod changes
+" Disabled: wombat256mod theme mod {{{2
 "highlight Normal       ctermbg=235
 "highlight ColorColumn  ctermbg=0
 "highlight CursorLine   ctermbg=236
@@ -338,7 +437,7 @@ highlight SpecialKey   ctermfg=235 ctermbg=234
 "highlight TabLine      ctermfg=242 ctermbg=235
 "highlight TabLineSel   ctermfg=250 ctermbg=236
 
-" mustang changes
+" Disabled: mustang theme mod {{{2
 "highlight CursorLine   ctermbg=235 cterm=NONE
 ""highlight CursorLineNr ctermfg=240
 "highlight SpecialKey   ctermfg=235 ctermbg=234
