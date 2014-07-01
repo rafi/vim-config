@@ -289,8 +289,15 @@ nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 " Focus the current fold by closing all others
 nnoremap <leader>ef mzzM`zzv
 
+" Yank buffer's absolute path to X11 clipboard
+nnoremap <leader>cy :let @+=expand("%:p")<CR>
+
 " Plugins {{{2
 " -------
+
+" NERDCommenter {{{3
+let NERDCreateDefaultMappings = 0
+map <leader>cc <plug>NERDCommenterInvert
 
 " Unite {{{3
 nnoremap [unite]  <Nop>
@@ -353,7 +360,7 @@ nmap <F8> :TagbarToggle<CR>
 nnoremap <Leader>t :TagbarToggle<CR>
 
 " VimFiler {{{3
-noremap <silent> <Leader>f :VimFilerExplorer -winwidth=20 -split -toggle -no-quit<CR>
+noremap <silent> <Leader>f :VimFilerExplorer -winwidth=25 -split -toggle -no-quit<CR>
 noremap <silent> <Leader>db :VimFilerBufferDir<CR>
 noremap <silent> <Leader>ds :VimFilerSplit<CR>
 nmap <F1> :VimFilerExplorer<CR>
