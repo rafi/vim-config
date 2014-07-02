@@ -89,6 +89,7 @@ set smarttab
 set foldenable
 set foldmethod=indent
 set foldlevelstart=99
+set foldtext=NeatFoldText()
 
 set whichwrap+=<,>,h,l
 set complete-=i                " Don't scan current and included files
@@ -122,11 +123,23 @@ set tabpagemax=50
 set list listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:.,trail:·
 set showbreak=↪
 
+" Plugin Settings {{{1
+"------------------------------------------------------------------------------
 " disable netrw
 let g:loaded_netrwPlugin = 1  " Disable netrw.vim, I use VimFiler
 
-" highlight just a single character on the 80th column
-call matchadd('ColorColumn', '\%81v', 100)
+" Enable neocomplete. Must be in vimrc
+let g:neocomplete#enable_at_startup = 1
+
+" Set syntastic signs. Must be in vimrc
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '∷'
+
+" See: https://github.com/mattesgroeger/vim-bookmarks#options
+let g:bookmark_auto_save_file = $XDG_CACHE_HOME.'/vim/bookmarks'
+
+" Markdown
+let g:vim_markdown_initial_foldlevel = 5
 
 " Terminal Hacks {{{1
 "------------------------------------------------------------------------------
@@ -292,12 +305,17 @@ nnoremap <leader>ef mzzM`zzv
 " Yank buffer's absolute path to X11 clipboard
 nnoremap <leader>cy :let @+=expand("%:p")<CR>
 
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+	\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+	\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
 " Plugins {{{2
 " -------
 
 " NERDCommenter {{{3
 let NERDCreateDefaultMappings = 0
-map <leader>cc <plug>NERDCommenterInvert
+map <leader>ci <plug>NERDCommenterInvert
+map <leader>cc <plug>NERDCommenterComment
 
 " Unite {{{3
 nnoremap [unite]  <Nop>
@@ -379,6 +397,40 @@ endfunction
 inoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
+" neocomplete {{{3
+
+" Plugin key-mappings
+inoremap <expr><C-g>   neocomplete#undo_completion()
+inoremap <expr><C-l>   neocomplete#complete_common_string()
+
+" Recommended key-mappings
+" <CR>: close popup and save indent
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+	"return neocomplete#close_popup() . "\<CR>"
+	" Do not insert the <CR> key
+	return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
+" <TAB> completion
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
+
+" Syntastic {{{3
+
+nmap <Leader>lj :lnext<CR>
+nmap <Leader>lk :lprev<CR>
+
+" Quit the quickfix window with a single 'q' or Escape
+autocmd FileType qf call s:quickfix_settings()
+function! s:quickfix_settings()
+	nmap <buffer> <ESC> :bdelete<CR>
+	nmap <buffer> q :bdelete<CR>
+endfunction
+
 " gvim {{{2
 " ----
 
@@ -389,6 +441,9 @@ nnoremap <C-F3> :if &go=~#'r'<Bar>set go-=r<Bar>else<Bar>set go+=r<Bar>endif<CR>
 
 " Functions and Commands {{{1
 "------------------------------------------------------------------------------
+
+" Highlight just a single character on the 81 column
+call matchadd('ColorColumn', '\%81v', 100)
 
 " TODO: Figure out the best way to update ctags.
 "       Currently using vim-autotag plugin
@@ -415,6 +470,19 @@ function! AppendModeline()
 				\ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
 	let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
 	call append(line("$"), l:modeline)
+endfunction
+
+" Nicer fold text
+" See: http://dhruvasagar.com/2013/03/28/vim-better-foldtext
+function! NeatFoldText()
+	let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
+	let lines_count = v:foldend - v:foldstart + 1
+	let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . ' |'
+	let foldchar = matchstr(&fillchars, 'fold:\zs.')
+	let foldtextstart = strpart('+' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
+	let foldtextend = lines_count_text . repeat(foldchar, 8)
+	let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
+	return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
 endfunction
 
 " gvim Fonts {{{1

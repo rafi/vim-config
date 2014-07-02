@@ -40,9 +40,6 @@
 [submodule "bundle/gocode"]
 	path = bundle/gocode
 	url = git://github.com/Blackrush/vim-gocode.git
-[submodule "bundle/vimcompletesme"]
-	path = bundle/vimcompletesme
-	url = git://github.com/ajh17/VimCompletesMe.git
 [submodule "bundle/css3-syntax"]
 	path = bundle/css3-syntax
 	url = git://github.com/hail2u/vim-css3-syntax.git
@@ -94,3 +91,9 @@
 [submodule "bundle/unite-neomru"]
 	path = bundle/unite-neomru
 	url = git://github.com/Shougo/neomru.vim.git
+[submodule "bundle/neocomplete"]
+	path = bundle/neocomplete
+	url = git://github.com/Shougo/neocomplete.vim.git
+[submodule "bundle/bookmarks"]
+	path = bundle/bookmarks
+	url = git://github.com/MattesGroeger/vim-bookmarks.git
