@@ -97,3 +97,6 @@
 [submodule "bundle/bookmarks"]
 	path = bundle/bookmarks
 	url = git://github.com/MattesGroeger/vim-bookmarks.git
+[submodule "bundle/neosnippet"]
+	path = bundle/neosnippet
+	url = git://github.com/Shougo/neosnippet.vim.git
