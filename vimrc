@@ -256,9 +256,18 @@ cmap W!! w !sudo tee % >/dev/null
 
 " Editor UI {{{2
 
+" Disable help key, using http://zealdocs.org
+inoremap <F1> <ESC>
+vnoremap <F1> <ESC>
+
 " Toggle paste mode
 " Particularly useful to temporarily disable autoindent
 set pastetoggle=<F2>
+
+" Show highlight names under cursor
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+	\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+	\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " Line number type toggle
 nnoremap <Leader>l :set nonumber!<CR>
@@ -305,9 +314,12 @@ nnoremap <leader>ef mzzM`zzv
 " Yank buffer's absolute path to X11 clipboard
 nnoremap <leader>cy :let @+=expand("%:p")<CR>
 
-map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-	\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-	\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+" Quit the quickfix window with a single 'q' or Escape
+autocmd FileType qf call s:quickfix_settings()
+function! s:quickfix_settings()
+	nnoremap <buffer> <ESC> :bdelete<CR>
+	nnoremap <buffer> q :bdelete<CR>
+endfunction
 
 " Plugins {{{2
 " -------
@@ -320,19 +332,20 @@ map <leader>cc <plug>NERDCommenterComment
 " Unite {{{3
 nnoremap [unite]  <Nop>
 nmap     f [unite]
+nnoremap <silent> [unite]r  :<C-u>UniteResume -no-start-insert<CR>
 nnoremap <silent> [unite]f  :<C-u>Unite file_rec/async -start-insert -buffer-name=files<CR>
-nnoremap <silent> [unite]g  :<C-u>Unite file_rec/git -start-insert<CR>
+nnoremap <silent> [unite]i  :<C-u>Unite file_rec/git -start-insert<CR>
+nnoremap <silent> [unite]g  :<C-u>Unite grep:. -auto-resize -silent -no-quit -auto-preview -winheight=30 -buffer-name=search<CR>
 nnoremap <silent> [unite]u  :<C-u>Unite source -silent -vertical -start-insert<CR>
-nnoremap <silent> [unite]b  :<C-u>Unite buffer file_mru bookmark -auto-resize -silent<CR>
-nnoremap <silent> [unite]/  :<C-u>Unite grep:. -auto-resize -silent -no-quit<CR>
 nnoremap <silent> [unite]t  :<C-u>Unite tag -silent -start-insert<CR>
-nnoremap <silent> [unite]R  :<C-u>Unite register -silent -buffer-name=register<CR>
+nnoremap <silent> [unite]e  :<C-u>Unite register -silent -buffer-name=register<CR>
 nnoremap <silent> [unite]j  :<C-u>Unite change jump -silent<CR>
-nnoremap <silent> [unite]y  :<C-u>Unite history/yank<CR>
+nnoremap <silent> [unite]h  :<C-u>Unite history/yank<CR>
 nnoremap <silent> [unite]o  :<C-u>Unite outline -no-quit -keep-focus -vertical<CR>
 nnoremap <silent> [unite]ma :<C-u>Unite mapping -silent<CR>
 nnoremap <silent> [unite]me :<C-u>Unite output:message -silent<CR>
-nnoremap <silent> [unite]r  :<C-u>UniteResume -no-start-insert<CR>
+nnoremap <silent> <Leader>b :<C-u>Unite buffer file_mru bookmark -auto-resize -silent<CR>
+nnoremap <silent> <Leader>t :<C-u>Unite tab -silent -start-insert<CR>
 
 autocmd FileType unite call s:unite_settings()
 function! s:unite_settings()
@@ -367,35 +380,35 @@ nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gd :Gdiff<CR>
 nnoremap <silent> <leader>gc :Gcommit<CR>
 nnoremap <silent> <leader>gb :Gblame<CR>
-nnoremap <silent> <leader>gB :Gbrowse<CR>
 nnoremap <silent> <leader>gl :Glog<CR>
 nnoremap <silent> <leader>gp :Git push<CR>
 nnoremap <silent> <leader>gg :Ggrep --ignore-case
-map <silent> <leader>gbd :Gbrowse origin/develop^{}:%<CR>
+nnoremap <silent> <leader>gB :Gbrowse<CR>
+nnoremap <silent> <leader>gbd :Gbrowse origin/develop^{}:%<CR>
+
+" Simple way to turn off Gdiff splitscreen
+" works only when diff buffer is focused
+if !exists(":Gdiffoff")
+	command Gdiffoff diffoff | q | Gedit
+endif
 
 " Tagbar {{{3
 nmap <F8> :TagbarToggle<CR>
-nnoremap <Leader>t :TagbarToggle<CR>
 
 " VimFiler {{{3
 noremap <silent> <Leader>f :VimFilerExplorer -winwidth=25 -split -toggle -no-quit<CR>
 noremap <silent> <Leader>db :VimFilerBufferDir<CR>
 noremap <silent> <Leader>ds :VimFilerSplit<CR>
-nmap <F1> :VimFilerExplorer<CR>
 
 autocmd FileType vimfiler call s:vimfiler_settings()
 function! s:vimfiler_settings()
 	nunmap <buffer> <C-l>
 	nunmap <buffer> <C-j>
+	nnoremap <buffer> <C-r> <Plug>(vimfiler_redraw_screen)
 	nmap <buffer> ' <Plug>(vimfiler_toggle_mark_current_line)
 	nmap <buffer> <C-q> <Plug>(vimfiler_quick_look)
 	nmap <buffer> <C-w> <Plug>(vimfiler_switch_to_history_directory)
-	nnoremap <buffer> <C-r> <Plug>(vimfiler_redraw_screen)
 endfunction
-
-" Disable help key
-inoremap <F1> <ESC>
-vnoremap <F1> <ESC>
 
 " neocomplete {{{3
 
@@ -424,13 +437,6 @@ inoremap <expr><C-e>  neocomplete#cancel_popup()
 nmap <Leader>lj :lnext<CR>
 nmap <Leader>lk :lprev<CR>
 
-" Quit the quickfix window with a single 'q' or Escape
-autocmd FileType qf call s:quickfix_settings()
-function! s:quickfix_settings()
-	nmap <buffer> <ESC> :bdelete<CR>
-	nmap <buffer> q :bdelete<CR>
-endfunction
-
 " gvim {{{2
 " ----
 
@@ -448,12 +454,6 @@ call matchadd('ColorColumn', '\%81v', 100)
 " TODO: Figure out the best way to update ctags.
 "       Currently using vim-autotag plugin
 "autocmd BufWritePost *.go,*.c,*.cpp,*.h,*.php silent! !ctags -R &
-
-" Simple way to turn off Gdiff splitscreen
-" works only when diff buffer is focused
-if !exists(":Gdiffoff")
-	command Gdiffoff diffoff | q | Gedit
-endif
 
 " When editing a file, always jump to the last known cursor position.
 " Don't do it when the position is invalid or when inside an event handler
@@ -518,6 +518,16 @@ colorscheme hybrid " wombat256mod, mustang, jellybeans, kraihlight, pablo
 
 highlight Search       ctermfg=9 ctermbg=236 guibg=Black guifg=Magenta
 highlight SpecialKey   ctermfg=235 ctermbg=234
+highlight yamlScalar   ctermfg=250
+
+" Unite {{{2
+"highlight uniteCandidateMarker
+"highlight uniteSource__Grep          ctermbg=234 ctermfg=4
+highlight uniteSource__GrepLine      ctermbg=234 ctermfg=245
+highlight uniteSource__GrepFile      ctermbg=234 ctermfg=4
+highlight uniteSource__GrepSeparator ctermbg=234 ctermfg=5
+highlight uniteSource__GrepLineNr    ctermbg=234 ctermfg=3
+highlight uniteSource__GrepPattern   ctermbg=234 ctermfg=1
 
 " VimFiler {{{2
 highlight vimfilerNormalFile  ctermfg=245 ctermbg=234 guifg=#777777

@@ -4,4 +4,3 @@ setlocal norelativenumber number
 setlocal linebreak
 setlocal nolist
 wincmd J
-nnoremap <buffer> <CR> <CR>zzzv

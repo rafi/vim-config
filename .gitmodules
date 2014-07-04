@@ -58,18 +58,12 @@
 [submodule "bundle/nerdcommenter"]
 	path = bundle/nerdcommenter
 	url = git://github.com/scrooloose/nerdcommenter.git
-[submodule "bundle/ag"]
-	path = bundle/ag
-	url = git://github.com/rking/ag.vim.git
 [submodule "bundle/unite"]
 	path = bundle/unite
 	url = git://github.com/Shougo/unite.vim.git
 [submodule "bundle/vimfiler"]
 	path = bundle/vimfiler
 	url = git://github.com/Shougo/vimfiler.vim.git
-[submodule "bundle/autotag"]
-	path = bundle/autotag
-	url = git://github.com/craigemery/vim-autotag.git
 [submodule "bundle/unite-tag"]
 	path = bundle/unite-tag
 	url = git://github.com/tsukkee/unite-tag.git
@@ -100,3 +94,12 @@
 [submodule "bundle/neosnippet"]
 	path = bundle/neosnippet
 	url = git://github.com/Shougo/neosnippet.vim.git
+[submodule "bundle/file-line"]
+	path = bundle/file-line
+	url = git://github.com/bogado/file-line.git
+[submodule "bundle/coffeescript"]
+	path = bundle/coffeescript
+	url = git://github.com/kchmck/vim-coffee-script.git
+[submodule "bundle/tern"]
+	path = bundle/tern
+	url = git://github.com/marijnh/tern_for_vim.git
