@@ -335,7 +335,7 @@ nmap     f [unite]
 nnoremap <silent> [unite]r  :<C-u>UniteResume -no-start-insert<CR>
 nnoremap <silent> [unite]f  :<C-u>Unite file_rec/async -start-insert -buffer-name=files<CR>
 nnoremap <silent> [unite]i  :<C-u>Unite file_rec/git -start-insert<CR>
-nnoremap <silent> [unite]g  :<C-u>Unite grep:. -auto-resize -silent -no-quit -auto-preview -winheight=30 -buffer-name=search<CR>
+nnoremap <silent> [unite]g  :<C-u>Unite grep:. -silent -no-quit -auto-preview -winheight=20 -buffer-name=search<CR>
 nnoremap <silent> [unite]u  :<C-u>Unite source -silent -vertical -start-insert<CR>
 nnoremap <silent> [unite]t  :<C-u>Unite tag -silent -start-insert<CR>
 nnoremap <silent> [unite]e  :<C-u>Unite register -silent -buffer-name=register<CR>

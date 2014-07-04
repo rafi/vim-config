@@ -3,6 +3,10 @@
 This is my Vim configuration, crafted with love and care. It contains useful plugins and
 a few colorschemes, awesome configurations and keybindings.
 
+## Screenshot
+
+![Vim screenshot](https://github.com/rafi/vim-config/raw/master/screens/vim-features.png "Ain't that a beauty?")
+
 ## XDG conformity
 
 The `.vim` folder is usually placed in the home folder. However, I wanted it to conform
@@ -109,7 +113,7 @@ Name           | Description
 ## Custom Key bindings
 
 Key   | Mode | Action
------ | ---- | ------------------
+----- |:----:| ------------------
 `Space` | Normal | **Leader**
 `;` | Normal | **Command mode**
 `F1` | Normal/visual | **Disabled** Using [Zeal](http://zealdocs.org)
@@ -166,14 +170,14 @@ Arrows | Normal | Resize splits
 ### Plugin: NERDCommenter
 
 Key   | Mode | Action
------ | ---- | ------------------
+----- |:----:| ------------------
 `<leader>`+`ci` | Normal | Invert comments (:NERDCommenterInvert)
 `<leader>`+`cc` | Normal | Invert comments (:NERDCommenterComment)
 
 ### Plugin: Unite
 
 Key   | Mode | Action
------ | ---- | ------------------
+----- |:----:| ------------------
 `f`+`r` | Normal | Resumes Unite window
 `f`+`f` | Normal | Opens Unite file recursive search
 `f`+`i` | Normal | Opens Unite git file search
@@ -209,7 +213,7 @@ Key   | Mode | Action
 ### Plugin: Fugitive
 
 Key   | Mode | Action
------ | ---- | ------------------
+----- |:----:| ------------------
 `<leader>`+`ga` | Normal | Git add current file
 `<leader>`+`gs` | Normal | Git status
 `<leader>`+`gd` | Normal | Git diff
@@ -224,13 +228,13 @@ Key   | Mode | Action
 ### Plugin: Tagbar
 
 Key   | Mode | Action
------ | ---- | ------------------
+----- |:----:| ------------------
 `F8` | Normal | Toggle Tagbar (:TagbarToggle)
 
 ### Plugin: VimFiler
 
 Key   | Mode | Action
------ | ---- | ------------------
+----- |:----:| ------------------
 `<leader>`+`f` | Normal | Toggle file explorer
 `<leader>`+`db` | Normal | Toggle file explorer in buffer directory
 `<leader>`+`ds` | Normal | Toggle file explorer in split
@@ -245,7 +249,7 @@ Key   | Mode | Action
 ### Plugin: neocomplete
 
 Key   | Mode | Action
------ | ---- | ------------------
+----- |:----:| ------------------
 `Ctrl`+`g` | Insert | Undo completion
 `Ctrl`+`l` | Insert | Complete common string
 `Enter` | Insert | Close pop-up
@@ -258,14 +262,14 @@ Key   | Mode | Action
 ### Plugin: Syntastic
 
 Key   | Mode | Action
------ | ---- | ------------------
+----- |:----:| ------------------
 `<leader>`+`lj` | Normal | Display the next error in list
 `<leader>`+`lk` | Normal | Display the previous error in list
 
 ### gvim only
 
 Key   | Mode | Action
------ | ---- | ------------------
+----- |:----:| ------------------
 `Ctrl`+`F1` | Normal | Toggle display of menu
 `Ctrl`+`F2` | Normal | Toggle display of toolbar
 `Ctrl`+`F3` | Normal | Toggle display of scrollbar
@@ -274,9 +278,6 @@ Key   | Mode | Action
 
 - Make Ctrl+Tab work in console, add these lines to your .Xresources:
 	```
-	! Paste with Control+v
-	URxvt.keysym.M-v: perl:clipboard:paste
-
 	! Make Ctrl+Tab work nicely with Vim
 	URxvt*keysym.C-Tab:            \033[27;5;9~
 	URxvt*keysym.C-S-Tab:          \033[27;6;9~
@@ -289,4 +290,4 @@ Key   | Mode | Action
 	```
 - Cursor: Blinking underscore in Insert mode, blinking block otherwise
 
-# Enjoy!
+## Enjoy!
