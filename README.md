@@ -18,21 +18,44 @@ Notice these topmost lines in `vimrc`:
 
 ## Install
 
-1. Clone to `~/.config/vim`:
+1. Clone to `~/.config/vim` recursively (pull submodules):
+  ```sh
+  git clone --recursive git://github.com/rafi/vim-config.git ~/.config/vim
+  ```
 
-    git clone git://github.com/rafi/vim-config.git ~/.config/vim
+2. Ensure your XDG environment variables are set.
+  If not, add this to your `.bashrc` or `.[bash_]profile`:
+  ```sh
+  # XDG directories
+  export XDG_CONFIG_HOME="$HOME/.config"
+  export  XDG_CACHE_HOME="$HOME/.cache"
+  export   XDG_DATA_HOME="$HOME/.local/share"
+  ```
 
-2. Ensure `$XDG_CONFIG_HOME` is set, run: `echo $XDG_CONFIG_HOME`
-3. Make sure you have this environment variable in your `.bashrc` or `.[bash_]profile`:
-
-    export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
+3. Set the `VIMINIT` environment variable in your `.bashrc` or `.[bash_]profile`:
+  ```sh
+  export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
+  ```
 
 4. Create cache folders:
+  ```sh
+  mkdir -p $XDG_CACHE_HOME/vim/{backup,swap,undo}
+  ```
 
-    mkdir $XDG_CONFIG_HOME/vim/{backup,undo,swap}
+5. Install [tern] using `npm`:
+  ```sh
+  cd ~/.config/vim/bundle/tern
+  npm install
+  ```
 
-5. Re-login or `source ~/.bashrc`
-6. Run `vim` or `gvim`
+6. Build [vimproc]. Read [vimproc]'s manual. Usually `make` is enough:
+  ```sh
+  cd ~/.config/vim/bundle/vimproc
+  make
+  ```
+
+7. Re-login or `source ~/.bashrc`
+8. Run `vim` or `gvim`
 
 ## Included Plugins
 
