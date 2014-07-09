@@ -139,7 +139,7 @@ Key   | Mode | Action
 ----- |:----:| ------------------
 `Space` | Normal | **Leader**
 `;` | Normal | **Command mode**
-`F1` | Normal/visual | **Disabled** Using [Zeal](http://zealdocs.org)
+`F1` | Normal/visual | **Disabled**, used by [Zeal](http://zealdocs.org)
 Arrows | Normal | Resize splits
 `Backspace` | Normal | Match bracket (%)
 `<leader>`+`y` | Normal/visual | Copy selection to X11 clipboard ("+y)

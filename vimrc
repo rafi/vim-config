@@ -133,7 +133,10 @@ let g:neocomplete#enable_at_startup = 1
 
 " Set syntastic signs. Must be in vimrc
 let g:syntastic_error_symbol = '✗'
-let g:syntastic_warning_symbol = '∷'
+let g:syntastic_warning_symbol = 'i'
+
+" nepsnippet
+let g:neosnippet#snippets_directory=$XDG_CONFIG_HOME.'/vim/snippets'
 
 " See: https://github.com/mattesgroeger/vim-bookmarks#options
 let g:bookmark_auto_save_file = $XDG_CACHE_HOME.'/vim/bookmarks'
@@ -256,7 +259,7 @@ cmap W!! w !sudo tee % >/dev/null
 
 " Editor UI {{{2
 
-" Disable help key, using http://zealdocs.org
+" Disable help key, used by http://zealdocs.org
 inoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
@@ -289,8 +292,8 @@ noremap <C-S-Tab> :tabp<CR>
 
 " Splits
 " I imagine v as an arrow, split below
-nnoremap <leader>sv :sp<CR>
-nnoremap <leader>sg :vsp<CR>
+nnoremap <leader>sv :new<CR>
+nnoremap <leader>sg :vnew<CR>
 
 " Buffers
 map <S-Right> :bnext<CR>
@@ -344,7 +347,7 @@ nnoremap <silent> [unite]h  :<C-u>Unite history/yank<CR>
 nnoremap <silent> [unite]o  :<C-u>Unite outline -no-quit -keep-focus -vertical<CR>
 nnoremap <silent> [unite]ma :<C-u>Unite mapping -silent<CR>
 nnoremap <silent> [unite]me :<C-u>Unite output:message -silent<CR>
-nnoremap <silent> <Leader>b :<C-u>Unite buffer file_mru bookmark -auto-resize -silent<CR>
+nnoremap <silent> <Leader>b :<C-u>Unite buffer file_mru bookmark -auto-resize -silent -start-insert<CR>
 nnoremap <silent> <Leader>t :<C-u>Unite tab -silent -start-insert<CR>
 
 autocmd FileType unite call s:unite_settings()
