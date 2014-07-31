@@ -128,12 +128,12 @@ function! TagbarStatusFunc(current, sort, fname, ...) abort
 	return lightline#statusline(0)
 endfunction
 
-augroup AutoSyntastic
-  autocmd!
-  autocmd BufWritePost *.c,*.cpp call s:syntastic()
-augroup END
+"augroup AutoSyntastic
+  "autocmd!
+  "autocmd BufWritePost *.c,*.cpp call s:syntastic()
+"augroup END
 
-function! s:syntastic()
-	SyntasticCheck
-	call lightline#update()
-endfunction
+"function! s:syntastic()
+	"SyntasticCheck
+	"call lightline#update()
+"endfunction

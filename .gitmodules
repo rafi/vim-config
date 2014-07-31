@@ -37,9 +37,6 @@
 [submodule "bundle/ansible-yaml"]
 	path = bundle/ansible-yaml
 	url = git://github.com/chase/vim-ansible-yaml.git
-[submodule "bundle/gocode"]
-	path = bundle/gocode
-	url = git://github.com/Blackrush/vim-gocode.git
 [submodule "bundle/css3-syntax"]
 	path = bundle/css3-syntax
 	url = git://github.com/hail2u/vim-css3-syntax.git
@@ -103,3 +100,9 @@
 [submodule "bundle/tern"]
 	path = bundle/tern
 	url = git://github.com/marijnh/tern_for_vim.git
+[submodule "bundle/go"]
+	path = bundle/go
+	url = git://github.com/fatih/vim-go.git
+[submodule "snippets/shougo"]
+	path = snippets/shougo
+	url = git://github.com/Shougo/neosnippet-snippets.git

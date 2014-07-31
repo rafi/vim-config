@@ -5,12 +5,12 @@ let g:unite_kind_jump_list_after_jump_scroll=0
 let g:unite_kind_file_vertical_preview=1
 let g:unite_source_history_yank_enable=1
 let g:unite_source_rec_min_cache_files=1000
-let g:unite_source_rec_max_cache_files=5000
+let g:unite_source_rec_max_cache_files=50000
 let g:unite_source_file_mru_long_limit = 6000
 let g:unite_source_file_mru_limit = 500
 let g:unite_source_directory_mru_long_limit = 6000
 let g:unite_source_grep_command = 'ag'
-let g:unite_source_grep_default_opts = '--nocolor --nogroup --column'
+let g:unite_source_grep_default_opts = '--nocolor --nogroup --column -S'
 let g:unite_source_grep_recursive_opt = ''
 
 " For unite-outline until it doesn't use these deprecated variables:
@@ -18,7 +18,7 @@ let g:unite_data_directory=$XDG_CACHE_HOME . "/unite"
 let g:unite_abbr_highlight="Normal"
 
 call unite#custom#profile('default', 'context', {
-	\   'update_time': 5,
+	\   'update_time': 200,
 	\   'cursor_line_time': 1,
 	\   'winheight': 15,
 	\   'winwidth': 25,

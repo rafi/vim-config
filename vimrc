@@ -125,6 +125,13 @@ set showbreak=↪
 
 " Plugin Settings {{{1
 "------------------------------------------------------------------------------
+
+let g:use_emmet_complete_tag = 1
+let g:user_emmet_leader_key = '<C-z>'
+let g:user_emmet_mode='i'
+let g:user_emmet_install_global = 0
+autocmd FileType html EmmetInstall
+
 " disable netrw
 let g:loaded_netrwPlugin = 1  " Disable netrw.vim, I use VimFiler
 
@@ -135,14 +142,21 @@ let g:neocomplete#enable_at_startup = 1
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = 'i'
 
-" nepsnippet
-let g:neosnippet#snippets_directory=$XDG_CONFIG_HOME.'/vim/snippets'
+" neosnippet
+let g:neosnippet#snippets_directory = $XDG_CONFIG_HOME.'/vim/snippets/rafi/,'.$XDG_CONFIG_HOME.'/vim/snippets/shougo/neosnippets'
+let g:neosnippet#enable_snipmate_compatibility = 1
 
 " See: https://github.com/mattesgroeger/vim-bookmarks#options
 let g:bookmark_auto_save_file = $XDG_CACHE_HOME.'/vim/bookmarks'
 
 " Markdown
 let g:vim_markdown_initial_foldlevel = 5
+
+" vim-go
+let g:go_disable_autoinstall = 1
+" Do not mess with my neosnippet config!
+let g:go_loaded_gosnippets = 1
+let g:go_snippet_engine = "neosnippet"
 
 " Terminal Hacks {{{1
 "------------------------------------------------------------------------------
@@ -322,6 +336,7 @@ autocmd FileType qf call s:quickfix_settings()
 function! s:quickfix_settings()
 	nnoremap <buffer> <ESC> :bdelete<CR>
 	nnoremap <buffer> q :bdelete<CR>
+	nnoremap <buffer> <CR> :.cc<CR>
 endfunction
 
 " Plugins {{{2
@@ -399,7 +414,8 @@ endif
 nmap <F8> :TagbarToggle<CR>
 
 " VimFiler {{{3
-noremap <silent> <Leader>f :VimFilerExplorer -winwidth=25 -split -toggle -no-quit<CR>
+noremap <silent> <Leader>f :VimFilerExplorer -buffer-name=project -winwidth=25 -split -toggle -no-quit<CR>
+noremap <silent> <Leader>dl :VimFilerExplorer -buffer-name=project -toggle -find<CR>
 noremap <silent> <Leader>db :VimFilerBufferDir<CR>
 noremap <silent> <Leader>ds :VimFilerSplit<CR>
 
