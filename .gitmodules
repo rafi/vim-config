@@ -109,3 +109,6 @@
 [submodule "bundle/gundo"]
 	path = bundle/gundo
 	url = git://github.com/sjl/gundo.vim.git
+[submodule "bundle/tinyline"]
+	path = bundle/tinyline
+	url = git://github.com/rafi/vim-tinyline.git
