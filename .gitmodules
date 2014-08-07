@@ -16,9 +16,6 @@
 [submodule "bundle/surround"]
 	path = bundle/surround
 	url = git://github.com/tpope/vim-surround.git
-[submodule "bundle/lightline"]
-	path = bundle/lightline
-	url = git://github.com/itchyny/lightline.vim
 [submodule "bundle/hybrid"]
 	path = bundle/hybrid
 	url = git://github.com/w0ng/vim-hybrid.git
@@ -106,3 +103,9 @@
 [submodule "snippets/shougo"]
 	path = snippets/shougo
 	url = git://github.com/Shougo/neosnippet-snippets.git
+[submodule "bundle/colorpicker"]
+	path = bundle/colorpicker
+	url = https://github.com/farseer90718/vim-colorpicker.git
+[submodule "bundle/gundo"]
+	path = bundle/gundo
+	url = git://github.com/sjl/gundo.vim.git

@@ -456,6 +456,14 @@ inoremap <expr><C-e>  neocomplete#cancel_popup()
 nmap <Leader>lj :lnext<CR>
 nmap <Leader>lk :lprev<CR>
 
+" ColorPicker {{{3
+
+nmap <Leader>c :ColorPicker<CR>
+
+" Gundo {{{3
+
+nnoremap <F5> :GundoToggle<CR>
+
 " gvim {{{2
 " ----
 
