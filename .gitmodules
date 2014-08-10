@@ -112,3 +112,9 @@
 [submodule "bundle/tinyline"]
 	path = bundle/tinyline
 	url = git://github.com/rafi/vim-tinyline.git
+[submodule "bundle/unite-quickfix"]
+	path = bundle/unite-quickfix
+	url = git://github.com/osyo-manga/unite-quickfix.git
+[submodule "bundle/choosewin"]
+	path = bundle/choosewin
+	url = https://github.com/t9md/vim-choosewin.git
