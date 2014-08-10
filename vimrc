@@ -3,12 +3,6 @@
 "
 " github.com/rafi vim config
 
-" references and credits:
-" https://github.com/ajh17/dotfiles
-" https://github.com/indraniel/dotfiles
-" https://github.com/justinforce/dotfiles
-" https://github.com/joonty/myvim
-
 " Runtime and Plugins {{{1
 "------------------------------------------------------------------------------
 
@@ -39,7 +33,7 @@ set formatoptions+=1j          " Automatic formatting
 set mouse=nv                   " enable mouse use for normal and visual modes
 set modeline                   " automatically setting options from modelines
 set report=2                   " report when 3 or more lines are changed
-"set shortmess=atI              " shorten messages and don't show intro
+set shortmess=aoOTI            " shorten messages and don't show intro
 set cmdheight=1                " explicitly set the height of the command line
 set showcmd                    " Show (partial) command in status line.
 set nonumber                   " no line numbers
@@ -47,6 +41,7 @@ set noerrorbells               " don't whine
 set novisualbell t_vb=         " and don't make faces
 set lazyredraw                 " don't redraw while in macros
 set hidden                     " hide buffers when abandoned instead of unload
+set clipboard=
 set encoding=utf-8             " Set utf8 as standard encoding
 set ffs=unix,dos,mac           " Use Unix as the standard file type
 set sessionoptions-=options    " Don't save options and runtime in sessions
@@ -120,43 +115,59 @@ set laststatus=2
 set display+=lastline
 set tabpagemax=50
 
-set list listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:.,trail:·
+set fillchars=vert:│,fold:─
+set list listchars=tab:\┆\ ,extends:❯,precedes:❮,nbsp:.,trail:·
 set showbreak=↪
 
 " Plugin Settings {{{1
 "------------------------------------------------------------------------------
 
-let g:use_emmet_complete_tag = 1
-let g:user_emmet_leader_key = '<C-z>'
-let g:user_emmet_mode='i'
-let g:user_emmet_install_global = 0
-autocmd FileType html EmmetInstall
-
-" disable netrw
-let g:loaded_netrwPlugin = 1  " Disable netrw.vim, I use VimFiler
-
-" Enable neocomplete. Must be in vimrc
+" Disable netrw, I use VimFiler
+let g:loaded_netrwPlugin = 1
+"
+" Enable neocomplete, must be in vimrc
 let g:neocomplete#enable_at_startup = 1
+"
+" Enable history yank, must be in vimrc
+let g:unite_source_history_yank_enable = 1
+let g:unite_data_directory       = $XDG_CACHE_HOME."/vim/unite"
+let g:vimfiler_data_directory    = $XDG_CACHE_HOME.'/vim/vimfiler'
+let g:neocomplete#data_directory = $XDG_CACHE_HOME.'/vim/complete'
+let g:neosnippet#data_directory  = $XDG_CACHE_HOME.'/vim/snippet'
+let g:neomru#file_mru_path       = $XDG_CACHE_HOME.'/vim/unite/mru/file'
+let g:neomru#directory_mru_path  = $XDG_CACHE_HOME.'/vim/unite/mru/directory'
 
-" Set syntastic signs. Must be in vimrc
+" Set syntastic signs, must be in vimrc
+let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = 'i'
 
 " neosnippet
-let g:neosnippet#snippets_directory = $XDG_CONFIG_HOME.'/vim/snippets/rafi/,'.$XDG_CONFIG_HOME.'/vim/snippets/shougo/neosnippets'
 let g:neosnippet#enable_snipmate_compatibility = 1
+let g:neosnippet#disable_runtime_snippets = { '_': 1 }
+let g:neosnippet#snippets_directory = $XDG_CONFIG_HOME.'/vim/snippets/rafi,'.$XDG_CONFIG_HOME.'/vim/snippets/shougo/neosnippets,'.$XDG_CONFIG_HOME.'/vim/bundle/go/gosnippets/snippets'
 
+" vim-bookmarks
 " See: https://github.com/mattesgroeger/vim-bookmarks#options
 let g:bookmark_auto_save_file = $XDG_CACHE_HOME.'/vim/bookmarks'
 
 " Markdown
 let g:vim_markdown_initial_foldlevel = 5
 
-" vim-go
+" ChooseWin
+let g:choosewin_label = 'SDFGHJKLZXCVBNM'
+
+" vim-go, do not mess with my neosnippet config!
 let g:go_disable_autoinstall = 1
-" Do not mess with my neosnippet config!
 let g:go_loaded_gosnippets = 1
 let g:go_snippet_engine = "neosnippet"
+
+" Emmet
+let g:use_emmet_complete_tag = 1
+let g:user_emmet_leader_key = '<C-z>'
+let g:user_emmet_mode='i'
+let g:user_emmet_install_global = 0
+autocmd FileType html EmmetInstall
 
 " Terminal Hacks {{{1
 "------------------------------------------------------------------------------
@@ -221,6 +232,21 @@ nnoremap <down> :resize -1<CR>
 nmap <BS> %
 xmap <BS> %
 
+" Regex {{{2
+" ------------------
+
+" Enable 'very magic' {regular-expression}
+nnoremap / /\v
+vnoremap / /\v
+nnoremap ? ?\v
+vnoremap ? ?\v
+nnoremap s/ s/\v
+vnoremap s/ s/\v
+cnoremap s/ s/\v
+nnoremap %s/ %s/\v
+vnoremap %s/ %s/\v
+cnoremap %s/ %s/\v
+
 " Global niceties {{{2
 " ---------------
 
@@ -249,6 +275,14 @@ nnoremap <Tab> >>_
 nnoremap <S-Tab> <<_
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
+
+" Keep search pattern at the center of the screen
+nnoremap <silent> n nzz
+nnoremap <silent> N Nzz
+nnoremap <silent> * *zz
+nnoremap <silent> # #zz
+nnoremap <silent> g* g*zz
+nnoremap <silent> g# g#zz
 
 " File operations {{{2
 " ---------------
@@ -331,6 +365,12 @@ nnoremap <leader>ef mzzM`zzv
 " Yank buffer's absolute path to X11 clipboard
 nnoremap <leader>cy :let @+=expand("%:p")<CR>
 
+" Drag current line/s vertically and auto-indent
+noremap  <leader>m :m+<CR>==
+noremap  <leader>, :m-2<CR>==
+vnoremap <leader>m :m'>+<CR>gv=gv
+vnoremap <leader>, :m-2<CR>gv=gv
+
 " Quit the quickfix window with a single 'q' or Escape
 autocmd FileType qf call s:quickfix_settings()
 function! s:quickfix_settings()
@@ -350,20 +390,23 @@ map <leader>cc <plug>NERDCommenterComment
 " Unite {{{3
 nnoremap [unite]  <Nop>
 nmap     f [unite]
-nnoremap <silent> [unite]r  :<C-u>UniteResume -no-start-insert<CR>
-nnoremap <silent> [unite]f  :<C-u>Unite file_rec/async -start-insert -buffer-name=files<CR>
-nnoremap <silent> [unite]i  :<C-u>Unite file_rec/git -start-insert<CR>
-nnoremap <silent> [unite]g  :<C-u>Unite grep:. -silent -no-quit -auto-preview -winheight=20 -buffer-name=search<CR>
-nnoremap <silent> [unite]u  :<C-u>Unite source -silent -vertical -start-insert<CR>
-nnoremap <silent> [unite]t  :<C-u>Unite tag -silent -start-insert<CR>
-nnoremap <silent> [unite]e  :<C-u>Unite register -silent -buffer-name=register<CR>
-nnoremap <silent> [unite]j  :<C-u>Unite change jump -silent<CR>
+nnoremap <silent> [unite]r  :<C-u>UniteResume<CR>
+nnoremap <silent> [unite]f  :<C-u>Unite file_rec/async<CR>
+nnoremap <silent> [unite]i  :<C-u>Unite file_rec/git<CR>
+nnoremap <silent> [unite]g  :<C-u>Unite grep:. -silent -no-quit -keep-focus<CR>
+nnoremap <silent> [unite]u  :<C-u>Unite source -vertical -direction=botright -no-auto-resize -winwidth=80<CR>
+nnoremap <silent> [unite]t  :<C-u>Unite tag -silent<CR>
+nnoremap <silent> [unite]T  :<C-u>Unite tag/include -silent<CR>
+nnoremap <silent> [unite]l  :<C-u>Unite location_list -no-quit -keep-focus -no-start-insert -direction=botright -winheight=13<CR>
+nnoremap <silent> [unite]q  :<C-u>Unite quickfix -no-quit -keep-focus -no-start-insert -direction=botright -winheight=13<CR>
+nnoremap <silent> [unite]e  :<C-u>Unite register<CR>
+nnoremap <silent> [unite]j  :<C-u>Unite change jump -no-quit -keep-focus<CR>
 nnoremap <silent> [unite]h  :<C-u>Unite history/yank<CR>
-nnoremap <silent> [unite]o  :<C-u>Unite outline -no-quit -keep-focus -vertical<CR>
+nnoremap <silent> [unite]o  :<C-u>Unite outline -no-focus -no-quit -keep-focus -no-start-insert -vertical -direction=botright -no-auto-resize<CR>
 nnoremap <silent> [unite]ma :<C-u>Unite mapping -silent<CR>
 nnoremap <silent> [unite]me :<C-u>Unite output:message -silent<CR>
-nnoremap <silent> <Leader>b :<C-u>Unite buffer file_mru bookmark -auto-resize -silent -start-insert<CR>
-nnoremap <silent> <Leader>t :<C-u>Unite tab -silent -start-insert<CR>
+nnoremap <silent> <Leader>b :<C-u>Unite buffer file_mru bookmark -auto-resize<CR>
+nnoremap <silent> <Leader>t :<C-u>Unite tab<CR>
 
 autocmd FileType unite call s:unite_settings()
 function! s:unite_settings()
@@ -375,7 +418,6 @@ function! s:unite_settings()
 	imap <silent><buffer> <C-j> <Plug>(unite_select_next_line)
 	imap <silent><buffer> <C-k> <Plug>(unite_select_previous_line)
 	nmap <silent><buffer> '     <Plug>(unite_toggle_mark_current_candidate_up)
-	nmap <silent><buffer> ;     <Plug>(unite_insert_enter)
 	nmap <silent><buffer> e     <Plug>(unite_do_default_action)
 	nmap <silent><buffer><expr> <C-v> unite#do_action('split')
 	nmap <silent><buffer><expr> <C-s> unite#do_action('vsplit')
@@ -524,7 +566,6 @@ if has("gui_running")
 	" font
   if has("gui_gtk2")
     set guifont=Inconsolata\ 12
-    "set guifont=envypn\ 11
   elseif has("gui_macvim")
     set guifont=Menlo\ Regular:h14
   elseif has("gui_win32")
@@ -543,35 +584,40 @@ set background=dark
 
 colorscheme hybrid " wombat256mod, mustang, jellybeans, kraihlight, pablo
 
-highlight Search       ctermfg=9 ctermbg=236 guibg=Black guifg=Magenta
-highlight SpecialKey   ctermfg=235 ctermbg=234
-highlight yamlScalar   ctermfg=250
+highlight SpecialKey   ctermfg=235 guifg=#30302c
+highlight yamlScalar   ctermfg=250 guifg=#a8a897
+highlight Search       ctermfg=9 ctermbg=236 guibg=#30302c guifg=#f0a0c0
 
 " Unite {{{2
-"highlight uniteCandidateMarker
-"highlight uniteSource__Grep          ctermbg=234 ctermfg=4
-highlight uniteSource__GrepLine      ctermbg=234 ctermfg=245
-highlight uniteSource__GrepFile      ctermbg=234 ctermfg=4
-highlight uniteSource__GrepSeparator ctermbg=234 ctermfg=5
-highlight uniteSource__GrepLineNr    ctermbg=234 ctermfg=3
-highlight uniteSource__GrepPattern   ctermbg=234 ctermfg=1
+"highlight uniteCandidateMarker       ctermfg=220
+" Grep {{{3
+highlight link uniteSource__Grep        Directory
+highlight link uniteSource__GrepLineNr  qfLineNr
+highlight uniteSource__GrepLine         ctermfg=245 guifg=#808070
+highlight uniteSource__GrepFile         ctermfg=4   guifg=#8197bf
+highlight uniteSource__GrepSeparator    ctermfg=5   guifg=#f0a0c0
+highlight uniteSource__GrepPattern      ctermfg=1   guifg=#cf6a4c
+" Quickfix {{{3
+highlight uniteSource__QuickFix_Bold        ctermfg=245
+highlight link uniteSource__QuickFix_File   Directory
+highlight link uniteSource__QuickFix_LineNr qfLineNr
 
 " VimFiler {{{2
-highlight vimfilerNormalFile  ctermfg=245 ctermbg=234 guifg=#777777
-highlight vimfilerClosedFile  ctermfg=249 ctermbg=234 guifg=#AAAAAA
-highlight vimfilerOpenedFile  ctermfg=254 ctermbg=234 guifg=#FFFFFF
-highlight vimfilerNonMark     ctermfg=239 ctermbg=234 guifg=#555555
-highlight vimfilerLeaf        ctermfg=235 ctermbg=234 guifg=#333333
+highlight vimfilerNormalFile  ctermfg=245 guifg=#808070
+highlight vimfilerClosedFile  ctermfg=249 guifg=#a8a897
+highlight vimfilerOpenedFile  ctermfg=254 guifg=#e8e8d3
+highlight vimfilerNonMark     ctermfg=239 guifg=#4e4e43
+highlight vimfilerLeaf        ctermfg=235 guifg=#30302c
 
 " Signify {{{2
-highlight SignifySignAdd    ctermbg=234 ctermfg=2 guifg=#009900 guibg=#1C1C1C
-highlight SignifySignDelete ctermbg=234 ctermfg=1 guifg=#ff2222 guibg=#1C1C1C
-highlight SignifySignChange ctermbg=234 ctermfg=3 guifg=#bbbb00 guibg=#1C1C1C
+highlight SignifySignAdd    ctermfg=2 guifg=#009900
+highlight SignifySignDelete ctermfg=1 guifg=#cf6a4c
+highlight SignifySignChange ctermfg=3 guifg=#bbbb00
 
-" Disabled: Lightline when disabling tabline {{{2
-"highlight TabLineFill  ctermfg=8
-"highlight TabLine      ctermfg=8 ctermbg=0
-"highlight TabLineSel   ctermfg=8 ctermbg=0
+" Tabline {{{2
+highlight TabLineFill  ctermfg=236 guifg=#30302C
+highlight TabLine      ctermfg=236 ctermbg=246 guifg=#949484 guibg=#30302C
+highlight TabLineSel   ctermfg=255 ctermbg=4   guifg=#8197bf guibg=#8197bf
 
 " Disabled: wombat256mod theme mod {{{2
 "highlight Normal       ctermbg=235
