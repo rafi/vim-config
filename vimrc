@@ -13,6 +13,28 @@ let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
 " Load pathogen plugin itself
 runtime bundle/pathogen/autoload/pathogen.vim
 
+" To disable a plugin, add it's bundle name to the following list
+let g:pathogen_disabled = []
+
+" Plugins that require lua
+if ! has('lua')
+    call add(g:pathogen_disabled, 'neocomplete')
+endif
+
+" Plugins that require at least vim 7.3
+if v:version < '703' || ! has('python')
+    call add(g:pathogen_disabled, 'colorpicker')
+    call add(g:pathogen_disabled, 'gundo')
+    call add(g:pathogen_disabled, 'unite')
+    call add(g:pathogen_disabled, 'unite-neomru')
+    call add(g:pathogen_disabled, 'unite-outline')
+    call add(g:pathogen_disabled, 'unite-quickfix')
+    call add(g:pathogen_disabled, 'unite-tag')
+    call add(g:pathogen_disabled, 'vimfiler')
+    call add(g:pathogen_disabled, 'vimproc')
+    call add(g:pathogen_disabled, 'neosnippet')
+endif
+
 " Load all plugins from bundle/
 execute pathogen#infect()
 syntax on
@@ -319,7 +341,7 @@ vnoremap <F1> <ESC>
 set pastetoggle=<F2>
 
 " Show highlight names under cursor
-map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+map <F3> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 	\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 	\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
@@ -456,7 +478,7 @@ if !exists(":Gdiffoff")
 endif
 
 " Tagbar {{{3
-nmap <F8> :TagbarToggle<CR>
+nmap <F4> :TagbarToggle<CR>
 
 " VimFiler {{{3
 noremap <silent> <Leader>f :VimFilerExplorer -buffer-name=project -winwidth=25 -split -toggle -no-quit<CR>
@@ -488,6 +510,7 @@ function! s:my_cr_function()
 	" Do not insert the <CR> key
 	return pumvisible() ? neocomplete#close_popup() : "\<CR>"
 endfunction
+
 " <TAB> completion
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char
