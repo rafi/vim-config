@@ -154,6 +154,9 @@ let g:bookmark_auto_save_file = $XDG_CACHE_HOME.'/vim/bookmarks'
 " Markdown
 let g:vim_markdown_initial_foldlevel = 5
 
+" Gitv
+let g:Gitv_DoNotMapCtrlKey = 1
+
 " ChooseWin
 let g:choosewin_label = 'SDFGHJKLZXCVBNM'
 
@@ -440,7 +443,7 @@ nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gd :Gdiff<CR>
 nnoremap <silent> <leader>gc :Gcommit<CR>
 nnoremap <silent> <leader>gb :Gblame<CR>
-nnoremap <silent> <leader>gl :Glog<CR>
+nnoremap <silent> <leader>gl :Gitv --all<CR>
 nnoremap <silent> <leader>gp :Git push<CR>
 nnoremap <silent> <leader>gg :Ggrep --ignore-case
 nnoremap <silent> <leader>gB :Gbrowse<CR>

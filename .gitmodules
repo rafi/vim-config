@@ -118,3 +118,6 @@
 [submodule "bundle/choosewin"]
 	path = bundle/choosewin
 	url = https://github.com/t9md/vim-choosewin.git
+[submodule "bundle/gitv"]
+	path = bundle/gitv
+	url = git://github.com/gregsexton/gitv.git
