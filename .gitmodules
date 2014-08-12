@@ -43,9 +43,6 @@
 [submodule "bundle/json"]
 	path = bundle/json
 	url = git://github.com/elzr/vim-json.git
-[submodule "bundle/visual-star-search"]
-	path = bundle/visual-star-search
-	url = git://github.com/nelstrom/vim-visual-star-search.git
 [submodule "bundle/javascript"]
 	path = bundle/javascript
 	url = git://github.com/pangloss/vim-javascript.git

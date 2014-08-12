@@ -381,6 +381,10 @@ nnoremap <silent> <Leader>x :bdelete<CR>
 " Totally Custom {{{2
 " --------------
 
+" Make * and # work on visual mode too
+xnoremap * :<C-u>call <SID>VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
+xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
+
 " Append modeline to EOF
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 
@@ -557,6 +561,15 @@ autocmd BufReadPost *
 	\ if line("'\"") > 0 && line("'\"") <= line("$") |
 	\	exe 'normal! g`"zvzz' |
 	\ endif
+
+" Makes * and # work on visual mode too.
+" See: http://github.com/nelstrom/vim-visual-star-search
+function! s:VSetSearch(cmdtype)
+	let temp = @s
+	norm! gv"sy
+	let @/ = '\V'.substitute(escape(@s, a:cmdtype.'\'), '\n', '\\n', 'g')
+	let @s = temp
+endfunction
 
 " Append modeline after last line in buffer
 " See: http://vim.wikia.com/wiki/Modeline_magic
