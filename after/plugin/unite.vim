@@ -38,7 +38,7 @@ call unite#custom#profile('default', 'context', {
 	\   'cursor_line_time': '0.0',
 	\   'candidate_icon': '-',
 	\   'marked_icon': '+',
-	\   'prompt' : '❯❯ '
+	\   'prompt' : '▷ '
 	\ })
 
 " For unite-quickfix, highlighting the type of error
