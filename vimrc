@@ -79,8 +79,8 @@ syntax sync minlines=256       " Update syntax highlighting for more lines
 set wildmenu                   " turn on wild menu :e <Tab>
 set wildmode=list:longest      " set wildmenu to list choice
 set wildignorecase
-set wildignore+=.hg,.git,.svn,*.pyc,*.spl,*.o,*.out,*.DS_Store,*.class,*.manifest,*~,#*#,%*
-set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,**/temp/***.obj
+set wildignore+=.hg,.git,.svn,*.pyc,*.spl,*.o,*.out,*~,#*#,%*
+set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,*.manifest
 set wildignore+=**/cache/??,**/cache/mustache,**/cache/media,**/logs/????
 set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
 
@@ -422,7 +422,7 @@ nmap     f [unite]
 nnoremap <silent> [unite]r  :<C-u>UniteResume<CR>
 nnoremap <silent> [unite]f  :<C-u>Unite file_rec/async<CR>
 nnoremap <silent> [unite]i  :<C-u>Unite file_rec/git<CR>
-nnoremap <silent> [unite]g  :<C-u>Unite grep:. -silent -no-quit -keep-focus<CR>
+nnoremap <silent> [unite]/  :<C-u>Unite grep:. -silent -no-quit -keep-focus<CR>
 nnoremap <silent> [unite]u  :<C-u>Unite source -vertical -direction=botright -no-auto-resize -winwidth=80<CR>
 nnoremap <silent> [unite]t  :<C-u>Unite tag -silent<CR>
 nnoremap <silent> [unite]T  :<C-u>Unite tag/include -silent<CR>
@@ -446,7 +446,7 @@ function! s:unite_settings()
 	nmap <silent><buffer> <C-r> <Plug>(unite_redraw)
 	imap <silent><buffer> <C-j> <Plug>(unite_select_next_line)
 	imap <silent><buffer> <C-k> <Plug>(unite_select_previous_line)
-	nmap <silent><buffer> '     <Plug>(unite_toggle_mark_current_candidate_up)
+	nmap <silent><buffer> '     <Plug>(unite_toggle_mark_current_candidate)
 	nmap <silent><buffer> e     <Plug>(unite_do_default_action)
 	nmap <silent><buffer><expr> <C-v> unite#do_action('split')
 	nmap <silent><buffer><expr> <C-s> unite#do_action('vsplit')
@@ -464,6 +464,7 @@ function! s:unite_settings()
 endfunction
 
 " Fugitive {{{3
+" ga gs gd gc gb gl gp gg gB gbd
 nnoremap <silent> <leader>ga :Git add %:p<CR>
 nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gd :Gdiff<CR>
@@ -471,7 +472,8 @@ nnoremap <silent> <leader>gc :Gcommit<CR>
 nnoremap <silent> <leader>gb :Gblame<CR>
 nnoremap <silent> <leader>gl :Gitv --all<CR>
 nnoremap <silent> <leader>gp :Git push<CR>
-nnoremap <silent> <leader>gg :Ggrep --ignore-case
+" Disabled: Used by Unite
+"nnoremap <silent> <leader>gg :Ggrep --ignore-case
 nnoremap <silent> <leader>gB :Gbrowse<CR>
 nnoremap <silent> <leader>gbd :Gbrowse origin/develop^{}:%<CR>
 
@@ -502,26 +504,28 @@ endfunction
 
 " neocomplete {{{3
 
-" Plugin key-mappings
-inoremap <expr><C-g>   neocomplete#undo_completion()
-inoremap <expr><C-l>   neocomplete#complete_common_string()
+if has('lua')
+	" Plugin key-mappings
+	inoremap <expr><C-g>   neocomplete#undo_completion()
+	inoremap <expr><C-l>   neocomplete#complete_common_string()
 
-" Recommended key-mappings
-" <CR>: close popup and save indent
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-	"return neocomplete#close_popup() . "\<CR>"
-	" Do not insert the <CR> key
-	return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-endfunction
+	" Recommended key-mappings
+	" <CR>: close popup and save indent
+	inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+	function! s:my_cr_function()
+		"return neocomplete#close_popup() . "\<CR>"
+		" Do not insert the <CR> key
+		return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+	endfunction
 
-" <TAB> completion
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
-inoremap <expr><C-e>  neocomplete#cancel_popup()
+	" <TAB> completion
+	inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+	" <C-h>, <BS>: close popup and delete backword char
+	inoremap <expr><C-h>  neocomplete#smart_close_popup()."\<C-h>"
+	inoremap <expr><BS>   neocomplete#smart_close_popup()."\<C-h>"
+	inoremap <expr><C-y>  neocomplete#close_popup()
+	inoremap <expr><C-e>  neocomplete#cancel_popup()
+endif
 
 " Syntastic {{{3
 
