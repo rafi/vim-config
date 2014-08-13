@@ -424,7 +424,7 @@ nmap     f [unite]
 nnoremap <silent> [unite]r  :<C-u>UniteResume<CR>
 nnoremap <silent> [unite]f  :<C-u>Unite file_rec/async<CR>
 nnoremap <silent> [unite]i  :<C-u>Unite file_rec/git<CR>
-nnoremap <silent> [unite]/  :<C-u>Unite grep:. -silent -no-quit -keep-focus<CR>
+nnoremap <silent> [unite]g  :<C-u>Unite grep:. -silent -no-quit -keep-focus<CR>
 nnoremap <silent> [unite]u  :<C-u>Unite source -vertical -direction=botright -no-auto-resize -winwidth=80<CR>
 nnoremap <silent> [unite]t  :<C-u>Unite tag -silent<CR>
 nnoremap <silent> [unite]T  :<C-u>Unite tag/include -silent<CR>
@@ -438,6 +438,12 @@ nnoremap <silent> [unite]ma :<C-u>Unite mapping -silent<CR>
 nnoremap <silent> [unite]me :<C-u>Unite output:message -silent<CR>
 nnoremap <silent> <Leader>b :<C-u>Unite buffer file_mru bookmark -auto-resize<CR>
 nnoremap <silent> <Leader>t :<C-u>Unite tab<CR>
+" Open Unite with word under cursor or selection
+nnoremap <silent> <Leader>gf :execute 'Unite file_rec/async -input='.expand("<cfile>")<CR>
+nnoremap <silent> <Leader>gt :execute 'Unite tag -no-quit -keep-focus -input='.expand("<cfile>")<CR>
+nnoremap <silent> <Leader>gg :execute 'Unite grep:. -no-quit -keep-focus -input='.expand("<cfile>")<CR>
+vnoremap <silent> <Leader>gt :<C-u>call <SID>VSetSearch('/')<CR>:execute 'Unite tag -input='.strpart(@/,2)<CR>
+vnoremap <silent> <Leader>gg :<C-u>call <SID>VSetSearch('/')<CR>:execute 'Unite grep:. -input='.strpart(@/,2)<CR>
 
 autocmd FileType unite call s:unite_settings()
 function! s:unite_settings()
@@ -474,8 +480,6 @@ nnoremap <silent> <leader>gc :Gcommit<CR>
 nnoremap <silent> <leader>gb :Gblame<CR>
 nnoremap <silent> <leader>gl :Gitv --all<CR>
 nnoremap <silent> <leader>gp :Git push<CR>
-" Disabled: Used by Unite
-"nnoremap <silent> <leader>gg :Ggrep --ignore-case
 nnoremap <silent> <leader>gB :Gbrowse<CR>
 nnoremap <silent> <leader>gbd :Gbrowse origin/develop^{}:%<CR>
 
