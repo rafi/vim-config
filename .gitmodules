@@ -88,9 +88,6 @@
 [submodule "bundle/file-line"]
 	path = bundle/file-line
 	url = git://github.com/bogado/file-line.git
-[submodule "bundle/coffeescript"]
-	path = bundle/coffeescript
-	url = git://github.com/kchmck/vim-coffee-script.git
 [submodule "bundle/tern"]
 	path = bundle/tern
 	url = git://github.com/marijnh/tern_for_vim.git
@@ -118,3 +115,6 @@
 [submodule "bundle/gitv"]
 	path = bundle/gitv
 	url = git://github.com/gregsexton/gitv.git
+[submodule "bundle/unite-session"]
+	path = bundle/unite-session
+	url = git://github.com/Shougo/unite-session.git
