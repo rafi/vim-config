@@ -118,3 +118,6 @@
 [submodule "bundle/unite-session"]
 	path = bundle/unite-session
 	url = git://github.com/Shougo/unite-session.git
+[submodule "bundle/neossh"]
+	path = bundle/neossh
+	url = git://github.com/Shougo/neossh.vim.git

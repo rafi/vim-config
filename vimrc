@@ -45,6 +45,13 @@ if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
 	runtime! macros/matchit.vim
 endif
 
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
 " General Settings {{{1
 "------------------------------------------------------------------------------
 " Vim core {{{2
@@ -110,7 +117,7 @@ set foldtext=NeatFoldText()
 
 set whichwrap+=<,>,h,l
 set complete-=i                " Don't scan current and included files
-set completeopt-=preview       " No extra info buffer in completion menu
+"set completeopt-=preview       " No extra info buffer in completion menu
 set nostartofline              " Cursor in same column for several commands
 
 set ttimeout
@@ -146,10 +153,10 @@ set showbreak=↪
 
 " Disable netrw, I use VimFiler
 let g:loaded_netrwPlugin = 1
-"
+
 " Enable neocomplete, must be in vimrc
 let g:neocomplete#enable_at_startup = 1
-"
+
 " Enable history yank, must be in vimrc
 let g:unite_source_history_yank_enable = 1
 let g:unite_data_directory       = $XDG_CACHE_HOME."/vim/unite"
@@ -258,21 +265,6 @@ nnoremap <down> :resize -1<CR>
 " Use backspace key for matchit.vim
 nmap <BS> %
 xmap <BS> %
-
-" Regex {{{2
-" ------------------
-
-" Enable 'very magic' {regular-expression}
-nnoremap / /\v
-vnoremap / /\v
-nnoremap ? ?\v
-vnoremap ? ?\v
-nnoremap s/ s/\v
-vnoremap s/ s/\v
-cnoremap s/ s/\v
-nnoremap %s/ %s/\v
-vnoremap %s/ %s/\v
-cnoremap %s/ %s/\v
 
 " Global niceties {{{2
 " ---------------
@@ -432,18 +424,19 @@ nnoremap <silent> [unite]l  :<C-u>Unite location_list -no-quit -keep-focus -no-s
 nnoremap <silent> [unite]q  :<C-u>Unite quickfix -no-quit -keep-focus -no-start-insert -direction=botright -winheight=13<CR>
 nnoremap <silent> [unite]e  :<C-u>Unite register<CR>
 nnoremap <silent> [unite]j  :<C-u>Unite change jump -no-quit -keep-focus<CR>
-nnoremap <silent> [unite]h  :<C-u>Unite history/yank<CR>
+nnoremap <silent> [unite]h  :<C-u>Unite history/yank -no-start-insert<CR>
+nnoremap <silent> [unite]s  :<C-u>Unite session -no-start-insert<CR>
 nnoremap <silent> [unite]o  :<C-u>Unite outline -no-focus -no-quit -keep-focus -no-start-insert -vertical -direction=botright -no-auto-resize<CR>
 nnoremap <silent> [unite]ma :<C-u>Unite mapping -silent<CR>
 nnoremap <silent> [unite]me :<C-u>Unite output:message -silent<CR>
 nnoremap <silent> <Leader>b :<C-u>Unite buffer file_mru bookmark -auto-resize<CR>
 nnoremap <silent> <Leader>t :<C-u>Unite tab<CR>
 " Open Unite with word under cursor or selection
-nnoremap <silent> <Leader>gf :execute 'Unite file_rec/async -input='.expand("<cfile>")<CR>
-nnoremap <silent> <Leader>gt :execute 'Unite tag -no-quit -keep-focus -input='.expand("<cfile>")<CR>
-nnoremap <silent> <Leader>gg :execute 'Unite grep:. -no-quit -keep-focus -input='.expand("<cfile>")<CR>
-vnoremap <silent> <Leader>gt :<C-u>call <SID>VSetSearch('/')<CR>:execute 'Unite tag -input='.strpart(@/,2)<CR>
-vnoremap <silent> <Leader>gg :<C-u>call <SID>VSetSearch('/')<CR>:execute 'Unite grep:. -input='.strpart(@/,2)<CR>
+nnoremap <silent> <Leader>gf :execute 'Unite file_rec/async -silent -no-start-insert -input='.expand("<cword>")<CR>
+nnoremap <silent> <Leader>gt :execute 'Unite tag -silent -no-start-insert -no-quit -keep-focus -input='.expand("<cword>")<CR>
+nnoremap <silent> <Leader>gg :execute 'Unite grep:. -silent -no-start-insert -no-quit -keep-focus -input='.expand("<cword>")<CR>
+vnoremap <silent> <Leader>gt :<C-u>call <SID>VSetSearch('/')<CR>:execute 'Unite tag -no-start-insert -input='.strpart(@/,2)<CR>
+vnoremap <silent> <Leader>gg :<C-u>call <SID>VSetSearch('/')<CR>:execute 'Unite grep:. -no-start-insert -input='.strpart(@/,2)<CR>
 
 autocmd FileType unite call s:unite_settings()
 function! s:unite_settings()
@@ -493,8 +486,9 @@ endif
 nmap <F4> :TagbarToggle<CR>
 
 " VimFiler {{{3
-noremap <silent> <Leader>f :VimFilerExplorer -buffer-name=project -winwidth=25 -split -toggle -no-quit<CR>
-noremap <silent> <Leader>dl :VimFilerExplorer -buffer-name=project -toggle -find<CR>
+noremap <silent> <Leader>f :VimFilerExplorer -winwidth=25 -split -toggle -no-quit<CR>
+noremap <silent> <Leader>a :VimFilerExplorer -find -winwidth=25 -split -toggle -no-quit<CR>
+noremap <silent> <Leader>dl :VimFilerExplorer -toggle -find<CR>
 noremap <silent> <Leader>db :VimFilerBufferDir<CR>
 noremap <silent> <Leader>ds :VimFilerSplit<CR>
 
@@ -534,16 +528,16 @@ if has('lua')
 endif
 
 " Syntastic {{{3
-
 nmap <Leader>lj :lnext<CR>
 nmap <Leader>lk :lprev<CR>
 
 " ColorPicker {{{3
-
 nmap <Leader>c :ColorPicker<CR>
 
-" Gundo {{{3
+" Assistant {{{3
+nnoremap <unique> <Leader>i :call PopHelpList()<CR>
 
+" Gundo {{{3
 nnoremap <F5> :GundoToggle<CR>
 
 " gvim {{{2
@@ -635,10 +629,13 @@ colorscheme hybrid " wombat256mod, mustang, jellybeans, kraihlight, pablo
 
 highlight SpecialKey   ctermfg=235 guifg=#30302c
 highlight yamlScalar   ctermfg=250 guifg=#a8a897
-highlight Search       ctermfg=9 ctermbg=236 guibg=#30302c guifg=#f0a0c0
+highlight Search       ctermfg=221 ctermbg=NONE cterm=underline
+highlight link htmlH1 Statement
 
 " Unite {{{2
 "highlight uniteCandidateMarker       ctermfg=220
+highlight uniteCandidateInputKeyword  ctermfg=221 guifg=221 cterm=underline
+
 " Grep {{{3
 highlight link uniteSource__Grep        Directory
 highlight link uniteSource__GrepLineNr  qfLineNr
@@ -647,7 +644,9 @@ highlight uniteSource__GrepFile         ctermfg=4   guifg=#8197bf
 highlight uniteSource__GrepSeparator    ctermfg=5   guifg=#f0a0c0
 highlight uniteSource__GrepPattern      ctermfg=1   guifg=#cf6a4c
 " Quickfix {{{3
-highlight uniteSource__QuickFix_Bold        ctermfg=245
+highlight UniteQuickFixWarning              ctermfg=1
+highlight uniteSource__QuickFix             ctermfg=8
+highlight uniteSource__QuickFix_Bold        ctermfg=249
 highlight link uniteSource__QuickFix_File   Directory
 highlight link uniteSource__QuickFix_LineNr qfLineNr
 

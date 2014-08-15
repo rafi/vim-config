@@ -11,6 +11,8 @@ let g:unite_source_directory_mru_long_limit = 1000
 let g:unite_source_grep_command = 'ag'
 let g:unite_source_grep_default_opts = '--nocolor --nogroup --column -S'
 let g:unite_source_grep_recursive_opt = ''
+let g:unite_source_tag_max_name_length = 50
+let g:unite_source_tag_max_fname_length = 30
 let g:unite_source_rec_async_command = 'ag --nogroup --nocolor --column --hidden ' .
    \ '--ignore ".git" ' .
    \ '--ignore ".idea" ' .
@@ -30,7 +32,7 @@ call unite#custom#profile('default', 'context', {
 	\   'start_insert': 1,
 	\   'max_candidates': 300,
 	\   'update_time': 500,
-	\   'winheight': 45,
+	\   'winheight': 35,
 	\   'winwidth': 35,
 	\   'direction': 'topleft',
 	\   'prompt_direction': 'top',
