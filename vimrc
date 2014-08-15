@@ -169,7 +169,7 @@ let g:neomru#directory_mru_path  = $XDG_CACHE_HOME.'/vim/unite/mru/directory'
 " Set syntastic signs, must be in vimrc
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_error_symbol = '⚠'
-let g:syntastic_warning_symbol = '¡'
+let g:syntastic_warning_symbol = ''
 
 " neosnippet
 let g:neosnippet#enable_snipmate_compatibility = 1
@@ -180,7 +180,7 @@ let g:neosnippet#snippets_directory = $XDG_CONFIG_HOME.'/vim/snippets/rafi,'.$XD
 " See: https://github.com/mattesgroeger/vim-bookmarks#options
 let g:bookmark_auto_save_file = $XDG_CACHE_HOME.'/vim/bookmarks'
 let g:bookmark_sign = '✓'
-let g:bookmark_annotation_sign = 'Ξ'
+let g:bookmark_annotation_sign = '⌦'
 
 " Markdown
 let g:vim_markdown_initial_foldlevel = 5
