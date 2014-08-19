@@ -121,3 +121,6 @@
 [submodule "bundle/neossh"]
 	path = bundle/neossh
 	url = git://github.com/Shougo/neossh.vim.git
+[submodule "bundle/delimitmate"]
+	path = bundle/delimitmate
+	url = git://github.com/Raimondi/delimitMate.git
