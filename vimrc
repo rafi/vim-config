@@ -78,8 +78,8 @@ set magic                      " For regular expressions turn magic on
 set path=.,**                  " Directories to search when using gf
 set virtualedit=block          " Position cursor anywhere in visual block
 set splitbelow splitright
-set switchbuf=useopen
-set synmaxcol=256              " Don't syntax highlight long lines
+set switchbuf=useopen,usetab,split
+set synmaxcol=512              " Don't syntax highlight long lines
 syntax sync minlines=256       " Update syntax highlighting for more lines
 
 " Wildmenu/ignore Settings {{{2
@@ -153,6 +153,7 @@ set showbreak=↪
 
 " Disable netrw, I use VimFiler
 let g:loaded_netrwPlugin = 1
+let g:netrw_dirhistmax = 0
 
 " Enable neocomplete, must be in vimrc
 let g:neocomplete#enable_at_startup = 1
@@ -181,6 +182,14 @@ let g:neosnippet#snippets_directory = $XDG_CONFIG_HOME.'/vim/snippets/rafi,'.$XD
 let g:bookmark_auto_save_file = $XDG_CACHE_HOME.'/vim/bookmarks'
 let g:bookmark_sign = '✓'
 let g:bookmark_annotation_sign = '⌦'
+
+" delimitMate
+" automagically expand newlines in paired items
+" See: http://stackoverflow.com/questions/4477031/vim-auto-indent-with-newline
+let delimitMate_expand_cr = 1
+
+" automagically add semicolons when closing parenthesis
+autocmd FileType c,c++,perl,php let b:delimitMate_eol_marker = ";"
 
 " Markdown
 let g:vim_markdown_initial_foldlevel = 5
@@ -378,6 +387,13 @@ nnoremap <silent> <Leader>x :bdelete<CR>
 " Make * and # work on visual mode too
 xnoremap * :<C-u>call <SID>VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
 xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
+
+" Don't move on *
+nnoremap <silent> * :let stay_star_view = winsaveview()<CR>*:call winrestview(stay_star_view)<CR>
+
+" Source line and selection in vim
+vnoremap <leader>S y:execute @@<CR>:echo 'Sourced selection.'<CR>
+nnoremap <leader>S ^vg_y:execute @@<CR>:echo 'Sourced line.'<CR>
 
 " Append modeline to EOF
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
@@ -664,8 +680,11 @@ highlight SignifySignChange ctermfg=3 guifg=#bbbb00
 
 " Tabline {{{2
 highlight TabLineFill  ctermfg=236 guifg=#30302C
-highlight TabLine      ctermfg=236 ctermbg=246 guifg=#949484 guibg=#30302C
-highlight TabLineSel   ctermfg=255 ctermbg=4   guifg=#8197bf guibg=#8197bf
+highlight TabLine      ctermfg=236 ctermbg=246 guifg=#808070 guibg=#30302C
+highlight TabLineSel   ctermfg=255 ctermbg=4   guifg=#FFFFFF guibg=#8197bf
+highlight TabLineSelRe ctermfg=4 ctermbg=236   guifg=#8197bf guibg=#30302C
+highlight TabLineProject   ctermfg=230 ctermbg=2 guifg=#30302C guibg=#009900
+highlight TabLineProjectRe ctermfg=2 ctermbg=236 guifg=#009900 guibg=#808070
 
 " Disabled: wombat256mod theme mod {{{2
 "highlight Normal       ctermbg=235
