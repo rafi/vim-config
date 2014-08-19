@@ -124,3 +124,6 @@
 [submodule "bundle/delimitmate"]
 	path = bundle/delimitmate
 	url = git://github.com/Raimondi/delimitMate.git
+[submodule "bundle/php"]
+	path = bundle/php
+	url = git://github.com/StanAngeloff/php.vim.git
