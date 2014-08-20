@@ -99,7 +99,7 @@
 	url = git://github.com/Shougo/neosnippet-snippets.git
 [submodule "bundle/colorpicker"]
 	path = bundle/colorpicker
-	url = https://github.com/farseer90718/vim-colorpicker.git
+	url = git://github.com/farseer90718/vim-colorpicker.git
 [submodule "bundle/gundo"]
 	path = bundle/gundo
 	url = git://github.com/sjl/gundo.vim.git
@@ -111,7 +111,7 @@
 	url = git://github.com/osyo-manga/unite-quickfix.git
 [submodule "bundle/choosewin"]
 	path = bundle/choosewin
-	url = https://github.com/t9md/vim-choosewin.git
+	url = git://github.com/t9md/vim-choosewin.git
 [submodule "bundle/gitv"]
 	path = bundle/gitv
 	url = git://github.com/gregsexton/gitv.git

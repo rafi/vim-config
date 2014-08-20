@@ -12,6 +12,7 @@ endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
 " Enable omni completion
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
@@ -25,6 +26,7 @@ endif
 if !exists('g:neocomplete#force_omni_input_patterns')
 	let g:neocomplete#force_omni_input_patterns = {}
 endif
+
 let g:neocomplete#sources#omni#input_patterns.php =
 	\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 "let g:neocomplete#sources#omni#input_patterns.c =
