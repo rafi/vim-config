@@ -1,13 +1,22 @@
 
-" vim-tinytabs - Tiny tab line for Vim
+" vim-tinytabs - Tiny tab-line for Vim
 " Maintainer: Rafael Bodill <justrafi@gmail.com>
 " Version:    0.5
 "-------------------------------------------------
 
+if exists('g:loaded_tinytabs') && g:loaded_tinytabs
+  finish
+endif
+
+let s:save_cpo = &cpo
+set cpo&vim
+
 " Runtime {{{1
 set tabline=%!TlDrawTabs()
 
-" Main tabline function. Draws the whole tabline
+" Functions {{{1
+
+" Main tabline function. Draws the whole damn tabline
 function! TlDrawTabs() " {{{1
 	let s = '%#TabLineProject# %{TlFindProjectName()} %#TabLineProjectRe#⮀%#TabLine#  '
 	let nr = tabpagenr()
@@ -84,5 +93,11 @@ function! TlTabLabel(n) " {{{1
 	endif
 	return label
 endfunction
+
+" Loading {{{1
+let g:loaded_tinytabs = 1
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
 
 " }}}
