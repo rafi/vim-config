@@ -33,8 +33,9 @@ call unite#custom#profile('default', 'context', {
 	\   'max_candidates': 300,
 	\   'update_time': 500,
 	\   'winheight': 35,
-	\   'winwidth': 35,
+	\   'winwidth': 80,
 	\   'direction': 'topleft',
+	\   'no_auto_resize': 1,
 	\   'prompt_direction': 'top',
 	\   'cursor_line_highlight': 'CursorLine',
 	\   'cursor_line_time': '0.0',
@@ -43,9 +44,51 @@ call unite#custom#profile('default', 'context', {
 	\   'prompt' : '▷ '
 	\ })
 
-" For unite-quickfix, highlighting the type of error
-call unite#custom_source('quickfix', 'converters', 'converter_quickfix_highlight')
-call unite#custom_source('location_list', 'converters', 'converter_quickfix_highlight')
+" Conveniently set settings globally per-source
+call unite#custom#profile(
+	\  'source/history/yank,source/session,source/register',
+	\  'context', { 'start_insert': 0 },
+	\ )
+
+call unite#custom#profile('source/source', 'context', {
+	\   'vertical': 1,
+	\   'direction': 'botright',
+	\ })
+
+call unite#custom#profile('source/tag,source/tag/include,source/mapping,source/output', 'context', {
+	\   'max_candidates': 50,
+	\   'silent': 1,
+	\ })
+
+call unite#custom#profile('source/quickfix,source/location_list', 'context', {
+	\   'winheight': 13,
+	\   'direction': 'botright',
+	\   'start_insert': 0,
+	\   'keep_focus': 1,
+	\   'no_quit': 1,
+	\ })
+
+call unite#custom#profile('source/outline', 'context', {
+	\   'vertical': 1,
+	\   'direction': 'botright',
+	\   'no_focus': 1,
+	\   'start_insert': 0,
+	\   'keep_focus': 1,
+	\   'no_quit': 1,
+	\ })
+
+" General purpose profile for navigating and also for grep
+call unite#custom#profile('navigate,source/grep', 'context', {
+	\   'silent': 1,
+	\   'start_insert': 0,
+	\   'keep_focus': 1,
+	\   'no_quit': 1,
+	\ })
+
+" Source output converters
+call unite#custom#source('buffer', 'converters', [ 'converter_file_directory' ])
+"call unite#custom_source('quickfix', 'converters', 'converter_quickfix_highlight')
+"call unite#custom_source('location_list', 'converters', 'converter_quickfix_highlight')
 
 " Enable for fuzzy matching:
 "call unite#filters#matcher_default#use(['matcher_fuzzy'])
