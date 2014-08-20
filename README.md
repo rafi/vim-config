@@ -63,24 +63,29 @@ Name           | Description
 -------------- | ----------------------
 [ansible-yaml] | Additional support for Ansible
 [bookmarks] | Bookmarks, works independently from vim marks
-[coffeescript] | CoffeeScript support
+[choosewin] | Choose window to use, like tmux's 'display-pane'
+[colorpicker] | Improved color-picker
 [css3-syntax] | CSS3 syntax support to vim's built-in `syntax/css.vim`
 [csv] | Handling column separated data
+[delimitmate] | Insert mode auto-completion for quotes, parens, brackets
 [emmet] | Abbreviations expanding similar to emmet
 [file-line] | Allow opening a file in a given line
 [fugitive] | Git wrapper
-[gocode] | Go bundle
+[gitv] | gitk-like interface
+[go] | Go development
+[gundo] | Visualize the Vim undo tree
 [hybrid] | Dark colour scheme
 [javascript] | Vastly improved Javascript indentation and syntax support
 [json] | Better JSON support
 [less] | Syntax for LESS
-[lightline] | Light and configurable statusline/tabline
 [markdown] | Markdown syntax highlighting
 [mustache] | Mustache and handlebars mode
 [neocomplete] | Next generation completion framework
 [neosnippet] | Contains neocomplete snippets source
+[neossh] | SSH interface for plugins
 [nerdcommenter] | Intense commenting
 [pathogen] | Manage your runtimepath
+[php] | Up-to-date PHP syntax file
 [phpcomplete] | Improved PHP omnicompletion
 [signify] | Show a VCS diff using the sign column
 [surround] | Quoting/parenthesizing made simple
@@ -88,35 +93,42 @@ Name           | Description
 [tabular] | Text filtering and alignment
 [tagbar] | Displays tags in a window, ordered by scope
 [tern] | Provides Tern-based JavaScript editing support
+[tinyline] | Tiny great looking statusline
 [tmux-navigator] | Seamless navigation between tmux panes and vim splits
 [unite] | Unite and create user interfaces
 [unite-neomru] | MRU source for Unite
 [unite-outline] | File "outline" source for unite
+[unite-quickfix] | Quickfix source for Unite
+[unite-session] | Session source for Unite
 [unite-tag] | Tags source for Unite
 [vimfiler] | Powerful file explorer
 [vimproc] | Interactive command execution
-[visual-star-search] | Start a * or # search from a visual block
 
 [ansible-yaml]: https://github.com/chase/vim-ansible-yaml
 [bookmarks]: https://github.com/MattesGroeger/vim-bookmarks
-[coffeescript]: https://github.com/kchmck/vim-coffee-script
+[choosewin]: https://github.com/t9md/vim-choosewin
+[colorpicker]: https://github.com/farseer90718/vim-colorpicker
 [css3-syntax]: https://github.com/hail2u/vim-css3-syntax
 [csv]: https://github.com/chrisbra/csv.vim
+[delimitmate]: https://github.com/Raimondi/delimitMate
 [emmet]: https://github.com/mattn/emmet-vim
 [file-line]: https://github.com/bogado/file-line
 [fugitive]: https://github.com/tpope/vim-fugitive
-[gocode]: https://github.com/Blackrush/vim-gocode
+[gitv]: https://github.com/gregsexton/gitv
+[go]: https://github.com/fatih/vim-go
+[gundo]: https://github.com/sjl/gundo.vim
 [hybrid]: https://github.com/w0ng/vim-hybrid
 [javascript]: https://github.com/pangloss/vim-javascript
 [json]: https://github.com/elzr/vim-json
 [less]: https://github.com/groenewege/vim-less
-[lightline]: https://github.com/itchyny/lightline.vim
 [markdown]: https://github.com/plasticboy/vim-markdown
 [mustache]: https://github.com/mustache/vim-mustache-handlebars
 [neocomplete]: https://github.com/Shougo/neocomplete.vim
 [neosnippet]: https://github.com/Shougo/neosnippet.vim
+[neossh]: https://github.com/Shougo/neossh.vim
 [nerdcommenter]: https://github.com/scrooloose/nerdcommenter
 [pathogen]: https://github.com/tpope/vim-pathogen
+[php]: https://github.com/StanAngeloff/php.vim
 [phpcomplete]: https://github.com/shawncplus/phpcomplete.vim
 [signify]: https://github.com/mhinz/vim-signify
 [surround]: https://github.com/tpope/vim-surround
@@ -124,14 +136,16 @@ Name           | Description
 [tabular]: https://github.com/godlygeek/tabular
 [tagbar]: https://github.com/majutsushi/tagbar
 [tern]: https://github.com/marijnh/tern_for_vim
+[tinyline]: https://github.com/rafi/vim-tinyline
 [tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator
 [unite]: https://github.com/Shougo/unite.vim
 [unite-neomru]: https://github.com/Shougo/neomru.vim
 [unite-outline]: https://github.com/h1mesuke/unite-outline
+[unite-quickfix]: https://github.com/osyo-manga/unite-quickfix
+[unite-session]: https://github.com/Shougo/unite-session
 [unite-tag]: https://github.com/tsukkee/unite-tag
 [vimfiler]: https://github.com/Shougo/vimfiler.vim
 [vimproc]: https://github.com/Shougo/vimproc.vim
-[visual-star-search]: https://github.com/nelstrom/vim-visual-star-search
 
 ## Custom Key bindings
 
