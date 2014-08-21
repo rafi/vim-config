@@ -57,10 +57,6 @@ elseif executable('ack')
 	let g:unite_source_grep_recursive_opt = ''
 endif
 
-" Source: Outline {{{2
-" For unite-outline until it doesn't use these deprecated variables:
-let g:unite_abbr_highlight = "Normal"
-
 " Contexts {{{1
 
 " Global default context
