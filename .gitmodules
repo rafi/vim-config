@@ -58,9 +58,6 @@
 [submodule "bundle/unite-tag"]
 	path = bundle/unite-tag
 	url = git://github.com/tsukkee/unite-tag.git
-[submodule "bundle/unite-outline"]
-	path = bundle/unite-outline
-	url = git://github.com/h1mesuke/unite-outline.git
 [submodule "bundle/vimproc"]
 	path = bundle/vimproc
 	url = git://github.com/Shougo/vimproc.vim.git
@@ -127,3 +124,9 @@
 [submodule "bundle/php"]
 	path = bundle/php
 	url = git://github.com/StanAngeloff/php.vim.git
+[submodule "bundle/vinarise"]
+	path = bundle/vinarise
+	url = git://github.com/Shougo/vinarise.vim.git
+[submodule "bundle/unite-outline"]
+	path = bundle/unite-outline
+	url = git://github.com/Shougo/unite-outline.git
