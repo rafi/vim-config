@@ -6,13 +6,9 @@
 let g:unite_kind_jump_list_after_jump_scroll = 50
 let g:unite_kind_file_vertical_preview = 1
 
+" The silver searcher adheres to .gitignore
 let s:ag_opts = '-i --nocolor --nogroup --hidden '.
 		\ '--ignore ".git" '.
-		\ '--ignore ".idea" '.
-		\ '--ignore "vendor/" '.
-		\ '--ignore "cache/" '.
-		\ '--ignore "logs/" '.
-		\ '--ignore "templates/page/*/*.mustache" '.
 		\ '--ignore "*.ttf" '.
 		\ '--ignore "*.png" '.
 		\ '--ignore "*.jpg" '.
@@ -63,8 +59,6 @@ endif
 call unite#custom#profile('default', 'context', {
 	\   'start_insert': 1,
 	\   'max_candidates': 300,
-	\   'multi_line': 1,
-	\   'max_multi_lines': 3,
 	\   'update_time': 500,
 	\   'winheight': 35,
 	\   'winwidth': 80,
