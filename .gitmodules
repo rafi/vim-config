@@ -130,3 +130,6 @@
 [submodule "bundle/unite-outline"]
 	path = bundle/unite-outline
 	url = git://github.com/Shougo/unite-outline.git
+[submodule "bundle/tagabana"]
+	path = bundle/tagabana
+	url = git://github.com/rafi/vim-tagabana.git

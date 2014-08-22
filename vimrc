@@ -75,6 +75,9 @@ set switchbuf=useopen,usetab,split
 set synmaxcol=512              " Don't syntax highlight long lines
 syntax sync minlines=256       " Update syntax highlighting for more lines
 
+" Overriding tags file with bundle/tagabana
+set tags=./tags,tags
+
 " Wildmenu/ignore Settings {{{2
 set wildmenu                   " turn on wild menu :e <Tab>
 set wildmode=list:longest      " set wildmenu to list choice
