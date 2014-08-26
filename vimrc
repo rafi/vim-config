@@ -113,7 +113,7 @@ set foldtext=NeatFoldText()
 
 set whichwrap+=<,>,h,l
 set complete-=i                " Don't scan current and included files
-"set completeopt-=preview       " No extra info buffer in completion menu
+set completeopt-=preview       " No extra info buffer in completion menu
 set nostartofline              " Cursor in same column for several commands
 
 set ttimeout
@@ -139,6 +139,7 @@ set nocursorline
 set laststatus=2
 set display+=lastline
 set tabpagemax=50
+set pumheight=20        " Pop-up menu's line height
 
 set fillchars=vert:│,fold:─
 set list listchars=tab:\⋮\ ,extends:⟫,precedes:⟪,nbsp:.,trail:·
@@ -153,6 +154,14 @@ let g:netrw_dirhistmax = 0
 
 " Enable neocomplete, must be in vimrc
 let g:neocomplete#enable_at_startup = 1
+
+" Enable omni completion
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " Enable history yank, must be in vimrc
 let g:unite_source_history_yank_enable = 1
@@ -183,9 +192,6 @@ let g:bookmark_annotation_sign = '⌦'
 " automagically expand newlines in paired items
 " See: http://stackoverflow.com/questions/4477031/vim-auto-indent-with-newline
 let delimitMate_expand_cr = 1
-
-" automagically add semicolons when closing parenthesis
-autocmd FileType c,c++,perl,php let b:delimitMate_eol_marker = ";"
 
 " Markdown
 let g:vim_markdown_initial_foldlevel = 5
@@ -516,29 +522,52 @@ function! s:vimfiler_settings()
 	nmap <buffer> <C-w> <Plug>(vimfiler_switch_to_history_directory)
 endfunction
 
-" neocomplete {{{3
+" neocomplete and neosnippet {{{3
 
 if has('lua')
-	" Plugin key-mappings
-	inoremap <expr><C-g>   neocomplete#undo_completion()
-	inoremap <expr><C-l>   neocomplete#complete_common_string()
+	" Movement within 'ins-completion-menu'
+	inoremap <expr><C-j>   pumvisible() ? "\<Down>" : "\<C-j>"
+	inoremap <expr><C-k>   pumvisible() ? "\<Up>" : "\<C-k>"
+	inoremap <expr><C-f>   pumvisible() ? "\<PageDown>" : "\<C-b>"
+	inoremap <expr><C-b>   pumvisible() ? "\<PageUp>" : "\<C-f>"
+  inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-	" Recommended key-mappings
-	" <CR>: close popup and save indent
-	inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-	function! s:my_cr_function()
-		"return neocomplete#close_popup() . "\<CR>"
-		" Do not insert the <CR> key
-		return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+	" <C-h>, <BS>: Close popup and delete backword char
+	inoremap <expr><C-h> pumvisible() ? neocomplete#smart_close_popup()."\<C-h>" : "\<C-h>"
+	inoremap <expr><BS>  pumvisible() ? neocomplete#smart_close_popup()."\<C-h>" : "\<BS>"
+	" <C-y>, <C-e>: Close popup, close popup and cancel selection
+	inoremap <expr><C-y> pumvisible() ? neocomplete#close_popup() : "\<C-y>"
+	inoremap <expr><C-e> pumvisible() ? neocomplete#cancel_popup() : "\<C-e>"
+	" <C-g>, <C-l>: Undo completion, complete common characters
+	inoremap <expr><silent><C-g>   pumvisible() ? neocomplete#undo_completion() : "\<C-g>"
+	inoremap <expr><C-l>   pumvisible() ? neocomplete#complete_common_string() : "\<C-l>"
+
+	" <CR>: close popup with selection or expand snippet
+	imap <expr><silent><CR> pumvisible() ?
+					\ (neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : neocomplete#close_popup())
+					\ : "\<CR>"
+
+	" <Tab> completion
+	" If item is a snippet, expand it.
+	" Otherwise,
+	" - If popup menu is visible, select and insert next item
+	" - Otherwise, if preceding chars are whitespace, insert tab char
+	" - Otherwise, start manual complete
+	imap <expr><Tab> neosnippet#expandable_or_jumpable() ?
+					\ "\<Plug>(neosnippet_expand_or_jump)"
+					\ : (pumvisible() ? "\<C-n>" :
+					\ (<SID>before_complete_check_backspace() ? "\<TAB>" :
+					\ neocomplete#start_manual_complete()))
+
+	function! s:before_complete_check_backspace() "{{{
+		let col = col('.') - 1
+		return !col || getline('.')[col - 1]  =~ '\s'
 	endfunction
 
-	" <TAB> completion
-	inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-	" <C-h>, <BS>: close popup and delete backword char
-	inoremap <expr><C-h>  neocomplete#smart_close_popup()."\<C-h>"
-	inoremap <expr><BS>   neocomplete#smart_close_popup()."\<C-h>"
-	inoremap <expr><C-y>  neocomplete#close_popup()
-	inoremap <expr><C-e>  neocomplete#cancel_popup()
+	" For snippet_complete marker
+	if has('conceal')
+		set conceallevel=2 concealcursor=i
+	endif
 endif
 
 " Syntastic {{{3
@@ -645,6 +674,12 @@ highlight SpecialKey   ctermfg=235 guifg=#30302c
 highlight yamlScalar   ctermfg=250 guifg=#a8a897
 highlight Search       ctermfg=221 ctermbg=NONE cterm=underline
 highlight link htmlH1 Statement
+
+" Popup Menu
+highlight Pmenu       ctermfg=245 ctermbg=234
+highlight PmenuSel    ctermfg=235 ctermbg=250
+highlight PmenuSbar   ctermbg=235
+highlight PmenuThumb  ctermbg=240
 
 " Unite {{{2
 "highlight uniteCandidateMarker       ctermfg=220

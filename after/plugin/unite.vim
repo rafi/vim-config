@@ -117,7 +117,7 @@ call unite#custom#profile('navigate,source/grep', 'context', {
 " Converters {{{1
 
 " Source output converters
-call unite#custom#source('buffer', 'converters', [ 'converter_file_directory' ])
+"call unite#custom#source('buffer', 'converters', [ 'converter_file_directory' ])
 "call unite#custom_source('quickfix', 'converters', 'converter_quickfix_highlight')
 "call unite#custom_source('location_list', 'converters', 'converter_quickfix_highlight')
 
