@@ -1,1 +1,1 @@
-autocmd BufNewFile,BufRead .tmux.conf*,tmux.conf*,Tmuxfile,tmux/config setf tmux
+autocmd BufNewFile,BufRead *tmux.conf*,Tmuxfile,tmux/config setf tmux

@@ -3,9 +3,9 @@
 " -----------
 let g:neocomplete#enable_smart_case                 = 1
 let g:neocomplete#enable_fuzzy_completion           = 0
-let g:neocomplete#enable_refresh_always             = 1
+let g:neocomplete#enable_refresh_always             = 0
 let g:neocomplete#enable_prefetch                   = 1
-let g:neocomplete#auto_completion_start_length      = 2
+let g:neocomplete#auto_completion_start_length      = 4
 let g:neocomplete#sources#syntax#min_keyword_length = 4
 let g:neocomplete#lock_buffer_name_pattern          = '\*ku\*'
 
