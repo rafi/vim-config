@@ -2,6 +2,7 @@
 " `._.'   `._.'   `._.'   `._.'   `._.'   `._.'   `._.'   `._.'   `._.'   `._.'
 "
 " github.com/rafi vim config
+" vim: set ts=2 sw=2 tw=80 noet :
 
 " Runtime and Plugins {{{1
 "------------------------------------------------------------------------------
@@ -41,59 +42,61 @@ syntax on
 filetype plugin indent on
 
 " Load matchit.vim, but only if the user hasn't installed a newer version.
-if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+if ! exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
 	runtime! macros/matchit.vim
 endif
 
 " General Settings {{{1
 "------------------------------------------------------------------------------
 " Vim core {{{2
-set nocompatible               " break away from old vi compatibility
-set autoread                   " Files are read as soon as they are changed
-set formatoptions+=1j          " Automatic formatting
-set mouse=nv                   " enable mouse use for normal and visual modes
-set modeline                   " automatically setting options from modelines
-set report=2                   " report when 3 or more lines are changed
-set shortmess=aoOTI            " shorten messages and don't show intro
-set cmdheight=1                " explicitly set the height of the command line
-set showcmd                    " Show (partial) command in status line.
-set nonumber                   " no line numbers
-set noerrorbells               " don't whine
-set novisualbell t_vb=         " and don't make faces
-set lazyredraw                 " don't redraw while in macros
-set hidden                     " hide buffers when abandoned instead of unload
-set clipboard=
-set encoding=utf-8             " Set utf8 as standard encoding
-set ffs=unix,dos,mac           " Use Unix as the standard file type
-set magic                      " For regular expressions turn magic on
-set path=.,**                  " Directories to search when using gf
-set sessionoptions-=options    " Don't save options and runtime in sessions
-set virtualedit=block          " Position cursor anywhere in visual block
-set synmaxcol=512              " Don't syntax highlight long lines
-syntax sync minlines=256       " Update syntax highlighting for more lines
+" --------
+set nocompatible             " break away from old vi compatibility
+set autoread                 " Files are read as soon as they are changed
+set formatoptions+=1j        " Automatic formatting
+set mouse=nv                 " enable mouse use for normal and visual modes
+set modeline                 " automatically setting options from modelines
+set report=2                 " report when 3 or more lines are changed
+set noerrorbells             " don't whine
+set novisualbell t_vb=       " and don't make faces
+set lazyredraw               " don't redraw while in macros
+set hidden                   " hide buffers when abandoned instead of unload
+set encoding=utf-8           " Set utf8 as standard encoding (+multi_byte)
+set ffs=unix,dos,mac         " Use Unix as the standard file type
+set magic                    " For regular expressions turn magic on
+set path=.,**                " Directories to search when using gf
+set sessionoptions-=options  " Don't save options and runtime in sessions (+mksession)
+set virtualedit=block        " Position cursor anywhere in visual block (+virtualedit)
+set history=700              " Search and commands remembered
+set synmaxcol=512            " Don't syntax highlight long lines
+syntax sync minlines=256     " Update syntax highlighting for more lines
 
-" Overriding tags file with bundle/tagabana
-set tags=./tags,tags
+if has('clipboard') || has("gui_running")
+	set clipboard=             " Do not do anything with system's clipboard
+endif
 
-" Wildmenu/ignore Settings {{{2
-set wildmenu                   " turn on wild menu :e <Tab>
-set wildmode=list:longest      " set wildmenu to list choice
-set wildignorecase
-set wildignore+=.hg,.git,.svn,*.pyc,*.spl,*.o,*.out,*~,#*#,%*
-set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,*.manifest
-set wildignore+=**/cache/??,**/cache/mustache,**/cache/media,**/logs/????
-set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
+" Wildmenu/ignore {{{2
+" ---------------
+if has('wild_menu')
+	set wildmenu                 " turn on wild menu :e <Tab>
+	set wildmode=list:longest    " set wildmenu to list choice
+	set wildignorecase
+	set wildignore+=.hg,.git,.svn,*.pyc,*.spl,*.o,*.out,*~,#*#,%*
+	set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,*.manifest
+	set wildignore+=**/cache/??,**/cache/mustache,**/cache/media,**/logs/????
+	set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
+endif
 
 " Vim Directories {{{2
-set history=700
+" ---------------
 set nobackup undofile noswapfile
 set backupdir=$XDG_CACHE_HOME/vim/backup/
 set directory=$XDG_CACHE_HOME/vim/swap//
-set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
-set undodir=$XDG_CACHE_HOME/vim/undo//
+set viminfo+=n$XDG_CACHE_HOME/vim/viminfo     " +viminfo
+set undodir=$XDG_CACHE_HOME/vim/undo//        " +persistent_undo
 set spellfile=$XDG_CONFIG_HOME/vim/spell/en.utf-8.add
 
 " Plugin Directories {{{2
+" ------------------
 let g:bookmark_auto_save_file    = $XDG_CACHE_HOME.'/vim/bookmarks'
 let g:unite_data_directory       = $XDG_CACHE_HOME."/vim/unite"
 let g:vimfiler_data_directory    = $XDG_CACHE_HOME.'/vim/vimfiler'
@@ -107,6 +110,7 @@ let g:neosnippet#snippets_directory =
 			\.$XDG_CONFIG_HOME.'/vim/bundle/go/gosnippets/snippets'
 
 " Tabs and Indents {{{2
+" ----------------
 set textwidth=80    " Text width maximum chars before wrapping
 set noexpandtab     " Don't expand tabs to spaces.
 set tabstop=2       " The number of spaces a tab is
@@ -115,54 +119,75 @@ set smarttab        " Tab insert blanks according to 'shiftwidth'
 set autoindent      " Use same indenting on new lines
 set shiftround      " Round indent to multiple of 'shiftwidth'
 set shiftwidth=2    " Number of spaces to use in auto(indent)
-set smartindent     " Smart autoindenting on new lines
+if has('smartindent')
+	set smartindent   " Smart autoindenting on new lines
+endif
 
 " Folds {{{2
-set foldenable
-set foldmethod=syntax
-set foldlevelstart=99
-set foldtext=FoldText()
+" -----
+if has('folding')
+	set foldenable
+	set foldmethod=syntax
+	set foldlevelstart=99
+	set foldtext=FoldText()
+endif
 
 " Timeouts {{{2
+" --------
 set ttimeout
 set ttimeoutlen=20  " Make esc work faster
 set timeoutlen=1200 " A little bit more time for macros
 
 " Searching {{{2
-set incsearch       " incremental search
-set ignorecase      " search ignoring case
-set smartcase       " keep case when searching with *
-set hlsearch        " highlight the search
+" ---------
+set ignorecase      " Search ignoring case
+set smartcase       " Keep case when searching with *
 set noshowmatch     " Don't jump to matching bracket
+set incsearch       " Incremental search (+extra_search)
+set hlsearch        " Highlight the search (+extra_search)
 
 " Behavior {{{2
+" --------
+set nostartofline              " Cursor in same column for several commands
+set whichwrap=b,s              " Move to following line on certain keys
+set splitbelow splitright      " New split position: Bottom right (+windows +vertsplit)
+set switchbuf=usetab,split     " Switch buffer behavior
 set backspace=indent,eol,start " Intuitive backspacing in insert mode
-"set whichwrap+=<,>,h,l        " Move to next/prev lines when moving on edge
-"set nostartofline             " Cursor in same column for several commands
+set diffopt=filler,iwhite      " Diff mode: show fillers, ignore whitespace (+diff)
+set tags=./tags,tags           " Tags are overridden by bundle/tagabana
 set complete-=i                " Don't scan current and included files
-set completeopt-=preview       " No extra info buffer in completion menu
-set diffopt=filler,iwhite      " diff mode: show fillers, ignore whitespaces
-set splitbelow splitright      " New split position: Bottom right
-" Switch buffer behavior
-set switchbuf=useopen,usetab,split
+set completeopt-=preview       " No extra info buffer in completion menu (+insert_expand)
+set formatprg=par\ -w78        " Use http://www.nicemice.net/par/
 
 " Editor UI Appearance {{{2
-set showtabline=2       " Always show the tabs line
+" --------------------
+set shortmess=aoOTI     " Shorten messages and don't show intro
 set scrolloff=2         " Keep at least 2 lines above/below
 set sidescrolloff=2     " Keep at least 2 lines left/right
+set pumheight=20        " Pop-up menu's line height (+insert_expand)
 set nocursorline        " Do not highlight line at cursor
+set nonumber            " No line numbers
 
-set laststatus=2        " Always show a status line on windows
+set showtabline=2       " Always show the tabs line (+windows)
+set tabpagemax=30       " Maximum number of tab pages (+windows)
+
+set showcmd             " Show (partial) command in status line (+cmdline_info)
+set cmdheight=1         " Explicitly set the height of the command line
 set display+=lastline   " Try showing more of last line
-set tabpagemax=30       " Maximum number of tab pages
-set pumheight=20        " Pop-up menu's line height
+set laststatus=2        " Always show a status line on windows
 
 " Changing characters to fill special ui elements
-set fillchars=vert:│,fold:─
+set showbreak=↪               " (+linebreak)
+set fillchars=vert:│,fold:─   " (+windows +folding)
 set list listchars=tab:\⋮\ ,extends:⟫,precedes:⟪,nbsp:.,trail:·
-set showbreak=↪
+
+" For snippet_complete marker
+if has('conceal')
+	set conceallevel=2 concealcursor=i
+endif
 
 " gui-Vim Appearance {{{2
+" ------------------
 if has("gui_running")
 	set guioptions=mg          " Show _only_ menu bar and grey menu items
 	set lines=58 columns=190   " Maximize gvim window
@@ -179,7 +204,6 @@ endif
 
 " Plugin Settings {{{1
 "------------------------------------------------------------------------------
-
 
 let g:loaded_netrwPlugin = 1               " Disable netrw, using VimFiler
 let g:neocomplete#enable_at_startup = 1    " Enable neocomplete
@@ -242,7 +266,8 @@ if &term =~ '^screen'
 	execute "set <xLeft>=\e[1;*D"
 endif
 
-" Changing cursor shape per mode {{{2
+" Cursor Shape {{{2
+" ------------
 " For rxvt-unicode:
 " 1 or 0 -> blinking block
 " 2 -> solid block
@@ -252,11 +277,11 @@ endif
 " 5 -> blinking vertical bar
 " 6 -> solid vertical bar
 if exists('$TMUX')
-  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>[3 q\<Esc>\\"
-  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>[0 q\<Esc>\\"
+	let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>[3 q\<Esc>\\"
+	let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>[0 q\<Esc>\\"
 else
-  let &t_SI = "\<Esc>[3 q"
-  let &t_EI = "\<Esc>[0 q"
+	let &t_SI = "\<Esc>[3 q"
+	let &t_EI = "\<Esc>[0 q"
 endif
 
 " Key Bindings {{{1
@@ -337,6 +362,7 @@ vnoremap <Leader>w <Esc>:w<CR>
 cmap W!! w !sudo tee % >/dev/null
 
 " Editor UI {{{2
+" ---------
 
 " Disable help key, used by http://zealdocs.org
 inoremap <F1> <ESC>
@@ -384,6 +410,11 @@ nnoremap <silent> <Leader>q :close<CR>
 " Remove current buffer
 nnoremap <silent> <Leader>x :bdelete<CR>
 
+" gvim - toggle display of a GUI widgets (menu/toolbar/scrollbar)
+nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
+nnoremap <C-F2> :if &go=~#'T'<Bar>set go-=T<Bar>else<Bar>set go+=T<Bar>endif<CR>
+nnoremap <C-F3> :if &go=~#'r'<Bar>set go-=r<Bar>else<Bar>set go+=r<Bar>endif<CR>
+
 " Totally Custom {{{2
 " --------------
 
@@ -393,6 +424,10 @@ xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
 
 " Don't move on *
 "nnoremap <silent> * :let stay_star_view = winsaveview()<CR>*:call winrestview(stay_star_view)<CR>
+
+" Location list
+nmap <Leader>lj :lnext<CR>
+nmap <Leader>lk :lprev<CR>
 
 " Source line and selection in vim
 vnoremap <leader>S y:execute @@<CR>:echo 'Sourced selection.'<CR>
@@ -431,68 +466,25 @@ endfunction
 " Plugins {{{2
 " -------
 
+" Tagbar {{{3
+nmap <F4> :TagbarToggle<CR>
+
+" ColorPicker {{{3
+nmap <Leader>c :ColorPicker<CR>
+
+" Assistant {{{3
+nnoremap <unique> <Leader>i :call PopHelpList()<CR>
+
+" Gundo {{{3
+nnoremap <F5> :GundoToggle<CR>
+
 " NERDCommenter {{{3
 let NERDCreateDefaultMappings = 0
 map <leader>ci <plug>NERDCommenterInvert
 map <leader>cc <plug>NERDCommenterComment
 
-" Unite {{{3
-nnoremap [unite]  <Nop>
-nmap     f [unite]
-nnoremap <silent> [unite]r  :<C-u>UniteResume<CR>
-nnoremap <silent> [unite]f  :<C-u>Unite file_rec/async<CR>
-nnoremap <silent> [unite]i  :<C-u>Unite file_rec/git<CR>
-nnoremap <silent> [unite]g  :<C-u>Unite grep:.<CR>
-nnoremap <silent> [unite]u  :<C-u>Unite source<CR>
-nnoremap <silent> [unite]t  :<C-u>Unite tag<CR>
-nnoremap <silent> [unite]T  :<C-u>Unite tag/include<CR>
-nnoremap <silent> [unite]l  :<C-u>Unite location_list<CR>
-nnoremap <silent> [unite]q  :<C-u>Unite quickfix<CR>
-nnoremap <silent> [unite]e  :<C-u>Unite register<CR>
-nnoremap <silent> [unite]j  :<C-u>Unite change jump -profile-name=navigate<CR>
-nnoremap <silent> [unite]h  :<C-u>Unite history/yank<CR>
-nnoremap <silent> [unite]s  :<C-u>Unite session<CR>
-nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
-nnoremap <silent> [unite]ma :<C-u>Unite mapping<CR>
-nnoremap <silent> [unite]me :<C-u>Unite output:message<CR>
-nnoremap <silent> <Leader>b :<C-u>Unite buffer file_mru bookmark<CR>
-nnoremap <silent> <Leader>t :<C-u>Unite tab<CR>
-" Open VimFiler with current file selected
-nnoremap <silent> [unite]a  :<C-u>VimFilerExplorer -find -winwidth=25 -split -toggle -no-quit<CR>
-" Open Unite with word under cursor or selection
-nnoremap <silent> <Leader>gf :execute 'UniteWithCursorWord file_rec/async -profile-name=navigate'<CR>
-nnoremap <silent> <Leader>gt :execute 'UniteWithCursorWord tag -profile-name=navigate'<CR>
-nnoremap <silent> <Leader>gg :execute 'UniteWithCursorWord grep:. -profile-name=navigate'<CR>
-vnoremap <silent> <Leader>gt :<C-u>call <SID>VSetSearch('/')<CR>:execute 'Unite tag -profile-name=navigate -input='.strpart(@/,2)<CR>
-vnoremap <silent> <Leader>gg :<C-u>call <SID>VSetSearch('/')<CR>:execute 'Unite grep:. -profile-name=navigate -input='.strpart(@/,2)<CR>
-
-autocmd FileType unite call s:unite_settings()
-function! s:unite_settings()
-	nunmap <buffer> <C-h>
-	nunmap <buffer> <C-k>
-	nunmap <buffer> <C-l>
-	nunmap <buffer> <C-r>
-	nmap <silent><buffer> <C-r> <Plug>(unite_redraw)
-	imap <silent><buffer> <C-j> <Plug>(unite_select_next_line)
-	imap <silent><buffer> <C-k> <Plug>(unite_select_previous_line)
-	nmap <silent><buffer> '     <Plug>(unite_toggle_mark_current_candidate)
-	nmap <silent><buffer> e     <Plug>(unite_do_default_action)
-	nmap <silent><buffer><expr> <C-v> unite#do_action('splitswitch')
-	nmap <silent><buffer><expr> <C-s> unite#do_action('vsplitswitch')
-	nmap <silent><buffer><expr> <C-t> unite#do_action('tabswitch')
-	nmap <buffer> <ESC> <Plug>(unite_exit)
-	imap <buffer> jj    <Plug>(unite_insert_leave)
-
-	let unite = unite#get_current_unite()
-	if unite.profile_name ==# '^search'
-		nnoremap <silent><buffer><expr> r unite#do_action('replace')
-	else
-		nnoremap <silent><buffer><expr> r unite#do_action('rename')
-	endif
-endfunction
-
 " Fugitive {{{3
-" ga gs gd gc gb gl gp gg gB gbd
+" ga gs gd gD gc gb gl gp gg gB gbd
 nnoremap <silent> <leader>ga :Git add %:p<CR>
 nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gd :Gdiff<CR>
@@ -503,9 +495,6 @@ nnoremap <silent> <leader>gl :Gitv --all<CR>
 nnoremap <silent> <leader>gp :Git push<CR>
 nnoremap <silent> <leader>gB :Gbrowse<CR>
 nnoremap <silent> <leader>gbd :Gbrowse origin/develop^{}:%<CR>
-
-" Tagbar {{{3
-nmap <F4> :TagbarToggle<CR>
 
 " VimFiler {{{3
 noremap <silent> <Leader>f :VimFilerExplorer -winwidth=25 -split -toggle -no-quit<CR>
@@ -524,15 +513,72 @@ function! s:vimfiler_settings()
 	nmap <buffer> <C-w> <Plug>(vimfiler_switch_to_history_directory)
 endfunction
 
-" neocomplete and neosnippet {{{3
-
+" Lua Plugins {{{3
 if has('lua')
+
+" Unite {{{4
+	nnoremap [unite]  <Nop>
+	nmap     f [unite]
+	nnoremap <silent> [unite]r  :<C-u>UniteResume<CR>
+	nnoremap <silent> [unite]f  :<C-u>Unite file_rec/async<CR>
+	nnoremap <silent> [unite]i  :<C-u>Unite file_rec/git<CR>
+	nnoremap <silent> [unite]g  :<C-u>Unite grep:.<CR>
+	nnoremap <silent> [unite]u  :<C-u>Unite source<CR>
+	nnoremap <silent> [unite]t  :<C-u>Unite tag<CR>
+	nnoremap <silent> [unite]T  :<C-u>Unite tag/include<CR>
+	nnoremap <silent> [unite]l  :<C-u>Unite location_list<CR>
+	nnoremap <silent> [unite]q  :<C-u>Unite quickfix<CR>
+	nnoremap <silent> [unite]e  :<C-u>Unite register<CR>
+	nnoremap <silent> [unite]j  :<C-u>Unite change jump -profile-name=navigate<CR>
+	nnoremap <silent> [unite]h  :<C-u>Unite history/yank<CR>
+	nnoremap <silent> [unite]s  :<C-u>Unite session<CR>
+	nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
+	nnoremap <silent> [unite]ma :<C-u>Unite mapping<CR>
+	nnoremap <silent> [unite]me :<C-u>Unite output:message<CR>
+	nnoremap <silent> <Leader>b :<C-u>Unite buffer file_mru bookmark<CR>
+	nnoremap <silent> <Leader>t :<C-u>Unite tab<CR>
+	" Open VimFiler with current file selected
+	nnoremap <silent> [unite]a  :<C-u>VimFilerExplorer -find -winwidth=25 -split -toggle -no-quit<CR>
+	" Open Unite with word under cursor or selection
+	nnoremap <silent> <Leader>gf :execute 'UniteWithCursorWord file_rec/async -profile-name=navigate'<CR>
+	nnoremap <silent> <Leader>gt :execute 'UniteWithCursorWord tag -profile-name=navigate'<CR>
+	nnoremap <silent> <Leader>gg :execute 'UniteWithCursorWord grep:. -profile-name=navigate'<CR>
+	vnoremap <silent> <Leader>gt :<C-u>call <SID>VSetSearch('/')<CR>:execute 'Unite tag -profile-name=navigate -input='.strpart(@/,2)<CR>
+	vnoremap <silent> <Leader>gg :<C-u>call <SID>VSetSearch('/')<CR>:execute 'Unite grep:. -profile-name=navigate -input='.strpart(@/,2)<CR>
+
+	autocmd FileType unite call s:unite_settings()
+	function! s:unite_settings()
+		nunmap <buffer> <C-h>
+		nunmap <buffer> <C-k>
+		nunmap <buffer> <C-l>
+		nunmap <buffer> <C-r>
+		nmap <silent><buffer> <C-r> <Plug>(unite_redraw)
+		imap <silent><buffer> <C-j> <Plug>(unite_select_next_line)
+		imap <silent><buffer> <C-k> <Plug>(unite_select_previous_line)
+		nmap <silent><buffer> '     <Plug>(unite_toggle_mark_current_candidate)
+		nmap <silent><buffer> e     <Plug>(unite_do_default_action)
+		nmap <silent><buffer><expr> <C-v> unite#do_action('splitswitch')
+		nmap <silent><buffer><expr> <C-s> unite#do_action('vsplitswitch')
+		nmap <silent><buffer><expr> <C-t> unite#do_action('tabswitch')
+		nmap <buffer> <ESC> <Plug>(unite_exit)
+		imap <buffer> jj    <Plug>(unite_insert_leave)
+
+		let unite = unite#get_current_unite()
+		if unite.profile_name ==# '^search'
+			nnoremap <silent><buffer><expr> r unite#do_action('replace')
+		else
+			nnoremap <silent><buffer><expr> r unite#do_action('rename')
+		endif
+	endfunction
+
+" neocomplete and neosnippet {{{4
+
 	" Movement within 'ins-completion-menu'
 	inoremap <expr><C-j>   pumvisible() ? "\<Down>" : "\<C-j>"
 	inoremap <expr><C-k>   pumvisible() ? "\<Up>" : "\<C-k>"
 	inoremap <expr><C-f>   pumvisible() ? "\<PageDown>" : "\<C-b>"
 	inoremap <expr><C-b>   pumvisible() ? "\<PageUp>" : "\<C-f>"
-  inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+	inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 	" <C-h>, <BS>: Close popup and delete backword char
 	inoremap <expr><C-h> pumvisible() ? neocomplete#smart_close_popup()."\<C-h>" : "\<C-h>"
@@ -565,33 +611,7 @@ if has('lua')
 		let col = col('.') - 1
 		return !col || getline('.')[col - 1]  =~ '\s'
 	endfunction "}}}
-
-	" For snippet_complete marker
-	if has('conceal')
-		set conceallevel=2 concealcursor=i
-	endif
 endif
-
-" Syntastic {{{3
-nmap <Leader>lj :lnext<CR>
-nmap <Leader>lk :lprev<CR>
-
-" ColorPicker {{{3
-nmap <Leader>c :ColorPicker<CR>
-
-" Assistant {{{3
-nnoremap <unique> <Leader>i :call PopHelpList()<CR>
-
-" Gundo {{{3
-nnoremap <F5> :GundoToggle<CR>
-
-" gvim {{{2
-" ----
-
-" toggle display of a GUI widget (menu/toolbar/scrollbar)
-nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
-nnoremap <C-F2> :if &go=~#'T'<Bar>set go-=T<Bar>else<Bar>set go+=T<Bar>endif<CR>
-nnoremap <C-F3> :if &go=~#'r'<Bar>set go-=r<Bar>else<Bar>set go+=r<Bar>endif<CR>
 
 " Functions & Commands {{{1
 "------------------------------------------------------------------------------
@@ -616,7 +636,7 @@ function! Gdiffoff()
 	if diffbufnr > -1 && &diff
 		diffoff | q
 		if bufnr('%') == diffbufnr | Gedit | endif
-		setlocal nocursorbind
+		if has('cursorbind') | setlocal nocursorbind | endif
 	else
 		echo 'Error: Not in diff or file'
 	endif
@@ -626,7 +646,7 @@ endfunction
 " See: http://github.com/nelstrom/vim-visual-star-search
 function! s:VSetSearch(cmdtype)
 	let temp = @s
-	norm! gv"sy
+	normal! gv"sy
 	let @/ = '\V'.substitute(escape(@s, a:cmdtype.'\'), '\n', '\\n', 'g')
 	let @s = temp
 endfunction
@@ -656,11 +676,16 @@ endfunction
 " Theme & Colors {{{1
 "------------------------------------------------------------------------------
 
+" Theme {{{2
+" -----
 set t_Co=256
 set background=dark
 colorscheme hybrid
 
-" General GUI {{{2
+" Custom Colors {{{2
+" -------------
+
+" General GUI {{{3
 " No bold in gvim's error messages
 highlight ErrorMsg     gui=NONE
 " Whitespace
@@ -678,13 +703,13 @@ highlight ModeMsg      ctermfg=240
 " Visual mode selection
 highlight Visual       ctermbg=236
 
-" Popup menu {{{2
+" Popup menu {{{3
 highlight Pmenu       ctermfg=245 ctermbg=234
 highlight PmenuSel    ctermfg=235 ctermbg=250
 highlight PmenuSbar   ctermbg=235
 highlight PmenuThumb  ctermbg=240
 
-" Tabline {{{2
+" Tabline {{{3
 highlight TabLineFill      ctermfg=236 guifg=#303030
 highlight TabLine          ctermfg=236 ctermbg=243 guifg=#303030 guibg=#767676
 highlight TabLineSel       ctermfg=241 ctermbg=234 guifg=#626262 guibg=#1C1C1C gui=NONE
@@ -693,11 +718,11 @@ highlight TabLineProject   ctermfg=252 ctermbg=238 guifg=#D0D0D0 guibg=#444444
 highlight TabLineProjectRe ctermfg=238 ctermbg=236 guifg=#444444 guibg=#303030
 highlight TabLineA         ctermfg=235 ctermbg=234 guifg=#262626 guibg=#1C1C1C
 
-" Unite {{{2
+" Unite {{{3
 highlight uniteCandidateMarker        ctermfg=4
 highlight uniteCandidateInputKeyword  ctermfg=221 guifg=221 cterm=underline
 
-" Grep {{{2
+" Grep {{{3
 highlight link uniteSource__Grep        Directory
 highlight link uniteSource__GrepLineNr  qfLineNr
 highlight uniteSource__GrepLine         ctermfg=245 guifg=#808070
@@ -705,23 +730,24 @@ highlight uniteSource__GrepFile         ctermfg=4   guifg=#8197bf
 highlight uniteSource__GrepSeparator    ctermfg=5   guifg=#f0a0c0
 highlight uniteSource__GrepPattern      ctermfg=1   guifg=#cf6a4c
 
-" Quickfix {{{2
+" Quickfix {{{3
 highlight UniteQuickFixWarning              ctermfg=1
 highlight uniteSource__QuickFix             ctermfg=8
 highlight uniteSource__QuickFix_Bold        ctermfg=249
 highlight link uniteSource__QuickFix_File   Directory
 highlight link uniteSource__QuickFix_LineNr qfLineNr
 
-" VimFiler {{{2
+" VimFiler {{{3
 highlight vimfilerNormalFile  ctermfg=245 guifg=#808070
 highlight vimfilerClosedFile  ctermfg=249 guifg=#a8a897
 highlight vimfilerOpenedFile  ctermfg=254 guifg=#e8e8d3
 highlight vimfilerNonMark     ctermfg=239 guifg=#4e4e43
 highlight vimfilerLeaf        ctermfg=235 guifg=#30302c
 
-" Signify {{{2
+" Signify {{{3
 highlight SignifySignAdd    ctermfg=2 guifg=#6D9B37
 highlight SignifySignDelete ctermfg=1 guifg=#D370A3
 highlight SignifySignChange ctermfg=3 guifg=#B58858
 
+" }}}
 "-------8<---------------------------------------------------------------------
