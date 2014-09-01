@@ -235,6 +235,7 @@ let delimitMate_expand_cr = 1              " delimitMate
 let g:vim_markdown_initial_foldlevel = 5   " Markdown: Don't start all folded
 let g:Gitv_DoNotMapCtrlKey = 1             " Gitv: Do not map ctrl keys
 let g:choosewin_label = 'SDFGHJKLZXCVBNM'  " ChooseWin: Window labels
+let g:echodoc_enable_at_startup = 1
 
 " Set syntastic signs, must be in vimrc
 let g:syntastic_always_populate_loc_list = 1
@@ -427,6 +428,7 @@ map <S-Left>  :bprev<CR>
 " Several ways of close buffer
 nnoremap <silent> <Leader>q :close<CR>
 nnoremap <silent> <Leader>x :bdelete<CR>
+nnoremap <silent> <Leader>z :BufClose<CR>
 
 if has("gui_running")
 	" gvim - toggle display of a GUI widgets (menu/toolbar/scrollbar)
@@ -485,6 +487,9 @@ endfunction
 
 " Plugins {{{2
 " -------
+
+" ChooseWin {{{3
+nmap -  <Plug>(choosewin)
 
 " Tagbar {{{3
 nmap <F4> :TagbarToggle<CR>
