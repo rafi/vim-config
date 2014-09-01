@@ -133,3 +133,15 @@
 [submodule "bundle/tagabana"]
 	path = bundle/tagabana
 	url = git://github.com/rafi/vim-tagabana.git
+[submodule "bundle/webapi"]
+	path = bundle/webapi
+	url = git://github.com/mattn/webapi-vim.git
+[submodule "bundle/unite-pull-request"]
+	path = bundle/unite-pull-request
+	url = git://github.com/joker1007/unite-pull-request.git
+[submodule "bundle/phpdoc"]
+	path = bundle/phpdoc
+	url = git://github.com/tobyS/pdv.git
+[submodule "bundle/echodoc"]
+	path = bundle/echodoc
+	url = git://github.com/Shougo/echodoc.vim.git
