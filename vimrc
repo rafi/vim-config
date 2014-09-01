@@ -8,8 +8,10 @@
 "------------------------------------------------------------------------------
 
 " Respect XDG
-set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
-let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
+if has('vim_starting') && isdirectory($XDG_CONFIG_HOME.'/vim')
+	set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
+	let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
+endif
 
 " Load pathogen plugin itself
 runtime bundle/pathogen/autoload/pathogen.vim
@@ -53,11 +55,11 @@ endif
 set nocompatible             " break away from old vi compatibility
 set autoread                 " Files are read as soon as they are changed
 set formatoptions+=1j        " Automatic formatting
-set mouse=nv                 " enable mouse use for normal and visual modes
+set mouse=n                  " enable mouse use for normal mode only
 set modeline                 " automatically setting options from modelines
-set report=2                 " report when 3 or more lines are changed
-set noerrorbells             " don't whine
-set novisualbell t_vb=       " and don't make faces
+set report=0                 " Don't report on line changes
+set errorbells               " Errors trigger bell
+set visualbell               " and don't make faces
 set lazyredraw               " don't redraw while in macros
 set hidden                   " hide buffers when abandoned instead of unload
 set encoding=utf-8           " Set utf8 as standard encoding (+multi_byte)
@@ -76,9 +78,10 @@ endif
 
 " Wildmenu/ignore {{{2
 " ---------------
-if has('wild_menu')
-	set wildmenu                 " turn on wild menu :e <Tab>
-	set wildmode=list:longest    " set wildmenu to list choice
+if has('wildmenu')
+	set nowildmenu
+	set wildmode=list:longest,full
+	set wildoptions=tagfile
 	set wildignorecase
 	set wildignore+=.hg,.git,.svn,*.pyc,*.spl,*.o,*.out,*~,#*#,%*
 	set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,*.manifest
@@ -142,25 +145,38 @@ set timeoutlen=1200 " A little bit more time for macros
 " ---------
 set ignorecase      " Search ignoring case
 set smartcase       " Keep case when searching with *
-set noshowmatch     " Don't jump to matching bracket
+set infercase
 set incsearch       " Incremental search (+extra_search)
 set hlsearch        " Highlight the search (+extra_search)
+set noshowmatch     " Don't jump to matching bracket
+set matchpairs+=<:> " Add HTML brackets to pair matching
+"set cpoptions=-m    " Showmatch will wait 0.5s or until a character is typed
 
 " Behavior {{{2
 " --------
+set linebreak                  " Break long lines at 'breakat' (+linebreak)
+set breakat=\ \	;:,!?          " Long lines break chars
 set nostartofline              " Cursor in same column for several commands
-set whichwrap=b,s              " Move to following line on certain keys
+set whichwrap+=h,l,<,>,[,],~   " Move to following line on certain keys
 set splitbelow splitright      " New split position: Bottom right (+windows +vertsplit)
 set switchbuf=usetab,split     " Switch buffer behavior
 set backspace=indent,eol,start " Intuitive backspacing in insert mode
 set diffopt=filler,iwhite      " Diff mode: show fillers, ignore whitespace (+diff)
+set formatprg=par\ -w78        " Using http://www.nicemice.net/par/
 set tags=./tags,tags           " Tags are overridden by bundle/tagabana
-set complete-=i                " Don't scan current and included files
-set completeopt-=preview       " No extra info buffer in completion menu (+insert_expand)
-set formatprg=par\ -w78        " Use http://www.nicemice.net/par/
+set showfulltag                " Show tag and tidy search pattern in ins-completion
+set completeopt=menuone        " No extra info buffer in completion menu (+insert_expand)
+set complete=.                 " Don't scan other windows, buffers, tags and includes
+if exists('+breakindent')
+	set breakindent
+	set wrap
+else
+	set nowrap
+endif
 
 " Editor UI Appearance {{{2
 " --------------------
+set noshowmode          " Don't show mode in cmd window
 set shortmess=aoOTI     " Shorten messages and don't show intro
 set scrolloff=2         " Keep at least 2 lines above/below
 set sidescrolloff=2     " Keep at least 2 lines left/right
@@ -170,11 +186,18 @@ set nonumber            " No line numbers
 
 set showtabline=2       " Always show the tabs line (+windows)
 set tabpagemax=30       " Maximum number of tab pages (+windows)
+set winwidth=30         " Minimum width for current window (+vertsplit)
+set winheight=20        " Minimum height for current window (+windows)
+set previewheight=8     " Completion preview height (+windows +quickfix)
+set helpheight=12       " Minimum help window height (+windows)
 
-set showcmd             " Show (partial) command in status line (+cmdline_info)
-set cmdheight=1         " Explicitly set the height of the command line
+set notitle             " No need for a title (+title)
+set noshowcmd           " Don't show command in status line (+cmdline_info)
+set cmdheight=1         " Height of the command line
+set cmdwinheight=5      " Command-line lines (+vertsplit)
+set noequalalways       " Don't resize windows on split or close
 set display+=lastline   " Try showing more of last line
-set laststatus=2        " Always show a status line on windows
+set laststatus=2        " Always show a status line
 
 " Changing characters to fill special ui elements
 set showbreak=↪               " (+linebreak)
@@ -208,8 +231,6 @@ endif
 let g:loaded_netrwPlugin = 1               " Disable netrw, I'm using VimFiler
 let g:neocomplete#enable_at_startup = 1    " Enable neocomplete
 let g:unite_source_history_yank_enable = 1 " Unite: Store yank history
-let g:bookmark_sign = '✓'                  " Bookmarks: Bookmark sign
-let g:bookmark_annotation_sign = '⌦'       " Bookmarks: Annonation sign
 let delimitMate_expand_cr = 1              " delimitMate
 let g:vim_markdown_initial_foldlevel = 5   " Markdown: Don't start all folded
 let g:Gitv_DoNotMapCtrlKey = 1             " Gitv: Do not map ctrl keys
@@ -296,10 +317,10 @@ let mapleader="\<Space>"
 nmap ; :
 
 " Make arrow keys useful
-nnoremap <left>  :vertical resize +1<CR>
-nnoremap <right> :vertical resize -1<CR>
-nnoremap <up>    :resize +1<CR>
-nnoremap <down>  :resize -1<CR>
+nnoremap <Up>    :resize +4<CR>
+nnoremap <Down>  :resize -4<CR>
+nnoremap <Left>  :vertical resize +4<CR>
+nnoremap <Right> :vertical resize -4<CR>
 
 " Use backspace key for matchit.vim
 nmap <BS> %
@@ -403,16 +424,16 @@ nnoremap <leader>sg :vnew<CR>
 map <S-Right> :bnext<CR>
 map <S-Left>  :bprev<CR>
 
-" Closes current buffer
+" Several ways of close buffer
 nnoremap <silent> <Leader>q :close<CR>
-
-" Remove current buffer
 nnoremap <silent> <Leader>x :bdelete<CR>
 
-" gvim - toggle display of a GUI widgets (menu/toolbar/scrollbar)
-nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
-nnoremap <C-F2> :if &go=~#'T'<Bar>set go-=T<Bar>else<Bar>set go+=T<Bar>endif<CR>
-nnoremap <C-F3> :if &go=~#'r'<Bar>set go-=r<Bar>else<Bar>set go+=r<Bar>endif<CR>
+if has("gui_running")
+	" gvim - toggle display of a GUI widgets (menu/toolbar/scrollbar)
+	nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
+	nnoremap <C-F2> :if &go=~#'T'<Bar>set go-=T<Bar>else<Bar>set go+=T<Bar>endif<CR>
+	nnoremap <C-F3> :if &go=~#'r'<Bar>set go-=r<Bar>else<Bar>set go+=r<Bar>endif<CR>
+endif
 
 " Totally Custom {{{2
 " --------------

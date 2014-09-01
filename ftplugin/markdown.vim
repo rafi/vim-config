@@ -1,1 +1,2 @@
 setlocal spell
+setlocal expandtab

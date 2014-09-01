@@ -1,24 +1,49 @@
-" jump to links with CR
-noremap <buffer> <CR> <C-]>
+" Credits: https://github.com/dahu/vim-help
 
-" jump back with BS
-noremap <buffer> <BS> <C-T>
+" jump to links with enter
+nmap <buffer> <CR> <C-]>
+
+" jump back with backspace
+nmap <buffer> <BS> <C-T>
 
 " skip to next option link
-nnoremap <buffer> o /'[a-z]\{2,\}'<CR>
+nmap <buffer> o /'[a-z]\{2,\}'<CR>
 
 " skip to previous option link
-nnoremap <buffer> O ?'[a-z]\{2,\}'<CR>
+nmap <buffer> O ?'[a-z]\{2,\}'<CR>
 
 " skip to next subject link
-nnoremap <buffer> s /\|\S\+\|<CR>l
+nmap <buffer> s /\|\S\+\|<CR>l
 
 " skip to previous subject link
-nnoremap <buffer> S h?\|\S\+\|<CR>l
+nmap <buffer> S h?\|\S\+\|<CR>l
+
+" skip to next tag (subject anchor)
+nmap <buffer> t /\*\S\+\*<CR>l
+
+" skip to previous tag (subject anchor)
+nmap <buffer> T h?\*\S\+\*<CR>l
 
 " quit
-nnoremap <buffer> q :q<CR>
+nmap <buffer> q :q<CR>
 
 " skip to next/prev quickfix list entry (from a helpgrep)
-nnoremap <buffer> <leader>j :cnext<CR>
-nnoremap <buffer> <leader>k :cprev<CR>
+nmap <buffer> <leader>j :cnext<CR>
+nmap <buffer> <leader>k :cprev<CR>
+
+" disable vim-help maps
+nmap <buffer> <leader>q :<c-u>call <SID>disable_help_maps()<cr>
+
+function! s:disable_help_maps()
+	nunmap <buffer> <CR>
+	nunmap <buffer> <BS>
+	nunmap <buffer> o
+	nunmap <buffer> O
+	nunmap <buffer> s
+	nunmap <buffer> S
+	nunmap <buffer> t
+	nunmap <buffer> T
+	nunmap <buffer> q
+	nunmap <buffer> <leader>j
+	nunmap <buffer> <leader>k
+endfunction
