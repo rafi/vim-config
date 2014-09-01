@@ -1,6 +1,9 @@
 
 " Unite
 " -----
+if ! has('lua')
+	finish
+endif
 
 " General {{{1
 let g:unite_kind_jump_list_after_jump_scroll = 50
@@ -58,7 +61,7 @@ endif
 " Global default context
 call unite#custom#profile('default', 'context', {
 	\   'start_insert': 1,
-	\   'max_candidates': 300,
+	\   'max_candidates': 0,
 	\   'update_time': 500,
 	\   'winheight': 35,
 	\   'winwidth': 80,
@@ -84,7 +87,6 @@ call unite#custom#profile('source/source', 'context', {
 	\ })
 
 call unite#custom#profile('source/tag,source/tag/include,source/mapping,source/output', 'context', {
-	\   'max_candidates': 50,
 	\   'silent': 1,
 	\ })
 

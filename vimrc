@@ -182,8 +182,8 @@ set fillchars=vert:│,fold:─   " (+windows +folding)
 set list listchars=tab:\⋮\ ,extends:⟫,precedes:⟪,nbsp:.,trail:·
 
 " For snippet_complete marker
-if has('conceal')
-	set conceallevel=2 concealcursor=i
+if has('conceal') && v:version >= 703
+	set conceallevel=2 concealcursor=iv
 endif
 
 " gui-Vim Appearance {{{2
@@ -205,7 +205,7 @@ endif
 " Plugin Settings {{{1
 "------------------------------------------------------------------------------
 
-let g:loaded_netrwPlugin = 1               " Disable netrw, using VimFiler
+let g:loaded_netrwPlugin = 1               " Disable netrw, I'm using VimFiler
 let g:neocomplete#enable_at_startup = 1    " Enable neocomplete
 let g:unite_source_history_yank_enable = 1 " Unite: Store yank history
 let g:bookmark_sign = '✓'                  " Bookmarks: Bookmark sign
@@ -221,9 +221,8 @@ let g:syntastic_error_symbol = '⚠'
 let g:syntastic_warning_symbol = ''
 
 " neosnippet
-let g:neosnippet#enable_snipmate_compatibility = 1
+let g:neosnippet#enable_snipmate_compatibility = 0
 let g:neosnippet#disable_runtime_snippets = { '_': 1 }
-
 
 " vim-go, do not mess with my neosnippet config!
 let g:go_disable_autoinstall = 1
@@ -507,8 +506,9 @@ autocmd FileType vimfiler call s:vimfiler_settings()
 function! s:vimfiler_settings()
 	nunmap <buffer> <C-l>
 	nunmap <buffer> <C-j>
-	nnoremap <buffer> <C-r> <Plug>(vimfiler_redraw_screen)
-	nmap <buffer> ' <Plug>(vimfiler_toggle_mark_current_line)
+	nmap <buffer> A     <Plug>(vimfiler_rename_file)
+	nmap <buffer> '     <Plug>(vimfiler_toggle_mark_current_line)
+	nmap <buffer> <C-r> <Plug>(vimfiler_redraw_screen)
 	nmap <buffer> <C-q> <Plug>(vimfiler_quick_look)
 	nmap <buffer> <C-w> <Plug>(vimfiler_switch_to_history_directory)
 endfunction
@@ -519,7 +519,7 @@ if has('lua')
 " Unite {{{4
 	nnoremap [unite]  <Nop>
 	nmap     f [unite]
-	nnoremap <silent> [unite]r  :<C-u>UniteResume<CR>
+	nnoremap <silent> [unite]r  :<C-u>UniteResume -no-start-insert<CR>
 	nnoremap <silent> [unite]f  :<C-u>Unite file_rec/async<CR>
 	nnoremap <silent> [unite]i  :<C-u>Unite file_rec/git<CR>
 	nnoremap <silent> [unite]g  :<C-u>Unite grep:.<CR>
@@ -574,40 +574,54 @@ if has('lua')
 " neocomplete and neosnippet {{{4
 
 	" Movement within 'ins-completion-menu'
-	inoremap <expr><C-j>   pumvisible() ? "\<Down>" : "\<C-j>"
-	inoremap <expr><C-k>   pumvisible() ? "\<Up>" : "\<C-k>"
-	inoremap <expr><C-f>   pumvisible() ? "\<PageDown>" : "\<C-b>"
-	inoremap <expr><C-b>   pumvisible() ? "\<PageUp>" : "\<C-f>"
+	inoremap <expr><C-j>   "\<Down>"
+	inoremap <expr><C-k>   "\<Up>"
+	inoremap <expr><C-f>   pumvisible() ? "\<PageDown>" : "\<Right>"
+	inoremap <expr><C-b>   pumvisible() ? "\<PageUp>" : "\<Left>"
 	inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 	" <C-h>, <BS>: Close popup and delete backword char
-	inoremap <expr><C-h> pumvisible() ? neocomplete#smart_close_popup()."\<C-h>" : "\<C-h>"
-	inoremap <expr><BS>  pumvisible() ? neocomplete#smart_close_popup()."\<C-h>" : "\<BS>"
+	inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+	inoremap <expr><BS>  neocomplete#smart_close_popup()."\<C-h>"
 	" <C-y>, <C-e>: Close popup, close popup and cancel selection
-	inoremap <expr><C-y> pumvisible() ? neocomplete#close_popup() : "\<C-y>"
-	inoremap <expr><C-e> pumvisible() ? neocomplete#cancel_popup() : "\<C-e>"
+	inoremap <expr><C-y> pumvisible() ? neocomplete#close_popup() : "\<C-r>"
+	inoremap <expr><C-e> pumvisible() ? neocomplete#cancel_popup() : "\<End>"
+	inoremap <expr>'     pumvisible() ? neocomplete#close_popup() : "'"
 	" <C-g>, <C-l>: Undo completion, complete common characters
-	inoremap <expr><silent><C-g>   pumvisible() ? neocomplete#undo_completion() : "\<C-g>"
-	inoremap <expr><C-l>   pumvisible() ? neocomplete#complete_common_string() : "\<C-l>"
+	inoremap <expr><C-g> neocomplete#undo_completion()
+	inoremap <expr><C-l> neocomplete#complete_common_string()
+
+	imap     <expr><C-d> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
+	inoremap <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+	imap <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+
+	" <C-n>: neocomplete.
+	inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-p>"
+	" <C-p>: keyword completion.
+	inoremap <expr><C-p>  pumvisible() ? "\<C-p>" : "\<C-p>\<C-n>"
+
+	inoremap <expr><C-x><C-f> neocomplete#start_manual_complete('file')
 
 	" <CR>: close popup with selection or expand snippet
 	imap <expr><silent><CR> pumvisible() ?
-					\ (neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : neocomplete#close_popup())
-					\ : "\<CR>"
+		\ (neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : neocomplete#close_popup())
+		\ : "\<CR>"
 
-	" <Tab> completion
-	" If item is a snippet, expand it.
-	" Otherwise,
-	" - If popup menu is visible, select and insert next item
-	" - Otherwise, if preceding chars are whitespace, insert tab char
-	" - Otherwise, start manual complete
-	imap <expr><Tab> neosnippet#expandable_or_jumpable() ?
-					\ "\<Plug>(neosnippet_expand_or_jump)"
-					\ : (pumvisible() ? "\<C-n>" :
-					\ (<SID>before_complete_check_backspace() ? "\<TAB>" :
-					\ neocomplete#start_manual_complete()))
+	" <C+Space> completion
+	" How weird is that <C-Space> in some(?) terminals is <Nul>?!
+	imap <Nul>  <Plug>(neocomplete_start_unite_complete)
 
-	function! s:before_complete_check_backspace() "{{{
+	" <Tab> completion:
+	" 1. If popup menu is visible, select and insert next item
+	" 2. Otherwise, if preceding chars are whitespace, insert tab char
+	" 3. Otherwise, if preceding word is a snippet, expand it
+	" 4. Otherwise, start manual complete
+	imap <expr><Tab> pumvisible() ? "\<C-n>"
+		\ : (<SID>is_whitespace() ? "\<Tab>"
+		\ : (neosnippet#expandable() ? "\<Plug>(neosnippet_expand)"
+		\ : neocomplete#start_manual_complete()))
+
+	function! s:is_whitespace() "{{{
 		let col = col('.') - 1
 		return !col || getline('.')[col - 1]  =~ '\s'
 	endfunction "}}}
@@ -704,10 +718,10 @@ highlight ModeMsg      ctermfg=240
 highlight Visual       ctermbg=236
 
 " Popup menu {{{3
-highlight Pmenu       ctermfg=245 ctermbg=234
-highlight PmenuSel    ctermfg=235 ctermbg=250
+highlight Pmenu       ctermfg=245 ctermbg=235
+highlight PmenuSel    ctermfg=236 ctermbg=248
 highlight PmenuSbar   ctermbg=235
-highlight PmenuThumb  ctermbg=240
+highlight PmenuThumb  ctermbg=238
 
 " Tabline {{{3
 highlight TabLineFill      ctermfg=236 guifg=#303030
@@ -719,8 +733,9 @@ highlight TabLineProjectRe ctermfg=238 ctermbg=236 guifg=#444444 guibg=#303030
 highlight TabLineA         ctermfg=235 ctermbg=234 guifg=#262626 guibg=#1C1C1C
 
 " Unite {{{3
-highlight uniteCandidateMarker        ctermfg=4
-highlight uniteCandidateInputKeyword  ctermfg=221 guifg=221 cterm=underline
+highlight uniteInputPrompt            ctermfg=237
+highlight uniteCandidateMarker        ctermfg=143
+highlight uniteCandidateInputKeyword  ctermfg=12
 
 " Grep {{{3
 highlight link uniteSource__Grep        Directory
