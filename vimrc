@@ -17,26 +17,25 @@ endif
 
 call neobundle#begin(expand("$XDG_CONFIG_HOME/vim/bundle"))
 
-" Let NeoBundle manage itself
 NeoBundleFetch 'Shougo/neobundle.vim.git', { 'directory': 'neobundle' }
 
 NeoBundle 'w0ng/vim-hybrid.git', { 'directory': 'hybrid' }
 
-NeoBundle 'chase/vim-ansible-yaml.git', { 'directory': 'ansible-yaml' }
-NeoBundle 'hail2u/vim-css3-syntax.git', { 'directory': 'css3-syntax' }
-NeoBundle 'chrisbra/csv.vim.git', { 'directory': 'csv' }
-NeoBundle 'fatih/vim-go.git', { 'directory': 'go' }
-NeoBundle 'elzr/vim-json.git', { 'directory': 'json' }
-NeoBundle 'plasticboy/vim-markdown.git', { 'directory': 'markdown' }
+NeoBundleLazy 'hail2u/vim-css3-syntax.git', { 'directory': 'css3-syntax', 'filetypes': 'css' }
+NeoBundleLazy 'chrisbra/csv.vim.git', { 'directory': 'csv', 'filetypes': 'csv' }
+NeoBundleLazy 'fatih/vim-go.git', { 'directory': 'go', 'filetypes': 'go' }
+NeoBundleLazy 'elzr/vim-json.git', { 'directory': 'json', 'filetypes': 'json' }
+NeoBundleLazy 'StanAngeloff/php.vim.git', { 'directory': 'php', 'filetypes': 'php' }
 NeoBundle 'mustache/vim-mustache-handlebars.git', { 'directory': 'mustache' }
-NeoBundle 'StanAngeloff/php.vim.git', { 'directory': 'php' }
+NeoBundle 'chase/vim-ansible-yaml.git', { 'directory': 'ansible-yaml' }
+NeoBundle 'plasticboy/vim-markdown.git', { 'directory': 'markdown' }
 
 NeoBundle 'MattesGroeger/vim-bookmarks.git', { 'directory': 'bookmarks' }
-NeoBundle 't9md/vim-choosewin.git', { 'directory': 'choosewin' }
+NeoBundleLazy 't9md/vim-choosewin.git', { 'directory': 'choosewin', 'mappings': '<Plug>' }
 NeoBundle 'Raimondi/delimitMate.git', { 'directory': 'delimitmate' }
 NeoBundle 'mattn/emmet-vim.git', { 'directory': 'emmet' }
 NeoBundle 'bogado/file-line.git', { 'directory': 'file-line' }
-NeoBundle 'tpope/vim-fugitive.git', { 'directory': 'fugitive' }
+NeoBundle 'tpope/vim-fugitive.git', { 'directory': 'fugitive', 'augroup': 'fugitive' }
 NeoBundle 'gregsexton/gitv.git', { 'directory': 'gitv' }
 NeoBundle 'scrooloose/nerdcommenter.git', { 'directory': 'nerdcommenter' }
 NeoBundle 'shawncplus/phpcomplete.vim.git', { 'directory': 'phpcomplete' }
@@ -49,6 +48,7 @@ NeoBundle 'majutsushi/tagbar.git', { 'directory': 'tagbar' }
 NeoBundle 'marijnh/tern_for_vim.git', { 'directory': 'tern', 'build': { 'others': 'npm install' }}
 NeoBundle 'christoomey/vim-tmux-navigator.git', { 'directory': 'tmux-navigator' }
 NeoBundle 'mattn/webapi-vim.git', { 'directory': 'webapi' }
+NeoBundleLazy 'matchit.zip', { 'mappings': [[ 'nxo', '%', 'g%' ]]}
 
 " Dev branch:
 NeoBundle 'pangloss/vim-javascript.git', { 'directory': 'javascript', 'rev': '51a337b' }
@@ -59,33 +59,47 @@ NeoBundle 'rafi/vim-tinyline.git', { 'directory': 'tinyline' }
 NeoBundle 'rafi/vim-tagabana.git', { 'directory': 'tagabana' }
 
 " Advanved plugins:
-if v:version > '703' && has('python')
-	NeoBundle 'farseer90718/vim-colorpicker.git', { 'directory': 'colorpicker' }
-	NeoBundle 'sjl/gundo.vim.git', { 'directory': 'gundo' }
-	if has('lua')
-		NeoBundle 'Shougo/neocomplete.vim.git', { 'directory': 'neocomplete' }
-		NeoBundle 'Shougo/echodoc.vim.git', { 'directory': 'echodoc' }
-	endif
-	NeoBundle 'Shougo/neosnippet.vim.git', { 'directory': 'neosnippet' }
-	NeoBundle 'Shougo/neossh.vim.git', { 'directory': 'neossh' }
-	NeoBundle 'Shougo/neomru.vim.git', { 'directory': 'unite-neomru' }
-	NeoBundle 'Shougo/unite-outline.git', { 'directory': 'unite-outline' }
-	NeoBundle 'joker1007/unite-pull-request.git', { 'directory': 'unite-pull-request' }
-	NeoBundle 'osyo-manga/unite-quickfix.git', { 'directory': 'unite-quickfix' }
-	NeoBundle 'Shougo/unite-session.git', { 'directory': 'unite-session' }
-	NeoBundle 'tsukkee/unite-tag.git', { 'directory': 'unite-tag' }
-	NeoBundle 'Shougo/unite.vim.git', { 'directory': 'unite' }
-	NeoBundle 'Shougo/vinarise.vim.git', { 'directory': 'vinarise' }
-	NeoBundle 'Shougo/vimfiler.vim.git', { 'directory': 'vimfiler' }
-	NeoBundle 'Shougo/vimproc.vim.git', {
-		\ 'directory': 'vimproc',
-		\ 'build' : {
-		\     'unix': 'make -f make_unix.mak',
-		\     'mac': 'make -f make_mac.mak',
-		\     'cygwin': 'make -f make_cygwin.mak',
-		\     'windows': 'tools\\update-dll-mingw'
-		\ }}
-endif
+NeoBundle 'farseer90718/vim-colorpicker.git', { 'directory': 'colorpicker' }
+NeoBundle 'sjl/gundo.vim.git', { 'directory': 'gundo' }
+NeoBundleLazy 'Shougo/neocomplete', {
+	\ 'depends': 'Shougo/context_filetype.vim',
+	\ 'disabled': ! has('lua'),
+	\ 'directory': 'neocomplete',
+	\ 'vim_version': '7.3.885',
+	\ 'insert': 1
+	\ }
+NeoBundleLazy 'Shougo/echodoc.vim.git', { 'directory': 'echodoc', 'insert': 1 }
+NeoBundleLazy 'Shougo/neosnippet.vim.git', {
+	\ 'depends': 'Shougo/context_filetype.vim',
+	\ 'directory': 'neosnippet',
+	\ 'insert': 1,
+	\ 'filetypes': 'snippet',
+	\ 'unite_sources': [
+	\    'neosnippet', 'neosnippet/user', 'neosnippet/runtime'
+	\ ]}
+
+NeoBundle 'Shougo/unite.vim.git', { 'directory': 'unite' }
+NeoBundle 'Shougo/neomru.vim.git', { 'directory': 'unite-neomru' }
+NeoBundleLazy 'Shougo/neossh.vim.git', {
+	\ 'directory': 'neossh',
+	\ 'filetypes': 'vimfiler',
+	\ 'sources': 'ssh',
+	\ }
+NeoBundleLazy 'Shougo/unite-outline.git', { 'directory': 'unite-outline' }
+NeoBundleLazy 'joker1007/unite-pull-request.git', { 'directory': 'unite-pull-request' }
+NeoBundleLazy 'osyo-manga/unite-quickfix.git', { 'directory': 'unite-quickfix' }
+NeoBundleLazy 'Shougo/unite-session.git', { 'directory': 'unite-session' }
+NeoBundleLazy 'tsukkee/unite-tag.git', { 'directory': 'unite-tag' }
+NeoBundle 'Shougo/vinarise.vim.git', { 'directory': 'vinarise' }
+NeoBundle 'Shougo/vimfiler.vim.git', { 'directory': 'vimfiler' }
+NeoBundle 'Shougo/vimproc.vim.git', {
+	\ 'directory': 'vimproc',
+	\ 'build': {
+	\     'unix': 'make -f make_unix.mak',
+	\     'mac': 'make -f make_mac.mak',
+	\     'cygwin': 'make -f make_cygwin.mak',
+	\     'windows': 'tools\\update-dll-mingw'
+	\ }}
 
 call neobundle#end()
 
@@ -94,11 +108,6 @@ syntax on
 filetype plugin indent on
 
 NeoBundleCheck
-
-" Load matchit.vim, but only if the user hasn't installed a newer version.
-if ! exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
-	runtime! macros/matchit.vim
-endif
 
 " General Settings {{{1
 "------------------------------------------------------------------------------
