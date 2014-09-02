@@ -9,39 +9,91 @@
 
 " Respect XDG
 if has('vim_starting') && isdirectory($XDG_CONFIG_HOME.'/vim')
+	set nocompatible  " break away from old vi compatibility
 	set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
+	set runtimepath+=$XDG_CONFIG_HOME/vim/bundle/neobundle
 	let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
 endif
 
-" Load pathogen plugin itself
-runtime bundle/pathogen/autoload/pathogen.vim
+call neobundle#begin(expand("$XDG_CONFIG_HOME/vim/bundle"))
 
-" To disable a plugin, add it's bundle name to the following list
-let g:pathogen_disabled = []
+" Let NeoBundle manage itself
+NeoBundleFetch 'Shougo/neobundle.vim.git', { 'directory': 'neobundle' }
 
-" Plugins that require lua
-if ! has('lua')
-	call add(g:pathogen_disabled, 'neocomplete')
+NeoBundle 'w0ng/vim-hybrid.git', { 'directory': 'hybrid' }
+
+NeoBundle 'chase/vim-ansible-yaml.git', { 'directory': 'ansible-yaml' }
+NeoBundle 'hail2u/vim-css3-syntax.git', { 'directory': 'css3-syntax' }
+NeoBundle 'chrisbra/csv.vim.git', { 'directory': 'csv' }
+NeoBundle 'fatih/vim-go.git', { 'directory': 'go' }
+NeoBundle 'elzr/vim-json.git', { 'directory': 'json' }
+NeoBundle 'plasticboy/vim-markdown.git', { 'directory': 'markdown' }
+NeoBundle 'mustache/vim-mustache-handlebars.git', { 'directory': 'mustache' }
+NeoBundle 'StanAngeloff/php.vim.git', { 'directory': 'php' }
+
+NeoBundle 'MattesGroeger/vim-bookmarks.git', { 'directory': 'bookmarks' }
+NeoBundle 't9md/vim-choosewin.git', { 'directory': 'choosewin' }
+NeoBundle 'Raimondi/delimitMate.git', { 'directory': 'delimitmate' }
+NeoBundle 'mattn/emmet-vim.git', { 'directory': 'emmet' }
+NeoBundle 'bogado/file-line.git', { 'directory': 'file-line' }
+NeoBundle 'tpope/vim-fugitive.git', { 'directory': 'fugitive' }
+NeoBundle 'gregsexton/gitv.git', { 'directory': 'gitv' }
+NeoBundle 'scrooloose/nerdcommenter.git', { 'directory': 'nerdcommenter' }
+NeoBundle 'shawncplus/phpcomplete.vim.git', { 'directory': 'phpcomplete' }
+NeoBundle 'tobyS/pdv.git', { 'directory': 'phpdoc' }
+NeoBundle 'mhinz/vim-signify.git', { 'directory': 'signify' }
+NeoBundle 'tpope/vim-surround.git', { 'directory': 'surround' }
+NeoBundle 'scrooloose/syntastic.git', { 'directory': 'syntastic' }
+NeoBundle 'godlygeek/tabular.git', { 'directory': 'tabular' }
+NeoBundle 'majutsushi/tagbar.git', { 'directory': 'tagbar' }
+NeoBundle 'marijnh/tern_for_vim.git', { 'directory': 'tern', 'build': { 'others': 'npm install' }}
+NeoBundle 'christoomey/vim-tmux-navigator.git', { 'directory': 'tmux-navigator' }
+NeoBundle 'mattn/webapi-vim.git', { 'directory': 'webapi' }
+
+" Dev branch:
+NeoBundle 'pangloss/vim-javascript.git', { 'directory': 'javascript', 'rev': '51a337b' }
+" Problematic changes:
+NeoBundle 'groenewege/vim-less.git', { 'directory': 'less', 'rev': '5d965c2' }
+" Dirty:
+NeoBundle 'rafi/vim-tinyline.git', { 'directory': 'tinyline' }
+NeoBundle 'rafi/vim-tagabana.git', { 'directory': 'tagabana' }
+
+" Advanved plugins:
+if v:version > '703' && has('python')
+	NeoBundle 'farseer90718/vim-colorpicker.git', { 'directory': 'colorpicker' }
+	NeoBundle 'sjl/gundo.vim.git', { 'directory': 'gundo' }
+	if has('lua')
+		NeoBundle 'Shougo/neocomplete.vim.git', { 'directory': 'neocomplete' }
+		NeoBundle 'Shougo/echodoc.vim.git', { 'directory': 'echodoc' }
+	endif
+	NeoBundle 'Shougo/neosnippet.vim.git', { 'directory': 'neosnippet' }
+	NeoBundle 'Shougo/neossh.vim.git', { 'directory': 'neossh' }
+	NeoBundle 'Shougo/neomru.vim.git', { 'directory': 'unite-neomru' }
+	NeoBundle 'Shougo/unite-outline.git', { 'directory': 'unite-outline' }
+	NeoBundle 'joker1007/unite-pull-request.git', { 'directory': 'unite-pull-request' }
+	NeoBundle 'osyo-manga/unite-quickfix.git', { 'directory': 'unite-quickfix' }
+	NeoBundle 'Shougo/unite-session.git', { 'directory': 'unite-session' }
+	NeoBundle 'tsukkee/unite-tag.git', { 'directory': 'unite-tag' }
+	NeoBundle 'Shougo/unite.vim.git', { 'directory': 'unite' }
+	NeoBundle 'Shougo/vinarise.vim.git', { 'directory': 'vinarise' }
+	NeoBundle 'Shougo/vimfiler.vim.git', { 'directory': 'vimfiler' }
+	NeoBundle 'Shougo/vimproc.vim.git', {
+		\ 'directory': 'vimproc',
+		\ 'build' : {
+		\     'unix': 'make -f make_unix.mak',
+		\     'mac': 'make -f make_mac.mak',
+		\     'cygwin': 'make -f make_cygwin.mak',
+		\     'windows': 'tools\\update-dll-mingw'
+		\ }}
 endif
 
-" Plugins that require at least vim 7.3
-if v:version < '703' || ! has('python')
-	call add(g:pathogen_disabled, 'colorpicker')
-	call add(g:pathogen_disabled, 'gundo')
-	call add(g:pathogen_disabled, 'unite')
-	call add(g:pathogen_disabled, 'unite-neomru')
-	call add(g:pathogen_disabled, 'unite-outline')
-	call add(g:pathogen_disabled, 'unite-quickfix')
-	call add(g:pathogen_disabled, 'unite-tag')
-	call add(g:pathogen_disabled, 'vimfiler')
-	call add(g:pathogen_disabled, 'vimproc')
-	call add(g:pathogen_disabled, 'neosnippet')
-endif
+call neobundle#end()
 
-" Load all plugins from bundle/
-execute pathogen#infect()
+" Must be after plugins
 syntax on
 filetype plugin indent on
+
+NeoBundleCheck
 
 " Load matchit.vim, but only if the user hasn't installed a newer version.
 if ! exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
@@ -52,7 +104,6 @@ endif
 "------------------------------------------------------------------------------
 " Vim core {{{2
 " --------
-set nocompatible             " break away from old vi compatibility
 set autoread                 " Files are read as soon as they are changed
 set formatoptions+=1j        " Automatic formatting
 set mouse=n                  " enable mouse use for normal mode only
@@ -100,6 +151,7 @@ set spellfile=$XDG_CONFIG_HOME/vim/spell/en.utf-8.add
 
 " Plugin Directories {{{2
 " ------------------
+let g:pdv_template_dir           = $XDG_CONFIG_HOME.'/vim/snippets/phpdoc'
 let g:bookmark_auto_save_file    = $XDG_CACHE_HOME.'/vim/bookmarks'
 let g:go_bin_path                = $XDG_CACHE_HOME.'/vim/bin'
 let g:unite_data_directory       = $XDG_CACHE_HOME."/vim/unite"
@@ -236,7 +288,8 @@ let delimitMate_expand_cr = 1              " delimitMate
 let g:vim_markdown_initial_foldlevel = 5   " Markdown: Don't start all folded
 let g:Gitv_DoNotMapCtrlKey = 1             " Gitv: Do not map ctrl keys
 let g:choosewin_label = 'SDFGHJKLZXCVBNM'  " ChooseWin: Window labels
-let g:echodoc_enable_at_startup = 1
+let g:echodoc_enable_at_startup = 1        " Enable autocomplete information
+let g:DisableAutoPHPFolding = 1            " Do not fold automatically
 
 " Set syntastic signs, must be in vimrc
 let g:syntastic_always_populate_loc_list = 1
