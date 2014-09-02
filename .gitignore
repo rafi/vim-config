@@ -1,2 +1,5 @@
 .netrwhist
+/autoload/_.vim
+/bundle/*
+!/bundle/neobundle
 /spell

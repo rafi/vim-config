@@ -24,11 +24,11 @@ function! TlDrawTabs() " {{{1
 		if i + 1 == nr
 			let s .= '%#TabLineSel#'
 		else
-			let s .= '%#TabLine#'
+			let s .= '%#TabLine# '
 		endif
 		" Set the tab page number (for mouse clicks)
 		let s .= '%'.(i + 1).'T'
-		let s .= ' %{TlTabLabel('.(i + 1).')} '
+		let s .= '%{TlTabLabel('.(i + 1).')} '
 		if i + 1 == nr
 			let s .= '%#TabLineSelRe#⮀ '
 		else
@@ -45,13 +45,20 @@ endfunction
 " It tries to find the root path of a git repository.
 function! TlFindProjectName() " {{{1
 	" Use the cached (tab scope) variable unless the current dir changed
-	if !exists('t:project_name') || ! (exists('t:project_dir') && t:project_dir == getcwd())
+	if ! exists('t:project_name') || ! (exists('t:project_dir') && t:project_dir == getcwd())
 		" Store the current dir for caching
 		let t:project_dir = getcwd()
 		let t:project_name = t:project_dir
-		" Find a .git directory, traverse to parents if needed
-		if !isdirectory('.git')
+		" If no .git folder in cwd = it's not a git repo.
+		" If no .git file in cwd = it's not a git submodule.
+		if ! isdirectory('.git') && ! filereadable('.git')
+			" Look upwards (at parents) for a file or dir named '.git':
+			" First lookup for a .git file, symbolizing a git submodule
 			let t:project_name = substitute(finddir('.git', '.;'), '/.git', '', '')
+			if t:project_name == ''
+				" Secondly, lookup for a .git folder, symbolizing a git repo
+				let parent = substitute(finddir('.git', '.;'), '/.git', '', '')
+			endif
 			if t:project_name == ''
 				let t:project_name = t:project_dir
 			endif

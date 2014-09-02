@@ -9,7 +9,7 @@
 
 " Respect XDG
 if has('vim_starting') && isdirectory($XDG_CONFIG_HOME.'/vim')
-	set nocompatible  " break away from old vi compatibility
+	set nocompatible
 	set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
 	set runtimepath+=$XDG_CONFIG_HOME/vim/bundle/neobundle
 	let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
