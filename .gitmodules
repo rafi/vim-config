@@ -145,3 +145,6 @@
 [submodule "bundle/echodoc"]
 	path = bundle/echodoc
 	url = git://github.com/Shougo/echodoc.vim.git
+[submodule "bundle/neobundle"]
+	path = bundle/neobundle
+	url = git://github.com/Shougo/neobundle.vim.git

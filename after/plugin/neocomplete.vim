@@ -50,6 +50,7 @@ endif
 let g:neocomplete#sources#omni#input_patterns.php =
 	\ '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 let g:neocomplete#sources#omni#input_patterns.go = '[^.[:digit:] *\t]\.\w*'
+"let g:neocomplete#sources#omni#input_patterns.go = '\h\w*'
 "let g:neocomplete#sources#omni#input_patterns.ruby =
 "	\ '[^. *\t]\.\w*\|\h\w*::\w*'
 "let g:neocomplete#sources#omni#input_patterns.c =

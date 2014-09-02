@@ -76,7 +76,7 @@ if has('clipboard') || has("gui_running")
 	set clipboard=             " Do not do anything with system's clipboard
 endif
 
-" Wildmenu/ignore {{{2
+" Wildmenu {{{2
 " ---------------
 if has('wildmenu')
 	set nowildmenu
@@ -101,6 +101,7 @@ set spellfile=$XDG_CONFIG_HOME/vim/spell/en.utf-8.add
 " Plugin Directories {{{2
 " ------------------
 let g:bookmark_auto_save_file    = $XDG_CACHE_HOME.'/vim/bookmarks'
+let g:go_bin_path                = $XDG_CACHE_HOME.'/vim/bin'
 let g:unite_data_directory       = $XDG_CACHE_HOME."/vim/unite"
 let g:vimfiler_data_directory    = $XDG_CACHE_HOME.'/vim/vimfiler'
 let g:neocomplete#data_directory = $XDG_CACHE_HOME.'/vim/complete'
@@ -209,8 +210,8 @@ if has('conceal') && v:version >= 703
 	set conceallevel=2 concealcursor=iv
 endif
 
-" gui-Vim Appearance {{{2
-" ------------------
+" gVim Appearance {{{2
+" ---------------
 if has("gui_running")
 	set guioptions=mg          " Show _only_ menu bar and grey menu items
 	set lines=58 columns=190   " Maximize gvim window
@@ -247,7 +248,6 @@ let g:neosnippet#enable_snipmate_compatibility = 0
 let g:neosnippet#disable_runtime_snippets = { '_': 1 }
 
 " vim-go, do not mess with my neosnippet config!
-let g:go_disable_autoinstall = 1
 let g:go_loaded_gosnippets = 1
 let g:go_snippet_engine = "neosnippet"
 
@@ -264,6 +264,7 @@ autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown,mustache setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType go setlocal omnifunc=go#complete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " URxvt & tmux fixes {{{1
@@ -342,7 +343,7 @@ nnoremap <C-y> 3<C-y>
 " Remap some keys to be more useful
 nnoremap ' `
 nnoremap Q gq
-nnoremap S i<CR><ESC>^m`gk:silent! s/\v +$//<CR>:noh<CR>``
+"nnoremap S <Nop>
 nnoremap Y y$
 nnoremap <CR> za
 
@@ -444,9 +445,6 @@ endif
 xnoremap * :<C-u>call <SID>VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
 xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
 
-" Don't move on *
-"nnoremap <silent> * :let stay_star_view = winsaveview()<CR>*:call winrestview(stay_star_view)<CR>
-
 " Location list
 nmap <Leader>lj :lnext<CR>
 nmap <Leader>lk :lprev<CR>
@@ -504,6 +502,7 @@ nnoremap <unique> <Leader>i :call PopHelpList()<CR>
 nnoremap <F5> :GundoToggle<CR>
 
 " NERDCommenter {{{3
+" ci cc
 let NERDCreateDefaultMappings = 0
 map <leader>ci <plug>NERDCommenterInvert
 map <leader>cc <plug>NERDCommenterComment
@@ -522,6 +521,7 @@ nnoremap <silent> <leader>gB :Gbrowse<CR>
 nnoremap <silent> <leader>gbd :Gbrowse origin/develop^{}:%<CR>
 
 " VimFiler {{{3
+" f a dl db ds
 noremap <silent> <Leader>f :VimFilerExplorer -winwidth=25 -split -toggle -no-quit<CR>
 noremap <silent> <Leader>a :VimFilerExplorer -find -winwidth=25 -split -toggle -no-quit<CR>
 noremap <silent> <Leader>dl :VimFilerExplorer -toggle -find<CR>
@@ -530,6 +530,7 @@ noremap <silent> <Leader>ds :VimFilerSplit<CR>
 
 autocmd FileType vimfiler call s:vimfiler_settings()
 function! s:vimfiler_settings()
+	"setlocal listchars=
 	nunmap <buffer> <C-l>
 	nunmap <buffer> <C-j>
 	nmap <buffer> A     <Plug>(vimfiler_rename_file)
@@ -606,34 +607,21 @@ if has('lua')
 	inoremap <expr><C-b>   pumvisible() ? "\<PageUp>" : "\<Left>"
 	inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-	" <C-h>, <BS>: Close popup and delete backword char
-	inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+	" <BS>: Close popup and delete preceding char
 	inoremap <expr><BS>  neocomplete#smart_close_popup()."\<C-h>"
 	" <C-y>, <C-e>: Close popup, close popup and cancel selection
 	inoremap <expr><C-y> pumvisible() ? neocomplete#close_popup() : "\<C-r>"
 	inoremap <expr><C-e> pumvisible() ? neocomplete#cancel_popup() : "\<End>"
-	inoremap <expr>'     pumvisible() ? neocomplete#close_popup() : "'"
-	" <C-g>, <C-l>: Undo completion, complete common characters
-	inoremap <expr><C-g> neocomplete#undo_completion()
+	" <C-h>, <C-l>: Undo completion, complete common characters
+	inoremap <expr><C-h> neocomplete#undo_completion()
 	inoremap <expr><C-l> neocomplete#complete_common_string()
 
-	imap     <expr><C-d> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
-	inoremap <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
-	imap <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
-
-	" <C-n>: neocomplete.
-	inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-p>"
-	" <C-p>: keyword completion.
-	inoremap <expr><C-p>  pumvisible() ? "\<C-p>" : "\<C-p>\<C-n>"
-
-	inoremap <expr><C-x><C-f> neocomplete#start_manual_complete('file')
-
-	" <CR>: close popup with selection or expand snippet
+	" <CR>: If popup menu visible, expand snippet or close popup with selection.
 	imap <expr><silent><CR> pumvisible() ?
 		\ (neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : neocomplete#close_popup())
 		\ : "\<CR>"
 
-	" <C+Space> completion
+	" <C+Space> unite completion
 	" How weird is that <C-Space> in some(?) terminals is <Nul>?!
 	imap <Nul>  <Plug>(neocomplete_start_unite_complete)
 
@@ -641,7 +629,7 @@ if has('lua')
 	" 1. If popup menu is visible, select and insert next item
 	" 2. Otherwise, if preceding chars are whitespace, insert tab char
 	" 3. Otherwise, if preceding word is a snippet, expand it
-	" 4. Otherwise, start manual complete
+	" 4. Otherwise, start manual autocomplete
 	imap <expr><Tab> pumvisible() ? "\<C-n>"
 		\ : (<SID>is_whitespace() ? "\<Tab>"
 		\ : (neosnippet#expandable() ? "\<Plug>(neosnippet_expand)"
@@ -651,6 +639,12 @@ if has('lua')
 		let col = col('.') - 1
 		return !col || getline('.')[col - 1]  =~ '\s'
 	endfunction "}}}
+
+	" TODO: Not working
+	"imap     <expr><C-d> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
+	"inoremap <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+	"imap     <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+	"inoremap <expr><C-x><C-f> neocomplete#start_manual_complete('file')
 endif
 
 " Functions & Commands {{{1

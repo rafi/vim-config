@@ -90,6 +90,11 @@ call unite#custom#profile('source/tag,source/tag/include,source/mapping,source/o
 	\   'silent': 1,
 	\ })
 
+call unite#custom#profile('completion', 'context', {
+	\   'winheight': 13,
+	\   'direction': 'botright'
+	\ })
+
 call unite#custom#profile('source/quickfix,source/location_list', 'context', {
 	\   'winheight': 13,
 	\   'direction': 'botright',
