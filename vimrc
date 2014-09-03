@@ -557,9 +557,6 @@ nmap <F4> :TagbarToggle<CR>
 " ColorPicker {{{3
 nmap <Leader>c :ColorPicker<CR>
 
-" Assistant {{{3
-nnoremap <unique> <Leader>i :call PopHelpList()<CR>
-
 " Gundo {{{3
 nnoremap <F5> :GundoToggle<CR>
 
