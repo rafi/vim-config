@@ -26,11 +26,14 @@ NeoBundleLazy 'chrisbra/csv.vim.git', { 'directory': 'csv', 'filetypes': 'csv' }
 NeoBundleLazy 'fatih/vim-go.git', { 'directory': 'go', 'filetypes': 'go' }
 NeoBundleLazy 'elzr/vim-json.git', { 'directory': 'json', 'filetypes': 'json' }
 NeoBundleLazy 'StanAngeloff/php.vim.git', { 'directory': 'php', 'filetypes': 'php' }
+NeoBundleLazy 'rayburgemeestre/phpfolding.vim.git', { 'directory': 'php-folding', 'filetypes': 'php' }
+NeoBundle '2072/PHP-Indenting-for-VIm.git', { 'directory': 'php-indent' }
 NeoBundle 'mustache/vim-mustache-handlebars.git', { 'directory': 'mustache' }
 NeoBundle 'chase/vim-ansible-yaml.git', { 'directory': 'ansible-yaml' }
 NeoBundle 'plasticboy/vim-markdown.git', { 'directory': 'markdown' }
 
 NeoBundle 'MattesGroeger/vim-bookmarks.git', { 'directory': 'bookmarks' }
+NeoBundle 'BufClose.vim', { 'directory': 'bufclose' }
 NeoBundleLazy 't9md/vim-choosewin.git', { 'directory': 'choosewin', 'mappings': '<Plug>' }
 NeoBundle 'Raimondi/delimitMate.git', { 'directory': 'delimitmate' }
 NeoBundle 'mattn/emmet-vim.git', { 'directory': 'emmet' }
@@ -48,6 +51,8 @@ NeoBundle 'majutsushi/tagbar.git', { 'directory': 'tagbar' }
 NeoBundle 'marijnh/tern_for_vim.git', { 'directory': 'tern', 'build': { 'others': 'npm install' }}
 NeoBundle 'christoomey/vim-tmux-navigator.git', { 'directory': 'tmux-navigator' }
 NeoBundle 'mattn/webapi-vim.git', { 'directory': 'webapi' }
+NeoBundle 'regedarek/ZoomWin.git', { 'directory': 'zoomwin' }
+NeoBundle 'tobyS/vmustache.git', { 'directory': 'vmustache' }
 NeoBundleLazy 'matchit.zip', { 'mappings': [[ 'nxo', '%', 'g%' ]]}
 
 " Dev branch:
@@ -549,7 +554,8 @@ endfunction
 " -------
 
 " ChooseWin {{{3
-nmap -  <Plug>(choosewin)
+nmap -         <Plug>(choosewin)
+nmap <Leader>- <Plug>(choosewin-swap)
 
 " Tagbar {{{3
 nmap <F4> :TagbarToggle<CR>

@@ -91,8 +91,10 @@ call unite#custom#profile('source/tag,source/tag/include,source/mapping,source/o
 	\ })
 
 call unite#custom#profile('completion', 'context', {
-	\   'winheight': 13,
-	\   'direction': 'botright'
+	\   'winheight': 25,
+	\   'direction': 'botright',
+	\   'prompt_direction': 'top',
+	\   'no_here': 1
 	\ })
 
 call unite#custom#profile('source/quickfix,source/location_list', 'context', {

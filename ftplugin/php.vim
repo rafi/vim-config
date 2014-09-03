@@ -7,6 +7,7 @@ setlocal makeprg=php\ -l\ %  " Use php syntax check when doing :make
 "setlocal errorformat=%m\ in\ %f\ on\ line\ %l
 
 " Key bindings
+nnoremap <buffer> zM :<C-u>EnableFastPHPFolds<CR>zM
 nnoremap <buffer> K :!zeal --query "php:<cword>"&<CR><CR>
 nnoremap <silent><buffer> <Leader>pd :call pdv#DocumentCurrentLine()<CR>
 
