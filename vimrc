@@ -19,14 +19,23 @@ call neobundle#begin(expand("$XDG_CONFIG_HOME/vim/bundle"))
 
 NeoBundleFetch 'Shougo/neobundle.vim.git', { 'directory': 'neobundle' }
 
+NeoBundle 'Shougo/vimproc.vim.git', {
+	\ 'build': {
+	\     'unix': 'make -f make_unix.mak',
+	\     'mac': 'make -f make_mac.mak',
+	\     'cygwin': 'make -f make_cygwin.mak',
+	\     'windows': 'tools\\update-dll-mingw'
+	\ }}
+
 NeoBundle 'w0ng/vim-hybrid.git', { 'directory': 'hybrid' }
 
-NeoBundleLazy 'hail2u/vim-css3-syntax.git', { 'directory': 'css3-syntax', 'filetypes': 'css' }
-NeoBundleLazy 'chrisbra/csv.vim.git', { 'directory': 'csv', 'filetypes': 'csv' }
+NeoBundleLazy 'hail2u/vim-css3-syntax.git',
+	\ { 'directory': 'css3-syntax', 'filetypes': 'css' }
+NeoBundleLazy 'chrisbra/csv.vim.git', { 'filetypes': 'csv' }
 NeoBundleLazy 'fatih/vim-go.git', { 'directory': 'go', 'filetypes': 'go' }
 NeoBundleLazy 'elzr/vim-json.git', { 'directory': 'json', 'filetypes': 'json' }
-NeoBundleLazy 'StanAngeloff/php.vim.git', { 'directory': 'php', 'filetypes': 'php' }
-NeoBundleLazy 'rayburgemeestre/phpfolding.vim.git', { 'directory': 'php-folding', 'filetypes': 'php' }
+NeoBundleLazy 'StanAngeloff/php.vim.git', { 'filetypes': 'php' }
+NeoBundleLazy 'rayburgemeestre/phpfolding.vim.git', { 'filetypes': 'php' }
 NeoBundle '2072/PHP-Indenting-for-VIm.git', { 'directory': 'php-indent' }
 NeoBundle 'mustache/vim-mustache-handlebars.git', { 'directory': 'mustache' }
 NeoBundle 'chase/vim-ansible-yaml.git', { 'directory': 'ansible-yaml' }
@@ -34,77 +43,76 @@ NeoBundle 'plasticboy/vim-markdown.git', { 'directory': 'markdown' }
 
 NeoBundle 'MattesGroeger/vim-bookmarks.git', { 'directory': 'bookmarks' }
 NeoBundle 'BufClose.vim', { 'directory': 'bufclose' }
-NeoBundleLazy 't9md/vim-choosewin.git', { 'directory': 'choosewin', 'mappings': '<Plug>' }
 NeoBundle 'Raimondi/delimitMate.git', { 'directory': 'delimitmate' }
 NeoBundle 'mattn/emmet-vim.git', { 'directory': 'emmet' }
-NeoBundle 'bogado/file-line.git', { 'directory': 'file-line' }
-NeoBundle 'tpope/vim-fugitive.git', { 'directory': 'fugitive', 'augroup': 'fugitive' }
-NeoBundle 'gregsexton/gitv.git', { 'directory': 'gitv' }
-NeoBundle 'scrooloose/nerdcommenter.git', { 'directory': 'nerdcommenter' }
-NeoBundle 'shawncplus/phpcomplete.vim.git', { 'directory': 'phpcomplete' }
+NeoBundle 'tpope/vim-fugitive.git',
+	\ { 'directory': 'fugitive', 'augroup': 'fugitive' }
+NeoBundle 'shawncplus/phpcomplete.vim.git'
 NeoBundle 'tobyS/pdv.git', { 'directory': 'phpdoc' }
 NeoBundle 'mhinz/vim-signify.git', { 'directory': 'signify' }
 NeoBundle 'tpope/vim-surround.git', { 'directory': 'surround' }
-NeoBundle 'scrooloose/syntastic.git', { 'directory': 'syntastic' }
-NeoBundle 'godlygeek/tabular.git', { 'directory': 'tabular' }
-NeoBundle 'majutsushi/tagbar.git', { 'directory': 'tagbar' }
-NeoBundle 'marijnh/tern_for_vim.git', { 'directory': 'tern', 'build': { 'others': 'npm install' }}
-NeoBundle 'christoomey/vim-tmux-navigator.git', { 'directory': 'tmux-navigator' }
+NeoBundle 'marijnh/tern_for_vim.git',
+	\ { 'directory': 'tern', 'build': { 'others': 'npm install' }}
+NeoBundle 'christoomey/vim-tmux-navigator.git',
+	\ { 'directory': 'tmux-navigator' }
 NeoBundle 'mattn/webapi-vim.git', { 'directory': 'webapi' }
 NeoBundle 'regedarek/ZoomWin.git', { 'directory': 'zoomwin' }
-NeoBundle 'tobyS/vmustache.git', { 'directory': 'vmustache' }
+NeoBundle 'bogado/file-line.git'
+NeoBundle 'gregsexton/gitv.git'
+NeoBundle 'scrooloose/syntastic.git'
+NeoBundle 'godlygeek/tabular.git'
+NeoBundle 'majutsushi/tagbar.git'
+NeoBundle 'tobyS/vmustache.git'
 NeoBundleLazy 'matchit.zip', { 'mappings': [[ 'nxo', '%', 'g%' ]]}
+NeoBundleLazy 't9md/vim-choosewin.git',
+	\ { 'directory': 'choosewin', 'mappings': '<Plug>' }
 
 " Dev branch:
-NeoBundle 'pangloss/vim-javascript.git', { 'directory': 'javascript', 'rev': '51a337b' }
+NeoBundle 'pangloss/vim-javascript.git',
+	\ { 'directory': 'javascript', 'rev': '51a337b' }
+
 " Problematic changes:
 NeoBundle 'groenewege/vim-less.git', { 'directory': 'less', 'rev': '5d965c2' }
+
 " Dirty:
 NeoBundle 'rafi/vim-tinyline.git', { 'directory': 'tinyline' }
 NeoBundle 'rafi/vim-tagabana.git', { 'directory': 'tagabana' }
 
 " Advanved plugins:
 NeoBundle 'farseer90718/vim-colorpicker.git', { 'directory': 'colorpicker' }
-NeoBundle 'sjl/gundo.vim.git', { 'directory': 'gundo' }
-NeoBundleLazy 'Shougo/neocomplete', {
+NeoBundle 'sjl/gundo.vim.git'
+NeoBundleLazy 'Shougo/neocomplete.git', {
 	\ 'depends': 'Shougo/context_filetype.vim',
 	\ 'disabled': ! has('lua'),
 	\ 'directory': 'neocomplete',
 	\ 'vim_version': '7.3.885',
 	\ 'insert': 1
 	\ }
-NeoBundleLazy 'Shougo/echodoc.vim.git', { 'directory': 'echodoc', 'insert': 1 }
+NeoBundleLazy 'Shougo/echodoc.vim.git', { 'insert': 1 }
 NeoBundleLazy 'Shougo/neosnippet.vim.git', {
 	\ 'depends': 'Shougo/context_filetype.vim',
-	\ 'directory': 'neosnippet',
 	\ 'insert': 1,
 	\ 'filetypes': 'snippet',
 	\ 'unite_sources': [
 	\    'neosnippet', 'neosnippet/user', 'neosnippet/runtime'
 	\ ]}
 
-NeoBundle 'Shougo/unite.vim.git', { 'directory': 'unite' }
-NeoBundle 'Shougo/neomru.vim.git', { 'directory': 'unite-neomru' }
+NeoBundle 'Shougo/vinarise.vim.git'
+NeoBundle 'Shougo/vimfiler.vim.git'
+
+NeoBundle 'Shougo/unite.vim.git'
+NeoBundle 'Shougo/neomru.vim.git'
+
+NeoBundleLazy 'Shougo/unite-outline.git'
+NeoBundleLazy 'joker1007/unite-pull-request.git'
+NeoBundleLazy 'osyo-manga/unite-quickfix.git'
+NeoBundleLazy 'Shougo/unite-session.git'
+NeoBundleLazy 'tsukkee/unite-tag.git'
 NeoBundleLazy 'Shougo/neossh.vim.git', {
 	\ 'directory': 'neossh',
 	\ 'filetypes': 'vimfiler',
 	\ 'sources': 'ssh',
 	\ }
-NeoBundleLazy 'Shougo/unite-outline.git', { 'directory': 'unite-outline' }
-NeoBundleLazy 'joker1007/unite-pull-request.git', { 'directory': 'unite-pull-request' }
-NeoBundleLazy 'osyo-manga/unite-quickfix.git', { 'directory': 'unite-quickfix' }
-NeoBundleLazy 'Shougo/unite-session.git', { 'directory': 'unite-session' }
-NeoBundleLazy 'tsukkee/unite-tag.git', { 'directory': 'unite-tag' }
-NeoBundle 'Shougo/vinarise.vim.git', { 'directory': 'vinarise' }
-NeoBundle 'Shougo/vimfiler.vim.git', { 'directory': 'vimfiler' }
-NeoBundle 'Shougo/vimproc.vim.git', {
-	\ 'directory': 'vimproc',
-	\ 'build': {
-	\     'unix': 'make -f make_unix.mak',
-	\     'mac': 'make -f make_mac.mak',
-	\     'cygwin': 'make -f make_cygwin.mak',
-	\     'windows': 'tools\\update-dll-mingw'
-	\ }}
 
 call neobundle#end()
 
@@ -151,7 +159,7 @@ if has('wildmenu')
 	set wildignore+=.hg,.git,.svn,*.pyc,*.spl,*.o,*.out,*~,#*#,%*
 	set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,*.manifest
 	set wildignore+=**/cache/??,**/cache/mustache,**/cache/media,**/logs/????
-	set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
+	set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.sass-cache/*
 endif
 
 " Vim Directories {{{2
@@ -533,7 +541,7 @@ endif
 nnoremap <leader>ef mzzM`zzv
 
 " Yank buffer's absolute path to X11 clipboard
-nnoremap <leader>cy :let @+=expand("%:p")<CR>
+nnoremap fy :let @+=expand("%:p")<CR>
 
 " Drag current line/s vertically and auto-indent
 noremap  <leader>m :m+<CR>==
@@ -614,10 +622,10 @@ if has('lua')
 	nnoremap <silent> [unite]r  :<C-u>UniteResume -no-start-insert<CR>
 	nnoremap <silent> [unite]f  :<C-u>Unite file_rec/async<CR>
 	nnoremap <silent> [unite]i  :<C-u>Unite file_rec/git<CR>
-	nnoremap <silent> [unite]g  :<C-u>Unite grep:.<CR>
+	nnoremap <silent> [unite]g  :<C-u>Unite grep:. -no-wrap<CR>
 	nnoremap <silent> [unite]u  :<C-u>Unite source<CR>
-	nnoremap <silent> [unite]t  :<C-u>Unite tag<CR>
-	nnoremap <silent> [unite]T  :<C-u>Unite tag/include<CR>
+	nnoremap <silent> [unite]t  :<C-u>Unite tag -silent<CR>
+	nnoremap <silent> [unite]T  :<C-u>Unite tag/include -silent<CR>
 	nnoremap <silent> [unite]l  :<C-u>Unite location_list<CR>
 	nnoremap <silent> [unite]q  :<C-u>Unite quickfix<CR>
 	nnoremap <silent> [unite]e  :<C-u>Unite register<CR>
@@ -625,8 +633,8 @@ if has('lua')
 	nnoremap <silent> [unite]h  :<C-u>Unite history/yank<CR>
 	nnoremap <silent> [unite]s  :<C-u>Unite session<CR>
 	nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
-	nnoremap <silent> [unite]ma :<C-u>Unite mapping<CR>
-	nnoremap <silent> [unite]me :<C-u>Unite output:message<CR>
+	nnoremap <silent> [unite]ma :<C-u>Unite mapping -silent<CR>
+	nnoremap <silent> [unite]me :<C-u>Unite output:message -silent<CR>
 	nnoremap <silent> <Leader>b :<C-u>Unite buffer file_mru bookmark<CR>
 	nnoremap <silent> <Leader>t :<C-u>Unite tab<CR>
 	" Open VimFiler with current file selected

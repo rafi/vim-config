@@ -39,23 +39,11 @@ Notice these topmost lines in `vimrc`:
 
 4. Create cache folders:
   ```sh
-  mkdir -p $XDG_CACHE_HOME/vim/{backup,swap,undo}
+  mkdir -p $XDG_CACHE_HOME/vim/{backup,bin,swap,undo,tags}
   ```
 
-5. Install [tern] using `npm`:
-  ```sh
-  cd ~/.config/vim/bundle/tern
-  npm install
-  ```
-
-6. Build [vimproc]. Read [vimproc]'s manual. Usually `make` is enough:
-  ```sh
-  cd ~/.config/vim/bundle/vimproc
-  make
-  ```
-
-7. Re-login or `source ~/.bashrc`
-8. Run `vim` or `gvim`
+5. Re-login or `source ~/.bashrc`
+6. Run `vim` or `gvim`
 
 ## Included Plugins
 

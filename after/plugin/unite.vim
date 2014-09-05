@@ -6,8 +6,8 @@ if ! has('lua')
 endif
 
 " General {{{1
-let g:unite_kind_jump_list_after_jump_scroll = 50
 let g:unite_kind_file_vertical_preview = 1
+let g:unite_kind_jump_list_after_jump_scroll = 50
 
 " The silver searcher adheres to .gitignore
 let s:ag_opts = '-i --nocolor --nogroup --hidden '.
@@ -69,7 +69,7 @@ call unite#custom#profile('default', 'context', {
 	\   'no_auto_resize': 1,
 	\   'prompt_direction': 'top',
 	\   'cursor_line_highlight': 'CursorLine',
-	\   'cursor_line_time': '0.0',
+	\   'cursor_line_time': '0.5',
 	\   'candidate_icon': '-',
 	\   'marked_icon': '+',
 	\   'prompt' : '▷ '
@@ -84,10 +84,6 @@ call unite#custom#profile(
 call unite#custom#profile('source/source', 'context', {
 	\   'vertical': 1,
 	\   'direction': 'botright',
-	\ })
-
-call unite#custom#profile('source/tag,source/tag/include,source/mapping,source/output', 'context', {
-	\   'silent': 1,
 	\ })
 
 call unite#custom#profile('completion', 'context', {
@@ -117,21 +113,24 @@ call unite#custom#profile('source/outline', 'context', {
 " General purpose profile for navigating and also for grep
 call unite#custom#profile('navigate,source/grep', 'context', {
 	\   'silent': 1,
+	\   'wrap': 0,
+	\   'multi_line': 0,
 	\   'auto_preview': 0,
 	\   'start_insert': 0,
 	\   'keep_focus': 1,
 	\   'no_quit': 1,
 	\ })
 
-" Converters {{{1
+" [DISABLED] Converters {{{1
 
 " Source output converters
 "call unite#custom#source('buffer', 'converters', [ 'converter_file_directory' ])
 "call unite#custom_source('quickfix', 'converters', 'converter_quickfix_highlight')
 "call unite#custom_source('location_list', 'converters', 'converter_quickfix_highlight')
 
-" Filters {{{1
+" [DISABLED] Filters {{{1
 
+" I find it much better simply spacing partial words than fuzzy matching.
 " Enable for fuzzy matching:
 "call unite#filters#matcher_default#use(['matcher_fuzzy'])
 "call unite#filters#sorter_default#use(['sorter_rank'])
