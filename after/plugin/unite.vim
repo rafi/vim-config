@@ -9,9 +9,18 @@ endif
 let g:unite_kind_file_vertical_preview = 1
 let g:unite_kind_jump_list_after_jump_scroll = 50
 
-" The silver searcher adheres to .gitignore
-let s:ag_opts = '-i --nocolor --nogroup --hidden '.
+" The silver searcher. Ignore .gitignore and search everything.
+" Smart case, ignore vcs ignore files, and search hidden.
+let s:ag_opts = '-SU --hidden --depth 30 --nocolor --nogroup '.
 		\ '--ignore ".git" '.
+		\ '--ignore ".idea" '.
+		\ '--ignore "node_modules" '.
+		\ '--ignore "*/apps/*/cache/*" '.
+		\ '--ignore "*/apps/*/logs/*" '.
+		\ '--ignore "*/var/cache/*" '.
+		\ '--ignore "*/var/logs/*" '.
+		\ '--ignore "swiftmailer" '.
+		\ '--ignore "tcpdf" '.
 		\ '--ignore "*.ttf" '.
 		\ '--ignore "*.png" '.
 		\ '--ignore "*.jpg" '.
@@ -45,7 +54,7 @@ let g:neomru#directory_mru_limit = 15
 " Source: Grep {{{2
 let g:unite_source_grep_max_candidates = 200
 
-" grep: Use the_silver_searcher or ack
+" grep: Use the_silver_searcher or ack or default
 if executable('ag')
 	let g:unite_source_grep_command = 'ag'
 	let g:unite_source_grep_default_opts = '--line-numbers '.s:ag_opts

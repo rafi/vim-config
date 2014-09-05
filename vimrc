@@ -800,7 +800,7 @@ highlight SpecialKey   ctermfg=235  guifg=#30302c
 " YAML scalar
 highlight yamlScalar   ctermfg=250  guifg=#a8a897
 " Last search highlighting and quickfix's current line
-highlight Search       ctermfg=NONE ctermbg=232 cterm=reverse
+highlight Search       ctermfg=221  ctermbg=237
 " Brakets and pairs
 highlight MatchParen   ctermfg=232  ctermbg=66
 " Markdown headers
