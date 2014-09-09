@@ -10,7 +10,8 @@
 " Respect XDG
 if has('vim_starting') && isdirectory($XDG_CONFIG_HOME.'/vim')
 	set nocompatible
-	set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
+	set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after
+	set runtimepath+=$VIM,$VIMRUNTIME
 	set runtimepath+=$XDG_CONFIG_HOME/vim/bundle/neobundle
 	let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
 endif
@@ -78,9 +79,11 @@ NeoBundle 'groenewege/vim-less.git', { 'directory': 'less', 'rev': '5d965c2' }
 NeoBundle 'rafi/vim-tinyline.git', { 'directory': 'tinyline' }
 NeoBundle 'rafi/vim-tagabana.git', { 'directory': 'tagabana' }
 
-" Advanved plugins:
 NeoBundle 'farseer90718/vim-colorpicker.git', { 'directory': 'colorpicker' }
-NeoBundle 'sjl/gundo.vim.git'
+NeoBundle 'sjl/gundo.vim.git', {
+	\ 'disabled': ! has('python'),
+	\ 'vim_version': '7.3'
+	\ }
 NeoBundleLazy 'Shougo/neocomplete.git', {
 	\ 'depends': 'Shougo/context_filetype.vim',
 	\ 'disabled': ! has('lua'),
@@ -96,13 +99,10 @@ NeoBundleLazy 'Shougo/neosnippet.vim.git', {
 	\ 'unite_sources': [
 	\    'neosnippet', 'neosnippet/user', 'neosnippet/runtime'
 	\ ]}
-
 NeoBundle 'Shougo/vinarise.vim.git'
 NeoBundle 'Shougo/vimfiler.vim.git'
-
 NeoBundle 'Shougo/unite.vim.git'
 NeoBundle 'Shougo/neomru.vim.git'
-
 NeoBundleLazy 'Shougo/unite-outline.git'
 NeoBundleLazy 'joker1007/unite-pull-request.git'
 NeoBundleLazy 'osyo-manga/unite-quickfix.git'
@@ -139,8 +139,8 @@ set encoding=utf-8           " Set utf8 as standard encoding (+multi_byte)
 set ffs=unix,dos,mac         " Use Unix as the standard file type
 set magic                    " For regular expressions turn magic on
 set path=.,**                " Directories to search when using gf
-set sessionoptions-=options  " Don't save options and runtime in sessions (+mksession)
-set virtualedit=block        " Position cursor anywhere in visual block (+virtualedit)
+set sessionoptions-=options  " Don't save options and runtime in sessions
+set virtualedit=block        " Position cursor anywhere in visual block
 set history=700              " Search and commands remembered
 set synmaxcol=512            " Don't syntax highlight long lines
 syntax sync minlines=256     " Update syntax highlighting for more lines
@@ -157,7 +157,7 @@ if has('wildmenu')
 	set wildoptions=tagfile
 	set wildignorecase
 	set wildignore+=.hg,.git,.svn,*.pyc,*.spl,*.o,*.out,*~,#*#,%*
-	set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,*.manifest
+	set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
 	set wildignore+=**/cache/??,**/cache/mustache,**/cache/media,**/logs/????
 	set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.sass-cache/*
 endif
@@ -225,6 +225,7 @@ set incsearch       " Incremental search (+extra_search)
 set hlsearch        " Highlight the search (+extra_search)
 set noshowmatch     " Don't jump to matching bracket
 set matchpairs+=<:> " Add HTML brackets to pair matching
+set matchtime=3     " Tenths of a second to show the matching paren
 "set cpoptions=-m    " Showmatch will wait 0.5s or until a character is typed
 
 " Behavior {{{2
@@ -233,15 +234,15 @@ set linebreak                  " Break long lines at 'breakat' (+linebreak)
 set breakat=\ \	;:,!?          " Long lines break chars
 set nostartofline              " Cursor in same column for several commands
 set whichwrap+=h,l,<,>,[,],~   " Move to following line on certain keys
-set splitbelow splitright      " New split position: Bottom right (+windows +vertsplit)
+set splitbelow splitright      " Splits open bottom right (+windows +vertsplit)
 set switchbuf=usetab,split     " Switch buffer behavior
 set backspace=indent,eol,start " Intuitive backspacing in insert mode
-set diffopt=filler,iwhite      " Diff mode: show fillers, ignore whitespace (+diff)
+set diffopt=filler,iwhite      " Diff mode: show fillers, ignore white (+diff)
 set formatprg=par\ -w78        " Using http://www.nicemice.net/par/
 set tags=./tags,tags           " Tags are overridden by bundle/tagabana
-set showfulltag                " Show tag and tidy search pattern in ins-completion
-set completeopt=menuone        " No extra info buffer in completion menu (+insert_expand)
-set complete=.                 " Don't scan other windows, buffers, tags and includes
+set showfulltag                " Show tag and tidy search pattern in completion
+set completeopt=menuone        " Show menu even for one item (+insert_expand)
+set complete=.                 " Don't scan other windows, buffers, tags, includes
 if exists('+breakindent')
 	set breakindent
 	set wrap
@@ -334,12 +335,19 @@ let g:user_emmet_install_global = 0
 autocmd FileType html EmmetInstall
 
 " Enable omni completions for file types
-autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+autocmd FileType c setlocal omnifunc=ccomplete#Complete
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown,mustache setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=tern#Complete
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType go setlocal omnifunc=go#complete#Complete
+autocmd FileType html,mustache setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=tern#Complete
+autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+if has('python3')
+	autocmd FileType python setlocal omnifunc=python3complete#Complete
+else
+	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+endif
+autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " URxvt & tmux fixes {{{1
@@ -433,12 +441,12 @@ vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 
 " Keep search pattern at the center of the screen
-nnoremap <silent> n nzz
-nnoremap <silent> N Nzz
-nnoremap <silent> * *zz
-nnoremap <silent> # #zz
-nnoremap <silent> g* g*zz
-nnoremap <silent> g# g#zz
+"nnoremap <silent> n nzz
+"nnoremap <silent> N Nzz
+"nnoremap <silent> * *zz
+"nnoremap <silent> # #zz
+"nnoremap <silent> g* g*zz
+"nnoremap <silent> g# g#zz
 
 " File operations {{{2
 " ---------------
@@ -588,12 +596,8 @@ nnoremap <silent> <leader>gB :Gbrowse<CR>
 nnoremap <silent> <leader>gbd :Gbrowse origin/develop^{}:%<CR>
 
 " VimFiler {{{3
-" f a dl db ds
 noremap <silent> <Leader>f :VimFilerExplorer -winwidth=25 -split -toggle -no-quit<CR>
 noremap <silent> <Leader>a :VimFilerExplorer -find -winwidth=25 -split -toggle -no-quit<CR>
-noremap <silent> <Leader>dl :VimFilerExplorer -toggle -find<CR>
-noremap <silent> <Leader>db :VimFilerBufferDir<CR>
-noremap <silent> <Leader>ds :VimFilerSplit<CR>
 
 autocmd FileType vimfiler call s:vimfiler_settings()
 function! s:vimfiler_settings()
@@ -672,7 +676,9 @@ if has('lua')
 	inoremap <expr><C-k>   "\<Up>"
 	inoremap <expr><C-f>   pumvisible() ? "\<PageDown>" : "\<Right>"
 	inoremap <expr><C-b>   pumvisible() ? "\<PageUp>" : "\<Left>"
-	inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+	imap <expr><S-Tab> pumvisible() ? "\<C-p>"
+		\ : (neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)"
+		\ : "\<S-Tab>")
 
 	" <BS>: Close popup and delete preceding char
 	inoremap <expr><BS>  neocomplete#smart_close_popup()."\<C-h>"
@@ -699,7 +705,12 @@ if has('lua')
 	" 4. Otherwise, start manual autocomplete
 	imap <expr><Tab> pumvisible() ? "\<C-n>"
 		\ : (<SID>is_whitespace() ? "\<Tab>"
-		\ : (neosnippet#expandable() ? "\<Plug>(neosnippet_expand)"
+		\ : (neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)"
+		\ : neocomplete#start_manual_complete()))
+
+	smap <expr><Tab> pumvisible() ? "\<C-n>"
+		\ : (<SID>is_whitespace() ? "\<Tab>"
+		\ : (neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)"
 		\ : neocomplete#start_manual_complete()))
 
 	function! s:is_whitespace() "{{{
@@ -717,8 +728,8 @@ endif
 " Functions & Commands {{{1
 "------------------------------------------------------------------------------
 
-" Highlight just a single character on the 81 column
-call matchadd('ColorColumn', '\%81v', 100)
+" Highlight just a single character on the 81st *virtual* column (:h virtcol)
+call matchadd('Error', '\%81v', 100)
 
 " When editing a file, always jump to the last known cursor position.
 " Don't do it when the position is invalid or when inside an event handler
