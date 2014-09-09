@@ -569,16 +569,10 @@ nmap <Leader>- <Plug>(choosewin-swap)
 nmap <F4> :TagbarToggle<CR>
 
 " ColorPicker {{{3
-nmap <Leader>c :ColorPicker<CR>
+nmap <Leader>co :ColorPicker<CR>
 
 " Gundo {{{3
 nnoremap <F5> :GundoToggle<CR>
-
-" NERDCommenter {{{3
-" ci cc
-let NERDCreateDefaultMappings = 0
-map <leader>ci <plug>NERDCommenterInvert
-map <leader>cc <plug>NERDCommenterComment
 
 " Fugitive {{{3
 " ga gs gd gD gc gb gl gp gg gB gbd
