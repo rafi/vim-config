@@ -1,39 +1,40 @@
 " Credits: https://github.com/dahu/vim-help
 
-" jump to links with enter
+" Jump to links with enter
 nmap <buffer> <CR> <C-]>
 
-" jump back with backspace
+" Jump back with backspace
 nmap <buffer> <BS> <C-T>
 
-" skip to next option link
+" Skip to next option link
 nmap <buffer> o /'[a-z]\{2,\}'<CR>
 
-" skip to previous option link
+" Skip to previous option link
 nmap <buffer> O ?'[a-z]\{2,\}'<CR>
 
-" skip to next subject link
+" Skip to next subject link
 nmap <buffer> s /\|\S\+\|<CR>l
 
-" skip to previous subject link
+" Skip to previous subject link
 nmap <buffer> S h?\|\S\+\|<CR>l
 
-" skip to next tag (subject anchor)
+" Skip to next tag (subject anchor)
 nmap <buffer> t /\*\S\+\*<CR>l
 
-" skip to previous tag (subject anchor)
+" Skip to previous tag (subject anchor)
 nmap <buffer> T h?\*\S\+\*<CR>l
 
-" quit
+" Quit
 nmap <buffer> q :q<CR>
 
-" skip to next/prev quickfix list entry (from a helpgrep)
-nmap <buffer> <leader>j :cnext<CR>
-nmap <buffer> <leader>k :cprev<CR>
+" Skip to next/prev quickfix list entry (from a helpgrep)
+nmap <buffer> <Leader>j :cnext<CR>
+nmap <buffer> <Leader>k :cprev<CR>
 
-" disable vim-help maps
-nmap <buffer> <leader>q :<c-u>call <SID>disable_help_maps()<cr>
+" Disable vim-help maps
+nmap <buffer> <Leader>q :<c-u>call <SID>disable_help_maps()<cr>
 
+" Disable
 function! s:disable_help_maps()
 	nunmap <buffer> <CR>
 	nunmap <buffer> <BS>
@@ -44,6 +45,6 @@ function! s:disable_help_maps()
 	nunmap <buffer> t
 	nunmap <buffer> T
 	nunmap <buffer> q
-	nunmap <buffer> <leader>j
-	nunmap <buffer> <leader>k
+	nunmap <buffer> <Leader>j
+	nunmap <buffer> <Leader>k
 endfunction

@@ -22,6 +22,7 @@ function! TlDrawTabs() " {{{1
 	let nr = tabpagenr()
 	for i in range(tabpagenr('$'))
 		if i + 1 == nr
+			let s .= '%#TabLineA#░'
 			let s .= '%#TabLineSel#'
 		else
 			let s .= '%#TabLine# '

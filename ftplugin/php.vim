@@ -4,12 +4,12 @@ setlocal makeprg=php\ -l\ %  " Use php syntax check when doing :make
 "setlocal iskeyword+=\\       " Add the namespace separator as a keyword
 
 " Use errorformat for parsing PHP error output
-"setlocal errorformat=%m\ in\ %f\ on\ line\ %l
+setlocal errorformat=%m\ in\ %f\ on\ line\ %l
 
 " Key bindings
 nnoremap <buffer> zM :<C-u>EnableFastPHPFolds<CR>zM
 nnoremap <buffer> K :!zeal --query "php:<cword>"&<CR><CR>
-nnoremap <silent><buffer> <Leader>pd :call pdv#DocumentCurrentLine()<CR>
+nnoremap <silent><buffer> <Leader>d :call pdv#DocumentCurrentLine()<CR>
 
 " Fix matchpairs for PHP (for matchit.vim plugin)
 " Credits: https://github.com/spf13/PIV
