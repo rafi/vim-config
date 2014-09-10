@@ -1,6 +1,3 @@
 [submodule "snippets/shougo"]
 	path = snippets/shougo
 	url = git://github.com/Shougo/neosnippet-snippets.git
-[submodule "bundle/neobundle"]
-	path = bundle/neobundle
-	url = git://github.com/Shougo/neobundle.vim.git
