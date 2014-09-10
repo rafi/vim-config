@@ -1,9 +1,6 @@
 
 " VimFiler
 " --------
-if ! has('lua')
-	finish
-endif
 
 let g:vimfiler_tree_leaf_icon = "⋮"
 let g:vimfiler_tree_opened_icon = "▼"

@@ -1,9 +1,6 @@
 
 " Unite
 " -----
-if ! has('lua')
-	finish
-endif
 
 " General {{{1
 let g:unite_kind_file_vertical_preview = 1

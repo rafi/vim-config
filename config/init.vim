@@ -4,6 +4,15 @@ if ! isdirectory(expand($VARPATH))
 	call mkdir(expand('$VARPATH/undo'), 'p')
 endif
 
+" Set augroup
+augroup MyAutoCmd
+	autocmd!
+augroup END
+
+if filereadable(expand('$VIMPATH/.vault.vim'))
+	execute 'source' expand('$VIMPATH/.vault.vim')
+endif
+
 let s:plugins_dir = expand('$VARPATH/plugins')
 
 if has('vim_starting')

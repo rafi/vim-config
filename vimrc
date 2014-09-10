@@ -42,10 +42,14 @@ syntax enable
 NeoBundleCheck
 
 call s:source_rc('general.vim')
+call s:source_rc('filetype.vim')
 call s:source_rc('plugins.vim')
 call s:source_rc('terminal.vim')
 call s:source_rc('bindings.vim')
 call s:source_rc('utils.vim')
 call s:source_rc('colors.vim')
+
+call neobundle#call_hook('on_source')
+set secure
 
 "-------8<---------------------------------------------------------------------

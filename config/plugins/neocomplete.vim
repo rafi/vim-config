@@ -1,9 +1,6 @@
 
 " neocomplete
 " -----------
-if ! has('lua')
-	finish
-endif
 
 let g:neocomplete#max_list = 100
 let g:neocomplete#disable_auto_complete = 0

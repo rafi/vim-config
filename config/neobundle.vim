@@ -71,7 +71,6 @@ NeoBundle 'sjl/gundo.vim.git', {
 NeoBundleLazy 'Shougo/neocomplete.git', {
 	\ 'depends': 'Shougo/context_filetype.vim',
 	\ 'disabled': ! has('lua'),
-	\ 'directory': 'neocomplete',
 	\ 'vim_version': '7.3.885',
 	\ 'insert': 1
 	\ }

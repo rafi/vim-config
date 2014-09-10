@@ -1,2 +1,0 @@
-setlocal spell
-setlocal expandtab
