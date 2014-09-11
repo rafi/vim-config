@@ -67,7 +67,6 @@ if neobundle#tap('vinarise.vim') "{{{
 endif "}}}
 
 if neobundle#tap('vim-smartchr') "{{{
-	let g:neocomplete#enable_at_startup = 1
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/smartchr.vim'
 	call neobundle#untap()
 endif "}}}

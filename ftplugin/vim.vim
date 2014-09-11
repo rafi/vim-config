@@ -18,8 +18,11 @@ setlocal formatoptions-=o
 setlocal formatoptions-=r
 
 " For gf
-let &l:path = join(map(split(&runtimepath, ','), 'v:val."/autoload"'), ',')
+let &l:path = expand('$VIMPATH').','.join(map(split(&runtimepath, ','), 'v:val."/autoload"'), ',')
 setlocal suffixesadd=.vim
 setlocal includeexpr=fnamemodify(substitute(v:fname,'#','/','g'),':h')
+
+" Append plugins' tags
+execute "setlocal tags+=$VARPATH/tags/".g:TagabanaHash($VARPATH.'/plugins')
 
 let &cpo = s:save_cpo

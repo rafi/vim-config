@@ -16,7 +16,7 @@ nnoremap <silent><buffer> <Leader>d :call pdv#DocumentCurrentLine()<CR>
 " Credits: https://github.com/spf13/PIV
 if exists("loaded_matchit")
 	let b:match_skip = 's:comment\|string'
-	let b:match_words = '<?\(php\)\?:?>,\<switch\>:\<endswitch\>,' .
+	let b:match_words = '\<switch\>:\<endswitch\>,' .
 			\ '\<if\>:\<elseif\>:\<else\>:\<endif\>,' .
 			\ '\<while\>:\<endwhile\>,\<do\>:\<while\>,' .
 			\ '\<for\>:\<endfor\>,\<foreach\>:\<endforeach\>' .
