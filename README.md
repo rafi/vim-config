@@ -5,45 +5,23 @@ a few colorschemes, awesome configurations and keybindings.
 
 ## Screenshot
 
-![Vim screenshot](https://github.com/rafi/vim-config/raw/master/screens/vim-features.png "Ain't that a beauty?")
+![Vim screenshot](https://paste.xinu.at/P4km/ "Ain't that a beauty?")
 
 ## XDG conformity
 
-The `.vim` folder is usually placed in the home folder. However, I wanted it to conform
-to the XDG standard.
-Notice these topmost lines in `vimrc`:
-
-    set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
-    let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
+Vim's folder is usually placed at `~/.vim`. However, I wanted it to conform
+to the XDG specification standard and place it at `.config/vim`. Both locations
+are supported.
 
 ## Install
 
-1. Clone to `~/.config/vim` recursively (pull submodules):
+1. Clone to `~/.vim` or `~/.config/vim` recursively (pull submodules):
   ```sh
-  git clone --recursive git://github.com/rafi/vim-config.git ~/.config/vim
+  git clone --recursive git://github.com/rafi/vim-config.git ~/.vim
   ```
 
-2. Ensure your XDG environment variables are set.
-  If not, add this to your `.bashrc` or `.[bash_]profile`:
-  ```sh
-  # XDG directories
-  export XDG_CONFIG_HOME="$HOME/.config"
-  export  XDG_CACHE_HOME="$HOME/.cache"
-  export   XDG_DATA_HOME="$HOME/.local/share"
-  ```
-
-3. Set the `VIMINIT` environment variable in your `.bashrc` or `.[bash_]profile`:
-  ```sh
-  export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
-  ```
-
-4. Create cache folders:
-  ```sh
-  mkdir -p $XDG_CACHE_HOME/vim/{backup,bin,swap,undo,tags}
-  ```
-
-5. Re-login or `source ~/.bashrc`
-6. Run `vim` or `gvim`
+2. Run `vim`, `gvim`, or `nvim`
+3. When NeoBundle shows prompt, accept plugins installation
 
 ## Included Plugins
 

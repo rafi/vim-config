@@ -86,11 +86,12 @@ if has('folding')
 	set foldtext=FoldText()
 endif
 
-" Timeouts {{{2
+" Time {{{2
 " --------
 set ttimeout
-set ttimeoutlen=20  " Make esc work faster
-set timeoutlen=1200 " A little bit more time for macros
+set ttimeoutlen=100 " Make esc work faster
+set timeoutlen=3000 " A little bit more time for macros
+set updatetime=1000 " Idle time to write swap
 
 " Searching {{{2
 " ---------
@@ -155,6 +156,19 @@ set laststatus=2        " Always show a status line
 set showbreak=↪               " (+linebreak)
 set fillchars=vert:│,fold:─   " (+windows +folding)
 set list listchars=tab:\⋮\ ,extends:⟫,precedes:⟪,nbsp:.,trail:·
+
+" Do not display completion messages
+" Patch: https://groups.google.com/forum/#!topic/vim_dev/WeBBjkXE8H8
+try
+	set shortmess+=c
+catch /^Vim\%((\a\+)\)\=:E539: Illegal character/
+	autocmd MyAutoCmd VimEnter *
+				\ highlight ModeMsg guifg=bg guibg=bg |
+				\ highlight Question guifg=bg guibg=bg
+endtry
+
+" Highlight just a single character on the 81st *virtual* column (:h virtcol)
+call matchadd('ColorColumn', '\%81v', 100)
 
 " For snippet_complete marker
 if has('conceal') && v:version >= 703

@@ -104,8 +104,8 @@ call unite#custom#profile('default', 'context', {
 	\   'cursor_line_highlight': 'CursorLine',
 	\   'cursor_line_time': '0.5',
 	\   'candidate_icon': '-',
-	\   'marked_icon': '+',
-	\   'prompt' : '▷ '
+	\   'marked_icon': '✓',
+	\   'prompt' : '⮀ '
 	\ })
 
 " Conveniently set settings globally per-source

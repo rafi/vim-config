@@ -1,9 +1,17 @@
 
-" Functions & Commands {{{1
+" Commands {{{1
 "------------------------------------------------------------------------------
 
-" Highlight just a single character on the 81st *virtual* column (:h virtcol)
-call matchadd('Error', '\%81v', 100)
+" Check timestamp more for 'autoread'
+autocmd MyAutoCmd WinEnter * checktime
+
+" Disable paste
+autocmd MyAutoCmd InsertLeave *
+		\ if &paste | set nopaste mouse=a | echo 'nopaste' | endif |
+		\ if &l:diff | diffupdate | endif
+
+" Update diff
+autocmd MyAutoCmd InsertLeave * if &l:diff | diffupdate | endif
 
 " When editing a file, always jump to the last known cursor position.
 " Don't do it when the position is invalid or when inside an event handler

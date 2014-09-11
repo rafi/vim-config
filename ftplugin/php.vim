@@ -2,6 +2,7 @@ setlocal foldmethod=manual   " Using a plugin for php folds
 setlocal formatoptions=qroct " Correct indentation after opening a phpdocblock
 setlocal makeprg=php\ -l\ %  " Use php syntax check when doing :make
 "setlocal iskeyword+=\\       " Add the namespace separator as a keyword
+"setlocal path+=/usr/share/pear
 
 " Use errorformat for parsing PHP error output
 setlocal errorformat=%m\ in\ %f\ on\ line\ %l
