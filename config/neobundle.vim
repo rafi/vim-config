@@ -37,6 +37,11 @@ NeoBundleLazy 'StanAngeloff/php.vim.git', { 'filetypes': 'php' }
 NeoBundleLazy 'rayburgemeestre/phpfolding.vim.git', { 'filetypes': 'php' }
 
 " Utilities
+NeoBundle 'bogado/file-line.git'
+NeoBundle 'gregsexton/gitv.git'
+NeoBundle 'scrooloose/syntastic.git'
+NeoBundle 'godlygeek/tabular.git'
+NeoBundle 'majutsushi/tagbar.git'
 NeoBundle 'farseer90718/vim-colorpicker.git', { 'directory': 'colorpicker' }
 NeoBundle 'sjl/gundo.vim.git', {
 					\ 'disabled': ! has('python'),
@@ -49,20 +54,16 @@ NeoBundle 'mattn/emmet-vim.git', { 'directory': 'emmet' }
 NeoBundle 'tpope/vim-fugitive.git',
 					\ { 'directory': 'fugitive', 'augroup': 'fugitive' }
 NeoBundle 'shawncplus/phpcomplete.vim.git'
-NeoBundle 'tobyS/pdv.git', { 'directory': 'phpdoc' }
+NeoBundle 'tobyS/pdv.git', {
+					\ 'directory': 'phpdoc',
+					\ 'depends': 'tobyS/vmustache.git'
+					\ }
 NeoBundle 'mhinz/vim-signify.git', { 'directory': 'signify' }
 NeoBundle 'marijnh/tern_for_vim.git',
 					\ { 'directory': 'tern', 'build': { 'others': 'npm install' }}
 NeoBundle 'christoomey/vim-tmux-navigator.git',
 					\ { 'directory': 'tmux-navigator' }
-NeoBundle 'mattn/webapi-vim.git', { 'directory': 'webapi' }
 NeoBundle 'regedarek/ZoomWin.git', { 'directory': 'zoomwin' }
-NeoBundle 'bogado/file-line.git'
-NeoBundle 'gregsexton/gitv.git'
-NeoBundle 'scrooloose/syntastic.git'
-NeoBundle 'godlygeek/tabular.git'
-NeoBundle 'majutsushi/tagbar.git'
-NeoBundle 'tobyS/vmustache.git'
 NeoBundleLazy 'matchit.zip', { 'mappings': [[ 'nxo', '%', 'g%' ]]}
 NeoBundleLazy 't9md/vim-choosewin.git',
 							\ { 'directory': 'choosewin', 'mappings': '<Plug>' }
@@ -99,7 +100,9 @@ NeoBundleLazy 'Shougo/neossh.vim.git', {
 							\ }
 NeoBundleLazy 'osyo-manga/unite-quickfix.git'
 NeoBundleLazy 'tsukkee/unite-tag.git'
-NeoBundleLazy 'joker1007/unite-pull-request.git'
+NeoBundleLazy 'joker1007/unite-pull-request.git', {
+							\ 'depends': 'mattn/webapi-vim.git'
+							\ }
 
 " Operators
 NeoBundleLazy 'kana/vim-operator-user', {

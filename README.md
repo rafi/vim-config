@@ -1,7 +1,28 @@
 # Vim config
 
-This is my Vim configuration, crafted with love and care. It contains useful plugins and
-a few colorschemes, awesome configurations and keybindings.
+Mean lean Vim machine.
+
+## Features
+
+- Modular configuration
+- NeoBundle plugin manager
+- Unite centric work-flow
+- Extensive Neocomplete setup
+- Central location for tags
+- Lightweight simple status/tabline
+- Premium color-schemes
+
+## Plugin Highlights
+
+- NeoBundle with caching enabled and lazy loading
+- Project-aware tabs and label
+- Vimfiler as file-manager + SSH connections
+- Go completion via vim-go and gocode
+- Javascript completion via Tern
+- PHP completion, indent, folds, syntax
+- Syntaxes: Ansible, css3, csv, json, less, markdown, mustache
+- Helpers: Color-picker, undo tree, bookmarks, emmet, git, tmux navigation,
+    hex editor, sessions.
 
 ## Screenshot
 
@@ -29,11 +50,13 @@ Name           | Description
 -------------- | ----------------------
 [ansible-yaml] | Additional support for Ansible
 [bookmarks] | Bookmarks, works independently from vim marks
+[bufclose] | Unload buffer without closing the window
 [choosewin] | Choose window to use, like tmux's 'display-pane'
 [colorpicker] | Improved color-picker
 [css3-syntax] | CSS3 syntax support to vim's built-in `syntax/css.vim`
 [csv] | Handling column separated data
 [delimitmate] | Insert mode auto-completion for quotes, parens, brackets
+[echodoc] | Print objects' documentation in echo area
 [emmet] | Abbreviations expanding similar to emmet
 [file-line] | Allow opening a file in a given line
 [fugitive] | Git wrapper
@@ -46,37 +69,46 @@ Name           | Description
 [less] | Syntax for LESS
 [markdown] | Markdown syntax highlighting
 [mustache] | Mustache and handlebars mode
+[neobundle] | Next generation package manager
 [neocomplete] | Next generation completion framework
 [neosnippet] | Contains neocomplete snippets source
 [neossh] | SSH interface for plugins
-[nerdcommenter] | Intense commenting
-[pathogen] | Manage your runtimepath
 [php] | Up-to-date PHP syntax file
 [phpcomplete] | Improved PHP omnicompletion
+[phpdoc] | PHP documenter
+[phpfold] | PHP folding
+[phpindent] | PHP official indenting
 [signify] | Show a VCS diff using the sign column
-[surround] | Quoting/parenthesizing made simple
+[smartchr] | Insert several candidates for a single key
 [syntastic] | Syntax checking hacks
 [tabular] | Text filtering and alignment
+[tagabana] | Central location for all tags
 [tagbar] | Displays tags in a window, ordered by scope
 [tern] | Provides Tern-based JavaScript editing support
 [tinyline] | Tiny great looking statusline
 [tmux-navigator] | Seamless navigation between tmux panes and vim splits
 [unite] | Unite and create user interfaces
-[unite-neomru] | MRU source for Unite
+[neomru] | MRU source for Unite
 [unite-outline] | File "outline" source for unite
+[unite-pull-request] | GitHub pull-request source for Unite
 [unite-quickfix] | Quickfix source for Unite
 [unite-session] | Session source for Unite
 [unite-tag] | Tags source for Unite
 [vimfiler] | Powerful file explorer
 [vimproc] | Interactive command execution
+[vmustache] | Mustache renderer
+[vinarise] | Hex editor
+[zoomwin] | Zoom in/out of windows
 
 [ansible-yaml]: https://github.com/chase/vim-ansible-yaml
 [bookmarks]: https://github.com/MattesGroeger/vim-bookmarks
+[bufclose]: https://github.com/vim-scripts/BufClose.vim
 [choosewin]: https://github.com/t9md/vim-choosewin
 [colorpicker]: https://github.com/farseer90718/vim-colorpicker
 [css3-syntax]: https://github.com/hail2u/vim-css3-syntax
 [csv]: https://github.com/chrisbra/csv.vim
 [delimitmate]: https://github.com/Raimondi/delimitMate
+[echodoc]: https://github.com/Shougo/echodoc.vim
 [emmet]: https://github.com/mattn/emmet-vim
 [file-line]: https://github.com/bogado/file-line
 [fugitive]: https://github.com/tpope/vim-fugitive
@@ -89,29 +121,36 @@ Name           | Description
 [less]: https://github.com/groenewege/vim-less
 [markdown]: https://github.com/plasticboy/vim-markdown
 [mustache]: https://github.com/mustache/vim-mustache-handlebars
+[neobundle]: https://github.com/Shougo/neobundle.vim
 [neocomplete]: https://github.com/Shougo/neocomplete.vim
 [neosnippet]: https://github.com/Shougo/neosnippet.vim
 [neossh]: https://github.com/Shougo/neossh.vim
-[nerdcommenter]: https://github.com/scrooloose/nerdcommenter
-[pathogen]: https://github.com/tpope/vim-pathogen
 [php]: https://github.com/StanAngeloff/php.vim
 [phpcomplete]: https://github.com/shawncplus/phpcomplete.vim
+[phpdoc]: https://github.com/tobyS/pdv
+[phpfold]: https://github.com/rayburgemeestre/phpfolding.vim
+[phpindent]: https://github.com/2072/PHP-Indenting-for-VIm
 [signify]: https://github.com/mhinz/vim-signify
-[surround]: https://github.com/tpope/vim-surround
+[smartchr]: https://github.com/kana/vim-smartchr
 [syntastic]: https://github.com/scrooloose/syntastic
 [tabular]: https://github.com/godlygeek/tabular
+[tagabana]: https://github.com/rafi/vim-tagabana
 [tagbar]: https://github.com/majutsushi/tagbar
 [tern]: https://github.com/marijnh/tern_for_vim
 [tinyline]: https://github.com/rafi/vim-tinyline
 [tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator
 [unite]: https://github.com/Shougo/unite.vim
-[unite-neomru]: https://github.com/Shougo/neomru.vim
+[neomru]: https://github.com/Shougo/neomru.vim
 [unite-outline]: https://github.com/h1mesuke/unite-outline
+[unite-pull-request]: https://github.com/joker1007/unite-pull-request
 [unite-quickfix]: https://github.com/osyo-manga/unite-quickfix
 [unite-session]: https://github.com/Shougo/unite-session
 [unite-tag]: https://github.com/tsukkee/unite-tag
 [vimfiler]: https://github.com/Shougo/vimfiler.vim
 [vimproc]: https://github.com/Shougo/vimproc.vim
+[vmustache]: https://github.com/tobyS/vmustache
+[vinarise]: https://github.com/Shougo/vinarise.vim
+[zoomwin]: https://github.com/regedarek/ZoomWin
 
 ## Custom Key bindings
 
