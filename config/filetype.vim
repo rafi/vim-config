@@ -20,9 +20,22 @@ augroup MyAutoCmd
 
 	autocmd FileType html EmmetInstall
 
+	" Annoying when not closing <?php tag
+	autocmd FileType php setlocal matchpairs-=<:>
+
 	autocmd BufNewfile,BufRead Rakefile set foldmethod=syntax foldnestmax=1
 
 	autocmd FileType zsh setlocal foldenable foldmethod=marker
+
+	" Improved include pattern
+	autocmd FileType html
+				\ setlocal includeexpr=substitute(v:fname,'^\\/','','') |
+				\ setlocal path+=./;/
+
+	autocmd FileType apache setlocal path+=./;/
+
+	autocmd FileType go highlight default link goErr WarningMsg |
+				\ match goErr /\<err\>/
 
 	" Enable omni completions for file types
 	autocmd FileType c setlocal omnifunc=ccomplete#Complete
@@ -40,16 +53,6 @@ augroup MyAutoCmd
 	autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 	autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
 	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-	" Improved include pattern
-	autocmd FileType html
-				\ setlocal includeexpr=substitute(v:fname,'^\\/','','') |
-				\ setlocal path+=./;/
-
-	autocmd FileType apache setlocal path+=./;/
-
-	autocmd FileType go highlight default link goErr WarningMsg |
-				\ match goErr /\<err\>/
 
 augroup END
 

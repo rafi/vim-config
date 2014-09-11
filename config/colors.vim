@@ -21,7 +21,7 @@ highlight yamlScalar   ctermfg=250  guifg=#a8a897
 " Last search highlighting and quickfix's current line
 highlight Search       ctermfg=183  ctermbg=237
 " Brakets and pairs
-highlight MatchParen   ctermfg=198  ctermbg=NONE
+highlight MatchParen   ctermfg=220  ctermbg=237
 " Markdown headers
 highlight link htmlH1 Statement
 " Mode message (insert, visual, etc)

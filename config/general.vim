@@ -4,12 +4,11 @@
 " Vim core {{{2
 " --------
 set autoread                 " Files are read as soon as they are changed
-set formatoptions+=1j        " Automatic formatting
 set mouse=n                  " enable mouse use for normal mode only
 set modeline                 " automatically setting options from modelines
 set report=0                 " Don't report on line changes
 set errorbells               " Errors trigger bell
-set visualbell               " and don't make faces
+set novisualbell             " But don't make faces
 set lazyredraw               " don't redraw while in macros
 set hidden                   " hide buffers when abandoned instead of unload
 set encoding=utf-8           " Set utf8 as standard encoding (+multi_byte)
@@ -21,6 +20,11 @@ set virtualedit=block        " Position cursor anywhere in visual block
 set history=700              " Search and commands remembered
 set synmaxcol=512            " Don't syntax highlight long lines
 syntax sync minlines=256     " Update syntax highlighting for more lines
+set formatoptions+=1         " Don't break lines after a one-letter word
+
+if has('patch-7.3.541')
+	set formatoptions+=j       " Remove comment leader when joining lines
+endif
 
 if has('clipboard') || has("gui_running")
 	set clipboard=             " Do not do anything with system's clipboard
@@ -179,6 +183,11 @@ endif
 " ---------------
 if has('gui_running')
 	set lines=58 columns=190   " Maximize gvim window
+
+	if has('patch-7.4.394')
+		" Use DirectWrite
+		set renderoptions=type:directx,gammma:2.2,mode:3
+	endif
 
 	" Font
 	if has('gui_gtk2')
