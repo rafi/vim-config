@@ -12,7 +12,7 @@ augroup filetypedetect
 	autocmd BufNewFile,BufRead *tmux.conf*,Tmuxfile,tmux/config setfiletype tmux
 
 	" changelog.vim
-	autocmd MyAutoCmd BufNewFile,BufRead *.changelog setfiletype changelog
+	autocmd BufNewFile,BufRead *.changelog setfiletype changelog
 
 	" Ansible
 	autocmd BufNewFile,BufRead */group_vars/*,*/host_vars/* setfiletype yaml

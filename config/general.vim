@@ -42,25 +42,25 @@ endif
 " Vim Directories {{{2
 " ---------------
 set nobackup undofile noswapfile
-set backupdir=$XDG_CACHE_HOME/vim/backup/
-set directory=$XDG_CACHE_HOME/vim/swap//
-set viminfo+=n$XDG_CACHE_HOME/vim/viminfo     " +viminfo
-set undodir=$XDG_CACHE_HOME/vim/undo//        " +persistent_undo
-set spellfile=$XDG_CONFIG_HOME/vim/spell/en.utf-8.add
+set backupdir=$VARPATH/backup/
+set directory=$VARPATH/swap//
+set viminfo+=n$VARPATH/viminfo   " +viminfo
+set undodir=$VARPATH/undo//      " +persistent_undo
+set spellfile=$VIMPATH/spell/en.utf-8.add
 
 " Plugin Directories {{{2
 " ------------------
-let g:pdv_template_dir           = $XDG_CONFIG_HOME.'/vim/snippets/phpdoc'
-let g:bookmark_auto_save_file    = $XDG_CACHE_HOME.'/vim/bookmarks'
-let g:unite_data_directory       = $XDG_CACHE_HOME."/vim/unite"
-let g:vimfiler_data_directory    = $XDG_CACHE_HOME.'/vim/vimfiler'
-let g:neocomplete#data_directory = $XDG_CACHE_HOME.'/vim/complete'
-let g:neosnippet#data_directory  = $XDG_CACHE_HOME.'/vim/snippet'
-let g:neomru#file_mru_path       = $XDG_CACHE_HOME.'/vim/unite/mru/file'
-let g:neomru#directory_mru_path  = $XDG_CACHE_HOME.'/vim/unite/mru/directory'
+let g:pdv_template_dir           = $VIMPATH.'/snippets/phpdoc'
+let g:bookmark_auto_save_file    = $VARPATH.'/bookmarks'
+let g:unite_data_directory       = $VARPATH."/unite"
+let g:vimfiler_data_directory    = $VARPATH.'/vimfiler'
+let g:neocomplete#data_directory = $VARPATH.'/complete'
+let g:neosnippet#data_directory  = $VARPATH.'/snippet'
+let g:neomru#file_mru_path       = $VARPATH.'/unite/mru/file'
+let g:neomru#directory_mru_path  = $VARPATH.'/unite/mru/directory'
 let g:neosnippet#snippets_directory =
-			\$XDG_CONFIG_HOME.'/vim/snippets/rafi,'
-			\.$XDG_CONFIG_HOME.'/vim/snippets/shougo/neosnippets,'
+			\$VIMPATH.'/snippets/rafi,'
+			\.$VIMPATH.'/snippets/shougo/neosnippets,'
 			\.$VARPATH.'/plugins/go/gosnippets/snippets'
 
 " Tabs and Indents {{{2
