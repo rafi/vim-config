@@ -163,15 +163,15 @@ endif
 
 " gVim Appearance {{{2
 " ---------------
-if has("gui_running")
+if has('gui_running')
 	set lines=58 columns=190   " Maximize gvim window
 
 	" Font
-	if has("gui_gtk2")
+	if has('gui_gtk2')
 		set guifont=PragmataPro\ 12
-	elseif has("gui_macvim")
+	elseif has('gui_macvim')
 		set guifont=Menlo\ Regular:h14
-	elseif has("gui_win32")
+	elseif has('gui_win32')
 		set guifont=Consolas:h11:cANSI
 	endif
 endif

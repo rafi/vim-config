@@ -21,4 +21,3 @@ let g:choosewin_blink_on_land      = 0 " Don't blink on landing
 let g:choosewin_statusline_replace = 0 " Don't replace statusline
 let g:choosewin_tabline_replace    = 0 " Don't replace tabline
 
-nmap g<C-w> <Plug>(choosewin)

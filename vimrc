@@ -23,8 +23,10 @@ else
 	let $VARPATH=expand('~/.cache/vim')
 endif
 
+" Initialize base requirements
 call s:source_rc('init.vim')
 
+" NeoBundle start plugins {{{2
 call neobundle#begin(expand('$VARPATH/plugins'))
 if neobundle#has_cache()
 	NeoBundleLoadCache
@@ -32,7 +34,7 @@ else
 	call s:source_rc('neobundle.vim')
 	NeoBundleSaveCache
 endif
-call neobundle#end()
+call neobundle#end() "}}}
 
 " Must be after plugins
 filetype plugin indent on
@@ -41,6 +43,7 @@ syntax enable
 " Plugin installation check
 NeoBundleCheck
 
+" Loading configuration modules {{{2
 call s:source_rc('general.vim')
 call s:source_rc('filetype.vim')
 call s:source_rc('plugins.vim')
@@ -48,6 +51,7 @@ call s:source_rc('terminal.vim')
 call s:source_rc('bindings.vim')
 call s:source_rc('utils.vim')
 call s:source_rc('colors.vim')
+" }}}
 
 call neobundle#call_hook('on_source')
 set secure

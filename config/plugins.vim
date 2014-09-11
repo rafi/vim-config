@@ -4,11 +4,42 @@
 
 if neobundle#tap('unite.vim') "{{{
 	let g:unite_source_history_yank_enable = 1
+	nnoremap [unite]  <Nop>
+	nmap     f [unite]
+	nnoremap <silent> [unite]r  :<C-u>UniteResume -no-start-insert<CR>
+	nnoremap <silent> [unite]f  :<C-u>Unite file_rec/async<CR>
+	nnoremap <silent> [unite]i  :<C-u>Unite file_rec/git<CR>
+	nnoremap <silent> [unite]g  :<C-u>Unite grep:. -no-wrap<CR>
+	nnoremap <silent> [unite]u  :<C-u>Unite source<CR>
+	nnoremap <silent> [unite]t  :<C-u>Unite tag -silent<CR>
+	nnoremap <silent> [unite]T  :<C-u>Unite tag/include -silent<CR>
+	nnoremap <silent> [unite]l  :<C-u>Unite location_list<CR>
+	nnoremap <silent> [unite]q  :<C-u>Unite quickfix<CR>
+	nnoremap <silent> [unite]e  :<C-u>Unite register<CR>
+	nnoremap <silent> [unite]j  :<C-u>Unite change jump -profile-name=navigate<CR>
+	nnoremap <silent> [unite]h  :<C-u>Unite history/yank<CR>
+	nnoremap <silent> [unite]s  :<C-u>Unite session<CR>
+	nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
+	nnoremap <silent> [unite]ma :<C-u>Unite mapping -silent<CR>
+	nnoremap <silent> [unite]me :<C-u>Unite output:message -silent<CR>
+	nnoremap <silent> <Leader>b :<C-u>Unite buffer file_mru bookmark<CR>
+	nnoremap <silent> <Leader>t :<C-u>Unite tab<CR>
+	" Open VimFiler with current file selected
+	nnoremap <silent> [unite]a  :<C-u>VimFilerExplorer -find -winwidth=25 -split -toggle -no-quit<CR>
+	" Open Unite with word under cursor or selection
+	nnoremap <silent> <Leader>gf :execute 'UniteWithCursorWord file_rec/async -profile-name=navigate'<CR>
+	nnoremap <silent> <Leader>gt :execute 'UniteWithCursorWord tag -profile-name=navigate'<CR>
+	nnoremap <silent> <Leader>gg :execute 'UniteWithCursorWord grep:. -profile-name=navigate'<CR>
+	vnoremap <silent> <Leader>gt :<C-u>call VSetSearch('/')<CR>:execute 'Unite tag -profile-name=navigate -input='.strpart(@/,2)<CR>
+	vnoremap <silent> <Leader>gg :<C-u>call VSetSearch('/')<CR>:execute 'Unite grep:. -profile-name=navigate -input='.strpart(@/,2)<CR>
+
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/unite.vim'
 	call neobundle#untap()
 endif "}}}
 
 if neobundle#tap('vimfiler.vim') "{{{
+	noremap <silent> <Leader>f :VimFilerExplorer -winwidth=25 -split -toggle -no-quit<CR>
+	noremap <silent> <Leader>a :VimFilerExplorer -find -winwidth=25 -split -toggle -no-quit<CR>
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/vimfiler.vim'
 	call neobundle#untap()
 endif "}}}
@@ -35,12 +66,21 @@ if neobundle#tap('vinarise.vim') "{{{
 	call neobundle#untap()
 endif "}}}
 
+if neobundle#tap('vim-smartchr') "{{{
+	let g:neocomplete#enable_at_startup = 1
+	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/smartchr.vim'
+	call neobundle#untap()
+endif "}}}
+
 if neobundle#tap('vim-bookmarks') "{{{
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/bookmarks.vim'
 	call neobundle#untap()
 endif "}}}
 
 if neobundle#tap('vim-choosewin') "{{{
+	nmap g<C-w>    <Plug>(choosewin)
+	nmap -         <Plug>(choosewin)
+	nmap <Leader>- <Plug>(choosewin-swap)
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/choosewin.vim'
 	call neobundle#untap()
 endif "}}}
@@ -69,6 +109,7 @@ if neobundle#tap('syntastic') "{{{
 endif "}}}
 
 if neobundle#tap('tagbar') "{{{
+	nmap <F4> :TagbarToggle<CR>
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/tagbar.vim'
 	call neobundle#untap()
 endif "}}}
@@ -90,8 +131,33 @@ if neobundle#tap('vim-markdown') "{{{
 	call neobundle#untap()
 endif "}}}
 
+if neobundle#tap('vim-fugitive') "{{{
+	" ga gs gd gD gc gb gl gp gg gB gbd
+	nnoremap <silent> <leader>ga :Git add %:p<CR>
+	nnoremap <silent> <leader>gs :Gstatus<CR>
+	nnoremap <silent> <leader>gd :Gdiff<CR>
+	nnoremap <silent> <leader>gD :Gdiffoff<CR>
+	nnoremap <silent> <leader>gc :Gcommit<CR>
+	nnoremap <silent> <leader>gb :Gblame<CR>
+	nnoremap <silent> <leader>gl :Gitv --all<CR>
+	nnoremap <silent> <leader>gp :Git push<CR>
+	nnoremap <silent> <leader>gB :Gbrowse<CR>
+	nnoremap <silent> <leader>gbd :Gbrowse origin/develop^{}:%<CR>
+	call neobundle#untap()
+endif "}}}
+
 if neobundle#tap('gitv') "{{{
 	let g:Gitv_DoNotMapCtrlKey = 1  " Do not map ctrl keys
+	call neobundle#untap()
+endif "}}}
+
+if neobundle#tap('gundo.vim') "{{{
+	nnoremap <F5> :GundoToggle<CR>
+	call neobundle#untap()
+endif "}}}
+
+if neobundle#tap('vim-colorpicker') "{{{
+	nmap <Leader>co :ColorPicker<CR>
 	call neobundle#untap()
 endif "}}}
 

@@ -59,3 +59,61 @@ if ! exists('g:neocomplete#force_omni_input_patterns')
 	let g:neocomplete#force_omni_input_patterns = {}
 endif
 let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
+
+" Mappings {{{1
+" --------
+
+" Movement within 'ins-completion-menu'
+inoremap <expr><C-j>   "\<Down>"
+inoremap <expr><C-k>   "\<Up>"
+inoremap <expr><C-f>   pumvisible() ? "\<PageDown>" : "\<Right>"
+inoremap <expr><C-b>   pumvisible() ? "\<PageUp>" : "\<Left>"
+imap <expr><S-Tab> pumvisible() ? "\<C-p>"
+	\ : (neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)"
+	\ : "\<S-Tab>")
+
+" <BS>: Close popup and delete preceding char
+inoremap <expr><BS>  neocomplete#smart_close_popup()."\<C-h>"
+" <C-y>, <C-e>: Close popup, close popup and cancel selection
+inoremap <expr><C-y> pumvisible() ? neocomplete#close_popup() : "\<C-r>"
+inoremap <expr><C-e> pumvisible() ? neocomplete#cancel_popup() : "\<End>"
+" <C-h>, <C-l>: Undo completion, complete common characters
+inoremap <expr><C-h> neocomplete#undo_completion()
+inoremap <expr><C-l> neocomplete#complete_common_string()
+
+" <CR>: If popup menu visible, expand snippet or close popup with selection.
+imap <expr><silent><CR> pumvisible() ?
+	\ (neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : neocomplete#close_popup())
+	\ : "\<CR>"
+
+" <C+Space> unite completion
+" How weird is that <C-Space> in some(?) terminals is <Nul>?!
+imap <Nul>  <Plug>(neocomplete_start_unite_complete)
+
+" <Tab> completion:
+" 1. If popup menu is visible, select and insert next item
+" 2. Otherwise, if preceding chars are whitespace, insert tab char
+" 3. Otherwise, if preceding word is a snippet, expand it
+" 4. Otherwise, start manual autocomplete
+imap <expr><Tab> pumvisible() ? "\<C-n>"
+	\ : (<SID>is_whitespace() ? "\<Tab>"
+	\ : (neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)"
+	\ : neocomplete#start_manual_complete()))
+
+smap <expr><Tab> pumvisible() ? "\<C-n>"
+	\ : (<SID>is_whitespace() ? "\<Tab>"
+	\ : (neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)"
+	\ : neocomplete#start_manual_complete()))
+
+function! s:is_whitespace() "{{{
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]  =~ '\s'
+endfunction "}}}
+
+" TODO: Not working
+"imap     <expr><C-d> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
+"inoremap <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+"imap     <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+"inoremap <expr><C-x><C-f> neocomplete#start_manual_complete('file')
+
+"}}}

@@ -1,3 +1,13 @@
+" Use spacebar instead of '\'.
+" It is not mapped with respect well unless I set it before setting for plug in.
+" Use <Leader> in global plugin.
+let g:mapleader = ' '
+" Use <LocalLeader> in filetype plugin.
+let g:maplocalleader = ' '
+
+" Release keymappings for plug-in.
+"nnoremap <Space> <Nop>
+"xnoremap <Space> <Nop>
 
 if ! isdirectory(expand($VARPATH))
 	" Create the cache dir and the undo dir, too

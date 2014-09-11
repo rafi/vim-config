@@ -13,6 +13,9 @@ autocmd BufReadPost *
 	\	exe 'normal! g`"zvzz' |
 	\ endif
 
+" Functions {{{1
+"------------------------------------------------------------------------------
+
 " Simple way to turn off Gdiff splitscreen
 " works only when diff buffer is focused
 " See: http://stackoverflow.com/a/25530943/351947
@@ -30,7 +33,7 @@ endfunction
 
 " Makes * and # work on visual mode too.
 " See: http://github.com/nelstrom/vim-visual-star-search
-function! s:VSetSearch(cmdtype)
+function! VSetSearch(cmdtype)
 	let temp = @s
 	normal! gv"sy
 	let @/ = '\V'.substitute(escape(@s, a:cmdtype.'\'), '\n', '\\n', 'g')

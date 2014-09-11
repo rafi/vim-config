@@ -62,6 +62,33 @@ elseif executable('ack')
 	let g:unite_source_grep_recursive_opt = ''
 endif
 
+" Unite bindings {{{1
+
+autocmd MyAutoCmd FileType unite call s:unite_settings()
+function! s:unite_settings()
+	silent! nunmap <buffer> <C-h>
+	silent! nunmap <buffer> <C-k>
+	silent! nunmap <buffer> <C-l>
+	silent! nunmap <buffer> <C-r>
+	nmap <silent><buffer> <C-r> <Plug>(unite_redraw)
+	imap <silent><buffer> <C-j> <Plug>(unite_select_next_line)
+	imap <silent><buffer> <C-k> <Plug>(unite_select_previous_line)
+	nmap <silent><buffer> '     <Plug>(unite_toggle_mark_current_candidate)
+	nmap <silent><buffer> e     <Plug>(unite_do_default_action)
+	nmap <silent><buffer><expr> <C-v> unite#do_action('splitswitch')
+	nmap <silent><buffer><expr> <C-s> unite#do_action('vsplitswitch')
+	nmap <silent><buffer><expr> <C-t> unite#do_action('tabswitch')
+	nmap <buffer> <ESC> <Plug>(unite_exit)
+	imap <buffer> jj    <Plug>(unite_insert_leave)
+
+	let unite = unite#get_current_unite()
+	if unite.profile_name ==# '^search'
+		nnoremap <silent><buffer><expr> r unite#do_action('replace')
+	else
+		nnoremap <silent><buffer><expr> r unite#do_action('rename')
+	endif
+endfunction
+
 " Contexts {{{1
 
 " Global default context
