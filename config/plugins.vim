@@ -84,6 +84,15 @@ if neobundle#tap('vim-choosewin') "{{{
 	call neobundle#untap()
 endif "}}}
 
+if neobundle#tap('vim-session') "{{{
+	let g:session_directory = $VARPATH.'/session'
+	let g:session_default_overwrite = 1
+	let g:session_autosave = 'no'
+	let g:session_autoload = 'no'
+	let g:session_persist_colors = 0
+	let g:session_menu = 0
+endif "}}}
+
 if neobundle#tap('phpcomplete.vim') "{{{
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/phpcomplete.vim'
 	call neobundle#untap()

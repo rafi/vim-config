@@ -15,18 +15,20 @@ set encoding=utf-8           " Set utf8 as standard encoding (+multi_byte)
 set ffs=unix,dos,mac         " Use Unix as the standard file type
 set magic                    " For regular expressions turn magic on
 set path=.,**                " Directories to search when using gf
-set sessionoptions-=options  " Don't save options and runtime in sessions
 set virtualedit=block        " Position cursor anywhere in visual block
 set history=700              " Search and commands remembered
 set synmaxcol=512            " Don't syntax highlight long lines
 syntax sync minlines=256     " Update syntax highlighting for more lines
 set formatoptions+=1         " Don't break lines after a one-letter word
+set sessionoptions-=options  " Don't save in sessions:
+set sessionoptions-=folds    " - Options, runtime, folds
+set sessionoptions-=help     " - Help windows
 
 if has('patch-7.3.541')
 	set formatoptions+=j       " Remove comment leader when joining lines
 endif
 
-if has('clipboard') || has("gui_running")
+if has('clipboard') || has('gui_running')
 	set clipboard=             " Do not do anything with system's clipboard
 endif
 

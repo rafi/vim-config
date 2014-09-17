@@ -11,6 +11,7 @@ let g:unite_kind_jump_list_after_jump_scroll = 50
 let s:ag_opts = '-SU --hidden --depth 30 --nocolor --nogroup '.
 		\ '--ignore ".git" '.
 		\ '--ignore ".idea" '.
+		\ '--ignore "bower_modules" '.
 		\ '--ignore "node_modules" '.
 		\ '--ignore "*/apps/*/cache/*" '.
 		\ '--ignore "*/apps/*/logs/*" '.

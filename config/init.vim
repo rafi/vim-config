@@ -55,7 +55,7 @@ if has('gui_running')
   set guioptions=Mc
 endif
 
-if !&verbose
+if ! &verbose
 	" Disable GetLatestVimPlugin.vim
 	let g:loaded_getscriptPlugin = 1
 endif
