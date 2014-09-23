@@ -11,6 +11,11 @@
 let s:save_cpo = &cpo
 set cpo&vim
 
+" Variables  "{{{
+call unite#util#set_default('g:unite_source_session_allow_rename_locked',
+	\ 0)
+"}}}
+"
 function! unite#sources#session#define() "{{{
 	return [ s:source, s:source_new ]
 endfunction "}}}
@@ -41,6 +46,7 @@ endfunction "}}}
 function! unite#sources#session#_complete(arglead, cmdline, cursorpos) "{{{
 	let directory = xolox#misc#path#absolute(g:session_directory)
 	let sessions = split(glob(directory.'/*'.g:session_extension), '\n')
+"	let sessions = xolox#session#complete_names_with_suggestions('', 0, 0)
 	return filter(sessions, 'stridx(v:val, a:arglead) == 0')
 endfunction "}}}
 
@@ -122,6 +128,7 @@ let s:source.action_table.rename = {
 
 function! s:source.action_table.rename.func(candidates) "{{{
 	let current_session = xolox#session#find_current_session()
+	let rename_locked = g:unite_source_session_allow_rename_locked
 	for candidate in a:candidates
 		if rename_locked || current_session != candidate.word
 			let session_name = input(printf(
@@ -129,10 +136,15 @@ function! s:source.action_table.rename.func(candidates) "{{{
 			if session_name != '' && session_name !=# candidate.word
 				let new_name = g:session_directory.'/'.session_name.g:session_extension
 				call rename(candidate.action__path, new_name)
+				" Rename also lock file
 				if filereadable(candidate.action__path.'.lock')
+					" TODO: Change vim-session current session
 					call rename(candidate.action__path.'.lock', new_name.'.lock')
 				endif
 			endif
+		else
+			call unite#print_source_error(
+				\ [ 'The session "'.candidate.word.'" is locked.' ], 'session')
 		endif
 	endfor
 endfunction "}}}
