@@ -8,6 +8,9 @@ endif
 
 augroup filetypedetect
 
+	" LESS for lazy-loading syntax
+	autocmd BufNewFile,BufRead *.less setfiletype less
+
 	" Tmux
 	autocmd BufNewFile,BufRead *tmux.conf*,Tmuxfile,tmux/config setfiletype tmux
 

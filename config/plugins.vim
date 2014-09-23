@@ -61,6 +61,13 @@ if neobundle#tap('echodoc.vim') "{{{
 	call neobundle#untap()
 endif "}}}
 
+if neobundle#tap('matchit.zip') "{{{
+	function! neobundle#hooks.on_post_source(bundle)
+		silent! execute 'doautocmd Filetype' &filetype
+	endfunction
+	call neobundle#untap()
+endif "}}}
+
 if neobundle#tap('vinarise.vim') "{{{
 	let g:vinarise_enable_auto_detect = 1
 	call neobundle#untap()
@@ -139,7 +146,22 @@ if neobundle#tap('vim-markdown') "{{{
 	call neobundle#untap()
 endif "}}}
 
+if neobundle#tap('vim-mustache-handlebars') "{{{
+	function! neobundle#hooks.on_post_source(bundle)
+		doautocmd BufRead *.mustache, *.hogan, *.hulk, *.hjs, *.handlebars, *.hbs
+	endfunction
+endif
+
+if neobundle#tap('vim-ansible-yaml') "{{{
+	function! neobundle#hooks.on_post_source(bundle)
+		doautocmd BufRead *.yml
+	endfunction
+endif
+
 if neobundle#tap('vim-fugitive') "{{{
+	function! neobundle#hooks.on_post_source(bundle)
+		doautoall fugitive BufNewFile
+	endfunction
 	" ga gs gd gD gc gb gl gp gg gB gbd
 	nnoremap <silent> <leader>ga :Git add %:p<CR>
 	nnoremap <silent> <leader>gs :Gstatus<CR>

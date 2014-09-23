@@ -10,41 +10,61 @@ NeoBundle 'rafi/vim-tinyline.git', { 'directory': 'tinyline' }
 NeoBundle 'rafi/vim-tagabana.git', { 'directory': 'tagabana' }
 
 " Filetypes
-" TODO: Turn lazy
-NeoBundle 'mustache/vim-mustache-handlebars.git'
-NeoBundle 'chase/vim-ansible-yaml.git'
-NeoBundle 'plasticboy/vim-markdown.git'
-NeoBundle 'groenewege/vim-less.git', { 'rev': '5d965c2' }
+NeoBundleLazy 'mustache/vim-mustache-handlebars.git', { 'filetypes': 'html' }
+NeoBundleLazy 'plasticboy/vim-markdown.git', { 'filetypes': 'mkd' }
+NeoBundleLazy 'chase/vim-ansible-yaml.git', { 'filetypes': 'yaml' }
+NeoBundleLazy 'groenewege/vim-less.git', { 'rev': '5d965c2', 'filetypes': 'less' }
 NeoBundleLazy 'hail2u/vim-css3-syntax.git', { 'filetypes': 'css' }
 NeoBundleLazy 'chrisbra/csv.vim.git', { 'filetypes': 'csv' }
 NeoBundleLazy 'fatih/vim-go.git', { 'filetypes': 'go' }
 NeoBundleLazy 'elzr/vim-json.git', { 'filetypes': 'json' }
 
 " JavaScript
-NeoBundle 'pangloss/vim-javascript.git', { 'rev': '51a337b' }
-NeoBundle 'marijnh/tern_for_vim.git', { 'build': { 'others': 'npm install' }}
+NeoBundleLazy 'pangloss/vim-javascript.git', {
+	\ 'rev': '51a337b',
+	\ 'filetypes': 'javascript'
+	\ }
+NeoBundleLazy 'marijnh/tern_for_vim.git', {
+	\ 'build': { 'others': 'npm install' },
+	\ 'autoload': { 'filetypes': 'javascript' }
+	\ }
 
 " PHP
 NeoBundleLazy 'StanAngeloff/php.vim.git', { 'filetypes': 'php' }
 NeoBundleLazy 'rayburgemeestre/phpfolding.vim.git', { 'filetypes': 'php' }
+NeoBundleLazy 'shawncplus/phpcomplete.vim.git', { 'insert': 1, 'filetypes': 'php' }
+" TODO: Lazy-load
 NeoBundle 'tobyS/pdv.git', { 'depends': 'tobyS/vmustache.git' }
-NeoBundle 'shawncplus/phpcomplete.vim.git'
 NeoBundle '2072/PHP-Indenting-for-VIm.git', { 'directory': 'php-indent' }
 
 " Utilities
-NeoBundle 'tpope/vim-fugitive.git', { 'augroup': 'fugitive' }
-NeoBundle 'gregsexton/gitv.git'
 NeoBundle 'mhinz/vim-signify.git'
-NeoBundle 'sjl/gundo.vim.git', {
-					\ 'disabled': ! has('python'),
-					\ 'vim_version': '7.3'
-					\ }
+NeoBundleLazy 'tpope/vim-fugitive.git', {
+	\ 'autoload': {
+	\  'augroup': 'fugitive',
+	\  'commands': [ 'Git', 'Gdiff', 'Gstatus', 'Gwrite', 'Gcd', 'Glcd',
+	\    'Ggrep', 'Glog', 'Gcommit', 'Gblame', 'Gbrowse' ]
+	\ }}
+NeoBundleLazy 'gregsexton/gitv.git', {
+	\ 'depends': 'tpope/vim-fugitive.git',
+	\ 'autoload': { 'commands': [ 'Gitv' ]}
+	\ }
+NeoBundleLazy 'sjl/gundo.vim.git', {
+	\ 'disabled': ! has('python'),
+	\ 'vim_version': '7.3',
+	\ 'autoload': { 'commands': [ 'GundoToggle' ]}
+	\ }
+NeoBundleLazy 'gorkunov/smartpairs.vim', {
+	\ 'autoload': {
+	\  'commands': [ 'SmartPairs', 'SmartPairsI', 'SmartPairsA' ],
+	\  'mappings': [[ 'n', 'viv' ], [ 'v', 'v' ]]
+	\ }}
 
 " UI
 NeoBundle 'w0ng/vim-hybrid.git'
-NeoBundle 'BufClose.vim'
-NeoBundle 'regedarek/ZoomWin.git'
 NeoBundle 'christoomey/vim-tmux-navigator.git'
+NeoBundle 'regedarek/ZoomWin.git'
+NeoBundleLazy 'BufClose.vim', { 'commands': [ 'BufClose' ]}
 NeoBundleLazy 'matchit.zip', { 'mappings': [[ 'nxo', '%', 'g%' ]]}
 NeoBundleLazy 't9md/vim-choosewin.git', { 'mappings': '<Plug>' }
 NeoBundleLazy 'xolox/vim-session.git', {
@@ -62,12 +82,12 @@ NeoBundleLazy 'xolox/vim-session.git', {
 	\ 'unite_sources': [ 'session', 'session/new' ]
 	\ }}
 
+" TODO: Lazy-load
 NeoBundle 'farseer90718/vim-colorpicker.git'
 NeoBundle 'bogado/file-line.git'
 NeoBundle 'scrooloose/syntastic.git'
 NeoBundle 'majutsushi/tagbar.git'
 NeoBundle 'MattesGroeger/vim-bookmarks.git'
-
 NeoBundle 'godlygeek/tabular.git'
 NeoBundle 'mattn/emmet-vim.git'
 
@@ -76,43 +96,64 @@ NeoBundleLazy 'Raimondi/delimitMate.git', { 'insert': 1 }
 NeoBundleLazy 'Shougo/echodoc.vim.git', { 'insert': 1 }
 NeoBundleLazy 'kana/vim-smartchr', { 'insert' : 1 }
 NeoBundleLazy 'Shougo/neocomplete.git', {
-							\ 'depends': 'Shougo/context_filetype.vim',
-							\ 'disabled': ! has('lua'),
-							\ 'vim_version': '7.3.885',
-							\ 'insert': 1
-							\ }
+	\ 'depends': 'Shougo/context_filetype.vim',
+	\ 'disabled': ! has('lua'),
+	\ 'vim_version': '7.3.885',
+	\ 'insert': 1
+	\ }
 NeoBundleLazy 'Shougo/neosnippet.vim.git', {
-							\ 'depends': 'Shougo/context_filetype.vim',
-							\ 'insert': 1,
-							\ 'filetypes': 'snippet',
-							\ 'unite_sources': [
-							\    'neosnippet', 'neosnippet/user', 'neosnippet/runtime'
-							\ ]}
+	\ 'depends': 'Shougo/context_filetype.vim',
+	\ 'insert': 1,
+	\ 'filetypes': 'snippet',
+	\ 'unite_sources': [
+	\    'neosnippet', 'neosnippet/user', 'neosnippet/runtime'
+	\ ]}
 
 " Shougo
-NeoBundle 'Shougo/unite.vim.git'
-NeoBundle 'Shougo/vinarise.vim.git'
-NeoBundle 'Shougo/vimfiler.vim.git'
+NeoBundle 'Shougo/neomru.vim.git'
 NeoBundle 'Shougo/vimproc.vim.git', {
-					\ 'build': {
-					\   'unix': 'make -f make_unix.mak',
-					\   'mac': 'make -f make_mac.mak',
-					\   'cygwin': 'make -f make_cygwin.mak',
-					\   'windows': 'tools\\update-dll-mingw'
-					\ }}
+	\ 'build': {
+	\   'unix': 'make -f make_unix.mak',
+	\   'mac': 'make -f make_mac.mak',
+	\   'cygwin': 'make -f make_cygwin.mak',
+	\   'windows': 'tools\\update-dll-mingw'
+	\ }}
+NeoBundleLazy 'Shougo/unite.vim.git', {
+	\ 'autoload': {
+	\   'commands': [
+	\     { 'name' : 'Unite', 'complete' : 'customlist,unite#complete_source' },
+	\     'UniteWithCursorWord', 'UniteWithInput' ]
+	\ }}
+NeoBundleLazy 'Shougo/vimfiler.vim.git', {
+	\ 'depends': 'Shougo/unite.vim',
+	\ 'autoload' : {
+	\   'mappings' : [ '<Plug>(vimfiler_switch)' ],
+	\   'commands' : [
+	\     { 'name' : 'VimFiler', 'complete' : 'customlist,vimfiler#complete' },
+	\     'VimFilerExplorer', 'Edit', 'Read', 'Source', 'Write'
+	\ ]}}
+NeoBundleLazy 'Shougo/vinarise.vim.git', {
+	\ 'autoload' : { 'commands' : 'Vinarise' }
+	\ }
 
 " Unite sources
-NeoBundle 'Shougo/neomru.vim.git'
-NeoBundleLazy 'Shougo/unite-outline.git'
 NeoBundleLazy 'Shougo/neossh.vim.git', {
-							\ 'filetypes': 'vimfiler',
-							\ 'sources': 'ssh',
-							\ }
-NeoBundleLazy 'osyo-manga/unite-quickfix.git'
-NeoBundleLazy 'tsukkee/unite-tag.git'
+	\ 'filetypes': 'vimfiler',
+	\ 'sources': 'ssh',
+	\ }
+NeoBundleLazy 'Shougo/unite-outline.git', {
+	\  'unite_sources': 'outline'
+	\ }
+NeoBundleLazy 'osyo-manga/unite-quickfix.git', {
+	\  'unite_sources': [ 'quickfix', 'location_list' ]
+	\ }
+NeoBundleLazy 'tsukkee/unite-tag.git', {
+	\  'unite_sources': [ 'tag', 'tag/file', 'tag/include' ]
+	\ }
 NeoBundleLazy 'joker1007/unite-pull-request.git', {
-							\ 'depends': 'mattn/webapi-vim.git'
-							\ }
+	\  'depends': 'mattn/webapi-vim.git',
+	\  'unite_sources': [ 'pull_request', 'pull_request_file' ]
+	\ }
 
 " Operators
 NeoBundleLazy 'kana/vim-operator-user', {
