@@ -36,8 +36,8 @@ nnoremap <C-y> 3<C-y>
 
 " Remap some keys to be more useful
 nnoremap ' `
+nnoremap ` '
 nnoremap Q gq
-"nnoremap S <Nop>
 nnoremap Y y$
 nnoremap <CR> za
 

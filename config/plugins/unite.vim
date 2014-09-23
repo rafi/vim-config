@@ -97,8 +97,8 @@ call unite#custom#profile('default', 'context', {
 	\   'start_insert': 1,
 	\   'max_candidates': 0,
 	\   'update_time': 500,
-	\   'winheight': 35,
-	\   'winwidth': 80,
+	\   'winheight': 20,
+	\   'winwidth': 40,
 	\   'direction': 'topleft',
 	\   'no_auto_resize': 1,
 	\   'prompt_direction': 'top',
@@ -110,13 +110,18 @@ call unite#custom#profile('default', 'context', {
 	\ })
 
 " Conveniently set settings globally per-source
-call unite#custom#profile(
-	\  'source/history/yank,source/session,source/register',
-	\  'context', { 'start_insert': 0 },
-	\ )
+call unite#custom#profile('source/history/yank,source/register', 'context', {
+	\ 'start_insert': 0
+	\ })
+
+call unite#custom#profile('source/session', 'context', {
+	\   'start_insert': 0,
+	\   'winheight': 13
+	\ })
 
 call unite#custom#profile('source/source', 'context', {
 	\   'vertical': 1,
+	\   'winwidth': 80,
 	\   'direction': 'botright',
 	\ })
 

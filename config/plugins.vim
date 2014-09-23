@@ -110,8 +110,13 @@ if neobundle#tap('phpfolding.vim') "{{{
 	call neobundle#untap()
 endif "}}}
 
-if neobundle#tap('signify') "{{{
-	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/signify.vim'
+if neobundle#tap('vim-gitgutter') "{{{
+	nmap <Leader>hj <Plug>GitGutterNextHunk
+	nmap <Leader>hk <Plug>GitGutterPrevHunk
+	nmap <Leader>ha <Plug>GitGutterStageHunk
+	nmap <Leader>hu <Plug>GitGutterRevertHunk
+	nmap <Leader>hp <Plug>GitGutterPreviewHunk
+	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/gitgutter.vim'
 	call neobundle#untap()
 endif "}}}
 

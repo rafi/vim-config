@@ -8,7 +8,7 @@ endif
 
 augroup filetypedetect
 
-	" LESS for lazy-loading syntax
+	" Recognize Less for lazy-loading syntax
 	autocmd BufNewFile,BufRead *.less setfiletype less
 
 	" Tmux

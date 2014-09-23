@@ -95,8 +95,8 @@ endif
 " Time {{{2
 " --------
 set ttimeout
-set ttimeoutlen=100 " Make esc work faster
-set timeoutlen=3000 " A little bit more time for macros
+set ttimeoutlen=20  " Make it fast please
+set timeoutlen=1200 " A little bit more time for macros
 set updatetime=1000 " Idle time to write swap
 
 " Searching {{{2
