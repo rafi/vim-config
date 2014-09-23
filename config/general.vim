@@ -67,7 +67,7 @@ let g:neomru#directory_mru_path  = $VARPATH.'/unite/mru/directory'
 let g:neosnippet#snippets_directory =
 			\$VIMPATH.'/snippets/rafi,'
 			\.$VIMPATH.'/snippets/shougo/neosnippets,'
-			\.$VARPATH.'/plugins/go/gosnippets/snippets'
+			\.$VARPATH.'/plugins/vim-go/gosnippets/snippets'
 
 " Tabs and Indents {{{2
 " ----------------

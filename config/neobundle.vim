@@ -1,16 +1,35 @@
 
 " Plugins with NeoBundle {{{1
 "------------------------------------------------------------------------------
+NeoBundleFetch 'Shougo/neobundle.vim'
 
-" Manage NeoBundle itself
-NeoBundleFetch 'Shougo/neobundle.vim.git'
+" Always loaded {{{2
+" -------------
+NeoBundle 'Shougo/vimproc.vim', {
+	\  'build': {
+	\    'unix': 'make -f make_unix.mak',
+	\    'mac': 'make -f make_mac.mak',
+	\    'cygwin': 'make -f make_cygwin.mak',
+	\    'windows': 'tools\\update-dll-mingw'
+	\ }}
+
+NeoBundle 'Shougo/neomru.vim'
+NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'bogado/file-line'
+NeoBundle 'MattesGroeger/vim-bookmarks'
+NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'christoomey/vim-tmux-navigator'
+NeoBundle 'godlygeek/tabular'  " TODO: Lazy-load?
+NeoBundle 'regedarek/ZoomWin'  " TODO: With lazy, problem restoring splits
 
 " Rafi's plugins, usually working-tree is dirty
 NeoBundle 'rafi/vim-tinyline.git', { 'directory': 'tinyline' }
 NeoBundle 'rafi/vim-tagabana.git', { 'directory': 'tagabana' }
 
-" Filetypes
-NeoBundleLazy 'mustache/vim-mustache-handlebars.git', { 'filetypes': 'html' }
+" Filetypes {{{2
+" ---------
+NeoBundleLazy 'mustache/vim-mustache-handlebars', { 'filetypes': 'html' }
 NeoBundleLazy 'plasticboy/vim-markdown.git', { 'filetypes': 'mkd' }
 NeoBundleLazy 'chase/vim-ansible-yaml.git', { 'filetypes': 'yaml' }
 NeoBundleLazy 'groenewege/vim-less.git', { 'rev': '5d965c2', 'filetypes': 'less' }
@@ -19,31 +38,37 @@ NeoBundleLazy 'chrisbra/csv.vim.git', { 'filetypes': 'csv' }
 NeoBundleLazy 'fatih/vim-go.git', { 'filetypes': 'go' }
 NeoBundleLazy 'elzr/vim-json.git', { 'filetypes': 'json' }
 
-" JavaScript
+" JavaScript {{{2
+" ----------
 NeoBundleLazy 'pangloss/vim-javascript.git', {
-	\ 'rev': '51a337b',
-	\ 'filetypes': 'javascript'
+	\   'rev': '51a337b',
+	\   'filetypes': 'javascript'
 	\ }
 NeoBundleLazy 'marijnh/tern_for_vim.git', {
-	\ 'build': { 'others': 'npm install' },
-	\ 'autoload': { 'filetypes': 'javascript' }
+	\   'build': { 'others': 'npm install' },
+	\   'autoload': { 'filetypes': 'javascript' }
 	\ }
 
-" PHP
+" PHP {{{2
+" ---
 NeoBundleLazy 'StanAngeloff/php.vim.git', { 'filetypes': 'php' }
 NeoBundleLazy 'rayburgemeestre/phpfolding.vim.git', { 'filetypes': 'php' }
 NeoBundleLazy 'shawncplus/phpcomplete.vim.git', { 'insert': 1, 'filetypes': 'php' }
-" TODO: Lazy-load
-NeoBundle 'tobyS/pdv.git', { 'depends': 'tobyS/vmustache.git' }
-NeoBundle '2072/PHP-Indenting-for-VIm.git', { 'directory': 'php-indent' }
+NeoBundleLazy 'tobyS/pdv.git', { 'depends': 'tobyS/vmustache.git' }
+NeoBundleLazy '2072/PHP-Indenting-for-VIm.git', {
+	\ 'filetypes': 'php',
+	\ 'directory': 'php-indent'
+	\ }
 
-" Utilities
-NeoBundle 'mhinz/vim-signify.git'
+" Utilities {{{2
+" ---------
 NeoBundleLazy 'tpope/vim-fugitive.git', {
 	\ 'autoload': {
-	\  'augroup': 'fugitive',
-	\  'commands': [ 'Git', 'Gdiff', 'Gstatus', 'Gwrite', 'Gcd', 'Glcd',
-	\    'Ggrep', 'Glog', 'Gcommit', 'Gblame', 'Gbrowse' ]
+	\   'augroup': 'fugitive',
+	\   'commands': [
+	\     'Git', 'Gdiff', 'Gstatus', 'Gwrite', 'Gcd', 'Glcd',
+	\     'Ggrep', 'Glog', 'Gcommit', 'Gblame', 'Gbrowse'
+	\   ]
 	\ }}
 NeoBundleLazy 'gregsexton/gitv.git', {
 	\ 'depends': 'tpope/vim-fugitive.git',
@@ -59,11 +84,11 @@ NeoBundleLazy 'gorkunov/smartpairs.vim', {
 	\  'commands': [ 'SmartPairs', 'SmartPairsI', 'SmartPairsA' ],
 	\  'mappings': [[ 'n', 'viv' ], [ 'v', 'v' ]]
 	\ }}
+NeoBundleLazy 'majutsushi/tagbar.git', { 'commands': 'TagbarToggle' }
+NeoBundleLazy 'farseer90718/vim-colorpicker.git', { 'commands': 'ColorPicker' }
 
-" UI
-NeoBundle 'w0ng/vim-hybrid.git'
-NeoBundle 'christoomey/vim-tmux-navigator.git'
-NeoBundle 'regedarek/ZoomWin.git'
+" UI {{{2
+" --
 NeoBundleLazy 'BufClose.vim', { 'commands': [ 'BufClose' ]}
 NeoBundleLazy 'matchit.zip', { 'mappings': [[ 'nxo', '%', 'g%' ]]}
 NeoBundleLazy 't9md/vim-choosewin.git', { 'mappings': '<Plug>' }
@@ -82,16 +107,8 @@ NeoBundleLazy 'xolox/vim-session.git', {
 	\ 'unite_sources': [ 'session', 'session/new' ]
 	\ }}
 
-" TODO: Lazy-load
-NeoBundle 'farseer90718/vim-colorpicker.git'
-NeoBundle 'bogado/file-line.git'
-NeoBundle 'scrooloose/syntastic.git'
-NeoBundle 'majutsushi/tagbar.git'
-NeoBundle 'MattesGroeger/vim-bookmarks.git'
-NeoBundle 'godlygeek/tabular.git'
-NeoBundle 'mattn/emmet-vim.git'
-
-" Insert mode plugins
+" Insert Mode {{{2
+" -----------
 NeoBundleLazy 'Raimondi/delimitMate.git', { 'insert': 1 }
 NeoBundleLazy 'Shougo/echodoc.vim.git', { 'insert': 1 }
 NeoBundleLazy 'kana/vim-smartchr', { 'insert' : 1 }
@@ -109,15 +126,8 @@ NeoBundleLazy 'Shougo/neosnippet.vim.git', {
 	\    'neosnippet', 'neosnippet/user', 'neosnippet/runtime'
 	\ ]}
 
-" Shougo
-NeoBundle 'Shougo/neomru.vim.git'
-NeoBundle 'Shougo/vimproc.vim.git', {
-	\ 'build': {
-	\   'unix': 'make -f make_unix.mak',
-	\   'mac': 'make -f make_mac.mak',
-	\   'cygwin': 'make -f make_cygwin.mak',
-	\   'windows': 'tools\\update-dll-mingw'
-	\ }}
+" Shougo {{{2
+" ------
 NeoBundleLazy 'Shougo/unite.vim.git', {
 	\ 'autoload': {
 	\   'commands': [
@@ -155,24 +165,26 @@ NeoBundleLazy 'joker1007/unite-pull-request.git', {
 	\  'unite_sources': [ 'pull_request', 'pull_request_file' ]
 	\ }
 
-" Operators
+" Operators {{{2
+" ---------
 NeoBundleLazy 'kana/vim-operator-user', {
-							\ 'functions': 'operator#user#define',
-							\ }
+	\ 'functions': 'operator#user#define',
+	\ }
 NeoBundleLazy 'kana/vim-operator-replace', {
-							\ 'depends': 'vim-operator-user',
-							\ 'autoload': {
-							\   'mappings': [[ 'nx', '<Plug>(operator-replace)' ]]
-							\ }}
+	\ 'depends': 'vim-operator-user',
+	\ 'autoload': {
+	\   'mappings': [[ 'nx', '<Plug>(operator-replace)' ]]
+	\ }}
 NeoBundleLazy 'rhysd/vim-operator-surround', {
-							\ 'depends': 'vim-operator-user',
-							\ 'mappings': '<Plug>'
-							\ }
+	\ 'depends': 'vim-operator-user',
+	\ 'mappings': '<Plug>'
+	\ }
 
-" Textobjs
+" Textobjs {{{2
+" --------
 NeoBundleLazy 'kana/vim-textobj-user'
 NeoBundleLazy 'osyo-manga/vim-textobj-multiblock', {
-							\ 'depends' : 'vim-textobj-user',
-							\ 'autoload' : {
-							\   'mappings' : [['ox', '<Plug>' ]]
-							\ }}
+	\ 'depends' : 'vim-textobj-user',
+	\ 'autoload' : {
+	\   'mappings' : [['ox', '<Plug>' ]]
+	\ }}

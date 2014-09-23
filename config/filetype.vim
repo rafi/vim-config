@@ -18,7 +18,9 @@ augroup MyAutoCmd
 
 	autocmd FileType gitcommit,qfreplace setlocal nofoldenable
 
-	autocmd FileType html EmmetInstall
+	autocmd FileType diff setlocal winfixheight | nmap <buffer> q :q<CR>
+
+	autocmd FileType vimfiler setlocal winfixwidth
 
 	" Annoying when not closing <?php tag
 	autocmd FileType php setlocal matchpairs-=<:>

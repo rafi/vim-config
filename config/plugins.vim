@@ -190,11 +190,3 @@ if neobundle#tap('vim-colorpicker') "{{{
 	nmap <Leader>co :ColorPicker<CR>
 	call neobundle#untap()
 endif "}}}
-
-if neobundle#tap('emmet-vim') "{{{
-	let g:use_emmet_complete_tag = 1
-	let g:user_emmet_leader_key = '<C-z>'
-	let g:user_emmet_mode = 'i'
-	let g:user_emmet_install_global = 0
-	call neobundle#untap()
-endif "}}}
