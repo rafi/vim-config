@@ -26,6 +26,7 @@ NeoBundle 'regedarek/ZoomWin'  " TODO: With lazy, problem restoring splits
 " Rafi's plugins, usually working-tree is dirty
 NeoBundle 'rafi/vim-tinyline.git', { 'directory': 'tinyline' }
 NeoBundle 'rafi/vim-tagabana.git', { 'directory': 'tagabana' }
+NeoBundle 'rafi/vim-tinycomment.git', { 'directory': 'tinycomment' }
 
 " Filetypes {{{2
 " ---------
