@@ -57,7 +57,7 @@ set spellfile=$VIMPATH/spell/en.utf-8.add
 " Plugin Directories {{{2
 " ------------------
 let g:pdv_template_dir           = $VIMPATH.'/snippets/phpdoc'
-let g:bookmark_auto_save_file    = $VARPATH.'/bookmarks'
+let g:bookmark_auto_save_dir     = $VARPATH.'/bookmarks'
 let g:unite_data_directory       = $VARPATH."/unite"
 let g:vimfiler_data_directory    = $VARPATH.'/vimfiler'
 let g:neocomplete#data_directory = $VARPATH.'/complete'

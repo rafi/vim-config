@@ -6,20 +6,40 @@ let g:bookmark_save_per_working_dir = 1
 let g:bookmark_sign = '✓'                  " Bookmarks: Bookmark sign
 let g:bookmark_annotation_sign = '⌦'       " Bookmarks: Annonation sign
 
-" Finds the Git super-project directory.
+if ! exists('g:bookmark_auto_save_dir')
+	let g:bookmark_auto_save_dir = '~/.vim-bookmarks'
+endif
+
+" Ensure that bookmarks directory exists
+if ! isdirectory(g:bookmark_auto_save_dir)
+	call mkdir(g:bookmark_auto_save_dir, 'p')
+endif
+
+" Store project's bookmarks in a central directory
 function! g:BMWorkDirFileLocation()
-	let filename = 'bookmarks'
-	let location = ''
-	if isdirectory('.git')
-		" Current work dir is git's work tree
-		let location = getcwd().'/.git'
+	" Hash the project directory
+	" Credits: https://github.com/Shougo
+	let cwd = getcwd()
+	if len(cwd) < 150
+		" Just replacing directory separators if path is
+		" less than 150 characters.
+		let hash = substitute(substitute(
+					\ cwd, ':', '=-', 'g'), '[/\\\ ]', '=+', 'g')
+	elseif executable('sha256sum')
+		" Use SHA256 for long paths. Use the command line executable and not Vim's
+		" internal sha256() function to stay compatible with the bash 'ctags' hook
+		" script that generates these files.
+		let hash = substitute(
+					\ system("printf '".cwd."' | sha256sum"),
+					\ '\s\+\-.*$', '', '')
 	else
-		" Look upwards (at parents) for a directory named '.git'
-		let location = finddir('.git', '.;')
+		" Simple hash when sha256sum isn't available
+		let sum = 0
+		for i in range(len(cwd))
+			let sum += char2nr(cwd[i]) * (i + 1)
+		endfor
+		let hash = printf('%x', sum)
 	endif
-	if len(location) > 0
-		return location.'/'.filename
-	else
-		return getcwd().'/.'.filename
-	endif
+
+	return g:bookmark_auto_save_dir.'/'.hash
 endfunction
