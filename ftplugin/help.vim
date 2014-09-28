@@ -7,22 +7,22 @@ nmap <buffer> <CR> <C-]>
 nmap <buffer> <BS> <C-T>
 
 " Skip to next option link
-nmap <buffer> o /'[a-z]\{2,\}'<CR>
+nmap <buffer> o /'[a-z]\{2,\}'<CR>:noh<CR>
 
 " Skip to previous option link
-nmap <buffer> O ?'[a-z]\{2,\}'<CR>
+nmap <buffer> O ?'[a-z]\{2,\}'<CR>:noh<CR>
 
 " Skip to next subject link
-nmap <buffer> s /\|\S\+\|<CR>l
+nmap <buffer> s /\|\S\+\|<CR>l:noh<CR>
 
 " Skip to previous subject link
-nmap <buffer> S h?\|\S\+\|<CR>l
+nmap <buffer> S h?\|\S\+\|<CR>l:noh<CR>
 
 " Skip to next tag (subject anchor)
-nmap <buffer> t /\*\S\+\*<CR>l
+nmap <buffer> t /\*\S\+\*<CR>l:noh<CR>
 
 " Skip to previous tag (subject anchor)
-nmap <buffer> T h?\*\S\+\*<CR>l
+nmap <buffer> T h?\*\S\+\*<CR>l:noh<CR>
 
 " Quit
 nmap <buffer> q :q<CR>

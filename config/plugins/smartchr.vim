@@ -2,7 +2,7 @@
 " smartchr
 "---------
 inoremap <expr> , smartchr#one_of(',', ', ')
-inoremap <expr> = smartchr#one_of(' = ', ' == ', ' === ')
+inoremap <expr> = smartchr#one_of('=', ' = ', ' == ', ' === ')
 
 augroup MyAutoCmd
   " Substitute .. into ->

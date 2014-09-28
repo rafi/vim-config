@@ -6,30 +6,30 @@ if neobundle#tap('unite.vim') "{{{
 	let g:unite_source_history_yank_enable = 1
 	nnoremap [unite]  <Nop>
 	nmap     f [unite]
-	nnoremap <silent> [unite]r  :<C-u>UniteResume -no-start-insert<CR>
-	nnoremap <silent> [unite]f  :<C-u>Unite file_rec/async<CR>
-	nnoremap <silent> [unite]i  :<C-u>Unite file_rec/git<CR>
-	nnoremap <silent> [unite]g  :<C-u>Unite grep:. -no-wrap<CR>
-	nnoremap <silent> [unite]u  :<C-u>Unite source<CR>
-	nnoremap <silent> [unite]t  :<C-u>Unite tag -silent<CR>
-	nnoremap <silent> [unite]T  :<C-u>Unite tag/include -silent<CR>
-	nnoremap <silent> [unite]l  :<C-u>Unite location_list<CR>
-	nnoremap <silent> [unite]q  :<C-u>Unite quickfix<CR>
-	nnoremap <silent> [unite]e  :<C-u>Unite register<CR>
-	nnoremap <silent> [unite]j  :<C-u>Unite change jump -profile-name=navigate<CR>
-	nnoremap <silent> [unite]h  :<C-u>Unite history/yank<CR>
-	nnoremap <silent> [unite]s  :<C-u>Unite session<CR>
-	nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
-	nnoremap <silent> [unite]ma :<C-u>Unite mapping -silent<CR>
-	nnoremap <silent> [unite]me :<C-u>Unite output:message -silent<CR>
-	nnoremap <silent> <Leader>b :<C-u>Unite buffer file_mru bookmark<CR>
-	nnoremap <silent> <Leader>t :<C-u>Unite tab<CR>
+	nnoremap <silent> [unite]r   :<C-u>UniteResume -no-start-insert<CR>
+	nnoremap <silent> [unite]f   :<C-u>Unite file_rec/async<CR>
+	nnoremap <silent> [unite]i   :<C-u>Unite file_rec/git<CR>
+	nnoremap <silent> [unite]g   :<C-u>Unite grep:. -no-wrap<CR>
+	nnoremap <silent> [unite]u   :<C-u>Unite source<CR>
+	nnoremap <silent> [unite]t   :<C-u>Unite tag -silent<CR>
+	nnoremap <silent> [unite]T   :<C-u>Unite tag/include -silent<CR>
+	nnoremap <silent> [unite]l   :<C-u>Unite location_list<CR>
+	nnoremap <silent> [unite]q   :<C-u>Unite quickfix<CR>
+	nnoremap <silent> [unite]e   :<C-u>Unite register<CR>
+	nnoremap <silent> [unite]j   :<C-u>Unite change jump -profile-name=navigate<CR>
+	nnoremap <silent> [unite]h   :<C-u>Unite history/yank<CR>
+	nnoremap <silent> [unite]s   :<C-u>Unite session<CR>
+	nnoremap <silent> [unite]o   :<C-u>Unite outline<CR>
+	nnoremap <silent> [unite]ma  :<C-u>Unite mapping -silent<CR>
+	nnoremap <silent> [unite]me  :<C-u>Unite output:message -silent<CR>
+	nnoremap <silent> <Leader>b  :<C-u>Unite buffer file_mru bookmark<CR>
+	nnoremap <silent> <Leader>ta :<C-u>Unite tab<CR>
 	" Open VimFiler with current file selected
 	nnoremap <silent> [unite]a  :<C-u>VimFilerExplorer -find -winwidth=25 -split -toggle -no-quit<CR>
 	" Open Unite with word under cursor or selection
 	nnoremap <silent> <Leader>gf :execute 'UniteWithCursorWord file_rec/async -profile-name=navigate'<CR>
-	nnoremap <silent> <Leader>gt :execute 'UniteWithCursorWord tag -profile-name=navigate'<CR>
 	nnoremap <silent> <Leader>gg :execute 'UniteWithCursorWord grep:. -profile-name=navigate'<CR>
+	nnoremap <silent> <Leader>gt :execute 'UniteWithCursorWord tag -profile-name=navigate'<CR>
 	vnoremap <silent> <Leader>gt :<C-u>call VSetSearch('/')<CR>:execute 'Unite tag -profile-name=navigate -input='.strpart(@/,2)<CR>
 	vnoremap <silent> <Leader>gg :<C-u>call VSetSearch('/')<CR>:execute 'Unite grep:. -profile-name=navigate -input='.strpart(@/,2)<CR>
 

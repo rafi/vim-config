@@ -92,20 +92,17 @@ map <F3> :echo 'hi<'.synIDattr(synID(line('.'), col('.'), 1), 'name')
 	\.'> trans<'.synIDattr(synID(line('.'), col('.'), 0), 'name').'> lo<'
 	\.synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name').'>'<CR>
 
-" Line number type toggle
-nnoremap <Leader>l :set nonumber!<CR>
-
 " Show hidden characters (spaces, tabs, etc)
-nmap <silent> <leader>s :set nolist!<CR>
-
+" Line number type toggle
 " Clear the highlighting of :set hlsearch
-nmap <silent> <Leader>h :silent :nohlsearch<CR>
-
 " Toggle spell checking
-map <leader>ss :setlocal spell!<cr>
+nmap <Leader>ts :setlocal spell!<cr>
+nmap <Leader>tn :set nonumber!<CR>
+nmap <leader>tl :set nolist!<CR>
+nmap <Leader>th :nohlsearch<CR>
 
 " Tabs
-map     <C-t>     :tabnew<CR>
+noremap <leader>st  :tabnew<CR>
 noremap <C-x>     :tabclose<CR>
 noremap <C-Tab>   :tabn<CR>
 noremap <C-S-Tab> :tabp<CR>
@@ -126,8 +123,8 @@ nnoremap <silent> <Leader>z :BufClose<CR>
 
 if has('quickfix')
 	" Split current buffer, go to previous window and previous buffer
-	nnoremap <leader>v :split<CR>:wincmd p<CR>:e#<CR>
-	nnoremap <leader>g :vsplit<CR>:wincmd p<CR>:e#<CR>
+"	nnoremap <leader>v :split<CR>:wincmd p<CR>:e#<CR>
+"	nnoremap <leader>g :vsplit<CR>:wincmd p<CR>:e#<CR>
 endif
 
 if has('gui_running')
@@ -145,7 +142,7 @@ xnoremap * :<C-u>call VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
 xnoremap # :<C-u>call VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
 
 " C-r: Easier search and replace
-xnoremap <C-r> "hy:%s/<C-r>h//gc<Left><Left><Left>
+xnoremap <C-r> "hy:%s:\V<C-r>h::gc<Left><Left><Left>
 
 " Location list
 nmap <Leader>lj :lnext<CR>

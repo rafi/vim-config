@@ -63,6 +63,8 @@ let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
 " Mappings {{{1
 " --------
 
+let g:neocomplete#fallback_mappings = ["\<C-x>\<C-o>", "\<C-x>\<C-n>"]
+
 " Movement within 'ins-completion-menu'
 inoremap <expr><C-j>   "\<Down>"
 inoremap <expr><C-k>   "\<Up>"
