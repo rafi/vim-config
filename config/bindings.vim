@@ -146,7 +146,7 @@ xnoremap * :<C-u>call VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
 xnoremap # :<C-u>call VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
 
 " C-r: Easier search and replace
-xnoremap <C-r> "hy:%s:\V<C-r>h::gc<Left><Left><Left>
+xnoremap <C-r> :<C-u>call VSetSearch('/')<CR>:%s:<C-R>=@/<CR>::gc<Left><Left><Left>
 
 " Location list
 nmap <Leader>lj :lnext<CR>
@@ -159,25 +159,33 @@ nnoremap <leader>S ^vg_y:execute @@<CR>:echo 'Sourced line.'<CR>
 " Append modeline to EOF
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 
+nnoremap [file]  <Nop>
+nmap     f [file]
 " Focus the current fold by closing all others
-nnoremap <leader>ef mzzM`zzv
-
+nnoremap [file]z mzzM`zzv
 " Yank buffer's absolute path to X11 clipboard
-nnoremap fy :let @+=expand("%:p")<CR>
+nnoremap [file]y :let @+=expand("%:p")<CR>:echo 'Copied to clipboard.'<CR>
 
 " Drag current line/s vertically and auto-indent
-noremap  <leader>m :m+<CR>==
-noremap  <leader>, :m-2<CR>==
-vnoremap <leader>m :m'>+<CR>gv=gv
-vnoremap <leader>, :m-2<CR>gv=gv
+noremap  <leader>k :m-2<CR>==
+noremap  <leader>j :m+<CR>==
+vnoremap <leader>k :m-2<CR>gv=gv
+vnoremap <leader>j :m'>+<CR>gv=gv
 
-autocmd FileType qf call s:quickfix_settings()
-function! s:quickfix_settings()
-	" Jump to source with Enter
-"	nnoremap <buffer> <CR> :.cc<CR>
-	" Quit the quickfix window with a single 'q'
-	nnoremap <buffer> q  :bdelete<CR>
-endfunction
+augroup MyAutoCmd " {{{
+
+	autocmd FileType qf,diff  nnoremap <buffer> q  :q<CR>
+
+	autocmd FileType ansible,go,php,css,less,html,mkd
+		\ nnoremap <silent><buffer> K :!zeal --query "<C-R>=&ft<CR>:<cword>"&<CR><CR>
+
+	autocmd FileType javascript,sql,ruby,conf,sh
+		\ nnoremap <silent><buffer> K :!zeal --query "<cword>"&<CR><CR>
+
+	autocmd FileType php
+		\ nnoremap <silent><buffer> <Leader>k :call pdv#DocumentCurrentLine()<CR>
+
+augroup END
 " }}}
 
 " vim: set ts=2 sw=2 tw=80 noet :

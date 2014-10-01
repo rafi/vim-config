@@ -3,7 +3,7 @@
 "------------------------------------------------------------------------------
 
 if neobundle#tap('unite.vim') "{{{
-	let g:unite_data_directory             = $VARPATH."/unite"
+	let g:unite_data_directory = $VARPATH."/unite"
 	let g:unite_source_history_yank_enable = 1
 	nnoremap [unite]  <Nop>
 	nmap     f [unite]
@@ -26,11 +26,11 @@ if neobundle#tap('unite.vim') "{{{
 	nnoremap <silent> <Leader>b  :<C-u>Unite buffer file_mru bookmark<CR>
 	nnoremap <silent> <Leader>ta :<C-u>Unite tab<CR>
 	" Open VimFiler with current file selected
-	nnoremap <silent> [unite]a  :<C-u>VimFilerExplorer -find -winwidth=25 -split -toggle -no-quit<CR>
+	nnoremap <silent> [unite]a  :<C-u>VimFilerExplorer -find -winwidth=20 -split -toggle -no-quit<CR>
 	" Open Unite with word under cursor or selection
-	nnoremap <silent> <Leader>gf :execute 'UniteWithCursorWord file_rec/async -profile-name=navigate'<CR>
-	nnoremap <silent> <Leader>gg :execute 'UniteWithCursorWord grep:. -profile-name=navigate'<CR>
-	nnoremap <silent> <Leader>gt :execute 'UniteWithCursorWord tag -profile-name=navigate'<CR>
+	nnoremap <silent> <Leader>gf :UniteWithCursorWord file_rec/async -profile-name=navigate<CR>
+	nnoremap <silent> <Leader>gg :UniteWithCursorWord grep:. -profile-name=navigate<CR>
+	nnoremap <silent> <Leader>gt :UniteWithCursorWord tag -profile-name=navigate<CR>
 	vnoremap <silent> <Leader>gt :<C-u>call VSetSearch('/')<CR>:execute 'Unite tag -profile-name=navigate -input='.strpart(@/,2)<CR>
 	vnoremap <silent> <Leader>gg :<C-u>call VSetSearch('/')<CR>:execute 'Unite grep:. -profile-name=navigate -input='.strpart(@/,2)<CR>
 
@@ -40,8 +40,8 @@ endif
 
 "}}}
 if neobundle#tap('vimfiler.vim') "{{{
-	noremap <silent> <Leader>f :VimFilerExplorer -winwidth=25 -split -toggle -no-quit<CR>
-	noremap <silent> <Leader>a :VimFilerExplorer -find -winwidth=25 -split -toggle -no-quit<CR>
+	noremap <silent> <Leader>f :VimFilerExplorer -winwidth=20 -split -toggle<CR>
+	noremap <silent> <Leader>a :VimFilerExplorer -find -winwidth=20 -split -toggle -no-quit<CR>
 	let g:vimfiler_data_directory = $VARPATH.'/vimfiler'
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/vimfiler.vim'
 	call neobundle#untap()

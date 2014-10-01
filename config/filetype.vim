@@ -11,19 +11,13 @@ augroup MyAutoCmd
 				\ |   filetype detect
 				\ | endif
 
-	autocmd FileType ansible nnoremap <buffer> K
-													\ :!zeal --query "ansible:<cword>"&<CR><CR>
-
 	autocmd FileType gitcommit setlocal spell
 
 	autocmd FileType gitcommit,qfreplace setlocal nofoldenable
 
-	autocmd FileType diff setlocal winfixheight | nmap <buffer> q :q<CR>
+	autocmd FileType diff setlocal winfixheight
 
-	autocmd FileType vimfiler setlocal winfixwidth
-
-	" Annoying when not closing <?php tag
-	autocmd FileType php setlocal matchpairs-=<:>
+"	autocmd FileType vimfiler setlocal winfixwidth
 
 	autocmd BufNewfile,BufRead Rakefile set foldmethod=syntax foldnestmax=1
 
@@ -43,7 +37,7 @@ augroup MyAutoCmd
 	autocmd FileType c setlocal omnifunc=ccomplete#Complete
 	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 	autocmd FileType go setlocal omnifunc=go#complete#Complete
-	autocmd FileType html,mustache,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+	autocmd FileType html,mustache,mkd setlocal omnifunc=htmlcomplete#CompleteTags
 "	autocmd FileType java setlocal omnifunc=javacomplete#Complete
 	autocmd FileType javascript setlocal omnifunc=tern#Complete
 	autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP

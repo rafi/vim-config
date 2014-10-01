@@ -14,7 +14,8 @@ let g:vimfiler_ignore_pattern = '^\%(\.git\|\.idea\|\.DS_Store\)$'
 call vimfiler#custom#profile('default', 'context', {
 	\  'safe': 0,
 	\  'explorer': 1,
-	\  'auto_expand': 1
+	\  'auto_expand': 1,
+	\  'no_quit': 1
 	\ })
 
 autocmd MyAutoCmd FileType vimfiler call s:vimfiler_settings()
