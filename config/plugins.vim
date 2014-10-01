@@ -83,6 +83,12 @@ if neobundle#tap('vim-bookmarks') "{{{
 	call neobundle#untap()
 endif "}}}
 
+if neobundle#tap('goyo.vim') "{{{
+	nnoremap <Leader>G :Goyo<CR>
+	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/goyo.vim'
+	call neobundle#untap()
+endif "}}}
+
 if neobundle#tap('vim-choosewin') "{{{
 	nmap g<C-w>    <Plug>(choosewin)
 	nmap -         <Plug>(choosewin)

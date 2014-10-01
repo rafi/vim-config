@@ -105,6 +105,11 @@ NeoBundleLazy 'farseer90718/vim-colorpicker.git', { 'commands': 'ColorPicker' }
 
 " Interface {{{2
 " ---------
+NeoBundleLazy 'junegunn/goyo.vim', {
+	\ 'depends': 'junegunn/limelight.vim',
+	\ 'autoload': {
+	\   'commands': 'Goyo'
+	\ }}
 NeoBundleLazy 'BufClose.vim', { 'commands': [ 'BufClose' ]}
 NeoBundleLazy 'matchit.zip', { 'mappings': [[ 'nxo', '%', 'g%' ]]}
 NeoBundleLazy 't9md/vim-choosewin.git', { 'mappings': '<Plug>' }
