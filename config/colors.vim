@@ -35,15 +35,6 @@ highlight PmenuSel    ctermfg=236 ctermbg=248
 highlight PmenuSbar   ctermbg=235
 highlight PmenuThumb  ctermbg=238
 
-" Tabline {{{3
-highlight TabLineFill      ctermfg=236 guifg=#303030
-highlight TabLine          ctermfg=236 ctermbg=243 guifg=#303030 guibg=#767676
-highlight TabLineSel       ctermfg=241 ctermbg=234 guifg=#626262 guibg=#1C1C1C gui=NONE
-highlight TabLineSelRe     ctermfg=234 ctermbg=236 guifg=#1C1C1C guibg=#303030
-highlight TabLineProject   ctermfg=252 ctermbg=238 guifg=#D0D0D0 guibg=#444444
-highlight TabLineProjectRe ctermfg=238 ctermbg=236 guifg=#444444 guibg=#303030
-highlight TabLineA         ctermfg=235 ctermbg=234 guifg=#262626 guibg=#1C1C1C
-
 " Unite {{{3
 highlight uniteInputPrompt            ctermfg=237
 highlight uniteCandidateMarker        ctermfg=143

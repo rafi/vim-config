@@ -1,24 +1,59 @@
 
 " vim-tinytabs - Tiny tab-line for Vim
-" Maintainer: Rafael Bodill <justrafi@gmail.com>
-" Version:    0.5
+" Maintainer: Rafael Bodill <justrafi at gmail dot com>
+" Version:    0.7
 "-------------------------------------------------
 
+" Disable reload {{{
 if exists('g:loaded_tinytabs') && g:loaded_tinytabs
   finish
 endif
+let g:loaded_tinytabs = 1
 
+" }}}
+" Saving 'cpoptions' {{{
 let s:save_cpo = &cpo
 set cpo&vim
+" }}}
 
-" Runtime {{{1
-set tabline=%!TlDrawTabs()
+" Command {{{
+command! -nargs=0 -bar -bang TinyTabs call s:tinytabs('<bang>' == '!')
+" }}}
 
-" Functions {{{1
+" s:sid_prefix() "{{{
+" Anywhere SID
+function! s:sid_prefix()
+	return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
+endfunction
 
+" }}}
+" s:tinytabs(integer <disable>) "{{{
+function! s:tinytabs(disable)
+	if a:disable
+		set tabline=
+	else
+		call s:colorscheme()
+		let &tabline='%!'.s:sid_prefix().'draw_tabs()'
+	endif
+endfunction
+
+" }}}
+" s:colorscheme() "{{{
+function! s:colorscheme()
+	highlight TabLineFill      ctermfg=236 guifg=#303030
+	highlight TabLine          ctermfg=236 ctermbg=243 guifg=#303030 guibg=#767676
+	highlight TabLineSel       ctermfg=241 ctermbg=234 guifg=#626262 guibg=#1C1C1C gui=NONE
+	highlight TabLineSelRe     ctermfg=234 ctermbg=236 guifg=#1C1C1C guibg=#303030
+	highlight TabLineProject   ctermfg=252 ctermbg=238 guifg=#D0D0D0 guibg=#444444
+	highlight TabLineProjectRe ctermfg=238 ctermbg=236 guifg=#444444 guibg=#303030
+	highlight TabLineA         ctermfg=235 ctermbg=234 guifg=#262626 guibg=#1C1C1C
+endfunction
+
+" }}}
+" s:draw_tabs() "{{{
 " Main tabline function. Draws the whole damn tabline
-function! TlDrawTabs() " {{{1
-	let s = '%#TabLineProject# %{TlFindProjectName()} %#TabLineProjectRe#⮀%#TabLine#  '
+function! s:draw_tabs()
+	let s = '%#TabLineProject# %{'.s:sid_prefix().'project_name()} %#TabLineProjectRe#⮀%#TabLine#  '
 	let nr = tabpagenr()
 	for i in range(tabpagenr('$'))
 		if i + 1 == nr
@@ -29,7 +64,7 @@ function! TlDrawTabs() " {{{1
 		endif
 		" Set the tab page number (for mouse clicks)
 		let s .= '%'.(i + 1).'T'
-		let s .= '%{TlTabLabel('.(i + 1).')} '
+		let s .= '%{'.s:sid_prefix().'tab_label('.(i + 1).')} '
 		if i + 1 == nr
 			let s .= '%#TabLineSelRe#⮀ '
 		else
@@ -42,9 +77,11 @@ function! TlDrawTabs() " {{{1
 	return s
 endfunction
 
+" }}}
+" s:project_name() "{{{
 " Finds the project name from tab current directory.
 " It tries to find the root path of a git repository.
-function! TlFindProjectName() " {{{1
+function! s:project_name()
 	" Use the cached (tab scope) variable unless the current dir changed
 	if ! exists('t:project_name') || ! (exists('t:project_dir') && t:project_dir == getcwd())
 		" Store the current dir for caching
@@ -72,8 +109,10 @@ function! TlFindProjectName() " {{{1
   return t:project_name
 endfunction
 
+" }}}
+" s:tab_label(integer <n>) "{{{
 " Returns a specific tab's label
-function! TlTabLabel(n) " {{{1
+function! s:tab_label(n)
 	let buflist = tabpagebuflist(a:n)
 	let winnr = tabpagewinnr(a:n)
 	let filepath = bufname(buflist[winnr - 1])
@@ -101,11 +140,16 @@ function! TlTabLabel(n) " {{{1
 	endif
 	return label
 endfunction
+" }}}
 
-" Loading {{{1
-let g:loaded_tinytabs = 1
-
+" Run-time {{{
+" Enable plugin by default
+TinyTabs
+" }}}
+"
+" Restore 'cpoptions' {{{
 let &cpo = s:save_cpo
 unlet s:save_cpo
-
 " }}}
+
+" vim: set ts=2 sw=2 tw=80 noet :
