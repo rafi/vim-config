@@ -2,7 +2,7 @@
 " Unite
 " -----
 
-" General {{{1
+" General {{{
 let g:unite_kind_file_vertical_preview = 1
 let g:unite_kind_jump_list_after_jump_scroll = 50
 
@@ -24,9 +24,10 @@ let s:ag_opts = '-SU --hidden --depth 30 --nocolor --nogroup '.
 		\ '--ignore "*.jpg" '.
 		\ '--ignore "*.gif"'
 
-" Sources {{{1
+" }}}
+" Sources {{{
 
-" Source: Recursive {{{2
+" Source: rec(ursive) {{{
 let g:unite_source_rec_unit = 3000
 let g:unite_source_rec_min_cache_files = 400
 let g:unite_source_rec_max_cache_files = 23000
@@ -38,18 +39,22 @@ elseif executable('ack')
 	let g:unite_source_rec_async_command = 'ack -f --nofilter'
 endif
 
-" Source: tag {{{2
+" }}}
+" Source: tag {{{
 let g:unite_source_tag_max_name_length = 50
 let g:unite_source_tag_max_fname_length = 30
 
-" Source: history/yank {{{2
+" }}}
+" Source: history/yank {{{
 let g:unite_source_history_yank_limit = 25
 
-" Source: MRU {{{2
+" }}}
+" Source: mru {{{
 let g:neomru#file_mru_limit = 500
 let g:neomru#directory_mru_limit = 15
 
-" Source: Grep {{{2
+" }}}
+" Source: grep {{{
 let g:unite_source_grep_max_candidates = 200
 
 " grep: Use the_silver_searcher or ack or default
@@ -62,8 +67,10 @@ elseif executable('ack')
 	let g:unite_source_grep_default_opts = '-i --noheading --nocolor -k -H'
 	let g:unite_source_grep_recursive_opt = ''
 endif
+" }}}
 
-" Unite bindings {{{1
+" }}}
+" Unite bindings {{{
 
 autocmd MyAutoCmd FileType unite call s:unite_settings()
 function! s:unite_settings()
@@ -90,7 +97,8 @@ function! s:unite_settings()
 	endif
 endfunction
 
-" Contexts {{{1
+" }}}
+" Contexts {{{
 
 " Global default context
 call unite#custom#profile('default', 'context', {
@@ -160,19 +168,20 @@ call unite#custom#profile('navigate,source/grep', 'context', {
 	\   'keep_focus': 1,
 	\   'no_quit': 1,
 	\ })
+" }}}
 
-" [DISABLED] Converters {{{1
-
+" [DISABLED] Converters {{{
 " Source output converters
 "call unite#custom#source('buffer', 'converters', [ 'converter_file_directory' ])
 "call unite#custom_source('quickfix', 'converters', 'converter_quickfix_highlight')
 "call unite#custom_source('location_list', 'converters', 'converter_quickfix_highlight')
 
-" [DISABLED] Filters {{{1
-
+" }}}
+" [DISABLED] Filters {{{
 " I find it much better simply spacing partial words than fuzzy matching.
 " Enable for fuzzy matching:
 "call unite#filters#matcher_default#use(['matcher_fuzzy'])
 "call unite#filters#sorter_default#use(['sorter_rank'])
+" }}}
 
-"}}}
+" vim: set ts=2 sw=2 tw=80 noet :

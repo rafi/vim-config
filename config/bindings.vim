@@ -1,8 +1,8 @@
 
-" Key Bindings {{{1
+" Key Bindings
 "------------------------------------------------------------------------------
 
-" Non-standard {{{2
+" Non-standard {{{
 " ------------
 
 " Want a different map leader than \
@@ -22,7 +22,8 @@ nnoremap <Right> :vertical resize -4<CR>
 nmap <BS> %
 xmap <BS> %
 
-" Global niceties {{{2
+" }}}
+" Global niceties {{{
 " ---------------
 
 " I do not use clipboard=unnamed, these
@@ -59,7 +60,8 @@ vnoremap <S-Tab> <gv
 "nnoremap <silent> g* g*zz
 "nnoremap <silent> g# g#zz
 
-" File operations {{{2
+" }}}
+" File operations {{{
 " ---------------
 
 " When pressing <leader>cd switch to the directory of the open buffer
@@ -77,7 +79,8 @@ vnoremap <Leader>w <Esc>:w<CR>
 " http://forrst.com/posts/Use_w_to_sudo_write_a_file_with_Vim-uAN
 cmap W!! w !sudo tee % >/dev/null
 
-" Editor UI {{{2
+" }}}
+" Editor UI {{{
 " ---------
 
 " Disable help key, I use it for http://zealdocs.org
@@ -134,7 +137,8 @@ if has('gui_running')
 	nnoremap <C-F3> :if &go=~#'r'<Bar>set go-=r<Bar>else<Bar>set go+=r<Bar>endif<CR>
 endif
 
-" Totally Custom {{{2
+" }}}
+" Totally Custom {{{
 " --------------
 
 " Make * and # work on visual mode too
@@ -175,5 +179,6 @@ function! s:quickfix_settings()
 	nnoremap <buffer> q     :bdelete<CR>
 	nnoremap <buffer> <ESC> :bdelete<CR>
 endfunction
+" }}}
 
-"}}}
+" vim: set ts=2 sw=2 tw=80 noet :

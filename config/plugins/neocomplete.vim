@@ -60,7 +60,7 @@ if ! exists('g:neocomplete#force_omni_input_patterns')
 endif
 let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
 
-" Mappings {{{1
+" Mappings {{{
 " --------
 
 let g:neocomplete#fallback_mappings = ["\<C-x>\<C-o>", "\<C-x>\<C-n>"]
@@ -117,5 +117,6 @@ endfunction "}}}
 "inoremap <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
 "imap     <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
 "inoremap <expr><C-x><C-f> neocomplete#start_manual_complete('file')
+" }}}
 
-"}}}
+" vim: set ts=2 sw=2 tw=80 noet :

@@ -1,8 +1,9 @@
 
-" URxvt & tmux fixes {{{1
+" URxvt & tmux fixes
 "------------------------------------------------------------------------------
 
-" Make the Ctrk+Tab work in console, see also .config/xorg/Xresources
+" Re-map URxvt Ctrl combinations "{{{
+" Make Ctrl+Tab work in console, see also .config/xorg/Xresources
 map <Esc>[27;5;9~ <C-Tab>
 map <Esc>[27;6;9~ <C-S-Tab>
 
@@ -20,7 +21,8 @@ if &term =~ '^screen'
 	execute "set <xLeft>=\e[1;*D"
 endif
 
-" Cursor Shape {{{2
+" }}}
+" Cursor Shape {{{
 " ------------
 " For rxvt-unicode:
 " 1 or 0 -> blinking block
@@ -38,3 +40,6 @@ else
 	let &t_SI = "\<Esc>[3 q"
 	let &t_EI = "\<Esc>[0 q"
 endif
+" }}}
+
+" vim: set ts=2 sw=2 tw=80 noet :

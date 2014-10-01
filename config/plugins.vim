@@ -1,5 +1,5 @@
 
-" Plugin Settings {{{1
+" Plugin Settings
 "------------------------------------------------------------------------------
 
 if neobundle#tap('unite.vim') "{{{
@@ -35,68 +35,79 @@ if neobundle#tap('unite.vim') "{{{
 
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/unite.vim'
 	call neobundle#untap()
-endif "}}}
+endif
 
+"}}}
 if neobundle#tap('vimfiler.vim') "{{{
 	noremap <silent> <Leader>f :VimFilerExplorer -winwidth=25 -split -toggle -no-quit<CR>
 	noremap <silent> <Leader>a :VimFilerExplorer -find -winwidth=25 -split -toggle -no-quit<CR>
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/vimfiler.vim'
 	call neobundle#untap()
-endif "}}}
+endif
 
+"}}}
 if neobundle#tap('neocomplete') "{{{
 	let g:neocomplete#enable_at_startup = 1
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/neocomplete.vim'
 	call neobundle#untap()
-endif "}}}
+endif
 
+"}}}
 if neobundle#tap('neosnippet.vim') "{{{
 	let g:neosnippet#enable_snipmate_compatibility = 0
 	let g:neosnippet#disable_runtime_snippets = { '_': 1 }
 	call neobundle#untap()
-endif "}}}
+endif
 
+"}}}
 if neobundle#tap('echodoc.vim') "{{{
 	let g:echodoc_enable_at_startup = 1
 	call neobundle#untap()
-endif "}}}
+endif
 
+"}}}
 if neobundle#tap('matchit.zip') "{{{
 	function! neobundle#hooks.on_post_source(bundle)
 		silent! execute 'doautocmd Filetype' &filetype
 	endfunction
 	call neobundle#untap()
-endif "}}}
+endif
 
+"}}}
 if neobundle#tap('vinarise.vim') "{{{
 	let g:vinarise_enable_auto_detect = 1
 	call neobundle#untap()
-endif "}}}
+endif
 
+"}}}
 if neobundle#tap('vim-smartchr') "{{{
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/smartchr.vim'
 	call neobundle#untap()
-endif "}}}
+endif
 
+"}}}
 if neobundle#tap('vim-bookmarks') "{{{
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/bookmarks.vim'
 	call neobundle#untap()
-endif "}}}
+endif
 
+"}}}
 if neobundle#tap('goyo.vim') "{{{
 	nnoremap <Leader>G :Goyo<CR>
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/goyo.vim'
 	call neobundle#untap()
-endif "}}}
+endif
 
+"}}}
 if neobundle#tap('vim-choosewin') "{{{
 	nmap g<C-w>    <Plug>(choosewin)
 	nmap -         <Plug>(choosewin)
 	nmap <Leader>- <Plug>(choosewin-swap)
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/choosewin.vim'
 	call neobundle#untap()
-endif "}}}
+endif
 
+"}}}
 if neobundle#tap('vim-session') "{{{
 	let g:session_directory = $VARPATH.'/session'
 	let g:session_default_overwrite = 1
@@ -104,18 +115,21 @@ if neobundle#tap('vim-session') "{{{
 	let g:session_autoload = 'no'
 	let g:session_persist_colors = 0
 	let g:session_menu = 0
-endif "}}}
+endif
 
+"}}}
 if neobundle#tap('phpcomplete.vim') "{{{
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/phpcomplete.vim'
 	call neobundle#untap()
-endif "}}}
+endif
 
+"}}}
 if neobundle#tap('phpfolding.vim') "{{{
 	let g:DisableAutoPHPFolding = 1  " Do not fold automatically
 	call neobundle#untap()
-endif "}}}
+endif
 
+"}}}
 if neobundle#tap('vim-gitgutter') "{{{
 	nmap <Leader>hj <Plug>GitGutterNextHunk
 	nmap <Leader>hk <Plug>GitGutterPrevHunk
@@ -124,52 +138,60 @@ if neobundle#tap('vim-gitgutter') "{{{
 	nmap <Leader>hp <Plug>GitGutterPreviewHunk
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/gitgutter.vim'
 	call neobundle#untap()
-endif "}}}
+endif
 
+"}}}
 if neobundle#tap('syntastic') "{{{
 	let g:syntastic_always_populate_loc_list = 1
 	let g:syntastic_error_symbol = '⚠'
 	let g:syntastic_warning_symbol = ''
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/syntastic.vim'
 	call neobundle#untap()
-endif "}}}
+endif
 
+"}}}
 if neobundle#tap('tagbar') "{{{
 	nmap <F4> :TagbarToggle<CR>
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/tagbar.vim'
 	call neobundle#untap()
-endif "}}}
+endif
 
+"}}}
 if neobundle#tap('vim-go') "{{{
 	" vim-go, do not mess with my neosnippet config!
 	let g:go_loaded_gosnippets = 1
 	let g:go_snippet_engine = "neosnippet"
 	call neobundle#untap()
-endif "}}}
+endif
 
+"}}}
 if neobundle#tap('delimitMate') "{{{
 	let delimitMate_expand_cr = 1
 	call neobundle#untap()
-endif "}}}
+endif
 
+"}}}
 if neobundle#tap('vim-markdown') "{{{
 	let g:vim_markdown_initial_foldlevel = 5  " Don't start all folded
 	let g:vim_markdown_frontmatter = 1
 	call neobundle#untap()
-endif "}}}
+endif
 
+" }}}
 if neobundle#tap('vim-mustache-handlebars') "{{{
 	function! neobundle#hooks.on_post_source(bundle)
 		doautocmd BufRead *.mustache, *.hogan, *.hulk, *.hjs, *.handlebars, *.hbs
 	endfunction
 endif
 
+" }}}
 if neobundle#tap('vim-ansible-yaml') "{{{
 	function! neobundle#hooks.on_post_source(bundle)
 		doautocmd BufRead *.yml
 	endfunction
 endif
 
+" }}}
 if neobundle#tap('vim-fugitive') "{{{
 	function! neobundle#hooks.on_post_source(bundle)
 		doautoall fugitive BufNewFile
@@ -186,19 +208,25 @@ if neobundle#tap('vim-fugitive') "{{{
 	nnoremap <silent> <leader>gB :Gbrowse<CR>
 	nnoremap <silent> <leader>gbd :Gbrowse origin/develop^{}:%<CR>
 	call neobundle#untap()
-endif "}}}
+endif
 
+"}}}
 if neobundle#tap('gitv') "{{{
 	let g:Gitv_DoNotMapCtrlKey = 1  " Do not map ctrl keys
 	call neobundle#untap()
-endif "}}}
+endif
 
+"}}}
 if neobundle#tap('gundo.vim') "{{{
 	nnoremap <F5> :GundoToggle<CR>
 	call neobundle#untap()
-endif "}}}
+endif
 
+"}}}
 if neobundle#tap('vim-colorpicker') "{{{
 	nmap <Leader>co :ColorPicker<CR>
 	call neobundle#untap()
-endif "}}}
+endif
+" }}}
+
+" vim: set ts=2 sw=2 tw=80 noet :

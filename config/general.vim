@@ -1,7 +1,7 @@
 
-" General Settings {{{1
+" General Settings
 "------------------------------------------------------------------------------
-" Vim core {{{2
+" Vim core {{{
 " --------
 set autoread                 " Files are read as soon as they are changed
 set mouse=n                  " enable mouse use for normal mode only
@@ -32,8 +32,9 @@ if has('clipboard') || has('gui_running')
 	set clipboard=             " Do not do anything with system's clipboard
 endif
 
-" Wildmenu {{{2
-" ---------------
+" }}}
+" Wildmenu {{{
+" --------
 if has('wildmenu')
 	set nowildmenu
 	set wildmode=list:longest,full
@@ -45,7 +46,8 @@ if has('wildmenu')
 	set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.sass-cache/*
 endif
 
-" Vim Directories {{{2
+" }}}
+" Vim Directories {{{
 " ---------------
 set nobackup undofile noswapfile
 set backupdir=$VARPATH/backup/
@@ -54,7 +56,8 @@ set viminfo+=n$VARPATH/viminfo   " +viminfo
 set undodir=$VARPATH/undo//      " +persistent_undo
 set spellfile=$VIMPATH/spell/en.utf-8.add
 
-" Plugin Directories {{{2
+" }}}
+" Plugin Directories {{{
 " ------------------
 let g:pdv_template_dir           = $VIMPATH.'/snippets/phpdoc'
 let g:bookmark_auto_save_dir     = $VARPATH.'/bookmarks'
@@ -69,7 +72,8 @@ let g:neosnippet#snippets_directory =
 			\.$VIMPATH.'/snippets/shougo/neosnippets,'
 			\.$VARPATH.'/plugins/vim-go/gosnippets/snippets'
 
-" Tabs and Indents {{{2
+" }}}
+" Tabs and Indents {{{
 " ----------------
 set textwidth=80    " Text width maximum chars before wrapping
 set noexpandtab     " Don't expand tabs to spaces.
@@ -83,7 +87,8 @@ if has('smartindent')
 	set smartindent   " Smart autoindenting on new lines
 endif
 
-" Folds {{{2
+" }}}
+" Folds {{{
 " -----
 if has('folding')
 	set foldenable
@@ -92,14 +97,16 @@ if has('folding')
 	set foldtext=FoldText()
 endif
 
-" Time {{{2
+" }}}
+" Time {{{
 " --------
 set ttimeout
 set ttimeoutlen=20  " Make it fast please
 set timeoutlen=1200 " A little bit more time for macros
 set updatetime=1000 " Idle time to write swap
 
-" Searching {{{2
+" }}}
+" Searching {{{
 " ---------
 set ignorecase      " Search ignoring case
 set smartcase       " Keep case when searching with *
@@ -111,7 +118,8 @@ set matchpairs+=<:> " Add HTML brackets to pair matching
 set matchtime=3     " Tenths of a second to show the matching paren
 "set cpoptions=-m    " Showmatch will wait 0.5s or until a character is typed
 
-" Behavior {{{2
+" }}}
+" Behavior {{{
 " --------
 set linebreak                  " Break long lines at 'breakat' (+linebreak)
 set breakat=\ \	;:,!?          " Long lines break chars
@@ -133,7 +141,8 @@ else
 	set nowrap
 endif
 
-" Editor UI Appearance {{{2
+" }}}
+" Editor UI Appearance {{{
 " --------------------
 set noshowmode          " Don't show mode in cmd window
 set shortmess=aoOTI     " Shorten messages and don't show intro
@@ -181,7 +190,8 @@ if has('conceal') && v:version >= 703
 	set conceallevel=2 concealcursor=iv
 endif
 
-" gVim Appearance {{{2
+" }}}
+" gVim Appearance {{{
 " ---------------
 if has('gui_running')
 	set lines=58 columns=190   " Maximize gvim window
@@ -200,3 +210,6 @@ if has('gui_running')
 		set guifont=Consolas:h11:cANSI
 	endif
 endif
+" }}}
+
+" vim: set ts=2 sw=2 tw=80 noet :

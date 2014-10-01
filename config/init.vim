@@ -1,5 +1,9 @@
-" Use spacebar instead of '\'.
-" It is not mapped with respect well unless I set it before setting for plug in.
+
+" Vim Initialization
+" ------------------
+
+" Global Mappings "{{{
+" Use spacebar instead of '\' as leader. Require before loading plugins.
 " Use <Leader> in global plugin.
 let g:mapleader = ' '
 " Use <LocalLeader> in filetype plugin.
@@ -9,21 +13,29 @@ let g:maplocalleader = ' '
 "nnoremap <Space> <Nop>
 "xnoremap <Space> <Nop>
 
+" }}}
+" Ensure cache directory "{{{
 if ! isdirectory(expand($VARPATH))
 	" Create the cache dir and the undo dir, too
 	call mkdir(expand('$VARPATH/undo'), 'p')
 endif
 
-" Set augroup
+" }}}
+" Set augroup "{{{
 augroup MyAutoCmd
 	autocmd!
 augroup END
 
+" }}}
+" Load vault settings "{{{
 if filereadable(expand('$VIMPATH/.vault.vim'))
 	execute 'source' expand('$VIMPATH/.vault.vim')
 endif
 
+" }}}
+" Setup NeoBundle "{{{
 let s:plugins_dir = expand('$VARPATH/plugins')
+let g:neobundle#types#git#default_protocol = 'git'
 
 if has('vim_starting')
 	set nocompatible
@@ -48,9 +60,8 @@ if has('vim_starting')
 	endif
 endif
 
-let g:neobundle#types#git#default_protocol = 'git'
-
-" Disable default plugins
+" }}}
+" Disable default plugins "{{{
 
 " Disable menu.vim
 if has('gui_running')
@@ -63,6 +74,9 @@ if ! &verbose
 endif
 
 let g:loaded_netrwPlugin = 1
-"let g:loaded_matchparen = 1
+let g:loaded_matchparen = 1
 let g:loaded_2html_plugin = 1
 let g:loaded_vimballPlugin = 1
+" }}}
+
+" vim: set ts=2 sw=2 tw=80 noet :

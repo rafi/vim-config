@@ -1,5 +1,5 @@
 
-" File Types {{{1
+" File Types {{{
 "------------------------------------------------------------------------------
 
 augroup MyAutoCmd
@@ -57,26 +57,35 @@ augroup MyAutoCmd
 	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 augroup END
+" }}}
 
-" PHP
+" Internal Plugin Settings
+" ------------------------
+
+" PHP "{{{
 let g:php_folding = 2
 let g:php_phpdoc_folding = 1
 let g:PHP_removeCRwhenUnix = 0
 
-" Python
+" }}}
+" Python "{{{
 let g:python_highlight_all = 1
 
-" XML
+" }}}
+" XML "{{{
 let g:xml_syntax_folding = 1
 
-" Vim
+" }}}
+" Vim "{{{
 let g:vimsyntax_noerror = 1
 "let g:vim_indent_cont = 0
 
-" Bash
+" }}}
+" Bash "{{{
 let g:is_bash = 1
 
-" Java
+" }}}
+" Java "{{{
 let g:java_highlight_functions = 'style'
 let g:java_highlight_all = 1
 let g:java_highlight_debug = 1
@@ -84,11 +93,13 @@ let g:java_allow_cpp_keywords = 1
 let g:java_space_errors = 1
 let g:java_highlight_functions = 1
 
-" JavaScript
+" }}}
+" JavaScript "{{{
 let g:SimpleJsIndenter_BriefMode = 1
 let g:SimpleJsIndenter_CaseIndentLevel = -1
 
-" Vim script
+" }}}
+" Vim script "{{{
 " augroup: a
 " function: f
 " lua: l
@@ -99,7 +110,8 @@ let g:SimpleJsIndenter_CaseIndentLevel = -1
 " mzscheme: m
 let g:vimsyn_folding = 'af'
 
-" Markdown
+" }}}
+" Markdown "{{{
 let g:markdown_fenced_languages = [
 	\  'coffee',
 	\  'css',
@@ -111,3 +123,7 @@ let g:markdown_fenced_languages = [
 	\  'sass',
 	\  'xml',
 	\]
+
+" }}}
+
+" vim: set ts=2 sw=2 tw=80 noet :

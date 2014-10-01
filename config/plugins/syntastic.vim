@@ -36,3 +36,5 @@ let g:syntastic_html_tidy_ignore_errors = [
 " Debugging
 "let g:syntastic_debug = 1
 "let g:syntastic_debug_file = '~/syntastic.log'
+
+" vim: set ts=2 sw=2 tw=80 noet :

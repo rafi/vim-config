@@ -31,3 +31,5 @@ function! s:vimfiler_settings()
 	nmap <buffer> <C-q>  <Plug>(vimfiler_quick_look)
 	nmap <buffer> <C-w>  <Plug>(vimfiler_switch_to_history_directory)
 endfunction
+
+" vim: set ts=2 sw=2 tw=80 noet :

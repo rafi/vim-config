@@ -1,9 +1,9 @@
 
-" Plugins with NeoBundle {{{1
+" Plugins with NeoBundle
 "------------------------------------------------------------------------------
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-" Always loaded {{{2
+" Always loaded {{{
 " -------------
 NeoBundle 'Shougo/vimproc.vim', {
 	\  'build': {
@@ -28,8 +28,9 @@ NeoBundle 'rafi/vim-tinyline.git', { 'directory': 'tinyline' }
 NeoBundle 'rafi/vim-tagabana.git', { 'directory': 'tagabana' }
 NeoBundle 'rafi/vim-tinycomment.git', { 'directory': 'tinycomment' }
 
-" Language {{{2
-" ---------
+" }}}
+" Language {{{
+" --------
 NeoBundleLazy 'othree/html5.vim', { 'filetypes': 'html' }
 NeoBundleLazy 'mustache/vim-mustache-handlebars', { 'filetypes': 'html' }
 NeoBundleLazy 'plasticboy/vim-markdown.git', { 'filetypes': 'mkd' }
@@ -40,7 +41,7 @@ NeoBundleLazy 'chrisbra/csv.vim.git', { 'filetypes': 'csv' }
 NeoBundleLazy 'fatih/vim-go.git', { 'filetypes': 'go' }
 NeoBundleLazy 'elzr/vim-json.git', { 'filetypes': 'json' }
 
-" JavaScript {{{3
+" JavaScript {{{
 " ----------
 NeoBundleLazy 'pangloss/vim-javascript.git', {
 	\   'rev': '51a337b',
@@ -51,7 +52,8 @@ NeoBundleLazy 'marijnh/tern_for_vim.git', {
 	\   'autoload': { 'filetypes': 'javascript' }
 	\ }
 
-" PHP {{{3
+" }}}
+" PHP {{{
 " ---
 NeoBundleLazy 'StanAngeloff/php.vim.git', { 'filetypes': 'php' }
 NeoBundleLazy 'rayburgemeestre/phpfolding.vim.git', { 'filetypes': 'php' }
@@ -64,8 +66,10 @@ NeoBundleLazy '2072/PHP-Indenting-for-VIm.git', {
 	\ 'filetypes': 'php',
 	\ 'directory': 'php-indent'
 	\ }
+" }}}
 
-" Commands {{{2
+" }}}
+" Commands {{{
 " --------
 NeoBundleLazy 'Shougo/vimfiler.vim.git', {
 	\ 'depends': 'Shougo/unite.vim',
@@ -103,7 +107,8 @@ NeoBundleLazy 'gorkunov/smartpairs.vim', {
 NeoBundleLazy 'majutsushi/tagbar.git', { 'commands': 'TagbarToggle' }
 NeoBundleLazy 'farseer90718/vim-colorpicker.git', { 'commands': 'ColorPicker' }
 
-" Interface {{{2
+" }}}
+" Interface {{{
 " ---------
 NeoBundleLazy 'junegunn/goyo.vim', {
 	\ 'depends': 'junegunn/limelight.vim',
@@ -128,7 +133,8 @@ NeoBundleLazy 'xolox/vim-session.git', {
 	\ 'unite_sources': [ 'session', 'session/new' ]
 	\ }}
 
-" Completion {{{2
+" }}}
+" Completion {{{
 " ----------
 NeoBundleLazy 'Raimondi/delimitMate.git', { 'insert': 1 }
 NeoBundleLazy 'Shougo/echodoc.vim.git', { 'insert': 1 }
@@ -147,7 +153,8 @@ NeoBundleLazy 'Shougo/neosnippet.vim.git', {
 	\    'neosnippet', 'neosnippet/user', 'neosnippet/runtime'
 	\ ]}
 
-" Unite {{{2
+" }}}
+" Unite {{{
 " -----
 NeoBundleLazy 'Shougo/unite.vim.git', {
 	\ 'autoload': {
@@ -156,7 +163,7 @@ NeoBundleLazy 'Shougo/unite.vim.git', {
 	\     'UniteWithCursorWord', 'UniteWithInput' ]
 	\ }}
 
-" Unite sources {{{3
+" Unite sources {{{
 " -------------
 NeoBundleLazy 'Shougo/neossh.vim.git', {
 	\ 'filetypes': 'vimfiler',
@@ -175,8 +182,10 @@ NeoBundleLazy 'joker1007/unite-pull-request.git', {
 	\  'depends': 'mattn/webapi-vim.git',
 	\  'unite_sources': [ 'pull_request', 'pull_request_file' ]
 	\ }
+" }}}
 
-" Operators {{{2
+" }}}
+" Operators {{{
 " ---------
 NeoBundleLazy 'kana/vim-operator-user', {
 	\ 'functions': 'operator#user#define',
@@ -191,7 +200,8 @@ NeoBundleLazy 'rhysd/vim-operator-surround', {
 	\ 'mappings': '<Plug>'
 	\ }
 
-" Textobjs {{{2
+" }}}
+" Textobjs {{{
 " --------
 NeoBundleLazy 'kana/vim-textobj-user'
 NeoBundleLazy 'osyo-manga/vim-textobj-multiblock', {
@@ -199,3 +209,6 @@ NeoBundleLazy 'osyo-manga/vim-textobj-multiblock', {
 	\ 'autoload' : {
 	\   'mappings' : [['ox', '<Plug>' ]]
 	\ }}
+" }}}
+
+" vim: set ts=2 sw=2 tw=80 noet :

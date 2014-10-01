@@ -1,17 +1,18 @@
 
-" Theme & Colors {{{1
+" Theme & Colors
 "------------------------------------------------------------------------------
 
-" Theme {{{2
+" Theme {{{
 " -----
 set t_Co=256
 set background=dark
 colorscheme hybrid
+" }}}
 
-" Custom Colors {{{2
+" Custom Colors
 " -------------
 
-" General GUI {{{3
+" General GUI {{{
 " No bold in gvim's error messages
 highlight ErrorMsg     gui=NONE
 " Whitespace
@@ -29,18 +30,21 @@ highlight ModeMsg      ctermfg=240
 " Visual mode selection
 highlight Visual       ctermbg=236
 
-" Popup menu {{{3
+" }}}
+" Popup menu {{{
 highlight Pmenu       ctermfg=245 ctermbg=235
 highlight PmenuSel    ctermfg=236 ctermbg=248
 highlight PmenuSbar   ctermbg=235
 highlight PmenuThumb  ctermbg=238
 
-" Unite {{{3
+" }}}
+" Unite {{{
 highlight uniteInputPrompt            ctermfg=237
 highlight uniteCandidateMarker        ctermfg=143
 highlight uniteCandidateInputKeyword  ctermfg=12
 
-" Grep {{{3
+" }}}
+" Grep {{{
 highlight link uniteSource__Grep        Directory
 highlight link uniteSource__GrepLineNr  qfLineNr
 highlight uniteSource__GrepLine         ctermfg=245 guifg=#808070
@@ -48,23 +52,22 @@ highlight uniteSource__GrepFile         ctermfg=4   guifg=#8197bf
 highlight uniteSource__GrepSeparator    ctermfg=5   guifg=#f0a0c0
 highlight uniteSource__GrepPattern      ctermfg=1   guifg=#cf6a4c
 
-" Quickfix {{{3
+" }}}
+" Quickfix {{{
 highlight UniteQuickFixWarning              ctermfg=1
 highlight uniteSource__QuickFix             ctermfg=8
 highlight uniteSource__QuickFix_Bold        ctermfg=249
 highlight link uniteSource__QuickFix_File   Directory
 highlight link uniteSource__QuickFix_LineNr qfLineNr
 
-" VimFiler {{{3
+" }}}
+" VimFiler {{{
 highlight vimfilerNormalFile  ctermfg=245 guifg=#808070
 highlight vimfilerClosedFile  ctermfg=249 guifg=#a8a897
 highlight vimfilerOpenedFile  ctermfg=254 guifg=#e8e8d3
 highlight vimfilerNonMark     ctermfg=239 guifg=#4e4e43
 highlight vimfilerLeaf        ctermfg=235 guifg=#30302c
 
-" Signify {{{3
-highlight SignifySignAdd    ctermfg=2 guifg=#6D9B37
-highlight SignifySignDelete ctermfg=1 guifg=#D370A3
-highlight SignifySignChange ctermfg=3 guifg=#B58858
-
 " }}}
+
+" vim: set ts=2 sw=2 tw=80 noet :

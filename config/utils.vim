@@ -1,5 +1,5 @@
 
-" Commands {{{1
+" Commands {{{
 "------------------------------------------------------------------------------
 
 " Check timestamp more for 'autoread'
@@ -20,8 +20,9 @@ autocmd BufReadPost *
 	\ if line("'\"") > 0 && line("'\"") <= line("$") |
 	\	exe 'normal! g`"zvzz' |
 	\ endif
+" }}}
 
-" Functions {{{1
+" Functions {{{
 "------------------------------------------------------------------------------
 
 " Simple way to turn off Gdiff splitscreen
@@ -69,3 +70,6 @@ function! FoldText()
 	let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
 	return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
 endfunction
+" }}}
+
+" vim: set ts=2 sw=2 tw=80 noet :
