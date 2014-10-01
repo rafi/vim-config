@@ -139,7 +139,7 @@ set nonumber            " No line numbers
 set showtabline=2       " Always show the tabs line (+windows)
 set tabpagemax=30       " Maximum number of tab pages (+windows)
 set winwidth=30         " Minimum width for current window (+vertsplit)
-set winheight=20        " Minimum height for current window (+windows)
+set winheight=1         " Minimum height for current window (+windows)
 set previewheight=8     " Completion preview height (+windows +quickfix)
 set helpheight=12       " Minimum help window height (+windows)
 

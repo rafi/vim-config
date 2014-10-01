@@ -174,10 +174,9 @@ vnoremap <leader>, :m-2<CR>gv=gv
 autocmd FileType qf call s:quickfix_settings()
 function! s:quickfix_settings()
 	" Jump to source with Enter
-	nnoremap <buffer> <CR> :.cc<CR>
-	" Quit the quickfix window with a single 'q' or Escape
-	nnoremap <buffer> q     :bdelete<CR>
-	nnoremap <buffer> <ESC> :bdelete<CR>
+"	nnoremap <buffer> <CR> :.cc<CR>
+	" Quit the quickfix window with a single 'q'
+	nnoremap <buffer> q  :bdelete<CR>
 endfunction
 " }}}
 
