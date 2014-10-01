@@ -33,12 +33,13 @@ let s:stations = get(g:, 'unite_source_radio_stations', [
 let s:play_cmd = get(g:, 'unite_source_radio_play_cmd', '')
 let s:process = {}
 let s:source = {
-\   'action_table': {},
-\   'default_action' : 'execute',
-\   'hooks': {},
-\   'name': 'radio',
-\   'syntax': 'uniteSource__Radio'
-\}
+\ 'name': 'radio',
+\ 'description': 'Radio stations',
+\ 'hooks': {},
+\ 'action_table': {},
+\ 'syntax': 'uniteSource__Radio',
+\ 'default_action' : 'execute'
+\ }
 " }}}
 
 " Setup {{{
@@ -46,9 +47,10 @@ let s:source = {
 
 command! -nargs=? MPlay call unite#sources#radio#play(<q-args>)
 command! MStop call unite#sources#radio#stop()
-au VimLeavePre * MStop
+autocmd VimLeavePre * MStop
 
-if !s:play_cmd
+if ! s:play_cmd
+	" Automatically detect available player
 	if executable('mplayer')
 		let s:play_cmd = 'mplayer -quiet -playlist'
 	elseif executable('cvlc')
@@ -56,7 +58,7 @@ if !s:play_cmd
 	elseif executable('/Applications/VLC.app/Contents/MacOS/VLC')
 		let s:play_cmd = '/Applications/VLC.app/Contents/MacOS/VLC -Irc --quiet'
 	else
-		echoerr "Unite-radio player hasnt found. See :help unite-radio"
+		echoerr "Unable to find audio player (mplayer/vlc). See :help unite-radio"
 	endif
 endif
 
@@ -75,23 +77,17 @@ func! s:source.gather_candidates(args, context) "{{{
 	\ }")
 endfunc "}}}
 
-let s:source.action_table.execute = { 'description': 'Radio station' }
+let s:source.action_table.execute = {
+	\ 'description': 'Radio station',
+	\ 'is_invalidate_cache' : 1,
+	\ 'is_quit': 0,
+	\ }
 
 func! s:source.action_table.execute.func(candidate) "{{{
 	call unite#sources#radio#play(a:candidate.url, a:candidate.cmd)
 endfunc "}}}
 
 func! s:source.hooks.on_syntax(args, context) "{{{
-	call s:hl_current()
-endfunc "}}}
-
-func! s:source.hooks.on_post_filter(args, context) "{{{
-	if len(s:process)
-		call s:widemessage('Now Playing: ' . s:process.url)
-	endif
-endfunc "}}}
-
-func! s:hl_current()
 	syntax match uniteSource__Radio_Play  /|P>.*<P|/
 			\  contained containedin=uniteSource__Radio
 			\  contains
@@ -102,7 +98,13 @@ func! s:hl_current()
 	syntax match uniteSource__Radio_PlayHiddenEnd   '<P|' contained conceal
 
 	highlight uniteSource__Radio_Play guifg=#888888 ctermfg=Green
-endfunc
+endfunc "}}}
+
+func! s:source.hooks.on_post_filter(args, context) "{{{
+	if len(s:process)
+		call s:widemessage('Now Playing: ' . s:process.url)
+	endif
+endfunc "}}}
 
 " }}}
 
