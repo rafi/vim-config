@@ -40,7 +40,8 @@ function! s:source_namespace.change_candidates(args, context)
 endfunction
 
 function! unite#sources#navigate#find(pattern)
-	let l:result = unite#util#system('ag "'.a:pattern.'" .git/tags')
+	let tag_file = g:tagabana_tags_dir.t:worktree_hash
+	let l:result = unite#util#system('ag "'.a:pattern.'" '.tag_file)
 	let l:matches = split(l:result, '\r\n\|\r\|\n')
 	let candidates = []
 	for line in l:matches
