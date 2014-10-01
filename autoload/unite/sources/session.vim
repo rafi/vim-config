@@ -1,12 +1,11 @@
-"=============================================================================
-" FILE: session.vim
-" DESCRIPTION: Forked to support xolox/vim-session
-" MAINTAINER: Rafael Bodill <justrafi at gmail dot com>
-" AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-"          Jason Housley <HousleyJK@gmail.com>
-" Last Modified: 16 Sep 2014
+
+" Unite source - Xolox's vim-session
+" Maintainer: Rafael Bodill <justrafi at gmail dot com>
+" Author:     Shougo Matsushita <Shougo.Matsu@gmail.com>
+"             Jason Housley <HousleyJK@gmail.com>
+" Last Modified: 01 Oct 2014
 " License: MIT license
-"=============================================================================
+"-------------------------------------------------
 
 let s:save_cpo = &cpo
 set cpo&vim
@@ -192,3 +191,5 @@ endfunction
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
+
+" vim: set ts=2 sw=2 tw=80 noet :

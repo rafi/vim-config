@@ -32,7 +32,7 @@ nmap <buffer> <Leader>j :cnext<CR>
 nmap <buffer> <Leader>k :cprev<CR>
 
 " Disable vim-help maps
-nmap <buffer> <Leader>q :<c-u>call <SID>disable_help_maps()<cr>
+nmap <buffer> <Leader>k :<c-u>call <SID>disable_help_maps()<cr>
 
 " Disable
 function! s:disable_help_maps()

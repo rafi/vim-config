@@ -4,7 +4,7 @@
 " github.com/rafi vim config
 " vim: set ts=2 sw=2 tw=80 noet :
 
-" Runtime and Plugins {{{1
+" Runtime and Plugins
 "------------------------------------------------------------------------------
 
 " Skip initialization for vim-tiny/small
@@ -26,7 +26,7 @@ endif
 " Initialize base requirements
 call s:source_rc('init.vim')
 
-" NeoBundle start plugins {{{2
+" NeoBundle start plugins {{{
 call neobundle#begin(expand('$VARPATH/plugins'))
 if neobundle#has_cache()
 	NeoBundleLoadCache
@@ -43,7 +43,7 @@ syntax enable
 " Plugin installation check
 NeoBundleCheck
 
-" Loading configuration modules {{{2
+" Loading configuration modules {{{
 call s:source_rc('general.vim')
 call s:source_rc('filetype.vim')
 call s:source_rc('plugins.vim')

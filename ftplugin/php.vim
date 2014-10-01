@@ -10,17 +10,3 @@ setlocal errorformat=%m\ in\ %f\ on\ line\ %l
 "nnoremap <buffer> zM :<C-u>EnableFastPHPFolds<CR>zM
 nnoremap <buffer> K :!zeal --query "php:<cword>"&<CR><CR>
 nnoremap <silent><buffer> <Leader>d :call pdv#DocumentCurrentLine()<CR>
-
-" Fix matchpairs for PHP (for matchit.vim plugin)
-" Credits: https://github.com/spf13/PIV
-if exists("loaded_matchit")
-	let b:match_skip = 's:comment\|string'
-	let b:match_words = '<?\(php\)\?:?>,\<switch\>:\<endswitch\>,' .
-			\ '\<if\>:\<elseif\>:\<else\>:\<endif\>,' .
-			\ '\<while\>:\<endwhile\>,\<do\>:\<while\>,' .
-			\ '\<for\>:\<endfor\>,\<foreach\>:\<endforeach\>' .
-			\ '<\@<=[ou]l\>[^>]*\%(>\|$\):<\@<=li\>:<\@<=/[ou]l>,' .
-			\ '<\@<=dl\>[^>]*\%(>\|$\):<\@<=d[td]\>:<\@<=/dl>,' .
-			\ '<\@<=\([^/?][^ \t>]*\)[^>]*\%(>\|$\):<\@<=/\1>,' .
-			\ '(:),{:},[:]'
-endif

@@ -21,7 +21,7 @@ command! -nargs=0 -bar -bang TinyTabs call s:tinytabs('<bang>' == '!')
 " }}}
 
 " s:sid_prefix() "{{{
-" Anywhere SID
+" Returns a string representation of <SID> to use anywhere
 function! s:sid_prefix()
 	return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
 endfunction
@@ -123,7 +123,7 @@ function! s:tab_label(n)
 		let project_dir = gettabvar(a:n, 'project_dir')
 		if strridx(filepath, project_dir) == 0
 			let filepath = strpart(filepath, len(project_dir))
-			let pre .= gettabvar(a:n, 'project_name').'‡'
+			let pre .= gettabvar(a:n, 'project_name').'⮁'
 		endif
 
 		" Shorten dir names

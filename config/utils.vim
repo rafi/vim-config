@@ -2,7 +2,7 @@
 " Commands {{{
 "------------------------------------------------------------------------------
 
-" Check timestamp more for 'autoread'
+" Check timestamp on window enter. More eager than 'autoread'
 autocmd MyAutoCmd WinEnter * checktime
 
 " Disable paste

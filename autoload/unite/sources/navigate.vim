@@ -1,3 +1,9 @@
+
+" unite/sources/navigate - Grep ctags for inheritance
+" Maintainer: Rafael Bodill <justrafi at gmail dot com>
+" Version:    0.5
+"-------------------------------------------------
+
 let s:save_cpo = &cpo
 set cpo&vim
 

@@ -100,20 +100,20 @@ map <F3> :echo 'hi<'.synIDattr(synID(line('.'), col('.'), 1), 'name')
 " Clear the highlighting of :set hlsearch
 " Toggle spell checking
 nmap <Leader>ts :setlocal spell!<cr>
-nmap <Leader>tn :set nonumber!<CR>
-nmap <leader>tl :set nolist!<CR>
+nmap <Leader>tn :setlocal nonumber!<CR>
+nmap <Leader>tl :setlocal nolist!<CR>
 nmap <Leader>th :nohlsearch<CR>
 
 " Tabs
-noremap <leader>st  :tabnew<CR>
+noremap <Leader>st  :tabnew<CR>
 noremap <C-x>     :tabclose<CR>
 noremap <C-Tab>   :tabn<CR>
 noremap <C-S-Tab> :tabp<CR>
 
 " Splits
 " I imagine v as an arrow, split below
-nnoremap <leader>sv :new<CR>
-nnoremap <leader>sg :vnew<CR>
+nnoremap <Leader>sv :new<CR>
+nnoremap <Leader>sg :vnew<CR>
 
 " Buffers
 map <S-Right> :bnext<CR>

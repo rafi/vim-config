@@ -27,27 +27,28 @@ NeoBundle 'regedarek/ZoomWin'  " TODO: With lazy, problem restoring splits
 NeoBundle 'rafi/vim-tinyline.git', { 'directory': 'tinyline' }
 NeoBundle 'rafi/vim-tagabana.git', { 'directory': 'tagabana' }
 NeoBundle 'rafi/vim-tinycomment.git', { 'directory': 'tinycomment' }
+NeoBundle 'rafi/vim-phpspec.git', { 'directory': 'phpspec' }
 
 " }}}
 " Language {{{
 " --------
 NeoBundleLazy 'othree/html5.vim', { 'filetypes': 'html' }
 NeoBundleLazy 'mustache/vim-mustache-handlebars', { 'filetypes': 'html' }
-NeoBundleLazy 'plasticboy/vim-markdown.git', { 'filetypes': 'mkd' }
-NeoBundleLazy 'chase/vim-ansible-yaml.git', { 'filetypes': 'yaml' }
-NeoBundleLazy 'groenewege/vim-less.git', { 'rev': '5d965c2', 'filetypes': 'less' }
-NeoBundleLazy 'hail2u/vim-css3-syntax.git', { 'filetypes': 'css' }
-NeoBundleLazy 'chrisbra/csv.vim.git', { 'filetypes': 'csv' }
-NeoBundleLazy 'fatih/vim-go.git', { 'filetypes': 'go' }
-NeoBundleLazy 'elzr/vim-json.git', { 'filetypes': 'json' }
+NeoBundleLazy 'plasticboy/vim-markdown', { 'filetypes': 'mkd' }
+NeoBundleLazy 'chase/vim-ansible-yaml', { 'filetypes': 'yaml' }
+NeoBundleLazy 'groenewege/vim-less', { 'rev': '5d965c2', 'filetypes': 'less' }
+NeoBundleLazy 'hail2u/vim-css3-syntax', { 'filetypes': 'css' }
+NeoBundleLazy 'chrisbra/csv.vim', { 'filetypes': 'csv' }
+NeoBundleLazy 'fatih/vim-go', { 'filetypes': 'go' }
+NeoBundleLazy 'elzr/vim-json', { 'filetypes': 'json' }
 
 " JavaScript {{{
 " ----------
-NeoBundleLazy 'pangloss/vim-javascript.git', {
+NeoBundleLazy 'pangloss/vim-javascript', {
 	\   'rev': '51a337b',
 	\   'filetypes': 'javascript'
 	\ }
-NeoBundleLazy 'marijnh/tern_for_vim.git', {
+NeoBundleLazy 'marijnh/tern_for_vim', {
 	\   'build': { 'others': 'npm install' },
 	\   'autoload': { 'filetypes': 'javascript' }
 	\ }
@@ -55,14 +56,14 @@ NeoBundleLazy 'marijnh/tern_for_vim.git', {
 " }}}
 " PHP {{{
 " ---
-NeoBundleLazy 'StanAngeloff/php.vim.git', { 'filetypes': 'php' }
-NeoBundleLazy 'rayburgemeestre/phpfolding.vim.git', { 'filetypes': 'php' }
-NeoBundleLazy 'shawncplus/phpcomplete.vim.git', { 'insert': 1, 'filetypes': 'php' }
-NeoBundleLazy 'tobyS/pdv.git', {
+NeoBundleLazy 'StanAngeloff/php.vim', { 'filetypes': 'php' }
+NeoBundleLazy 'rayburgemeestre/phpfolding.vim', { 'filetypes': 'php' }
+NeoBundleLazy 'shawncplus/phpcomplete.vim', { 'insert': 1, 'filetypes': 'php' }
+NeoBundleLazy 'tobyS/pdv', {
 	\ 'filetypes': 'php',
-	\ 'depends': 'tobyS/vmustache.git'
+	\ 'depends': 'tobyS/vmustache'
 	\ }
-NeoBundleLazy '2072/PHP-Indenting-for-VIm.git', {
+NeoBundleLazy '2072/PHP-Indenting-for-VIm', {
 	\ 'filetypes': 'php',
 	\ 'directory': 'php-indent'
 	\ }
@@ -71,7 +72,7 @@ NeoBundleLazy '2072/PHP-Indenting-for-VIm.git', {
 " }}}
 " Commands {{{
 " --------
-NeoBundleLazy 'Shougo/vimfiler.vim.git', {
+NeoBundleLazy 'Shougo/vimfiler.vim', {
 	\ 'depends': 'Shougo/unite.vim',
 	\ 'autoload' : {
 	\   'mappings' : [ '<Plug>(vimfiler_switch)' ],
@@ -79,10 +80,10 @@ NeoBundleLazy 'Shougo/vimfiler.vim.git', {
 	\     { 'name' : 'VimFiler', 'complete' : 'customlist,vimfiler#complete' },
 	\     'VimFilerExplorer', 'Edit', 'Read', 'Source', 'Write'
 	\ ]}}
-NeoBundleLazy 'Shougo/vinarise.vim.git', {
+NeoBundleLazy 'Shougo/vinarise.vim', {
 	\ 'autoload' : { 'commands' : 'Vinarise' }
 	\ }
-NeoBundleLazy 'tpope/vim-fugitive.git', {
+NeoBundleLazy 'tpope/vim-fugitive', {
 	\ 'autoload': {
 	\   'augroup': 'fugitive',
 	\   'commands': [
@@ -90,11 +91,11 @@ NeoBundleLazy 'tpope/vim-fugitive.git', {
 	\     'Ggrep', 'Glog', 'Gcommit', 'Gblame', 'Gbrowse'
 	\   ]
 	\ }}
-NeoBundleLazy 'gregsexton/gitv.git', {
-	\ 'depends': 'tpope/vim-fugitive.git',
+NeoBundleLazy 'gregsexton/gitv', {
+	\ 'depends': 'tpope/vim-fugitive',
 	\ 'autoload': { 'commands': [ 'Gitv' ]}
 	\ }
-NeoBundleLazy 'sjl/gundo.vim.git', {
+NeoBundleLazy 'sjl/gundo.vim', {
 	\ 'disabled': ! has('python'),
 	\ 'vim_version': '7.3',
 	\ 'autoload': { 'commands': [ 'GundoToggle' ]}
@@ -104,8 +105,8 @@ NeoBundleLazy 'gorkunov/smartpairs.vim', {
 	\  'commands': [ 'SmartPairs', 'SmartPairsI', 'SmartPairsA' ],
 	\  'mappings': [[ 'n', 'viv' ], [ 'v', 'v' ]]
 	\ }}
-NeoBundleLazy 'majutsushi/tagbar.git', { 'commands': 'TagbarToggle' }
-NeoBundleLazy 'farseer90718/vim-colorpicker.git', { 'commands': 'ColorPicker' }
+NeoBundleLazy 'majutsushi/tagbar', { 'commands': 'TagbarToggle' }
+NeoBundleLazy 'farseer90718/vim-colorpicker', { 'commands': 'ColorPicker' }
 
 " }}}
 " Interface {{{
@@ -117,9 +118,9 @@ NeoBundleLazy 'junegunn/goyo.vim', {
 	\ }}
 NeoBundleLazy 'BufClose.vim', { 'commands': [ 'BufClose' ]}
 NeoBundleLazy 'matchit.zip', { 'mappings': [[ 'nxo', '%', 'g%' ]]}
-NeoBundleLazy 't9md/vim-choosewin.git', { 'mappings': '<Plug>' }
-NeoBundleLazy 'xolox/vim-session.git', {
-	\ 'depends': 'xolox/vim-misc.git',
+NeoBundleLazy 't9md/vim-choosewin', { 'mappings': '<Plug>' }
+NeoBundleLazy 'xolox/vim-session', {
+	\ 'depends': 'xolox/vim-misc',
 	\ 'augroup': 'PluginSession',
 	\ 'autoload': {
 	\ 'commands': [
@@ -136,16 +137,16 @@ NeoBundleLazy 'xolox/vim-session.git', {
 " }}}
 " Completion {{{
 " ----------
-NeoBundleLazy 'Raimondi/delimitMate.git', { 'insert': 1 }
-NeoBundleLazy 'Shougo/echodoc.vim.git', { 'insert': 1 }
+NeoBundleLazy 'Raimondi/delimitMate', { 'insert': 1 }
+NeoBundleLazy 'Shougo/echodoc.vim', { 'insert': 1 }
 NeoBundleLazy 'kana/vim-smartchr', { 'insert' : 1 }
-NeoBundleLazy 'Shougo/neocomplete.git', {
+NeoBundleLazy 'Shougo/neocomplete', {
 	\ 'depends': 'Shougo/context_filetype.vim',
 	\ 'disabled': ! has('lua'),
 	\ 'vim_version': '7.3.885',
 	\ 'insert': 1
 	\ }
-NeoBundleLazy 'Shougo/neosnippet.vim.git', {
+NeoBundleLazy 'Shougo/neosnippet.vim', {
 	\ 'depends': 'Shougo/context_filetype.vim',
 	\ 'insert': 1,
 	\ 'filetypes': 'snippet',
@@ -156,7 +157,7 @@ NeoBundleLazy 'Shougo/neosnippet.vim.git', {
 " }}}
 " Unite {{{
 " -----
-NeoBundleLazy 'Shougo/unite.vim.git', {
+NeoBundleLazy 'Shougo/unite.vim', {
 	\ 'autoload': {
 	\   'commands': [
 	\     { 'name' : 'Unite', 'complete' : 'customlist,unite#complete_source' },
@@ -165,21 +166,21 @@ NeoBundleLazy 'Shougo/unite.vim.git', {
 
 " Unite sources {{{
 " -------------
-NeoBundleLazy 'Shougo/neossh.vim.git', {
+NeoBundleLazy 'Shougo/neossh.vim', {
 	\ 'filetypes': 'vimfiler',
 	\ 'sources': 'ssh',
 	\ }
-NeoBundleLazy 'Shougo/unite-outline.git', {
+NeoBundleLazy 'Shougo/unite-outline', {
 	\  'unite_sources': 'outline'
 	\ }
-NeoBundleLazy 'osyo-manga/unite-quickfix.git', {
+NeoBundleLazy 'osyo-manga/unite-quickfix', {
 	\  'unite_sources': [ 'quickfix', 'location_list' ]
 	\ }
-NeoBundleLazy 'tsukkee/unite-tag.git', {
+NeoBundleLazy 'tsukkee/unite-tag', {
 	\  'unite_sources': [ 'tag', 'tag/file', 'tag/include' ]
 	\ }
-NeoBundleLazy 'joker1007/unite-pull-request.git', {
-	\  'depends': 'mattn/webapi-vim.git',
+NeoBundleLazy 'joker1007/unite-pull-request', {
+	\  'depends': 'mattn/webapi-vim',
 	\  'unite_sources': [ 'pull_request', 'pull_request_file' ]
 	\ }
 " }}}

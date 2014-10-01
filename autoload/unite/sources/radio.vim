@@ -1,5 +1,9 @@
-" Maintainer: rafi
-" Author: https://github.com/klen/unite-radio.vim
+
+" Unite source - Israeli radio stations
+" Maintainer: Rafael Bodill <justrafi at gmail dot com>
+" Author:     klen https://github.com/klen/unite-radio.vim
+" Version:    0.9
+"-------------------------------------------------
 
 let s:save_cpo = &cpo
 set cpo&vim
@@ -33,13 +37,13 @@ let s:stations = get(g:, 'unite_source_radio_stations', [
 let s:play_cmd = get(g:, 'unite_source_radio_play_cmd', '')
 let s:process = {}
 let s:source = {
-\ 'name': 'radio',
-\ 'description': 'Radio stations',
-\ 'hooks': {},
-\ 'action_table': {},
-\ 'syntax': 'uniteSource__Radio',
-\ 'default_action' : 'execute'
-\ }
+	\ 'name': 'radio',
+	\ 'description': 'Radio stations',
+	\ 'hooks': {},
+	\ 'action_table': {},
+	\ 'syntax': 'uniteSource__Radio',
+	\ 'default_action' : 'execute'
+	\ }
 " }}}
 
 " Setup {{{
@@ -144,3 +148,5 @@ endfunc "}}}
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
+
+" vim: set ts=2 sw=2 tw=80 noet :

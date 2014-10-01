@@ -57,22 +57,6 @@ set undodir=$VARPATH/undo//      " +persistent_undo
 set spellfile=$VIMPATH/spell/en.utf-8.add
 
 " }}}
-" Plugin Directories {{{
-" ------------------
-let g:pdv_template_dir           = $VIMPATH.'/snippets/phpdoc'
-let g:bookmark_auto_save_dir     = $VARPATH.'/bookmarks'
-let g:unite_data_directory       = $VARPATH."/unite"
-let g:vimfiler_data_directory    = $VARPATH.'/vimfiler'
-let g:neocomplete#data_directory = $VARPATH.'/complete'
-let g:neosnippet#data_directory  = $VARPATH.'/snippet'
-let g:neomru#file_mru_path       = $VARPATH.'/unite/mru/file'
-let g:neomru#directory_mru_path  = $VARPATH.'/unite/mru/directory'
-let g:neosnippet#snippets_directory =
-			\$VIMPATH.'/snippets/rafi,'
-			\.$VIMPATH.'/snippets/shougo/neosnippets,'
-			\.$VARPATH.'/plugins/vim-go/gosnippets/snippets'
-
-" }}}
 " Tabs and Indents {{{
 " ----------------
 set textwidth=80    " Text width maximum chars before wrapping

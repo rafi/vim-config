@@ -3,6 +3,7 @@
 "------------------------------------------------------------------------------
 
 if neobundle#tap('unite.vim') "{{{
+	let g:unite_data_directory             = $VARPATH."/unite"
 	let g:unite_source_history_yank_enable = 1
 	nnoremap [unite]  <Nop>
 	nmap     f [unite]
@@ -41,6 +42,7 @@ endif
 if neobundle#tap('vimfiler.vim') "{{{
 	noremap <silent> <Leader>f :VimFilerExplorer -winwidth=25 -split -toggle -no-quit<CR>
 	noremap <silent> <Leader>a :VimFilerExplorer -find -winwidth=25 -split -toggle -no-quit<CR>
+	let g:vimfiler_data_directory = $VARPATH.'/vimfiler'
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/vimfiler.vim'
 	call neobundle#untap()
 endif
@@ -48,7 +50,8 @@ endif
 "}}}
 if neobundle#tap('neocomplete') "{{{
 	let g:neocomplete#enable_at_startup = 1
-	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/neocomplete.vim'
+	let g:neocomplete#data_directory = $VARPATH.'/complete'
+	let neobundle#hooks.on_source    = $VIMPATH.'/config/plugins/neocomplete.vim'
 	call neobundle#untap()
 endif
 
@@ -56,6 +59,18 @@ endif
 if neobundle#tap('neosnippet.vim') "{{{
 	let g:neosnippet#enable_snipmate_compatibility = 0
 	let g:neosnippet#disable_runtime_snippets = { '_': 1 }
+	let g:neosnippet#data_directory  = $VARPATH.'/snippet'
+	let g:neosnippet#snippets_directory =
+				\$VIMPATH.'/snippets/rafi,'
+				\.$VIMPATH.'/snippets/shougo/neosnippets,'
+				\.$VARPATH.'/plugins/vim-go/gosnippets/snippets'
+	call neobundle#untap()
+endif
+
+"}}}
+if neobundle#tap('neomru.vim') "{{{
+	let g:neomru#file_mru_path = $VARPATH.'/unite/mru/file'
+	let g:neomru#directory_mru_path  = $VARPATH.'/unite/mru/directory'
 	call neobundle#untap()
 endif
 
@@ -87,6 +102,7 @@ endif
 
 "}}}
 if neobundle#tap('vim-bookmarks') "{{{
+	let g:bookmark_auto_save_dir  = $VARPATH.'/bookmarks'
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/bookmarks.vim'
 	call neobundle#untap()
 endif
@@ -126,6 +142,12 @@ endif
 "}}}
 if neobundle#tap('phpfolding.vim') "{{{
 	let g:DisableAutoPHPFolding = 1  " Do not fold automatically
+	call neobundle#untap()
+endif
+
+"}}}
+if neobundle#tap('pdv') "{{{
+	let g:pdv_template_dir = $VIMPATH.'/snippets/phpdoc'
 	call neobundle#untap()
 endif
 
@@ -218,7 +240,7 @@ endif
 
 "}}}
 if neobundle#tap('gundo.vim') "{{{
-	nnoremap <F5> :GundoToggle<CR>
+	nnoremap <Leader>gu  :GundoToggle<CR>
 	call neobundle#untap()
 endif
 
