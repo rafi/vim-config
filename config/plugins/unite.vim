@@ -160,7 +160,6 @@ call unite#custom#profile('source/outline', 'context', {
 " General purpose profile for navigating and also for grep
 call unite#custom#profile('navigate,source/grep', 'context', {
 	\   'silent': 1,
-	\   'auto_preview': 1,
 	\   'vertical_preview': 1,
 	\   'start_insert': 0,
 	\   'keep_focus': 1,

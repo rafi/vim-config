@@ -25,8 +25,6 @@ if neobundle#tap('unite.vim') "{{{
 	nnoremap <silent> [unite]me  :<C-u>Unite output:message -silent<CR>
 	nnoremap <silent> <Leader>b  :<C-u>Unite buffer file_mru bookmark<CR>
 	nnoremap <silent> <Leader>ta :<C-u>Unite tab<CR>
-	" Open VimFiler with current file selected
-	nnoremap <silent> [unite]a  :<C-u>VimFilerExplorer -find -winwidth=20 -split -toggle -no-quit<CR>
 	" Open Unite with word under cursor or selection
 	nnoremap <silent> <Leader>gf :UniteWithCursorWord file_rec/async -profile-name=navigate<CR>
 	nnoremap <silent> <Leader>gg :UniteWithCursorWord grep:. -profile-name=navigate<CR>
@@ -168,13 +166,6 @@ if neobundle#tap('syntastic') "{{{
 	let g:syntastic_error_symbol = '⚠'
 	let g:syntastic_warning_symbol = ''
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/syntastic.vim'
-	call neobundle#untap()
-endif
-
-"}}}
-if neobundle#tap('tagbar') "{{{
-	nmap <F4> :TagbarToggle<CR>
-	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/tagbar.vim'
 	call neobundle#untap()
 endif
 

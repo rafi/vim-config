@@ -83,10 +83,6 @@ cmap W!! w !sudo tee % >/dev/null
 " Editor UI {{{
 " ---------
 
-" Disable help key, I use it for http://zealdocs.org
-inoremap <F1> <ESC>
-vnoremap <F1> <ESC>
-
 " Toggle paste mode, useful to temporarily disable autoindent
 set pastetoggle=<F2>
 
@@ -130,13 +126,6 @@ if has('quickfix')
 "	nnoremap <leader>g :vsplit<CR>:wincmd p<CR>:e#<CR>
 endif
 
-if has('gui_running')
-	" gvim - toggle display of a GUI widgets (menu/toolbar/scrollbar)
-	nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
-	nnoremap <C-F2> :if &go=~#'T'<Bar>set go-=T<Bar>else<Bar>set go+=T<Bar>endif<CR>
-	nnoremap <C-F3> :if &go=~#'r'<Bar>set go-=r<Bar>else<Bar>set go+=r<Bar>endif<CR>
-endif
-
 " }}}
 " Totally Custom {{{
 " --------------
@@ -153,24 +142,22 @@ nmap <Leader>lj :lnext<CR>
 nmap <Leader>lk :lprev<CR>
 
 " Source line and selection in vim
-vnoremap <leader>S y:execute @@<CR>:echo 'Sourced selection.'<CR>
-nnoremap <leader>S ^vg_y:execute @@<CR>:echo 'Sourced line.'<CR>
+vnoremap <Leader>S y:execute @@<CR>:echo 'Sourced selection.'<CR>
+nnoremap <Leader>S ^vg_y:execute @@<CR>:echo 'Sourced line.'<CR>
 
 " Append modeline to EOF
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 
-nnoremap [file]  <Nop>
-nmap     f [file]
 " Focus the current fold by closing all others
-nnoremap [file]z mzzM`zzv
+nnoremap [unite]z mzzM`zzv
 " Yank buffer's absolute path to X11 clipboard
-nnoremap [file]y :let @+=expand("%:p")<CR>:echo 'Copied to clipboard.'<CR>
+nnoremap [unite]y :let @+=expand("%:p")<CR>:echo 'Copied to clipboard.'<CR>
 
 " Drag current line/s vertically and auto-indent
-noremap  <leader>k :m-2<CR>==
-noremap  <leader>j :m+<CR>==
-vnoremap <leader>k :m-2<CR>gv=gv
-vnoremap <leader>j :m'>+<CR>gv=gv
+noremap  <leader>mk :m-2<CR>==
+noremap  <leader>mj :m+<CR>==
+vnoremap <leader>mk :m-2<CR>gv=gv
+vnoremap <leader>mj :m'>+<CR>gv=gv
 
 augroup MyAutoCmd " {{{
 

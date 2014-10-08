@@ -8,7 +8,7 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 if !g:loaded_unite
-    finish
+	finish
 endif
 
 function! unite#sources#navigate#define()
