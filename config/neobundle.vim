@@ -27,6 +27,11 @@ NeoBundle 'rafi/vim-tinyline.git', { 'directory': 'tinyline' }
 NeoBundle 'rafi/vim-tagabana.git', { 'directory': 'tagabana' }
 NeoBundle 'rafi/vim-tinycomment.git', { 'directory': 'tinycomment' }
 NeoBundle 'rafi/vim-phpspec.git', { 'directory': 'phpspec' }
+NeoBundleLazy 'rafi/vim-unite-issue.git', {
+	\  'directory': 'unite-issue',
+	\  'depends': [ 'mattn/webapi-vim', 'tyru/open-browser.vim' ],
+	\  'unite_sources': [ 'issue' ]
+	\ }
 
 " }}}
 " Language {{{

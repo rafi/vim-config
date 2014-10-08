@@ -80,6 +80,20 @@ if neobundle#tap('echodoc.vim') "{{{
 endif
 
 "}}}
+if neobundle#tap('vim-unite-issue') "{{{
+	let g:unite_source_issue_jira_priority_table = {
+		\ 10000: '◡', 1: '⚡', 2: 'ᛏ', 3: '●', 4: '○', 5: '▽' }
+	let g:unite_source_issue_jira_status_table = {
+		\ 1: 'plan', 3: 'develop', 4: 'reopened', 5: 'resolved', 6: 'closed',
+		\ 10000: 'feedback', 10001: 'stage-test', 10002: 'waiting',
+		\ 10003: 'prod-test', 10004: 'pending', 10008: 'review' }
+	let g:unite_source_issue_jira_type_table = {
+		\ 1: 'bug', 2: 'feature', 3: 'task', 4: 'change', 5: 'sub-task',
+		\ 6: 'epic', 7: 'story', 8: 'system', 9: 'sub-bug' }
+	call neobundle#untap()
+endif
+
+"}}}
 if neobundle#tap('matchit.zip') "{{{
 	function! neobundle#hooks.on_post_source(bundle)
 		silent! execute 'doautocmd Filetype' &filetype
@@ -96,6 +110,12 @@ endif
 "}}}
 if neobundle#tap('vim-smartchr') "{{{
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/smartchr.vim'
+	call neobundle#untap()
+endif
+
+"}}}
+if neobundle#tap('open-browser.vim') "{{{
+	let g:openbrowser_no_default_menus = 1
 	call neobundle#untap()
 endif
 
