@@ -1,6 +1,6 @@
 # Vim config
 
-Mean lean Vim machine.
+Lean mean Vim machine.
 
 ## Features
 
@@ -26,7 +26,7 @@ Mean lean Vim machine.
 
 ## Screenshot
 
-![Vim screenshot](https://paste.xinu.at/P4km/ "Ain't that a beauty?")
+![Vim screenshot](https://paste.xinu.at/vMvoE/ "Ain't that a beauty?")
 
 ## XDG conformity
 
