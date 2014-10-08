@@ -30,5 +30,4 @@ function! g:choosewin_hook.filter_window(winnums)
 	\   getwinvar(v:val, "&filetype")) == -1' )
 endfunction
 
-
 " vim: set ts=2 sw=2 tw=80 noet :

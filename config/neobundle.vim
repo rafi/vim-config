@@ -20,10 +20,9 @@ NeoBundle 'bogado/file-line'
 NeoBundle 'MattesGroeger/vim-bookmarks'
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'christoomey/vim-tmux-navigator'
-NeoBundle 'godlygeek/tabular'  " TODO: Lazy-load?
-NeoBundle 'regedarek/ZoomWin'  " TODO: With lazy, problem restoring splits
+NeoBundle 'regedarek/ZoomWin'  " TODO: Lazy has problems restoring splits
 
-" Rafi's plugins, usually working-tree is dirty
+" My home-made plugins, usually working-tree is dirty
 NeoBundle 'rafi/vim-tinyline.git', { 'directory': 'tinyline' }
 NeoBundle 'rafi/vim-tagabana.git', { 'directory': 'tagabana' }
 NeoBundle 'rafi/vim-tinycomment.git', { 'directory': 'tinycomment' }
@@ -93,20 +92,22 @@ NeoBundleLazy 'tpope/vim-fugitive', {
 	\ }}
 NeoBundleLazy 'gregsexton/gitv', {
 	\ 'depends': 'tpope/vim-fugitive',
-	\ 'autoload': { 'commands': [ 'Gitv' ]}
+	\ 'autoload': { 'commands': [ 'Gitv' ] }
 	\ }
 NeoBundleLazy 'sjl/gundo.vim', {
 	\ 'disabled': ! has('python'),
 	\ 'vim_version': '7.3',
-	\ 'autoload': { 'commands': [ 'GundoToggle' ]}
+	\ 'autoload': { 'commands': [ 'GundoToggle' ] }
 	\ }
 NeoBundleLazy 'gorkunov/smartpairs.vim', {
 	\ 'autoload': {
 	\  'commands': [ 'SmartPairs', 'SmartPairsI', 'SmartPairsA' ],
 	\  'mappings': [[ 'n', 'viv' ], [ 'v', 'v' ]]
 	\ }}
-NeoBundleLazy 'majutsushi/tagbar', { 'commands': 'TagbarToggle' }
-NeoBundleLazy 'farseer90718/vim-colorpicker', { 'commands': 'ColorPicker' }
+NeoBundleLazy 'farseer90718/vim-colorpicker', {
+	\ 'disabled': ! has('python'),
+	\ 'commands': 'ColorPicker'
+	\ }
 
 " }}}
 " Interface {{{
@@ -160,7 +161,7 @@ NeoBundleLazy 'Shougo/neosnippet.vim', {
 NeoBundleLazy 'Shougo/unite.vim', {
 	\ 'autoload': {
 	\   'commands': [
-	\     { 'name' : 'Unite', 'complete' : 'customlist,unite#complete_source' },
+	\     { 'name': 'Unite', 'complete': 'customlist,unite#complete_source' },
 	\     'UniteWithCursorWord', 'UniteWithInput' ]
 	\ }}
 
@@ -206,9 +207,9 @@ NeoBundleLazy 'rhysd/vim-operator-surround', {
 " --------
 NeoBundleLazy 'kana/vim-textobj-user'
 NeoBundleLazy 'osyo-manga/vim-textobj-multiblock', {
-	\ 'depends' : 'vim-textobj-user',
-	\ 'autoload' : {
-	\   'mappings' : [['ox', '<Plug>' ]]
+	\ 'depends': 'vim-textobj-user',
+	\ 'autoload': {
+	\   'mappings': [[ 'ox', '<Plug>' ]]
 	\ }}
 " }}}
 
