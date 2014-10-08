@@ -38,8 +38,9 @@ endif
 
 "}}}
 if neobundle#tap('vimfiler.vim') "{{{
-	noremap <silent> <Leader>f :VimFilerExplorer -winwidth=20 -split -toggle<CR>
-	noremap <silent> <Leader>a :VimFilerExplorer -find -winwidth=20 -split -toggle -no-quit<CR>
+	noremap <silent> <Leader>f :<C-u> execute 'VimFilerExplorer -winwidth=28 -split -toggle -buffer-name='.t:project_name<CR>
+	" Open VimFiler with current file selected
+	nnoremap <silent> fa  :<C-u>execute 'VimFilerExplorer -find -winwidth=28 -split -toggle -no-quit -buffer-name='.t:project_name<CR>
 	let g:vimfiler_data_directory = $VARPATH.'/vimfiler'
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/vimfiler.vim'
 	call neobundle#untap()

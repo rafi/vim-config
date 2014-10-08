@@ -15,11 +15,7 @@ augroup MyAutoCmd
 
 	autocmd FileType gitcommit,qfreplace setlocal nofoldenable
 
-	autocmd FileType diff setlocal winfixheight
-
-"	autocmd FileType vimfiler setlocal winfixwidth
-
-	autocmd BufNewfile,BufRead Rakefile set foldmethod=syntax foldnestmax=1
+"	autocmd FileType diff setlocal winfixheight
 
 	autocmd FileType zsh setlocal foldenable foldmethod=marker
 
