@@ -3,8 +3,11 @@
 " -------------
 let g:bookmark_auto_save = 1
 let g:bookmark_save_per_working_dir = 1
-let g:bookmark_sign = '✓'                  " Bookmarks: Bookmark sign
-let g:bookmark_annotation_sign = '⌦'       " Bookmarks: Annonation sign
+let g:bookmark_sign = '✓'                  " Bookmark sign
+let g:bookmark_annotation_sign = '⌦'       " Annonation sign
+
+highlight BookmarkSign            ctermfg=12 guifg=#4EA9D7
+highlight BookmarkAnnotationSign  ctermfg=11 guifg=#EACF49
 
 if ! exists('g:bookmark_auto_save_dir')
 	let g:bookmark_auto_save_dir = '~/.vim-bookmarks'
