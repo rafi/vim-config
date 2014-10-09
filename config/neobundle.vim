@@ -114,6 +114,10 @@ NeoBundleLazy 'farseer90718/vim-colorpicker', {
 	\ 'commands': 'ColorPicker'
 	\ }
 NeoBundleLazy 't9md/vim-smalls', { 'mappings': '<Plug>' }
+NeoBundleLazy 'kannokanno/previm', {
+	\ 'filetypes': [ 'markdown', 'rst' ],
+	\ 'depends': 'tyru/open-browser.vim'
+	\ }
 
 " }}}
 " Interface {{{
@@ -189,6 +193,9 @@ NeoBundleLazy 'tsukkee/unite-tag', {
 NeoBundleLazy 'joker1007/unite-pull-request', {
 	\  'depends': 'mattn/webapi-vim',
 	\  'unite_sources': [ 'pull_request', 'pull_request_file' ]
+	\ }
+NeoBundleLazy 'rhysd/unite-stackoverflow.vim', {
+	\  'unite_sources': 'stackoverflow'
 	\ }
 " }}}
 

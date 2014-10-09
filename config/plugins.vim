@@ -114,6 +114,12 @@ if neobundle#tap('vim-smartchr') "{{{
 endif
 
 "}}}
+if neobundle#tap('previm') "{{{
+	let g:previm_enable_realtime = 0
+	call neobundle#untap()
+endif
+
+"}}}
 if neobundle#tap('open-browser.vim') "{{{
 	let g:openbrowser_no_default_menus = 1
 	call neobundle#untap()
