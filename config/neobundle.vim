@@ -113,6 +113,7 @@ NeoBundleLazy 'farseer90718/vim-colorpicker', {
 	\ 'disabled': ! has('python'),
 	\ 'commands': 'ColorPicker'
 	\ }
+NeoBundleLazy 't9md/vim-smalls', { 'mappings': '<Plug>' }
 
 " }}}
 " Interface {{{

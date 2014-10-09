@@ -143,6 +143,17 @@ if neobundle#tap('vim-choosewin') "{{{
 endif
 
 "}}}
+if neobundle#tap('vim-smalls') "{{{
+	nmap <Nul>  <Plug>(smalls)
+	let cli_table_custom = {
+			\ "\<C-g>": 'do_cancel',
+			\ "\<C-j>": 'do_jump',
+			\ }
+	call smalls#keyboard#cli#extend_table(cli_table_custom)
+	call neobundle#untap()
+endif
+
+"}}}
 if neobundle#tap('vim-session') "{{{
 	let g:session_directory = $VARPATH.'/session'
 	let g:session_default_overwrite = 1
