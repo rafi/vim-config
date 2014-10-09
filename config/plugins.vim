@@ -114,6 +114,12 @@ if neobundle#tap('vim-smartchr') "{{{
 endif
 
 "}}}
+if neobundle#tap('concealedyank.vim') "{{{
+	xmap Y <Plug>(operator-concealedyank)
+	call neobundle#untap()
+endif
+
+"}}}
 if neobundle#tap('previm') "{{{
 	let g:previm_enable_realtime = 0
 	call neobundle#untap()

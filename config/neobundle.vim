@@ -77,7 +77,7 @@ NeoBundleLazy '2072/PHP-Indenting-for-VIm', {
 " Commands {{{
 " --------
 NeoBundleLazy 'Shougo/vimfiler.vim', {
-	\ 'depends': 'Shougo/unite.vim',
+	\ 'depends': [ 'Shougo/unite.vim', 'Shougo/tabpagebuffer.vim' ],
 	\ 'autoload' : {
 	\   'mappings' : [ '<Plug>(vimfiler_switch)' ],
 	\   'commands' : [
@@ -169,6 +169,7 @@ NeoBundleLazy 'Shougo/neosnippet.vim', {
 " Unite {{{
 " -----
 NeoBundleLazy 'Shougo/unite.vim', {
+	\ 'depends': 'Shougo/tabpagebuffer.vim',
 	\ 'autoload': {
 	\   'commands': [
 	\     { 'name': 'Unite', 'complete': 'customlist,unite#complete_source' },
@@ -213,6 +214,9 @@ NeoBundleLazy 'kana/vim-operator-replace', {
 NeoBundleLazy 'rhysd/vim-operator-surround', {
 	\ 'depends': 'vim-operator-user',
 	\ 'mappings': '<Plug>'
+	\ }
+NeoBundleLazy 'chikatoike/concealedyank.vim', {
+	\ 'mappings': [[ 'x', '<Plug>(operator-concealedyank)' ]]
 	\ }
 
 " }}}
