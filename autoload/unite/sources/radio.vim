@@ -1,5 +1,5 @@
 
-" Unite source - Israeli radio stations
+" unite/sources/radio - Israeli radio stations
 " Maintainer: Rafael Bodill <justrafi at gmail dot com>
 " Author:     klen https://github.com/klen/unite-radio.vim
 " Version:    0.9

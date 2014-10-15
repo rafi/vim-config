@@ -23,10 +23,24 @@ NeoBundle 'christoomey/vim-tmux-navigator'
 NeoBundle 'regedarek/ZoomWin'  " TODO: Lazy has problems restoring splits
 
 " My home-made plugins, usually working-tree is dirty
-NeoBundle 'rafi/vim-tinyline.git', { 'directory': 'tinyline' }
-NeoBundle 'rafi/vim-tagabana.git', { 'directory': 'tagabana' }
-NeoBundle 'rafi/vim-tinycomment.git', { 'directory': 'tinycomment' }
-NeoBundle 'rafi/vim-phpspec.git', { 'directory': 'phpspec' }
+NeoBundle 'rafi/vim-tinyline.git', {
+	\ 'directory': 'tinyline',
+	\ 'augroup': 'tinyline'
+	\ }
+NeoBundle 'rafi/vim-tagabana.git', {
+	\ 'directory': 'tagabana',
+	\ 'augroup': 'tagabana'
+	\ }
+NeoBundleLazy 'rafi/vim-tinycomment.git', {
+	\ 'directory': 'tinycomment',
+	\ 'augroup': 'tinycomment',
+	\ 'commands': [ 'TinyCommentLines', 'TinyCommentBlock' ]
+	\ }
+NeoBundleLazy 'rafi/vim-phpspec.git', {
+	\ 'filetypes': 'php',
+	\ 'directory': 'phpspec',
+	\ 'commands': [ 'PhpSpecRun', 'PhpSpecRunCurrent' ]
+	\ }
 NeoBundleLazy 'rafi/vim-unite-issue.git', {
 	\  'directory': 'unite-issue',
 	\  'depends': [ 'mattn/webapi-vim', 'tyru/open-browser.vim' ],
@@ -40,11 +54,12 @@ NeoBundleLazy 'othree/html5.vim', { 'filetypes': 'html' }
 NeoBundleLazy 'mustache/vim-mustache-handlebars', { 'filetypes': 'html' }
 NeoBundleLazy 'plasticboy/vim-markdown', { 'filetypes': 'mkd' }
 NeoBundleLazy 'chase/vim-ansible-yaml', { 'filetypes': 'yaml' }
-NeoBundleLazy 'groenewege/vim-less', { 'rev': '5d965c2', 'filetypes': 'less' }
+NeoBundleLazy 'groenewege/vim-less', { 'filetypes': 'less' }
 NeoBundleLazy 'hail2u/vim-css3-syntax', { 'filetypes': 'css' }
 NeoBundleLazy 'chrisbra/csv.vim', { 'filetypes': 'csv' }
 NeoBundleLazy 'fatih/vim-go', { 'filetypes': 'go' }
 NeoBundleLazy 'elzr/vim-json', { 'filetypes': 'json' }
+NeoBundleLazy 'jamestomasino/vim-writingsyntax', { 'filetypes': 'writing' }
 
 " JavaScript {{{
 " ----------
@@ -78,15 +93,17 @@ NeoBundleLazy '2072/PHP-Indenting-for-VIm', {
 " --------
 NeoBundleLazy 'Shougo/vimfiler.vim', {
 	\ 'depends': [ 'Shougo/unite.vim', 'Shougo/tabpagebuffer.vim' ],
-	\ 'autoload' : {
-	\   'mappings' : [ '<Plug>(vimfiler_switch)' ],
-	\   'commands' : [
-	\     { 'name' : 'VimFiler', 'complete' : 'customlist,vimfiler#complete' },
-	\     'VimFilerExplorer', 'Edit', 'Read', 'Source', 'Write'
-	\ ]}}
+	\ 'mappings': '<Plug>',
+	\ 'explorer': 1,
+	\ 'commands': [
+	\    { 'name': [ 'VimFiler', 'Edit', 'Write'],
+	\      'complete': 'customlist,vimfiler#complete' },
+	\    'Read', 'Source'
+	\ ]}
 NeoBundleLazy 'Shougo/vinarise.vim', {
-	\ 'autoload' : { 'commands' : 'Vinarise' }
-	\ }
+	\ 'commands': [
+	\   { 'name': 'Vinarise', 'complete': 'file' }
+	\ ]}
 NeoBundleLazy 'tpope/vim-fugitive', {
 	\ 'autoload': {
 	\   'augroup': 'fugitive',
@@ -117,6 +134,10 @@ NeoBundleLazy 't9md/vim-smalls', { 'mappings': '<Plug>' }
 NeoBundleLazy 'kannokanno/previm', {
 	\ 'filetypes': [ 'markdown', 'rst' ],
 	\ 'depends': 'tyru/open-browser.vim'
+	\ }
+NeoBundleLazy 'tyru/open-browser.vim', {
+	\ 'mappings': '<Plug>',
+	\ 'functions' : 'openbrowser#open'
 	\ }
 
 " }}}
@@ -150,7 +171,7 @@ NeoBundleLazy 'xolox/vim-session', {
 " ----------
 NeoBundleLazy 'Raimondi/delimitMate', { 'insert': 1 }
 NeoBundleLazy 'Shougo/echodoc.vim', { 'insert': 1 }
-NeoBundleLazy 'kana/vim-smartchr', { 'insert' : 1 }
+NeoBundleLazy 'kana/vim-smartchr', { 'insert': 1 }
 NeoBundleLazy 'Shougo/neocomplete', {
 	\ 'depends': 'Shougo/context_filetype.vim',
 	\ 'disabled': ! has('lua'),
@@ -170,14 +191,14 @@ NeoBundleLazy 'Shougo/neosnippet.vim', {
 " -----
 NeoBundleLazy 'Shougo/unite.vim', {
 	\ 'depends': 'Shougo/tabpagebuffer.vim',
-	\ 'autoload': {
-	\   'commands': [
-	\     { 'name': 'Unite', 'complete': 'customlist,unite#complete_source' },
-	\     'UniteWithCursorWord', 'UniteWithInput' ]
-	\ }}
+	\ 'commands': [
+	\   { 'name': 'Unite', 'complete': 'customlist,unite#complete_source' }
+	\ ]}
 
 " Unite sources {{{
 " -------------
+NeoBundleLazy 'Shougo/unite-build'
+NeoBundleLazy 'ujihisa/unite-colorscheme'
 NeoBundleLazy 'Shougo/neossh.vim', {
 	\ 'filetypes': 'vimfiler',
 	\ 'sources': 'ssh',

@@ -1,5 +1,5 @@
 
-" Unite source - Xolox's vim-session
+" unite/sources/session - Xolox's vim-session
 " Maintainer: Rafael Bodill <justrafi at gmail dot com>
 " Author:     Shougo Matsushita <Shougo.Matsu@gmail.com>
 "             Jason Housley <HousleyJK@gmail.com>

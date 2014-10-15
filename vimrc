@@ -11,7 +11,7 @@
 if !1 | finish | endif
 
 function! s:source_rc(path)
-  execute 'source' fnameescape(expand('$VIMPATH/config/'.a:path))
+	execute 'source' fnameescape(expand('$VIMPATH/config/'.a:path))
 endfunction
 
 " Respect XDG

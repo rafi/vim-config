@@ -30,6 +30,9 @@ endfunction
 " s:goyo_leave() "{{{
 " Enable visuals when leaving Goyo mode
 function! s:goyo_leave()
+	" Restore color mods
+	execute 'source' fnameescape(expand('$VIMPATH/config/colors.vim'))
+
 	" Enable statusline and tabs
 	TinyLine
 	TinyTabs
