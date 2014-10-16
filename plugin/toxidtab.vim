@@ -1,14 +1,14 @@
 
-" vim-tinytabs - Tiny tab-line for Vim
+" vim-toxidtab - Tiny tab-line for Vim
 " Maintainer: Rafael Bodill <justrafi at gmail dot com>
-" Version:    0.7
+" Version:    20141015
 "-------------------------------------------------
 
 " Disable reload {{{
-if exists('g:loaded_tinytabs') && g:loaded_tinytabs
+if exists('g:loaded_toxidtab') && g:loaded_toxidtab
   finish
 endif
-let g:loaded_tinytabs = 1
+let g:loaded_toxidtab = 1
 
 " }}}
 " Saving 'cpoptions' {{{
@@ -17,18 +17,19 @@ set cpo&vim
 " }}}
 
 " Command {{{
-command! -nargs=0 -bar -bang TinyTabs call s:tinytabs('<bang>' == '!')
+command! -nargs=0 -bar -bang ToxidTab call s:toxidtab('<bang>' == '!')
 " }}}
 
-" s:sid_prefix() "{{{
-" Returns a string representation of <SID> to use anywhere
 function! s:sid_prefix()
+	" Returns a string representation of <SID> to use anywhere
+	"
 	return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
 endfunction
 
 " }}}
-" s:tinytabs(integer <disable>) "{{{
-function! s:tinytabs(disable)
+function! s:toxidtab(disable) " {{{
+	" Toggle ToxidTab
+	"
 	if a:disable
 		set tabline=
 	else
@@ -38,8 +39,7 @@ function! s:tinytabs(disable)
 endfunction
 
 " }}}
-" s:colorscheme() "{{{
-function! s:colorscheme()
+function! s:colorscheme() " {{{
 	highlight TabLineFill      ctermfg=236 guifg=#303030
 	highlight TabLine          ctermfg=236 ctermbg=243 guifg=#303030 guibg=#767676
 	highlight TabLineSel       ctermfg=241 ctermbg=234 guifg=#626262 guibg=#1C1C1C gui=NONE
@@ -50,9 +50,9 @@ function! s:colorscheme()
 endfunction
 
 " }}}
-" s:draw_tabs() "{{{
-" Main tabline function. Draws the whole damn tabline
 function! s:draw_tabs()
+	" Main tabline function. Draws the whole damn tabline
+	"
 	let s = '%#TabLineProject# %{'.s:sid_prefix().'project_name()} %#TabLineProjectRe#⮀%#TabLine#  '
 	let nr = tabpagenr()
 	for i in range(tabpagenr('$'))
@@ -78,10 +78,10 @@ function! s:draw_tabs()
 endfunction
 
 " }}}
-" s:project_name() "{{{
-" Finds the project name from tab current directory.
-" It tries to find the root path of a git repository.
 function! s:project_name()
+	" Finds the project name from tab current directory.
+	" It tries to find the root path of a git repository.
+	"
 	" Use the cached (tab scope) variable unless the current dir changed
 	if ! exists('t:project_name') || ! (exists('t:project_dir') && t:project_dir == getcwd())
 		" Store the current dir for caching
@@ -110,9 +110,9 @@ function! s:project_name()
 endfunction
 
 " }}}
-" s:tab_label(integer <n>) "{{{
-" Returns a specific tab's label
 function! s:tab_label(n)
+	" Returns a specific tab's label
+	"
 	let buflist = tabpagebuflist(a:n)
 	let winnr = tabpagewinnr(a:n)
 	let filepath = bufname(buflist[winnr - 1])
@@ -144,7 +144,7 @@ endfunction
 
 " Run-time {{{
 " Enable plugin by default
-TinyTabs
+ToxidTab
 " }}}
 "
 " Restore 'cpoptions' {{{
