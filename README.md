@@ -226,7 +226,7 @@ Key   | Mode | Action
 ----- |:----:| ------------------
 `Space` | Normal | **Leader**
 `;` | Normal | **Command mode**
-Arrows | Normal | Resize splits
+Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `Backspace` | Normal | Match bracket (%)
 `<leader>`+`y` | Normal/visual | Copy selection to X11 clipboard ("+y)
 `<leader>`+`p` | Normal/visual | Paste selection from X11 clipboard ("+p)

@@ -12,11 +12,13 @@ let maplocalleader="\<Space>"
 " Maps the semicolon to colon in normal mode
 nmap ; :
 
-" Make arrow keys useful
-nnoremap <Up>    :resize +4<CR>
-nnoremap <Down>  :resize -4<CR>
-nnoremap <Left>  :vertical resize +4<CR>
-nnoremap <Right> :vertical resize -4<CR>
+if exists('g:elite_mode') && g:elite_mode
+	" Make arrow keys useful
+	nnoremap <Up>    :resize +4<CR>
+	nnoremap <Down>  :resize -4<CR>
+	nnoremap <Left>  :vertical resize +4<CR>
+	nnoremap <Right> :vertical resize -4<CR>
+endif
 
 " Use backspace key for matchit.vim
 nmap <BS> %
