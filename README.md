@@ -20,7 +20,7 @@ Lean mean Vim machine.
 
 Vim's folder is usually placed at `~/.vim`. However, I wanted it to conform
 to the XDG specification standard and place it at `.config/vim`. Both locations
-are supported.
+are supported. (See [vimrc](vimrc#L17-L24) and [init.vim](./config/init.vim#L43-L48))
 
 ## Install
 
@@ -29,9 +29,11 @@ are supported.
   git clone --recursive git://github.com/rafi/vim-config.git ~/.vim
   ```
 
-2. Run `vim`, `gvim`, or `nvim`
-3. When NeoBundle shows prompt, accept plugins installation. This might take a
-   while, but only performed once. 90% of the plugins are lazy-loaded.
+2. Install plugins: `vim +NeoBundleInstall +q`
+3. Run `vim`, `gvim`, or `nvim`
+
+_Please note_ that 90% of the plugins are **[lazy-loaded]**.
+[lazy-loaded]: ./config/neobundle.vim
 
 ## Structure
 - [colors](./colors)/ - Premium colorschemes
