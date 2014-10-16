@@ -13,29 +13,30 @@ NeoBundle 'Shougo/vimproc.vim', {
 	\    'windows': 'tools\\update-dll-mingw'
 	\ }}
 
-NeoBundle 'Shougo/neomru.vim'
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'bogado/file-line'
-NeoBundle 'MattesGroeger/vim-bookmarks'
 NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'bogado/file-line'
+NeoBundle 'Shougo/neomru.vim'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'MattesGroeger/vim-bookmarks'
 NeoBundle 'christoomey/vim-tmux-navigator'
 NeoBundle 'regedarek/ZoomWin'  " TODO: Lazy has problems restoring splits
 
-" My home-made plugins, usually working-tree is dirty
-NeoBundle 'rafi/vim-tinyline.git', {
-	\ 'directory': 'tinyline',
-	\ 'augroup': 'tinyline'
-	\ }
-NeoBundle 'rafi/vim-tagabana.git', {
-	\ 'directory': 'tagabana',
-	\ 'augroup': 'tagabana'
-	\ }
+" My own plugins
+NeoBundle 'rafi/vim-tinyline.git', { 'directory': 'tinyline' }
+NeoBundle 'rafi/vim-tagabana.git', { 'directory': 'tagabana' }
+
+" LAZY LOADING from here on
+" --------------------------------------------------------
+
 NeoBundleLazy 'rafi/vim-tinycomment.git', {
 	\ 'directory': 'tinycomment',
 	\ 'augroup': 'tinycomment',
-	\ 'commands': [ 'TinyCommentLines', 'TinyCommentBlock' ]
-	\ }
+	\ 'commands': [ 'TinyCommentLines', 'TinyCommentBlock' ],
+	\ 'mappings': [
+	\   [ 'n', '<leader>v' ], [ 'v', '<leader>v' ],
+	\   [ 'v', '<leader>V' ]
+	\ ]}
 NeoBundleLazy 'rafi/vim-phpspec.git', {
 	\ 'filetypes': 'php',
 	\ 'directory': 'phpspec',
@@ -133,6 +134,7 @@ NeoBundleLazy 'farseer90718/vim-colorpicker', {
 NeoBundleLazy 't9md/vim-smalls', { 'mappings': '<Plug>' }
 NeoBundleLazy 'kannokanno/previm', {
 	\ 'filetypes': [ 'markdown', 'rst' ],
+	\ 'commands': 'PrevimOpen',
 	\ 'depends': 'tyru/open-browser.vim'
 	\ }
 NeoBundleLazy 'tyru/open-browser.vim', {

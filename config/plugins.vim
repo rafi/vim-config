@@ -81,6 +81,7 @@ endif
 
 "}}}
 if neobundle#tap('vim-unite-issue') "{{{
+	let g:unite_source_issue_file_dir = '~/docs/issues'
 	let g:unite_source_issue_jira_priority_table = {
 		\ 10000: '◡', 1: '⚡', 2: 'ᛏ', 3: '●', 4: '○', 5: '▽' }
 	let g:unite_source_issue_jira_status_table = {
@@ -173,6 +174,7 @@ if neobundle#tap('vim-session') "{{{
 	let g:session_autoload = 'no'
 	let g:session_persist_colors = 0
 	let g:session_menu = 0
+	call neobundle#untap()
 endif
 
 "}}}
@@ -239,6 +241,7 @@ if neobundle#tap('vim-mustache-handlebars') "{{{
 	function! neobundle#hooks.on_post_source(bundle)
 		doautocmd BufRead *.mustache, *.hogan, *.hulk, *.hjs, *.handlebars, *.hbs
 	endfunction
+	call neobundle#untap()
 endif
 
 " }}}
@@ -246,6 +249,7 @@ if neobundle#tap('vim-ansible-yaml') "{{{
 	function! neobundle#hooks.on_post_source(bundle)
 		doautocmd BufRead *.yml
 	endfunction
+	call neobundle#untap()
 endif
 
 " }}}
@@ -260,16 +264,16 @@ if neobundle#tap('vim-fugitive') "{{{
 	nnoremap <silent> <leader>gD :Gdiffoff<CR>
 	nnoremap <silent> <leader>gc :Gcommit<CR>
 	nnoremap <silent> <leader>gb :Gblame<CR>
-	nnoremap <silent> <leader>gl :Gitv --all<CR>
 	nnoremap <silent> <leader>gp :Git push<CR>
 	nnoremap <silent> <leader>gB :Gbrowse<CR>
-	nnoremap <silent> <leader>gbd :Gbrowse origin/develop^{}:%<CR>
+	nnoremap <silent> <leader>gbd :Gbrowse<CR>
 	call neobundle#untap()
 endif
 
 "}}}
 if neobundle#tap('gitv') "{{{
 	let g:Gitv_DoNotMapCtrlKey = 1  " Do not map ctrl keys
+	nnoremap <silent> <leader>gl :Gitv --all<CR>
 	call neobundle#untap()
 endif
 
