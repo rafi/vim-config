@@ -70,6 +70,7 @@ NeoBundleLazy 'pangloss/vim-javascript', {
 	\ }
 NeoBundleLazy 'marijnh/tern_for_vim', {
 	\   'build': { 'others': 'npm install' },
+	\   'disabled': executable('npm') != 1,
 	\   'autoload': { 'filetypes': 'javascript' }
 	\ }
 

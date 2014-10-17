@@ -16,15 +16,9 @@ Lean mean Vim machine.
 
 ![Vim screenshot](https://paste.xinu.at/vMvoE/ "Ain't that a beauty?")
 
-## XDG conformity
-
-Vim's folder is usually placed at `~/.vim`. However, I wanted it to conform
-to the XDG specification standard and place it at `.config/vim`. Both locations
-are supported. (See [vimrc](vimrc#L17-L24) and [init.vim](./config/init.vim#L43-L48))
-
 ## Install
 
-1. Clone to `~/.vim` or `~/.config/vim` recursively (pull submodules):
+1. Clone to `~/.vim` recursively (pull submodules):
   ```sh
   git clone --recursive git://github.com/rafi/vim-config.git ~/.vim
   ```
@@ -65,6 +59,18 @@ _Please note_ that 90% of the plugins are **[lazy-loaded]**.
 - Syntaxes: Ansible, css3, csv, json, less, markdown, mustache
 - Helpers: Color-picker, undo tree, bookmarks, git, tmux navigation,
     hex editor, sessions, radio stations and much more.
+
+## XDG conformity
+
+VIM looks for its configuration in the `~/.vim` directory. My setup **also**
+supports the XDG location, `.config/vim`. If you want to use the XDG
+specification standard, add this somewhere in your `.profile` or `.bashrc`:
+```sh
+# Set vimrc's location and source it on vim startup
+export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
+```
+If you're curious how it's done, see [vimrc:17-24](vimrc#L17-L24)
+and [init.vim:43-48](./config/init.vim#L43-L48).
 
 ## Included Plugins
 
