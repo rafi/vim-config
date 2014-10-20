@@ -413,7 +413,7 @@ Key   | Mode | Action
 `<leader>`+`lj` | Normal | Display the next error in list
 `<leader>`+`lk` | Normal | Display the previous error in list
 
-## URXvt Hacks
+## Xterm and Tmux
 
 - Make Ctrl+Tab work in console, add these lines to your .Xresources:
 	```
