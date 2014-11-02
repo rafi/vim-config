@@ -60,6 +60,7 @@ NeoBundleLazy 'hail2u/vim-css3-syntax', { 'filetypes': 'css' }
 NeoBundleLazy 'chrisbra/csv.vim', { 'filetypes': 'csv' }
 NeoBundleLazy 'fatih/vim-go', { 'filetypes': 'go' }
 NeoBundleLazy 'elzr/vim-json', { 'filetypes': 'json' }
+NeoBundleLazy 'PotatoesMaster/i3-vim-syntax', { 'filetypes': 'i3' }
 NeoBundleLazy 'jamestomasino/vim-writingsyntax', { 'filetypes': 'writing' }
 
 " JavaScript {{{
