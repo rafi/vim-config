@@ -55,7 +55,7 @@ let g:neomru#directory_mru_limit = 15
 
 " }}}
 " Source: grep {{{
-let g:unite_source_grep_max_candidates = 200
+let g:unite_source_grep_max_candidates = 400
 
 " grep: Use the_silver_searcher or ack or default
 if executable('ag')
@@ -102,6 +102,8 @@ endfunction
 
 " Global default context
 call unite#custom#profile('default', 'context', {
+	\   'safe': 0,
+	\   'auto_expand': 1,
 	\   'start_insert': 1,
 	\   'max_candidates': 0,
 	\   'update_time': 500,
