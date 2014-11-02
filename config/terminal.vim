@@ -14,6 +14,7 @@ map <Esc>[27;6;9~ <C-S-Tab>
 " Documentation: help:xterm-modifier-keys man:tmux(1)
 if exists('$TMUX')
   set ttymouse=sgr
+"	execute 'silent !echo -e "\033kvim\033\\"'
 
   execute "set <xUp>=\e[1;*A"
   execute "set <xDown>=\e[1;*B"
@@ -58,7 +59,6 @@ if exists('$TMUX')
 " 6 -> solid vertical bar
 	let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>[3 q\<Esc>\\"
 	let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>[0 q\<Esc>\\"
-	execute 'silent !echo -e "\033kvim\033\\"'
 
 else
 
