@@ -3,7 +3,7 @@
 " -------------
 let g:bookmark_auto_save = 1
 let g:bookmark_save_per_working_dir = 1
-let g:bookmark_sign = '✓'                  " Bookmark sign
+let g:bookmark_sign = '⚐'                  " Bookmark sign
 let g:bookmark_annotation_sign = '⌦'       " Annonation sign
 
 highlight BookmarkSign            ctermfg=12 guifg=#4EA9D7

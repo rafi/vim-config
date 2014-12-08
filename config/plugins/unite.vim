@@ -142,7 +142,7 @@ call unite#custom#profile('completion', 'context', {
 	\   'no_here': 1
 	\ })
 
-call unite#custom#profile('source/quickfix,source/location_list', 'context', {
+call unite#custom#profile('source/quickfix,source/location_list,source/vim_bookmarks', 'context', {
 	\   'winheight': 13,
 	\   'direction': 'botright',
 	\   'start_insert': 0,

@@ -21,6 +21,7 @@ call vimfiler#custom#profile('default', 'context', {
 autocmd MyAutoCmd FileType vimfiler call s:vimfiler_settings()
 function! s:vimfiler_settings()
 	setlocal winfixwidth
+	setlocal nonumber
 
 	nunmap <buffer> <C-l>
 	nunmap <buffer> <C-j>

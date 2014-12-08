@@ -65,10 +65,7 @@ NeoBundleLazy 'jamestomasino/vim-writingsyntax', { 'filetypes': 'writing' }
 
 " JavaScript {{{
 " ----------
-NeoBundleLazy 'pangloss/vim-javascript', {
-	\   'rev': '51a337b',
-	\   'filetypes': 'javascript'
-	\ }
+NeoBundleLazy 'pangloss/vim-javascript', { 'filetypes': 'javascript' }
 NeoBundleLazy 'marijnh/tern_for_vim', {
 	\   'build': { 'others': 'npm install' },
 	\   'disabled': executable('npm') != 1,

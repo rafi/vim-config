@@ -38,7 +38,9 @@ let s:plugins_dir = expand('$VARPATH/plugins')
 let g:neobundle#types#git#default_protocol = 'git'
 
 if has('vim_starting')
-	set nocompatible
+	if &compatible
+		set nocompatible
+	endif
 
 	if isdirectory($XDG_CONFIG_HOME.'/vim')
 		" Respect XDG

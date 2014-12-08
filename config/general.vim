@@ -21,6 +21,7 @@ set history=700              " Search and commands remembered
 set synmaxcol=512            " Don't syntax highlight long lines
 syntax sync minlines=256     " Update syntax highlighting for more lines
 set formatoptions+=1         " Don't break lines after a one-letter word
+set formatoptions-=t         " Don't auto-wrap text
 set sessionoptions-=options  " Don't save in sessions:
 set sessionoptions-=folds    " - Options, runtime, folds
 set sessionoptions-=help     " - Help windows
@@ -135,7 +136,7 @@ set scrolloff=2         " Keep at least 2 lines above/below
 set sidescrolloff=2     " Keep at least 2 lines left/right
 set pumheight=20        " Pop-up menu's line height (+insert_expand)
 set nocursorline        " Do not highlight line at cursor
-set nonumber            " No line numbers
+set number              " Show line numbers
 
 set showtabline=2       " Always show the tabs line (+windows)
 set tabpagemax=30       " Maximum number of tab pages (+windows)
