@@ -60,7 +60,7 @@ let g:unite_source_grep_max_candidates = 400
 " grep: Use the_silver_searcher or ack or default
 if executable('ag')
 	let g:unite_source_grep_command = 'ag'
-	let g:unite_source_grep_default_opts = '--line-numbers '.s:ag_opts
+	let g:unite_source_grep_default_opts = '-i --line-numbers '.s:ag_opts
 	let g:unite_source_grep_recursive_opt = ''
 elseif executable('ack')
 	let g:unite_source_grep_command = 'ack'
@@ -86,8 +86,13 @@ function! s:unite_settings()
 	nmap <silent><buffer><expr> <C-v> unite#do_action('splitswitch')
 	nmap <silent><buffer><expr> <C-s> unite#do_action('vsplitswitch')
 	nmap <silent><buffer><expr> <C-t> unite#do_action('tabswitch')
-	nmap <buffer> <ESC> <Plug>(unite_exit)
-	imap <buffer> jj    <Plug>(unite_insert_leave)
+	nnoremap <silent><buffer> <Tab>  <C-w>w
+	nmap <buffer> <ESC>              <Plug>(unite_exit)
+	imap <buffer> jj                 <Plug>(unite_insert_leave)
+	imap <buffer> <Tab>              <Plug>(unite_complete)
+	nmap <buffer> <C-z>              <Plug>(unite_toggle_transpose_window)
+	imap <buffer> <C-z>              <Plug>(unite_toggle_transpose_window)
+	imap <buffer> <C-w>              <Plug>(unite_delete_backward_path)
 
 	let unite = unite#get_current_unite()
 	if unite.profile_name ==# '^search'
@@ -106,6 +111,7 @@ call unite#custom#profile('default', 'context', {
 	\   'auto_expand': 1,
 	\   'start_insert': 1,
 	\   'max_candidates': 0,
+	\   'short_source_names': 1,
 	\   'update_time': 500,
 	\   'winheight': 20,
 	\   'winwidth': 40,
@@ -117,6 +123,10 @@ call unite#custom#profile('default', 'context', {
 	\   'candidate_icon': '-',
 	\   'marked_icon': '✓',
 	\   'prompt' : '⮀ '
+	\ })
+
+call unite#custom#profile('action', 'context', {
+	\   'start_insert': 1
 	\ })
 
 " Conveniently set settings globally per-source
@@ -169,18 +179,23 @@ call unite#custom#profile('navigate,source/grep', 'context', {
 	\ })
 " }}}
 
-" [DISABLED] Converters {{{
-" Source output converters
-"call unite#custom#source('buffer', 'converters', [ 'converter_file_directory' ])
-"call unite#custom_source('quickfix', 'converters', 'converter_quickfix_highlight')
-"call unite#custom_source('location_list', 'converters', 'converter_quickfix_highlight')
-
-" }}}
-" [DISABLED] Filters {{{
-" I find it much better simply spacing partial words than fuzzy matching.
-" Enable for fuzzy matching:
-"call unite#filters#matcher_default#use(['matcher_fuzzy'])
-"call unite#filters#sorter_default#use(['sorter_rank'])
+" Filters {{{
+"call unite#custom#source(
+"      \ 'buffer,file_rec,file_rec/async,file_rec/git', 'matchers',
+"      \ ['converter_relative_word', 'matcher_fuzzy',
+"      \  'matcher_project_ignore_files'])
+"call unite#custom#source(
+"      \ 'file_mru', 'matchers',
+"      \ ['matcher_project_files', 'matcher_fuzzy',
+"      \  'matcher_hide_hidden_files', 'matcher_hide_current_file'])
+" call unite#custom#source(
+"       \ 'file', 'matchers',
+"       \ ['matcher_fuzzy', 'matcher_hide_hidden_files'])
+call unite#custom#source(
+      \ 'file_rec,file_rec/async,file_rec/git,file_mru', 'converters',
+      \ ['converter_file_directory'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+" call unite#filters#sorter_default#use(['sorter_length'])
 " }}}
 
 " vim: set ts=2 sw=2 tw=80 noet :
