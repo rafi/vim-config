@@ -132,7 +132,7 @@ NeoBundleLazy 'farseer90718/vim-colorpicker', {
 	\ }
 NeoBundleLazy 't9md/vim-smalls', { 'mappings': '<Plug>' }
 NeoBundleLazy 'kannokanno/previm', {
-	\ 'filetypes': [ 'markdown', 'rst' ],
+	\ 'filetypes': [ 'markdown', 'mkd', 'rst' ],
 	\ 'commands': 'PrevimOpen',
 	\ 'depends': 'tyru/open-browser.vim'
 	\ }

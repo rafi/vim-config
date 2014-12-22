@@ -10,8 +10,8 @@ let g:mapleader = ' '
 let g:maplocalleader = ' '
 
 " Release keymappings for plug-in.
-"nnoremap <Space> <Nop>
-"xnoremap <Space> <Nop>
+nnoremap <Space> <Nop>
+xnoremap <Space> <Nop>
 
 " }}}
 " Ensure cache directory "{{{
@@ -38,10 +38,6 @@ let s:plugins_dir = expand('$VARPATH/plugins')
 let g:neobundle#types#git#default_protocol = 'git'
 
 if has('vim_starting')
-	if &compatible
-		set nocompatible
-	endif
-
 	if isdirectory($XDG_CONFIG_HOME.'/vim')
 		" Respect XDG
 		let $MYVIMRC='$XDG_CONFIG_HOME/vim/vimrc'

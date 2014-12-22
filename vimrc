@@ -10,6 +10,15 @@
 " Skip initialization for vim-tiny/small
 if !1 | finish | endif
 
+if &compatible
+	set nocompatible
+endif
+
+if has('nvim')
+	runtime! plugin/python_setup.vim
+"	set unnamedclip
+endif
+
 function! s:source_rc(path)
 	execute 'source' fnameescape(expand('$VIMPATH/config/'.a:path))
 endfunction
@@ -34,14 +43,17 @@ else
 	call s:source_rc('neobundle.vim')
 	NeoBundleSaveCache
 endif
-call neobundle#end() "}}}
+call neobundle#end()
+" }}}
 
 " Must be after plugins
 filetype plugin indent on
 syntax enable
 
 " Plugin installation check
-NeoBundleCheck
+if ! has('vim_starting')
+	NeoBundleCheck
+endif
 
 " Loading configuration modules {{{
 call s:source_rc('general.vim')

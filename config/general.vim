@@ -99,6 +99,7 @@ set smartcase       " Keep case when searching with *
 set infercase
 set incsearch       " Incremental search (+extra_search)
 set hlsearch        " Highlight the search (+extra_search)
+set wrapscan        " Searches wrap around the end of the file
 set noshowmatch     " Don't jump to matching bracket
 set matchpairs+=<:> " Add HTML brackets to pair matching
 set matchtime=3     " Tenths of a second to show the matching paren
@@ -137,6 +138,7 @@ set sidescrolloff=2     " Keep at least 2 lines left/right
 set pumheight=20        " Pop-up menu's line height (+insert_expand)
 set nocursorline        " Do not highlight line at cursor
 set number              " Show line numbers
+set noruler
 
 set showtabline=2       " Always show the tabs line (+windows)
 set tabpagemax=30       " Maximum number of tab pages (+windows)
