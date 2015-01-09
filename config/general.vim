@@ -136,7 +136,7 @@ set shortmess=aoOTI     " Shorten messages and don't show intro
 set scrolloff=2         " Keep at least 2 lines above/below
 set sidescrolloff=2     " Keep at least 2 lines left/right
 set pumheight=20        " Pop-up menu's line height (+insert_expand)
-set cursorline          " Highlight line at cursor position
+set cursorline          " Highlight line at cursor
 set number              " Show line numbers
 set noruler
 

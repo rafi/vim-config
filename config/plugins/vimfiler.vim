@@ -15,7 +15,7 @@ call vimfiler#custom#profile('default', 'context', {
 	\  'safe': 0,
 	\  'explorer': 1,
 	\  'auto_expand': 1,
-	\  'no_quit': 1,
+	\  'no_quit': 1
 	\ })
 
 autocmd MyAutoCmd FileType vimfiler call s:vimfiler_settings()
@@ -26,13 +26,13 @@ function! s:vimfiler_settings()
 	nunmap <buffer> <C-l>
 	nunmap <buffer> <C-j>
 	nunmap <buffer> E
-	nmap <buffer> s      <Plug>(vimfiler_split_edit_file)
+
+	nnoremap <silent><buffer><expr> sg  vimfiler#do_switch_action('vsplit')
+	nnoremap <silent><buffer><expr> sv  vimfiler#do_switch_action('split')
 	nmap <buffer> p      <Plug>(vimfiler_preview_file)
-	nmap <buffer> A      <Plug>(vimfiler_rename_file)
-	nmap <buffer> '      <Plug>(vimfiler_toggle_mark_current_line)
+	nmap <buffer> i      <Plug>(vimfiler_switch_to_history_directory)
 	nmap <buffer> <C-r>  <Plug>(vimfiler_redraw_screen)
 	nmap <buffer> <C-q>  <Plug>(vimfiler_quick_look)
-	nmap <buffer> <C-w>  <Plug>(vimfiler_switch_to_history_directory)
 endfunction
 
 " vim: set ts=2 sw=2 tw=80 noet :

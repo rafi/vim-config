@@ -284,7 +284,7 @@ Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `<leader>`+`ml` | Normal | Append modeline
 `f`+`z` | Normal | Focus the current fold by closing all others (mzzM`zzv)
 `f`+`y` | Normal | Yank filepath to X11 clipboard
-| **Within _quickfix_ or _diff_** |||
+| **Within _quickfix_ or _diff_ buffers** |||
 `q` | Normal | Quit buffer
 
 ### Plugin: Unite
@@ -312,7 +312,7 @@ Key   | Mode | Action
 `<leader>`+`gf` | Normal | Opens Unite file with word at cursor
 `<leader>`+`gt` | Normal/visual | Opens Unite tag with word at cursor
 `<leader>`+`gg` | Visual | Opens Unite navigate with word at cursor
-| **Within _Unite_** |||
+| **Within _Unite_ buffers** |||
 `Ctrl`+`j` | Normal | Un-map
 `Ctrl`+`k` | Normal | Un-map
 `Ctrl`+`h` | Normal | Un-map
@@ -336,17 +336,16 @@ Key   | Mode | Action
 `<leader>`+`f` | Normal | Toggle file explorer
 `<leader>`+`db` | Normal | Toggle file explorer in buffer directory
 `<leader>`+`ds` | Normal | Toggle file explorer in split
-| **Within _VimFiler_** |||
+| **Within _VimFiler_ buffers** |||
 `Ctrl`+`j` | Normal | Un-map
 `Ctrl`+`l` | Normal | Un-map
 `E` | Normal | Un-map
-`s` | Normal | Split edit
+`sv` | Normal | Split edit
+`sg` | Normal | Vertical split edit
 `p` | Normal | Preview
-`A` | Normal | Rename
-`'` | Normal | Toggle mark current line
+`i` | Normal | Switch to directory history
 `Ctrl`+`r` | Normal | Redraw
 `Ctrl`+`q` | Normal | Quick look
-`Ctrl`+`w` | Normal | Switch to directory history
 
 ### Plugin: neocomplete
 
