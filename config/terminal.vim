@@ -2,20 +2,20 @@
 " Xterm & Tmux
 "------------------------------------------------------------------------------
 
-" Re-map Ctrl combinations "{{{
+" Re-map Ctrl combinations {{{
 " Make Ctrl+Tab work in console, see also .config/xorg/Xresources
 map <Esc>[27;5;9~ <C-Tab>
 map <Esc>[27;6;9~ <C-S-Tab>
+" }}}
 
-" Assigns some xterm(1)-style keys to escape sequences passed by tmux
-" when "xterm-keys" is set to "on".  Inspired by an example given by
-" Chris Johnsen at https://stackoverflow.com/a/15471820
-" Credits: Mark Oteiza
-" Documentation: help:xterm-modifier-keys man:tmux(1)
 if exists('$TMUX')
   set ttymouse=sgr
-"	execute 'silent !echo -e "\033kvim\033\\"'
 
+	" Assigns some xterm(1)-style keys to escape sequences passed by tmux {{{
+	" when "xterm-keys" is set to "on".  Inspired by an example given by
+	" Chris Johnsen at https://stackoverflow.com/a/15471820
+	" Credits: Mark Oteiza
+	" Documentation: help:xterm-modifier-keys man:tmux(1)
   execute "set <xUp>=\e[1;*A"
   execute "set <xDown>=\e[1;*B"
   execute "set <xRight>=\e[1;*C"
@@ -46,22 +46,25 @@ if exists('$TMUX')
   execute "set t_kP=^[[5;*~"
   execute "set t_kN=^[[6;*~"
 
-" }}}
-" Cursor Shape {{{
-" ------------
-" For rxvt-unicode:
-" 1 or 0 -> blinking block
-" 2 -> solid block
-" 3 -> blinking underscore
-" 4 -> solid underscore
-" Recent versions of xterm (282 or above) also support
-" 5 -> blinking vertical bar
-" 6 -> solid vertical bar
+	" }}}
+	" Cursor shape {{{
+	" ------------
+	" For rxvt-unicode:
+	" 1 or 0 -> blinking block
+	" 2 -> solid block
+	" 3 -> blinking underscore
+	" 4 -> solid underscore
+	" Recent versions of xterm (282 or above) also support
+	" 5 -> blinking vertical bar
+	" 6 -> solid vertical bar
 	let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>[3 q\<Esc>\\"
 	let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>[0 q\<Esc>\\"
+	" }}}
 
 else
+	set ttymouse=urxvt     " Set mouse terminal type
 
+	" Cursor shape outside of tmux
 	let &t_SI = "\<Esc>[3 q"
 	let &t_EI = "\<Esc>[0 q"
 endif

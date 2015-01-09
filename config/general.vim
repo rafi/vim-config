@@ -4,7 +4,6 @@
 " Vim core {{{
 " --------
 set autoread                 " Files are read as soon as they are changed
-set ttymouse=urxvt           " Set mouse terminal type
 set mouse=nvi                " Disable mouse in command-line mode
 set modeline                 " automatically setting options from modelines
 set report=0                 " Don't report on line changes
