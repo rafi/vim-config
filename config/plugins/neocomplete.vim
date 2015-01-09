@@ -78,11 +78,14 @@ imap <expr><S-Tab> pumvisible() ? "\<C-p>"
 	\ : (neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)"
 	\ : "\<S-Tab>")
 
-" <BS>: Close popup and delete preceding char
-inoremap <expr><BS>  neocomplete#smart_close_popup()."\<C-h>"
+" <BS>: Close popup and delete preceding char, or empty pair
+inoremap <expr><BS>  pumvisible() ? neocomplete#smart_close_popup()."\<C-h>"
+	\ : delimitMate#WithinEmptyPair() ? "\<C-R>=delimitMate#BS()<CR>" : "\<BS>"
+
 " <C-y>, <C-e>: Close popup, close popup and cancel selection
 inoremap <expr><C-y> pumvisible() ? neocomplete#close_popup() : "\<C-r>"
 inoremap <expr><C-e> pumvisible() ? neocomplete#cancel_popup() : "\<End>"
+
 " <C-h>, <C-l>: Undo completion, complete common characters
 inoremap <expr><C-h> neocomplete#undo_completion()
 inoremap <expr><C-l> neocomplete#complete_common_string()
