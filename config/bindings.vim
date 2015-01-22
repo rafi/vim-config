@@ -157,14 +157,25 @@ augroup MyAutoCmd " {{{
 
 	autocmd FileType qf,diff  nnoremap <buffer> q  :q<CR>
 
-	autocmd FileType ansible,go,php,css,less,html,mkd
-		\ nnoremap <silent><buffer> K :!zeal --query "<C-R>=&ft<CR>:<cword>"&<CR><CR>
-
-	autocmd FileType javascript,sql,ruby,conf,sh
-		\ nnoremap <silent><buffer> K :!zeal --query "<cword>"&<CR><CR>
-
 	autocmd FileType php
 		\ nnoremap <silent><buffer> <Leader>k :call pdv#DocumentCurrentLine()<CR>
+
+	" Use Zeal on Linux, and Dash on Mac, for context help
+	if has('mac')
+		autocmd FileType ansible,go,php,css,less,html,mkd
+			\ nnoremap <silent><buffer> K :!open -g dash://"<C-R>=&ft<CR>:<cword>"&<CR><CR>
+	else
+		autocmd FileType ansible,go,php,css,less,html,mkd
+			\ nnoremap <silent><buffer> K :!zeal --query "<C-R>=&ft<CR>:<cword>"&<CR><CR>
+	endif
+
+	if has('mac')
+		autocmd FileType javascript,sql,ruby,conf,sh
+			\ nnoremap <silent><buffer> K :!open -g dash://"<cword>"&<CR><CR>
+	else
+		autocmd FileType javascript,sql,ruby,conf,sh
+			\ nnoremap <silent><buffer> K :!zeal --query "<cword>"&<CR><CR>
+	endif
 
 augroup END
 " }}}
