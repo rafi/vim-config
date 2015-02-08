@@ -16,8 +16,9 @@ xnoremap <Space> <Nop>
 " }}}
 " Ensure cache directory "{{{
 if ! isdirectory(expand($VARPATH))
-	" Create the cache dir and the undo dir, too
+	" Create missing dirs i.e. cache/{undo,backup}
 	call mkdir(expand('$VARPATH/undo'), 'p')
+	call mkdir(expand('$VARPATH/backup'))
 endif
 
 " }}}

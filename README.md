@@ -19,9 +19,9 @@ Lean mean Vim machine.
 ## Install
 
 1. Clone to `~/.vim` recursively (pull submodules):
-  ```sh
-  git clone --recursive git://github.com/rafi/vim-config.git ~/.vim
-  ```
+```sh
+git clone --recursive git://github.com/rafi/vim-config.git ~/.vim
+```
 
 2. Install plugins: `vim +NeoBundleInstall +q`
 3. Run `vim`, `gvim`, or `nvim`

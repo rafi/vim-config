@@ -3,7 +3,7 @@
 "------------------------------------------------------------------------------
 " Vim core {{{
 " --------
-set autoread                 " Files are read as soon as they are changed
+"set autoread                 " Files are read as soon as they are changed
 set mouse=nvi                " Disable mouse in command-line mode
 set modeline                 " automatically setting options from modelines
 set report=0                 " Don't report on line changes
@@ -99,9 +99,9 @@ set infercase
 set incsearch       " Incremental search (+extra_search)
 set hlsearch        " Highlight the search (+extra_search)
 set wrapscan        " Searches wrap around the end of the file
-set noshowmatch     " Don't jump to matching bracket
+set showmatch       " Jump to matching bracket
 set matchpairs+=<:> " Add HTML brackets to pair matching
-set matchtime=3     " Tenths of a second to show the matching paren
+set matchtime=1     " Tenths of a second to show the matching paren
 "set cpoptions=-m    " Showmatch will wait 0.5s or until a character is typed
 
 " }}}
@@ -174,7 +174,7 @@ call matchadd('ColorColumn', '\%81v', 100)
 
 " For snippet_complete marker
 if has('conceal') && v:version >= 703
-	set conceallevel=2 concealcursor=iv
+	set conceallevel=2 concealcursor=niv
 endif
 
 " }}}

@@ -7,7 +7,7 @@
 function! s:goyo_enter()
 	" Disable statusline and tabs
 	TinyLine!
-	TinyTabs!
+	ToxidTab!
 
 	if has('gui_running')
 		" Gui fullscreen
@@ -35,7 +35,7 @@ function! s:goyo_leave()
 
 	" Enable statusline and tabs
 	TinyLine
-	TinyTabs
+	ToxidTab
 
 	if has('gui_running')
 		" Gui exit fullscreen

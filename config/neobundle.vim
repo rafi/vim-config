@@ -1,7 +1,6 @@
 
 " Plugins with NeoBundle
 "------------------------------------------------------------------------------
-NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Always loaded {{{
 " -------------
@@ -23,13 +22,13 @@ NeoBundle 'christoomey/vim-tmux-navigator'
 NeoBundle 'regedarek/ZoomWin'  " TODO: Lazy has problems restoring splits
 
 " My own plugins
-NeoBundle 'rafi/vim-tinyline.git', { 'directory': 'tinyline' }
-NeoBundle 'rafi/vim-tagabana.git', { 'directory': 'tagabana' }
+NeoBundle 'rafi/vim-tinyline', { 'directory': 'tinyline' }
+NeoBundle 'rafi/vim-tagabana', { 'directory': 'tagabana' }
 
 " LAZY LOADING from here on
 " --------------------------------------------------------
 
-NeoBundleLazy 'rafi/vim-tinycomment.git', {
+NeoBundleLazy 'rafi/vim-tinycomment', {
 	\ 'directory': 'tinycomment',
 	\ 'augroup': 'tinycomment',
 	\ 'commands': [ 'TinyCommentLines', 'TinyCommentBlock' ],
@@ -37,15 +36,14 @@ NeoBundleLazy 'rafi/vim-tinycomment.git', {
 	\   [ 'n', '<leader>v' ], [ 'v', '<leader>v' ],
 	\   [ 'v', '<leader>V' ]
 	\ ]}
-NeoBundleLazy 'rafi/vim-phpspec.git', {
+NeoBundleLazy 'rafi/vim-phpspec', {
 	\ 'filetypes': 'php',
 	\ 'directory': 'phpspec',
 	\ 'commands': [ 'PhpSpecRun', 'PhpSpecRunCurrent' ]
 	\ }
-NeoBundleLazy 'rafi/vim-unite-issue.git', {
+NeoBundleLazy 'rafi/vim-unite-issue', {
 	\  'directory': 'unite-issue',
-	\  'depends': [ 'mattn/webapi-vim', 'tyru/open-browser.vim' ],
-	\  'unite_sources': [ 'issue' ]
+	\  'depends': [ 'mattn/webapi-vim', 'tyru/open-browser.vim' ]
 	\ }
 
 " }}}
@@ -138,7 +136,7 @@ NeoBundleLazy 'kannokanno/previm', {
 	\ }
 NeoBundleLazy 'tyru/open-browser.vim', {
 	\ 'mappings': '<Plug>',
-	\ 'functions' : 'openbrowser#open'
+	\ 'functions': 'openbrowser#open'
 	\ }
 
 " }}}
@@ -151,7 +149,10 @@ NeoBundleLazy 'junegunn/goyo.vim', {
 	\ }}
 NeoBundleLazy 'BufClose.vim', { 'commands': [ 'BufClose' ]}
 NeoBundleLazy 'matchit.zip', { 'mappings': [[ 'nxo', '%', 'g%' ]]}
-NeoBundleLazy 't9md/vim-choosewin', { 'mappings': '<Plug>' }
+NeoBundleLazy 't9md/vim-choosewin', {
+	\ 'mappings': '<Plug>',
+	\ 'commands': [ 'ChooseWin', 'ChooseWinSwap' ]
+	\ }
 NeoBundleLazy 'xolox/vim-session', {
 	\ 'depends': 'xolox/vim-misc',
 	\ 'augroup': 'PluginSession',
@@ -198,27 +199,23 @@ NeoBundleLazy 'Shougo/unite.vim', {
 
 " Unite sources {{{
 " -------------
-NeoBundleLazy 'Shougo/unite-build'
 NeoBundleLazy 'ujihisa/unite-colorscheme'
+NeoBundleLazy 'Kocha/vim-unite-tig'
+NeoBundleLazy 'osyo-manga/unite-quickfix'
+NeoBundleLazy 'osyo-manga/unite-filetype'
+NeoBundleLazy 'tsukkee/unite-tag'
+NeoBundleLazy 'thinca/vim-unite-history'
+NeoBundleLazy 'Shougo/unite-build'
+NeoBundleLazy 'Shougo/unite-outline'
 NeoBundleLazy 'Shougo/neossh.vim', {
 	\ 'filetypes': 'vimfiler',
 	\ 'sources': 'ssh',
 	\ }
-NeoBundleLazy 'Shougo/unite-outline', {
-	\  'unite_sources': 'outline'
-	\ }
-NeoBundleLazy 'osyo-manga/unite-quickfix', {
-	\  'unite_sources': [ 'quickfix', 'location_list' ]
-	\ }
-NeoBundleLazy 'tsukkee/unite-tag', {
-	\  'unite_sources': [ 'tag', 'tag/file', 'tag/include' ]
-	\ }
 NeoBundleLazy 'joker1007/unite-pull-request', {
-	\  'depends': 'mattn/webapi-vim',
-	\  'unite_sources': [ 'pull_request', 'pull_request_file' ]
+	\  'depends': 'mattn/webapi-vim'
 	\ }
-NeoBundleLazy 'rhysd/unite-stackoverflow.vim', {
-	\  'unite_sources': 'stackoverflow'
+NeoBundleLazy 'Shougo/junkfile.vim', {
+	\ 'unite_sources': 'junkfile'
 	\ }
 " }}}
 

@@ -16,10 +16,9 @@ endif
 
 if has('nvim')
 	runtime! plugin/python_setup.vim
-"	set unnamedclip
 endif
 
-function! s:source_rc(path)
+function! s:source_file(path)
 	execute 'source' fnameescape(expand('$VIMPATH/config/'.a:path))
 endfunction
 
@@ -33,14 +32,16 @@ else
 endif
 
 " Initialize base requirements
-call s:source_rc('init.vim')
+call s:source_file('init.vim')
 
 " NeoBundle start plugins {{{
 call neobundle#begin(expand('$VARPATH/plugins'))
 if neobundle#has_cache()
 	NeoBundleLoadCache
 else
-	call s:source_rc('neobundle.vim')
+	NeoBundleFetch 'Shougo/neobundle.vim'
+
+	call s:source_file('neobundle.vim')
 	NeoBundleSaveCache
 endif
 call neobundle#end()
@@ -56,13 +57,13 @@ if ! has('vim_starting')
 endif
 
 " Loading configuration modules {{{
-call s:source_rc('general.vim')
-call s:source_rc('filetype.vim')
-call s:source_rc('plugins.vim')
-call s:source_rc('terminal.vim')
-call s:source_rc('bindings.vim')
-call s:source_rc('utils.vim')
-call s:source_rc('colors.vim')
+call s:source_file('general.vim')
+call s:source_file('filetype.vim')
+call s:source_file('plugins.vim')
+call s:source_file('terminal.vim')
+call s:source_file('bindings.vim')
+call s:source_file('utils.vim')
+call s:source_file('colors.vim')
 " }}}
 
 call neobundle#call_hook('on_source')
