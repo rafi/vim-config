@@ -2,9 +2,13 @@
 " neocomplete
 " -----------
 
-let g:neocomplete#max_list = 30
+let g:neocomplete#max_list = 100
 let g:neocomplete#disable_auto_complete = 0
 let g:neocomplete#force_overwrite_completefunc = 0
+let g:neocomplete#enable_auto_close_preview = 1
+let g:neocomplete#enable_auto_delimiter = 1
+" Test.
+let g:neocomplete#enable_omni_fallback = 1
 
 " Use CursorHoldI to delay popup by miliseconds
 "let g:neocomplete#enable_cursor_hold_i = 1
@@ -20,7 +24,7 @@ let g:neocomplete#enable_prefetch         = 1
 " Minimum char completion lengths
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 let g:neocomplete#auto_completion_start_length      = 2
-let g:neocomplete#manual_completion_start_length    = 2
+let g:neocomplete#manual_completion_start_length    = 0
 let g:neocomplete#min_keyword_length                = 3
 
 let g:neocomplete#enable_auto_select = 0
@@ -104,7 +108,7 @@ imap <Nul>  <Plug>(neocomplete_start_unite_complete)
 " 2. Otherwise, if preceding chars are whitespace, insert tab char
 " 3. Otherwise, if preceding word is a snippet, expand it
 " 4. Otherwise, start manual autocomplete
-imap <expr><Tab> pumvisible() ? "\<C-n>"
+imap <expr><silent><Tab> pumvisible() ? "\<C-n>"
 	\ : (<SID>is_whitespace() ? "\<Tab>"
 	\ : (neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)"
 	\ : neocomplete#start_manual_complete()))
