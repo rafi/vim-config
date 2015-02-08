@@ -162,10 +162,10 @@ augroup MyAutoCmd " {{{
 
 	" Use Zeal on Linux, and Dash on Mac, for context help
 	if has('mac')
-		autocmd FileType ansible,go,php,css,less,html,mkd
+		autocmd FileType ansible,go,python,php,css,less,html,markdown
 			\ nnoremap <silent><buffer> K :!open -g dash://"<C-R>=&ft<CR>:<cword>"&<CR><CR>
 	else
-		autocmd FileType ansible,go,php,css,less,html,mkd
+		autocmd FileType ansible,go,python,php,css,less,html,markdown
 			\ nnoremap <silent><buffer> K :!zeal --query "<C-R>=&ft<CR>:<cword>"&<CR><CR>
 	endif
 

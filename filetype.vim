@@ -45,10 +45,7 @@ augroup filetypedetect
 
 	" Markdown
 	autocmd BufRead,BufNewFile *.mkd,*.markdown,*.md,*.mdown,*.mkdn
-		\ setlocal filetype=mkd spell expandtab autoindent
+		\ setlocal spell expandtab autoindent
 			\ formatoptions=tcroqn2 comments=n:>
-
-	autocmd BufRead,BufNewFile *.py
-			\ setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 augroup END

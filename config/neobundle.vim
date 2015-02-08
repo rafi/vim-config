@@ -51,11 +51,12 @@ NeoBundleLazy 'rafi/vim-unite-issue', {
 " --------
 NeoBundleLazy 'othree/html5.vim', { 'filetypes': 'html' }
 NeoBundleLazy 'mustache/vim-mustache-handlebars', { 'filetypes': 'html' }
-NeoBundleLazy 'plasticboy/vim-markdown', { 'filetypes': 'mkd' }
+NeoBundleLazy 'rcmdnk/vim-markdown', { 'filetypes': [ 'markdown', 'mkd' ] }
 NeoBundleLazy 'chase/vim-ansible-yaml', { 'filetypes': 'yaml' }
 NeoBundleLazy 'groenewege/vim-less', { 'filetypes': 'less' }
 NeoBundleLazy 'hail2u/vim-css3-syntax', { 'filetypes': 'css' }
 NeoBundleLazy 'chrisbra/csv.vim', { 'filetypes': 'csv' }
+NeoBundleLazy 'hynek/vim-python-pep8-indent', { 'filetypes': 'python' }
 NeoBundleLazy 'fatih/vim-go', { 'filetypes': 'go' }
 NeoBundleLazy 'elzr/vim-json', { 'filetypes': 'json' }
 NeoBundleLazy 'PotatoesMaster/i3-vim-syntax', { 'filetypes': 'i3' }

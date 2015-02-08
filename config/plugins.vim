@@ -232,6 +232,7 @@ endif
 
 "}}}
 if neobundle#tap('vim-markdown') "{{{
+	let g:vim_markdown_initial_foldlevel = 5
 	let g:vim_markdown_frontmatter = 1
 	call neobundle#untap()
 endif
