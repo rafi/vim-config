@@ -1,12 +1,12 @@
 
 " vim-toxidtab - Tiny tab-line for Vim
 " Maintainer: Rafael Bodill <justrafi at gmail dot com>
-" Version:    20141015
+" Version:    20150207
 "-------------------------------------------------
 
 " Disable reload {{{
 if exists('g:loaded_toxidtab') && g:loaded_toxidtab
-  finish
+	finish
 endif
 let g:loaded_toxidtab = 1
 
@@ -16,44 +16,58 @@ let s:save_cpo = &cpo
 set cpo&vim
 " }}}
 
+" Configuration {{{
+" Limit display of directories in path
+if ! exists('g:toxidtab_display_max_dirs')
+	let g:toxidtab_display_max_dirs = 3
+endif
+" Limit display of characters in each directory in path
+if ! exists('g:toxidtab_display_max_dir_chars')
+	let g:toxidtab_display_max_dir_chars = 5
+endif
+
+" }}}
 " Command {{{
 command! -nargs=0 -bar -bang ToxidTab call s:toxidtab('<bang>' == '!')
 " }}}
 
-function! s:sid_prefix()
-	" Returns a string representation of <SID> to use anywhere
-	"
-	return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
-endfunction
-
 " }}}
 function! s:toxidtab(disable) " {{{
-	" Toggle ToxidTab
-	"
+	" Toggle tabs
+
 	if a:disable
 		set tabline=
+		augroup ToxidTab
+			autocmd!
+		augroup END
+		augroup! ToxidTab
 	else
+		let &tabline='%!toxidtab#render()'
 		call s:colorscheme()
-		let &tabline='%!'.s:sid_prefix().'draw_tabs()'
+		augroup ToxidTab
+			autocmd!
+			" Don't let colorschemes overwrite our colors
+			autocmd ColorScheme * call s:colorscheme()
+		augroup END
 	endif
 endfunction
 
 " }}}
 function! s:colorscheme() " {{{
-	highlight TabLineFill      ctermfg=236 guifg=#303030
-	highlight TabLine          ctermfg=236 ctermbg=243 guifg=#303030 guibg=#767676
-	highlight TabLineSel       ctermfg=241 ctermbg=234 guifg=#626262 guibg=#1C1C1C gui=NONE
-	highlight TabLineSelRe     ctermfg=234 ctermbg=236 guifg=#1C1C1C guibg=#303030
-	highlight TabLineProject   ctermfg=252 ctermbg=238 guifg=#D0D0D0 guibg=#444444
-	highlight TabLineProjectRe ctermfg=238 ctermbg=236 guifg=#444444 guibg=#303030
-	highlight TabLineA         ctermfg=235 ctermbg=234 guifg=#262626 guibg=#1C1C1C
+	hi TabLineFill      ctermfg=236 guifg=#303030
+	hi TabLine          ctermfg=236 ctermbg=243 guifg=#303030 guibg=#767676
+	hi TabLineSel       ctermfg=241 ctermbg=234 guifg=#626262 guibg=#1C1C1C gui=NONE
+	hi TabLineSelRe     ctermfg=234 ctermbg=236 guifg=#1C1C1C guibg=#303030
+	hi TabLineProject   ctermfg=252 ctermbg=238 guifg=#D0D0D0 guibg=#444444
+	hi TabLineProjectRe ctermfg=238 ctermbg=236 guifg=#444444 guibg=#303030
+	hi TabLineA         ctermfg=235 ctermbg=234 guifg=#262626 guibg=#1C1C1C
 endfunction
 
 " }}}
-function! s:draw_tabs()
+function! toxidtab#render()
 	" Main tabline function. Draws the whole damn tabline
-	"
-	let s = '%#TabLineProject# %{'.s:sid_prefix().'project_name()} %#TabLineProjectRe#⮀%#TabLine#  '
+
+	let s = '%#TabLineProject# %{toxidtab#project_name()} %#TabLineProjectRe#⮀%#TabLine#  '
 	let nr = tabpagenr()
 	for i in range(tabpagenr('$'))
 		if i + 1 == nr
@@ -64,7 +78,7 @@ function! s:draw_tabs()
 		endif
 		" Set the tab page number (for mouse clicks)
 		let s .= '%'.(i + 1).'T'
-		let s .= '%{'.s:sid_prefix().'tab_label('.(i + 1).')} '
+		let s .= '%{toxidtab#tab_label('.(i + 1).')} '
 		if i + 1 == nr
 			let s .= '%#TabLineSelRe#⮀ '
 		else
@@ -78,10 +92,10 @@ function! s:draw_tabs()
 endfunction
 
 " }}}
-function! s:project_name()
+function! toxidtab#project_name()
 	" Finds the project name from tab current directory.
 	" It tries to find the root path of a git repository.
-	"
+
 	" Use the cached (tab scope) variable unless the current dir changed
 	if ! exists('t:project_name') || ! (exists('t:project_dir') && t:project_dir == getcwd())
 		" Store the current dir for caching
@@ -110,9 +124,9 @@ function! s:project_name()
 endfunction
 
 " }}}
-function! s:tab_label(n)
+function! toxidtab#tab_label(n)
 	" Returns a specific tab's label
-	"
+
 	let buflist = tabpagebuflist(a:n)
 	let winnr = tabpagewinnr(a:n)
 	let filepath = bufname(buflist[winnr - 1])
@@ -127,11 +141,12 @@ function! s:tab_label(n)
 		endif
 
 		" Shorten dir names
-		let short = substitute(filepath, "[^/]\\{3}\\zs[^/]\*\\ze/", "", "g")
+		let short = substitute(filepath,
+			\ "[^/]\\{".g:toxidtab_display_max_dir_chars."}\\zs[^/]\*\\ze/", '', 'g')
 		" Decrease dir count
 		let parts = split(short, '/')
-		if len(parts) > 3
-			let parts = parts[-3-1 : ]
+		if len(parts) > g:toxidtab_display_max_dirs
+			let parts = parts[-g:toxidtab_display_max_dirs-1 : ]
 		endif
 		let filepath = join(parts, '/')
 
