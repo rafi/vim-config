@@ -61,10 +61,17 @@ NeoBundleLazy 'fatih/vim-go', { 'filetypes': 'go' }
 NeoBundleLazy 'elzr/vim-json', { 'filetypes': 'json' }
 NeoBundleLazy 'PotatoesMaster/i3-vim-syntax', { 'filetypes': 'i3' }
 NeoBundleLazy 'jamestomasino/vim-writingsyntax', { 'filetypes': 'writing' }
+NeoBundleLazy 'vim-ruby/vim-ruby', {
+	\ 'mappings': '<Plug>',
+	\ 'filetypes': 'ruby'
+	\ }
 
 " JavaScript {{{
 " ----------
-NeoBundleLazy 'pangloss/vim-javascript', { 'filetypes': 'javascript' }
+NeoBundleLazy 'jelera/vim-javascript-syntax', { 'filetypes': 'javascript' }
+NeoBundleLazy 'jiangmiao/simple-javascript-indenter', {
+	\ 'filetypes': 'javascript',
+	\ }
 NeoBundleLazy 'marijnh/tern_for_vim', {
 	\   'build': { 'others': 'npm install' },
 	\   'disabled': executable('npm') != 1,
@@ -139,6 +146,9 @@ NeoBundleLazy 'tyru/open-browser.vim', {
 	\ 'mappings': '<Plug>',
 	\ 'functions': 'openbrowser#open'
 	\ }
+NeoBundleLazy 'thinca/vim-prettyprint', { 'commands': 'PP' }
+NeoBundleLazy 'thinca/vim-quickrun', { 'mappings': '<Plug>' }
+NeoBundleLazy 'thinca/vim-ref', { 'unite_sources': 'ref' }
 
 " }}}
 " Interface {{{
@@ -150,6 +160,8 @@ NeoBundleLazy 'junegunn/goyo.vim', {
 	\ }}
 NeoBundleLazy 'BufClose.vim', { 'commands': [ 'BufClose' ]}
 NeoBundleLazy 'matchit.zip', { 'mappings': [[ 'nxo', '%', 'g%' ]]}
+NeoBundleLazy 'thinca/vim-ft-help_fold', { 'filetypes' : 'help' }
+NeoBundleLazy 'Yggdroot/indentLine', { 'filetypes': 'all' }
 NeoBundleLazy 't9md/vim-choosewin', {
 	\ 'mappings': '<Plug>',
 	\ 'commands': [ 'ChooseWin', 'ChooseWinSwap' ]

@@ -285,10 +285,43 @@ if neobundle#tap('gundo.vim') "{{{
 endif
 
 "}}}
+if neobundle#tap('indentLine') "{{{
+	let g:indentLine_enabled = 1
+	let g:indentLine_char = '⋮'
+"	let g:indentLine_char = '┊'
+	let g:indentLine_faster = 1
+	let g:indentLine_color_term = 239
+	let g:indentLine_color_gui = '#A4E57E'
+
+	nmap <silent><Leader>i :<C-u>IndentLinesToggle<CR>
+	call neobundle#untap()
+endif
+
+"}}}
 if neobundle#tap('vim-colorpicker') "{{{
 	nmap <Leader>co :ColorPicker<CR>
 	call neobundle#untap()
 endif
+
 " }}}
+if neobundle#tap('quickrun.vim') "{{{
+  nmap <silent> <Leader>r <Plug>(quickrun)
+  call neobundle#untap()
+endif
+
+"}}}
+if neobundle#tap('vim-ref') "{{{
+	function! neobundle#hooks.on_source(bundle)
+		let g:ref_cache_dir = expand('$VARPATH/ref')
+		let g:ref_use_vimproc = 1
+		let g:ref_lynx_use_cache = 1
+		let g:ref_lynx_start_linenumber = 0
+		let g:ref_lynx_hide_url_number = 0
+	endfunction
+
+	call neobundle#untap()
+endif
+
+"}}}
 
 " vim: set ts=2 sw=2 tw=80 noet :
