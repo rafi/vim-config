@@ -13,10 +13,10 @@ let s:ag_opts = '-SU --hidden --depth 30 --nocolor --nogroup '.
 		\ '--ignore ".idea" '.
 		\ '--ignore "bower_modules" '.
 		\ '--ignore "node_modules" '.
-		\ '--ignore "*/apps/*/cache/*" '.
-		\ '--ignore "*/apps/*/logs/*" '.
-		\ '--ignore "*/var/cache/*" '.
-		\ '--ignore "*/var/logs/*" '.
+		\ '--ignore "apps/*/cache/*" '.
+		\ '--ignore "apps/*/logs/*" '.
+		\ '--ignore "var/cache" '.
+		\ '--ignore "var/logs" '.
 		\ '--ignore "swiftmailer" '.
 		\ '--ignore "tcpdf" '.
 		\ '--ignore "*.ttf" '.
