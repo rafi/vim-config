@@ -14,7 +14,7 @@ Lean mean Vim machine.
 
 ## Screenshot
 
-![Vim screenshot](https://paste.xinu.at/vMvoE/ "Ain't that a beauty?")
+![Vim screenshot](http://rafi.io/static/img/project/vim-config/features.png)
 
 ## Install
 
