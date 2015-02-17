@@ -82,17 +82,16 @@ imap <expr><S-Tab> pumvisible() ? "\<C-p>"
 	\ : (neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)"
 	\ : "\<S-Tab>")
 
-" <BS>: Close popup and delete preceding char, or empty pair
-inoremap <expr><BS>  pumvisible() ? neocomplete#smart_close_popup()."\<C-h>"
-	\ : delimitMate#WithinEmptyPair() ? "\<C-R>=delimitMate#BS()<CR>" : "\<BS>"
-
 " <C-y>, <C-e>: Close popup, close popup and cancel selection
 inoremap <expr><C-y> pumvisible() ? neocomplete#close_popup() : "\<C-r>"
 inoremap <expr><C-e> pumvisible() ? neocomplete#cancel_popup() : "\<End>"
 
-" <C-h>, <C-l>: Undo completion, complete common characters
-inoremap <expr><C-h> neocomplete#undo_completion()
+" <C-l>: Undo completion, complete common characters
 inoremap <expr><C-l> neocomplete#complete_common_string()
+
+" <C-d>, <C-u>: Scroll pages in menu
+imap     <expr><C-d> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
+imap     <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
 
 " <CR>: If popup menu visible, expand snippet or close popup with selection.
 imap <expr><silent><CR> pumvisible() ?
@@ -123,11 +122,6 @@ function! s:is_whitespace() "{{{
 	return !col || getline('.')[col - 1]  =~ '\s'
 endfunction "}}}
 
-" TODO: Not working
-"imap     <expr><C-d> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
-"inoremap <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
-"imap     <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
-"inoremap <expr><C-x><C-f> neocomplete#start_manual_complete('file')
 " }}}
 
 " vim: set ts=2 sw=2 tw=80 noet :
