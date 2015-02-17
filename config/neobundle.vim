@@ -57,6 +57,7 @@ NeoBundleLazy 'groenewege/vim-less', { 'filetypes': 'less' }
 NeoBundleLazy 'hail2u/vim-css3-syntax', { 'filetypes': 'css' }
 NeoBundleLazy 'chrisbra/csv.vim', { 'filetypes': 'csv' }
 NeoBundleLazy 'hynek/vim-python-pep8-indent', { 'filetypes': 'python' }
+NeoBundleLazy 'davidhalter/jedi-vim', { 'filetypes': 'python' }
 NeoBundleLazy 'fatih/vim-go', { 'filetypes': 'go' }
 NeoBundleLazy 'elzr/vim-json', { 'filetypes': 'json' }
 NeoBundleLazy 'PotatoesMaster/i3-vim-syntax', { 'filetypes': 'i3' }

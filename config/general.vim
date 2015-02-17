@@ -107,19 +107,19 @@ set matchtime=1     " Tenths of a second to show the matching paren
 " }}}
 " Behavior {{{
 " --------
-set linebreak                  " Break long lines at 'breakat' (+linebreak)
-set breakat=\ \	;:,!?          " Long lines break chars
-set nostartofline              " Cursor in same column for several commands
-set whichwrap+=h,l,<,>,[,],~   " Move to following line on certain keys
-set splitbelow splitright      " Splits open bottom right (+windows +vertsplit)
-set switchbuf=usetab,split     " Switch buffer behavior
-set backspace=indent,eol,start " Intuitive backspacing in insert mode
-set diffopt=filler,iwhite      " Diff mode: show fillers, ignore white (+diff)
-set formatprg=par\ -w78        " Using http://www.nicemice.net/par/
-set tags=./tags,tags           " Tags are overridden by bundle/tagabana
-set showfulltag                " Show tag and tidy search pattern in completion
-set completeopt=menuone        " Show menu even for one item (+insert_expand)
-set complete=.                 " Don't scan other windows, buffers, tags, includes
+set linebreak                   " Break long lines at 'breakat' (+linebreak)
+set breakat=\ \	;:,!?           " Long lines break chars
+set nostartofline               " Cursor in same column for several commands
+set whichwrap+=h,l,<,>,[,],~    " Move to following line on certain keys
+set splitbelow splitright       " Splits open bottom right (+windows +vertsplit)
+set switchbuf=usetab,split      " Switch buffer behavior
+set backspace=indent,eol,start  " Intuitive backspacing in insert mode
+set diffopt=filler,iwhite       " Diff mode: show fillers, ignore white (+diff)
+set formatprg=par\ -w78         " Using http://www.nicemice.net/par/
+set tags=./tags,tags            " Tags are overridden by bundle/tagabana
+set showfulltag                 " Show tag and tidy search pattern in completion
+set completeopt=menuone,preview " Show menu even for one item (+insert_expand)
+set complete=.                  " Don't scan other windows, buffers, tags, incl.
 if exists('+breakindent')
 	set breakindent
 	set wrap

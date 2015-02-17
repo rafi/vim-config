@@ -179,6 +179,15 @@ if neobundle#tap('vim-session') "{{{
 endif
 
 "}}}
+if neobundle#tap('jedi-vim') "{{{
+	autocmd FileType python setlocal omnifunc=jedi#completions
+	let g:jedi#completions_enabled = 0
+	let g:jedi#auto_vim_configuration = 0
+"	let g:jedi#force_py_version = 3
+	call neobundle#untap()
+endif
+
+"}}}
 if neobundle#tap('phpcomplete.vim') "{{{
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/phpcomplete.vim'
 	call neobundle#untap()
