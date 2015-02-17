@@ -37,18 +37,9 @@ function! s:toxidtab(disable) " {{{
 
 	if a:disable
 		set tabline=
-		augroup ToxidTab
-			autocmd!
-		augroup END
-		augroup! ToxidTab
 	else
 		let &tabline='%!toxidtab#render()'
 		call s:colorscheme()
-		augroup ToxidTab
-			autocmd!
-			" Don't let colorschemes overwrite our colors
-			autocmd ColorScheme * call s:colorscheme()
-		augroup END
 	endif
 endfunction
 

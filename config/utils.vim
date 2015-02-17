@@ -2,9 +2,11 @@
 " Commands {{{
 "------------------------------------------------------------------------------
 
-" Reload .vimrc automatically.
+" Reload .vimrc automatically
 autocmd MyAutoCmd BufWritePost vimrc,config/*.vim,neobundle.vim
-			\ NeoBundleClearCache | source $MYVIMRC | redraw
+		\ TinyLine! | ToxidTab! | NeoBundleClearCache
+		\ | source $MYVIMRC
+		\ | TinyLine | ToxidTab | redraw
 
 " Check timestamp on window enter. More eager than 'autoread'
 autocmd MyAutoCmd WinEnter * checktime
