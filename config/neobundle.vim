@@ -215,18 +215,23 @@ NeoBundleLazy 'Shougo/unite.vim', {
 " -------------
 NeoBundleLazy 'ujihisa/unite-colorscheme'
 NeoBundleLazy 'Kocha/vim-unite-tig'
-NeoBundleLazy 'osyo-manga/unite-quickfix'
 NeoBundleLazy 'osyo-manga/unite-filetype'
-NeoBundleLazy 'tsukkee/unite-tag'
 NeoBundleLazy 'thinca/vim-unite-history'
 NeoBundleLazy 'Shougo/unite-build'
 NeoBundleLazy 'Shougo/unite-outline'
+NeoBundleLazy 'tsukkee/unite-tag', {
+	\  'unite_sources': [ 'tag', 'tag/file', 'tag/include' ]
+	\ }
+NeoBundleLazy 'osyo-manga/unite-quickfix', {
+	\ 'unite_sources': [ 'quickfix', 'location_list' ]
+	\ }
 NeoBundleLazy 'Shougo/neossh.vim', {
 	\ 'filetypes': 'vimfiler',
 	\ 'sources': 'ssh',
 	\ }
 NeoBundleLazy 'joker1007/unite-pull-request', {
-	\  'depends': 'mattn/webapi-vim'
+	\  'depends': 'mattn/webapi-vim',
+	\  'unite_sources': [ 'pull_request', 'pull_request_file' ]
 	\ }
 NeoBundleLazy 'Shougo/junkfile.vim', {
 	\ 'unite_sources': 'junkfile'
