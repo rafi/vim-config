@@ -10,7 +10,7 @@
 
 " Don't backup files in temp directories or shm
 if exists('&backupskip')
-	set backupskip+=/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
+	set backupskip+=/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*,/private/var/*
 endif
 
 " Don't keep swap files in temp directories or shm
@@ -18,7 +18,7 @@ if has('autocmd')
 	augroup swapskip
 		autocmd!
 		silent! autocmd BufNewFile,BufReadPre
-			\ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
+			\ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*,/private/var/*
 			\ setlocal noswapfile
 	augroup END
 endif
@@ -28,7 +28,7 @@ if has('persistent_undo') && has('autocmd')
 	augroup undoskip
 		autocmd!
 		silent! autocmd BufWritePre
-			\ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
+			\ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*,/private/var/*
 			\ setlocal noundofile
 	augroup END
 endif
@@ -39,7 +39,7 @@ if has('viminfo')
 		augroup viminfoskip
 			autocmd!
 			silent! autocmd BufNewFile,BufReadPre
-				\ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
+				\ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*,/private/var/*
 				\ setlocal viminfo=
 		augroup END
 	endif

@@ -32,8 +32,11 @@ let g:neocomplete#enable_auto_delimiter = 0
 let g:neocomplete#disable_auto_select_buffer_name_pattern =
       \ '\[Command Line\]'
 
-" TODO: Find out what da' heck this is
-"let g:neocomplete#lock_buffer_name_pattern       = '\*ku\*'
+" Do not autocomplete/cache in sensitive file patterns
+let g:neocomplete#sources#buffer#disabled_pattern =
+			\ '\/private\/var\/\|\/shm\/\|\/tmp\/'
+let g:neocomplete#lock_buffer_name_pattern =
+			\ g:neocomplete#sources#buffer#disabled_pattern
 
 " Define a default keyword pattern
 if ! exists('g:neocomplete#keyword_patterns')

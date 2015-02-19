@@ -7,8 +7,8 @@
 set mouse=nvi                " Disable mouse in command-line mode
 set modeline                 " automatically setting options from modelines
 set report=0                 " Don't report on line changes
-set errorbells               " Errors trigger bell
-set novisualbell             " But don't make faces
+set noerrorbells             " Don't trigger bell on error
+set visualbell               " Flash screen instead of bell
 set lazyredraw               " don't redraw while in macros
 set hidden                   " hide buffers when abandoned instead of unload
 set encoding=utf-8           " Set utf8 as standard encoding (+multi_byte)
