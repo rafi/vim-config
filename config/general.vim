@@ -15,21 +15,26 @@ set ffs=unix,dos,mac         " Use Unix as the standard file type
 set magic                    " For regular expressions turn magic on
 set path=.,**                " Directories to search when using gf
 set virtualedit=block        " Position cursor anywhere in visual block
-set history=700              " Search and commands remembered
-set synmaxcol=512            " Don't syntax highlight long lines
+set history=500              " Search and commands remembered
+set synmaxcol=1000           " Don't syntax highlight long lines
 syntax sync minlines=256     " Update syntax highlighting for more lines
+set ttyfast                  " Indicate a fast terminal connection
 set formatoptions+=1         " Don't break lines after a one-letter word
 set formatoptions-=t         " Don't auto-wrap text
-set sessionoptions-=options  " Don't save in sessions:
-set sessionoptions-=folds    " - Options, runtime, folds
-set sessionoptions-=help     " - Help windows
 
 if has('patch-7.3.541')
 	set formatoptions+=j       " Remove comment leader when joining lines
 endif
 
+" Don't save in sessions:
+set sessionoptions-=options
+set sessionoptions-=globals
+set sessionoptions-=folds
+set sessionoptions-=help
+
 if has('clipboard') || has('gui_running')
-	set clipboard=             " Do not do anything with system's clipboard
+	" Do not do anything with system's clipboard
+	set clipboard=
 endif
 
 " }}}
@@ -49,11 +54,11 @@ endif
 " }}}
 " Vim Directories {{{
 " ---------------
-set nobackup undofile noswapfile
-set backupdir=$VARPATH/backup/
-set directory=$VARPATH/swap//
-set viminfo+=n$VARPATH/viminfo   " +viminfo
-set undodir=$VARPATH/undo//      " +persistent_undo
+set undofile swapfile nospell nobackup
+set viminfo='10,/100,:500,<10,@10,s10,h,n$VARPATH/viminfo
+set directory=$VARPATH/swap//,$VARPATH,~/tmp,/var/tmp,/tmp
+set undodir=$VARPATH/undo//,$VARPATH,~/tmp,/var/tmp,/tmp
+set backupdir=$VARPATH/backup/,$VARPATH,~/tmp,/var/tmp,/tmp
 set spellfile=$VIMPATH/spell/en.utf-8.add
 
 " }}}
@@ -87,7 +92,7 @@ endif
 set ttimeout
 set ttimeoutlen=20  " Make it fast please
 set timeoutlen=1200 " A little bit more time for macros
-set updatetime=1000 " Idle time to write swap
+set updatetime=300  " Idle time to write swap
 
 " }}}
 " Searching {{{
@@ -148,10 +153,10 @@ set helpheight=12       " Minimum help window height (+windows)
 set notitle             " No need for a title (+title)
 set noshowcmd           " Don't show command in status line (+cmdline_info)
 set cmdheight=1         " Height of the command line
-set cmdwinheight=5      " Command-line lines (+vertsplit)
+set cmdwinheight=10     " Command-line lines (+vertsplit)
 set noequalalways       " Don't resize windows on split or close
-set display+=lastline   " Try showing more of last line
 set laststatus=2        " Always show a status line
+set display+=lastline,uhex
 
 " Changing characters to fill special ui elements
 set showbreak=↪               " (+linebreak)
