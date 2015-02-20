@@ -1,6 +1,6 @@
 
 " Plugins with NeoBundle
-"------------------------------------------------------------------------------
+"---------------------------------------------------------
 
 " Always loaded {{{
 " -------------
@@ -16,6 +16,9 @@ NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'bogado/file-line'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'scrooloose/syntastic'
+NeoBundle 'itchyny/vim-cursorword'
+NeoBundle 'itchyny/vim-gitbranch'
+NeoBundle 'itchyny/vim-winfix'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'MattesGroeger/vim-bookmarks'
 NeoBundle 'christoomey/vim-tmux-navigator'
@@ -99,7 +102,7 @@ NeoBundleLazy '2072/PHP-Indenting-for-VIm', {
 " Commands {{{
 " --------
 NeoBundleLazy 'Shougo/vimfiler.vim', {
-	\ 'depends': [ 'Shougo/unite.vim', 'Shougo/tabpagebuffer.vim' ],
+	\ 'depends': [ 'Shougo/unite.vim', 'Shougo/tabpagebuffer.vim', 'itchyny/unite-preview' ],
 	\ 'mappings': '<Plug>',
 	\ 'explorer': 1,
 	\ 'commands': [
@@ -150,6 +153,8 @@ NeoBundleLazy 'tyru/open-browser.vim', {
 NeoBundleLazy 'thinca/vim-prettyprint', { 'commands': 'PP' }
 NeoBundleLazy 'thinca/vim-quickrun', { 'mappings': '<Plug>' }
 NeoBundleLazy 'thinca/vim-ref', { 'unite_sources': 'ref' }
+NeoBundleLazy 'itchyny/dictionary.vim', { 'commands': 'Dictionary' }
+NeoBundleLazy 'itchyny/vim-closebuffer', { 'mappings': '<Plug>' }
 
 " }}}
 " Interface {{{

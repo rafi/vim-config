@@ -76,6 +76,15 @@ if neobundle#tap('neomru.vim') "{{{
 endif
 
 "}}}
+if neobundle#tap('vim-winfix') "{{{
+	let g:winfix_enable = 1
+	let g:winfix_tabfocus = 1
+	let g:winfix_resize = 1
+	let g:winfix_winfocus = 1
+	call neobundle#untap()
+endif
+
+"}}}
 if neobundle#tap('echodoc.vim') "{{{
 	let g:echodoc_enable_at_startup = 1
 	call neobundle#untap()
