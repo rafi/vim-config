@@ -1,6 +1,6 @@
 
 " File Types {{{
-"------------------------------------------------------------------------------
+"---------------------------------------------------------
 
 augroup MyAutoCmd
 
@@ -14,8 +14,6 @@ augroup MyAutoCmd
 	autocmd FileType gitcommit setlocal spell
 
 	autocmd FileType gitcommit,qfreplace setlocal nofoldenable
-
-"	autocmd FileType diff setlocal winfixheight
 
 	autocmd FileType zsh setlocal foldenable foldmethod=marker
 

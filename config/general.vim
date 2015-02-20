@@ -1,14 +1,13 @@
 
 " General Settings
-"------------------------------------------------------------------------------
-" Vim core {{{
-" --------
+"---------------------------------------------------------
+" General {{{
 "set autoread                 " Files are read as soon as they are changed
 set mouse=nvi                " Disable mouse in command-line mode
 set modeline                 " automatically setting options from modelines
 set report=0                 " Don't report on line changes
 set noerrorbells             " Don't trigger bell on error
-set visualbell               " Flash screen instead of bell
+set visualbell t_vb=         " Don't make any faces
 set lazyredraw               " don't redraw while in macros
 set hidden                   " hide buffers when abandoned instead of unload
 set encoding=utf-8           " Set utf8 as standard encoding (+multi_byte)
@@ -176,6 +175,20 @@ call matchadd('ColorColumn', '\%81v', 100)
 if has('conceal') && v:version >= 703
 	set conceallevel=2 concealcursor=niv
 endif
+
+" Open Quickfix window automatically
+autocmd MyAutoCmd QuickFixCmdPost [^l]* leftabove copen | wincmd p | redraw!
+autocmd MyAutoCmd QuickFixCmdPost l* leftabove lopen | wincmd p | redraw!
+
+" Fix window position of help/quickfix
+autocmd MyAutoCmd FileType help if &l:buftype ==# 'help'     | wincmd K | endif
+autocmd MyAutoCmd FileType qf   if &l:buftype ==# 'quickfix' | wincmd J | endif
+
+" Always open read-only when a swap file is found
+autocmd MyAutoCmd SwapExists * let v:swapchoice = 'o'
+
+" Automatically set expandtab
+autocmd MyAutoCmd FileType * execute 'setlocal ' . (search('^\t.*\n\t.*\n\t', 'n') ? 'no' : '') . 'expandtab'
 
 " }}}
 " gVim Appearance {{{
