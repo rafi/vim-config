@@ -106,7 +106,12 @@ NeoBundleLazy '2072/PHP-Indenting-for-VIm', {
 " Commands {{{
 " --------
 NeoBundleLazy 'Shougo/vimfiler.vim', {
-	\ 'depends': [ 'Shougo/unite.vim', 'Shougo/tabpagebuffer.vim', 'itchyny/unite-preview' ],
+	\ 'depends': [
+	\   'Shougo/unite.vim',
+	\   'Shougo/tabpagebuffer.vim',
+	\   'itchyny/unite-preview',
+	\   't9md/vim-choosewin'
+	\ ],
 	\ 'mappings': '<Plug>',
 	\ 'explorer': 1,
 	\ 'commands': [
@@ -174,10 +179,6 @@ NeoBundleLazy 'junegunn/goyo.vim', {
 NeoBundleLazy 'BufClose.vim', { 'commands': [ 'BufClose' ]}
 NeoBundleLazy 'matchit.zip', { 'mappings': [[ 'nxo', '%', 'g%' ]]}
 NeoBundleLazy 'Yggdroot/indentLine', { 'filetypes': 'all' }
-NeoBundleLazy 't9md/vim-choosewin', {
-	\ 'mappings': '<Plug>',
-	\ 'commands': [ 'ChooseWin', 'ChooseWinSwap' ]
-	\ }
 NeoBundleLazy 'xolox/vim-session', {
 	\ 'depends': 'xolox/vim-misc',
 	\ 'augroup': 'PluginSession',
