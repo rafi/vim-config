@@ -65,6 +65,9 @@ if neobundle#tap('neosnippet.vim') "{{{
 				\$VIMPATH.'/snippets/rafi,'
 				\.$VIMPATH.'/snippets/shougo/neosnippets,'
 				\.$VARPATH.'/plugins/vim-go/gosnippets/snippets'
+
+	imap <expr><C-o> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<ESC>o"
+
 	call neobundle#untap()
 endif
 
@@ -337,6 +340,33 @@ if neobundle#tap('vim-ref') "{{{
 		let g:ref_lynx_start_linenumber = 0
 		let g:ref_lynx_hide_url_number = 0
 	endfunction
+
+	call neobundle#untap()
+endif
+
+"}}}
+if neobundle#tap('dictionary.vim') "{{{
+	nnoremap <silent> <Leader>? :<C-u>Dictionary -no-duplicate<CR>
+"	let g:dictionary_executable_path = '~/.local/bin/'
+
+	call neobundle#untap()
+endif
+
+"}}}
+if neobundle#tap('vim-closebuffer') "{{{
+	map <C-w> <Plug>(closebuffer)
+	imap <C-w> <Plug>(closebuffer)
+
+	call neobundle#untap()
+endif
+
+"}}}
+if neobundle#tap('vim-cursorword') "{{{
+	augroup cursorword-filetype
+		autocmd!
+		autocmd FileType qf,vimfiler,vimshell,thumbnail,vimcalc,quickrun,github-dashboard
+			\ let b:cursorword = 0
+	augroup END
 
 	call neobundle#untap()
 endif

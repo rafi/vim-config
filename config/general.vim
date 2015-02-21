@@ -174,6 +174,15 @@ if has('conceal') && v:version >= 703
 	set conceallevel=2 concealcursor=niv
 endif
 
+" Highlight current line only on focus buffer
+augroup CursorLine
+	au!
+	au VimEnter,WinEnter,BufWinEnter * if &ft !~ 'unite'
+		\ | setlocal cursorline | endif
+	au WinLeave * if &ft !~ 'vimfiler\|gitv'
+		\ | setlocal nocursorline | endif
+augroup END
+
 " Open Quickfix window automatically
 autocmd MyAutoCmd QuickFixCmdPost [^l]* leftabove copen
 	\ | wincmd p | redraw!
