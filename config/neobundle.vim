@@ -69,6 +69,10 @@ NeoBundleLazy 'vim-ruby/vim-ruby', {
 	\ 'mappings': '<Plug>',
 	\ 'filetypes': 'ruby'
 	\ }
+NeoBundleLazy 'http://svn.macports.org/repository/macports/contrib/mpvim/', {
+	\ 'filetypes': 'portfile'
+	\ }
+
 
 " JavaScript {{{
 " ----------
@@ -154,7 +158,10 @@ NeoBundleLazy 'thinca/vim-prettyprint', { 'commands': 'PP' }
 NeoBundleLazy 'thinca/vim-quickrun', { 'mappings': '<Plug>' }
 NeoBundleLazy 'thinca/vim-ref', { 'unite_sources': 'ref' }
 NeoBundleLazy 'itchyny/dictionary.vim', { 'commands': 'Dictionary' }
-NeoBundleLazy 'itchyny/vim-closebuffer', { 'mappings': '<Plug>' }
+NeoBundleLazy 'itchyny/vim-closebuffer', {
+	\ 'insert': 1,
+	\ 'mappings': '<Plug>'
+	\ }
 
 " }}}
 " Interface {{{

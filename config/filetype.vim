@@ -22,7 +22,13 @@ augroup MyAutoCmd
 				\ setlocal includeexpr=substitute(v:fname,'^\\/','','') |
 				\ setlocal path+=./;/
 
+	autocmd FileType markdown
+				\ setlocal spell expandtab autoindent
+					\ formatoptions=tcroqn2 comments=n:>
+
 	autocmd FileType apache setlocal path+=./;/
+
+	autocmd FileType cam setlocal nonumber synmaxcol=10000
 
 	autocmd FileType go highlight default link goErr WarningMsg |
 				\ match goErr /\<err\>/

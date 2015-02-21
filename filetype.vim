@@ -43,11 +43,6 @@ augroup filetypedetect
 	autocmd BufNewFile,BufRead *.target    setfiletype systemd
 	autocmd BufNewFile,BufRead *.timer     setfiletype systemd
 
-	" Markdown
-	autocmd BufRead,BufNewFile *.mkd,*.markdown,*.md,*.mdown,*.mkdn
-		\ setlocal spell expandtab autoindent
-			\ formatoptions=tcroqn2 comments=n:>
-
 augroup END
 
 " }}}
