@@ -283,7 +283,7 @@ if neobundle#tap('vim-fugitive') "{{{
 	function! neobundle#hooks.on_post_source(bundle)
 		doautoall fugitive BufNewFile
 	endfunction
-	" ga gs gd gD gc gb gl gp gg gB gbd
+	" ga gs gd gD gc gb gp gB gbd
 	nnoremap <silent> <leader>ga :Git add %:p<CR>
 	nnoremap <silent> <leader>gs :Gstatus<CR>
 	nnoremap <silent> <leader>gd :Gdiff<CR>

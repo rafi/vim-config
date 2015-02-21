@@ -56,6 +56,7 @@ _Note_ that 90% of the plugins are **[lazy-loaded]**.
 - Go completion via vim-go and gocode
 - Javascript completion via Tern
 - PHP completion, indent, folds, syntax
+- Python jedi completion, pep8 convention
 - Syntaxes: Ansible, css3, csv, json, less, markdown, mustache
 - Helpers: Color-picker, undo tree, bookmarks, git, tmux navigation,
     hex editor, sessions, radio stations and much more.
@@ -79,12 +80,15 @@ Name           | Description
 -------------- | ----------------------
 [neobundle] | Next generation package manager
 [vimproc] | Interactive command execution
-[neomru] | MRU source for Unite
-[gitgutter] | Shows git diffs in the gutter
-[syntastic] | Syntax checking hacks
-[file-line] | Allow opening a file in a given line
-[bookmarks] | Bookmarks, works independently from vim marks
 [hybrid] | Dark colour scheme
+[file-line] | Allow opening a file in a given line
+[neomru] | MRU source for Unite
+[syntastic] | Syntax checking hacks
+[cursorword] | Underlines word under cursor
+[gitbranch] | Lightweight git branch detection
+[winfix] | Fix the focus and the size of windows
+[gitgutter] | Shows git diffs in the gutter
+[bookmarks] | Bookmarks, works independently from vim marks
 [tmux-navigator] | Seamless navigation between tmux panes and vim splits
 [zoomwin] | Zoom in/out of windows
 [tinyline] | Tiny great looking statusline
@@ -100,16 +104,22 @@ Name           | Description
 [less] | Syntax for LESS
 [css3-syntax] | CSS3 syntax support to vim's built-in `syntax/css.vim`
 [csv] | Handling column separated data
+[pep8-indent] | Nicer Python indentation
+[jedi-vim] | Python jedi autocompletion library
 [go] | Go development
 [json] | Better JSON support
-[javascript] | Vastly improved Javascript indentation and syntax support
+[i3] | i3 window manager config syntax
+[writing] | Highlight adjectives, weasel words and passive language
+[ruby] | Ruby configuration files
+[portfile] | Macports portfile configuration files
+[javascript] | Enhanced Javascript syntax
+[javascript-indent] | Javascript indent script
 [tern] | Provides Tern-based JavaScript editing support
 [php] | Up-to-date PHP syntax file
+[phpfold] | PHP folding
 [phpcomplete] | Improved PHP omnicompletion
 [phpdoc] | PHP documenter
-[phpfold] | PHP folding
 [phpindent] | PHP official indenting
-[writing] | Highlight adjectives, weasel words and passive language
 
 ### Commands
 Name           | Description
@@ -126,6 +136,11 @@ Name           | Description
 [open-browser] | Open URI with your favorite browser
 [tinycomment] | Robust light-weight commenting
 [phpspec] | PhpSpec integration
+[prettyprint] | Pretty-print vim variables
+[quickrun] | Run commands quickly
+[ref] | Integrated reference viewer
+[dictionary] | Dictionary.app interface
+[closebuffer] | Close buffers
 
 ### Commands
 Name           | Description
@@ -133,6 +148,8 @@ Name           | Description
 [goyo] | Distraction-free writing
 [limelight] | Hyperfocus-writing
 [bufclose] | Unload buffer without closing the window
+[matchit] | Intelligent pair matching
+[indentline] | Display vertical indention lines
 [choosewin] | Choose window to use, like tmux's 'display-pane'
 [session] | Extended session management
 
@@ -149,24 +166,30 @@ Name           | Description
 Name           | Description
 -------------- | ----------------------
 [unite] | Unite and create user interfaces
-[neossh] | SSH interface for plugins
-[unite-build] | Build with Unite interface
 [unite-colorscheme] | Browse colorschemes
-[unite-issue] | Issue manager for JIRA and GitHub
+[unite-tig] | tig for unite
+[unite-filetype] | Select file type
+[unite-history] | Browse history of command/search
+[unite-build] | Build with Unite interface
 [unite-outline] | File "outline" source for unite
-[unite-quickfix] | Quickfix source for Unite
 [unite-tag] | Tags source for Unite
+[unite-quickfix] | Quickfix source for Unite
+[neossh] | SSH interface for plugins
 [unite-pull-request] | GitHub pull-request source for Unite
-[unite-stackoverflow] | Browse stackoverflow answers
+[junkfile] | Create temporary files for memo and testing
+[unite-issue] | Issue manager for JIRA and GitHub
 
 [neobundle]: https://github.com/Shougo/neobundle.vim
 [vimproc]: https://github.com/Shougo/vimproc.vim
-[neomru]: https://github.com/Shougo/neomru.vim
-[gitgutter]: https://github.com/airblade/vim-gitgutter
-[syntastic]: https://github.com/scrooloose/syntastic
-[file-line]: https://github.com/bogado/file-line
-[bookmarks]: https://github.com/MattesGroeger/vim-bookmarks
 [hybrid]: https://github.com/w0ng/vim-hybrid
+[file-line]: https://github.com/bogado/file-line
+[neomru]: https://github.com/Shougo/neomru.vim
+[syntastic]: https://github.com/scrooloose/syntastic
+[cursorword]: https://github.com/itchyny/vim-cursorword
+[gitbranch]: https://github.com/itchyny/vim-gitbranch
+[winfix]: https://github.com/itchyny/vim-winfix
+[gitgutter]: https://github.com/airblade/vim-gitgutter
+[bookmarks]: https://github.com/MattesGroeger/vim-bookmarks
 [tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator
 [zoomwin]: https://github.com/regedarek/ZoomWin
 [tinyline]: https://github.com/rafi/vim-tinyline
@@ -174,21 +197,29 @@ Name           | Description
 
 [html5]: https://github.com/othree/html5.vim
 [mustache]: https://github.com/mustache/vim-mustache-handlebars
-[markdown]: https://github.com/plasticboy/vim-markdown
+[markdown]: https://github.com/rcmdnk/vim-markdown
 [ansible-yaml]: https://github.com/chase/vim-ansible-yaml
 [less]: https://github.com/groenewege/vim-less
 [css3-syntax]: https://github.com/hail2u/vim-css3-syntax
 [csv]: https://github.com/chrisbra/csv.vim
+[pep8-indent]: https://github.com/hynek/vim-python-pep8-indent
+[jedi-vim]: https://github.com/davidhalter/jedi-vim
 [go]: https://github.com/fatih/vim-go
 [json]: https://github.com/elzr/vim-json
-[javascript]: https://github.com/pangloss/vim-javascript
+[i3]: https://github.com/PotatoesMaster/i3-vim-syntax
+[writing]: https://github.com/jamestomasino/vim-writingsyntax
+[ruby]: https://github.com/vim-ruby/vim-ruby
+[portfile]: http://svn.macports.org/repository/macports/contrib/mpvim
+
+[javascript]: https://github.com/jelera/vim-javascript-syntax
+[javascript-indent]: https://github.com/jiangmiao/simple-javascript-indenter
 [tern]: https://github.com/marijnh/tern_for_vim
+
 [php]: https://github.com/StanAngeloff/php.vim
+[phpfold]: https://github.com/rayburgemeestre/phpfolding.vim
 [phpcomplete]: https://github.com/shawncplus/phpcomplete.vim
 [phpdoc]: https://github.com/tobyS/pdv
-[phpfold]: https://github.com/rayburgemeestre/phpfolding.vim
 [phpindent]: https://github.com/2072/PHP-Indenting-for-VIm
-[writing]: https://github.com/jamestomasino/vim-writingsyntax
 
 [vimfiler]: https://github.com/Shougo/vimfiler.vim
 [vinarise]: https://github.com/Shougo/vinarise.vim
@@ -202,10 +233,17 @@ Name           | Description
 [open-browser]: https://github.com/tyru/open-browser.vim
 [tinycomment]: https://github.com/rafi/vim-tinycomment
 [phpspec]: https://github.com/rafi/vim-phpspec
+[prettyprint]: https://github.com/thinca/vim-prettyprint
+[quickrun]: https://github.com/thinca/vim-quickrun
+[ref]: https://github.com/thinca/vim-ref
+[dictionary]: https://github.com/itchyny/dictionary.vim
+[closebuffer]: https://github.com/itchyny/vim-closebuffer
 
 [goyo]: https://github.com/junegunn/goyo.vim
 [limelight]: https://github.com/junegunn/limelight.vim
 [bufclose]: https://github.com/vim-scripts/BufClose.vim
+[matchit]: http://www.vim.org/scripts/script.php?script_id=39
+[indentline]: https://github.com/Yggdroot/indentLine
 [choosewin]: https://github.com/t9md/vim-choosewin
 [session]: https://github.com/xolox/vim-session
 
@@ -216,54 +254,76 @@ Name           | Description
 [neosnippet]: https://github.com/Shougo/neosnippet.vim
 
 [unite]: https://github.com/Shougo/unite.vim
-[neossh]: https://github.com/Shougo/neossh.vim
-[unite-build]: https://github.com/Shougo/unite-build
 [unite-colorscheme]: https://github.com/ujihisa/unite-colorscheme
-[unite-issue]: https://github.com/rafi/vim-unite-issue
+[unite-tig]: https://github.com/Kocha/vim-unite-tig
+[unite-filetype]: https://github.com/osyo-manga/unite-filetype
+[unite-history]: https://github.com/thinca/vim-unite-history
+[unite-build]: https://github.com/Shougo/unite-build
 [unite-outline]: https://github.com/h1mesuke/unite-outline
-[unite-quickfix]: https://github.com/osyo-manga/unite-quickfix
 [unite-tag]: https://github.com/tsukkee/unite-tag
+[unite-quickfix]: https://github.com/osyo-manga/unite-quickfix
+[neossh]: https://github.com/Shougo/neossh.vim
 [unite-pull-request]: https://github.com/joker1007/unite-pull-request
-[unite-stackoverflow]: https://github.com/rhysd/unite-stackoverflow.vim
+[junkfile]: https://github.com/Shougo/junkfile.vim
+[unite-issue]: https://github.com/rafi/vim-unite-issue
 
 ## Custom Key bindings
 
 Key   | Mode | Action
 ----- |:----:| ------------------
 `Space` | Normal | **Leader**
+`\` | Normal | **Local Leader**
 `;` | Normal | **Command mode**
 Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `Backspace` | Normal | Match bracket (%)
+`K` | Normal | Open Zeal or Dash on many filetypes (not in vim and python)
 `<leader>`+`y` | Normal/visual | Copy selection to X11 clipboard ("+y)
 `<leader>`+`p` | Normal/visual | Paste selection from X11 clipboard ("+p)
-`Ctrl`+`e` | _All_ | Scroll window downwards three lines (3<C-e>)
-`Ctrl`+`y` | _All_ | Scroll window upwards three lines (3<C-y>)
 `'` | Normal | Jump to mark (`)
-`Q` | Normal | Format lines with motion (gq)
+`\`` | Normal | Jump to mark (')
 `Y` | Normal | Yank to the end of line (y$)
 `Enter` | Normal | Toggle fold (za)
-`>` | Visual | Indent to right and re-select (>gv)
+`hjkl` | Normal | Smart cursor movements (g/hjkl)
+`Ctrl`+`f` | Normal | Smart page forward (C-f/C-d)
+`Ctrl`+`b` | Normal | Smart page backwards (C-b/C-u)
+`Ctrl`+`e` | Normal | Smart scroll down (3C-e/j)
+`Ctrl`+`y` | Normal | Smart scroll up (3C-y/k)
+`Ctrl`+`x` | Normal | Switch buffer and placement
+`Ctrl`+`q` | Normal | `Ctrl`+`w`
+`+` | Normal | Increment (C-a)
+`-` | Normal | Decrement (C-x)
+`}` | Normal | After paragraph motion go to first non-blank char (}^)
 `<` | Visual | Indent to left and re-select (<gv)
+`>` | Visual | Indent to right and re-select (>gv|)
 `Tab` | Normal | Indent to right (>>_)
 `Shift`+`Tab` | Normal | Indent to left (<<_)
 `Tab` | Visual | Indent to right and re-select (>gv)
 `Shift`+`Tab` | Normal | Indent to left and re-select (<gv)
+`gp` | Normal | Select last paste
+`Q`/`gQ` | Normal | Disable EX-mode (<Nop>)
+`Escape` | Visual | Go to starting position after visual mode
+`Ctrl`+`a` | Command | Navigation in command line
+`Ctrl`+`f` | Command | Move cursor forward in command line
+`Ctrl`+`b` | Command | Move cursor backward in command line
+`Ctrl`+`g` | Command | C-g in command line
+`Escape` | Select | Escape from select mode (C-c)
 `<leader>`+`cd` | Normal | Switch to the directory of opened buffer (:cd %:p:h)
-`<leader>`+`ev` | Normal | Load vimrc file (:e $MYVIMRC)
-`<leader>`+`es` | Normal | Source vimrc file (:so $MYVIMRC)
 `<leader>`+`w` | Normal/visual | Write (:w)
+`Ctrl`+`s` | _All_ | Write (:w)
 `W!!` | Command | Write as root
 `F2` | _All_ | Toggle paste mode
-`F3` | _All_ | Show highlight group that matches current cursor
-`F10` | Normal | Show highlight names under cursor
+`F3` | Normal | Show highlight group that matches current cursor
 `<leader>`+`ts` | Normal | Toggle spell-checker (:setlocal spell!)
-`<leader>`+`tn` | Normal | Toggle line numbers (:set nonumber!)
-`<leader>`+`tl` | Normal | Toggle hidden characters (:set nolist!)
-`<leader>`+`th` | Normal | Clear highlighted search (:set nohlsearch)
-`<leader>`+`st` | Normal | New tab (:tabnew)
-`Ctrl`+`x` | Normal | Close tab (:tabclose)
+`<leader>`+`tn` | Normal | Toggle line numbers (:setlocal nonumber!)
+`<leader>`+`tl` | Normal | Toggle hidden characters (:setlocal nolist!)
+`<leader>`+`th` | Normal | Toggle highlighted search (:set hlsearch!)
+`<leader>`+`st` | Normal | Open new tab (:tabnew)
+`Ctrl`+`t` | Normal/Insert | Open new tab (:tabnew)
+`g0` | Normal | Go to first tab (:tabfirst)
+`g$` | Normal | Go to last tab (:tablast)
 `Ctrl`+`Tab` | Normal | Switch to next tab (:tabn)
-`Ctrl`+`Shift`+`Tab` | Normal | Switch to previous tab (:tabn)
+`Ctrl`+`Shift`+`Tab` | Normal | Switch to previous tab (:tabp)
+`Ctrl`+`Space` | Normal | Show tags (C-t)
 `<leader>`+`sv` | Normal | Split (:sp)
 `<leader>`+`sg` | Normal | Vertical split (:vsp)
 `Shift`+`Right` | _All_ | Switch to next buffer (:bnext)
@@ -275,6 +335,9 @@ Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `<leader>`+`q` | Normal | Closes current buffer (:close)
 `<leader>`+`x` | Normal | Removes current buffer (:bdelete)
 `<leader>`+`z` | Normal | Executes :BufClose
+`,`+`Space` | Normal | Remove all spaces at EOL
+`,`+`d` | Normal | Toggle diff
+`Escape`+`Escape` | Normal | Clear search and disable paste
 `*` | Visual | Search selection forwards
 `#` | Visual | Search selection backwards
 `Ctrl`+`r` | Visual | Replace selection
@@ -284,7 +347,7 @@ Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `<leader>`+`ml` | Normal | Append modeline
 `f`+`z` | Normal | Focus the current fold by closing all others (mzzM`zzv)
 `f`+`y` | Normal | Yank filepath to X11 clipboard
-| **Within _quickfix_ or _diff_ buffers** |||
+| **Within _quickfix_ and _diff_** |||
 `q` | Normal | Quit buffer
 
 ### Plugin: Unite
@@ -313,10 +376,7 @@ Key   | Mode | Action
 `<leader>`+`gt` | Normal/visual | Opens Unite tag with word at cursor
 `<leader>`+`gg` | Visual | Opens Unite navigate with word at cursor
 | **Within _Unite_ buffers** |||
-`Ctrl`+`j` | Normal | Un-map
-`Ctrl`+`k` | Normal | Un-map
-`Ctrl`+`h` | Normal | Un-map
-`Ctrl`+`l` | Normal | Un-map
+`Ctrl`+`h/k/l/r` | Normal | Un-map
 `Ctrl`+`r` | Normal | Redraw
 `Ctrl`+`j` | Insert | Select next line
 `Ctrl`+`k` | Insert | Select previous line
@@ -325,17 +385,20 @@ Key   | Mode | Action
 `Ctrl`+`v` | Normal | Open in a split
 `Ctrl`+`s` | Normal | Open in a vertical split
 `Ctrl`+`t` | Normal | Open in a new tab
+`Tab` | Normal | `Ctrl`+`w`+`w`
 `Escape` | Normal | Exit unite
 `jj` | Insert | Leave Insert mode
 `r` | Normal | Replace ('search' profile) or rename
+`Tab` | Insert | Unite autocompletion
+`Ctrl`+`z` | Normal/insert | Toggle transpose window
+`Ctrl`+`w` | Insert | Delete backward path
 
 ### Plugin: VimFiler
 
 Key   | Mode | Action
 ----- |:----:| ------------------
 `<leader>`+`f` | Normal | Toggle file explorer
-`<leader>`+`db` | Normal | Toggle file explorer in buffer directory
-`<leader>`+`ds` | Normal | Toggle file explorer in split
+`<leader>`+`fa` | Normal | Toggle file explorer on current file
 | **Within _VimFiler_ buffers** |||
 `Ctrl`+`j` | Normal | Un-map
 `Ctrl`+`l` | Normal | Un-map
@@ -351,14 +414,18 @@ Key   | Mode | Action
 
 Key   | Mode | Action
 ----- |:----:| ------------------
+`Enter` | Insert | Smart snippet expansion
+`Ctrl`+`space` | Insert | Autocomplete with Unite
+`Tab` | Insert/select | Smart tab movement or completion
+`Ctrl`+`j/k/f/b` | Insert | Movement in popup
 `Ctrl`+`g` | Insert | Undo completion
 `Ctrl`+`l` | Insert | Complete common string
-`Enter` | Insert | Close pop-up
-`Tab` | Insert | Completion (C-n or Tab)
-`Ctrl`+`h` | Insert | Close pop-up smartly
-`Backspace` | Insert | Close pop-up smartly
+`Ctrl`+`o` | Insert | Expand snippet
 `Ctrl`+`y` | Insert | Close pop-up
 `Ctrl`+`e` | Insert | Close pop-up
+`Ctrl`+`l` | Insert | Complete common string
+`Ctrl`+`d` | Insert | Scroll down
+`Ctrl`+`u` | Insert | Scroll up
 
 ### Plugin: TinyComment
 
@@ -380,7 +447,6 @@ Key   | Mode | Action
 `-` | Normal | Choose a window to edit
 `<leader>`+`-` | Normal | Switch editing window with selected
 
-
 ### Plugin: Bookmarks
 
 Key   | Mode | Action
@@ -397,20 +463,34 @@ Key   | Mode | Action
 `<leader>`+`ga` | Normal | Git add current file
 `<leader>`+`gs` | Normal | Git status
 `<leader>`+`gd` | Normal | Git diff
+`<leader>`+`gD` | Normal | Close diff
 `<leader>`+`gc` | Normal | Git commit
 `<leader>`+`gb` | Normal | Git blame
-`<leader>`+`gl` | Normal | Git log
 `<leader>`+`gp` | Normal | Git push
-`<leader>`+`gg` | Normal | Git grep
 `<leader>`+`gB` | Normal | Open in browser
 `<leader>`+`gbd` | Normal | Open branch in browser
 
-### Plugin: Syntastic
+### Plugin: Gitgutter
 
 Key   | Mode | Action
 ----- |:----:| ------------------
-`<leader>`+`lj` | Normal | Display the next error in list
-`<leader>`+`lk` | Normal | Display the previous error in list
+`<leader>`+`hj` | Normal | Jump to next hunk
+`<leader>`+`hk` | Normal | Jump to previous hunk
+`<leader>`+`ha` | Normal | Stage hunk
+`<leader>`+`hu` | Normal | Revert hunk
+`<leader>`+`hp` | Normal | Preview hunk
+
+### Misc Plugins
+
+Key   | Mode | Action
+----- |:----:| ------------------
+`<leader>`+`gl` | Normal | Gitv
+`<leader>`+`gu` | Normal | Gundo
+`<leader>`+`i` | Normal | Toggle indentLine
+`<leader>`+`co` | Normal | Colorpicker
+`<leader>`+`r` | Normal | Quickrun
+`<leader>`+`?` | Normal | Dictionary
+`Ctrl`+`w` | Normal/Insert | Closebuffer
 
 ## Xterm and Tmux
 
