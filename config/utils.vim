@@ -4,9 +4,10 @@
 
 " Reload .vimrc automatically
 autocmd MyAutoCmd BufWritePost vimrc,config/*.vim,neobundle.vim
-		\ TinyLine! | ToxidTab! | NeoBundleClearCache
-		\ | source $MYVIMRC
-		\ | TinyLine | ToxidTab | redraw
+		\ TinyLine! | ToxidTab!
+		\ | NeoBundleClearCache | source $MYVIMRC
+		\ | TinyLine | ToxidTab
+		\ | set nohlsearch | redraw
 
 " Check timestamp on window enter. More eager than 'autoread'
 autocmd MyAutoCmd WinEnter * checktime

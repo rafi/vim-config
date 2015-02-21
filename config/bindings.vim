@@ -135,7 +135,7 @@ map <F3> :echo 'hi<'.synIDattr(synID(line('.'), col('.'), 1), 'name')
 nmap <Leader>ts :setlocal spell!<cr>
 nmap <Leader>tn :setlocal nonumber!<CR>
 nmap <Leader>tl :setlocal nolist!<CR>
-nmap <Leader>th :nohlsearch<CR>
+nmap <Leader>th :set hlsearch!<CR>
 
 " Tabs
 noremap <Leader>st  :tabnew<CR>
