@@ -1,6 +1,6 @@
 
 " Xterm & Tmux
-"------------------------------------------------------------------------------
+"---------------------------------------------------------
 
 " Re-map Ctrl combinations {{{
 " Make Ctrl+Tab work in console, see also .config/xorg/Xresources

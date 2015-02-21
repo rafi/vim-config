@@ -5,7 +5,7 @@
 " vim: set ts=2 sw=2 tw=80 noet :
 
 " Runtime and Plugins
-"------------------------------------------------------------------------------
+"---------------------------------------------------------
 
 " Skip initialization for vim-tiny/small
 if !1 | finish | endif
@@ -68,5 +68,3 @@ call s:source_file('colors.vim')
 
 call neobundle#call_hook('on_source')
 set secure
-
-"-------8<---------------------------------------------------------------------

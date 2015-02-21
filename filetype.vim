@@ -1,6 +1,6 @@
 
-" File Type Detection {{{1
-"------------------------------------------------------------------------------
+" File Type Detection {{{
+"---------------------------------------------------------
 
 if exists('did_load_filetypes')
 	finish
@@ -49,3 +49,6 @@ augroup filetypedetect
 			\ formatoptions=tcroqn2 comments=n:>
 
 augroup END
+
+" }}}
+" vim: set ts=2 sw=2 tw=80 noet :

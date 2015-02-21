@@ -1,6 +1,6 @@
 
 " Commands {{{
-"------------------------------------------------------------------------------
+"---------------------------------------------------------
 
 " Reload .vimrc automatically
 autocmd MyAutoCmd BufWritePost vimrc,config/*.vim,neobundle.vim
@@ -36,7 +36,7 @@ command! DiffOrig vert new | setlocal bt=nofile | r # | 0d_ | diffthis | wincmd 
 command! -nargs=0 Undiff setlocal nodiff noscrollbind wrap
 
 " Functions {{{
-"------------------------------------------------------------------------------
+"---------------------------------------------------------
 
 " Simple way to turn off Gdiff splitscreen
 " works only when diff buffer is focused

@@ -1,6 +1,6 @@
 
 " Plugin Settings
-"------------------------------------------------------------------------------
+"---------------------------------------------------------
 
 if neobundle#tap('unite.vim') "{{{
 	let g:unite_data_directory = $VARPATH."/unite"
@@ -161,6 +161,7 @@ endif
 if neobundle#tap('vim-choosewin') "{{{
 	nmap -         <Plug>(choosewin)
 	nmap <Leader>- :<C-u>ChooseWinSwap<CR>
+
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/choosewin.vim'
 	call neobundle#untap()
 endif
