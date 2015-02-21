@@ -4,11 +4,13 @@
 
 let g:neocomplete#max_list = 100
 let g:neocomplete#disable_auto_complete = 0
-let g:neocomplete#force_overwrite_completefunc = 0
+let g:neocomplete#force_overwrite_completefunc = 1
 let g:neocomplete#enable_auto_close_preview = 1
 let g:neocomplete#enable_auto_delimiter = 1
 " Test.
 let g:neocomplete#enable_omni_fallback = 1
+
+let g:neocomplete#skip_auto_completion_time = '0.20'
 
 " Use CursorHoldI to delay popup by miliseconds
 "let g:neocomplete#enable_cursor_hold_i = 1
@@ -23,7 +25,7 @@ let g:neocomplete#enable_prefetch         = 1
 
 " Minimum char completion lengths
 let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#auto_completion_start_length      = 2
+let g:neocomplete#auto_completion_start_length      = 1
 let g:neocomplete#manual_completion_start_length    = 0
 let g:neocomplete#min_keyword_length                = 3
 
@@ -50,10 +52,15 @@ if ! exists('g:neocomplete#sources#omni#input_patterns')
 	let g:neocomplete#sources#omni#input_patterns = {}
 endif
 
-" Omni-completion input patterns per-language:
+let g:neocomplete#sources#omni#input_patterns.javascript =
+	\ '[[:alpha:]./"''$]\+'
+let g:neocomplete#sources#omni#input_patterns.coffee =
+	\ '[[:alpha:]./"''$]\+'
 let g:neocomplete#sources#omni#input_patterns.php =
 	\ '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-let g:neocomplete#sources#omni#input_patterns.go = '[^.[:digit:] *\t]\.\w*'
+let g:neocomplete#sources#omni#input_patterns.go =
+	\ '[^.[:digit:] *\t]\.\w*'
+
 "let g:neocomplete#sources#omni#input_patterns.go = '\h\w*'
 "let g:neocomplete#sources#omni#input_patterns.ruby =
 "	\ '[^. *\t]\.\w*\|\h\w*::\w*'
@@ -65,8 +72,8 @@ let g:neocomplete#sources#omni#input_patterns.go = '[^.[:digit:] *\t]\.\w*'
 if ! exists('g:neocomplete#force_omni_input_patterns')
 	let g:neocomplete#force_omni_input_patterns = {}
 endif
-let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
-
+let g:neocomplete#force_omni_input_patterns.javascript =
+	\ '[^. \t]\.\w*'
 let g:neocomplete#force_omni_input_patterns.python =
 	\ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
 " alternative pattern: '\h\w*\|[^. \t]\.\w*'
