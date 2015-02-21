@@ -173,7 +173,6 @@ NeoBundleLazy 'junegunn/goyo.vim', {
 	\ }}
 NeoBundleLazy 'BufClose.vim', { 'commands': [ 'BufClose' ]}
 NeoBundleLazy 'matchit.zip', { 'mappings': [[ 'nxo', '%', 'g%' ]]}
-NeoBundleLazy 'thinca/vim-ft-help_fold', { 'filetypes' : 'help' }
 NeoBundleLazy 'Yggdroot/indentLine', { 'filetypes': 'all' }
 NeoBundleLazy 't9md/vim-choosewin', {
 	\ 'mappings': '<Plug>',
