@@ -59,11 +59,14 @@ endif
 "}}}
 if neobundle#tap('neosnippet.vim') "{{{
 	let g:neosnippet#enable_snipmate_compatibility = 0
+	let g:neosnippet#enable_preview = 1
 	let g:neosnippet#disable_runtime_snippets = { '_': 1 }
 	let g:neosnippet#data_directory  = $VARPATH.'/snippet'
 	let g:neosnippet#snippets_directory =
 				\$VIMPATH.'/snippets/rafi,'
-				\.$VIMPATH.'/snippets/shougo/neosnippets,'
+				\.$VARPATH.'/plugins/neosnippet-snippets/neosnippets,'
+				\.$VARPATH.'/plugins/mpvim/snippets,'
+				\.$VARPATH.'/plugins/vim-ansible-yaml/snippets,'
 				\.$VARPATH.'/plugins/vim-go/gosnippets/snippets'
 
 	imap <expr><C-o> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<ESC>o"

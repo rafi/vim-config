@@ -18,15 +18,15 @@ Lean mean Vim machine.
 
 ## Install
 
-1. Clone to `~/.vim` recursively (pull submodules):
+1. Clone to `~/.vim`:
 ```sh
-git clone --recursive git://github.com/rafi/vim-config.git ~/.vim
+git clone git://github.com/rafi/vim-config.git ~/.vim
 ```
 
 2. Install plugins: `vim +NeoBundleInstall +q`
 3. Run `vim`, `gvim`, or `nvim`
 
-_Please note_ that 90% of the plugins are **[lazy-loaded]**.
+_Note_ that 90% of the plugins are **[lazy-loaded]**.
 [lazy-loaded]: ./config/neobundle.vim
 
 ## Structure
@@ -69,8 +69,8 @@ specification standard, add this somewhere in your `.profile` or `.bashrc`:
 # Set vimrc's location and source it on vim startup
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 ```
-If you're curious how it's done, see [vimrc:17-24](vimrc#L17-L24)
-and [init.vim:43-48](./config/init.vim#L43-L48).
+If you're curious how it's done, see [vimrc:21-28](vimrc#L21-L28)
+and [init.vim:42-47](./config/init.vim#L42-L47).
 
 ## Included Plugins
 

@@ -1,3 +1,0 @@
-[submodule "snippets/shougo"]
-	path = snippets/shougo
-	url = git://github.com/Shougo/neosnippet-snippets.git

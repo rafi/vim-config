@@ -207,7 +207,7 @@ NeoBundleLazy 'Shougo/neocomplete', {
 	\ 'insert': 1
 	\ }
 NeoBundleLazy 'Shougo/neosnippet.vim', {
-	\ 'depends': 'Shougo/context_filetype.vim',
+	\ 'depends': [ 'Shougo/neosnippet-snippets', 'Shougo/context_filetype.vim' ],
 	\ 'insert': 1,
 	\ 'filetypes': 'snippet',
 	\ 'unite_sources': [

@@ -18,10 +18,6 @@ if has('nvim')
 	runtime! plugin/python_setup.vim
 endif
 
-function! s:source_file(path)
-	execute 'source' fnameescape(expand('$VIMPATH/config/'.a:path))
-endfunction
-
 " Respect XDG
 if isdirectory($XDG_CONFIG_HOME.'/vim')
 	let $VIMPATH=expand('$XDG_CONFIG_HOME/vim')
@@ -30,6 +26,10 @@ else
 	let $VIMPATH=expand('~/.vim')
 	let $VARPATH=expand('~/.cache/vim')
 endif
+
+function! s:source_file(path)
+	execute 'source' fnameescape(expand('$VIMPATH/config/'.a:path))
+endfunction
 
 " Initialize base requirements
 call s:source_file('init.vim')
