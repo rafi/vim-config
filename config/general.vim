@@ -26,7 +26,10 @@ if has('patch-7.3.541')
 	set formatoptions+=j       " Remove comment leader when joining lines
 endif
 
-" Don't save in sessions:
+" What to save for views:
+set viewoptions=cursor,folds,slash,unix
+
+" What not to save in sessions:
 set sessionoptions-=options
 set sessionoptions-=globals
 set sessionoptions-=folds
@@ -59,6 +62,7 @@ set viminfo='10,/100,:500,<10,@10,s10,h,n$VARPATH/viminfo
 set directory=$VARPATH/swap//,$VARPATH,~/tmp,/var/tmp,/tmp
 set undodir=$VARPATH/undo//,$VARPATH,~/tmp,/var/tmp,/tmp
 set backupdir=$VARPATH/backup/,$VARPATH,~/tmp,/var/tmp,/tmp
+set viewdir=$VARPATH/view/
 set spellfile=$VIMPATH/spell/en.utf-8.add
 
 " }}}

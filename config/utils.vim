@@ -20,14 +20,6 @@ autocmd MyAutoCmd InsertLeave *
 " Update diff
 autocmd MyAutoCmd InsertLeave * if &l:diff | diffupdate | endif
 
-" When editing a file, always jump to the last known cursor position.
-" Don't do it when the position is invalid or when inside an event handler
-autocmd MyAutoCmd BufReadPost *
-	\ if &ft !~ '^git\c' && ! &diff && line("'\"") > 0 && line("'\"") <= line("$")
-	\|   exe 'normal! g`"zvzz'
-	\| endif
-" }}}
-
 " Diff command credits: https://github.com/Shougo/shougo-s-github
 " Display diff with the file.
 command! -nargs=1 -complete=file Diff vertical diffsplit <args>

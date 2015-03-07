@@ -22,6 +22,7 @@ NeoBundle 'itchyny/vim-winfix'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'MattesGroeger/vim-bookmarks'
 NeoBundle 'christoomey/vim-tmux-navigator'
+NeoBundle 'kopischke/vim-stay'
 NeoBundle 'regedarek/ZoomWin'  " TODO: Lazy has problems restoring splits
 
 " My own plugins
