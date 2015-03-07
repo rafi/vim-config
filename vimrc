@@ -14,10 +14,6 @@ if &compatible
 	set nocompatible
 endif
 
-if has('nvim')
-	runtime! plugin/python_setup.vim
-endif
-
 " Respect XDG
 if isdirectory($XDG_CONFIG_HOME.'/vim')
 	let $VIMPATH=expand('$XDG_CONFIG_HOME/vim')
