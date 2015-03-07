@@ -15,7 +15,6 @@ NeoBundle 'Shougo/vimproc.vim', {
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'bogado/file-line'
 NeoBundle 'Shougo/neomru.vim'
-NeoBundle 'scrooloose/syntastic'
 NeoBundle 'itchyny/vim-cursorword'
 NeoBundle 'itchyny/vim-gitbranch'
 NeoBundle 'itchyny/vim-winfix'
@@ -124,6 +123,13 @@ NeoBundleLazy 'Shougo/vinarise.vim', {
 	\ 'commands': [
 	\   { 'name': 'Vinarise', 'complete': 'file' }
 	\ ]}
+NeoBundleLazy 'scrooloose/syntastic', {
+	\ 'autoload': {
+	\   'commands': [
+	\     'SyntasticCheck', 'SyntasticStatuslineFlag',
+	\     'SyntasticToggleMode', 'Errors', 'SyntasticInfo'
+	\   ]
+	\ }}
 NeoBundleLazy 'tpope/vim-fugitive', {
 	\ 'autoload': {
 	\   'augroup': 'fugitive',
