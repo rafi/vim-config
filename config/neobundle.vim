@@ -60,8 +60,11 @@ NeoBundleLazy 'groenewege/vim-less', { 'filetypes': 'less' }
 NeoBundleLazy 'hail2u/vim-css3-syntax', { 'filetypes': 'css' }
 NeoBundleLazy 'chrisbra/csv.vim', { 'filetypes': 'csv' }
 NeoBundleLazy 'hynek/vim-python-pep8-indent', { 'filetypes': 'python' }
-NeoBundleLazy 'davidhalter/jedi-vim', { 'filetypes': 'python' }
-NeoBundleLazy 'fatih/vim-go', { 'filetypes': 'go' }
+NeoBundleLazy 'davidhalter/jedi-vim', {
+	\ 'disabled': $SSH_CLIENT,
+	\ 'filetypes': 'python'
+	\ }
+NeoBundleLazy 'fatih/vim-go', {'filetypes': 'go', 'disabled': $SSH_CLIENT}
 NeoBundleLazy 'elzr/vim-json', { 'filetypes': 'json' }
 NeoBundleLazy 'PotatoesMaster/i3-vim-syntax', { 'filetypes': 'i3' }
 NeoBundleLazy 'jamestomasino/vim-writingsyntax', { 'filetypes': 'writing' }
@@ -70,6 +73,7 @@ NeoBundleLazy 'vim-ruby/vim-ruby', {
 	\ 'filetypes': 'ruby'
 	\ }
 NeoBundleLazy 'http://svn.macports.org/repository/macports/contrib/mpvim/', {
+	\ 'disabled': $SSH_CLIENT,
 	\ 'filetypes': 'portfile'
 	\ }
 
@@ -82,7 +86,7 @@ NeoBundleLazy 'jiangmiao/simple-javascript-indenter', {
 	\ }
 NeoBundleLazy 'marijnh/tern_for_vim', {
 	\   'build': { 'others': 'npm install' },
-	\   'disabled': ! executable('npm'),
+	\   'disabled': ! executable('npm') || $SSH_CLIENT,
 	\   'filetypes': 'javascript'
 	\ }
 
@@ -91,8 +95,13 @@ NeoBundleLazy 'marijnh/tern_for_vim', {
 " ---
 NeoBundleLazy 'StanAngeloff/php.vim', { 'filetypes': 'php' }
 NeoBundleLazy 'rayburgemeestre/phpfolding.vim', { 'filetypes': 'php' }
-NeoBundleLazy 'shawncplus/phpcomplete.vim', { 'insert': 1, 'filetypes': 'php' }
+NeoBundleLazy 'shawncplus/phpcomplete.vim', {
+	\ 'disabled': $SSH_CLIENT,
+	\ 'insert': 1,
+	\ 'filetypes': 'php'
+	\ }
 NeoBundleLazy 'tobyS/pdv', {
+	\ 'disabled': $SSH_CLIENT,
 	\ 'filetypes': 'php',
 	\ 'depends': 'tobyS/vmustache'
 	\ }
@@ -124,6 +133,7 @@ NeoBundleLazy 'Shougo/vinarise.vim', {
 	\   { 'name': 'Vinarise', 'complete': 'file' }
 	\ ]}
 NeoBundleLazy 'scrooloose/syntastic', {
+	\ 'disabled': $SSH_CLIENT,
 	\ 'autoload': {
 	\   'commands': [
 	\     'SyntasticCheck', 'SyntasticStatuslineFlag',
@@ -153,16 +163,18 @@ NeoBundleLazy 'gorkunov/smartpairs.vim', {
 	\  'mappings': [[ 'n', 'viv' ], [ 'v', 'v' ]]
 	\ }}
 NeoBundleLazy 'farseer90718/vim-colorpicker', {
-	\ 'disabled': ! has('python'),
+	\ 'disabled': ! has('python') || $SSH_CLIENT,
 	\ 'commands': 'ColorPicker'
 	\ }
 NeoBundleLazy 't9md/vim-smalls', { 'mappings': '<Plug>' }
 NeoBundleLazy 'kannokanno/previm', {
+	\ 'disabled': $SSH_CLIENT,
 	\ 'filetypes': [ 'markdown', 'mkd', 'rst' ],
 	\ 'commands': 'PrevimOpen',
 	\ 'depends': 'tyru/open-browser.vim'
 	\ }
 NeoBundleLazy 'tyru/open-browser.vim', {
+	\ 'disabled': $SSH_CLIENT,
 	\ 'mappings': '<Plug>',
 	\ 'functions': 'openbrowser#open'
 	\ }
@@ -187,6 +199,7 @@ NeoBundleLazy 'BufClose.vim', { 'commands': [ 'BufClose' ]}
 NeoBundleLazy 'matchit.zip', { 'mappings': [[ 'nxo', '%', 'g%' ]]}
 NeoBundleLazy 'Yggdroot/indentLine', { 'filetypes': 'all' }
 NeoBundleLazy 'xolox/vim-session', {
+	\ 'disabled': $SSH_CLIENT,
 	\ 'depends': 'xolox/vim-misc',
 	\ 'augroup': 'PluginSession',
 	\ 'autoload': {
@@ -209,7 +222,7 @@ NeoBundleLazy 'Shougo/echodoc.vim', { 'insert': 1 }
 NeoBundleLazy 'kana/vim-smartchr', { 'insert': 1 }
 NeoBundleLazy 'Shougo/neocomplete', {
 	\ 'depends': 'Shougo/context_filetype.vim',
-	\ 'disabled': ! has('lua'),
+	\ 'disabled': ! has('lua') || $SSH_CLIENT,
 	\ 'vim_version': '7.3.885',
 	\ 'insert': 1
 	\ }
@@ -249,10 +262,12 @@ NeoBundleLazy 'Shougo/neossh.vim', {
 	\ 'sources': 'ssh',
 	\ }
 NeoBundleLazy 'joker1007/unite-pull-request', {
-	\  'depends': 'mattn/webapi-vim',
-	\  'unite_sources': [ 'pull_request', 'pull_request_file' ]
+	\ 'disabled': $SSH_CLIENT,
+	\ 'depends': 'mattn/webapi-vim',
+	\ 'unite_sources': [ 'pull_request', 'pull_request_file' ]
 	\ }
 NeoBundleLazy 'Shougo/junkfile.vim', {
+	\ 'disabled': $SSH_CLIENT,
 	\ 'unite_sources': 'junkfile'
 	\ }
 " }}}
