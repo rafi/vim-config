@@ -83,8 +83,8 @@ NeoBundleLazy 'jiangmiao/simple-javascript-indenter', {
 	\ }
 NeoBundleLazy 'marijnh/tern_for_vim', {
 	\   'build': { 'others': 'npm install' },
-	\   'disabled': executable('npm') != 1,
-	\   'autoload': { 'filetypes': 'javascript' }
+	\   'disabled': ! executable('npm'),
+	\   'filetypes': 'javascript'
 	\ }
 
 " }}}
