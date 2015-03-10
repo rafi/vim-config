@@ -16,11 +16,16 @@ let g:syntastic_html_checkers       = [ 'tidy', 'jshint' ]
 let g:syntastic_python_checkers     = [ 'python2', 'pylint', 'flake8' ]
 
 let g:syntastic_html_tidy_ignore_errors = [
-	\  '<html> attribute "lang" lacks value',
-	\  '<a> attribute "href" lacks value',
-	\  'trimming empty <span>',
-	\  'trimming empty <h1>'
+	\  '> proprietary attribute "',
+	\  '> attribute "lang" lacks value',
+	\  '> attribute "href" lacks value',
+	\  'trimming empty <'
 	\ ]
+
+let g:syntastic_html_tidy_blocklevel_tags = [
+  \ 'ng-include',
+  \ 'ng-form'
+  \ ]
 
 "let g:syntastic_filetype_map = { "mustache": "handlebars" }
 "let g:syntastic_filetype_map = { "html.mustache": "handlebars" }
