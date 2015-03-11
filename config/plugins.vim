@@ -234,10 +234,40 @@ endif
 
 "}}}
 if neobundle#tap('syntastic') "{{{
+	let g:syntastic_mode_map = { 'mode': 'passive' }
 	let g:syntastic_always_populate_loc_list = 1
-	let g:syntastic_error_symbol = '⚠'
-	let g:syntastic_warning_symbol = ''
+	let g:syntastic_error_symbol = "✗"
+	let g:syntastic_warning_symbol = "⚠"
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/syntastic.vim'
+	nnoremap <silent> <leader>sy :<C-u>call <SID>syntax_check_toggle()<CR>
+
+	let s:syntax_check_enable = 0
+	function! s:syntax_check_toggle()
+		if s:syntax_check_enable
+			augroup auto-syntastic
+				autocmd!
+			augroup END
+			augroup! auto-syntastic
+			let s:syntax_check_enable = 0
+			unlet! b:tinyline_syntastic
+		else
+			augroup auto-syntastic
+				autocmd!
+				autocmd BufWritePost *.c,*.cpp,*.hs,*.php,*.py,*.sh,*.coffee,*.css,*.go,*.html,*.js,*.json,*.less,*.pl,*.rb,*.sass,*.scss,*.vim,*.xml,*.yaml,*.zsh call <SID>syntax_check()
+			augroup END
+			let s:syntax_check_enable = 1
+			call s:syntax_check()
+			let loclist = get(b:, 'syntastic_loclist', {})
+			if ! empty(loclist) && ! loclist.isEmpty()
+				Unite location_list
+			endif
+		endif
+	endfunction
+
+	function! s:syntax_check()
+		SyntasticCheck
+		unlet! b:tinyline_syntastic
+	endfunction
 	call neobundle#untap()
 endif
 
