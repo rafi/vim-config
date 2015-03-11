@@ -24,7 +24,7 @@ else
 endif
 
 function! s:source_file(path)
-	execute 'source' fnameescape(expand('$VIMPATH/config/'.a:path))
+	execute 'source' fnameescape($VIMPATH.'/config/'.a:path)
 endfunction
 
 " Initialize base requirements
