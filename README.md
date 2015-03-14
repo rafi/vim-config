@@ -86,7 +86,6 @@ Name           | Description
 [syntastic] | Syntax checking hacks
 [cursorword] | Underlines word under cursor
 [gitbranch] | Lightweight git branch detection
-[winfix] | Fix the focus and the size of windows
 [gitgutter] | Shows git diffs in the gutter
 [bookmarks] | Bookmarks, works independently from vim marks
 [tmux-navigator] | Seamless navigation between tmux panes and vim splits
@@ -187,7 +186,6 @@ Name           | Description
 [syntastic]: https://github.com/scrooloose/syntastic
 [cursorword]: https://github.com/itchyny/vim-cursorword
 [gitbranch]: https://github.com/itchyny/vim-gitbranch
-[winfix]: https://github.com/itchyny/vim-winfix
 [gitgutter]: https://github.com/airblade/vim-gitgutter
 [bookmarks]: https://github.com/MattesGroeger/vim-bookmarks
 [tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator
