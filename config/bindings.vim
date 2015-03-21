@@ -45,6 +45,17 @@ vnoremap <expr> j v:count ? 'j' : 'gj'
 nnoremap <expr> k v:count ? 'k' : 'gk'
 vnoremap <expr> k v:count ? 'k' : 'gk'
 
+" Start an external command with a single bang
+nnoremap ! :!
+
+" Allow misspellings when :wq
+cabbrev Wq :wq
+cabbrev qw :wq
+cabbrev Qa :qa
+
+" Exit insert mode without using Esc
+inoremap jk <Esc>
+
 " improve scroll
 noremap <expr> <C-f> max([winheight(0) - 2, 1]) . "\<C-d>" . (line("w$") >= line('$') ? "L" : "H")
 noremap <expr> <C-b> max([winheight(0) - 2, 1]) . "\<C-u>" . (line("w0") <= 1         ? "H" : "L")
