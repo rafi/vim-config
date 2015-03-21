@@ -49,6 +49,19 @@ NeoBundleLazy 'rafi/vim-unite-issue', {
 	\ }
 
 " }}}
+" Color-schemes {{{
+" -------------
+NeoBundleLazy 'chriskempson/base16-vim'
+NeoBundleLazy 'romainl/Apprentice'
+NeoBundleLazy 'chase/focuspoint-vim'
+NeoBundleLazy 'jonathanfilip/vim-lucius'
+NeoBundleLazy 'tomasr/molokai'
+NeoBundleLazy 'vim-scripts/pyte'
+NeoBundleLazy 'vim-scripts/rdark-terminal2.vim'
+NeoBundleLazy 'vim-scripts/twilight256.vim'
+NeoBundleLazy 'vim-scripts/wombat256.vim'
+
+" }}}
 " Language {{{
 " --------
 NeoBundleLazy 'othree/html5.vim', { 'filetypes': 'html' }
@@ -76,7 +89,7 @@ NeoBundleLazy 'http://svn.macports.org/repository/macports/contrib/mpvim/', {
 	\ 'filetypes': 'portfile'
 	\ }
 
-
+" }}}
 " JavaScript {{{
 " ----------
 NeoBundleLazy 'jelera/vim-javascript-syntax', { 'filetypes': 'javascript' }
