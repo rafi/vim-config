@@ -181,6 +181,21 @@ NeoBundleLazy 'thinca/vim-prettyprint', { 'commands': 'PP' }
 NeoBundleLazy 'thinca/vim-quickrun', { 'mappings': '<Plug>' }
 NeoBundleLazy 'thinca/vim-ref', { 'unite_sources': 'ref' }
 NeoBundleLazy 'itchyny/dictionary.vim', { 'commands': 'Dictionary' }
+NeoBundleLazy 'dhruvasagar/vim-dotoo', {'mappings': [['n', 'gA', 'gC']]}
+NeoBundleLazy 'vimwiki/vimwiki', {
+	\ 'commands': [
+	\   'VimwikiIndex', 'VimwikiTabIndex', 'VimwikiUISelect',
+	\   'VimwikiMakeDiaryNote', 'VimwikiTabMakeDiaryNote',
+	\   'VimwikiDiaryIndex'
+	\ ]}
+NeoBundleLazy 'mattn/calendar-vim', {
+	\ 'commands': [ 'Calendar', 'CalendarH', 'CalendarT' ],
+	\ 'mappings': [ '<Leader>cal', '<Leader>caL' ]
+	\ }
+NeoBundleLazy 'beloglazov/vim-online-thesaurus', {
+	\ 'commands': [
+	\   'OnlineThesaurusCurrentWord', 'Thesaurus'
+	\ ]}
 NeoBundleLazy 'itchyny/vim-closebuffer', {
 	\ 'insert': 1,
 	\ 'mappings': '<Plug>'

@@ -386,6 +386,40 @@ if neobundle#tap('dictionary.vim') "{{{
 endif
 
 "}}}
+if neobundle#tap('vim-dotoo') "{{{
+	let g:dotoo#agenda#files = [ '~/docs/todo/*.dotoo' ]
+	let g:dotoo#capture#refile = expand('~/docs/todo/refile.dotoo')
+	let g:dotoo#time#time_ago_short = 0
+	let g:dotoo#capture#clock = 1
+
+	call neobundle#untap()
+endif
+
+"}}}
+if neobundle#tap('vimwiki') "{{{
+	let wiki = {}
+	let wiki.diary_header = 'Rafi''s Diary'
+	let wiki.diary_link_fmt = '%Y-%m/%d'
+	let wiki.path = '~/docs/wiki/'
+	let wiki.path_html = '~/docs/wiki/html/'
+	let wiki.syntax = 'markdown'
+	let wiki.ext = '.md'
+	let g:vimwiki_list = [ wiki ]
+
+	nnoremap <silent> <Leader>W :<C-u>VimwikiIndex<CR>
+
+	call neobundle#untap()
+endif
+
+"}}}
+if neobundle#tap('vim-online-thesaurus') "{{{
+	let g:online_thesaurus_map_keys = 0
+	nnoremap <silent> <Leader>K :<C-u>OnlineThesaurusCurrentWord<CR>
+
+	call neobundle#untap()
+endif
+
+"}}}
 if neobundle#tap('vim-closebuffer') "{{{
 	map <C-q> <Plug>(closebuffer)
 	imap <C-q> <Plug>(closebuffer)
