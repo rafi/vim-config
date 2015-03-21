@@ -17,6 +17,34 @@ autocmd MyAutoCmd InsertLeave *
 		\ if &paste | set nopaste mouse=a | echo 'nopaste' | endif |
 		\ if &l:diff | diffupdate | endif
 
+" Highlight current line only on focus buffer
+augroup CursorLine
+	au!
+	au VimEnter,WinEnter,BufWinEnter * if &ft !~ 'unite'
+		\ | setlocal cursorline | endif
+	au WinLeave * if &ft !~ 'vimfiler\|gitv'
+		\ | setlocal nocursorline | endif
+augroup END
+
+" Open Quickfix window automatically
+autocmd MyAutoCmd QuickFixCmdPost [^l]* leftabove copen
+	\ | wincmd p | redraw!
+autocmd MyAutoCmd QuickFixCmdPost l* leftabove lopen
+	\ | wincmd p | redraw!
+
+" Fix window position of help/quickfix
+autocmd MyAutoCmd FileType help if &l:buftype ==# 'help'
+	\ | wincmd K | endif
+autocmd MyAutoCmd FileType qf   if &l:buftype ==# 'quickfix'
+	\ | wincmd J | endif
+
+" Always open read-only when a swap file is found
+autocmd MyAutoCmd SwapExists * let v:swapchoice = 'o'
+
+" Automatically set expandtab
+autocmd MyAutoCmd FileType * execute
+	\ 'setlocal '.(search('^\t.*\n\t.*\n\t', 'n') ? 'no' : '').'expandtab'
+
 " Update diff
 autocmd MyAutoCmd InsertLeave * if &l:diff | diffupdate | endif
 

@@ -6,8 +6,8 @@
 " ------------
 
 " Want a different map leader than \
-let mapleader="\<Space>"
-let maplocalleader="\\"
+let g:mapleader="\<Space>"
+let g:maplocalleader="\\"
 
 " Maps the semicolon to colon in normal mode
 nmap ; :

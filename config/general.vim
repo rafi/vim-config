@@ -10,7 +10,8 @@ set noerrorbells             " Don't trigger bell on error
 set visualbell t_vb=         " Don't make any faces
 set lazyredraw               " don't redraw while in macros
 set hidden                   " hide buffers when abandoned instead of unload
-set encoding=utf-8           " Set utf8 as standard encoding (+multi_byte)
+set encoding=utf-8           " Set utf8 as standard encoding
+scriptencoding utf-8         " Must be after encoding and before mb chars
 set ffs=unix,dos,mac         " Use Unix as the standard file type
 set magic                    " For regular expressions turn magic on
 set path=.,**                " Directories to search when using gf
@@ -177,34 +178,6 @@ call matchadd('ColorColumn', '\%81v', 100)
 if has('conceal') && v:version >= 703
 	set conceallevel=2 concealcursor=niv
 endif
-
-" Highlight current line only on focus buffer
-augroup CursorLine
-	au!
-	au VimEnter,WinEnter,BufWinEnter * if &ft !~ 'unite'
-		\ | setlocal cursorline | endif
-	au WinLeave * if &ft !~ 'vimfiler\|gitv'
-		\ | setlocal nocursorline | endif
-augroup END
-
-" Open Quickfix window automatically
-autocmd MyAutoCmd QuickFixCmdPost [^l]* leftabove copen
-	\ | wincmd p | redraw!
-autocmd MyAutoCmd QuickFixCmdPost l* leftabove lopen
-	\ | wincmd p | redraw!
-
-" Fix window position of help/quickfix
-autocmd MyAutoCmd FileType help if &l:buftype ==# 'help'
-	\ | wincmd K | endif
-autocmd MyAutoCmd FileType qf   if &l:buftype ==# 'quickfix'
-	\ | wincmd J | endif
-
-" Always open read-only when a swap file is found
-autocmd MyAutoCmd SwapExists * let v:swapchoice = 'o'
-
-" Automatically set expandtab
-autocmd MyAutoCmd FileType * execute
-	\ 'setlocal '.(search('^\t.*\n\t.*\n\t', 'n') ? 'no' : '').'expandtab'
 
 " }}}
 " gVim Appearance {{{

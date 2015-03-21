@@ -11,7 +11,7 @@ augroup filetypedetect
 	" Recognize Less for lazy-loading syntax
 	autocmd BufNewFile,BufRead *.less setfiletype less
 
-	autocmd BufRead,BufEnter *i3/config setfiletype i3
+	autocmd BufNewFile,BufRead *i3/config setfiletype i3
 
 	" Tmux
 	autocmd BufNewFile,BufRead *tmux.conf*,Tmuxfile,tmux/config setfiletype tmux
