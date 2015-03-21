@@ -2,6 +2,11 @@
 " Commands {{{
 "---------------------------------------------------------
 
+" Autosave
+" http://blog.unixphilosopher.com/2015/02/a-more-betterer-autosave-in-vim.html
+autocmd MyAutoCmd InsertLeave,TextChanged *
+		\ if expand('%') != '' && &ft !~ 'dotoo\|vimwiki' | update | endif
+
 " Reload .vimrc automatically
 autocmd MyAutoCmd BufWritePost vimrc,config/*.vim,neobundle.vim
 		\ TinyLine! | ToxidTab!
