@@ -412,6 +412,18 @@ if neobundle#tap('vimwiki') "{{{
 endif
 
 "}}}
+if neobundle#tap('vim-stay') "{{{
+	" https://github.com/kopischke/vim-stay/issues/10
+	augroup stay_no_lcd
+		autocmd!
+		autocmd User BufStaySavePre  if haslocaldir() | let w:lcd = getcwd() | cd - | cd - | endif
+		autocmd User BufStaySavePost if exists('w:lcd') | execute 'lcd' fnameescape(w:lcd) | unlet w:lcd | endif
+	augroup END
+
+	call neobundle#untap()
+endif
+
+"}}}
 if neobundle#tap('vim-online-thesaurus') "{{{
 	let g:online_thesaurus_map_keys = 0
 	nnoremap <silent> <Leader>K :<C-u>OnlineThesaurusCurrentWord<CR>
