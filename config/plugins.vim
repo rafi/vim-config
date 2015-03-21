@@ -432,6 +432,14 @@ if neobundle#tap('vim-online-thesaurus') "{{{
 endif
 
 "}}}
+if neobundle#tap('vim-livedown') "{{{
+	let g:livedown_autorun = 0
+	nnoremap <Leader>P :<C-u>LivedownPreview<CR>
+
+	call neobundle#untap()
+endif
+
+"}}}
 if neobundle#tap('vim-closebuffer') "{{{
 	map <C-q> <Plug>(closebuffer)
 	imap <C-q> <Plug>(closebuffer)

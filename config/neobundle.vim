@@ -166,11 +166,10 @@ NeoBundleLazy 'farseer90718/vim-colorpicker', {
 	\ 'commands': 'ColorPicker'
 	\ }
 NeoBundleLazy 't9md/vim-smalls', { 'mappings': '<Plug>' }
-NeoBundleLazy 'kannokanno/previm', {
-	\ 'disabled': $SSH_CLIENT,
-	\ 'filetypes': [ 'markdown', 'mkd', 'rst' ],
-	\ 'commands': 'PrevimOpen',
-	\ 'depends': 'tyru/open-browser.vim'
+NeoBundleLazy 'shime/vim-livedown', {
+	\ 'disabled': ! executable('npm') || $SSH_CLIENT,
+	\ 'commands': [ 'LivedownPreview', 'LivedownKill' ],
+	\ 'mappings': [[ 'n', '<Leader>P' ]]
 	\ }
 NeoBundleLazy 'tyru/open-browser.vim', {
 	\ 'disabled': $SSH_CLIENT,
@@ -190,7 +189,7 @@ NeoBundleLazy 'vimwiki/vimwiki', {
 	\ ]}
 NeoBundleLazy 'mattn/calendar-vim', {
 	\ 'commands': [ 'Calendar', 'CalendarH', 'CalendarT' ],
-	\ 'mappings': [ '<Leader>cal', '<Leader>caL' ]
+	\ 'mappings': [[ 'n', '<Leader>cal', '<Leader>caL' ]]
 	\ }
 NeoBundleLazy 'beloglazov/vim-online-thesaurus', {
 	\ 'commands': [
