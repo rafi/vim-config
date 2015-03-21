@@ -353,6 +353,15 @@ if neobundle#tap('indentLine') "{{{
 endif
 
 "}}}
+if neobundle#tap('incsearch.vim') "{{{
+	map /  <Plug>(incsearch-forward)
+	map ?  <Plug>(incsearch-backward)
+	map g/ <Plug>(incsearch-stay)
+
+	call neobundle#untap()
+endif
+
+"}}}
 if neobundle#tap('vim-colorpicker') "{{{
 	nmap <Leader>co :ColorPicker<CR>
 	call neobundle#untap()
@@ -442,7 +451,6 @@ endif
 "}}}
 if neobundle#tap('vim-closebuffer') "{{{
 	map <C-q> <Plug>(closebuffer)
-	imap <C-q> <Plug>(closebuffer)
 
 	call neobundle#untap()
 endif
