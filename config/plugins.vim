@@ -387,8 +387,8 @@ endif
 
 "}}}
 if neobundle#tap('vim-closebuffer') "{{{
-	map <C-w> <Plug>(closebuffer)
-	imap <C-w> <Plug>(closebuffer)
+	map <C-q> <Plug>(closebuffer)
+	imap <C-q> <Plug>(closebuffer)
 
 	call neobundle#untap()
 endif

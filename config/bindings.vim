@@ -54,7 +54,6 @@ noremap <expr> <C-y> (line("w0") <= 1         ? "k" : "3\<C-y>")
 " Navigate window
 nnoremap <C-x> <C-w>x
 nnoremap <expr><C-m> (bufname('%') ==# '[Command Line]' <bar><bar> &l:buftype ==# 'quickfix') ? "<CR>" : "<C-w>j"
-nnoremap <C-q> <C-w>
 
 " Increment and decrement
 nnoremap + <C-a>
@@ -128,14 +127,14 @@ map <F3> :echo 'hi<'.synIDattr(synID(line('.'), col('.'), 1), 'name')
 	\.'> trans<'.synIDattr(synID(line('.'), col('.'), 0), 'name').'> lo<'
 	\.synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name').'>'<CR>
 
-" Show hidden characters (spaces, tabs, etc)
-" Line number type toggle
-" Clear the highlighting of :set hlsearch
 " Toggle spell checking
+" Toggle line numbers
+" Show hidden characters
+" Clear the highlighting search
 nmap <Leader>ts :setlocal spell!<cr>
 nmap <Leader>tn :setlocal nonumber!<CR>
 nmap <Leader>tl :setlocal nolist!<CR>
-nmap <Leader>th :set hlsearch!<CR>
+nmap <Leader>th :nohlsearch<CR>
 
 " Tabs
 noremap <Leader>st  :tabnew<CR>
