@@ -175,7 +175,7 @@ NeoBundleLazy 'haya14busa/incsearch.vim', {
 NeoBundleLazy 'gorkunov/smartpairs.vim', {
 	\ 'autoload': {
 	\  'commands': [ 'SmartPairs', 'SmartPairsI', 'SmartPairsA' ],
-	\  'mappings': [[ 'n', 'viv' ], [ 'v', 'v' ]]
+	\  'mappings': [[ 'n', 'viv', 'vav' ], [ 'v', 'v' ]]
 	\ }}
 NeoBundleLazy 'farseer90718/vim-colorpicker', {
 	\ 'disabled': ! has('python') || $SSH_CLIENT,

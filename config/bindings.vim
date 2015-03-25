@@ -36,7 +36,6 @@ map <Leader>p "+p
 " Remap some keys to be more useful
 nnoremap ' `
 nnoremap ` '
-nnoremap Y y$
 nnoremap <CR> za
 
 " Improve cursor up/down

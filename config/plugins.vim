@@ -132,14 +132,34 @@ if neobundle#tap('vim-smartchr') "{{{
 endif
 
 "}}}
-if neobundle#tap('concealedyank.vim') "{{{
-	xmap Y <Plug>(operator-concealedyank)
+if neobundle#tap('vim-operator-surround') "{{{
+	nmap <silent>sa <Plug>(operator-surround-append)a
+	nmap <silent>sd <Plug>(operator-surround-delete)a
+	nmap <silent>sr <Plug>(operator-surround-replace)a
+	nmap <silent>sc <Plug>(operator-surround-replace)a
+
 	call neobundle#untap()
 endif
 
 "}}}
-if neobundle#tap('previm') "{{{
-	let g:previm_enable_realtime = 0
+if neobundle#tap('vim-operator-replace') "{{{
+	map _ <Plug>(operator-replace)
+	call neobundle#untap()
+endif "}}}
+
+"}}}
+if neobundle#tap('concealedyank.vim') "{{{
+	map Y <Plug>(operator-concealedyank)
+	call neobundle#untap()
+endif
+
+"}}}
+if neobundle#tap('vim-textobj-user') "{{{
+	omap ab <Plug>(textobj-multiblock-a)
+	omap ib <Plug>(textobj-multiblock-i)
+	xmap ab <Plug>(textobj-multiblock-a)
+	xmap ib <Plug>(textobj-multiblock-i)
+
 	call neobundle#untap()
 endif
 
