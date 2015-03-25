@@ -38,9 +38,6 @@ autocmd MyAutoCmd FileType help if &l:buftype ==# 'help'
 autocmd MyAutoCmd FileType qf   if &l:buftype ==# 'quickfix'
 	\ | wincmd J | endif
 
-" Always open read-only when a swap file is found
-autocmd MyAutoCmd SwapExists * let v:swapchoice = 'o'
-
 " Automatically set expandtab
 autocmd MyAutoCmd FileType * execute
 	\ 'setlocal '.(search('^\t.*\n\t.*\n\t', 'n') ? 'no' : '').'expandtab'
