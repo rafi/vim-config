@@ -216,7 +216,7 @@ endif
 
 "}}}
 if neobundle#tap('jedi-vim') "{{{
-	autocmd FileType python setlocal omnifunc=jedi#completions
+	autocmd FileType python setlocal omnifunc=jedi#completions completeopt=menuone,longest,preview
 	let g:jedi#completions_enabled = 0
 	let g:jedi#auto_vim_configuration = 0
 "	let g:jedi#force_py_version = 3
