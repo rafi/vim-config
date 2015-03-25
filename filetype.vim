@@ -22,9 +22,6 @@ augroup filetypedetect
 	" Ansible
 	autocmd BufNewFile,BufRead */group_vars/*,*/host_vars/* setfiletype yaml
 
-	" Vimwiki: Fix markdown autodetection
-	autocmd BufEnter */docs/wiki/*.md setfiletype vimwiki
-
 	" Misc ini
 	autocmd BufNewFile,BufRead php.ini          setfiletype dosini
 	autocmd BufNewFile,BufRead php-fpm.conf     setfiletype dosini
