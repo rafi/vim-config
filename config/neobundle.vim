@@ -54,6 +54,7 @@ NeoBundleLazy 'rafi/vim-unite-issue', {
 NeoBundleLazy 'chriskempson/base16-vim'
 NeoBundleLazy 'romainl/Apprentice'
 NeoBundleLazy 'chase/focuspoint-vim'
+NeoBundleLazy 'gregsexton/Atom'
 NeoBundleLazy 'jonathanfilip/vim-lucius'
 NeoBundleLazy 'tomasr/molokai'
 NeoBundleLazy 'vim-scripts/pyte'
@@ -72,14 +73,16 @@ NeoBundleLazy 'groenewege/vim-less', { 'filetypes': 'less' }
 NeoBundleLazy 'hail2u/vim-css3-syntax', { 'filetypes': 'css' }
 NeoBundleLazy 'chrisbra/csv.vim', { 'filetypes': 'csv' }
 NeoBundleLazy 'hynek/vim-python-pep8-indent', { 'filetypes': 'python' }
+NeoBundleLazy 'robbles/logstash.vim', { 'filetypes': 'logstash' }
+NeoBundleLazy 'tmux-plugins/vim-tmux', { 'filetypes': 'tmux' }
+NeoBundleLazy 'elzr/vim-json', { 'filetypes': 'json' }
+NeoBundleLazy 'PotatoesMaster/i3-vim-syntax', { 'filetypes': 'i3' }
+NeoBundleLazy 'jamestomasino/vim-writingsyntax', { 'filetypes': 'writing' }
+NeoBundleLazy 'fatih/vim-go', {'filetypes': 'go', 'disabled': $SSH_CLIENT}
 NeoBundleLazy 'davidhalter/jedi-vim', {
 	\ 'disabled': $SSH_CLIENT,
 	\ 'filetypes': 'python'
 	\ }
-NeoBundleLazy 'fatih/vim-go', {'filetypes': 'go', 'disabled': $SSH_CLIENT}
-NeoBundleLazy 'elzr/vim-json', { 'filetypes': 'json' }
-NeoBundleLazy 'PotatoesMaster/i3-vim-syntax', { 'filetypes': 'i3' }
-NeoBundleLazy 'jamestomasino/vim-writingsyntax', { 'filetypes': 'writing' }
 NeoBundleLazy 'vim-ruby/vim-ruby', {
 	\ 'mappings': '<Plug>',
 	\ 'filetypes': 'ruby'

@@ -14,7 +14,7 @@ augroup filetypedetect
 	autocmd BufNewFile,BufRead *i3/config setfiletype i3
 
 	" Tmux
-	autocmd BufNewFile,BufRead *tmux.conf*,Tmuxfile,tmux/config setfiletype tmux
+	autocmd BufNewFile,BufRead *tmux.conf*,Tmuxfile,*tmux/config setfiletype tmux
 
 	" changelog.vim
 	autocmd BufNewFile,BufRead *.changelog setfiletype changelog
