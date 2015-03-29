@@ -19,9 +19,6 @@ augroup filetypedetect
 	" changelog.vim
 	autocmd BufNewFile,BufRead *.changelog setfiletype changelog
 
-	" Ansible
-	autocmd BufNewFile,BufRead */group_vars/*,*/host_vars/* setfiletype yaml
-
 	" Misc ini
 	autocmd BufNewFile,BufRead php.ini          setfiletype dosini
 	autocmd BufNewFile,BufRead php-fpm.conf     setfiletype dosini

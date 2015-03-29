@@ -67,7 +67,7 @@ NeoBundleLazy 'vim-scripts/wombat256.vim'
 " --------
 NeoBundleLazy 'othree/html5.vim', { 'filetypes': 'html' }
 NeoBundleLazy 'mustache/vim-mustache-handlebars', { 'filetypes': 'html' }
-NeoBundleLazy 'rcmdnk/vim-markdown', { 'filetypes': [ 'markdown', 'mkd' ] }
+NeoBundleLazy 'rcmdnk/vim-markdown', { 'filetypes': 'markdown' }
 NeoBundleLazy 'chase/vim-ansible-yaml', { 'filetypes': 'yaml' }
 NeoBundleLazy 'groenewege/vim-less', { 'filetypes': 'less' }
 NeoBundleLazy 'hail2u/vim-css3-syntax', { 'filetypes': 'css' }
@@ -187,6 +187,7 @@ NeoBundleLazy 'farseer90718/vim-colorpicker', {
 NeoBundleLazy 't9md/vim-smalls', { 'mappings': '<Plug>' }
 NeoBundleLazy 'shime/vim-livedown', {
 	\ 'disabled': ! executable('npm') || $SSH_CLIENT,
+	\ 'build': { 'others': 'npm install' },
 	\ 'commands': [ 'LivedownPreview', 'LivedownKill' ],
 	\ 'mappings': [[ 'n', '<Leader>P' ]]
 	\ }
