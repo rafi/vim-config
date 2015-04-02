@@ -6,8 +6,11 @@
 " -----
 set t_Co=256
 set background=dark
-colorscheme hybrid
-" }}}
+
+" Don't override colorscheme.
+if ! exists('g:colors_name')
+	colorscheme hybrid
+endif
 
 " Custom Colors
 " -------------
