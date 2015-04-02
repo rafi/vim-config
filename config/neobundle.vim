@@ -202,6 +202,7 @@ NeoBundleLazy 'thinca/vim-ref', { 'unite_sources': 'ref' }
 NeoBundleLazy 'itchyny/dictionary.vim', { 'commands': 'Dictionary' }
 NeoBundleLazy 'dhruvasagar/vim-dotoo', {'mappings': [['n', 'gA', 'gC']]}
 NeoBundleLazy 'vimwiki/vimwiki', {
+	\ 'rev': 'dev',
 	\ 'commands': [
 	\   'VimwikiIndex', 'VimwikiTabIndex', 'VimwikiUISelect',
 	\   'VimwikiMakeDiaryNote', 'VimwikiTabMakeDiaryNote',

@@ -245,8 +245,8 @@ endif
 if neobundle#tap('vim-gitgutter') "{{{
 	nmap <Leader>hj <Plug>GitGutterNextHunk
 	nmap <Leader>hk <Plug>GitGutterPrevHunk
-	nmap <Leader>ha <Plug>GitGutterStageHunk
-	nmap <Leader>hu <Plug>GitGutterRevertHunk
+	nmap <Leader>hs <Plug>GitGutterStageHunk
+	nmap <Leader>hr <Plug>GitGutterRevertHunk
 	nmap <Leader>hp <Plug>GitGutterPreviewHunk
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/gitgutter.vim'
 	call neobundle#untap()

@@ -2,7 +2,7 @@
 " GitGutter
 " ---------
 let g:gitgutter_realtime = 0    " Pretty annoying
-let g:gitgutter_eager = 0
+let g:gitgutter_eager = 1
 let g:gitgutter_map_keys = 0
 let g:gitgutter_sign_added = '␥' " + ␥
 let g:gitgutter_sign_modified = '⌇' "  ~ ∼ ∽ ∾ ∿ ⌇
