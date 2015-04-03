@@ -1,7 +1,6 @@
 
 " vim-bookmarks
 " -------------
-"let g:bookmark_no_default_key_mappings = 1
 let g:bookmark_auto_save = 0
 let g:bookmark_save_per_working_dir = 0
 let g:bookmark_manage_per_buffer = 0
@@ -11,16 +10,39 @@ let g:bookmark_annotation_sign = '⌦'       " Annonation sign
 highlight BookmarkSign            ctermfg=12 guifg=#4EA9D7
 highlight BookmarkAnnotationSign  ctermfg=11 guifg=#EACF49
 
-augroup AutoManageBookmarks
-  autocmd!
-  autocmd BufEnter * call BookmarkLoad(s:bookmark_file(), 0, 1)
-	autocmd VimLeave * call BookmarkSave(s:bookmark_file(), 1)
-augroup END
-
 " Ensure that bookmarks directory exists
 if ! isdirectory(g:bookmark_auto_save_dir)
 	call mkdir(g:bookmark_auto_save_dir, 'p')
 endif
+
+augroup AutoManageBookmarks
+	autocmd!
+	autocmd BufEnter * call s:maybe_load_bookmarks()
+	autocmd BufLeave * call s:maybe_save_bookmarks()
+	autocmd VimLeave * if bm#total_count() > 0
+		\ | call BookmarkSave(s:bookmark_file(), 1)
+		\ | endif
+augroup END
+
+function! s:maybe_load_bookmarks()
+	if ! exists('b:bm_loaded')
+		let b:bm_loaded = 1
+		let b:bm_sync = 1
+		let b:bm_file = expand('<afile>:p')
+		if b:bm_file !=# ''
+			call BookmarkLoad(s:bookmark_file(), 0, 1)
+		endif
+	endif
+endfunction
+
+function! s:maybe_save_bookmarks()
+	if exists('b:bm_sync')
+		if ! b:bm_sync && b:bm_file !=# '' && bm#total_count() > 0
+			call BookmarkSave(s:bookmark_file(), 1)
+			let b:bm_sync = 1
+		endif
+	endif
+endfunction
 
 function! s:bookmark_file()
 	if exists('t:project_dir')

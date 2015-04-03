@@ -171,7 +171,19 @@ endif
 
 "}}}
 if neobundle#tap('vim-bookmarks') "{{{
-	let g:bookmark_auto_save_dir  = $VARPATH.'/bookmarks'
+	let g:bookmark_auto_save_dir = $VARPATH.'/bookmarks'
+	let g:bookmark_no_default_key_mappings = 1
+	nnoremap <silent> <Plug>BookmarkShowAll :<C-u>BookmarkShowAll<CR>
+	nnoremap <silent> <Plug>BookmarkNext :<C-u>BookmarkNext<CR>
+	nnoremap <silent> <Plug>BookmarkPrev :<C-u>BookmarkPrev<CR>
+	nnoremap <silent> <Plug>BookmarkToggle :<C-u>let b:bm_sync=0<CR>:<C-u>BookmarkToggle<CR>
+	nnoremap <silent> <Plug>BookmarkAnnotate :<C-u>let b:bm_sync=0<CR>:<C-u>BookmarkAnnotate<CR>
+	nmap ma <Plug>BookmarkShowAll
+	nmap mn <Plug>BookmarkNext
+	nmap mp <Plug>BookmarkPrev
+	nmap mm <Plug>BookmarkToggle
+	nmap mi <Plug>BookmarkAnnotate
+
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/bookmarks.vim'
 	call neobundle#untap()
 endif
