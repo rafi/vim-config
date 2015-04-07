@@ -41,11 +41,7 @@ augroup MyAutoCmd
 "	autocmd FileType java setlocal omnifunc=javacomplete#Complete
 	autocmd FileType javascript setlocal omnifunc=tern#Complete
 	autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-	if has('python3')
-		autocmd FileType python setlocal omnifunc=python3complete#Complete
-	else
-		autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-	endif
+	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 	autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 	autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
 	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
