@@ -42,6 +42,7 @@ function! s:vimfiler_settings()
 	nnoremap <silent><buffer><expr> sv  vimfiler#do_switch_action('split')
 	nmap <buffer> p      <Plug>(vimfiler_preview_file)
 	nmap <buffer> i      <Plug>(vimfiler_switch_to_history_directory)
+	nmap <buffer> <Tab>  <Plug>(vimfiler_switch_to_other_window)
 	nmap <buffer> <C-r>  <Plug>(vimfiler_redraw_screen)
 	nmap <buffer> <C-q>  <Plug>(vimfiler_quick_look)
 endfunction

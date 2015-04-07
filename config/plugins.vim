@@ -18,9 +18,8 @@ if neobundle#tap('unite.vim') "{{{
 	nnoremap <silent> [unite]T   :<C-u>Unite tag/include -silent<CR>
 	nnoremap <silent> [unite]l   :<C-u>Unite location_list<CR>
 	nnoremap <silent> [unite]q   :<C-u>Unite quickfix<CR>
-	nnoremap <silent> [unite]e   :<C-u>Unite register<CR>
 	nnoremap <silent> [unite]j   :<C-u>Unite change jump -profile-name=navigate<CR>
-	nnoremap <silent> [unite]h   :<C-u>Unite history/yank<CR>
+	nnoremap <silent> [unite]h   :<C-u>Unite -buffer-name=register -default-action=append register history/yank<CR>
 	nnoremap <silent> [unite]s   :<C-u>Unite session<CR>
 	nnoremap <silent> [unite]o   :<C-u>Unite outline<CR>
 	nnoremap <silent> [unite]ma  :<C-u>Unite mapping -silent<CR>
