@@ -200,8 +200,12 @@ NeoBundleLazy 'thinca/vim-prettyprint', { 'commands': 'PP' }
 NeoBundleLazy 'thinca/vim-quickrun', { 'mappings': '<Plug>' }
 NeoBundleLazy 'thinca/vim-ref', { 'unite_sources': 'ref' }
 NeoBundleLazy 'itchyny/dictionary.vim', { 'commands': 'Dictionary' }
-NeoBundleLazy 'dhruvasagar/vim-dotoo', {'mappings': [['n', 'gA', 'gC']]}
+NeoBundleLazy 'dhruvasagar/vim-dotoo', {
+	\ 'disabled': $SSH_CLIENT,
+	\ 'mappings': [['n', 'gA', 'gC']]
+	\ }
 NeoBundleLazy 'vimwiki/vimwiki', {
+	\ 'disabled': $SSH_CLIENT,
 	\ 'rev': 'dev',
 	\ 'commands': [
 	\   'VimwikiIndex', 'VimwikiTabIndex', 'VimwikiUISelect',
@@ -209,10 +213,12 @@ NeoBundleLazy 'vimwiki/vimwiki', {
 	\   'VimwikiDiaryIndex'
 	\ ]}
 NeoBundleLazy 'mattn/calendar-vim', {
+	\ 'disabled': $SSH_CLIENT,
 	\ 'commands': [ 'Calendar', 'CalendarH', 'CalendarT' ],
 	\ 'mappings': [[ 'n', '<Leader>cal', '<Leader>caL' ]]
 	\ }
 NeoBundleLazy 'beloglazov/vim-online-thesaurus', {
+	\ 'disabled': $SSH_CLIENT,
 	\ 'commands': [
 	\   'OnlineThesaurusCurrentWord', 'Thesaurus'
 	\ ]}
