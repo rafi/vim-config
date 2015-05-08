@@ -127,12 +127,7 @@ set tags=./tags,tags            " Tags are overridden by bundle/tagabana
 set showfulltag                 " Show tag and tidy search in completion
 set completeopt=menuone         " Show menu even for one item
 set complete=.                  " No wins, buffs, tags, include scanning
-if exists('+breakindent')
-	set breakindent
-	set wrap
-else
-	set nowrap
-endif
+set nowrap                      " No wrap by default
 
 " }}}
 " Editor UI Appearance {{{

@@ -145,6 +145,7 @@ nmap <Leader>ts :setlocal spell!<cr>
 nmap <Leader>tn :setlocal nonumber!<CR>
 nmap <Leader>tl :setlocal nolist!<CR>
 nmap <Leader>th :nohlsearch<CR>
+nmap <Leader>tw :setlocal wrap! breakindent!<CR>
 
 " Tabs
 noremap <Leader>st  :tabnew<CR>
