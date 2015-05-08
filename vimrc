@@ -32,11 +32,8 @@ call s:source_file('init.vim')
 
 " NeoBundle start plugins {{{
 call neobundle#begin(expand('$VARPATH/plugins'))
-if neobundle#has_cache()
-	NeoBundleLoadCache
-else
+if neobundle#load_cache()
 	NeoBundleFetch 'Shougo/neobundle.vim'
-
 	call s:source_file('neobundle.vim')
 	NeoBundleSaveCache
 endif
