@@ -185,12 +185,6 @@ NeoBundleLazy 'farseer90718/vim-colorpicker', {
 	\ 'commands': 'ColorPicker'
 	\ }
 NeoBundleLazy 't9md/vim-smalls', { 'mappings': '<Plug>' }
-NeoBundleLazy 'shime/vim-livedown', {
-	\ 'disabled': ! executable('npm') || $SSH_CLIENT,
-	\ 'build': { 'others': 'npm install' },
-	\ 'commands': [ 'LivedownPreview', 'LivedownKill' ],
-	\ 'mappings': [[ 'n', '<Leader>P' ]]
-	\ }
 NeoBundleLazy 'tyru/open-browser.vim', {
 	\ 'disabled': $SSH_CLIENT,
 	\ 'mappings': '<Plug>',

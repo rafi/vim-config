@@ -131,7 +131,6 @@ Name           | Description
 [smartpairs] | Fantastic selection
 [colorpicker] | Improved color-picker
 [smalls] | Spot your cursor with simple search
-[previm] | Real-time markdown/rst/textile preview
 [open-browser] | Open URI with your favorite browser
 [tinycomment] | Robust light-weight commenting
 [phpspec] | PhpSpec integration
@@ -227,7 +226,6 @@ Name           | Description
 [smartpairs]: https://github.com/gorkunov/smartpairs.vim
 [colorpicker]: https://github.com/farseer90718/vim-colorpicker
 [smalls]: https://github.com/t9md/vim-smalls
-[previm]: https://github.com/kannokanno/previm
 [open-browser]: https://github.com/tyru/open-browser.vim
 [tinycomment]: https://github.com/rafi/vim-tinycomment
 [phpspec]: https://github.com/rafi/vim-phpspec
