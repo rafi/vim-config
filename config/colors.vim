@@ -34,6 +34,10 @@ highlight ModeMsg      ctermfg=240
 highlight Visual       ctermbg=236
 
 " }}}
+" Markdown/HTML {{{
+highlight htmlItalic  ctermfg=230 cterm=NONE term=NONE
+
+" }}}
 " Popup menu {{{
 highlight Pmenu       ctermfg=245 ctermbg=235
 highlight PmenuSel    ctermfg=236 ctermbg=248

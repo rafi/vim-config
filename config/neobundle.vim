@@ -81,7 +81,7 @@ NeoBundleLazy 'jamestomasino/vim-writingsyntax', { 'filetypes': 'writing' }
 NeoBundleLazy 'fatih/vim-go', {'filetypes': 'go', 'disabled': $SSH_CLIENT}
 NeoBundleLazy 'davidhalter/jedi-vim', {
 	\ 'disabled': $SSH_CLIENT,
-	\ 'filetypes': 'python'
+	\ 'filetypes': [ 'python', 'python3' ]
 	\ }
 NeoBundleLazy 'vim-ruby/vim-ruby', {
 	\ 'mappings': '<Plug>',

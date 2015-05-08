@@ -95,7 +95,7 @@ endif
 set ttimeout
 set ttimeoutlen=20  " Make it fast
 set timeoutlen=1200 " A little bit more time for macros
-set updatetime=300  " Idle time to write swap
+set updatetime=1000 " Idle time to write swap
 
 " }}}
 " Searching {{{
