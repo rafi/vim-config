@@ -13,6 +13,13 @@ autocmd MyAutoCmd BufWritePost vimrc,config/*.vim,neobundle.vim
 " Check timestamp on window enter. More eager than 'autoread'
 autocmd MyAutoCmd WinEnter * checktime
 
+" When editing a file, always jump to the last known cursor position.
+" Don't do it when the position is invalid or when inside an event handler
+autocmd MyAutoCmd BufReadPost *
+	\ if &ft !~ '^git\c' && ! &diff && line("'\"") > 0 && line("'\"") <= line("$")
+	\|   exe 'normal! g`"zvzz'
+	\| endif
+
 " Disable paste
 autocmd MyAutoCmd InsertLeave *
 		\ if &paste | set nopaste mouse=a | echo 'nopaste' | endif |
