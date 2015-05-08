@@ -50,6 +50,8 @@ NeoBundleLazy 'rafi/vim-unite-issue', {
 " }}}
 " Color-schemes {{{
 " -------------
+NeoBundleLazy 'godlygeek/csapprox', { 'terminal' : 1 }
+NeoBundleLazy 'thinca/vim-guicolorscheme', { 'terminal' : 1 }
 NeoBundleLazy 'chriskempson/base16-vim'
 NeoBundleLazy 'romainl/Apprentice'
 NeoBundleLazy 'chase/focuspoint-vim'
@@ -284,6 +286,7 @@ NeoBundleLazy 'osyo-manga/unite-filetype'
 NeoBundleLazy 'thinca/vim-unite-history'
 NeoBundleLazy 'Shougo/unite-build'
 NeoBundleLazy 'Shougo/unite-outline'
+NeoBundleLazy 'kmnk/vim-unite-giti'
 NeoBundleLazy 'tsukkee/unite-tag', {
 	\  'unite_sources': [ 'tag', 'tag/file', 'tag/include' ]
 	\ }
