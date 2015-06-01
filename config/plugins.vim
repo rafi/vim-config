@@ -32,7 +32,11 @@ if neobundle#tap('unite.vim') "{{{
 	nnoremap <silent> <Leader>gt :UniteWithCursorWord tag -profile-name=navigate<CR>
 	vnoremap <silent> <Leader>gt :<C-u>call VSetSearch('/')<CR>:execute 'Unite tag -profile-name=navigate -input='.strpart(@/,2)<CR>
 	vnoremap <silent> <Leader>gg :<C-u>call VSetSearch('/')<CR>:execute 'Unite grep:. -profile-name=navigate -input='.strpart(@/,2)<CR>
-
+	nnoremap <silent> [unite]k
+		\ :<C-u>Unite -buffer-name=files -no-split -multi-line -unique -silent
+		\ jump_point file_point file_mru
+		\ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec/async'`
+		\ buffer_tab:- file file/new<CR>
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/unite.vim'
 	call neobundle#untap()
 endif

@@ -5,6 +5,7 @@
 " General {{{
 let g:unite_kind_file_vertical_preview = 1
 let g:unite_kind_jump_list_after_jump_scroll = 50
+let g:unite_enable_auto_select = 0
 
 " The silver searcher. Ignore .gitignore and search everything.
 " Smart case, ignore vcs ignore files, and search hidden.
@@ -93,6 +94,7 @@ function! s:unite_settings()
 	nmap <buffer> <C-z>              <Plug>(unite_toggle_transpose_window)
 	imap <buffer> <C-z>              <Plug>(unite_toggle_transpose_window)
 	imap <buffer> <C-w>              <Plug>(unite_delete_backward_path)
+	nmap <buffer> x                  <Plug>(unite_quick_match_jump)
 
 	let unite = unite#get_current_unite()
 	if unite.profile_name ==# '^search'
