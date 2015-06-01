@@ -4,11 +4,9 @@
 
 let g:neocomplete#max_list = 100
 let g:neocomplete#disable_auto_complete = 0
-let g:neocomplete#force_overwrite_completefunc = 1
+"let g:neocomplete#force_overwrite_completefunc = 1
 let g:neocomplete#enable_auto_close_preview = 1
 let g:neocomplete#enable_auto_delimiter = 1
-" Test.
-let g:neocomplete#enable_omni_fallback = 1
 
 let g:neocomplete#skip_auto_completion_time = '0.20'
 
@@ -20,7 +18,7 @@ let g:neocomplete#skip_auto_completion_time = '0.20'
 let g:neocomplete#enable_smart_case       = 1
 let g:neocomplete#enable_camel_case       = 1
 let g:neocomplete#enable_fuzzy_completion = 0
-let g:neocomplete#enable_refresh_always   = 0
+"let g:neocomplete#enable_refresh_always   = 0
 let g:neocomplete#enable_prefetch         = 1
 
 " Minimum char completion lengths
@@ -81,7 +79,8 @@ let g:neocomplete#force_omni_input_patterns.python =
 " Mappings {{{
 " --------
 
-let g:neocomplete#fallback_mappings = ["\<C-x>\<C-o>", "\<C-x>\<C-n>"]
+" DISABLED: 20150517 "Pattern not found" error in yaml/ansible types
+"let g:neocomplete#fallback_mappings = ["\<C-x>\<C-o>", "\<C-x>\<C-n>"]
 
 " Movement within 'ins-completion-menu'
 inoremap <expr><C-j>   "\<Down>"
@@ -110,7 +109,7 @@ imap <expr><silent><CR> pumvisible() ?
 
 " <C+Space> unite completion
 " How weird is that <C-Space> in some(?) terminals is <Nul>?!
-imap <Nul>  <Plug>(neocomplete_start_unite_complete)
+"imap <Nul>  <Plug>(neocomplete_start_unite_complete)
 
 " <Tab> completion:
 " 1. If popup menu is visible, select and insert next item
