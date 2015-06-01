@@ -79,9 +79,12 @@ NeoBundleLazy 'tmux-plugins/vim-tmux', { 'filetypes': 'tmux' }
 NeoBundleLazy 'elzr/vim-json', { 'filetypes': 'json' }
 NeoBundleLazy 'PotatoesMaster/i3-vim-syntax', { 'filetypes': 'i3' }
 NeoBundleLazy 'jamestomasino/vim-writingsyntax', { 'filetypes': 'writing' }
-NeoBundleLazy 'fatih/vim-go', {'filetypes': 'go', 'disabled': $SSH_CLIENT}
+NeoBundleLazy 'fatih/vim-go', {
+	\ 'filetypes': 'go',
+	\ 'disabled': len($SSH_CLIENT)
+	\ }
 NeoBundleLazy 'davidhalter/jedi-vim', {
-	\ 'disabled': $SSH_CLIENT,
+	\ 'disabled': len($SSH_CLIENT),
 	\ 'filetypes': [ 'python', 'python3' ]
 	\ }
 NeoBundleLazy 'vim-ruby/vim-ruby', {
@@ -89,7 +92,7 @@ NeoBundleLazy 'vim-ruby/vim-ruby', {
 	\ 'filetypes': 'ruby'
 	\ }
 NeoBundleLazy 'http://svn.macports.org/repository/macports/contrib/mpvim/', {
-	\ 'disabled': $SSH_CLIENT,
+	\ 'disabled': len($SSH_CLIENT),
 	\ 'filetypes': 'portfile'
 	\ }
 
@@ -112,12 +115,12 @@ NeoBundleLazy 'marijnh/tern_for_vim', {
 NeoBundleLazy 'StanAngeloff/php.vim', { 'filetypes': 'php' }
 NeoBundleLazy 'rayburgemeestre/phpfolding.vim', { 'filetypes': 'php' }
 NeoBundleLazy 'shawncplus/phpcomplete.vim', {
-	\ 'disabled': $SSH_CLIENT,
+	\ 'disabled': len($SSH_CLIENT),
 	\ 'insert': 1,
 	\ 'filetypes': 'php'
 	\ }
 NeoBundleLazy 'tobyS/pdv', {
-	\ 'disabled': $SSH_CLIENT,
+	\ 'disabled': len($SSH_CLIENT),
 	\ 'filetypes': 'php',
 	\ 'depends': 'tobyS/vmustache'
 	\ }
@@ -149,7 +152,7 @@ NeoBundleLazy 'Shougo/vinarise.vim', {
 	\   { 'name': 'Vinarise', 'complete': 'file' }
 	\ ]}
 NeoBundleLazy 'scrooloose/syntastic', {
-	\ 'disabled': $SSH_CLIENT,
+	\ 'disabled': len($SSH_CLIENT),
 	\ 'autoload': {
 	\   'commands': [
 	\     'SyntasticCheck', 'SyntasticStatuslineFlag',
@@ -187,7 +190,7 @@ NeoBundleLazy 'farseer90718/vim-colorpicker', {
 	\ }
 NeoBundleLazy 't9md/vim-smalls', { 'mappings': '<Plug>' }
 NeoBundleLazy 'tyru/open-browser.vim', {
-	\ 'disabled': $SSH_CLIENT,
+	\ 'disabled': len($SSH_CLIENT),
 	\ 'mappings': '<Plug>',
 	\ 'functions': 'openbrowser#open'
 	\ }
@@ -196,11 +199,11 @@ NeoBundleLazy 'thinca/vim-quickrun', { 'mappings': '<Plug>' }
 NeoBundleLazy 'thinca/vim-ref', { 'unite_sources': 'ref' }
 NeoBundleLazy 'itchyny/dictionary.vim', { 'commands': 'Dictionary' }
 NeoBundleLazy 'dhruvasagar/vim-dotoo', {
-	\ 'disabled': $SSH_CLIENT,
+	\ 'disabled': len($SSH_CLIENT),
 	\ 'mappings': [['n', 'gA', 'gC']]
 	\ }
 NeoBundleLazy 'vimwiki/vimwiki', {
-	\ 'disabled': $SSH_CLIENT,
+	\ 'disabled': len($SSH_CLIENT),
 	\ 'rev': 'dev',
 	\ 'commands': [
 	\   'VimwikiIndex', 'VimwikiTabIndex', 'VimwikiUISelect',
@@ -208,12 +211,12 @@ NeoBundleLazy 'vimwiki/vimwiki', {
 	\   'VimwikiDiaryIndex'
 	\ ]}
 NeoBundleLazy 'mattn/calendar-vim', {
-	\ 'disabled': $SSH_CLIENT,
+	\ 'disabled': len($SSH_CLIENT),
 	\ 'commands': [ 'Calendar', 'CalendarH', 'CalendarT' ],
 	\ 'mappings': [[ 'n', '<Leader>cal', '<Leader>caL' ]]
 	\ }
 NeoBundleLazy 'beloglazov/vim-online-thesaurus', {
-	\ 'disabled': $SSH_CLIENT,
+	\ 'disabled': len($SSH_CLIENT),
 	\ 'commands': [
 	\   'OnlineThesaurusCurrentWord', 'Thesaurus'
 	\ ]}
@@ -234,7 +237,7 @@ NeoBundleLazy 'BufClose.vim', { 'commands': [ 'BufClose' ]}
 NeoBundleLazy 'matchit.zip', { 'mappings': [[ 'nxo', '%', 'g%' ]]}
 NeoBundleLazy 'Yggdroot/indentLine', { 'filetypes': 'all' }
 NeoBundleLazy 'xolox/vim-session', {
-	\ 'disabled': $SSH_CLIENT,
+	\ 'disabled': len($SSH_CLIENT),
 	\ 'depends': 'xolox/vim-misc',
 	\ 'augroup': 'PluginSession',
 	\ 'autoload': {
@@ -298,12 +301,12 @@ NeoBundleLazy 'Shougo/neossh.vim', {
 	\ 'sources': 'ssh',
 	\ }
 NeoBundleLazy 'joker1007/unite-pull-request', {
-	\ 'disabled': $SSH_CLIENT,
+	\ 'disabled': len($SSH_CLIENT),
 	\ 'depends': 'mattn/webapi-vim',
 	\ 'unite_sources': [ 'pull_request', 'pull_request_file' ]
 	\ }
 NeoBundleLazy 'Shougo/junkfile.vim', {
-	\ 'disabled': $SSH_CLIENT,
+	\ 'disabled': len($SSH_CLIENT),
 	\ 'unite_sources': 'junkfile'
 	\ }
 " }}}
