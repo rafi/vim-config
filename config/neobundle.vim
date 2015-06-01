@@ -258,6 +258,10 @@ NeoBundleLazy 'xolox/vim-session', {
 NeoBundleLazy 'Raimondi/delimitMate', { 'insert': 1 }
 NeoBundleLazy 'Shougo/echodoc.vim', { 'insert': 1 }
 NeoBundleLazy 'kana/vim-smartchr', { 'insert': 1 }
+NeoBundleLazy 'Shougo/deoplete', {
+	\ 'disabled': ! has('nvim') || len($SSH_CLIENT),
+	\ 'insert': 1
+	\ }
 NeoBundleLazy 'Shougo/neocomplete', {
 	\ 'depends': 'Shougo/context_filetype.vim',
 	\ 'disabled': ! has('lua') || $SSH_CLIENT,

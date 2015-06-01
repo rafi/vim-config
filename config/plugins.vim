@@ -48,7 +48,13 @@ if neobundle#tap('vimfiler.vim') "{{{
 endif
 
 "}}}
-if neobundle#tap('neocomplete') "{{{
+if neobundle#tap('deoplete.nvim') && has('nvim') "{{{
+	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/deoplete.vim'
+	call neobundle#untap()
+endif
+
+"}}}
+if neobundle#tap('neocomplete') && has('lua') "{{{
 	let g:neocomplete#enable_at_startup = 1
 	let g:neocomplete#data_directory = $VARPATH.'/complete'
 	let neobundle#hooks.on_source    = $VIMPATH.'/config/plugins/neocomplete.vim'
