@@ -13,6 +13,10 @@ augroup filetypedetect
 
 	autocmd BufNewFile,BufRead *i3/config setfiletype i3
 
+	" Ansible
+	autocmd BufNewFile,BufRead */ansible/inventory/*,*/ansible/playbooks/*/*.yml
+		\ setfiletype ansible
+
 	" Tmux
 	autocmd BufNewFile,BufRead *tmux.conf*,Tmuxfile,*tmux/config setfiletype tmux
 
