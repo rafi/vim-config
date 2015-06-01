@@ -64,21 +64,6 @@ command! -nargs=0 Undiff setlocal nodiff noscrollbind wrap
 " Functions {{{
 "---------------------------------------------------------
 
-" Simple way to turn off Gdiff splitscreen
-" works only when diff buffer is focused
-" See: http://stackoverflow.com/a/25530943/351947
-command! Gdiffoff call Gdiffoff()
-function! Gdiffoff()
-	let diffbufnr = bufnr('^fugitive:')
-	if diffbufnr > -1 && &diff
-		diffoff | q
-		if bufnr('%') == diffbufnr | Gedit | endif
-		if has('cursorbind') | setlocal nocursorbind | endif
-	else
-		echo 'Error: Not in diff or file'
-	endif
-endfunction
-
 " Makes * and # work on visual mode too.
 " See: http://github.com/nelstrom/vim-visual-star-search
 function! VSetSearch(cmdtype)

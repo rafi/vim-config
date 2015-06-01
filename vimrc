@@ -8,7 +8,7 @@
 "---------------------------------------------------------
 
 " Skip initialization for vim-tiny/small
-if !1 | finish | endif
+if 0 | endif
 
 if &compatible
 	set nocompatible
@@ -37,6 +37,7 @@ if neobundle#load_cache()
 	call s:source_file('neobundle.vim')
 	NeoBundleSaveCache
 endif
+call s:source_file('plugins.vim')
 call neobundle#end()
 " }}}
 
@@ -52,11 +53,10 @@ endif
 " Loading configuration modules {{{
 call s:source_file('general.vim')
 call s:source_file('filetype.vim')
-call s:source_file('plugins.vim')
 call s:source_file('terminal.vim')
-call s:source_file('bindings.vim')
 call s:source_file('utils.vim')
 call s:source_file('colors.vim')
+call s:source_file('bindings.vim')
 " }}}
 
 call neobundle#call_hook('on_source')
