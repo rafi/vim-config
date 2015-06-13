@@ -75,6 +75,8 @@ endif
 
 autocmd MyAutoCmd FileType unite call s:unite_settings()
 function! s:unite_settings()
+
+	silent! nunmap <buffer> <Space>
 	silent! nunmap <buffer> <C-h>
 	silent! nunmap <buffer> <C-k>
 	silent! nunmap <buffer> <C-l>
@@ -84,17 +86,18 @@ function! s:unite_settings()
 	imap <silent><buffer> <C-k> <Plug>(unite_select_previous_line)
 	nmap <silent><buffer> '     <Plug>(unite_toggle_mark_current_candidate)
 	nmap <silent><buffer> e     <Plug>(unite_do_default_action)
-	nmap <silent><buffer><expr> <C-v> unite#do_action('splitswitch')
-	nmap <silent><buffer><expr> <C-s> unite#do_action('vsplitswitch')
-	nmap <silent><buffer><expr> <C-t> unite#do_action('tabswitch')
+	nmap <silent><buffer><expr> sv unite#do_action('split')
+	nmap <silent><buffer><expr> sg unite#do_action('vsplit')
+	nmap <silent><buffer><expr> st unite#do_action('tabopen')
 	nnoremap <silent><buffer> <Tab>  <C-w>w
-	nmap <buffer> <ESC>              <Plug>(unite_exit)
-	imap <buffer> jj                 <Plug>(unite_insert_leave)
-	imap <buffer> <Tab>              <Plug>(unite_complete)
-	nmap <buffer> <C-z>              <Plug>(unite_toggle_transpose_window)
-	imap <buffer> <C-z>              <Plug>(unite_toggle_transpose_window)
-	imap <buffer> <C-w>              <Plug>(unite_delete_backward_path)
-	nmap <buffer> x                  <Plug>(unite_quick_match_jump)
+	nmap <buffer> <ESC>         <Plug>(unite_exit)
+	imap <buffer> jj            <Plug>(unite_insert_leave)
+	imap <buffer> <Tab>         <Plug>(unite_complete)
+	nmap <buffer> <C-z>         <Plug>(unite_toggle_transpose_window)
+	imap <buffer> <C-z>         <Plug>(unite_toggle_transpose_window)
+	nmap <buffer> <C-w>         <Plug>(unite_delete_backward_path)
+	nmap <buffer> <C-g>         <Plug>(unite_print_candidate)
+	nmap <buffer> x             <Plug>(unite_quick_match_jump)
 
 	let unite = unite#get_current_unite()
 	if unite.profile_name ==# '^search'
