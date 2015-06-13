@@ -356,6 +356,18 @@ if neobundle#tap('vim-jinja') "{{{
 endif
 
 " }}}
+if neobundle#tap('vim-gista') "{{{
+	let g:gista#directory = $VARPATH."/gista/"
+
+	autocmd MyAutoCmd FileType gista-list call s:gista_settings()
+	function! s:gista_settings()
+		nmap <buffer> q :q<CR>
+	endfunction
+
+	call neobundle#untap()
+endif
+
+" }}}
 if neobundle#tap('vim-fugitive') "{{{
 	function! neobundle#hooks.on_post_source(bundle)
 		doautoall fugitive BufNewFile

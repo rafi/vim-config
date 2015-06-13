@@ -172,6 +172,16 @@ NeoBundleLazy 'gregsexton/gitv', {
 	\ 'depends': 'tpope/vim-fugitive',
 	\ 'autoload': { 'commands': [ 'Gitv' ] }
 	\ }
+NeoBundleLazy 'lambdalisue/vim-gista', {
+	\ 'depends': [
+	\    'Shougo/unite.vim',
+	\    'tyru/open-browser.vim',
+	\ ],
+	\ 'autoload': {
+	\    'commands': ['Gista'],
+	\    'mappings': '<Plug>(gista-',
+	\    'unite_sources': 'gista',
+	\}}
 NeoBundleLazy 'sjl/gundo.vim', {
 	\ 'disabled': ! has('python'),
 	\ 'vim_version': '7.3',
