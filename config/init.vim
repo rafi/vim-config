@@ -4,14 +4,16 @@
 
 " Global Mappings "{{{
 " Use spacebar instead of '\' as leader. Require before loading plugins.
-" Use <Leader> in global plugin.
-let g:mapleader = ' '
-" Use <LocalLeader> in filetype plugin.
-let g:maplocalleader = ' '
+let g:mapleader="\<Space>"
+let g:maplocalleader=","
 
 " Release keymappings for plug-in.
+nnoremap ;  <Nop>
+xnoremap ;  <Nop>
 nnoremap <Space> <Nop>
 xnoremap <Space> <Nop>
+nnoremap ,  <Nop>
+xnoremap ,  <Nop>
 
 " }}}
 " Ensure cache directory "{{{

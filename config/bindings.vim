@@ -5,10 +5,6 @@
 " Non-standard {{{
 " ------------
 
-" Want a different map leader than \
-let g:mapleader="\<Space>"
-let g:maplocalleader="\\"
-
 " Maps the semicolon to colon in normal mode
 nmap ; :
 
@@ -24,14 +20,24 @@ endif
 nmap <BS> %
 xmap <BS> %
 
+" Use <C-Space> instead <C-@>
+nmap <C-Space>  <C-@>
+cmap <C-Space>  <C-@>
+
 " }}}
 " Global niceties {{{
 " ---------------
 
 " I do not use clipboard=unnamed, these
 " yank and paste from X11's clipboard.
-map <Leader>y "+y
-map <Leader>p "+p
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+nmap <Leader><Leader> V
+vmap <Leader><Leader> <Esc>
 
 " Remap some keys to be more useful
 nnoremap ' `
@@ -76,11 +82,11 @@ noremap } }^
 xnoremap < <gv
 xnoremap > >gv|
 
-" Use tab for indenting in normal/visual modes
-nnoremap <Tab> >>_
-nnoremap <S-Tab> <<_
+" Use tab for indenting in visual mode
 vnoremap <Tab> >gv|
 vnoremap <S-Tab> <gv
+nnoremap > >>_
+nnoremap < <<_
 
 " Select last paste
 nnoremap <expr> gp '`['.strpart(getregtype(), 0, 1).'`]'
@@ -88,9 +94,6 @@ nnoremap <expr> gp '`['.strpart(getregtype(), 0, 1).'`]'
 " disable EX-mode
 nnoremap  Q <Nop>
 nnoremap gQ <Nop>
-
-" Go to the starting position after visual modes
-vnoremap <ESC> o<ESC>
 
 " Operator [
 onoremap [ <ESC>
@@ -102,9 +105,6 @@ cnoremap <C-f> <Right>
 
 " <C-g> in command line
 cmap <C-g> <ESC><C-g>
-
-" Escape from Select mode to Normal mode
-snoremap <ESC> <C-c>
 
 " }}}
 " File operations {{{
@@ -148,16 +148,8 @@ nmap <Leader>th :nohlsearch<CR>
 nmap <Leader>tw :setlocal wrap! breakindent!<CR>
 
 " Tabs
-noremap <Leader>st  :tabnew<CR>
-nnoremap <silent> <C-t> :<C-u>tabnew<CR>
-inoremap <silent> <C-t> <ESC>:<C-u>tabnew<CR>
 nnoremap <silent> g0 :<C-u>tabfirst<CR>
 nnoremap <silent> g$ :<C-u>tablast<CR>
-noremap <C-Tab>   :tabn<CR>
-noremap <C-S-Tab> :tabp<CR>
-
-" tag
-nnoremap <C-@> <C-t>
 
 " Splits
 " I imagine v as an arrow, split below
@@ -186,9 +178,6 @@ nnoremap <silent> ,<Space> :<C-u>silent! keeppatterns %substitute/\s\+$//e<CR>
 
 " Diff
 nnoremap <silent> <expr> ,d ":\<C-u>".(&diff?"diffoff":"diffthis")."\<CR>"
-
-" Clear hlsearch and set nopaste
-nnoremap <silent> <Esc><Esc> :<C-u>set nopaste<CR>:nohlsearch<CR>
 
 " Make * and # work on visual mode too
 xnoremap * :<C-u>call VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
@@ -229,7 +218,7 @@ augroup MyAutoCmd " {{{
 	if has('mac')
 		" Use Marked for real-time (on save) Markdown preview
 		autocmd FileType markdown
-			\ nnoremap <Leader>P :silent !open -a Marked\ 2.app '%:p'<CR>
+			\ nnoremap <Leader>P :silent !open -a Marked\ 2.app '%:p'<CR>:redraw!<CR>
 		" Use Dash on Mac, for context help
 		autocmd FileType ansible,go,python,php,css,less,html,markdown
 			\ nnoremap <silent><buffer> K :!open -g dash://"<C-R>=&ft<CR>:<cword>"&<CR><CR>

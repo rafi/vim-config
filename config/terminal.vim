@@ -2,12 +2,6 @@
 " Xterm & Tmux
 "---------------------------------------------------------
 
-" Re-map Ctrl combinations {{{
-" Make Ctrl+Tab work in console, see also .config/xorg/Xresources
-map <Esc>[27;5;9~ <C-Tab>
-map <Esc>[27;6;9~ <C-S-Tab>
-" }}}
-
 if exists('$TMUX')
   set ttymouse=sgr
 

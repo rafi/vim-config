@@ -14,7 +14,7 @@ let g:vimfiler_readonly_file_icon = "⭤"
 let g:vimfiler_marked_file_icon = '✓'
 let g:vimfiler_preview_action = 'auto_preview'
 let g:vimfiler_ignore_pattern =
-	\ '^\%(\.git\|\.idea\|\.DS_Store\|\.vagrant\|node_modules\)$'
+	\ '^\%(\.git\|\.idea\|\.DS_Store\|\.vagrant\|node_modules\|.*\.pyc\)$'
 
 if has('mac')
 	let g:vimfiler_quick_look_command = 'qlmanage -p'
@@ -31,15 +31,16 @@ call vimfiler#custom#profile('default', 'context', {
 
 autocmd MyAutoCmd FileType vimfiler call s:vimfiler_settings()
 function! s:vimfiler_settings()
-	setlocal winfixwidth
 	setlocal nonumber
 
+	nunmap <buffer> <Space>
 	nunmap <buffer> <C-l>
 	nunmap <buffer> <C-j>
 	nunmap <buffer> E
 
 	nnoremap <silent><buffer><expr> sg  vimfiler#do_switch_action('vsplit')
 	nnoremap <silent><buffer><expr> sv  vimfiler#do_switch_action('split')
+	nmap <buffer> '      <Plug>(vimfiler_toggle_mark_current_line)
 	nmap <buffer> p      <Plug>(vimfiler_preview_file)
 	nmap <buffer> i      <Plug>(vimfiler_switch_to_history_directory)
 	nmap <buffer> <Tab>  <Plug>(vimfiler_switch_to_other_window)

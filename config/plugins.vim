@@ -25,7 +25,7 @@ if neobundle#tap('unite.vim') "{{{
 	nnoremap <silent> [unite]ma  :<C-u>Unite mapping -silent<CR>
 	nnoremap <silent> [unite]me  :<C-u>Unite output:message -silent<CR>
 	nnoremap <silent> <Leader>b  :<C-u>Unite buffer file_mru bookmark<CR>
-	nnoremap <silent> <Leader>ta :<C-u>Unite tab<CR>
+	nnoremap <silent> <Leader>ta :<C-u>Unite -auto-resize -select=`tabpagenr()-1` tab<CR>
 	" Open Unite with word under cursor or selection
 	nnoremap <silent> <Leader>gf :UniteWithCursorWord file_rec/async -profile-name=navigate<CR>
 	nnoremap <silent> <Leader>gg :UniteWithCursorWord grep:. -profile-name=navigate<CR>
