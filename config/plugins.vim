@@ -350,6 +350,12 @@ if neobundle#tap('vim-ansible-yaml') "{{{
 endif
 
 " }}}
+if neobundle#tap('vim-jinja') "{{{
+	let g:htmljinja_disable_detection = 0
+	call neobundle#untap()
+endif
+
+" }}}
 if neobundle#tap('vim-fugitive') "{{{
 	function! neobundle#hooks.on_post_source(bundle)
 		doautoall fugitive BufNewFile

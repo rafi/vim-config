@@ -70,6 +70,7 @@ NeoBundleLazy 'othree/html5.vim', { 'filetypes': 'html' }
 NeoBundleLazy 'mustache/vim-mustache-handlebars', { 'filetypes': 'html' }
 NeoBundleLazy 'rcmdnk/vim-markdown', { 'filetypes': 'markdown' }
 NeoBundleLazy 'chase/vim-ansible-yaml', { 'filetypes': [ 'yaml', 'ansible'] }
+NeoBundleLazy 'mitsuhiko/vim-jinja', { 'filetypes': [ 'htmljinja', 'jinja' ] }
 NeoBundleLazy 'groenewege/vim-less', { 'filetypes': 'less' }
 NeoBundleLazy 'hail2u/vim-css3-syntax', { 'filetypes': 'css' }
 NeoBundleLazy 'chrisbra/csv.vim', { 'filetypes': 'csv' }

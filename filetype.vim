@@ -17,6 +17,9 @@ augroup filetypedetect
 	autocmd BufNewFile,BufRead */ansible/inventory/*,*/ansible/playbooks/*/*.yml
 		\ setfiletype ansible
 
+	" Jinja
+	autocmd BufNewFile,BufRead *.j2 setfiletype jinja
+
 	" Tmux
 	autocmd BufNewFile,BufRead *tmux.conf*,Tmuxfile,*tmux/config setfiletype tmux
 
