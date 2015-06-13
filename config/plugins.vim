@@ -356,6 +356,15 @@ if neobundle#tap('vim-jinja') "{{{
 endif
 
 " }}}
+if neobundle#tap('vim-gita') "{{{
+	nnoremap <silent> <leader>gs :<C-u>Gita status<CR>
+	nnoremap <silent> <leader>gd :<C-u>Gita diff<CR>
+	nnoremap <silent> <leader>gc :<C-u>Gita commit<CR>
+	nnoremap <silent> <leader>gB :<C-u>Gita browse<CR>
+	call neobundle#untap()
+endif
+
+" }}}
 if neobundle#tap('vim-gista') "{{{
 	let g:gista#directory = $VARPATH."/gista/"
 
@@ -364,31 +373,6 @@ if neobundle#tap('vim-gista') "{{{
 		nmap <buffer> q :q<CR>
 	endfunction
 
-	call neobundle#untap()
-endif
-
-" }}}
-if neobundle#tap('vim-fugitive') "{{{
-	function! neobundle#hooks.on_post_source(bundle)
-		doautoall fugitive BufNewFile
-	endfunction
-	" ga gs gd gD gc gb gp gB gbd
-	nnoremap <silent> <leader>ga :Git add %:p<CR>
-	nnoremap <silent> <leader>gs :Gstatus<CR>
-	nnoremap <silent> <leader>gd :Gdiff<CR>
-	nnoremap <silent> <leader>gD :Gdiffoff<CR>
-	nnoremap <silent> <leader>gc :Gcommit<CR>
-	nnoremap <silent> <leader>gb :Gblame<CR>
-	nnoremap <silent> <leader>gp :Git push<CR>
-	nnoremap <silent> <leader>gB :Gbrowse<CR>
-	nnoremap <silent> <leader>gbd :Gbrowse<CR>
-	call neobundle#untap()
-endif
-
-"}}}
-if neobundle#tap('gitv') "{{{
-	let g:Gitv_DoNotMapCtrlKey = 1  " Do not map ctrl keys
-	nnoremap <silent> <leader>gl :Gitv --all<CR>
 	call neobundle#untap()
 endif
 

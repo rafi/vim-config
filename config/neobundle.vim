@@ -160,17 +160,8 @@ NeoBundleLazy 'scrooloose/syntastic', {
 	\     'SyntasticToggleMode', 'Errors', 'SyntasticInfo'
 	\   ]
 	\ }}
-NeoBundleLazy 'tpope/vim-fugitive', {
-	\ 'autoload': {
-	\   'augroup': 'fugitive',
-	\   'commands': [
-	\     'Git', 'Gdiff', 'Gstatus', 'Gwrite', 'Gcd', 'Glcd',
-	\     'Ggrep', 'Glog', 'Gcommit', 'Gblame', 'Gbrowse'
-	\   ]
-	\ }}
-NeoBundleLazy 'gregsexton/gitv', {
-	\ 'depends': 'tpope/vim-fugitive',
-	\ 'autoload': { 'commands': [ 'Gitv' ] }
+NeoBundleLazy 'lambdalisue/vim-gita', {
+	\ 'autoload': { 'commands': [ 'Gita' ] }
 	\ }
 NeoBundleLazy 'lambdalisue/vim-gista', {
 	\ 'depends': [
