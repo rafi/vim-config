@@ -28,7 +28,7 @@ if has('patch-7.3.541')
 endif
 
 " What to save for views:
-set viewoptions=cursor,folds,slash,unix
+set viewoptions-=options viewoptions+=slash,unix
 
 " What not to save in sessions:
 set sessionoptions-=options
@@ -104,7 +104,7 @@ set ignorecase      " Search ignoring case
 set smartcase       " Keep case when searching with *
 set infercase
 set incsearch       " Incremental search
-set hlsearch        " Highlight the search
+set nohlsearch      " Don't highlight the search
 set wrapscan        " Searches wrap around the end of the file
 set showmatch       " Jump to matching bracket
 set matchpairs+=<:> " Add HTML brackets to pair matching
@@ -147,11 +147,11 @@ set winheight=1         " Minimum height for current window
 set previewheight=8     " Completion preview height
 set helpheight=12       " Minimum help window height
 
-set display+=lastline,uhex
+set display=lastline
 set notitle             " No need for a title
 set noshowcmd           " Don't show command in status line
-set cmdheight=1         " Height of the command line
-set cmdwinheight=10     " Command-line lines
+set cmdheight=2         " Height of the command line
+set cmdwinheight=5      " Command-line lines
 set noequalalways       " Don't resize windows on split or close
 set laststatus=2        " Always show a status line
 
