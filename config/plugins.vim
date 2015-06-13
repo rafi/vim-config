@@ -215,12 +215,15 @@ endif
 
 "}}}
 if neobundle#tap('vim-smalls') "{{{
-	nmap <Nul>  <Plug>(smalls)
-	let cli_table_custom = {
-			\ "\<C-g>": 'do_cancel',
-			\ "\<C-j>": 'do_jump',
-			\ }
-	call smalls#keyboard#cli#extend_table(cli_table_custom)
+	nmap <Leader>j  <Plug>(smalls)
+	let g:smalls_highlight = {
+		\ 'SmallsCandidate':
+		\   [['NONE', 'NONE', 'yellow'],[ 'bold', 'NONE', 'yellow']],
+		\ 'SmallsJumpTarget':
+		\   [['NONE', 'white', 'black'],[ 'NONE', 'white', 'black']],
+		\ 'SmallsCurrent':
+		\   [['NONE', 'yellow', 'black'],[ 'NONE', 'yellow', 'black']],
+		\ }
 	call neobundle#untap()
 endif
 
