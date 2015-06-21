@@ -53,6 +53,7 @@ endif
 
 "}}}
 if neobundle#tap('deoplete.nvim') && has('nvim') "{{{
+	let g:deoplete#enable_at_startup = 1
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/deoplete.vim'
 	call neobundle#untap()
 endif
@@ -240,7 +241,7 @@ endif
 
 "}}}
 if neobundle#tap('jedi-vim') "{{{
-	autocmd FileType python setlocal omnifunc=jedi#completions completeopt=menuone,longest,preview
+	autocmd FileType python setlocal omnifunc=jedi#completions "completeopt=menuone,longest,preview
 	let g:jedi#completions_enabled = 0
 	let g:jedi#auto_vim_configuration = 0
 "	let g:jedi#force_py_version = 3

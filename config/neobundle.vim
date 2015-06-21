@@ -86,7 +86,7 @@ NeoBundleLazy 'fatih/vim-go', {
 	\ }
 NeoBundleLazy 'davidhalter/jedi-vim', {
 	\ 'disabled': len($SSH_CLIENT),
-	\ 'filetypes': [ 'python', 'python3' ]
+	\ 'filetypes': 'python'
 	\ }
 NeoBundleLazy 'vim-ruby/vim-ruby', {
 	\ 'mappings': '<Plug>',
@@ -261,6 +261,7 @@ NeoBundleLazy 'Raimondi/delimitMate', { 'insert': 1 }
 NeoBundleLazy 'Shougo/echodoc.vim', { 'insert': 1 }
 NeoBundleLazy 'kana/vim-smartchr', { 'insert': 1 }
 NeoBundleLazy 'Shougo/deoplete', {
+	\ 'depends': 'Shougo/context_filetype.vim',
 	\ 'disabled': ! has('nvim') || len($SSH_CLIENT),
 	\ 'insert': 1
 	\ }
