@@ -104,7 +104,7 @@ set ignorecase      " Search ignoring case
 set smartcase       " Keep case when searching with *
 set infercase
 set incsearch       " Incremental search
-set nohlsearch      " Don't highlight the search
+set hlsearch        " Highlight search results
 set wrapscan        " Searches wrap around the end of the file
 set showmatch       " Jump to matching bracket
 set matchpairs+=<:> " Add HTML brackets to pair matching

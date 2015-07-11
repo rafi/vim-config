@@ -80,6 +80,7 @@ NeoBundleLazy 'tmux-plugins/vim-tmux', { 'filetypes': 'tmux' }
 NeoBundleLazy 'elzr/vim-json', { 'filetypes': 'json' }
 NeoBundleLazy 'PotatoesMaster/i3-vim-syntax', { 'filetypes': 'i3' }
 NeoBundleLazy 'jamestomasino/vim-writingsyntax', { 'filetypes': 'writing' }
+NeoBundleLazy 'ekalinin/Dockerfile.vim', { 'filetypes': 'Dockerfile' }
 NeoBundleLazy 'fatih/vim-go', {
 	\ 'filetypes': 'go',
 	\ 'disabled': len($SSH_CLIENT)

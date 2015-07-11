@@ -11,6 +11,8 @@ augroup MyAutoCmd
 				\ |   filetype detect
 				\ | endif
 
+	autocmd FileType crontab setlocal nobackup nowritebackup
+
 	autocmd FileType gitcommit setlocal spell
 
 	autocmd FileType gitcommit,qfreplace setlocal nofoldenable
