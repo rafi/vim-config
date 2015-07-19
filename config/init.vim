@@ -43,7 +43,7 @@ let g:neobundle#types#git#default_protocol = 'git'
 if has('vim_starting')
 	if isdirectory($XDG_CONFIG_HOME.'/vim')
 		" Respect XDG
-		let $MYVIMRC='$XDG_CONFIG_HOME/vim/vimrc'
+		let $MYVIMRC=expand('$XDG_CONFIG_HOME/vim/vimrc')
 		set runtimepath=$VIMPATH,$VIM/vimfiles,$VIMRUNTIME
 		set runtimepath+=$VIM/vimfiles/after,$VIMPATH/after
 	endif

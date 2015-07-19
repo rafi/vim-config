@@ -175,7 +175,6 @@ NeoBundleLazy 'lambdalisue/vim-gista', {
 	\    'unite_sources': 'gista',
 	\}}
 NeoBundleLazy 'sjl/gundo.vim', {
-	\ 'disabled': ! has('python'),
 	\ 'vim_version': '7.3',
 	\ 'autoload': { 'commands': [ 'GundoToggle' ] }
 	\ }
@@ -188,7 +187,7 @@ NeoBundleLazy 'gorkunov/smartpairs.vim', {
 	\  'mappings': [[ 'n', 'viv', 'vav' ], [ 'v', 'v' ]]
 	\ }}
 NeoBundleLazy 'farseer90718/vim-colorpicker', {
-	\ 'disabled': ! has('python') || $SSH_CLIENT,
+	\ 'disabled': len($SSH_CLIENT),
 	\ 'commands': 'ColorPicker'
 	\ }
 NeoBundleLazy 't9md/vim-smalls', { 'mappings': '<Plug>' }
@@ -261,14 +260,14 @@ NeoBundleLazy 'xolox/vim-session', {
 NeoBundleLazy 'Raimondi/delimitMate', { 'insert': 1 }
 NeoBundleLazy 'Shougo/echodoc.vim', { 'insert': 1 }
 NeoBundleLazy 'kana/vim-smartchr', { 'insert': 1 }
-NeoBundleLazy 'Shougo/deoplete', {
+NeoBundleLazy 'Shougo/deoplete.nvim', {
 	\ 'depends': 'Shougo/context_filetype.vim',
 	\ 'disabled': ! has('nvim') || len($SSH_CLIENT),
 	\ 'insert': 1
 	\ }
 NeoBundleLazy 'Shougo/neocomplete', {
 	\ 'depends': 'Shougo/context_filetype.vim',
-	\ 'disabled': ! has('lua') || $SSH_CLIENT,
+	\ 'disabled': ! has('lua') || len($SSH_CLIENT),
 	\ 'vim_version': '7.3.885',
 	\ 'insert': 1
 	\ }

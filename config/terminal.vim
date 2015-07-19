@@ -3,7 +3,9 @@
 "---------------------------------------------------------
 
 if exists('$TMUX')
-  set ttymouse=sgr
+	if ! has('nvim')
+		set ttymouse=sgr
+	endif
 
 	" Assigns some xterm(1)-style keys to escape sequences passed by tmux {{{
 	" when "xterm-keys" is set to "on".  Inspired by an example given by
