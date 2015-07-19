@@ -4,7 +4,6 @@
 
 let g:neocomplete#max_list = 100
 let g:neocomplete#disable_auto_complete = 0
-"let g:neocomplete#force_overwrite_completefunc = 1
 let g:neocomplete#enable_auto_close_preview = 1
 let g:neocomplete#enable_auto_delimiter = 1
 
@@ -17,18 +16,18 @@ let g:neocomplete#skip_auto_completion_time = '0.20'
 " Smart case and no fuzziness, disabling heavy operations
 let g:neocomplete#enable_smart_case       = 1
 let g:neocomplete#enable_camel_case       = 1
-let g:neocomplete#enable_fuzzy_completion = 0
+let g:neocomplete#enable_fuzzy_completion = 1
 "let g:neocomplete#enable_refresh_always   = 0
-let g:neocomplete#enable_prefetch         = 1
+"let g:neocomplete#enable_prefetch         = 1
 
 " Minimum char completion lengths
 let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#auto_completion_start_length      = 1
+let g:neocomplete#auto_completion_start_length      = 2
 let g:neocomplete#manual_completion_start_length    = 0
 let g:neocomplete#min_keyword_length                = 3
 
-let g:neocomplete#enable_auto_select = 0
-let g:neocomplete#enable_auto_delimiter = 0
+let g:neocomplete#enable_auto_select = 1
+let g:neocomplete#enable_auto_delimiter = 1
 let g:neocomplete#disable_auto_select_buffer_name_pattern =
       \ '\[Command Line\]'
 
@@ -79,8 +78,7 @@ let g:neocomplete#force_omni_input_patterns.python =
 " Mappings {{{
 " --------
 
-" DISABLED: 20150517 "Pattern not found" error in yaml/ansible types
-"let g:neocomplete#fallback_mappings = ["\<C-x>\<C-o>", "\<C-x>\<C-n>"]
+let g:neocomplete#fallback_mappings = ["\<C-x>\<C-o>", "\<C-x>\<C-n>"]
 
 " Movement within 'ins-completion-menu'
 inoremap <expr><C-j>   "\<Down>"
