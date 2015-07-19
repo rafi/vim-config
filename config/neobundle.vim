@@ -145,7 +145,7 @@ NeoBundleLazy 'Shougo/vimfiler.vim', {
 	\ 'mappings': '<Plug>',
 	\ 'explorer': 1,
 	\ 'commands': [
-	\    { 'name': [ 'VimFiler', 'Edit', 'Write'],
+	\    { 'name': [ 'VimFiler', 'VimFilerExplorer'],
 	\      'complete': 'customlist,vimfiler#complete' },
 	\    'Read', 'Source'
 	\ ]}
