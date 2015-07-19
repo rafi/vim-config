@@ -37,6 +37,7 @@ if neobundle#load_cache()
 	call s:source_file('neobundle.vim')
 	NeoBundleSaveCache
 endif
+call neobundle#local(expand('$VIMPATH/dev'), {})
 call s:source_file('plugins.vim')
 call neobundle#end()
 " }}}
