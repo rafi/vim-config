@@ -2,10 +2,8 @@
 " Xterm & Tmux
 "---------------------------------------------------------
 
-if exists('$TMUX')
-	if ! has('nvim')
-		set ttymouse=sgr
-	endif
+if exists('$TMUX') && ! has('nvim')
+	set ttymouse=sgr
 
 	" Assigns some xterm(1)-style keys to escape sequences passed by tmux {{{
 	" when "xterm-keys" is set to "on".  Inspired by an example given by
@@ -57,7 +55,7 @@ if exists('$TMUX')
 	let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>[0 q\<Esc>\\"
 	" }}}
 
-else
+elseif ! has('nvim')
 	set ttymouse=urxvt     " Set mouse terminal type
 
 	" Cursor shape outside of tmux
