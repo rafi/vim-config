@@ -59,7 +59,6 @@ NeoBundleLazy 'robbles/logstash.vim', { 'filetypes': 'logstash' }
 NeoBundleLazy 'tmux-plugins/vim-tmux', { 'filetypes': 'tmux' }
 NeoBundleLazy 'elzr/vim-json', { 'filetypes': 'json' }
 NeoBundleLazy 'PotatoesMaster/i3-vim-syntax', { 'filetypes': 'i3' }
-NeoBundleLazy 'jamestomasino/vim-writingsyntax', { 'filetypes': 'writing' }
 NeoBundleLazy 'ekalinin/Dockerfile.vim', { 'filetypes': 'Dockerfile' }
 NeoBundleLazy 'fatih/vim-go', {
 	\ 'filetypes': 'go',
@@ -100,11 +99,6 @@ NeoBundleLazy 'shawncplus/phpcomplete.vim', {
 	\ 'disabled': len($SSH_CLIENT),
 	\ 'insert': 1,
 	\ 'filetypes': 'php'
-	\ }
-NeoBundleLazy 'tobyS/pdv', {
-	\ 'disabled': len($SSH_CLIENT),
-	\ 'filetypes': 'php',
-	\ 'depends': 'tobyS/vmustache'
 	\ }
 NeoBundleLazy '2072/PHP-Indenting-for-VIm', {
 	\ 'filetypes': 'php',
@@ -179,10 +173,6 @@ NeoBundleLazy 'gorkunov/smartpairs.vim', {
 	\  'commands': [ 'SmartPairs', 'SmartPairsI', 'SmartPairsA' ],
 	\  'mappings': [[ 'n', 'viv', 'vav' ], [ 'v', 'v' ]]
 	\ }}
-NeoBundleLazy 'farseer90718/vim-colorpicker', {
-	\ 'disabled': len($SSH_CLIENT),
-	\ 'commands': 'ColorPicker'
-	\ }
 NeoBundleLazy 't9md/vim-smalls', { 'mappings': '<Plug>' }
 NeoBundleLazy 'tyru/open-browser.vim', {
 	\ 'disabled': len($SSH_CLIENT),
@@ -193,10 +183,6 @@ NeoBundleLazy 'thinca/vim-prettyprint', { 'commands': 'PP' }
 NeoBundleLazy 'thinca/vim-quickrun', { 'mappings': '<Plug>' }
 NeoBundleLazy 'thinca/vim-ref', { 'unite_sources': 'ref' }
 NeoBundleLazy 'itchyny/dictionary.vim', { 'commands': 'Dictionary' }
-NeoBundleLazy 'dhruvasagar/vim-dotoo', {
-	\ 'disabled': len($SSH_CLIENT),
-	\ 'mappings': [['n', 'gA', 'gC']]
-	\ }
 NeoBundleLazy 'vimwiki/vimwiki', {
 	\ 'disabled': len($SSH_CLIENT),
 	\ 'rev': 'dev',
@@ -283,12 +269,10 @@ NeoBundleLazy 'Shougo/unite.vim', {
 " Unite sources {{{
 " -------------
 NeoBundleLazy 'ujihisa/unite-colorscheme'
-NeoBundleLazy 'Kocha/vim-unite-tig'
 NeoBundleLazy 'osyo-manga/unite-filetype'
 NeoBundleLazy 'thinca/vim-unite-history'
 NeoBundleLazy 'Shougo/unite-build'
 NeoBundleLazy 'Shougo/unite-outline'
-NeoBundleLazy 'kmnk/vim-unite-giti'
 NeoBundleLazy 'tsukkee/unite-tag', {
 	\  'unite_sources': [ 'tag', 'tag/file', 'tag/include' ]
 	\ }

@@ -261,12 +261,6 @@ if neobundle#tap('phpfolding.vim') "{{{
 endif
 
 "}}}
-if neobundle#tap('pdv') "{{{
-	let g:pdv_template_dir = $VIMPATH.'/snippets/phpdoc'
-	call neobundle#untap()
-endif
-
-"}}}
 if neobundle#tap('vim-gitgutter') "{{{
 	nmap <Leader>hj <Plug>GitGutterNextHunk
 	nmap <Leader>hk <Plug>GitGutterPrevHunk
@@ -364,7 +358,9 @@ if neobundle#tap('vim-gita') "{{{
 	nnoremap <silent> <leader>gs :<C-u>Gita status<CR>
 	nnoremap <silent> <leader>gd :<C-u>Gita diff<CR>
 	nnoremap <silent> <leader>gc :<C-u>Gita commit<CR>
+	nnoremap <silent> <leader>gb :<C-u>Gita blame<CR>
 	nnoremap <silent> <leader>gB :<C-u>Gita browse<CR>
+	nnoremap <silent> <leader>gp :<C-u>Gita push<CR>
 	call neobundle#untap()
 endif
 
@@ -416,12 +412,6 @@ if neobundle#tap('incsearch.vim') "{{{
 	call neobundle#untap()
 endif
 
-"}}}
-if neobundle#tap('vim-colorpicker') "{{{
-	nmap <Leader>co :ColorPicker<CR>
-	call neobundle#untap()
-endif
-
 " }}}
 if neobundle#tap('quickrun.vim') "{{{
   nmap <silent> <Leader>r <Plug>(quickrun)
@@ -444,17 +434,6 @@ endif
 "}}}
 if neobundle#tap('dictionary.vim') "{{{
 	nnoremap <silent> <Leader>? :<C-u>Dictionary -no-duplicate<CR>
-"	let g:dictionary_executable_path = '~/.local/bin/'
-
-	call neobundle#untap()
-endif
-
-"}}}
-if neobundle#tap('vim-dotoo') "{{{
-	let g:dotoo#agenda#files = [ '~/docs/todo/*.dotoo' ]
-	let g:dotoo#capture#refile = expand('~/docs/todo/refile.dotoo')
-	let g:dotoo#time#time_ago_short = 0
-	let g:dotoo#capture#clock = 1
 
 	call neobundle#untap()
 endif
