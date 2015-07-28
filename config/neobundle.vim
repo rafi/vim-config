@@ -20,32 +20,12 @@ NeoBundle 'itchyny/vim-gitbranch'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'MattesGroeger/vim-bookmarks'
 NeoBundle 'christoomey/vim-tmux-navigator'
-NeoBundle 'regedarek/ZoomWin'  " TODO: Lazy has problems restoring splits
-
-" My own plugins
 NeoBundle 'rafi/vim-tinyline', { 'directory': 'tinyline' }
 NeoBundle 'rafi/vim-tagabana', { 'directory': 'tagabana' }
+NeoBundle 'regedarek/ZoomWin'  " TODO: Lazy has problems restoring splits
 
 " LAZY LOADING from here on
 " --------------------------------------------------------
-
-NeoBundleLazy 'rafi/vim-tinycomment', {
-	\ 'directory': 'tinycomment',
-	\ 'augroup': 'tinycomment',
-	\ 'commands': [ 'TinyCommentLines', 'TinyCommentBlock' ],
-	\ 'mappings': [
-	\   [ 'n', '<leader>v' ], [ 'v', '<leader>v' ],
-	\   [ 'v', '<leader>V' ]
-	\ ]}
-NeoBundleLazy 'rafi/vim-phpspec', {
-	\ 'filetypes': 'php',
-	\ 'directory': 'phpspec',
-	\ 'commands': [ 'PhpSpecRun', 'PhpSpecRunCurrent' ]
-	\ }
-NeoBundleLazy 'rafi/vim-unite-issue', {
-	\  'directory': 'unite-issue',
-	\  'depends': [ 'mattn/webapi-vim', 'tyru/open-browser.vim' ]
-	\ }
 
 " }}}
 " Color-schemes {{{
@@ -130,6 +110,11 @@ NeoBundleLazy '2072/PHP-Indenting-for-VIm', {
 	\ 'filetypes': 'php',
 	\ 'directory': 'php-indent'
 	\ }
+NeoBundleLazy 'rafi/vim-phpspec', {
+	\ 'filetypes': 'php',
+	\ 'directory': 'phpspec',
+	\ 'commands': [ 'PhpSpecRun', 'PhpSpecRunCurrent' ]
+	\ }
 " }}}
 
 " }}}
@@ -148,6 +133,14 @@ NeoBundleLazy 'Shougo/vimfiler.vim', {
 	\    { 'name': [ 'VimFiler', 'VimFilerExplorer'],
 	\      'complete': 'customlist,vimfiler#complete' },
 	\    'Read', 'Source'
+	\ ]}
+NeoBundleLazy 'rafi/vim-tinycomment', {
+	\ 'directory': 'tinycomment',
+	\ 'augroup': 'tinycomment',
+	\ 'commands': [ 'TinyCommentLines', 'TinyCommentBlock' ],
+	\ 'mappings': [
+	\   [ 'n', '<leader>v' ], [ 'v', '<leader>v' ],
+	\   [ 'v', '<leader>V' ]
 	\ ]}
 NeoBundleLazy 'Shougo/vinarise.vim', {
 	\ 'commands': [
@@ -239,7 +232,6 @@ NeoBundleLazy 'BufClose.vim', { 'commands': [ 'BufClose' ]}
 NeoBundleLazy 'matchit.zip', { 'mappings': [[ 'nxo', '%', 'g%' ]]}
 NeoBundleLazy 'Yggdroot/indentLine', { 'filetypes': 'all' }
 NeoBundleLazy 'xolox/vim-session', {
-	\ 'disabled': len($SSH_CLIENT),
 	\ 'depends': 'xolox/vim-misc',
 	\ 'augroup': 'PluginSession',
 	\ 'autoload': {
@@ -315,6 +307,10 @@ NeoBundleLazy 'joker1007/unite-pull-request', {
 NeoBundleLazy 'Shougo/junkfile.vim', {
 	\ 'disabled': len($SSH_CLIENT),
 	\ 'unite_sources': 'junkfile'
+	\ }
+NeoBundleLazy 'rafi/vim-unite-issue', {
+	\  'directory': 'unite-issue',
+	\  'depends': [ 'mattn/webapi-vim', 'tyru/open-browser.vim' ]
 	\ }
 " }}}
 
