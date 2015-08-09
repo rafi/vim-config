@@ -138,6 +138,7 @@ NeoBundleLazy 'scrooloose/syntastic', {
 	\   ]
 	\ }}
 NeoBundleLazy 'lambdalisue/vim-gita', {
+	\ 'rev': 'feature/gita-blame-feature',
 	\ 'autoload': { 'commands': [ 'Gita' ] }
 	\ }
 NeoBundleLazy 'lambdalisue/vim-gista', {
