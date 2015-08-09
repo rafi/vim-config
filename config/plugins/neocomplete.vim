@@ -98,14 +98,14 @@ inoremap <expr><C-l> neocomplete#complete_common_string()
 imap     <expr><C-d> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
 imap     <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
 
-" <CR>: If popup menu visible, expand snippet or close popup with selection.
+" <CR>: If popup menu visible, expand snippet or close popup with selection,
+"       Otherwise, check if within empty pair and use delimitMate.
 imap <expr><silent><CR> pumvisible() ?
 	\ (neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : neocomplete#close_popup())
-	\ : "\<CR>"
+	\ : (delimitMate#WithinEmptyPair() ? "\<Plug>delimitMateCR" : "\<CR>")
 
 " <C+Space> unite completion
-" How weird is that <C-Space> in some(?) terminals is <Nul>?!
-"imap <Nul>  <Plug>(neocomplete_start_unite_complete)
+imap <C-Space>  <Plug>(neocomplete_start_unite_complete)
 
 " <Tab> completion:
 " 1. If popup menu is visible, select and insert next item
