@@ -70,6 +70,7 @@ noremap <expr> <C-y> (line("w0") <= 1         ? "k" : "3\<C-y>")
 
 " Navigate window
 nnoremap <C-x> <C-w>x
+nnoremap <silent> <C-w>z :ZoomToggle<CR>
 nnoremap <expr><C-m> (bufname('%') ==# '[Command Line]' <bar><bar> &l:buftype ==# 'quickfix') ? "<CR>" : "<C-w>j"
 
 " Increment and decrement
