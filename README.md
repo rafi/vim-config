@@ -19,13 +19,13 @@ Best with Vim 7.4
 
 ## Install
 
-1. Clone to `~/.vim`:
-```sh
-git clone git://github.com/rafi/vim-config.git ~/.vim
-```
+1. Clone `git clone git://github.com/rafi/vim-config.git ~/.vim`
+2. Run `make install`
+3. Start `vim`, `gvim`, or `nvim`
 
-2. Install plugins: `vim +NeoBundleInstall +q`
-3. Run `vim`, `gvim`, or `nvim`
+## Upgrade
+
+Run `make update`
 
 ## XDG conformity
 
