@@ -6,6 +6,7 @@ install:
 	$(vim) +NeoBundleInstall +q
 
 update:
+	git pull --ff --ff-only; \
 	$(vim) +NeoBundleClearCache +NeoBundleCheck +NeoBundleUpdate +NeoBundleUpdatesLog +q
 upgrade: update
 
