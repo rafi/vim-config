@@ -80,7 +80,7 @@ Name           | Description
 -------------- | ----------------------
 [neobundle] | Next generation package manager
 [vimproc] | Interactive command execution
-[hybrid] | Dark colour scheme
+[colorschemes] | Awesome color-schemes
 [file-line] | Allow opening a file in a given line
 [neomru] | MRU source for Unite
 [cursorword] | Underlines word under cursor
@@ -90,7 +90,6 @@ Name           | Description
 [tmux-navigator] | Seamless navigation between tmux panes and vim splits
 [tinyline] | Tiny great looking statusline
 [tagabana] | Central location for all tags
-[zoomwin] | Zoom in/out of windows
 
 ### Language
 Name           | Description
@@ -107,6 +106,7 @@ Name           | Description
 [logstash] | Highlights logstash configuration files
 [tmux] | vim plugin for tmux.conf
 [json] | Better JSON support
+[toml] | Syntax for TOML
 [i3] | i3 window manager config syntax
 [Dockerfile] | syntax and snippets for Dockerfile
 [go] | Go development
@@ -133,17 +133,14 @@ Name           | Description
 [gista] | Manipulate gists in Vim
 [gundo] | Visualize the Vim undo tree
 [incsearch] | Improved incremental searching
-[smartpairs] | Fantastic selection
-[smalls] | Spot your cursor with simple search
+[expand-region] | Visually select increasingly larger regions of text
 [open-browser] | Open URI with your favorite browser
 [prettyprint] | Pretty-print vim variables
 [quickrun] | Run commands quickly
 [ref] | Integrated reference viewer
 [dictionary] | Dictionary.app interface
 [vimwiki] | Personal Wiki for Vim
-[calendar] | Personal calendar
 [thesaurus] | Look up words in an online thesaurus
-[closebuffer] | Close buffers
 
 ### Commands
 Name           | Description
@@ -161,7 +158,6 @@ Name           | Description
 -------------- | ----------------------
 [delimitmate] | Insert mode auto-completion for quotes, parens, brackets
 [echodoc] | Print objects' documentation in echo area
-[smartchr] | Insert several candidates for a single key
 [deoplete] | Neovim: Dark powered asynchronous completion framework
 [neocomplete] | Next generation completion framework
 [neosnippet] | Contains neocomplete snippets source
@@ -193,7 +189,7 @@ Name           | Description
 
 [neobundle]: https://github.com/Shougo/neobundle.vim
 [vimproc]: https://github.com/Shougo/vimproc.vim
-[hybrid]: https://github.com/w0ng/vim-hybrid
+[colorschemes]: https://github.com/rafi/awesome-vim-colorschemes
 [file-line]: https://github.com/bogado/file-line
 [neomru]: https://github.com/Shougo/neomru.vim
 [cursorword]: https://github.com/itchyny/vim-cursorword
@@ -203,7 +199,6 @@ Name           | Description
 [tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator
 [tinyline]: https://github.com/rafi/vim-tinyline
 [tagabana]: https://github.com/rafi/vim-tagabana
-[zoomwin]: https://github.com/regedarek/ZoomWin
 
 [html5]: https://github.com/othree/html5.vim
 [mustache]: https://github.com/mustache/vim-mustache-handlebars
@@ -217,6 +212,7 @@ Name           | Description
 [logstash]: https://github.com/robbles/logstash.vim
 [tmux]: https://github.com/tmux-plugins/vim-tmux
 [json]: https://github.com/elzr/vim-json
+[toml]: https://github.com/cespare/vim-toml
 [i3]: https://github.com/PotatoesMaster/i3-vim-syntax
 [Dockerfile]: https://github.com/ekalinin/Dockerfile.vim
 [go]: https://github.com/fatih/vim-go
@@ -242,17 +238,14 @@ Name           | Description
 [gista]: https://github.com/lambdalisue/vim-gista
 [gundo]: https://github.com/sjl/gundo.vim
 [incsearch]: https://github.com/haya14busa/incsearch.vim
-[smartpairs]: https://github.com/gorkunov/smartpairs.vim
-[smalls]: https://github.com/t9md/vim-smalls
+[expand-region]: https://github.com/terryma/vim-expand-region
 [open-browser]: https://github.com/tyru/open-browser.vim
 [prettyprint]: https://github.com/thinca/vim-prettyprint
 [quickrun]: https://github.com/thinca/vim-quickrun
 [ref]: https://github.com/thinca/vim-ref
 [dictionary]: https://github.com/itchyny/dictionary.vim
 [vimwiki]: https://github.com/vimwiki/vimwiki
-[calendar]: https://github.com/mattn/calendar-vim
 [thesaurus]: https://github.com/beloglazov/vim-online-thesaurus
-[closebuffer]: https://github.com/itchyny/vim-closebuffer
 
 [goyo]: https://github.com/junegunn/goyo.vim
 [limelight]: https://github.com/junegunn/limelight.vim
@@ -264,7 +257,6 @@ Name           | Description
 
 [delimitmate]: https://github.com/Raimondi/delimitMate
 [echodoc]: https://github.com/Shougo/echodoc.vim
-[smartchr]: https://github.com/kana/vim-smartchr
 [deoplete]: https://github.com/Shougo/deoplete.nvim
 [neocomplete]: https://github.com/Shougo/neocomplete.vim
 [neosnippet]: https://github.com/Shougo/neosnippet.vim

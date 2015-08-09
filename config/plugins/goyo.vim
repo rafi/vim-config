@@ -18,9 +18,6 @@ function! s:goyo_enter()
 		" Hide tmux status
 		silent !tmux set status off
 	endif
-	" Disable ZoomWin
-	delcommand ZoomWin
-	delcommand <Plug>ZoomWin
 
 	" Activate Limelight
 	Limelight
@@ -46,10 +43,6 @@ function! s:goyo_leave()
 		" Show tmux status
 		silent !tmux set status on
 	endif
-
-	" Enable ZoomWin
-	command! ZoomWin call ZoomWin()
-	command! <Plug>ZoomWin call ZoomWin()
 
 	" De-activate Limelight
 	Limelight!

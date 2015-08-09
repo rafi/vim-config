@@ -92,15 +92,6 @@ if neobundle#tap('neomru.vim') "{{{
 endif
 
 "}}}
-if neobundle#tap('vim-winfix') "{{{
-	let g:winfix_enable = 1
-	let g:winfix_tabfocus = 1
-	let g:winfix_resize = 1
-	let g:winfix_winfocus = 1
-	call neobundle#untap()
-endif
-
-"}}}
 if neobundle#tap('echodoc.vim') "{{{
 	let g:echodoc_enable_at_startup = 1
 	call neobundle#untap()
@@ -130,24 +121,11 @@ if neobundle#tap('matchit.zip') "{{{
 endif
 
 "}}}
-if neobundle#tap('vinarise.vim') "{{{
-	let g:vinarise_enable_auto_detect = 1
-	call neobundle#untap()
-endif
-
-"}}}
-if neobundle#tap('vim-smartchr') "{{{
-	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/smartchr.vim'
-	call neobundle#untap()
-endif
-
-"}}}
 if neobundle#tap('vim-operator-surround') "{{{
 	nmap <silent>sa <Plug>(operator-surround-append)a
 	nmap <silent>sd <Plug>(operator-surround-delete)a
 	nmap <silent>sr <Plug>(operator-surround-replace)a
 	nmap <silent>sc <Plug>(operator-surround-replace)a
-
 	call neobundle#untap()
 endif
 
@@ -169,7 +147,6 @@ if neobundle#tap('vim-textobj-user') "{{{
 	omap ib <Plug>(textobj-multiblock-i)
 	xmap ab <Plug>(textobj-multiblock-a)
 	xmap ib <Plug>(textobj-multiblock-i)
-
 	call neobundle#untap()
 endif
 
@@ -201,6 +178,7 @@ endif
 "}}}
 if neobundle#tap('goyo.vim') "{{{
 	nnoremap <Leader>G :Goyo<CR>
+
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/goyo.vim'
 	call neobundle#untap()
 endif
@@ -211,20 +189,6 @@ if neobundle#tap('vim-choosewin') "{{{
 	nmap <Leader>- :<C-u>ChooseWinSwap<CR>
 
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/choosewin.vim'
-	call neobundle#untap()
-endif
-
-"}}}
-if neobundle#tap('vim-smalls') "{{{
-	nmap <Leader>j  <Plug>(smalls)
-	let g:smalls_highlight = {
-		\ 'SmallsCandidate':
-		\   [['NONE', 'NONE', 'yellow'],[ 'bold', 'NONE', 'yellow']],
-		\ 'SmallsJumpTarget':
-		\   [['NONE', 'white', 'black'],[ 'NONE', 'white', 'black']],
-		\ 'SmallsCurrent':
-		\   [['NONE', 'yellow', 'black'],[ 'NONE', 'yellow', 'black']],
-		\ }
 	call neobundle#untap()
 endif
 
@@ -241,22 +205,24 @@ endif
 
 "}}}
 if neobundle#tap('jedi-vim') "{{{
-	autocmd FileType python setlocal omnifunc=jedi#completions "completeopt=menuone,longest,preview
+	autocmd FileType python setlocal omnifunc=jedi#completions completeopt=menuone,longest
 	let g:jedi#completions_enabled = 0
 	let g:jedi#auto_vim_configuration = 0
-"	let g:jedi#force_py_version = 3
 	call neobundle#untap()
 endif
 
 "}}}
 if neobundle#tap('phpcomplete.vim') "{{{
-	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/phpcomplete.vim'
+	augroup phpSyntaxOverride
+		autocmd!
+		autocmd FileType php hi! def link phpDocTags phpDefine
+	augroup END
 	call neobundle#untap()
 endif
 
 "}}}
 if neobundle#tap('phpfolding.vim') "{{{
-	let g:DisableAutoPHPFolding = 1  " Do not fold automatically
+	let g:DisableAutoPHPFolding = 1
 	call neobundle#untap()
 endif
 
@@ -413,7 +379,15 @@ if neobundle#tap('incsearch.vim') "{{{
 endif
 
 " }}}
-if neobundle#tap('quickrun.vim') "{{{
+if neobundle#tap('vim-expand-region') "{{{
+  xmap v <Plug>(expand_region_expand)
+  xmap <C-v> <Plug>(expand_region_shrink)
+
+  call neobundle#untap()
+endif
+
+" }}}
+if neobundle#tap('vim-quickrun') "{{{
   nmap <silent> <Leader>r <Plug>(quickrun)
   call neobundle#untap()
 endif
@@ -458,13 +432,6 @@ endif
 if neobundle#tap('vim-online-thesaurus') "{{{
 	let g:online_thesaurus_map_keys = 0
 	nnoremap <silent> <Leader>K :<C-u>OnlineThesaurusCurrentWord<CR>
-
-	call neobundle#untap()
-endif
-
-"}}}
-if neobundle#tap('vim-closebuffer') "{{{
-	map <C-q> <Plug>(closebuffer)
 
 	call neobundle#untap()
 endif

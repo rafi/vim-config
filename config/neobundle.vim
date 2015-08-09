@@ -12,36 +12,25 @@ NeoBundle 'Shougo/vimproc.vim', {
 	\    'windows': 'tools\\update-dll-mingw'
 	\ }}
 
-NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'bogado/file-line'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'itchyny/vim-cursorword'
 NeoBundle 'itchyny/vim-gitbranch'
 NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'MattesGroeger/vim-bookmarks'
-NeoBundle 'christoomey/vim-tmux-navigator'
 NeoBundle 'rafi/vim-tinyline', { 'directory': 'tinyline' }
 NeoBundle 'rafi/vim-tagabana', { 'directory': 'tagabana' }
-NeoBundle 'regedarek/ZoomWin'  " TODO: Lazy has problems restoring splits
+NeoBundle 'MattesGroeger/vim-bookmarks'
+NeoBundle 'christoomey/vim-tmux-navigator'
 
 " LAZY LOADING from here on
 " --------------------------------------------------------
 
 " }}}
-" Color-schemes {{{
+" Color tools {{{
 " -------------
-NeoBundleLazy 'godlygeek/csapprox', { 'terminal' : 1 }
-NeoBundleLazy 'thinca/vim-guicolorscheme', { 'terminal' : 1 }
-NeoBundleLazy 'chriskempson/base16-vim'
-NeoBundleLazy 'romainl/Apprentice'
-NeoBundleLazy 'chase/focuspoint-vim'
-NeoBundleLazy 'gregsexton/Atom'
-NeoBundleLazy 'jonathanfilip/vim-lucius'
-NeoBundleLazy 'tomasr/molokai'
-NeoBundleLazy 'vim-scripts/pyte'
-NeoBundleLazy 'vim-scripts/rdark-terminal2.vim'
-NeoBundleLazy 'vim-scripts/twilight256.vim'
-NeoBundleLazy 'vim-scripts/wombat256.vim'
+NeoBundleLazy 'godlygeek/csapprox'
+NeoBundleLazy 'thinca/vim-guicolorscheme'
+NeoBundleLazy 'guns/xterm-color-table.vim', { 'commands': 'XtermColorTable' }
 
 " }}}
 " Language {{{
@@ -58,6 +47,7 @@ NeoBundleLazy 'hynek/vim-python-pep8-indent', { 'filetypes': 'python' }
 NeoBundleLazy 'robbles/logstash.vim', { 'filetypes': 'logstash' }
 NeoBundleLazy 'tmux-plugins/vim-tmux', { 'filetypes': 'tmux' }
 NeoBundleLazy 'elzr/vim-json', { 'filetypes': 'json' }
+NeoBundleLazy 'cespare/vim-toml', { 'filetypes': 'toml' }
 NeoBundleLazy 'PotatoesMaster/i3-vim-syntax', { 'filetypes': 'i3' }
 NeoBundleLazy 'ekalinin/Dockerfile.vim', { 'filetypes': 'Dockerfile' }
 NeoBundleLazy 'fatih/vim-go', {
@@ -86,7 +76,7 @@ NeoBundleLazy 'jiangmiao/simple-javascript-indenter', {
 	\ }
 NeoBundleLazy 'marijnh/tern_for_vim', {
 	\   'build': { 'others': 'npm install' },
-	\   'disabled': ! executable('npm') || $SSH_CLIENT,
+	\   'disabled': ! executable('npm') || len($SSH_CLIENT),
 	\   'filetypes': 'javascript'
 	\ }
 
@@ -124,9 +114,8 @@ NeoBundleLazy 'Shougo/vimfiler.vim', {
 	\ 'mappings': '<Plug>',
 	\ 'explorer': 1,
 	\ 'commands': [
-	\    { 'name': [ 'VimFiler', 'VimFilerExplorer'],
-	\      'complete': 'customlist,vimfiler#complete' },
-	\    'Read', 'Source'
+	\    { 'name': [ 'VimFiler', 'VimFilerExplorer' ],
+	\      'complete': 'customlist,vimfiler#complete' }
 	\ ]}
 NeoBundleLazy 'rafi/vim-tinycomment', {
 	\ 'directory': 'tinycomment',
@@ -152,15 +141,10 @@ NeoBundleLazy 'lambdalisue/vim-gita', {
 	\ 'autoload': { 'commands': [ 'Gita' ] }
 	\ }
 NeoBundleLazy 'lambdalisue/vim-gista', {
-	\ 'depends': [
-	\    'Shougo/unite.vim',
-	\    'tyru/open-browser.vim',
-	\ ],
-	\ 'autoload': {
-	\    'commands': ['Gista'],
-	\    'mappings': '<Plug>(gista-',
-	\    'unite_sources': 'gista',
-	\}}
+	\ 'commands': 'Gista',
+	\ 'mappings': '<Plug>',
+	\ 'unite_sources': 'gista',
+	\ }
 NeoBundleLazy 'sjl/gundo.vim', {
 	\ 'vim_version': '7.3',
 	\ 'autoload': { 'commands': [ 'GundoToggle' ] }
@@ -168,12 +152,9 @@ NeoBundleLazy 'sjl/gundo.vim', {
 NeoBundleLazy 'haya14busa/incsearch.vim', {
 	\ 'mappings': '<Plug>(incsearch-'
 	\ }
-NeoBundleLazy 'gorkunov/smartpairs.vim', {
-	\ 'autoload': {
-	\  'commands': [ 'SmartPairs', 'SmartPairsI', 'SmartPairsA' ],
-	\  'mappings': [[ 'n', 'viv', 'vav' ], [ 'v', 'v' ]]
-	\ }}
-NeoBundleLazy 't9md/vim-smalls', { 'mappings': '<Plug>' }
+NeoBundleLazy 'terryma/vim-expand-region', {
+	\ 'mappings': [[ 'x', '<Plug>' ]]
+	\ }
 NeoBundleLazy 'tyru/open-browser.vim', {
 	\ 'disabled': len($SSH_CLIENT),
 	\ 'mappings': '<Plug>',
@@ -191,20 +172,11 @@ NeoBundleLazy 'vimwiki/vimwiki', {
 	\   'VimwikiMakeDiaryNote', 'VimwikiTabMakeDiaryNote',
 	\   'VimwikiDiaryIndex'
 	\ ]}
-NeoBundleLazy 'mattn/calendar-vim', {
-	\ 'disabled': len($SSH_CLIENT),
-	\ 'commands': [ 'Calendar', 'CalendarH', 'CalendarT' ],
-	\ 'mappings': [[ 'n', '<Leader>cal', '<Leader>caL' ]]
-	\ }
 NeoBundleLazy 'beloglazov/vim-online-thesaurus', {
 	\ 'disabled': len($SSH_CLIENT),
 	\ 'commands': [
 	\   'OnlineThesaurusCurrentWord', 'Thesaurus'
 	\ ]}
-NeoBundleLazy 'itchyny/vim-closebuffer', {
-	\ 'insert': 1,
-	\ 'mappings': '<Plug>'
-	\ }
 
 " }}}
 " Interface {{{
@@ -237,7 +209,6 @@ NeoBundleLazy 'xolox/vim-session', {
 " ----------
 NeoBundleLazy 'Raimondi/delimitMate', { 'insert': 1 }
 NeoBundleLazy 'Shougo/echodoc.vim', { 'insert': 1 }
-NeoBundleLazy 'kana/vim-smartchr', { 'insert': 1 }
 NeoBundleLazy 'Shougo/deoplete.nvim', {
 	\ 'depends': 'Shougo/context_filetype.vim',
 	\ 'disabled': ! has('nvim') || len($SSH_CLIENT),
@@ -323,9 +294,8 @@ NeoBundleLazy 'chikatoike/concealedyank.vim', {
 NeoBundleLazy 'kana/vim-textobj-user'
 NeoBundleLazy 'osyo-manga/vim-textobj-multiblock', {
 	\ 'depends': 'vim-textobj-user',
-	\ 'autoload': {
-	\   'mappings': [[ 'ox', '<Plug>' ]]
-	\ }}
+	\ 'mappings': [[ 'ox', '<Plug>' ]]
+	\ }
 " }}}
 
 " vim: set ts=2 sw=2 tw=80 noet :
