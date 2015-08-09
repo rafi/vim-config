@@ -1,11 +1,12 @@
 # Vim config
 
-Lean mean Vim machine.
+Lean mean Vim machine, 85ms startup time.
+Best with Vim 7.4
 
 ## Features
 
 - Modular configuration
-- NeoBundle plugin manager
+- Lazy-load 90% of plugins with NeoBundle
 - Unite centric work-flow
 - Extensive Neocomplete setup
 - Central location for tags
@@ -26,41 +27,6 @@ git clone git://github.com/rafi/vim-config.git ~/.vim
 2. Install plugins: `vim +NeoBundleInstall +q`
 3. Run `vim`, `gvim`, or `nvim`
 
-_Note_ that 90% of the plugins are **[lazy-loaded]**.
-[lazy-loaded]: ./config/neobundle.vim
-
-## Structure
-- [colors](./colors)/ - Premium colorschemes
-- [config](./config)/ - Configuration
-  - [plugins](./plugins)/ - Individual plugin configurations
-  - [bindings.vim](./plugins/bindings.vim) - Key bindings
-  - [colors.vim](./plugins/bindings.vim) - Custom colors
-  - [filetype.vim](./plugins/filetype.vim) - Language behavior
-  - [general.vim](./plugins/general.vim) - VIM general configuration
-  - [init.vim](./plugins/init.vim) - VIM initialization
-  - [neobundle.vim](./plugins/neobundle.vim) - Plugin bundles
-  - [plugins.vim](./plugins/plugins.vim) - Plugin configuration
-  - [terminal.vim](./plugins/terminal.vim) - Terminal configuration
-  - [utils.vim](./plugins/utils.vim) - Commands and functions
-- [filetype.vim](./filetype.vim) - Exotic filetype detection
-- [ftplugin](./ftplugin)/ - Language settings
-- [plugin](./plugin)/ - Plugin playground
-- [snippets](./snippets)/ - Code snippets
-- [vimrc](./vimrc) - Primary configuration file
-
-## Plugin Highlights
-
-- NeoBundle with caching enabled and lazy loading
-- Project-aware tabs and label
-- Vimfiler as file-manager + SSH connections
-- Go completion via vim-go and gocode
-- Javascript completion via Tern
-- PHP completion, indent, folds, syntax
-- Python jedi completion, pep8 convention
-- Syntaxes: Ansible, css3, csv, json, less, markdown, mustache
-- Helpers: Undo tree, bookmarks, git, tmux navigation,
-    hex editor, sessions, and much more.
-
 ## XDG conformity
 
 VIM looks for its configuration in the `~/.vim` directory. My setup **also**
@@ -73,9 +39,42 @@ export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 If you're curious how it's done, see [vimrc:17-24](vimrc#L17-L24)
 and [init.vim:42-47](./config/init.vim#L42-L47).
 
-## Included Plugins
+## Structure
+- [config](./config)/ - Configuration
+  - [plugins](./plugins)/ - Individual plugin configurations
+  - [bindings.vim](./plugins/bindings.vim) - Key bindings
+  - [colors.vim](./plugins/bindings.vim) - Custom colors
+  - [filetype.vim](./plugins/filetype.vim) - Language behavior
+  - [general.vim](./plugins/general.vim) - VIM general configuration
+  - [init.vim](./plugins/init.vim) - VIM initialization
+  - [neobundle.vim](./plugins/neobundle.vim) - Plugin bundles
+  - [plugins.vim](./plugins/plugins.vim) - Plugin configuration
+  - [terminal.vim](./plugins/terminal.vim) - Terminal configuration
+  - [utils.vim](./plugins/utils.vim) - Commands and functions
+- [ftplugin](./ftplugin)/ - Language settings
+- [plugin](./plugin)/ - Plugin playground
+- [snippets](./snippets)/ - Code snippets
+- [filetype.vim](./filetype.vim) - Exotic filetype detection
+- [vimrc](./vimrc) - Primary configuration file
 
-### Global
+## Plugin Highlights
+
+- NeoBundle with caching enabled and lazy loading
+- Project-aware tabs and label
+- Vimfiler as file-manager + SSH connections
+- Go completion via vim-go and gocode
+- Javascript completion via Tern
+- PHP completion, indent, folds, syntax
+- Python jedi completion, pep8 convention
+- Languages: Ansible, css3, csv, json, less, markdown, mustache
+- Helpers: Undo tree, bookmarks, git, tmux navigation,
+    hex editor, sessions, and much more.
+
+_Note_ that 90% of the plugins are **[lazy-loaded]**.
+[lazy-loaded]: ./config/neobundle.vim
+
+## Non Lazy-Loaded Plugins
+
 Name           | Description
 -------------- | ----------------------
 [neobundle] | Next generation package manager
@@ -86,10 +85,12 @@ Name           | Description
 [cursorword] | Underlines word under cursor
 [gitbranch] | Lightweight git branch detection
 [gitgutter] | Shows git diffs in the gutter
-[bookmarks] | Bookmarks, works independently from vim marks
-[tmux-navigator] | Seamless navigation between tmux panes and vim splits
 [tinyline] | Tiny great looking statusline
 [tagabana] | Central location for all tags
+[bookmarks] | Bookmarks, works independently from vim marks
+[tmux-navigator] | Seamless navigation between tmux panes and vim splits
+
+## Lazy-Loaded Plugins
 
 ### Language
 Name           | Description
