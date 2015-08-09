@@ -37,14 +37,22 @@ function! s:toxidtab(disable) " {{{
 
 	if a:disable
 		set tabline=
+		augroup ToxidTab
+			autocmd!
+		augroup END
+		augroup! ToxidTab
 	else
 		let &tabline='%!toxidtab#render()'
-		call s:colorscheme()
+		call toxidtab#define_highlights()
+		augroup ToxidTab
+			autocmd!
+			autocmd ColorScheme * call toxidtab#define_highlights()
+		augroup END
 	endif
 endfunction
 
 " }}}
-function! s:colorscheme() " {{{
+function! toxidtab#define_highlights() " {{{
 	hi TabLineFill      ctermfg=236 guifg=#303030
 	hi TabLine          ctermfg=236 ctermbg=243 guifg=#303030 guibg=#767676
 	hi TabLineSel       ctermfg=241 ctermbg=234 guifg=#626262 guibg=#1C1C1C gui=NONE
