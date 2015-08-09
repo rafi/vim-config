@@ -10,10 +10,10 @@ nmap ; :
 
 if exists('g:elite_mode') && g:elite_mode
 	" Make arrow keys useful
-	nnoremap <Up>    :resize +4<CR>
-	nnoremap <Down>  :resize -4<CR>
-	nnoremap <Left>  :vertical resize +4<CR>
-	nnoremap <Right> :vertical resize -4<CR>
+	nnoremap <Up>    :resize +2<CR>
+	nnoremap <Down>  :resize -2<CR>
+	nnoremap <Left>  :vertical resize +2<CR>
+	nnoremap <Right> :vertical resize -2<CR>
 endif
 
 " Use backspace key for matchit.vim
@@ -21,6 +21,7 @@ nmap <BS> %
 xmap <BS> %
 
 " Use <C-Space> instead <C-@>
+imap <C-Space>  <C-@>
 nmap <C-Space>  <C-@>
 cmap <C-Space>  <C-@>
 
@@ -151,23 +152,18 @@ nmap <Leader>tw :setlocal wrap! breakindent!<CR>
 nnoremap <silent> g0 :<C-u>tabfirst<CR>
 nnoremap <silent> g$ :<C-u>tablast<CR>
 
-" Splits
-" I imagine v as an arrow, split below
-nnoremap <Leader>sv :new<CR>
-nnoremap <Leader>sg :vnew<CR>
-
 " Buffers
 map <S-Right> :bnext<CR>
 map <S-Left>  :bprev<CR>
 
-" Several ways of close buffer
+" Several ways for closing a buffer
 nnoremap <silent> <Leader>q :close<CR>
 nnoremap <silent> <Leader>x :bdelete<CR>
 nnoremap <silent> <Leader>z :BufClose<CR>
 
 " Split current buffer, go to previous window and previous buffer
-"	nnoremap <leader>v :split<CR>:wincmd p<CR>:e#<CR>
-"	nnoremap <leader>g :vsplit<CR>:wincmd p<CR>:e#<CR>
+nnoremap <leader>sv :split<CR>:wincmd p<CR>:e#<CR>
+nnoremap <leader>sg :vsplit<CR>:wincmd p<CR>:e#<CR>
 
 " }}}
 " Totally Custom {{{
@@ -241,7 +237,8 @@ augroup END
 nnoremap    [Window]   <Nop>
 nmap    s [Window]
 nnoremap <silent> [Window]p  :<C-u>call <SID>split_nicely()<CR>
-nnoremap <silent> [Window]v  :<C-u>vsplit<CR>
+nnoremap <silent> [Window]v  :<C-u>split<CR>
+nnoremap <silent> [Window]g  :<C-u>vsplit<CR>
 nnoremap <silent> [Window]t  :tabnew<CR>
 nnoremap <silent> [Window]o  :<C-u>only<CR>
 nnoremap <silent> [Window]D  :<C-u>call <SID>CustomBufferDelete(1)<CR>

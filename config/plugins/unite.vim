@@ -3,7 +3,6 @@
 " -----
 
 " General {{{
-let g:unite_kind_file_vertical_preview = 1
 let g:unite_kind_jump_list_after_jump_scroll = 50
 let g:unite_enable_auto_select = 0
 
@@ -13,17 +12,7 @@ let s:ag_opts = '-SU --hidden --depth 30 --nocolor --nogroup '.
 		\ '--ignore ".git" '.
 		\ '--ignore ".idea" '.
 		\ '--ignore "bower_modules" '.
-		\ '--ignore "node_modules" '.
-		\ '--ignore "apps/*/cache/*" '.
-		\ '--ignore "apps/*/logs/*" '.
-		\ '--ignore "var/cache" '.
-		\ '--ignore "var/logs" '.
-		\ '--ignore "swiftmailer" '.
-		\ '--ignore "tcpdf" '.
-		\ '--ignore "*.ttf" '.
-		\ '--ignore "*.png" '.
-		\ '--ignore "*.jpg" '.
-		\ '--ignore "*.gif"'
+		\ '--ignore "node_modules"'
 
 " }}}
 " Sources {{{
@@ -121,10 +110,11 @@ call unite#custom#profile('default', 'context', {
 	\   'winheight': 20,
 	\   'winwidth': 40,
 	\   'direction': 'topleft',
+	\   'vertical_preview': 1,
 	\   'no_auto_resize': 1,
 	\   'prompt_direction': 'top',
 	\   'cursor_line_highlight': 'CursorLine',
-	\   'cursor_line_time': '0.5',
+	\   'cursor_line_time': '0.3',
 	\   'candidate_icon': '-',
 	\   'marked_icon': '✓',
 	\   'prompt' : '⮀ '

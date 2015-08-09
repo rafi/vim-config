@@ -14,8 +14,8 @@ if neobundle#tap('unite.vim') "{{{
 	nnoremap <silent> [unite]i   :<C-u>Unite file_rec/git<CR>
 	nnoremap <silent> [unite]g   :<C-u>Unite grep:. -no-wrap<CR>
 	nnoremap <silent> [unite]u   :<C-u>Unite source<CR>
-	nnoremap <silent> [unite]t   :<C-u>Unite tag -silent<CR>
-	nnoremap <silent> [unite]T   :<C-u>Unite tag/include -silent<CR>
+	nnoremap <silent> [unite]t   :<C-u>Unite tag -silent -immediately<CR>
+	nnoremap <silent> [unite]T   :<C-u>Unite tag/include -silent -immediately<CR>
 	nnoremap <silent> [unite]l   :<C-u>Unite location_list<CR>
 	nnoremap <silent> [unite]q   :<C-u>Unite quickfix<CR>
 	nnoremap <silent> [unite]j   :<C-u>Unite change jump -profile-name=navigate<CR>
@@ -194,8 +194,13 @@ endif
 
 "}}}
 if neobundle#tap('vim-session') "{{{
+	nmap <Leader>se :<C-u>SaveSession<CR>
+	nmap <Leader>os :<C-u>OpenSession<CR>
+
 	let g:session_directory = $VARPATH.'/session'
+	let g:session_default_name = 'last'
 	let g:session_default_overwrite = 1
+	let g:session_verbose_messages = 0
 	let g:session_autosave = 'no'
 	let g:session_autoload = 'no'
 	let g:session_persist_colors = 0
