@@ -37,7 +37,7 @@ specification standard, add this somewhere in your `.profile` or `.bashrc`:
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 ```
 If you're curious how it's done, see [vimrc:17-24](vimrc#L17-L24)
-and [init.vim:42-47](./config/init.vim#L42-L47).
+and [init.vim:44-49](./config/init.vim#L44-L49).
 
 ## Structure
 - [config](./config)/ - Configuration

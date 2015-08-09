@@ -2,7 +2,6 @@
 " General Settings
 "---------------------------------------------------------
 " General {{{
-"set autoread                 " Files are read as soon as they are changed
 set mouse=nvi                " Disable mouse in command-line mode
 set modeline                 " automatically setting options from modelines
 set report=0                 " Don't report on line changes
@@ -138,7 +137,8 @@ set scrolloff=2         " Keep at least 2 lines above/below
 set sidescrolloff=2     " Keep at least 2 lines left/right
 set pumheight=20        " Pop-up menu's line height
 set number              " Show line numbers
-set noruler
+set noruler             " Disable default status ruler
+set list                " Show hidden characters
 
 set showtabline=2       " Always show the tabs line
 set tabpagemax=30       " Maximum number of tab pages
@@ -158,7 +158,7 @@ set laststatus=2        " Always show a status line
 " Changing characters to fill special ui elements
 set showbreak=↪
 set fillchars=vert:│,fold:─
-set list listchars=tab:\⋮\ ,extends:⟫,precedes:⟪,nbsp:.,trail:·
+set listchars=tab:\⋮\ ,extends:⟫,precedes:⟪,nbsp:.,trail:·
 
 " Do not display completion messages
 " Patch: https://groups.google.com/forum/#!topic/vim_dev/WeBBjkXE8H8
@@ -172,6 +172,31 @@ call matchadd('ColorColumn', '\%81v', 100)
 " For snippet_complete marker
 if has('conceal') && v:version >= 703
 	set conceallevel=2 concealcursor=niv
+endif
+
+" }}}
+" Theme {{{
+" -----
+set t_Co=256
+set background=dark
+let g:theme_name = 'darker'
+
+" base16 themes - Access colors present in 256 colorspace
+let base16colorspace=256
+let g:base16_shell_path=$VARPATH.'/plugins/base16-shell/'
+
+" Theme loader. Uses current selected colorscheme name as base.
+function! ColorSchemeTheme()
+	let path = $VIMPATH.'/theme/'.g:colors_name.'/'.g:theme_name.'.vim'
+	silent! execute 'source' fnameescape(path)
+endfunction
+
+" Automatic theme loading when colorscheme changes.
+autocmd MyAutoCmd ColorScheme * call ColorSchemeTheme()
+
+" Don't re-load colorscheme.
+if ! exists('g:colors_name')
+	colorscheme hybrid
 endif
 
 " }}}

@@ -22,6 +22,11 @@ NeoBundle 'rafi/vim-tagabana', { 'directory': 'tagabana' }
 NeoBundle 'MattesGroeger/vim-bookmarks'
 NeoBundle 'christoomey/vim-tmux-navigator'
 
+NeoBundleFetch 'chriskempson/base16-shell'
+NeoBundleFetch 'rafi/awesome-vim-colorschemes', {
+	\ 'directory': 'colorschemes' }
+
+
 " LAZY LOADING from here on
 " --------------------------------------------------------
 

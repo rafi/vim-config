@@ -7,9 +7,6 @@ let g:bookmark_manage_per_buffer = 0
 let g:bookmark_sign = '⚐'                  " Bookmark sign
 let g:bookmark_annotation_sign = '⌦'       " Annonation sign
 
-highlight BookmarkSign            ctermfg=12 guifg=#4EA9D7
-highlight BookmarkAnnotationSign  ctermfg=11 guifg=#EACF49
-
 " Ensure that bookmarks directory exists
 if ! isdirectory(g:bookmark_auto_save_dir)
 	call mkdir(g:bookmark_auto_save_dir, 'p')

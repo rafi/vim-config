@@ -35,8 +35,6 @@ call neobundle#begin(expand('$VARPATH/plugins'))
 if neobundle#load_cache()
 	NeoBundleFetch 'Shougo/neobundle.vim'
 	call s:source_file('neobundle.vim')
-	NeoBundleFetch 'rafi/awesome-vim-colorschemes', {
-		\ 'directory': 'colorschemes' }
 	call neobundle#local($VARPATH.'/plugins/colorschemes', {})
 	NeoBundleSaveCache
 endif
@@ -59,7 +57,6 @@ call s:source_file('general.vim')
 call s:source_file('filetype.vim')
 call s:source_file('terminal.vim')
 call s:source_file('utils.vim')
-call s:source_file('colors.vim')
 call s:source_file('bindings.vim')
 " }}}
 

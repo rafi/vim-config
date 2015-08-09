@@ -8,6 +8,7 @@ autocmd MyAutoCmd BufWritePost vimrc,config/*.vim,neobundle.vim
 		\ | call toxidtab#define_highlights()
 		\ | call tinyline#define_highlights()
 		\ | call gitgutter#highlight#define_highlights()
+		\ | call ColorSchemeTheme()
 
 " Check timestamp on window enter. More eager than 'autoread'
 autocmd MyAutoCmd WinEnter * checktime

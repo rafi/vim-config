@@ -1,19 +1,6 @@
 
-" Theme & Colors
-"---------------------------------------------------------
-
-" Theme {{{
-" -----
-set t_Co=256
-set background=dark
-
-" Don't override colorscheme.
-if ! exists('g:colors_name')
-	colorscheme hybrid
-endif
-
-" Custom Colors
-" -------------
+" hybrid - custom darker theme
+" ----------------------------
 
 " General GUI {{{
 " No bold in gvim's error messages
@@ -76,5 +63,8 @@ highlight vimfilerNonMark     ctermfg=239 guifg=#4e4e43
 highlight vimfilerLeaf        ctermfg=235 guifg=#30302c
 
 " }}}
+" Bookmarks {{{
+highlight BookmarkSign            ctermfg=12 guifg=#4EA9D7
+highlight BookmarkAnnotationSign  ctermfg=11 guifg=#EACF49
 
-" vim: set ts=2 sw=2 tw=80 noet :
+" }}}
