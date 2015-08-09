@@ -148,7 +148,6 @@ Name           | Description
 -------------- | ----------------------
 [goyo] | Distraction-free writing
 [limelight] | Hyperfocus-writing
-[bufclose] | Unload buffer without closing the window
 [matchit] | Intelligent pair matching
 [indentline] | Display vertical indention lines
 [choosewin] | Choose window to use, like tmux's 'display-pane'
@@ -250,7 +249,6 @@ Name           | Description
 
 [goyo]: https://github.com/junegunn/goyo.vim
 [limelight]: https://github.com/junegunn/limelight.vim
-[bufclose]: https://github.com/vim-scripts/BufClose.vim
 [matchit]: http://www.vim.org/scripts/script.php?script_id=39
 [indentline]: https://github.com/Yggdroot/indentLine
 [choosewin]: https://github.com/t9md/vim-choosewin
@@ -348,7 +346,6 @@ Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `Ctrl`+`l` | Normal | Move to right split (<C-w>l)
 `<leader>`+`q` | Normal | Closes current buffer (:close)
 `<leader>`+`x` | Normal | Removes current buffer (:bdelete)
-`<leader>`+`z` | Normal | Executes :BufClose
 `,`+`Space` | Normal | Remove all spaces at EOL
 `,`+`d` | Normal | Toggle diff
 `Escape`+`Escape` | Normal | Clear search and disable paste

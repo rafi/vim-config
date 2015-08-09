@@ -157,11 +157,6 @@ nnoremap <silent> g$ :<C-u>tablast<CR>
 map <S-Right> :bnext<CR>
 map <S-Left>  :bprev<CR>
 
-" Several ways for closing a buffer
-nnoremap <silent> <Leader>q :close<CR>
-nnoremap <silent> <Leader>x :bdelete<CR>
-nnoremap <silent> <Leader>z :BufClose<CR>
-
 " Split current buffer, go to previous window and previous buffer
 nnoremap <leader>sv :split<CR>:wincmd p<CR>:e#<CR>
 nnoremap <leader>sg :vsplit<CR>:wincmd p<CR>:e#<CR>
@@ -242,7 +237,10 @@ nnoremap <silent> [Window]v  :<C-u>split<CR>
 nnoremap <silent> [Window]g  :<C-u>vsplit<CR>
 nnoremap <silent> [Window]t  :tabnew<CR>
 nnoremap <silent> [Window]o  :<C-u>only<CR>
-nnoremap <silent> [Window]D  :<C-u>call <SID>CustomBufferDelete(1)<CR>
+nnoremap <silent> [Window]D  :<C-u>call <SID>CustomBufferDelete()<CR>
+nnoremap <silent> [Window]x  :<C-u>call <SID>CustomBufferDeleteNew()<CR>
+nnoremap <silent> [Window]q  :close<CR>
+nnoremap <silent> [Window]Q  :bdelete<CR>
 nnoremap <silent> q :<C-u>call <SID>smart_close()<CR>
 
 " Move around windows beyond tabs
@@ -294,16 +292,19 @@ function! s:split_nicely() "{{{
 	wincmd p
 endfunction "}}}
 
-function! s:CustomBufferDelete(is_force) "{{{
+function! s:CustomBufferDelete() "{{{
 	let current = bufnr('%')
-
 	call s:alternate_buffer()
+	silent! execute 'bdelete ' . current
+endfunction "}}}
 
-	if a:is_force
-		silent! execute 'bdelete! ' . current
-	else
-		silent! execute 'bdelete ' . current
+function! s:CustomBufferDeleteNew() "{{{
+	let current = bufnr('%')
+	if getbufvar(current, '&modified')
+		return
 	endif
+	enew
+	silent! execute 'bdelete ' . current
 endfunction "}}}
 
 function! s:alternate_buffer() "{{{

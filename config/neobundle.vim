@@ -189,7 +189,6 @@ NeoBundleLazy 'junegunn/goyo.vim', {
 	\ 'autoload': {
 	\   'commands': 'Goyo'
 	\ }}
-NeoBundleLazy 'BufClose.vim', { 'commands': [ 'BufClose' ]}
 NeoBundleLazy 'matchit.zip', { 'mappings': [[ 'nxo', '%', 'g%' ]]}
 NeoBundleLazy 'Yggdroot/indentLine', { 'filetypes': 'all' }
 NeoBundleLazy 'xolox/vim-session', {
