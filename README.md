@@ -219,7 +219,7 @@ Name           | Description
 [go]: https://github.com/fatih/vim-go
 [jedi-vim]: https://github.com/davidhalter/jedi-vim
 [ruby]: https://github.com/vim-ruby/vim-ruby
-[portfile]: http://svn.macports.org/repository/macports/contrib/mpvim
+[portfile]: https://github.com/jstrater/mpvim
 
 [javascript]: https://github.com/jelera/vim-javascript-syntax
 [javascript-indent]: https://github.com/jiangmiao/simple-javascript-indenter

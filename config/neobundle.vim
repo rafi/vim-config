@@ -55,6 +55,7 @@ NeoBundleLazy 'elzr/vim-json', { 'filetypes': 'json' }
 NeoBundleLazy 'cespare/vim-toml', { 'filetypes': 'toml' }
 NeoBundleLazy 'PotatoesMaster/i3-vim-syntax', { 'filetypes': 'i3' }
 NeoBundleLazy 'ekalinin/Dockerfile.vim', { 'filetypes': 'Dockerfile' }
+NeoBundleLazy 'jstrater/mpvim', { 'filetypes': 'portfile' }
 NeoBundleLazy 'fatih/vim-go', {
 	\ 'filetypes': 'go',
 	\ 'disabled': len($SSH_CLIENT)
@@ -66,10 +67,6 @@ NeoBundleLazy 'davidhalter/jedi-vim', {
 NeoBundleLazy 'vim-ruby/vim-ruby', {
 	\ 'mappings': '<Plug>',
 	\ 'filetypes': 'ruby'
-	\ }
-NeoBundleLazy 'http://svn.macports.org/repository/macports/contrib/mpvim/', {
-	\ 'disabled': len($SSH_CLIENT),
-	\ 'filetypes': 'portfile'
 	\ }
 
 " }}}
