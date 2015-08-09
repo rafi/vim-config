@@ -59,6 +59,11 @@ if has('vim_starting')
 
 		execute 'set runtimepath^='.s:plugins_dir.'/neobundle.vim'
 	endif
+
+	" Load minimal version of vim while SSHing
+	if len($SSH_CLIENT)
+		let $VIM_MINIMAL = 1
+	endif
 endif
 
 " }}}

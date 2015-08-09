@@ -227,7 +227,7 @@ augroup MyAutoCmd " {{{
 augroup END
 " }}}
 
-" s: Windows and buffers(High priority) "{{{
+" s: Windows and buffers (High priority) "{{{
 " Credits: https://github.com/Shougo/shougo-s-github
 " The prefix key.
 nnoremap    [Window]   <Nop>
