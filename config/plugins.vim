@@ -73,7 +73,7 @@ if neobundle#tap('neosnippet.vim') "{{{
 	let g:neosnippet#disable_runtime_snippets = { '_': 1 }
 	let g:neosnippet#data_directory  = $VARPATH.'/snippet'
 	let g:neosnippet#snippets_directory =
-				\$VIMPATH.'/snippets/rafi,'
+				\$VIMPATH.'/snippet,'
 				\.$VARPATH.'/plugins/neosnippet-snippets/neosnippets,'
 				\.$VARPATH.'/plugins/mpvim/snippets,'
 				\.$VARPATH.'/plugins/vim-ansible-yaml/snippets,'
