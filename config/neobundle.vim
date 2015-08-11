@@ -105,13 +105,10 @@ NeoBundleLazy 'lambdalisue/vim-gita', {
 	\ 'rev': 'feature/gita-blame-feature',
 	\ 'autoload': { 'commands': [ 'Gita' ] }
 	\ }
-NeoBundleLazy 'sjl/gundo.vim', {
-	\ 'vim_version': '7.3',
-	\ 'autoload': { 'commands': [ 'GundoToggle' ] }
-	\ }
 NeoBundleLazy 'haya14busa/incsearch.vim', {
 	\ 'mappings': '<Plug>(incsearch-'
 	\ }
+NeoBundleLazy 'mbbill/undotree', { 'commands': 'UndotreeToggle' }
 NeoBundleLazy 'terryma/vim-expand-region', {
 	\ 'mappings': [[ 'x', '<Plug>' ]]
 	\ }

@@ -348,8 +348,8 @@ if neobundle#tap('vim-gista') "{{{
 endif
 
 "}}}
-if neobundle#tap('gundo.vim') "{{{
-	nnoremap <Leader>gu  :GundoToggle<CR>
+if neobundle#tap('undotree') "{{{
+	nnoremap <Leader>gu  :UndotreeToggle<CR>
 	call neobundle#untap()
 endif
 

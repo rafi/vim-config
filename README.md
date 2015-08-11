@@ -132,7 +132,7 @@ Name           | Description
 [syntastic] | Syntax checking hacks
 [gita] | An awesome git handling plugin
 [gista] | Manipulate gists in Vim
-[gundo] | Visualize the Vim undo tree
+[undotree] | Ultimate undo history visualizer
 [incsearch] | Improved incremental searching
 [expand-region] | Visually select increasingly larger regions of text
 [open-browser] | Open URI with your favorite browser
@@ -236,7 +236,7 @@ Name           | Description
 [syntastic]: https://github.com/scrooloose/syntastic
 [gita]: https://github.com/lambdalisue/vim-gita
 [gista]: https://github.com/lambdalisue/vim-gista
-[gundo]: https://github.com/sjl/gundo.vim
+[undotree]: https://github.com/mbbill/undotree
 [incsearch]: https://github.com/haya14busa/incsearch.vim
 [expand-region]: https://github.com/terryma/vim-expand-region
 [open-browser]: https://github.com/tyru/open-browser.vim
@@ -493,7 +493,7 @@ Key   | Mode | Action
 
 Key   | Mode | Action
 ----- |:----:| ------------------
-`<leader>`+`gu` | Normal | Gundo
+`<leader>`+`gu` | Normal | Open undo tree
 `<leader>`+`i` | Normal | Toggle indentation lines
 `<leader>`+`j` | Normal | Start smalls
 `<leader>`+`r` | Normal | Quickrun
