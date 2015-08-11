@@ -367,19 +367,27 @@ if neobundle#tap('indentLine') "{{{
 endif
 
 "}}}
+if neobundle#tap('vim-asterisk') "{{{
+	map *   <Plug>(asterisk-*)
+	map #   <Plug>(asterisk-#)
+	map g*  <Plug>(asterisk-g*)
+	map g#  <Plug>(asterisk-g#)
+	map z*  <Plug>(asterisk-z*)
+	map gz* <Plug>(asterisk-gz*)
+	map z#  <Plug>(asterisk-z#)
+	map gz# <Plug>(asterisk-gz#)
+	call neobundle#untap()
+endif
+
+"}}}
 if neobundle#tap('incsearch.vim') "{{{
+	let g:incsearch#auto_nohlsearch = 1
+
 	map /  <Plug>(incsearch-forward)
 	map ?  <Plug>(incsearch-backward)
 	map g/ <Plug>(incsearch-stay)
-
-	let g:incsearch#auto_nohlsearch = 1
 	map n  <Plug>(incsearch-nohl-n)
 	map N  <Plug>(incsearch-nohl-N)
-	map *  <Plug>(incsearch-nohl-*)
-	map #  <Plug>(incsearch-nohl-#)
-	map g* <Plug>(incsearch-nohl-g*)
-	map g# <Plug>(incsearch-nohl-g#)
-
 	call neobundle#untap()
 endif
 

@@ -105,6 +105,9 @@ NeoBundleLazy 'lambdalisue/vim-gita', {
 	\ 'rev': 'feature/gita-blame-feature',
 	\ 'autoload': { 'commands': [ 'Gita' ] }
 	\ }
+NeoBundleLazy 'haya14busa/vim-asterisk', {
+	\ 'mappings': '<Plug>(asterisk-'
+	\ }
 NeoBundleLazy 'haya14busa/incsearch.vim', {
 	\ 'mappings': '<Plug>(incsearch-'
 	\ }

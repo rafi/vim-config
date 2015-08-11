@@ -168,10 +168,6 @@ nnoremap <silent> ,<Space> :<C-u>silent! keeppatterns %substitute/\s\+$//e<CR>
 " Diff
 nnoremap <silent> <expr> ,d ":\<C-u>".(&diff?"diffoff":"diffthis")."\<CR>"
 
-" Make * and # work on visual mode too
-xnoremap * :<C-u>call VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
-xnoremap # :<C-u>call VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
-
 " C-r: Easier search and replace
 xnoremap <C-r> :<C-u>call VSetSearch('/')<CR>:%s:<C-R>=@/<CR>::gc<Left><Left><Left>
 
