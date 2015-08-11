@@ -69,6 +69,7 @@ noremap <expr> <C-e> (line("w$") >= line('$') ? "j" : "3\<C-e>")
 noremap <expr> <C-y> (line("w0") <= 1         ? "k" : "3\<C-y>")
 
 " Navigate window
+nnoremap <C-q> <C-w>
 nnoremap <C-x> <C-w>x
 nnoremap <silent> <C-w>z :ZoomToggle<CR>
 nnoremap <expr><C-m> (bufname('%') ==# '[Command Line]' <bar><bar> &l:buftype ==# 'quickfix') ? "<CR>" : "<C-w>j"
@@ -157,10 +158,6 @@ nnoremap <silent> g$ :<C-u>tablast<CR>
 map <S-Right> :bnext<CR>
 map <S-Left>  :bprev<CR>
 
-" Split current buffer, go to previous window and previous buffer
-nnoremap <leader>sv :split<CR>:wincmd p<CR>:e#<CR>
-nnoremap <leader>sg :vsplit<CR>:wincmd p<CR>:e#<CR>
-
 " }}}
 " Totally Custom {{{
 " --------------
@@ -246,6 +243,10 @@ nnoremap <silent> q :<C-u>call <SID>smart_close()<CR>
 " Move around windows beyond tabs
 nnoremap <silent> <Tab> :call <SID>NextWindowOrTab()<CR>
 nnoremap <silent> <S-Tab> :call <SID>PreviousWindowOrTab()<CR>
+
+" Split current buffer, go to previous window and previous buffer
+nnoremap <leader>sv :split<CR>:wincmd p<CR>:e#<CR>
+nnoremap <leader>sg :vsplit<CR>:wincmd p<CR>:e#<CR>
 
 function! s:smart_close() "{{{
 	if winnr('$') != 1

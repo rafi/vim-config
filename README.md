@@ -284,15 +284,12 @@ Name           | Description
 Key   | Mode | Action
 ----- |:----:| ------------------
 `Space` | Normal | **Leader**
-`\` | Normal | **Local Leader**
 `;` | Normal | **Command mode**
 Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `Backspace` | Normal | Match bracket (%)
 `K` | Normal | Open Zeal or Dash on many filetypes (not in vim and python)
 `<leader>`+`y` | Normal/visual | Copy selection to X11 clipboard ("+y)
 `<leader>`+`p` | Normal/visual | Paste selection from X11 clipboard ("+p)
-`'` | Normal | Jump to mark (`)
-`\`` | Normal | Jump to mark (')
 `Y` | Normal | Yank to the end of line (y$)
 `Enter` | Normal | Toggle fold (za)
 `hjkl` | Normal | Smart cursor movements (g/hjkl)
@@ -301,65 +298,79 @@ Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `Ctrl`+`e` | Normal | Smart scroll down (3C-e/j)
 `Ctrl`+`y` | Normal | Smart scroll up (3C-y/k)
 `Ctrl`+`x` | Normal | Switch buffer and placement
+`Ctrl`+`z` | Normal | Switch buffer and placement
 `Ctrl`+`q` | Normal | `Ctrl`+`w`
 `+` | Normal | Increment (C-a)
 `-` | Normal | Decrement (C-x)
 `}` | Normal | After paragraph motion go to first non-blank char (}^)
 `<` | Visual | Indent to left and re-select (<gv)
 `>` | Visual | Indent to right and re-select (>gv|)
-`Tab` | Normal | Indent to right (>>_)
-`Shift`+`Tab` | Normal | Indent to left (<<_)
 `Tab` | Visual | Indent to right and re-select (>gv)
 `Shift`+`Tab` | Normal | Indent to left and re-select (<gv)
 `gp` | Normal | Select last paste
 `Q`/`gQ` | Normal | Disable EX-mode (<Nop>)
-`Escape` | Visual | Go to starting position after visual mode
 `Ctrl`+`a` | Command | Navigation in command line
 `Ctrl`+`f` | Command | Move cursor forward in command line
 `Ctrl`+`b` | Command | Move cursor backward in command line
 `Ctrl`+`g` | Command | C-g in command line
-`Escape` | Select | Escape from select mode (C-c)
+
+### File Operations
+
+Key   | Mode | Action
+----- |:----:| ------------------
+`f`+`y` | Normal | Yank filepath to X11 clipboard
 `<leader>`+`cd` | Normal | Switch to the directory of opened buffer (:cd %:p:h)
 `<leader>`+`w` | Normal/visual | Write (:w)
 `Ctrl`+`s` | _All_ | Write (:w)
 `W!!` | Command | Write as root
+
+### Editor UI
+
+Key   | Mode | Action
+----- |:----:| ------------------
 `F2` | _All_ | Toggle paste mode
 `F3` | Normal | Show highlight group that matches current cursor
 `<leader>`+`ts` | Normal | Toggle spell-checker (:setlocal spell!)
 `<leader>`+`tn` | Normal | Toggle line numbers (:setlocal nonumber!)
 `<leader>`+`tl` | Normal | Toggle hidden characters (:setlocal nolist!)
 `<leader>`+`th` | Normal | Toggle highlighted search (:set hlsearch!)
-`<leader>`+`st` | Normal | Open new tab (:tabnew)
-`Ctrl`+`t` | Normal/Insert | Open new tab (:tabnew)
+`<leader>`+`tw` | Normal | Toggle wrap (:setlocal wrap! breakindent!)
 `g0` | Normal | Go to first tab (:tabfirst)
 `g$` | Normal | Go to last tab (:tablast)
-`Ctrl`+`Tab` | Normal | Switch to next tab (:tabn)
-`Ctrl`+`Shift`+`Tab` | Normal | Switch to previous tab (:tabp)
-`Ctrl`+`Space` | Normal | Show tags (C-t)
-`<leader>`+`sv` | Normal | Split (:sp)
-`<leader>`+`sg` | Normal | Vertical split (:vsp)
 `Shift`+`Right` | _All_ | Switch to next buffer (:bnext)
 `Shift`+`Left` | _All_ | Switch to previous buffer (:bprev)
 `Ctrl`+`j` | Normal | Move to split below (<C-w>j)
 `Ctrl`+`k` | Normal | Move to upper split (<C-w>k)
 `Ctrl`+`h` | Normal | Move to left split (<C-w>h)
 `Ctrl`+`l` | Normal | Move to right split (<C-w>l)
-`<leader>`+`q` | Normal | Closes current buffer (:close)
-`<leader>`+`x` | Normal | Removes current buffer (:bdelete)
-`,`+`Space` | Normal | Remove all spaces at EOL
-`,`+`d` | Normal | Toggle diff
-`Escape`+`Escape` | Normal | Clear search and disable paste
 `*` | Visual | Search selection forwards
 `#` | Visual | Search selection backwards
+`,`+`Space` | Normal | Remove all spaces at EOL
+`,`+`d` | Normal | Toggle diff
 `Ctrl`+`r` | Visual | Replace selection
 `<leader>`+`lj` | Normal | Next on location list
 `<leader>`+`lk` | Normal | Previous on location list
 `<leader>`+`S` | Normal/visual | Source selection
 `<leader>`+`ml` | Normal | Append modeline
 `f`+`z` | Normal | Focus the current fold by closing all others (mzzM`zzv)
-`f`+`y` | Normal | Yank filepath to X11 clipboard
-| **Within _quickfix_ and _diff_** |||
-`q` | Normal | Quit buffer
+
+### Window Management
+
+Key   | Mode | Action
+----- |:----:| ------------------
+`q` | Normal | Smart buffer close
+`s`+`p` | Normal | Split nicely
+`s`+`v` | Normal | :split
+`s`+`g` | Normal | :vsplit
+`s`+`t` | Normal | Open new tab (:tabnew)
+`s`+`o` | Normal | Close other windows (:only)
+`s`+`x` | Normal | Remove buffer, leave blank window
+`s`+`q` | Normal | Closes current buffer (:close)
+`s`+`Q` | Normal | Removes current buffer (:bdelete)
+`Tab` | Normal | Next window or tab
+`Shift`+`Tab` | Normal | Previous window or tab
+`<leader>`+`sv` | Normal | Split with previous buffer
+`<leader>`+`sg` | Normal | Vertical split with previous buffer
 
 ### Plugin: Unite
 
