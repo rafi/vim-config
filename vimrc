@@ -19,8 +19,8 @@ if isdirectory($XDG_CONFIG_HOME.'/vim')
 	let $VIMPATH=expand('$XDG_CONFIG_HOME/vim')
 	let $VARPATH=expand('$XDG_CACHE_HOME/vim')
 else
-	let $VIMPATH=expand('~/.vim')
-	let $VARPATH=expand('~/.cache/vim')
+	let $VIMPATH=expand('$HOME/.vim')
+	let $VARPATH=expand('$HOME/.cache/vim')
 endif
 
 function! s:source_file(path)
@@ -35,8 +35,10 @@ call neobundle#begin(expand('$VARPATH/plugins'))
 if neobundle#load_cache()
 	NeoBundleFetch 'Shougo/neobundle.vim'
 	call s:source_file('neobundle.vim')
-	call neobundle#local($VARPATH.'/plugins/colorschemes', {})
-	NeoBundleSaveCache
+	call neobundle#local(expand('$VARPATH/plugins/colorschemes'), {})
+	if ! exists('g:vim_installing')
+		NeoBundleSaveCache
+	endif
 endif
 call neobundle#local(expand('$VIMPATH/dev'), {})
 call s:source_file('plugins.vim')

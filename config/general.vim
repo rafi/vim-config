@@ -187,15 +187,17 @@ let g:base16_shell_path=$VARPATH.'/plugins/base16-shell/'
 
 " Theme loader. Uses current selected colorscheme name as base.
 function! ColorSchemeTheme()
-	let path = $VIMPATH.'/theme/'.g:colors_name.'/'.g:theme_name.'.vim'
-	silent! execute 'source' fnameescape(path)
+	if exists('g:colors_name')
+		let path = $VIMPATH.'/theme/'.g:colors_name.'/'.g:theme_name.'.vim'
+		silent! execute 'source' fnameescape(path)
+	endif
 endfunction
 
 " Automatic theme loading when colorscheme changes.
 autocmd MyAutoCmd ColorScheme * call ColorSchemeTheme()
 
 " Don't re-load colorscheme.
-if ! exists('g:colors_name')
+if ! exists('g:colors_name') && ! exists('g:vim_installing')
 	colorscheme hybrid
 endif
 
