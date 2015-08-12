@@ -195,11 +195,6 @@ vnoremap <leader>mj :m'>+<CR>gv=gv
 
 augroup MyAutoCmd " {{{
 
-	autocmd FileType qf,diff  nnoremap <buffer> q  :q<CR>
-
-	autocmd FileType php
-		\ nnoremap <silent><buffer> <Leader>k :call pdv#DocumentCurrentLine()<CR>
-
 	if has('mac')
 		" Use Marked for real-time (on save) Markdown preview
 		autocmd FileType markdown

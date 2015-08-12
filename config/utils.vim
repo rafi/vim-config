@@ -75,6 +75,8 @@ command! DiffOrig vert new | setlocal bt=nofile | r # | 0d_ | diffthis | wincmd 
 " Disable diff mode.
 command! -nargs=0 Undiff setlocal nodiff noscrollbind wrap
 
+command! ToggleBadWhitespace call <SID>ToggleBadWhitespace()
+
 " Functions {{{
 "---------------------------------------------------------
 
@@ -107,6 +109,20 @@ function! FoldText()
 	let foldtextend = lines_count_text . repeat(foldchar, 8)
 	let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
 	return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
+endfunction
+
+" Highlight trailing whitespace
+function! s:ToggleTrailingWhitespace()
+	if ! exists('b:bad_whitespace_show') || ! b:bad_whitespace_show
+		highlight default BadWhitespace ctermbg=red guibg=red
+		match BadWhitespace /\s\+$/
+		autocmd InsertLeave <buffer> match BadWhitespace /\s\+$/
+		autocmd InsertEnter <buffer> match BadWhitespace /\s\+\%#\@<!$/
+		let b:bad_whitespace_show = 1
+	else
+		match none BadWhitespace
+		let b:bad_whitespace_show = 0
+	endif
 endfunction
 " }}}
 
