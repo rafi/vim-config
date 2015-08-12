@@ -1,85 +1,37 @@
-
-" vim-toxidtab - Tiny tab-line for Vim
-" Maintainer: Rafael Bodill <justrafi at gmail dot com>
-" Version:    20150207
-"-------------------------------------------------
-
-" Disable reload {{{
-if exists('g:loaded_toxidtab') && g:loaded_toxidtab
-	finish
-endif
-let g:loaded_toxidtab = 1
-
-" }}}
-" Saving 'cpoptions' {{{
-let s:save_cpo = &cpo
-set cpo&vim
-" }}}
-
-" Configuration {{{
 " Limit display of directories in path
-if ! exists('g:toxidtab_display_max_dirs')
-	let g:toxidtab_display_max_dirs = 3
-endif
+let g:tabline_display_max_dirs = 3
 " Limit display of characters in each directory in path
-if ! exists('g:toxidtab_display_max_dir_chars')
-	let g:toxidtab_display_max_dir_chars = 5
-endif
+let g:tabline_display_max_dir_chars = 5
 
 " }}}
-" Command {{{
-command! -nargs=0 -bar -bang ToxidTab call s:toxidtab('<bang>' == '!')
-" }}}
-
-" }}}
-function! s:toxidtab(disable) " {{{
-	" Toggle tabs
-
-	if a:disable
-		set tabline=
-		augroup ToxidTab
-			autocmd!
-		augroup END
-		augroup! ToxidTab
-	else
-		let &tabline='%!toxidtab#render()'
-		call toxidtab#define_highlights()
-		augroup ToxidTab
-			autocmd!
-			autocmd ColorScheme * call toxidtab#define_highlights()
-		augroup END
-	endif
-endfunction
-
-" }}}
-function! toxidtab#define_highlights() " {{{
-	hi TabLineFill      ctermfg=236 guifg=#303030
+function! tabline#define_highlights() " {{{
 	hi TabLine          ctermfg=236 ctermbg=243 guifg=#303030 guibg=#767676
+	hi TabLineFill      ctermfg=236 guifg=#303030
 	hi TabLineSel       ctermfg=241 ctermbg=234 guifg=#626262 guibg=#1C1C1C gui=NONE
-	hi TabLineSelRe     ctermfg=234 ctermbg=236 guifg=#1C1C1C guibg=#303030
-	hi TabLineProject   ctermfg=252 ctermbg=238 guifg=#D0D0D0 guibg=#444444
-	hi TabLineProjectRe ctermfg=238 ctermbg=236 guifg=#444444 guibg=#303030
-	hi TabLineA         ctermfg=235 ctermbg=234 guifg=#262626 guibg=#1C1C1C
+	hi TabLineAlt       ctermfg=234 ctermbg=236 guifg=#1C1C1C guibg=#303030
+	hi TabLineAltFill   ctermfg=252 ctermbg=238 guifg=#D0D0D0 guibg=#444444
+	hi TabLineAltSel    ctermfg=238 ctermbg=236 guifg=#444444 guibg=#303030
+	hi TabLineShade     ctermfg=235 ctermbg=234 guifg=#262626 guibg=#1C1C1C
 endfunction
 
 " }}}
-function! toxidtab#render()
+function! tabline#render()
 	" Main tabline function. Draws the whole damn tabline
 
-	let s = '%#TabLineProject# %{toxidtab#project_name()} %#TabLineProjectRe#⮀%#TabLine#  '
+	let s = '%#TabLineAltFill# %{tabline#project_name()} %#TabLineAltSel#⮀%#TabLine#  '
 	let nr = tabpagenr()
 	for i in range(tabpagenr('$'))
 		if i + 1 == nr
-			let s .= '%#TabLineA#░'
+			let s .= '%#TabLineShade#░'
 			let s .= '%#TabLineSel#'
 		else
 			let s .= '%#TabLine# '
 		endif
 		" Set the tab page number (for mouse clicks)
 		let s .= '%'.(i + 1).'T'
-		let s .= '%{toxidtab#tab_label('.(i + 1).')} '
+		let s .= '%{tabline#tab_label('.(i + 1).')} '
 		if i + 1 == nr
-			let s .= '%#TabLineSelRe#⮀ '
+			let s .= '%#TabLineAlt#⮀ '
 		else
 			let s .= ' '
 		endif
@@ -91,7 +43,7 @@ function! toxidtab#render()
 endfunction
 
 " }}}
-function! toxidtab#project_name()
+function! tabline#project_name()
 	" Finds the project name from tab current directory.
 	" It tries to find the root path of a git repository.
 
@@ -123,7 +75,7 @@ function! toxidtab#project_name()
 endfunction
 
 " }}}
-function! toxidtab#tab_label(n)
+function! tabline#tab_label(n)
 	" Returns a specific tab's label
 
 	let buflist = tabpagebuflist(a:n)
@@ -141,11 +93,11 @@ function! toxidtab#tab_label(n)
 
 		" Shorten dir names
 		let short = substitute(filepath,
-			\ "[^/]\\{".g:toxidtab_display_max_dir_chars."}\\zs[^/]\*\\ze/", '', 'g')
+			\ "[^/]\\{".g:tabline_display_max_dir_chars."}\\zs[^/]\*\\ze/", '', 'g')
 		" Decrease dir count
 		let parts = split(short, '/')
-		if len(parts) > g:toxidtab_display_max_dirs
-			let parts = parts[-g:toxidtab_display_max_dirs-1 : ]
+		if len(parts) > g:tabline_display_max_dirs
+			let parts = parts[-g:tabline_display_max_dirs-1 : ]
 		endif
 		let filepath = join(parts, '/')
 
@@ -156,14 +108,11 @@ function! toxidtab#tab_label(n)
 endfunction
 " }}}
 
-" Run-time {{{
-" Enable plugin by default
-ToxidTab
-" }}}
-"
-" Restore 'cpoptions' {{{
-let &cpo = s:save_cpo
-unlet s:save_cpo
-" }}}
+let &tabline='%!tabline#render()'
+call tabline#define_highlights()
+augroup tabline
+	autocmd!
+	autocmd ColorScheme * call tabline#define_highlights()
+augroup END
 
 " vim: set ts=2 sw=2 tw=80 noet :

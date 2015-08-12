@@ -5,7 +5,7 @@
 " Reload .vimrc automatically
 autocmd MyAutoCmd BufWritePost vimrc,config/*.vim,neobundle.vim
 		\ | NeoBundleClearCache | source $MYVIMRC
-		\ | call toxidtab#define_highlights()
+		\ | call tabline#define_highlights()
 		\ | call tinyline#define_highlights()
 		\ | call gitgutter#highlight#define_highlights()
 		\ | call ColorSchemeTheme()
@@ -34,7 +34,7 @@ autocmd MyAutoCmd BufReadPost *
 	\|   exe 'normal! g`"zvzz'
 	\| endif
 
-" Disable paste
+" Disable paste after leaving insert mode
 autocmd MyAutoCmd InsertLeave *
 		\ if &paste | set nopaste mouse=a | echo 'nopaste' | endif |
 		\ if &l:diff | diffupdate | endif

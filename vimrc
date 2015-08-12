@@ -1,8 +1,7 @@
 "      .-.     .-.     .-.     .-.     .-.     .-.     .-.
 " `._.'   `._.'   `._.'   `._.'   `._.'   `._.'   `._.'
 "
-" github.com/rafi vim config
-" vim: set ts=2 sw=2 tw=80 noet :
+" https://github.com/rafi/vim-config
 
 " Runtime and Plugins
 "---------------------------------------------------------
@@ -60,7 +59,10 @@ call s:source_file('filetype.vim')
 call s:source_file('terminal.vim')
 call s:source_file('utils.vim')
 call s:source_file('bindings.vim')
+call s:source_file('tabline.vim')
 " }}}
 
 call neobundle#call_hook('on_source')
 set secure
+
+" vim: set ts=2 sw=2 tw=80 noet :
