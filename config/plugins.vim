@@ -24,20 +24,26 @@ if neobundle#tap('unite.vim') "{{{
 	nnoremap <silent> [unite]s   :<C-u>Unite session<CR>
 	nnoremap <silent> [unite]o   :<C-u>Unite outline<CR>
 	nnoremap <silent> [unite]ma  :<C-u>Unite mapping -silent<CR>
-	nnoremap <silent> [unite]me  :<C-u>Unite output:message -silent<CR>
+	nnoremap <silent> [unite]mk  :<C-u>Unite mark<CR>
 	nnoremap <silent> <Leader>b  :<C-u>Unite buffer file_mru bookmark<CR>
 	nnoremap <silent> <Leader>ta :<C-u>Unite -auto-resize -select=`tabpagenr()-1` tab<CR>
+	nnoremap <silent> [unite]k
+		\ :<C-u>Unite -buffer-name=files -no-split -multi-line -unique -silent
+		\ -no-short-source-names jump_point file_point file_mru
+		\ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec/async'`
+		\ buffer_tab:- file file/new<CR>
+
 	" Open Unite with word under cursor or selection
 	nnoremap <silent> <Leader>gf :UniteWithCursorWord file_rec/async -profile-name=navigate<CR>
 	nnoremap <silent> <Leader>gg :UniteWithCursorWord grep:. -profile-name=navigate<CR>
 	nnoremap <silent> <Leader>gt :UniteWithCursorWord tag -profile-name=navigate<CR>
 	vnoremap <silent> <Leader>gt :<C-u>call VSetSearch('/')<CR>:execute 'Unite tag -profile-name=navigate -input='.strpart(@/,2)<CR>
 	vnoremap <silent> <Leader>gg :<C-u>call VSetSearch('/')<CR>:execute 'Unite grep:. -profile-name=navigate -input='.strpart(@/,2)<CR>
-	nnoremap <silent> [unite]k
-		\ :<C-u>Unite -buffer-name=files -no-split -multi-line -unique -silent
-		\ jump_point file_point file_mru
-		\ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec/async'`
-		\ buffer_tab:- file file/new<CR>
+	autocmd MyAutoCmd BufEnter *
+	\  if empty(&buftype)
+	\|   nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+	\| endif
+
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/unite.vim'
 	call neobundle#untap()
 endif

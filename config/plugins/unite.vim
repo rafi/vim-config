@@ -169,8 +169,10 @@ call unite#custom#profile('source/outline', 'context', {
 call unite#custom#profile('navigate,source/grep', 'context', {
 	\   'silent': 1,
 	\   'start_insert': 0,
-	\   'keep_focus': 1,
 	\   'no_quit': 1,
+	\   'keep_focus': 1,
+	\   'prompt_direction': 'top',
+	\   'direction': 'botright',
 	\ })
 " }}}
 

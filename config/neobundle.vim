@@ -208,6 +208,7 @@ NeoBundleLazy 'osyo-manga/unite-filetype'
 NeoBundleLazy 'thinca/vim-unite-history'
 NeoBundleLazy 'Shougo/unite-build'
 NeoBundleLazy 'Shougo/unite-outline'
+NeoBundleLazy 'tacroe/unite-mark'
 NeoBundleLazy 'Shougo/junkfile.vim', { 'unite_sources': 'junkfile' }
 NeoBundleLazy 'tsukkee/unite-tag', {
 	\  'unite_sources': [ 'tag', 'tag/file', 'tag/include' ]
