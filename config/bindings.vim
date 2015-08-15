@@ -224,6 +224,7 @@ nnoremap <silent> [Window]p  :<C-u>call <SID>split_nicely()<CR>
 nnoremap <silent> [Window]v  :<C-u>split<CR>
 nnoremap <silent> [Window]g  :<C-u>vsplit<CR>
 nnoremap <silent> [Window]t  :tabnew<CR>
+nnoremap <silent> [Window]w  :tabprev<CR>
 nnoremap <silent> [Window]o  :<C-u>only<CR>
 nnoremap <silent> [Window]D  :<C-u>call <SID>CustomBufferDelete()<CR>
 nnoremap <silent> [Window]x  :<C-u>call <SID>CustomBufferDeleteNew()<CR>

@@ -4,6 +4,7 @@ XDG_CACHE_HOME ?= $(HOME)/.cache
 default: install
 
 install:
+	mkdir -p "$(XDG_CACHE_HOME)/vim/"{backup,session,swap,tags,undo,view}; \
 	$(vim) --cmd 'let g:vim_installing = 1' +NeoBundleInstall +q
 
 update:
