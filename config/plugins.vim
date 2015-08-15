@@ -40,7 +40,7 @@ if neobundle#tap('unite.vim') "{{{
 	vnoremap <silent> <Leader>gt :<C-u>call VSetSearch('/')<CR>:execute 'Unite tag -profile-name=navigate -input='.strpart(@/,2)<CR>
 	vnoremap <silent> <Leader>gg :<C-u>call VSetSearch('/')<CR>:execute 'Unite grep:. -profile-name=navigate -input='.strpart(@/,2)<CR>
 	autocmd MyAutoCmd BufEnter *
-	\  if empty(&buftype)
+	\  if empty(&buftype) && &ft != 'go'
 	\|   nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
 	\| endif
 
@@ -291,9 +291,31 @@ endif
 
 "}}}
 if neobundle#tap('vim-go') "{{{
+	autocmd MyAutoCmd FileType go
+		\   nmap <C-]> <Plug>(go-def)
+		\ | nmap <Leader>god  <Plug>(go-describe)
+		\ | nmap <Leader>goc  <Plug>(go-callees)
+		\ | nmap <Leader>goC  <Plug>(go-callers)
+		\ | nmap <Leader>goi  <Plug>(go-info)
+		\ | nmap <Leader>gom  <Plug>(go-implements)
+		\ | nmap <Leader>gos  <Plug>(go-callstack)
+		\ | nmap <Leader>goe  <Plug>(go-referrers)
+		\ | nmap <Leader>gor  <Plug>(go-run)
+		\ | nmap <Leader>gov  <Plug>(go-vet)
+
+	let g:go_def_mapping_enabled = 0
+
 	" vim-go, do not mess with my neosnippet config!
 	let g:go_loaded_gosnippets = 1
 	let g:go_snippet_engine = "neosnippet"
+
+	let g:go_highlight_extra_types = 1
+	let g:go_highlight_operators = 1
+	let g:go_highlight_functions = 1
+	let g:go_highlight_methods = 1
+	let g:go_highlight_structs = 1
+	let g:go_highlight_build_constraints = 1
+
 	call neobundle#untap()
 endif
 

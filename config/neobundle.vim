@@ -49,9 +49,12 @@ NeoBundleLazy 'cespare/vim-toml', { 'filetypes': 'toml' }
 NeoBundleLazy 'PotatoesMaster/i3-vim-syntax', { 'filetypes': 'i3' }
 NeoBundleLazy 'ekalinin/Dockerfile.vim', { 'filetypes': 'Dockerfile' }
 NeoBundleLazy 'jstrater/mpvim', { 'filetypes': 'portfile' }
-NeoBundleLazy 'fatih/vim-go', { 'filetypes': 'go' }
 NeoBundleLazy 'vim-ruby/vim-ruby', { 'filetypes': 'ruby', 'mappings': '<Plug>' }
 NeoBundleLazy 'jelera/vim-javascript-syntax', { 'filetypes': 'javascript' }
+NeoBundleLazy 'fatih/vim-go', {
+	\ 'filetypes': 'go',
+	\ 'commands': [ 'GoInstallBinaries', 'GoUpdateBinaries' ]
+	\ }
 NeoBundleLazy 'jiangmiao/simple-javascript-indenter', {
 	\ 'filetypes': 'javascript',
 	\ }
