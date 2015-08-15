@@ -2,17 +2,20 @@
 " Unite
 " -----
 
+" External Tools {{{
+"
+" The silver searcher. Disable .gitignore usage and search everything.
+" Smart case, ignore vcs ignore files, search hidden, and plain format.
+let s:ag_opts = [
+	\ '--smart-case', '--skip-vcs-ignores', '--hidden',
+	\ '--nocolor', '--nogroup',
+	\ '--ignore', '.git', '--ignore', '.idea',
+	\ '--ignore', 'bower_modules', '--ignore', 'node_modules'
+	\ ]
+
 " General {{{
 let g:unite_kind_jump_list_after_jump_scroll = 50
-let g:unite_enable_auto_select = 0
-
-" The silver searcher. Ignore .gitignore and search everything.
-" Smart case, ignore vcs ignore files, and search hidden.
-let s:ag_opts = '-SU --hidden --depth 30 --nocolor --nogroup '.
-		\ '--ignore ".git" '.
-		\ '--ignore ".idea" '.
-		\ '--ignore "bower_modules" '.
-		\ '--ignore "node_modules"'
+let g:unite_enable_auto_select = 1
 
 " }}}
 " Sources {{{
@@ -24,9 +27,10 @@ let g:unite_source_rec_max_cache_files = 23000
 
 " file_rec/async: Use the_silver_searcher or ack
 if executable('ag')
-	let g:unite_source_rec_async_command = 'ag --follow '.s:ag_opts.' -g ""'
+	let g:unite_source_rec_async_command =
+		\ [ 'ag', '--follow', '-g', '' ] + s:ag_opts
 elseif executable('ack')
-	let g:unite_source_rec_async_command = 'ack -f --nofilter'
+	let g:unite_source_rec_async_command = [ 'ack', '-f', '--nofilter' ]
 endif
 
 " }}}
@@ -47,10 +51,10 @@ let g:neomru#directory_mru_limit = 15
 " Source: grep {{{
 let g:unite_source_grep_max_candidates = 400
 
-" grep: Use the_silver_searcher or ack or default
+" Use the_silver_searcher or ack or default grep
 if executable('ag')
 	let g:unite_source_grep_command = 'ag'
-	let g:unite_source_grep_default_opts = '-i --line-numbers '.s:ag_opts
+	let g:unite_source_grep_default_opts = '--numbers '.join(s:ag_opts)
 	let g:unite_source_grep_recursive_opt = ''
 elseif executable('ack')
 	let g:unite_source_grep_command = 'ack'
@@ -102,36 +106,32 @@ endfunction
 " Global default context
 call unite#custom#profile('default', 'context', {
 	\   'safe': 0,
-	\   'auto_expand': 1,
 	\   'start_insert': 1,
 	\   'max_candidates': 0,
 	\   'short_source_names': 1,
 	\   'update_time': 500,
-	\   'winheight': 20,
-	\   'winwidth': 40,
 	\   'direction': 'topleft',
-	\   'vertical_preview': 1,
+	\   'winwidth': 40,
+	\   'winheight': 20,
 	\   'no_auto_resize': 1,
-	\   'prompt_direction': 'top',
-	\   'cursor_line_highlight': 'CursorLine',
-	\   'cursor_line_time': '0.3',
-	\   'candidate_icon': '-',
+	\   'vertical_preview': 1,
+	\   'cursor_line_time': '0.10',
+	\   'hide_icon': 0,
+	\   'candidate-icon': ' ',
 	\   'marked_icon': '✓',
 	\   'prompt' : '⮀ '
 	\ })
 
-call unite#custom#profile('action', 'context', {
-	\   'start_insert': 1
-	\ })
-
 " Conveniently set settings globally per-source
-call unite#custom#profile('source/history/yank,source/register', 'context', {
-	\ 'start_insert': 0
+
+call unite#custom#profile('register', 'context', {
+	\ 'start_insert': 0,
+	\ 'default_action': 'append'
 	\ })
 
 call unite#custom#profile('source/session', 'context', {
 	\   'start_insert': 0,
-	\   'winheight': 13
+	\   'winheight': 8
 	\ })
 
 call unite#custom#profile('source/source', 'context', {
@@ -142,15 +142,16 @@ call unite#custom#profile('source/source', 'context', {
 
 call unite#custom#profile('completion', 'context', {
 	\   'winheight': 25,
-	\   'direction': 'botright',
 	\   'prompt_direction': 'top',
+	\   'direction': 'botright',
 	\   'no_here': 1
 	\ })
 
-call unite#custom#profile('source/quickfix,source/location_list,source/vim_bookmarks', 'context', {
+call unite#custom#profile('source/vim_bookmarks',
+	\ 'context', {
+	\   'start_insert': 0,
 	\   'winheight': 13,
 	\   'direction': 'botright',
-	\   'start_insert': 0,
 	\   'keep_focus': 1,
 	\   'no_quit': 1,
 	\ })
@@ -158,16 +159,15 @@ call unite#custom#profile('source/quickfix,source/location_list,source/vim_bookm
 call unite#custom#profile('source/outline', 'context', {
 	\   'vertical': 1,
 	\   'direction': 'botright',
-	\   'no_focus': 1,
 	\   'start_insert': 0,
-	\   'keep_focus': 1,
 	\   'no_quit': 1,
+	\   'keep_focus': 1,
+	\   'auto_highlight': 0,
 	\ })
 
 " General purpose profile for navigating and also for grep
 call unite#custom#profile('navigate,source/grep', 'context', {
 	\   'silent': 1,
-	\   'vertical_preview': 1,
 	\   'start_insert': 0,
 	\   'keep_focus': 1,
 	\   'no_quit': 1,
@@ -186,11 +186,20 @@ call unite#custom#profile('navigate,source/grep', 'context', {
 " call unite#custom#source(
 "       \ 'file', 'matchers',
 "       \ ['matcher_fuzzy', 'matcher_hide_hidden_files'])
+"
 call unite#custom#source(
-      \ 'file_rec,file_rec/async,file_rec/git,file_mru', 'converters',
-      \ ['converter_file_directory'])
+  \ 'buffer,file_rec,file_rec/async,file_rec/git,neomru/file',
+	\ 'matchers',
+  \ ['converter_relative_word', 'matcher_fuzzy'])
+
+call unite#custom#source(
+  \ 'file_rec,file_rec/async,file_rec/git,file_mru,neomru/file',
+	\ 'converters',
+  \ ['converter_file_directory'])
+
 call unite#filters#sorter_default#use(['sorter_rank'])
-" call unite#filters#sorter_default#use(['sorter_length'])
+"call unite#filters#sorter_default#use(['sorter_length'])
+"call unite#custom#source('tag', 'sorters', ['sorter_rank'])
 " }}}
 
 " vim: set ts=2 sw=2 tw=80 noet :

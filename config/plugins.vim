@@ -12,15 +12,15 @@ if neobundle#tap('unite.vim') "{{{
 	nnoremap <silent> [unite]r   :<C-u>UniteResume -no-start-insert -force-redraw<CR>
 	nnoremap <silent> [unite]f   :<C-u>Unite file_rec/async<CR>
 	nnoremap <silent> [unite]i   :<C-u>Unite file_rec/git<CR>
-	nnoremap <silent> [unite]g   :<C-u>Unite grep:. -no-wrap<CR>
+	nnoremap <silent> [unite]g   :<C-u>Unite grep:.<CR>
 	nnoremap <silent> [unite]u   :<C-u>Unite source<CR>
-	nnoremap <silent> [unite]t   :<C-u>Unite tag -silent -immediately<CR>
-	nnoremap <silent> [unite]T   :<C-u>Unite tag/include -silent -immediately<CR>
-	nnoremap <silent> [unite]l   :<C-u>Unite location_list<CR>
+	nnoremap <silent> [unite]t   :<C-u>Unite tag<CR>
+	nnoremap <silent> [unite]T   :<C-u>Unite tag/include<CR>
+	nnoremap <silent> [unite]l   :<C-u>Unite -profile-name=navigate location_list<CR>
 	nnoremap <silent> [unite]L   :<C-u>Unite line<CR>
-	nnoremap <silent> [unite]q   :<C-u>Unite quickfix<CR>
-	nnoremap <silent> [unite]j   :<C-u>Unite change jump -profile-name=navigate<CR>
-	nnoremap <silent> [unite]h   :<C-u>Unite -buffer-name=register -default-action=append register history/yank<CR>
+	nnoremap <silent> [unite]q   :<C-u>Unite -profile-name=navigate quickfix<CR>
+	nnoremap <silent> [unite]j   :<C-u>Unite -profile-name=navigate change jump<CR>
+	nnoremap <silent> [unite]h   :<C-u>Unite -buffer-name=register register history/yank<CR>
 	nnoremap <silent> [unite]s   :<C-u>Unite session<CR>
 	nnoremap <silent> [unite]o   :<C-u>Unite outline<CR>
 	nnoremap <silent> [unite]ma  :<C-u>Unite mapping -silent<CR>
