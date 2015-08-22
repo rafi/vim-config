@@ -7,8 +7,7 @@
 " The silver searcher. Disable .gitignore usage and search everything.
 " Smart case, ignore vcs ignore files, search hidden, and plain format.
 let s:ag_opts = [
-	\ '--smart-case', '--skip-vcs-ignores', '--hidden',
-	\ '--nocolor', '--nogroup',
+	\ '--vimgrep', '--smart-case', '--skip-vcs-ignores', '--hidden',
 	\ '--ignore', '.git', '--ignore', '.idea',
 	\ '--ignore', 'bower_modules', '--ignore', 'node_modules'
 	\ ]
@@ -54,7 +53,7 @@ let g:unite_source_grep_max_candidates = 400
 " Use the_silver_searcher or ack or default grep
 if executable('ag')
 	let g:unite_source_grep_command = 'ag'
-	let g:unite_source_grep_default_opts = '--numbers '.join(s:ag_opts)
+	let g:unite_source_grep_default_opts = join(s:ag_opts)
 	let g:unite_source_grep_recursive_opt = ''
 elseif executable('ack')
 	let g:unite_source_grep_command = 'ack'
