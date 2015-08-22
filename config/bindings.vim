@@ -153,6 +153,7 @@ nmap <Leader>tw :setlocal wrap! breakindent!<CR>
 " Tabs
 nnoremap <silent> g0 :<C-u>tabfirst<CR>
 nnoremap <silent> g$ :<C-u>tablast<CR>
+nnoremap <silent> gr :<C-u>tabprevious<CR>
 
 " Buffers
 map <S-Right> :bnext<CR>
@@ -169,11 +170,24 @@ nnoremap <silent> ,<Space> :<C-u>silent! keeppatterns %substitute/\s\+$//e<CR>
 nnoremap <silent> <expr> ,d ":\<C-u>".(&diff?"diffoff":"diffthis")."\<CR>"
 
 " C-r: Easier search and replace
-xnoremap <C-r> :<C-u>call VSetSearch('/')<CR>:%s:<C-R>=@/<CR>::gc<Left><Left><Left>
+xnoremap <C-r> :<C-u>call VSetSearch('/')<CR>:%s/\V<C-R>=@/<CR>//gc<Left><Left><Left>
 
 " Location list
 nmap <Leader>lj :lnext<CR>
 nmap <Leader>lk :lprev<CR>
+
+" Duplicate lines
+nnoremap <leader>d YP`[v`]<esc>l
+vnoremap <leader>d YPgv
+
+" Keep default register on paste
+vnoremap <silent> p "_dP
+vnoremap <silent> P "_dP
+
+" Quick manual search and replace
+nnoremap § *``gn<C-g>
+inoremap § <C-o>gn<C-g>
+snoremap <expr> . @.
 
 " Source line and selection in vim
 vnoremap <Leader>S y:execute @@<CR>:echo 'Sourced selection.'<CR>
@@ -224,7 +238,6 @@ nnoremap <silent> [Window]p  :<C-u>call <SID>split_nicely()<CR>
 nnoremap <silent> [Window]v  :<C-u>split<CR>
 nnoremap <silent> [Window]g  :<C-u>vsplit<CR>
 nnoremap <silent> [Window]t  :tabnew<CR>
-nnoremap <silent> [Window]w  :tabprev<CR>
 nnoremap <silent> [Window]o  :<C-u>only<CR>
 nnoremap <silent> [Window]D  :<C-u>call <SID>CustomBufferDelete()<CR>
 nnoremap <silent> [Window]x  :<C-u>call <SID>CustomBufferDeleteNew()<CR>

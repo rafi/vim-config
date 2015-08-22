@@ -37,8 +37,8 @@ if neobundle#tap('unite.vim') "{{{
 	nnoremap <silent> <Leader>gf :UniteWithCursorWord file_rec/async -profile-name=navigate<CR>
 	nnoremap <silent> <Leader>gg :UniteWithCursorWord grep:. -profile-name=navigate<CR>
 	nnoremap <silent> <Leader>gt :UniteWithCursorWord tag -profile-name=navigate<CR>
-	vnoremap <silent> <Leader>gt :<C-u>call VSetSearch('/')<CR>:execute 'Unite tag -profile-name=navigate -input='.strpart(@/,2)<CR>
-	vnoremap <silent> <Leader>gg :<C-u>call VSetSearch('/')<CR>:execute 'Unite grep:. -profile-name=navigate -input='.strpart(@/,2)<CR>
+	vnoremap <silent> <Leader>gt :<C-u>call VSetSearch('/')<CR>:execute 'Unite tag -profile-name=navigate -input='.@/<CR>
+	vnoremap <silent> <Leader>gg :<C-u>call VSetSearch('/')<CR>:execute 'Unite grep:. -profile-name=navigate -input='.@/<CR>
 	autocmd MyAutoCmd BufEnter *
 	\  if empty(&buftype) && &ft != 'go'
 	\|   nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
@@ -322,6 +322,9 @@ endif
 "}}}
 if neobundle#tap('delimitMate') "{{{
 	let delimitMate_expand_cr = 1
+	function! neobundle#hooks.on_post_source(bundle)
+		silent! iunmap <buffer> <C-g>g
+	endfunction
 	call neobundle#untap()
 endif
 
