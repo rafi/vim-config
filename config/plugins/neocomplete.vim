@@ -31,10 +31,10 @@ let g:neocomplete#disable_auto_select_buffer_name_pattern =
 
 " Do not autocomplete/cache in sensitive file patterns
 let g:neocomplete#sources#buffer#disabled_pattern =
-			\ '\/private\/var\/\|\/shm\/\|\/tmp\/\|\.vault\.vim'
+	\ '\/private\/var\/\|\/shm\/\|\/tmp\/\|\.vault\.vim'
 
 let g:neocomplete#lock_buffer_name_pattern =
-			\ g:neocomplete#sources#buffer#disabled_pattern
+	\ g:neocomplete#sources#buffer#disabled_pattern
 
 " Keyword patterns completion
 " ---
@@ -81,7 +81,7 @@ let g:neocomplete#force_omni_input_patterns.python =
 	\ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
 " Alternative pattern: \ '\h\w*\|[^. \t]\.\w*'
 
-" Mappings {{{
+" Mappings
 " --------
 
 let g:neocomplete#fallback_mappings = ["\<C-x>\<C-o>", "\<C-x>\<C-n>"]
@@ -94,16 +94,17 @@ inoremap <expr><C-b>   pumvisible() ? "\<PageUp>" : "\<Left>"
 imap     <expr><C-d>   pumvisible() ? "\<PageDown>" : "\<C-d>"
 imap     <expr><C-u>   pumvisible() ? "\<PageUp>" : "\<C-u>"
 
-" <C+Space> unite completion
-imap <Nul>  <Plug>(neocomplete_start_unite_complete)
-
 " Special plugin key-mappings
 inoremap <expr><C-l> neocomplete#complete_common_string()
 inoremap <expr><C-g> neocomplete#undo_completion()
 
+" <C+Space> unite completion
+imap <Nul>  <Plug>(neocomplete_start_unite_complete)
+
 " <C-y>, <C-e>: Close popup, close popup and cancel selection
 inoremap <expr><C-y> pumvisible() ? neocomplete#close_popup() : "\<C-r>"
 inoremap <expr><C-e> pumvisible() ? neocomplete#cancel_popup() : "\<End>"
+inoremap <expr><Esc> pumvisible() ? neocomplete#cancel_popup()."\<Esc>" : "\<Esc>"
 
 " <CR>: If popup menu visible, expand snippet or close popup with selection,
 "       Otherwise, check if within empty pair and use delimitMate.
@@ -116,26 +117,24 @@ imap <expr><silent><CR> pumvisible() ?
 " 2. Otherwise, if preceding chars are whitespace, insert tab char
 " 3. Otherwise, if preceding word is a snippet, expand it
 " 4. Otherwise, start manual autocomplete
-imap <expr><silent><Tab> pumvisible() ? "\<C-n>"
+imap <expr><silent><Tab> pumvisible() ? "\<Down>"
 	\ : (<SID>is_whitespace() ? "\<Tab>"
 	\ : (neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)"
 	\ : neocomplete#start_manual_complete()))
 
-smap <expr><Tab> pumvisible() ? "\<C-n>"
+smap <expr><Tab> pumvisible() ? "\<Down>"
 	\ : (<SID>is_whitespace() ? "\<Tab>"
 	\ : (neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)"
 	\ : neocomplete#start_manual_complete()))
 
-imap <expr><S-Tab> pumvisible() ? "\<C-p>"
+imap <expr><S-Tab> pumvisible() ? "\<Up>"
 	\ : (<SID>is_whitespace() ? "\<BS>"
 	\ : (neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)"
 	\ : neocomplete#start_manual_complete()))
 
-function! s:is_whitespace() "{{{
+function! s:is_whitespace()
 	let col = col('.') - 1
-	return !col || getline('.')[col - 1]  =~ '\s'
-endfunction "}}}
-
-" }}}
+	return ! col || getline('.')[col - 1] =~ '\s'
+endfunction
 
 " vim: set ts=2 sw=2 tw=80 noet :
