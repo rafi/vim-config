@@ -184,6 +184,7 @@ set cmdheight=2         " Height of the command line
 set cmdwinheight=5      " Command-line lines
 set noequalalways       " Don't resize windows on split or close
 set laststatus=2        " Always show a status line
+set colorcolumn=80
 
 " Changing characters to fill special ui elements
 set showbreak=↪
@@ -195,9 +196,6 @@ set listchars=tab:\⋮\ ,extends:⟫,precedes:⟪,nbsp:.,trail:·
 if has('patch-7.4.314')
 	set shortmess+=c
 endif
-
-" Highlight just a single character on the 81st virtual column
-call matchadd('ColorColumn', '\%81v', 100)
 
 " For snippet_complete marker
 if has('conceal') && v:version >= 703
