@@ -5,8 +5,8 @@
 if exists('$TMUX') && ! has('nvim')
 	set ttymouse=sgr
 
-	" Assigns some xterm(1)-style keys to escape sequences passed by tmux {{{
-	" when "xterm-keys" is set to "on".  Inspired by an example given by
+	" Assigns some xterm(1)-style keys to escape sequences passed by tmux
+	" when 'xterm-keys' is set to 'on'.  Inspired by an example given by
 	" Chris Johnsen at https://stackoverflow.com/a/15471820
 	" Credits: Mark Oteiza
 	" Documentation: help:xterm-modifier-keys man:tmux(1)
@@ -40,8 +40,7 @@ if exists('$TMUX') && ! has('nvim')
   execute "set t_kP=^[[5;*~"
   execute "set t_kN=^[[6;*~"
 
-	" }}}
-	" Cursor shape {{{
+	" Cursor shape
 	" ------------
 	" For rxvt-unicode:
 	" 1 or 0 -> blinking block
@@ -53,7 +52,6 @@ if exists('$TMUX') && ! has('nvim')
 	" 6 -> solid vertical bar
 	let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>[3 q\<Esc>\\"
 	let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>[0 q\<Esc>\\"
-	" }}}
 
 elseif ! has('nvim')
 	set ttymouse=urxvt     " Set mouse terminal type

@@ -284,7 +284,6 @@ Name           | Description
 Key   | Mode | Action
 ----- |:----:| ------------------
 `Space` | Normal | **Leader**
-`;` | Normal | **Command mode**
 Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `Backspace` | Normal | Match bracket (%)
 `K` | Normal | Open Zeal or Dash on many filetypes (not in vim and python)
@@ -297,22 +296,18 @@ Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `Ctrl`+`b` | Normal | Smart page backwards (C-b/C-u)
 `Ctrl`+`e` | Normal | Smart scroll down (3C-e/j)
 `Ctrl`+`y` | Normal | Smart scroll up (3C-y/k)
-`Ctrl`+`x` | Normal | Switch buffer and placement
-`Ctrl`+`z` | Normal | Switch buffer and placement
 `Ctrl`+`q` | Normal | `Ctrl`+`w`
-`+` | Normal | Increment (C-a)
-`-` | Normal | Decrement (C-x)
+`Ctrl`+`x` | Normal | Switch buffer and placement
 `}` | Normal | After paragraph motion go to first non-blank char (}^)
-`<` | Visual | Indent to left and re-select (<gv)
-`>` | Visual | Indent to right and re-select (>gv|)
-`Tab` | Visual | Indent to right and re-select (>gv)
-`Shift`+`Tab` | Normal | Indent to left and re-select (<gv)
+`<` | Visual/Normal | Indent to left and re-select
+`>` | Visual/Normal | Indent to right and re-select
+`Tab` | Visual | Indent to right and re-select
+`Shift`+`Tab` | Visual | Indent to left and re-select
 `gp` | Normal | Select last paste
 `Q`/`gQ` | Normal | Disable EX-mode (<Nop>)
 `Ctrl`+`a` | Command | Navigation in command line
-`Ctrl`+`f` | Command | Move cursor forward in command line
 `Ctrl`+`b` | Command | Move cursor backward in command line
-`Ctrl`+`g` | Command | C-g in command line
+`Ctrl`+`f` | Command | Move cursor forward in command line
 
 ### File Operations
 
@@ -337,8 +332,7 @@ Key   | Mode | Action
 `<leader>`+`tw` | Normal | Toggle wrap (:setlocal wrap! breakindent!)
 `g0` | Normal | Go to first tab (:tabfirst)
 `g$` | Normal | Go to last tab (:tablast)
-`Shift`+`Right` | _All_ | Switch to next buffer (:bnext)
-`Shift`+`Left` | _All_ | Switch to previous buffer (:bprev)
+`gr` | Normal | Go to preview tab (:tabprevious)
 `Ctrl`+`j` | Normal | Move to split below (<C-w>j)
 `Ctrl`+`k` | Normal | Move to upper split (<C-w>k)
 `Ctrl`+`h` | Normal | Move to left split (<C-w>h)
@@ -511,6 +505,5 @@ Key   | Mode | Action
 `<leader>`+`?` | Normal | Dictionary
 `<leader>`+`W` | Normal | Wiki
 `<leader>`+`K` | Normal | Thesaurus
-`Ctrl`+`q` | Normal/Insert | Closebuffer
 
 ## Enjoy!
