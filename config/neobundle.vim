@@ -108,6 +108,9 @@ NeoBundleLazy 'lambdalisue/vim-gita', {
 	\ 'rev': 'feature/gita-blame-feature',
 	\ 'autoload': { 'commands': [ 'Gita' ] }
 	\ }
+NeoBundleLazy 't9md/vim-choosewin', {
+	\ 'mappings': '<Plug>(choosewin)'
+	\ }
 NeoBundleLazy 'haya14busa/vim-asterisk', {
 	\ 'mappings': '<Plug>(asterisk-'
 	\ }
@@ -133,9 +136,10 @@ if $VIM_MINIMAL == ''
 	NeoBundleLazy 'thinca/vim-ref', { 'unite_sources': 'ref' }
 	NeoBundleLazy 'thinca/vim-guicolorscheme', { 'commands': 'GuiColorScheme' }
 	NeoBundleLazy 'guns/xterm-color-table.vim', { 'commands': 'XtermColorTable' }
-	NeoBundleLazy 'thinca/vim-prettyprint', { 'commands': 'PP' }
 	NeoBundleLazy 'thinca/vim-quickrun', { 'mappings': '<Plug>' }
 	NeoBundleLazy 'itchyny/dictionary.vim', { 'commands': 'Dictionary' }
+	NeoBundleLazy 'thinca/vim-prettyprint', {
+		\ 'commands': 'PP', 'functions': 'PP' }
 	NeoBundleLazy 'beloglazov/vim-online-thesaurus', {
 		\ 'commands': [ 'OnlineThesaurusCurrentWord', 'Thesaurus' ]}
 	NeoBundleLazy 'junegunn/goyo.vim', {

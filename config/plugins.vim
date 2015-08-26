@@ -195,7 +195,19 @@ if neobundle#tap('vim-choosewin') "{{{
 	nmap -         <Plug>(choosewin)
 	nmap <Leader>- :<C-u>ChooseWinSwap<CR>
 
-	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/choosewin.vim'
+	let g:choosewin_label = 'FGHJKLZXCVBNM'
+	let g:choosewin_overlay_enable     = 1
+	let g:choosewin_statusline_replace = 1
+	let g:choosewin_tabline_replace    = 1
+	let g:choosewin_label_padding      = 3
+	let g:choosewin_blink_on_land      = 0
+
+	let g:choosewin_color_label = { 'cterm': [ 236, 2 ] }
+	let g:choosewin_color_label_current = { 'cterm': [ 234, 220 ] }
+	let g:choosewin_color_other = { 'cterm': [ 235, 235 ] }
+	let g:choosewin_color_overlay = { 'cterm': [ 2, 10 ] }
+	let g:choosewin_color_overlay_current = { 'cterm': [ 72, 64 ] }
+
 	call neobundle#untap()
 endif
 
@@ -241,12 +253,21 @@ endif
 
 "}}}
 if neobundle#tap('vim-gitgutter') "{{{
+	let g:gitgutter_realtime = 0
+	let g:gitgutter_eager = 0
+	let g:gitgutter_map_keys = 0
+	let g:gitgutter_sign_added = '␥'
+	let g:gitgutter_sign_modified = '⌇' "  ~ ∼ ∽ ∾ ∿ ⌇
+	let g:gitgutter_sign_removed = 'ₓ' " ₓ ˣ ⌿
+	let g:gitgutter_sign_removed_first_line = '˃'
+	let g:gitgutter_sign_modified_removed = '≠'
+
 	nmap <Leader>hj <Plug>GitGutterNextHunk
 	nmap <Leader>hk <Plug>GitGutterPrevHunk
 	nmap <Leader>hs <Plug>GitGutterStageHunk
 	nmap <Leader>hr <Plug>GitGutterRevertHunk
 	nmap <Leader>hp <Plug>GitGutterPreviewHunk
-	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/gitgutter.vim'
+
 	call neobundle#untap()
 endif
 
