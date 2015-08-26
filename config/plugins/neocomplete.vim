@@ -77,6 +77,8 @@ endif
 
 let g:neocomplete#force_omni_input_patterns.javascript =
 	\ '[^. \t]\.\w*'
+let g:neocomplete#force_omni_input_patterns.typescript =
+	\ '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplete#force_omni_input_patterns.python =
 	\ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
 " Alternative pattern: \ '\h\w*\|[^. \t]\.\w*'
@@ -104,13 +106,13 @@ imap <Nul>  <Plug>(neocomplete_start_unite_complete)
 " <C-y>, <C-e>: Close popup, close popup and cancel selection
 inoremap <expr><C-y> pumvisible() ? neocomplete#close_popup() : "\<C-r>"
 inoremap <expr><C-e> pumvisible() ? neocomplete#cancel_popup() : "\<End>"
-inoremap <expr><Esc> pumvisible() ? neocomplete#cancel_popup()."\<Esc>" : "\<Esc>"
 
 " <CR>: If popup menu visible, expand snippet or close popup with selection,
 "       Otherwise, check if within empty pair and use delimitMate.
 imap <expr><silent><CR> pumvisible() ?
 	\ (neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : neocomplete#close_popup())
-	\ : (delimitMate#WithinEmptyPair() ? "\<Plug>delimitMateCR" : "\<CR>")
+	\ : (neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)"
+		\ : (delimitMate#WithinEmptyPair() ? "\<Plug>delimitMateCR" : "\<CR>"))
 
 " <Tab> completion:
 " 1. If popup menu is visible, select and insert next item
