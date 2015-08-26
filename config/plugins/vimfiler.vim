@@ -24,9 +24,13 @@ endif
 
 call vimfiler#custom#profile('default', 'context', {
 	\  'safe': 0,
+	\  'winwidth': 25,
 	\  'explorer': 1,
 	\  'auto_expand': 1,
-	\  'no_quit': 1
+	\  'no_quit': 1,
+	\  'parent': 0,
+	\  'split': 1,
+	\  'toggle': 1,
 	\ })
 
 autocmd MyAutoCmd FileType vimfiler call s:vimfiler_settings()

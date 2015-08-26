@@ -413,8 +413,8 @@ Key   | Mode | Action
 
 Key   | Mode | Action
 ----- |:----:| ------------------
-`<leader>`+`f` | Normal | Toggle file explorer
-`<leader>`+`fa` | Normal | Toggle file explorer on current file
+`f`+`e` | Normal | Toggle file explorer
+`f`+`a` | Normal | Toggle file explorer on current file
 | **Within _VimFiler_ buffers** |||
 `Ctrl`+`j` | Normal | Un-map
 `Ctrl`+`l` | Normal | Un-map
