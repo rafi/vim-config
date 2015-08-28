@@ -82,7 +82,7 @@ function! s:unite_settings()
 	nmap <silent><buffer><expr> sg unite#do_action('vsplit')
 	nmap <silent><buffer><expr> st unite#do_action('tabopen')
 	nnoremap <silent><buffer> <Tab>  <C-w>w
-	nmap <buffer> <ESC>         <Plug>(unite_exit)
+	nmap <buffer> q             <Plug>(unite_exit)
 	imap <buffer> jj            <Plug>(unite_insert_leave)
 	imap <buffer> <Tab>         <Plug>(unite_complete)
 	nmap <buffer> <C-z>         <Plug>(unite_toggle_transpose_window)
@@ -146,10 +146,10 @@ call unite#custom#profile('completion', 'context', {
 	\   'no_here': 1
 	\ })
 
-call unite#custom#profile('source/vim_bookmarks',
-	\ 'context', {
+call unite#custom#profile('source/vim_bookmarks', 'context', {
 	\   'start_insert': 0,
 	\   'winheight': 13,
+	\   'prompt_direction': 'top',
 	\   'direction': 'botright',
 	\   'keep_focus': 1,
 	\   'no_quit': 1,
