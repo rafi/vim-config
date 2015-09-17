@@ -1,6 +1,6 @@
 
-" File Type Detection {{{
-"---------------------------------------------------------
+" File-type Detection
+" ------------------------------------------------
 
 if exists('did_load_filetypes')
 	finish

@@ -4,7 +4,7 @@
 " https://github.com/rafi/vim-config
 
 " Runtime and Plugins
-"---------------------------------------------------------
+" -------------------------------------------------
 
 " Skip initialization for vim-tiny/small
 if 0 | endif

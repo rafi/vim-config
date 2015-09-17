@@ -42,15 +42,15 @@ and [init.vim:44-49](./config/init.vim#L44-L49).
 ## Structure
 - [config](./config)/ - Configuration
   - [plugins](./plugins)/ - Individual plugin configurations
-  - [bindings.vim](./plugins/bindings.vim) - Key bindings
-  - [colors.vim](./plugins/bindings.vim) - Custom colors
-  - [filetype.vim](./plugins/filetype.vim) - Language behavior
-  - [general.vim](./plugins/general.vim) - VIM general configuration
-  - [init.vim](./plugins/init.vim) - VIM initialization
-  - [neobundle.vim](./plugins/neobundle.vim) - Plugin bundles
-  - [plugins.vim](./plugins/plugins.vim) - Plugin configuration
-  - [terminal.vim](./plugins/terminal.vim) - Terminal configuration
-  - [utils.vim](./plugins/utils.vim) - Commands and functions
+  - [bindings.vim](./config/bindings.vim) - Key bindings
+  - [colors.vim](./config/bindings.vim) - Custom colors
+  - [filetype.vim](./config/filetype.vim) - Language behavior
+  - [general.vim](./config/general.vim) - VIM general configuration
+  - [init.vim](./config/init.vim) - VIM initialization
+  - [neobundle.vim](./config/neobundle.vim) - Plugin bundles
+  - [config.vim](./config/plugins.vim) - Plugin configuration
+  - [terminal.vim](./config/terminal.vim) - Terminal configuration
+  - [utils.vim](./config/utils.vim) - Commands and functions
 - [ftplugin](./ftplugin)/ - Language settings
 - [plugin](./plugin)/ - Plugin playground
 - [snippets](./snippets)/ - Code snippets
@@ -346,7 +346,7 @@ Key   | Mode | Action
 `<leader>`+`lk` | Normal | Previous on location list
 `<leader>`+`S` | Normal/visual | Source selection
 `<leader>`+`ml` | Normal | Append modeline
-`f`+`z` | Normal | Focus the current fold by closing all others (mzzM`zzv)
+`f`+`z` | Normal | Focus the current fold by closing all others
 
 ### Window Management
 

@@ -1,6 +1,6 @@
 
 " File Types {{{
-"---------------------------------------------------------
+"-------------------------------------------------
 
 augroup MyAutoCmd
 
@@ -39,7 +39,8 @@ augroup MyAutoCmd
 	autocmd FileType c setlocal omnifunc=ccomplete#Complete
 	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 	autocmd FileType go setlocal omnifunc=gocomplete#Complete
-	autocmd FileType html,mustache,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+	autocmd FileType html,mustache,markdown
+		\ setlocal omnifunc=htmlcomplete#CompleteTags
 "	autocmd FileType java setlocal omnifunc=javacomplete#Complete
 	autocmd FileType javascript setlocal omnifunc=tern#Complete
 	autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
@@ -48,9 +49,9 @@ augroup MyAutoCmd
 	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 augroup END
-" }}}
 
-" Internal Plugin Settings
+" }}}
+" Internal Plugin Settings " {{{
 " ------------------------
 
 " PHP "{{{

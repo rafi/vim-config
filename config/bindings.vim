@@ -18,6 +18,8 @@ vmap <Leader><Leader> <Esc>
 
 " Toggle fold
 nnoremap <CR> za
+" Focus the current fold by closing all others
+nnoremap z/ mzzM`zzv
 
 " Use backspace key for matchit.vim
 nmap <BS> %
@@ -60,7 +62,6 @@ noremap <expr> <C-y> (line("w0") <= 1         ? "k" : "3\<C-y>")
 nnoremap <C-q> <C-w>
 nnoremap <C-x> <C-w>x
 nnoremap <silent> <C-w>z :ZoomToggle<CR>
-nnoremap <expr><C-m> (bufname('%') ==# '[Command Line]' <bar><bar> &l:buftype ==# 'quickfix') ? "<CR>" : "<C-w>j"
 
 " Select blocks after indenting
 xnoremap < <gv
@@ -139,13 +140,13 @@ nnoremap <silent> <expr> ,d ":\<C-u>".(&diff?"diffoff":"diffthis")."\<CR>"
 " C-r: Easier search and replace
 xnoremap <C-r> :<C-u>call VSetSearch('/')<CR>:%s/\V<C-R>=@/<CR>//gc<Left><Left><Left>
 
-" Location list
-nmap <Leader>lj :lnext<CR>
-nmap <Leader>lk :lprev<CR>
+" Location list movement
+nmap <Leader>j :lnext<CR>
+nmap <Leader>k :lprev<CR>
 
 " Duplicate lines
-nnoremap <leader>d YP`[v`]<esc>l
-vnoremap <leader>d YPgv
+nnoremap <Leader>d YP`[v`]<esc>l
+vnoremap <Leader>d YPgv
 
 " Keep default register on paste
 vnoremap <silent> p "_dP
@@ -163,16 +164,14 @@ nnoremap <Leader>S ^vg_y:execute @@<CR>:echo 'Sourced line.'<CR>
 " Append modeline to EOF
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 
-" Focus the current fold by closing all others
-nnoremap [unite]z mzzM`zzv
 " Yank buffer's absolute path to X11 clipboard
-nnoremap [unite]y :let @+=expand("%:p")<CR>:echo 'Copied to clipboard.'<CR>
+nnoremap <C-c> :let @+=expand("%:p")<CR>:echo 'Copied to clipboard.'<CR>
 
 " Drag current line/s vertically and auto-indent
-noremap  <leader>mk :m-2<CR>==
-noremap  <leader>mj :m+<CR>==
-vnoremap <leader>mk :m-2<CR>gv=gv
-vnoremap <leader>mj :m'>+<CR>gv=gv
+noremap  <Leader>mk :m-2<CR>==
+noremap  <Leader>mj :m+<CR>==
+vnoremap <Leader>mk :m-2<CR>gv=gv
+vnoremap <Leader>mj :m'>+<CR>gv=gv
 
 augroup MyAutoCmd " {{{
 
@@ -217,8 +216,8 @@ nnoremap <silent> <Tab> :call <SID>NextWindowOrTab()<CR>
 nnoremap <silent> <S-Tab> :call <SID>PreviousWindowOrTab()<CR>
 
 " Split current buffer, go to previous window and previous buffer
-nnoremap <leader>sv :split<CR>:wincmd p<CR>:e#<CR>
-nnoremap <leader>sg :vsplit<CR>:wincmd p<CR>:e#<CR>
+nnoremap <Leader>sv :split<CR>:wincmd p<CR>:e#<CR>
+nnoremap <Leader>sg :vsplit<CR>:wincmd p<CR>:e#<CR>
 
 function! s:smart_close() "{{{
 	if winnr('$') != 1
