@@ -164,21 +164,32 @@ if neobundle#tap('open-browser.vim') "{{{
 endif
 
 "}}}
-if neobundle#tap('vim-bookmarks') "{{{
-	let g:bookmark_auto_save_dir = $VARPATH.'/bookmarks'
-	let g:bookmark_no_default_key_mappings = 1
-	nnoremap <silent> <Plug>BookmarkShowAll :<C-u>BookmarkShowAll<CR>
-	nnoremap <silent> <Plug>BookmarkNext :<C-u>BookmarkNext<CR>
-	nnoremap <silent> <Plug>BookmarkPrev :<C-u>BookmarkPrev<CR>
-	nnoremap <silent> <Plug>BookmarkToggle :<C-u>let b:bm_sync=0<CR>:<C-u>BookmarkToggle<CR>
-	nnoremap <silent> <Plug>BookmarkAnnotate :<C-u>let b:bm_sync=0<CR>:<C-u>BookmarkAnnotate<CR>
-	nmap ma <Plug>BookmarkShowAll
-	nmap mn <Plug>BookmarkNext
-	nmap mp <Plug>BookmarkPrev
-	nmap mm <Plug>BookmarkToggle
-	nmap mi <Plug>BookmarkAnnotate
+if neobundle#tap('vim-signature') "{{{
+	let g:SignatureMarkTextHLDynamic = 1
+	let g:SignatureMarkerTextHLDynamic = 1
+"	let g:SignatureDeferPlacement = 0
+	let g:SignatureMap = {
+		\ 'Leader'             :  "m",
+		\ 'PlaceNextMark'      :  "m,",
+		\ 'ToggleMarkAtLine'   :  "m.",
+		\ 'PurgeMarksAtLine'   :  "m-",
+		\ 'DeleteMark'         :  "dm",
+		\ 'PurgeMarks'         :  "m<Space>",
+		\ 'PurgeMarkers'       :  "m<BS>",
+		\ 'GotoNextSpotAlpha'  :  "`]",
+		\ 'GotoPrevSpotAlpha'  :  "`[",
+		\ 'GotoNextLineByPos'  :  "]'",
+		\ 'GotoPrevLineByPos'  :  "['",
+		\ 'GotoNextSpotByPos'  :  "]`",
+		\ 'GotoPrevSpotByPos'  :  "[`",
+		\ 'GotoNextMarker'     :  "[+",
+		\ 'GotoPrevMarker'     :  "[-",
+		\ 'GotoNextMarkerAny'  :  "]=",
+		\ 'GotoPrevMarkerAny'  :  "[=",
+		\ 'ListLocalMarks'     :  "m/",
+		\ 'ListLocalMarkers'   :  "m?"
+		\ }
 
-	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/bookmarks.vim'
 	call neobundle#untap()
 endif
 

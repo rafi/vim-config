@@ -15,7 +15,7 @@ NeoBundle 'Shougo/vimproc.vim', {
 NeoBundle 'itchyny/vim-cursorword'
 NeoBundle 'itchyny/vim-gitbranch'
 NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'MattesGroeger/vim-bookmarks'
+NeoBundle 'kshenoy/vim-signature'
 NeoBundle 'christoomey/vim-tmux-navigator'
 NeoBundle 'rafi/vim-tinyline'
 NeoBundle 'rafi/vim-tagabana'
@@ -105,7 +105,6 @@ NeoBundleLazy 'Shougo/vinarise.vim', {
 	\   { 'name': 'Vinarise', 'complete': 'file' }
 	\ ]}
 NeoBundleLazy 'lambdalisue/vim-gita', {
-	\ 'rev': 'feature/gita-blame-feature',
 	\ 'autoload': { 'commands': [ 'Gita' ] }
 	\ }
 NeoBundleLazy 't9md/vim-choosewin', {
@@ -160,20 +159,6 @@ endif
 " ---------
 NeoBundleLazy 'matchit.zip', { 'mappings': [[ 'nxo', '%', 'g%' ]]}
 NeoBundleLazy 'Yggdroot/indentLine', { 'filetypes': 'all' }
-NeoBundleLazy 'xolox/vim-session', {
-	\ 'depends': 'xolox/vim-misc',
-	\ 'augroup': 'PluginSession',
-	\ 'autoload': {
-	\ 'commands': [
-	\   { 'name': [ 'OpenSession', 'CloseSession' ],
-	\     'complete': 'customlist,xolox#session#complete_names' },
-	\   { 'name': [ 'SaveSession' ],
-	\     'complete': 'customlist,xolox#session#complete_names_with_suggestions' }
-	\ ],
-	\ 'functions': [ 'xolox#session#complete_names',
-	\                'xolox#session#complete_names_with_suggestions' ],
-	\ 'unite_sources': [ 'session', 'session/new' ]
-	\ }}
 
 " }}}
 " Completion {{{
