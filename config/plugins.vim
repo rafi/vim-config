@@ -69,6 +69,7 @@ if neobundle#tap('neocomplete') && has('lua') "{{{
 	let g:neocomplete#enable_at_startup = 1
 	let g:neocomplete#data_directory = $VARPATH.'/complete'
 	let neobundle#hooks.on_source    = $VIMPATH.'/config/plugins/neocomplete.vim'
+
 	call neobundle#untap()
 endif
 
@@ -213,7 +214,7 @@ endif
 "}}}
 if neobundle#tap('vim-session') "{{{
 	nmap <Leader>se :<C-u>SaveSession<CR>
-	nmap <Leader>os :<C-u>OpenSession<CR>
+	nmap <Leader>os :<C-u>OpenSession last<CR>
 
 	let g:session_directory = $VARPATH.'/session'
 	let g:session_default_name = 'last'

@@ -44,7 +44,8 @@ if ! exists('g:neocomplete#keyword_patterns')
 	let g:neocomplete#keyword_patterns = {}
 endif
 " \h\w* = head of word is a word characters
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+let g:neocomplete#keyword_patterns['default'] = ''
+"let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
 " Enable omni-completion
 " ---
@@ -57,8 +58,6 @@ let g:neocomplete#sources#omni#input_patterns.javascript =
 	\ '[[:alpha:]./"''$]\+'
 let g:neocomplete#sources#omni#input_patterns.coffee =
 	\ '[[:alpha:]./"''$]\+'
-let g:neocomplete#sources#omni#input_patterns.php =
-	\ '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 let g:neocomplete#sources#omni#input_patterns.go =
 	\ '[^.[:digit:] *\t]\.\w*'
 "let g:neocomplete#sources#omni#input_patterns.c =
@@ -79,6 +78,8 @@ let g:neocomplete#force_omni_input_patterns.javascript =
 	\ '[^. \t]\.\w*'
 let g:neocomplete#force_omni_input_patterns.typescript =
 	\ '[^. *\t]\.\w*\|\h\w*::'
+let g:neocomplete#force_omni_input_patterns.php =
+	\ '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 let g:neocomplete#force_omni_input_patterns.python =
 	\ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
 " Alternative pattern: \ '\h\w*\|[^. \t]\.\w*'
@@ -95,6 +96,9 @@ inoremap <expr><C-f>   pumvisible() ? "\<PageDown>" : "\<Right>"
 inoremap <expr><C-b>   pumvisible() ? "\<PageUp>" : "\<Left>"
 imap     <expr><C-d>   pumvisible() ? "\<PageDown>" : "\<C-d>"
 imap     <expr><C-u>   pumvisible() ? "\<PageUp>" : "\<C-u>"
+
+inoremap <silent><expr> <C-z>
+	\ unite#start_complete('register', { 'input': unite#get_cur_text() })
 
 " Special plugin key-mappings
 inoremap <expr><C-l> neocomplete#complete_common_string()
@@ -129,7 +133,7 @@ smap <expr><Tab> pumvisible() ? "\<Down>"
 	\ : (neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)"
 	\ : neocomplete#start_manual_complete()))
 
-imap <expr><S-Tab> pumvisible() ? "\<Up>"
+imap <expr><silent><S-Tab> pumvisible() ? "\<Up>"
 	\ : (<SID>is_whitespace() ? "\<BS>"
 	\ : (neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)"
 	\ : neocomplete#start_manual_complete()))

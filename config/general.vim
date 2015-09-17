@@ -34,6 +34,7 @@ set sessionoptions-=options
 set sessionoptions-=globals
 set sessionoptions-=folds
 set sessionoptions-=help
+set sessionoptions-=buffers
 
 if has('clipboard') || has('gui_running')
 	" Do not do anything with system's clipboard
@@ -58,7 +59,7 @@ endif
 " Vim Directories {{{
 " ---------------
 set undofile swapfile nospell nobackup
-set viminfo='10,/100,:500,<10,@10,s10,h,n$VARPATH/viminfo
+set viminfo='30,/100,:500,<10,@10,s10,h,n$VARPATH/viminfo
 set directory=$VARPATH/swap//,$VARPATH,~/tmp,/var/tmp,/tmp
 set undodir=$VARPATH/undo//,$VARPATH,~/tmp,/var/tmp,/tmp
 set backupdir=$VARPATH/backup/,$VARPATH,~/tmp,/var/tmp,/tmp
@@ -167,6 +168,7 @@ set scrolloff=2         " Keep at least 2 lines above/below
 set sidescrolloff=2     " Keep at least 2 lines left/right
 set pumheight=20        " Pop-up menu's line height
 set number              " Show line numbers
+set relativenumber      " Use relative instead of absolute line numbers
 set noruler             " Disable default status ruler
 set list                " Show hidden characters
 
@@ -184,7 +186,7 @@ set cmdheight=2         " Height of the command line
 set cmdwinheight=5      " Command-line lines
 set noequalalways       " Don't resize windows on split or close
 set laststatus=2        " Always show a status line
-set colorcolumn=80
+set colorcolumn=80      " Highlight the 80th character limit
 
 " Changing characters to fill special ui elements
 set showbreak=↪

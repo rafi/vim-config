@@ -3,7 +3,7 @@
 "---------------------------------------------------------
 
 " Reload .vimrc automatically
-autocmd MyAutoCmd BufWritePost vimrc,config/*.vim,neobundle.vim
+autocmd MyAutoCmd BufWritePost vimrc,neobundle.vim
 		\ | NeoBundleClearCache | source $MYVIMRC
 		\ | call tabline#define_highlights()
 		\ | call tinyline#define_highlights()

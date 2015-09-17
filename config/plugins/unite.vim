@@ -106,7 +106,6 @@ endfunction
 call unite#custom#profile('default', 'context', {
 	\   'safe': 0,
 	\   'start_insert': 1,
-	\   'max_candidates': 0,
 	\   'short_source_names': 1,
 	\   'update_time': 500,
 	\   'direction': 'topleft',

@@ -3,3 +3,4 @@ setlocal nowrap
 setlocal commentstring=#\ %s
 setlocal foldenable
 setlocal foldmethod=marker
+compiler tmux
