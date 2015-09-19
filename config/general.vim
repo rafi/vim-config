@@ -123,9 +123,9 @@ endif
 " }}}
 " Time {{{
 " --------
-set ttimeout
-set ttimeoutlen=20  " Make it fast
-set timeoutlen=1200 " A little bit more time for macros
+set timeout ttimeout
+set timeoutlen=1000 " Time out on mappings
+set ttimeoutlen=50  " Time out on key codes
 set updatetime=1000 " Idle time to write swap
 
 " }}}

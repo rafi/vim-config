@@ -105,7 +105,7 @@ inoremap <expr><C-l> neocomplete#complete_common_string()
 inoremap <expr><C-g> neocomplete#undo_completion()
 
 " <C+Space> unite completion
-imap <Nul>  <Plug>(neocomplete_start_unite_complete)
+imap <C-Space>  <Plug>(neocomplete_start_unite_complete)
 
 " <C-y>, <C-e>: Close popup, close popup and cancel selection
 inoremap <expr><C-y> pumvisible() ? neocomplete#close_popup() : "\<C-r>"

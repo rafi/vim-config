@@ -5,21 +5,32 @@
 " Non-standard {{{
 " ------------
 
-if exists('g:elite_mode') && g:elite_mode
-	" Make arrow keys useful
+" Verbose
+map <Nul> <C-Space>
+map! <Nul> <C-Space>
+
+" Map unused Vim commands to custom terminal bindings
+map <F13> <S-Return>
+map <F14> <C-Return>
+map! <F13> <S-Return>
+map! <F14> <C-Return>
+
+if get(g:, 'elite_mode')
+	" Arrows resize splits
 	nnoremap <Up>    :resize +2<CR>
 	nnoremap <Down>  :resize -2<CR>
 	nnoremap <Left>  :vertical resize +2<CR>
 	nnoremap <Right> :vertical resize -2<CR>
 endif
 
+" Double leader key for toggling visual-line mode
 nmap <Leader><Leader> V
 vmap <Leader><Leader> <Esc>
 
 " Toggle fold
 nnoremap <CR> za
 " Focus the current fold by closing all others
-nnoremap z/ mzzM`zzv
+nnoremap <S-Return> zMza
 
 " Use backspace key for matchit.vim
 nmap <BS> %
@@ -38,12 +49,6 @@ nmap <Leader>P "+P
 vmap <Leader>p "+p
 vmap <Leader>P "+P
 
-" Improve cursor up/down
-nnoremap <expr> j v:count ? 'j' : 'gj'
-vnoremap <expr> j v:count ? 'j' : 'gj'
-nnoremap <expr> k v:count ? 'k' : 'gk'
-vnoremap <expr> k v:count ? 'k' : 'gk'
-
 " Start an external command with a single bang
 nnoremap ! :!
 
@@ -52,9 +57,19 @@ cabbrev Wq :wq
 cabbrev qw :wq
 cabbrev Qa :qa
 
-" Improve scroll
-noremap <expr> <C-f> max([winheight(0) - 2, 1])."\<C-d>".(line("w$") >= line('$') ? "L" : "H")
-noremap <expr> <C-b> max([winheight(0) - 2, 1])."\<C-u>".(line("w0") <= 1         ? "H" : "L")
+" Start new line
+inoremap <S-Return> <C-o>o
+
+" Quick substitute within selected area
+xnoremap s :s//g<Left><Left>
+
+" Improve scroll, credits: https://github.com/Shougo
+nnoremap <expr> zz (winline() == (winheight(0)+1) / 2) ?
+	\ 'zt' : (winline() == 1) ? 'zb' : 'zz'
+noremap <expr> <C-f> max([winheight(0) - 2, 1])
+	\ ."\<C-d>".(line('w$') >= line('$') ? "L" : "H")
+noremap <expr> <C-b> max([winheight(0) - 2, 1])
+	\ ."\<C-u>".(line('w0') <= 1 ? "H" : "L")
 noremap <expr> <C-e> (line("w$") >= line('$') ? "j" : "3\<C-e>")
 noremap <expr> <C-y> (line("w0") <= 1         ? "k" : "3\<C-y>")
 
@@ -145,12 +160,8 @@ nmap <Leader>j :lnext<CR>
 nmap <Leader>k :lprev<CR>
 
 " Duplicate lines
-nnoremap <Leader>d YP`[v`]<esc>l
+nnoremap <Leader>d m`YP``
 vnoremap <Leader>d YPgv
-
-" Keep default register on paste
-vnoremap <silent> p "_dP
-vnoremap <silent> P "_dP
 
 " Quick manual search and replace
 nnoremap § *``gn<C-g>

@@ -138,13 +138,31 @@ endif
 
 "}}}
 if neobundle#tap('vim-operator-replace') "{{{
-	map _ <Plug>(operator-replace)
+	xmap p <Plug>(operator-replace)
 	call neobundle#untap()
-endif "}}}
+endif
 
 "}}}
 if neobundle#tap('concealedyank.vim') "{{{
 	map Y <Plug>(operator-concealedyank)
+	call neobundle#untap()
+endif
+
+"}}}
+if neobundle#tap('vim-niceblock') "{{{
+	xmap I  <Plug>(niceblock-I)
+	xmap A  <Plug>(niceblock-A)
+
+	call neobundle#untap()
+endif
+
+"}}}
+if neobundle#tap('accelerated-jk') "{{{
+	nmap <silent>j <Plug>(accelerated_jk_gj)
+	nmap gj j
+	nmap <silent>k <Plug>(accelerated_jk_gk)
+	nmap gk k
+
 	call neobundle#untap()
 endif
 
@@ -167,28 +185,6 @@ endif
 if neobundle#tap('vim-signature') "{{{
 	let g:SignatureMarkTextHLDynamic = 1
 	let g:SignatureMarkerTextHLDynamic = 1
-"	let g:SignatureDeferPlacement = 0
-	let g:SignatureMap = {
-		\ 'Leader'             :  "m",
-		\ 'PlaceNextMark'      :  "m,",
-		\ 'ToggleMarkAtLine'   :  "m.",
-		\ 'PurgeMarksAtLine'   :  "m-",
-		\ 'DeleteMark'         :  "dm",
-		\ 'PurgeMarks'         :  "m<Space>",
-		\ 'PurgeMarkers'       :  "m<BS>",
-		\ 'GotoNextSpotAlpha'  :  "`]",
-		\ 'GotoPrevSpotAlpha'  :  "`[",
-		\ 'GotoNextLineByPos'  :  "]'",
-		\ 'GotoPrevLineByPos'  :  "['",
-		\ 'GotoNextSpotByPos'  :  "]`",
-		\ 'GotoPrevSpotByPos'  :  "[`",
-		\ 'GotoNextMarker'     :  "[+",
-		\ 'GotoPrevMarker'     :  "[-",
-		\ 'GotoNextMarkerAny'  :  "]=",
-		\ 'GotoPrevMarkerAny'  :  "[=",
-		\ 'ListLocalMarks'     :  "m/",
-		\ 'ListLocalMarkers'   :  "m?"
-		\ }
 
 	call neobundle#untap()
 endif
@@ -459,7 +455,7 @@ endif
 " }}}
 if neobundle#tap('vim-expand-region') "{{{
   xmap v <Plug>(expand_region_expand)
-  xmap <C-v> <Plug>(expand_region_shrink)
+  xmap V <Plug>(expand_region_shrink)
 
   call neobundle#untap()
 endif

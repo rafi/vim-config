@@ -16,6 +16,7 @@ NeoBundle 'itchyny/vim-cursorword'
 NeoBundle 'itchyny/vim-gitbranch'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'kshenoy/vim-signature'
+NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'christoomey/vim-tmux-navigator'
 NeoBundle 'rafi/vim-tinyline'
 NeoBundle 'rafi/vim-tagabana'
@@ -158,7 +159,8 @@ endif
 " Interface {{{
 " ---------
 NeoBundleLazy 'matchit.zip', { 'mappings': [[ 'nxo', '%', 'g%' ]]}
-NeoBundleLazy 'Yggdroot/indentLine', { 'filetypes': 'all' }
+NeoBundleLazy 'kana/vim-niceblock', { 'mappings': '<Plug>' }
+NeoBundleLazy 'rhysd/accelerated-jk', { 'mappings': '<Plug>' }
 
 " }}}
 " Completion {{{
