@@ -235,21 +235,9 @@ endif
 " gVim Appearance {{{
 " ---------------
 if has('gui_running')
-	set lines=58 columns=190
-
-	if has('patch-7.4.394')
-		" Use DirectWrite
-		set renderoptions=type:directx,gammma:2.2,mode:3
-	endif
-
-	" GUI Font
-	if has('gui_gtk2')
-		set guifont=PragmataPro\ 12
-	elseif has('gui_macvim')
-		set guifont=Menlo\ Regular:h14
-	elseif has('gui_win32')
-		set guifont=Consolas:h11:cANSI
-	endif
+	set lines=44 columns=155
+	set guifont=PragmataPro:h17
+	set noantialias
 endif
 " }}}
 

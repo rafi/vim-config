@@ -75,7 +75,7 @@ command! DiffOrig vert new | setlocal bt=nofile | r # | 0d_ | diffthis | wincmd 
 " Disable diff mode.
 command! -nargs=0 Undiff setlocal nodiff noscrollbind wrap
 
-command! ToggleBadWhitespace call <SID>ToggleBadWhitespace()
+command! ToggleTrailingWhitespace call <SID>ToggleTrailingWhitespace()
 
 " Functions {{{
 "---------------------------------------------------------

@@ -236,7 +236,13 @@ endif
 
 "}}}
 if neobundle#tap('jedi-vim') "{{{
-	autocmd FileType python setlocal omnifunc=jedi#completions completeopt=menuone,longest,preview
+	autocmd MyAutoCmd FileType python
+		\ if has('python') || has('python3') |
+		\   setlocal omnifunc=jedi#completions |
+		\ else |
+		\   setlocal omnifunc= |
+		\ endif
+	setlocal completeopt=menuone,longest,preview
 	let g:jedi#completions_enabled = 0
 	let g:jedi#auto_vim_configuration = 0
 	let g:jedi#use_splits_not_buffers = 'left'
@@ -260,14 +266,14 @@ endif
 
 "}}}
 if neobundle#tap('vim-gitgutter') "{{{
-	let g:gitgutter_realtime = 0
+	let g:gitgutter_realtime = 1
 	let g:gitgutter_eager = 0
 	let g:gitgutter_map_keys = 0
-	let g:gitgutter_sign_added = '␥'
-	let g:gitgutter_sign_modified = '⌇' "  ~ ∼ ∽ ∾ ∿ ⌇
-	let g:gitgutter_sign_removed = 'ₓ' " ₓ ˣ ⌿
-	let g:gitgutter_sign_removed_first_line = '˃'
-	let g:gitgutter_sign_modified_removed = '≠'
+	let g:gitgutter_sign_added = '▏'
+	let g:gitgutter_sign_modified = '▏'
+	let g:gitgutter_sign_removed = '▎'
+	let g:gitgutter_sign_removed_first_line = '▔'
+	let g:gitgutter_sign_modified_removed = '▋'
 
 	nmap <Leader>hj <Plug>GitGutterNextHunk
 	nmap <Leader>hk <Plug>GitGutterPrevHunk

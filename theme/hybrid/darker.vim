@@ -25,6 +25,13 @@ highlight Visual       ctermbg=236
 highlight htmlItalic  ctermfg=230 cterm=NONE term=NONE
 
 " }}}
+" GitGutter {{{
+highlight GitGutterAdd ctermfg=22
+highlight GitGutterChange ctermfg=94
+highlight GitGutterDelete ctermfg=52
+highlight GitGutterChangeDelete ctermfg=52
+
+" }}}
 " Popup menu {{{
 highlight Pmenu       ctermfg=245 ctermbg=235
 highlight PmenuSel    ctermfg=236 ctermbg=248
@@ -61,10 +68,5 @@ highlight vimfilerClosedFile  ctermfg=249 guifg=#a8a897
 highlight vimfilerOpenedFile  ctermfg=254 guifg=#e8e8d3
 highlight vimfilerNonMark     ctermfg=239 guifg=#4e4e43
 highlight vimfilerLeaf        ctermfg=235 guifg=#30302c
-
-" }}}
-" Bookmarks {{{
-highlight BookmarkSign            ctermfg=12 guifg=#4EA9D7
-highlight BookmarkAnnotationSign  ctermfg=11 guifg=#EACF49
 
 " }}}
