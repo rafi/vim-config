@@ -5,7 +5,7 @@
 " Global Mappings "{{{
 " Use spacebar instead of '\' as leader. Require before loading plugins.
 let g:mapleader="\<Space>"
-let g:maplocalleader=","
+let g:maplocalleader=','
 
 " Release keymappings for plug-in.
 nnoremap <Space>  <Nop>
@@ -47,7 +47,7 @@ if has('vim_starting')
 	endif
 
 	" Load NeoBundle for package management
-	if &runtimepath !~ '/neobundle.vim'
+	if &runtimepath !~? '/neobundle.vim'
 		if ! isdirectory(s:plugins_dir.'/neobundle.vim')
 			" Clone NeoBundle if not found
 			execute printf('!git clone %s://github.com/Shougo/neobundle.vim.git',

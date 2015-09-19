@@ -10,7 +10,6 @@ set visualbell t_vb=         " Don't make any faces
 set lazyredraw               " don't redraw while in macros
 set hidden                   " hide buffers when abandoned instead of unload
 set encoding=utf-8           " Set utf8 as standard encoding
-scriptencoding utf-8         " Must be after encoding and before mb chars
 set ffs=unix,dos,mac         " Use Unix as the standard file type
 set magic                    " For regular expressions turn magic on
 set path=.,**                " Directories to search when using gf
@@ -21,6 +20,11 @@ syntax sync minlines=256     " Update syntax highlighting for more lines
 set ttyfast                  " Indicate a fast terminal connection
 set formatoptions+=1         " Don't break lines after a one-letter word
 set formatoptions-=t         " Don't auto-wrap text
+
+if has('vim_starting')
+	" Must be after encoding and before mb chars
+	scriptencoding utf-8
+endif
 
 if has('patch-7.3.541')
 	set formatoptions+=j       " Remove comment leader when joining lines
@@ -212,14 +216,14 @@ set background=dark
 let g:theme_name = 'darker'
 
 " base16 themes - Access colors present in 256 colorspace
-let base16colorspace=256
+let g:base16colorspace=256
 let g:base16_shell_path=$VARPATH.'/plugins/base16-shell/'
 
 " Theme loader. Uses current selected colorscheme name as base.
-function! ColorSchemeTheme()
+function! g:ColorSchemeTheme()
 	if exists('g:colors_name')
-		let path = $VIMPATH.'/theme/'.g:colors_name.'/'.g:theme_name.'.vim'
-		silent! execute 'source' fnameescape(path)
+		let l:path = $VIMPATH.'/theme/'.g:colors_name.'/'.g:theme_name.'.vim'
+		silent! execute 'source' fnameescape(l:path)
 	endif
 endfunction
 

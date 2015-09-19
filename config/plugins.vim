@@ -3,7 +3,7 @@
 "---------------------------------------------------------
 
 if neobundle#tap('unite.vim') "{{{
-	let g:unite_data_directory = $VARPATH."/unite"
+	let g:unite_data_directory = $VARPATH.'/unite'
 	let g:unite_source_history_yank_enable = 1
 	nnoremap [unite]  <Nop>
 	xnoremap [unite]  <Nop>
@@ -341,7 +341,7 @@ if neobundle#tap('vim-go') "{{{
 
 	" vim-go, do not mess with my neosnippet config!
 	let g:go_loaded_gosnippets = 1
-	let g:go_snippet_engine = "neosnippet"
+	let g:go_snippet_engine = 'neosnippet'
 
 	let g:go_highlight_extra_types = 1
 	let g:go_highlight_operators = 1
@@ -355,7 +355,7 @@ endif
 
 "}}}
 if neobundle#tap('delimitMate') "{{{
-	let delimitMate_expand_cr = 1
+	let g:delimitMate_expand_cr = 1
 	function! neobundle#hooks.on_post_source(bundle)
 		silent! iunmap <buffer> <C-g>g
 	endfunction
@@ -404,7 +404,7 @@ endif
 
 " }}}
 if neobundle#tap('vim-gista') "{{{
-	let g:gista#directory = $VARPATH."/gista/"
+	let g:gista#directory = $VARPATH.'/gista/'
 
 	autocmd MyAutoCmd FileType gista-list call s:gista_settings()
 	function! s:gista_settings()

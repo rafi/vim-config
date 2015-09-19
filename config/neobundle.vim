@@ -66,7 +66,7 @@ NeoBundleLazy 'rafi/vim-phpspec', {
 	\ 'commands': [ 'PhpSpecRun', 'PhpSpecRunCurrent' ]
 	\ }
 
-if $VIM_MINIMAL == ''
+if $VIM_MINIMAL ==? ''
 	NeoBundleLazy 'davidhalter/jedi-vim', { 'filetypes': 'python' }
 	NeoBundleLazy 'shawncplus/phpcomplete.vim', {
 		\ 'insert': 1,
@@ -122,7 +122,7 @@ NeoBundleLazy 'terryma/vim-expand-region', {
 	\ 'mappings': [[ 'x', '<Plug>' ]]
 	\ }
 
-if $VIM_MINIMAL == ''
+if $VIM_MINIMAL ==? ''
 	NeoBundleLazy 'scrooloose/syntastic', {
 		\ 'commands': [
 		\   'SyntasticCheck', 'SyntasticStatuslineFlag',
@@ -215,7 +215,7 @@ NeoBundleLazy 'Shougo/neossh.vim', {
 	\ 'sources': 'ssh',
 	\ }
 
-if $VIM_MINIMAL == ''
+if $VIM_MINIMAL ==? ''
 	NeoBundleLazy 'rafi/vim-unite-issue', {
 		\  'depends': [ 'mattn/webapi-vim', 'tyru/open-browser.vim' ]}
 	NeoBundleLazy 'joker1007/unite-pull-request', {

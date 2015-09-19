@@ -249,7 +249,7 @@ endfunction "}}}
 function! s:NextWindowOrTab() "{{{
 	if tabpagenr('$') == 1 && winnr('$') == 1
 		call s:split_nicely()
-	elseif winnr() < winnr("$")
+	elseif winnr() < winnr('$')
 		wincmd w
 	else
 		tabnext
@@ -262,7 +262,7 @@ function! s:PreviousWindowOrTab() "{{{
 		wincmd W
 	else
 		tabprevious
-		execute winnr("$") . "wincmd w"
+		execute winnr('$') . 'wincmd w'
 	endif
 endfunction "}}}
 
@@ -276,24 +276,24 @@ function! s:split_nicely() "{{{
 endfunction "}}}
 
 function! s:CustomBufferDelete() "{{{
-	let current = bufnr('%')
+	let l:current = bufnr('%')
 	call s:alternate_buffer()
-	silent! execute 'bdelete ' . current
+	silent! execute 'bdelete '.l:current
 endfunction "}}}
 
 function! s:CustomBufferDeleteNew() "{{{
-	let current = bufnr('%')
-	if getbufvar(current, '&modified')
+	let l:current = bufnr('%')
+	if getbufvar(l:current, '&modified')
 		return
 	endif
 	enew
-	silent! execute 'bdelete ' . current
+	silent! execute 'bdelete '.l:current
 endfunction "}}}
 
 function! s:alternate_buffer() "{{{
-	let listed_buffer_len = len(filter(range(1, bufnr('$')),
+	let l:listed_buffer_len = len(filter(range(1, bufnr('$')),
 				\ 's:buflisted(v:val) && getbufvar(v:val, "&filetype") !=# "unite"'))
-	if listed_buffer_len <= 1
+	if l:listed_buffer_len <= 1
 		enew
 		return
 	endif
