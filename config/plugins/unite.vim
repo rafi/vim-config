@@ -110,7 +110,7 @@ call unite#custom#profile('default', 'context', {
 	\   'update_time': 500,
 	\   'direction': 'topleft',
 	\   'winwidth': 40,
-	\   'winheight': 20,
+	\   'winheight': 13,
 	\   'no_auto_resize': 1,
 	\   'vertical_preview': 1,
 	\   'cursor_line_time': '0.10',
@@ -135,6 +135,7 @@ call unite#custom#profile('source/session', 'context', {
 call unite#custom#profile('source/source', 'context', {
 	\   'vertical': 1,
 	\   'winwidth': 80,
+	\   'prompt_direction': 'top',
 	\   'direction': 'botright',
 	\ })
 
@@ -145,32 +146,38 @@ call unite#custom#profile('completion', 'context', {
 	\   'no_here': 1
 	\ })
 
-call unite#custom#profile('source/vim_bookmarks', 'context', {
+call unite#custom#profile('mpc', 'context', {
 	\   'start_insert': 0,
-	\   'winheight': 13,
-	\   'prompt_direction': 'top',
-	\   'direction': 'botright',
+	\   'quit': 1,
 	\   'keep_focus': 1,
-	\   'no_quit': 1,
+	\   'winheight': 20,
 	\ })
 
 call unite#custom#profile('source/outline', 'context', {
 	\   'vertical': 1,
 	\   'direction': 'botright',
+	\   'prompt_direction': 'top',
 	\   'start_insert': 0,
 	\   'no_quit': 1,
-	\   'keep_focus': 1,
 	\   'auto_highlight': 0,
+	\ })
+
+call unite#custom#profile('location', 'context', {
+	\   'no_quit': 1,
+	\   'keep_focus': 1,
+	\   'direction': 'botright',
+	\   'prompt_direction': 'top',
 	\ })
 
 " General purpose profile for navigating and also for grep
 call unite#custom#profile('navigate,source/grep', 'context', {
 	\   'silent': 1,
 	\   'start_insert': 0,
+	\   'winheight': 20,
 	\   'no_quit': 1,
 	\   'keep_focus': 1,
-	\   'prompt_direction': 'top',
 	\   'direction': 'botright',
+	\   'prompt_direction': 'top',
 	\ })
 " }}}
 
