@@ -378,6 +378,30 @@ if neobundle#tap('undotree') "{{{
 endif
 
 "}}}
+if neobundle#tap('caw.vim') "{{{
+	autocmd MyAutoCmd FileType * call s:init_caw()
+	function! s:init_caw()
+		if ! &l:modifiable
+			silent! nunmap <buffer> gc
+			silent! xunmap <buffer> gc
+			silent! nunmap <buffer> gcc
+			silent! xunmap <buffer> gcc
+			silent! nunmap <buffer> gcv
+			silent! xunmap <buffer> gcv
+		else
+			nmap <buffer> gc <Plug>(caw:prefix)
+			xmap <buffer> gc <Plug>(caw:prefix)
+			nmap <buffer> gcc <Plug>(caw:wrap:toggle)
+			xmap <buffer> gcc <Plug>(caw:wrap:toggle)
+			nmap <buffer> gcv <Plug>(caw:I:toggle)
+			xmap <buffer> gcv <Plug>(caw:I:toggle)
+		endif
+	endfunction
+
+	call neobundle#untap()
+endif
+
+"}}}
 if neobundle#tap('indentLine') "{{{
 	let g:indentLine_enabled = 1
 	let g:indentLine_char = '⋮'

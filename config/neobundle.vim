@@ -82,6 +82,7 @@ NeoBundleLazy 'Shougo/vimfiler.vim', {
 	\    { 'name': [ 'VimFiler', 'VimFilerExplorer' ],
 	\      'complete': 'customlist,vimfiler#complete' }
 	\ ]}
+NeoBundleLazy 'tyru/caw.vim', { 'mappings': '<Plug>' }
 NeoBundleLazy 'rafi/vim-tinycomment', {
 	\ 'augroup': 'tinycomment',
 	\ 'commands': [ 'TinyCommentLines', 'TinyCommentBlock' ],
@@ -143,6 +144,9 @@ endif
 NeoBundleLazy 'matchit.zip', { 'mappings': [[ 'nxo', '%', 'g%' ]]}
 NeoBundleLazy 'kana/vim-niceblock', { 'mappings': '<Plug>' }
 NeoBundleLazy 'rhysd/accelerated-jk', { 'mappings': '<Plug>' }
+NeoBundleLazy 'rhysd/clever-f.vim', {
+	\ 'mappings': [[ 'n', 'f', 'F', 't', 'T' ]]
+	\ }
 
 " }}}
 " Completion {{{
