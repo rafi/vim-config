@@ -116,7 +116,6 @@ if $VIM_MINIMAL ==? ''
 		\ 'mappings': '<Plug>',
 		\ 'unite_sources': 'gista',
 		\ }
-	NeoBundleLazy 'thinca/vim-ref', { 'unite_sources': 'ref' }
 	NeoBundleLazy 'thinca/vim-guicolorscheme', { 'commands': 'GuiColorScheme' }
 	NeoBundleLazy 'guns/xterm-color-table.vim', { 'commands': 'XtermColorTable' }
 	NeoBundleLazy 'thinca/vim-quickrun', { 'mappings': '<Plug>' }
@@ -241,9 +240,6 @@ NeoBundleLazy 'kana/vim-operator-replace', {
 NeoBundleLazy 'rhysd/vim-operator-surround', {
 	\ 'depends': 'vim-operator-user',
 	\ 'mappings': '<Plug>'
-	\ }
-NeoBundleLazy 'chikatoike/concealedyank.vim', {
-	\ 'mappings': [[ 'x', '<Plug>(operator-concealedyank)' ]]
 	\ }
 
 " }}}

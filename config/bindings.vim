@@ -49,6 +49,9 @@ nmap <Leader>P "+P
 vmap <Leader>p "+p
 vmap <Leader>P "+P
 
+" Copy text to the end-of-line
+nnoremap Y y$
+
 " Start an external command with a single bang
 nnoremap ! :!
 
@@ -218,6 +221,7 @@ nnoremap <silent> [Window]t  :tabnew<CR>
 nnoremap <silent> [Window]o  :<C-u>only<CR>
 nnoremap <silent> [Window]D  :<C-u>call <SID>CustomBufferDelete()<CR>
 nnoremap <silent> [Window]x  :<C-u>call <SID>CustomBufferDeleteNew()<CR>
+nnoremap <silent> [Window]\  :b#<CR>
 nnoremap <silent> [Window]q  :close<CR>
 nnoremap <silent> [Window]Q  :bdelete<CR>
 nnoremap <silent> q :<C-u>call <SID>smart_close()<CR>

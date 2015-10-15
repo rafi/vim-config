@@ -143,12 +143,6 @@ if neobundle#tap('vim-operator-replace') "{{{
 endif
 
 "}}}
-if neobundle#tap('concealedyank.vim') "{{{
-	map Y <Plug>(operator-concealedyank)
-	call neobundle#untap()
-endif
-
-"}}}
 if neobundle#tap('vim-niceblock') "{{{
 	xmap I  <Plug>(niceblock-I)
 	xmap A  <Plug>(niceblock-A)
@@ -159,9 +153,7 @@ endif
 "}}}
 if neobundle#tap('accelerated-jk') "{{{
 	nmap <silent>j <Plug>(accelerated_jk_gj)
-	nmap gj j
 	nmap <silent>k <Plug>(accelerated_jk_gk)
-	nmap gk k
 
 	call neobundle#untap()
 endif
@@ -172,12 +164,6 @@ if neobundle#tap('vim-textobj-user') "{{{
 	omap ib <Plug>(textobj-multiblock-i)
 	xmap ab <Plug>(textobj-multiblock-a)
 	xmap ib <Plug>(textobj-multiblock-i)
-	call neobundle#untap()
-endif
-
-"}}}
-if neobundle#tap('open-browser.vim') "{{{
-	let g:openbrowser_no_default_menus = 1
 	call neobundle#untap()
 endif
 
@@ -382,12 +368,6 @@ endif
 " }}}
 if neobundle#tap('vim-gista') "{{{
 	let g:gista#directory = $VARPATH.'/gista/'
-
-	autocmd MyAutoCmd FileType gista-list call s:gista_settings()
-	function! s:gista_settings()
-		nmap <buffer> q :q<CR>
-	endfunction
-
 	call neobundle#untap()
 endif
 
@@ -447,19 +427,6 @@ endif
 if neobundle#tap('vim-quickrun') "{{{
   nmap <silent> <Leader>r <Plug>(quickrun)
   call neobundle#untap()
-endif
-
-"}}}
-if neobundle#tap('vim-ref') "{{{
-	function! neobundle#hooks.on_source(bundle)
-		let g:ref_cache_dir = expand('$VARPATH/ref')
-		let g:ref_use_vimproc = 1
-		let g:ref_lynx_use_cache = 1
-		let g:ref_lynx_start_linenumber = 0
-		let g:ref_lynx_hide_url_number = 0
-	endfunction
-
-	call neobundle#untap()
 endif
 
 "}}}
