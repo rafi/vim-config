@@ -256,9 +256,9 @@ if neobundle#tap('vim-gitgutter') "{{{
 	let g:gitgutter_realtime = 1
 	let g:gitgutter_eager = 0
 	let g:gitgutter_map_keys = 0
-	let g:gitgutter_sign_added = '▏'
-	let g:gitgutter_sign_modified = '▏'
-	let g:gitgutter_sign_removed = '▎'
+	let g:gitgutter_sign_added = '▎'
+	let g:gitgutter_sign_modified = '▎'
+	let g:gitgutter_sign_removed = '▏'
 	let g:gitgutter_sign_removed_first_line = '▔'
 	let g:gitgutter_sign_modified_removed = '▋'
 
@@ -405,11 +405,11 @@ endif
 "}}}
 if neobundle#tap('indentLine') "{{{
 	let g:indentLine_enabled = 1
-	let g:indentLine_char = '⋮'
-"	let g:indentLine_char = '┊'
+	let g:indentLine_char = '┊'
 	let g:indentLine_faster = 1
 	let g:indentLine_color_term = 239
 	let g:indentLine_color_gui = '#A4E57E'
+	let g:indentLine_fileTypeExclude = [ 'help', 'vimfiler' ]
 
 	nmap <silent><Leader>i :<C-u>IndentLinesToggle<CR>
 	call neobundle#untap()
