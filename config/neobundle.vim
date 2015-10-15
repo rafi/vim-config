@@ -5,12 +5,14 @@
 " Always loaded {{{
 " -------------
 NeoBundle 'Shougo/vimproc.vim', {
-	\  'build': {
-	\    'unix': 'make -f make_unix.mak',
-	\    'mac': 'make -f make_mac.mak',
-	\    'cygwin': 'make -f make_cygwin.mak',
-	\    'windows': 'tools\\update-dll-mingw'
-	\ }}
+	\ 'build' : {
+	\     'cygwin' : 'make -f make_cygwin.mak',
+	\     'mac' : 'make -f make_mac.mak',
+	\     'linux' : 'make',
+	\     'unix' : 'gmake',
+	\     'windows' : 'tools\\update-dll-mingw',
+	\    },
+	\ }
 
 NeoBundle 'itchyny/vim-cursorword'
 NeoBundle 'itchyny/vim-gitbranch'
@@ -28,8 +30,7 @@ NeoBundle 'bogado/file-line'
 
 " Fetch repositories, but don't add to runtimepath
 NeoBundleFetch 'chriskempson/base16-shell'
-NeoBundleFetch 'rafi/awesome-vim-colorschemes', {
-	\ 'directory': 'colorschemes' }
+NeoBundleFetch 'rafi/awesome-vim-colorschemes'
 
 " }}}
 " Language {{{
@@ -65,19 +66,6 @@ NeoBundleLazy 'rafi/vim-phpspec', {
 	\ 'filetypes': 'php',
 	\ 'commands': [ 'PhpSpecRun', 'PhpSpecRunCurrent' ]
 	\ }
-
-if $VIM_MINIMAL ==? ''
-	NeoBundleLazy 'davidhalter/jedi-vim', { 'filetypes': 'python' }
-	NeoBundleLazy 'shawncplus/phpcomplete.vim', {
-		\ 'insert': 1,
-		\ 'filetypes': 'php'
-		\ }
-	NeoBundleLazy 'marijnh/tern_for_vim', {
-		\   'build': { 'others': 'npm install' },
-		\   'disabled': ! executable('npm'),
-		\   'filetypes': 'javascript'
-		\ }
-endif
 
 " }}}
 " Commands {{{
@@ -123,11 +111,6 @@ NeoBundleLazy 'terryma/vim-expand-region', {
 	\ }
 
 if $VIM_MINIMAL ==? ''
-	NeoBundleLazy 'scrooloose/syntastic', {
-		\ 'commands': [
-		\   'SyntasticCheck', 'SyntasticStatuslineFlag',
-		\   'SyntasticToggleMode', 'Errors', 'SyntasticInfo'
-		\ ]}
 	NeoBundleLazy 'lambdalisue/vim-gista', {
 		\ 'commands': 'Gista',
 		\ 'mappings': '<Plug>',
@@ -186,6 +169,26 @@ NeoBundleLazy 'Shougo/neosnippet.vim', {
 	\    'neosnippet', 'neosnippet/user', 'neosnippet/runtime'
 	\ ]}
 
+if $VIM_MINIMAL ==? ''
+	NeoBundleLazy 'marijnh/tern_for_vim', {
+		\ 'build': { 'others': 'npm install' },
+		\ 'disabled': ! executable('npm'),
+		\ 'insert': 1,
+		\ 'filetypes': 'javascript'
+		\ }
+	NeoBundleLazy 'scrooloose/syntastic', {
+		\ 'insert': 1,
+		\ 'commands': [
+		\   'SyntasticCheck', 'SyntasticStatuslineFlag',
+		\   'SyntasticToggleMode', 'SyntasticInfo'
+		\ ]}
+	NeoBundleLazy 'davidhalter/jedi-vim', { 'filetypes': 'python' }
+	NeoBundleLazy 'shawncplus/phpcomplete.vim', {
+		\ 'insert': 1,
+		\ 'filetypes': 'php'
+		\ }
+endif
+
 " }}}
 " Unite {{{
 " -----
@@ -233,9 +236,8 @@ NeoBundleLazy 'kana/vim-operator-user', {
 	\ }
 NeoBundleLazy 'kana/vim-operator-replace', {
 	\ 'depends': 'vim-operator-user',
-	\ 'autoload': {
-	\   'mappings': [[ 'nx', '<Plug>(operator-replace)' ]]
-	\ }}
+	\ 'mappings': [[ 'nx', '<Plug>(operator-replace)' ]]
+	\ }
 NeoBundleLazy 'rhysd/vim-operator-surround', {
 	\ 'depends': 'vim-operator-user',
 	\ 'mappings': '<Plug>'

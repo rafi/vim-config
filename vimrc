@@ -34,7 +34,7 @@ call neobundle#begin(expand('$VARPATH/plugins'))
 if neobundle#load_cache()
 	NeoBundleFetch 'Shougo/neobundle.vim'
 	call s:source_file('neobundle.vim')
-	call neobundle#local(expand('$VARPATH/plugins/colorschemes'), {})
+	call neobundle#local(expand('$VARPATH/plugins/awesome-vim-colorschemes'), {})
 	if ! exists('g:vim_installing')
 		NeoBundleSaveCache
 	endif

@@ -216,8 +216,8 @@ set background=dark
 let g:theme_name = 'darker'
 
 " base16 themes - Access colors present in 256 colorspace
-let g:base16colorspace=256
-let g:base16_shell_path=$VARPATH.'/plugins/base16-shell/'
+let g:base16colorspace = 256
+let g:base16_shell_path = $VARPATH.'/plugins/base16-shell/'
 
 " Theme loader. Uses current selected colorscheme name as base.
 function! g:ColorSchemeTheme()
@@ -227,12 +227,12 @@ function! g:ColorSchemeTheme()
 	endif
 endfunction
 
-" Automatic theme loading when colorscheme changes.
-autocmd MyAutoCmd ColorScheme * call ColorSchemeTheme()
-
-" Don't re-load colorscheme.
-if ! exists('g:colors_name') && ! exists('g:vim_installing')
-	colorscheme hybrid
+if ! exists('g:vim_installing')
+	" Automatic theme loading when colorscheme changes.
+	autocmd MyAutoCmd VimEnter,ColorScheme * call ColorSchemeTheme()
+	if ! exists('g:colors_name')
+		colorscheme hybrid
+	endif
 endif
 
 " }}}
