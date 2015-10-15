@@ -273,17 +273,8 @@ endif
 
 "}}}
 if neobundle#tap('syntastic') "{{{
-	nnoremap <silent> <leader>sy :<C-u>call <SID>syntax_check()<CR>
+	nnoremap <silent> <leader>sy :<C-u>SyntasticToggleMode<CR>
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/syntastic.vim'
-
-	function! s:syntax_check() " {{{
-		SyntasticCheck
-		unlet! b:tinyline_syntastic
-		let l:loclist = get(b:, 'syntastic_loclist', {})
-		if ! empty(l:loclist) && ! l:loclist.isEmpty()
-			Unite -profile-name=location location_list
-		endif
-	endfunction "}}}
 	call neobundle#untap()
 endif
 

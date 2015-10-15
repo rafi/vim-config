@@ -2,12 +2,12 @@
 " Syntastic
 " ---------
 let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 1
-let g:syntastic_enable_signs = 1
-let g:syntastic_enable_balloons = 1
-let g:syntastic_auto_loc_list = 2
+let g:syntastic_check_on_wq = 0
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_echo_current_error = 1
+let g:syntastic_enable_signs = 1
+let g:syntastic_enable_balloons = 1
+let g:syntastic_auto_loc_list = 0
 let g:syntastic_always_populate_loc_list = 1
 
 " Symbols
@@ -18,7 +18,7 @@ let g:syntastic_style_warning_symbol = '▫'
 
 " Filetype behavior
 let g:syntastic_mode_map = {
-	\ 'mode': 'passive',
+	\ 'mode': 'active',
 	\ 'active_filetypes': [
 	\   'python', 'php', 'ruby', 'vim', 'go', 'sh',
 	\   'html', 'javascript', 'css', 'yaml'
@@ -34,7 +34,8 @@ let g:syntastic_sh_checkers         = [ 'shellcheck' ]
 
 " Specific error discard
 let g:syntastic_vim_vint_quiet_messages = {
-	\ 'regex': 'Make the scope explicit like',
+	\ 'type':  'style',
+	\ 'regex': '\(ProhibitMissingScriptEncoding\|ProhibitImplicitScopeVariable\)',
 	\ }
 
 let g:syntastic_html_tidy_ignore_errors = [
