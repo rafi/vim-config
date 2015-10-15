@@ -231,6 +231,7 @@ if neobundle#tap('jedi-vim') "{{{
 	setlocal completeopt=menuone,longest,preview
 	let g:jedi#completions_enabled = 0
 	let g:jedi#auto_vim_configuration = 0
+	let g:jedi#smart_auto_mappings = 0
 	let g:jedi#use_splits_not_buffers = 'left'
 	call neobundle#untap()
 endif
