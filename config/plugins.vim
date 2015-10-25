@@ -45,6 +45,44 @@ if neobundle#tap('unite.vim') "{{{
 	\| endif
 
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/unite.vim'
+
+	function! neobundle#hooks.on_post_source(bundle)
+		autocmd MyAutoCmd FileType unite call s:unite_settings()
+	endfunction
+
+	" Unite bindings
+	function! s:unite_settings() "{{{
+		silent! nunmap <buffer> <Space>
+		silent! nunmap <buffer> <C-h>
+		silent! nunmap <buffer> <C-k>
+		silent! nunmap <buffer> <C-l>
+		silent! nunmap <buffer> <C-r>
+		nmap <silent><buffer> <C-r> <Plug>(unite_redraw)
+		imap <silent><buffer> <C-j> <Plug>(unite_select_next_line)
+		imap <silent><buffer> <C-k> <Plug>(unite_select_previous_line)
+		nmap <silent><buffer> '     <Plug>(unite_toggle_mark_current_candidate)
+		nmap <silent><buffer> e     <Plug>(unite_do_default_action)
+		nmap <silent><buffer><expr> sv unite#do_action('split')
+		nmap <silent><buffer><expr> sg unite#do_action('vsplit')
+		nmap <silent><buffer><expr> st unite#do_action('tabopen')
+		nnoremap <silent><buffer> <Tab>  <C-w>w
+		nmap <buffer> q             <Plug>(unite_exit)
+		imap <buffer> jj            <Plug>(unite_insert_leave)
+		imap <buffer> <Tab>         <Plug>(unite_complete)
+		nmap <buffer> <C-z>         <Plug>(unite_toggle_transpose_window)
+		imap <buffer> <C-z>         <Plug>(unite_toggle_transpose_window)
+		nmap <buffer> <C-w>         <Plug>(unite_delete_backward_path)
+		nmap <buffer> <C-g>         <Plug>(unite_print_candidate)
+		nmap <buffer> x             <Plug>(unite_quick_match_jump)
+
+		let unite = unite#get_current_unite()
+		if unite.profile_name ==# '^search'
+			nnoremap <silent><buffer><expr> r unite#do_action('replace')
+		else
+			nnoremap <silent><buffer><expr> r unite#do_action('rename')
+		endif
+	endfunction "}}}
+
 	call neobundle#untap()
 endif
 
@@ -54,6 +92,34 @@ if neobundle#tap('vimfiler.vim') "{{{
 	nnoremap <silent> fa        :<C-u>VimFiler -find<CR>
 	let g:vimfiler_data_directory = $VARPATH.'/vimfiler'
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/vimfiler.vim'
+
+	function! neobundle#hooks.on_post_source(bundle)
+		autocmd MyAutoCmd FileType vimfiler call s:vimfiler_settings()
+	endfunction
+
+	function! s:vimfiler_settings() "{{{
+		setlocal nonumber norelativenumber
+
+		nunmap <buffer> <Space>
+		nunmap <buffer> <C-l>
+		nunmap <buffer> <C-j>
+		nunmap <buffer> gr
+		nunmap <buffer> -
+
+		nnoremap <silent><buffer> gr  :<C-u>Unite grep:<C-R>=<SID>selected()<CR><CR>
+		nnoremap <silent><buffer> gf  :<C-u>Unite file_rec/async:<C-R>=<SID>selected()<CR><CR>
+		nnoremap <silent><buffer> gc  :<C-u>call <SID>change_vim_current_dir()<CR>
+		nnoremap <silent><buffer><expr> sg  vimfiler#do_switch_action('vsplit')
+		nnoremap <silent><buffer><expr> sv  vimfiler#do_switch_action('split')
+		nmap <buffer> '      <Plug>(vimfiler_toggle_mark_current_line)
+		nmap <buffer> v      <Plug>(vimfiler_quick_look)
+		nmap <buffer> p      <Plug>(vimfiler_preview_file)
+		nmap <buffer> V      <Plug>(vimfiler_clear_mark_all_lines)
+		nmap <buffer> i      <Plug>(vimfiler_switch_to_history_directory)
+		nmap <buffer> <Tab>  <Plug>(vimfiler_switch_to_other_window)
+		nmap <buffer> <C-r>  <Plug>(vimfiler_redraw_screen)
+	endfunction "}}}
+
 	call neobundle#untap()
 endif
 

@@ -60,46 +60,9 @@ elseif executable('ack')
 	let g:unite_source_grep_default_opts = '-i --noheading --nocolor -k -H'
 	let g:unite_source_grep_recursive_opt = ''
 endif
-" }}}
 
 " }}}
-" Unite bindings {{{
-
-autocmd MyAutoCmd FileType unite call s:unite_settings()
-function! s:unite_settings()
-
-	silent! nunmap <buffer> <Space>
-	silent! nunmap <buffer> <C-h>
-	silent! nunmap <buffer> <C-k>
-	silent! nunmap <buffer> <C-l>
-	silent! nunmap <buffer> <C-r>
-	nmap <silent><buffer> <C-r> <Plug>(unite_redraw)
-	imap <silent><buffer> <C-j> <Plug>(unite_select_next_line)
-	imap <silent><buffer> <C-k> <Plug>(unite_select_previous_line)
-	nmap <silent><buffer> '     <Plug>(unite_toggle_mark_current_candidate)
-	nmap <silent><buffer> e     <Plug>(unite_do_default_action)
-	nmap <silent><buffer><expr> sv unite#do_action('split')
-	nmap <silent><buffer><expr> sg unite#do_action('vsplit')
-	nmap <silent><buffer><expr> st unite#do_action('tabopen')
-	nnoremap <silent><buffer> <Tab>  <C-w>w
-	nmap <buffer> q             <Plug>(unite_exit)
-	imap <buffer> jj            <Plug>(unite_insert_leave)
-	imap <buffer> <Tab>         <Plug>(unite_complete)
-	nmap <buffer> <C-z>         <Plug>(unite_toggle_transpose_window)
-	imap <buffer> <C-z>         <Plug>(unite_toggle_transpose_window)
-	nmap <buffer> <C-w>         <Plug>(unite_delete_backward_path)
-	nmap <buffer> <C-g>         <Plug>(unite_print_candidate)
-	nmap <buffer> x             <Plug>(unite_quick_match_jump)
-
-	let unite = unite#get_current_unite()
-	if unite.profile_name ==# '^search'
-		nnoremap <silent><buffer><expr> r unite#do_action('replace')
-	else
-		nnoremap <silent><buffer><expr> r unite#do_action('rename')
-	endif
-endfunction
-
-" }}}
+"}}}
 " Contexts {{{
 
 " Global default context
@@ -180,7 +143,6 @@ call unite#custom#profile('navigate,source/grep', 'context', {
 	\   'prompt_direction': 'top',
 	\ })
 " }}}
-
 " Filters {{{
 "call unite#custom#source(
 "      \ 'buffer,file_rec,file_rec/async,file_rec/git', 'matchers',
