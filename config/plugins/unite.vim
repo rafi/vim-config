@@ -38,10 +38,6 @@ let g:unite_source_tag_max_name_length = 50
 let g:unite_source_tag_max_fname_length = 30
 
 " }}}
-" Source: history/yank {{{
-let g:unite_source_history_yank_limit = 25
-
-" }}}
 " Source: mru {{{
 let g:neomru#file_mru_limit = 500
 let g:neomru#directory_mru_limit = 15
@@ -62,7 +58,6 @@ elseif executable('ack')
 endif
 
 " }}}
-"}}}
 " Contexts {{{
 
 " Global default context
@@ -128,6 +123,7 @@ call unite#custom#profile('source/outline', 'context', {
 call unite#custom#profile('location', 'context', {
 	\   'no_quit': 1,
 	\   'keep_focus': 1,
+	\   'start_insert': 0,
 	\   'direction': 'botright',
 	\   'prompt_direction': 'top',
 	\ })

@@ -1,5 +1,15 @@
 let g:python_host_prog  = '/opt/local/bin/python2.7'
 let g:python3_host_prog = '/opt/local/bin/python3.4'
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+
+" Use cursor shape feature
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+
+" Use true color feature
+let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+
+" Share the histories
+augroup MyAutoCmd
+	autocmd CursorHold * if exists(':rshada') | rshada | wshada | endif
+augroup END
 
 execute 'source' fnamemodify(expand('<sfile>'), ':h').'/vimrc'

@@ -156,7 +156,8 @@ NeoBundleLazy 'Shougo/echodoc.vim', { 'insert': 1 }
 NeoBundleLazy 'Shougo/deoplete.nvim', {
 	\ 'depends': 'Shougo/context_filetype.vim',
 	\ 'disabled': ! has('nvim'),
-	\ 'insert': 1
+	\ 'insert': 1,
+	\ 'neovim': 1
 	\ }
 NeoBundleLazy 'Shougo/neocomplete', {
 	\ 'depends': 'Shougo/context_filetype.vim',

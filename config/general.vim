@@ -9,7 +9,6 @@ set noerrorbells             " Don't trigger bell on error
 set visualbell t_vb=         " Don't make any faces
 set lazyredraw               " don't redraw while in macros
 set hidden                   " hide buffers when abandoned instead of unload
-set encoding=utf-8           " Set utf8 as standard encoding
 set ffs=unix,dos,mac         " Use Unix as the standard file type
 set magic                    " For regular expressions turn magic on
 set path=.,**                " Directories to search when using gf
@@ -22,7 +21,7 @@ set formatoptions+=1         " Don't break lines after a one-letter word
 set formatoptions-=t         " Don't auto-wrap text
 
 if has('vim_starting')
-	" Must be after encoding and before mb chars
+	set encoding=utf-8
 	scriptencoding utf-8
 endif
 
@@ -63,7 +62,11 @@ endif
 " Vim Directories {{{
 " ---------------
 set undofile swapfile nospell nobackup
-set viminfo='30,/100,:500,<10,@10,s10,h,n$VARPATH/viminfo
+if has('nvim')
+	set shada='30,/100,:50,<10,@10,s50,h,n$VARPATH/shada
+else
+	set viminfo='30,/100,:500,<10,@10,s10,h,n$VARPATH/viminfo
+endif
 set directory=$VARPATH/swap//,$VARPATH,~/tmp,/var/tmp,/tmp
 set undodir=$VARPATH/undo//,$VARPATH,~/tmp,/var/tmp,/tmp
 set backupdir=$VARPATH/backup/,$VARPATH,~/tmp,/var/tmp,/tmp

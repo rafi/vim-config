@@ -116,7 +116,7 @@ imap <C-Space>  <Plug>(neocomplete_start_unite_complete)
 
 " <CR>: If popup menu visible, expand snippet or close popup with selection,
 "       Otherwise, check if within empty pair and use delimitMate.
-imap <expr><CR> pumvisible() ?
+imap <silent><expr><CR> pumvisible() ?
 	\ (neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : "\<C-y>")
 	\ : (neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)"
 		\ : (delimitMate#WithinEmptyPair() ? "\<Plug>delimitMateCR" : "\<CR>"))

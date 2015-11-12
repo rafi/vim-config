@@ -135,7 +135,7 @@ map <F3> :echo 'hi<'.synIDattr(synID(line('.'), col('.'), 1), 'name')
 
 " Toggle editor visuals
 nmap <Leader>ts :setlocal spell!<cr>
-nmap <Leader>tn :setlocal nonumber!<CR>
+nmap <Leader>tn :setlocal nonumber! norelativenumber!<CR>
 nmap <Leader>tl :setlocal nolist!<CR>
 nmap <Leader>th :nohlsearch<CR>
 nmap <Leader>tw :setlocal wrap! breakindent!<CR>

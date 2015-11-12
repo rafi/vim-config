@@ -2,6 +2,7 @@
 " VimFiler
 " --------
 
+" Icons: │ ┃ ┆ ┇ ┊ ┋ ╎ ╏
 let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_restore_alternate_file = 1
 let g:vimfiler_tree_indentation = 1

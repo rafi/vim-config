@@ -10,6 +10,7 @@ if neobundle#tap('unite.vim') "{{{
 	nmap     f [unite]
 	xmap     f [unite]
 	nnoremap <silent> [unite]r   :<C-u>UniteResume -no-start-insert -force-redraw<CR>
+	nnoremap <silent> [unite]b   :<C-u>Unite buffer file_mru bookmark<CR>
 	nnoremap <silent> [unite]f   :<C-u>Unite file_rec/async<CR>
 	nnoremap <silent> [unite]i   :<C-u>Unite file_rec/git<CR>
 	nnoremap <silent> [unite]g   :<C-u>Unite grep:.<CR>
@@ -25,8 +26,8 @@ if neobundle#tap('unite.vim') "{{{
 	nnoremap <silent> [unite]o   :<C-u>Unite outline<CR>
 	nnoremap <silent> [unite]ma  :<C-u>Unite mapping -silent<CR>
 	nnoremap <silent> [unite]mk  :<C-u>Unite mark<CR>
-	nnoremap <silent> <Leader>b  :<C-u>Unite buffer file_mru bookmark<CR>
-	nnoremap <silent> <Leader>ta :<C-u>Unite -auto-resize -select=`tabpagenr()-1` tab<CR>
+	nnoremap <silent> [unite]mt  :<C-u>Unite -auto-resize -select=`tabpagenr()-1` tab<CR>
+	nnoremap <silent> [unite]mu  :<C-u>Unite -profile-name=mpc mpc/menu<CR>
 	nnoremap <silent> [unite]k
 		\ :<C-u>Unite -buffer-name=files -no-split -multi-line -unique -silent
 		\ -no-short-source-names jump_point file_point file_mru
@@ -39,15 +40,15 @@ if neobundle#tap('unite.vim') "{{{
 	nnoremap <silent> <Leader>gt :UniteWithCursorWord tag -profile-name=navigate<CR>
 	vnoremap <silent> <Leader>gt :<C-u>call VSetSearch('/')<CR>:execute 'Unite tag -profile-name=navigate -input='.@/<CR>
 	vnoremap <silent> <Leader>gg :<C-u>call VSetSearch('/')<CR>:execute 'Unite grep:. -profile-name=navigate -input='.@/<CR>
-	autocmd MyAutoCmd BufEnter *
-	\  if empty(&buftype) && &ft != 'go'
-	\|   nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
-	\| endif
 
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/unite.vim'
 
 	function! neobundle#hooks.on_post_source(bundle)
 		autocmd MyAutoCmd FileType unite call s:unite_settings()
+		autocmd MyAutoCmd BufEnter *
+		\  if empty(&buftype) && &ft != 'go'
+		\|   nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+		\| endif
 	endfunction
 
 	" Unite bindings
@@ -109,8 +110,8 @@ if neobundle#tap('vimfiler.vim') "{{{
 		nnoremap <silent><buffer> gr  :<C-u>Unite grep:<C-R>=<SID>selected()<CR><CR>
 		nnoremap <silent><buffer> gf  :<C-u>Unite file_rec/async:<C-R>=<SID>selected()<CR><CR>
 		nnoremap <silent><buffer> gc  :<C-u>call <SID>change_vim_current_dir()<CR>
-		nnoremap <silent><buffer><expr> sg  vimfiler#do_switch_action('vsplit')
-		nnoremap <silent><buffer><expr> sv  vimfiler#do_switch_action('split')
+		nnoremap <silent><buffer><expr> sg  vimfiler#do_action('vsplit')
+		nnoremap <silent><buffer><expr> sv  vimfiler#do_action('split')
 		nmap <buffer> '      <Plug>(vimfiler_toggle_mark_current_line)
 		nmap <buffer> v      <Plug>(vimfiler_quick_look)
 		nmap <buffer> p      <Plug>(vimfiler_preview_file)
@@ -195,10 +196,12 @@ endif
 
 "}}}
 if neobundle#tap('vim-operator-surround') "{{{
-	nmap <silent>sa <Plug>(operator-surround-append)a
-	nmap <silent>sd <Plug>(operator-surround-delete)a
-	nmap <silent>sr <Plug>(operator-surround-replace)a
-	nmap <silent>sc <Plug>(operator-surround-replace)a
+	map <silent>sa <Plug>(operator-surround-append)
+	map <silent>sd <Plug>(operator-surround-delete)
+	map <silent>sr <Plug>(operator-surround-replace)
+	nmap <silent>sdd <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
+	nmap <silent>srr <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
+
 	call neobundle#untap()
 endif
 
@@ -225,7 +228,7 @@ if neobundle#tap('accelerated-jk') "{{{
 endif
 
 "}}}
-if neobundle#tap('vim-textobj-user') "{{{
+if neobundle#tap('vim-textobj-multiblock') "{{{
 	omap ab <Plug>(textobj-multiblock-a)
 	omap ib <Plug>(textobj-multiblock-i)
 	xmap ab <Plug>(textobj-multiblock-a)
@@ -299,6 +302,16 @@ if neobundle#tap('jedi-vim') "{{{
 	let g:jedi#auto_vim_configuration = 0
 	let g:jedi#smart_auto_mappings = 0
 	let g:jedi#use_splits_not_buffers = 'left'
+	let g:jedi#completions_command = ''
+	let g:jedi#goto_command = '<leader>d'
+	let g:jedi#goto_assignments_command = '<leader>a'
+	let g:jedi#documentation_command = 'K'
+	let g:jedi#rename_command = '<leader>r'
+	let g:jedi#usages_command = '<leader>n'
+	let g:jedi#popup_on_dot = 0
+	let g:jedi#max_doc_height = 40
+	let g:jedi#show_call_signatures = 1
+	let g:jedi#show_call_signatures_delay = 1000
 	call neobundle#untap()
 endif
 
@@ -412,7 +425,7 @@ if neobundle#tap('vim-jinja') "{{{
 	call neobundle#untap()
 endif
 
-" }}}
+"}}}
 if neobundle#tap('vim-gita') "{{{
 	nnoremap <silent> <leader>gs :<C-u>Gita status<CR>
 	nnoremap <silent> <leader>gd :<C-u>Gita diff<CR>
@@ -423,7 +436,7 @@ if neobundle#tap('vim-gita') "{{{
 	call neobundle#untap()
 endif
 
-" }}}
+"}}}
 if neobundle#tap('vim-gista') "{{{
 	let g:gista#directory = $VARPATH.'/gista/'
 	call neobundle#untap()
@@ -461,14 +474,17 @@ endif
 
 "}}}
 if neobundle#tap('indentLine') "{{{
+	" Icons: │ ┃ ┆ ┇ ┊ ┋ ╎ ╏
 	let g:indentLine_enabled = 1
 	let g:indentLine_char = '┊'
 	let g:indentLine_faster = 1
-	let g:indentLine_color_term = 239
+	let g:indentLine_color_term = 237
 	let g:indentLine_color_gui = '#A4E57E'
-	let g:indentLine_fileTypeExclude = [ 'help', 'vimfiler' ]
-
+	let g:indentLine_fileTypeExclude = [ 'help', 'vimfiler', 'unite' ]
 	nmap <silent><Leader>i :<C-u>IndentLinesToggle<CR>
+	function! neobundle#hooks.on_post_source(bundle)
+		autocmd MyAutoCmd FileType python IndentLinesReset
+	endfunction
 	call neobundle#untap()
 endif
 
@@ -497,7 +513,7 @@ if neobundle#tap('incsearch.vim') "{{{
 	call neobundle#untap()
 endif
 
-" }}}
+"}}}
 if neobundle#tap('vim-expand-region') "{{{
   xmap v <Plug>(expand_region_expand)
   xmap V <Plug>(expand_region_shrink)
@@ -505,7 +521,7 @@ if neobundle#tap('vim-expand-region') "{{{
   call neobundle#untap()
 endif
 
-" }}}
+"}}}
 if neobundle#tap('vim-quickrun') "{{{
   nmap <silent> <Leader>r <Plug>(quickrun)
   call neobundle#untap()

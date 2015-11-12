@@ -32,12 +32,14 @@ let g:syntastic_python_checkers     = [ 'python', 'pep8', 'flake8' ]
 let g:syntastic_vim_checkers        = [ 'vint' ]
 let g:syntastic_sh_checkers         = [ 'shellcheck' ]
 
+" Vim - Vint
 " Specific error discard
 let g:syntastic_vim_vint_quiet_messages = {
 	\ 'type':  'style',
 	\ 'regex': '\(ProhibitMissingScriptEncoding\|ProhibitImplicitScopeVariable\)',
 	\ }
 
+" HTML - Tidy
 let g:syntastic_html_tidy_ignore_errors = [
 	\  '> proprietary attribute "',
 	\  '> attribute "lang" lacks value',
