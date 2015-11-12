@@ -121,6 +121,34 @@ if neobundle#tap('vimfiler.vim') "{{{
 		nmap <buffer> <C-r>  <Plug>(vimfiler_redraw_screen)
 	endfunction "}}}
 
+	function! s:selected(...) " {{{
+		" Returns selected items, or current cursor directory position
+		" Provide an argument to limit results with an integer.
+		let marked_files = vimfiler#get_escaped_marked_files(b:vimfiler)
+		if empty(marked_files)
+			let file_dir = vimfiler#get_file_directory()
+			if empty(file_dir)
+				return '.'
+			endif
+			call add(marked_files, file_dir)
+		endif
+		if a:0 > 0
+			let marked_files = marked_files[: a:1]
+		endif
+		return join(marked_files, "\n")
+	endfunction "}}}
+
+	function! s:change_vim_current_dir() "{{{
+		let selected = s:selected(1)
+		let windows = unite#helper#get_choose_windows()
+		if ! empty(windows)
+			let winnr = unite#helper#choose_window()
+			execute winnr.'wincmd w'
+			execute 'lcd '.fnameescape(selected)
+		endif
+
+	endfunction "}}}
+
 	call neobundle#untap()
 endif
 
