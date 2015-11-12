@@ -18,12 +18,13 @@ NeoBundle 'itchyny/vim-cursorword'
 NeoBundle 'itchyny/vim-gitbranch'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'kshenoy/vim-signature'
-NeoBundle 'Yggdroot/indentLine'
+NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'christoomey/vim-tmux-navigator'
 NeoBundle 'rafi/vim-tinyline'
 NeoBundle 'rafi/vim-tagabana'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'bogado/file-line'
+NeoBundle 'thinca/vim-localrc'
 
 " LAZY LOADING from here on
 " --------------------------------------------------------
@@ -174,7 +175,7 @@ NeoBundleLazy 'Shougo/neosnippet.vim', {
 	\ ]}
 
 if $VIM_MINIMAL ==? ''
-	NeoBundleLazy 'marijnh/tern_for_vim', {
+	NeoBundleLazy 'ternjs/tern_for_vim', {
 		\ 'build': { 'others': 'npm install' },
 		\ 'disabled': ! executable('npm'),
 		\ 'insert': 1,
@@ -235,12 +236,10 @@ endif
 " }}}
 " Operators {{{
 " ---------
-NeoBundleLazy 'kana/vim-operator-user', {
-	\ 'functions': 'operator#user#define',
-	\ }
+NeoBundleLazy 'kana/vim-operator-user'
 NeoBundleLazy 'kana/vim-operator-replace', {
 	\ 'depends': 'vim-operator-user',
-	\ 'mappings': [[ 'nx', '<Plug>(operator-replace)' ]]
+	\ 'mappings': [[ 'nx', '<Plug>' ]]
 	\ }
 NeoBundleLazy 'rhysd/vim-operator-surround', {
 	\ 'depends': 'vim-operator-user',

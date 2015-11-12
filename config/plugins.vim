@@ -473,17 +473,25 @@ if neobundle#tap('caw.vim') "{{{
 endif
 
 "}}}
-if neobundle#tap('indentLine') "{{{
-	" Icons: │ ┃ ┆ ┇ ┊ ┋ ╎ ╏
-	let g:indentLine_enabled = 1
-	let g:indentLine_char = '┊'
-	let g:indentLine_faster = 1
-	let g:indentLine_color_term = 237
-	let g:indentLine_color_gui = '#A4E57E'
-	let g:indentLine_fileTypeExclude = [ 'help', 'vimfiler', 'unite' ]
-	nmap <silent><Leader>i :<C-u>IndentLinesToggle<CR>
+if neobundle#tap('vim-indent-guides') "{{{
+	let g:indent_guides_enable_on_vim_startup = 0
+	let g:indent_guides_guide_size = 1
+	let g:indent_guides_start_level = 2
+	let g:indent_guides_exclude_filetypes = ['help', 'unite', 'vimfiler']
+	let g:indent_guides_default_mapping = 0
+	let g:indent_guides_auto_colors = 0
+	let g:indent_guides_indent_levels = 10
+
+	nmap <silent><Leader>i :<C-u>IndentGuidesToggle<CR>
+	autocmd VimEnter,Colorscheme * :highlight IndentGuidesOdd  guibg=#333   ctermbg=235
+	autocmd VimEnter,Colorscheme * :highlight IndentGuidesEven guibg=#333 ctermbg=235
+
 	function! neobundle#hooks.on_post_source(bundle)
-		autocmd MyAutoCmd FileType python IndentLinesReset
+		autocmd MyAutoCmd BufRead * if &ft == 'python'
+			\ |   IndentGuidesEnable
+			\ | else
+			\ |   IndentGuidesDisable
+			\ | endif
 	endfunction
 	call neobundle#untap()
 endif

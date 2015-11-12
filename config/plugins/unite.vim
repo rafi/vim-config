@@ -12,6 +12,7 @@ let s:ag_opts = [
 	\ '--ignore', 'bower_modules', '--ignore', 'node_modules'
 	\ ]
 
+"}}}
 " General {{{
 let g:unite_kind_jump_list_after_jump_scroll = 50
 let g:unite_enable_auto_select = 1

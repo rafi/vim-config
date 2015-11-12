@@ -3,26 +3,20 @@
 " ----------------------------
 
 " General GUI {{{
-" No bold in gvim's error messages
-highlight ErrorMsg     gui=NONE
 " Whitespace
-highlight SpecialKey   ctermfg=235  guifg=#30302c
-" YAML scalar
-highlight yamlScalar   ctermfg=250  guifg=#a8a897
+highlight SpecialKey   ctermfg=237  guifg=#30302c
 " Last search highlighting and quickfix's current line
 highlight Search       ctermfg=183  ctermbg=237
-" Brakets and pairs
-highlight MatchParen   ctermfg=220  ctermbg=237
-" Markdown headers
-highlight link htmlH1 Statement
-" Mode message (insert, visual, etc)
-highlight ModeMsg      ctermfg=240
 " Visual mode selection
 highlight Visual       ctermbg=236
+" YAML scalar
+highlight yamlScalar   ctermfg=250  guifg=#a8a897
 
 " }}}
 " Markdown/HTML {{{
 highlight htmlItalic  ctermfg=230 cterm=NONE term=NONE
+" Markdown headers
+highlight link htmlH1 Statement
 
 " }}}
 " GitGutter {{{
@@ -39,10 +33,20 @@ highlight PmenuSbar   ctermbg=235
 highlight PmenuThumb  ctermbg=238
 
 " }}}
+" Errors {{{
+" No bold in gvim's error messages
+highlight ErrorMsg     gui=NONE
+highlight Error term=NONE cterm=NONE
+highlight SyntasticErrorSign ctermfg=210
+highlight SyntasticWarningSign ctermfg=95
+highlight SyntasticStyleErrorSign ctermfg=103
+highlight SyntasticStyleWarningSign ctermfg=102
+
+highlight BadWhitespace ctermfg=black ctermbg=darkred guifg=black guibg=#382424
+
+" }}}
 " Unite {{{
-highlight uniteInputPrompt            ctermfg=237
-highlight uniteCandidateMarker        ctermfg=143
-highlight uniteCandidateInputKeyword  ctermfg=12
+highlight uniteInputPrompt ctermfg=237
 
 " }}}
 " Grep {{{
@@ -63,10 +67,11 @@ highlight link uniteSource__QuickFix_LineNr qfLineNr
 
 " }}}
 " VimFiler {{{
-highlight vimfilerNormalFile  ctermfg=245 guifg=#808070
-highlight vimfilerClosedFile  ctermfg=249 guifg=#a8a897
-highlight vimfilerOpenedFile  ctermfg=254 guifg=#e8e8d3
-highlight vimfilerNonMark     ctermfg=239 guifg=#4e4e43
-highlight vimfilerLeaf        ctermfg=235 guifg=#30302c
+highlight vimfilerNonMark     ctermfg=132 guifg=#4e4e43
+highlight vimfilerLeaf        ctermfg=238 guifg=#30302c
+highlight vimfilerNormalFile  ctermfg=243 guifg=#808070
+highlight vimfilerMarkedFile  ctermfg=173
+highlight vimfilerOpenedFile  ctermfg=250 guifg=#e8e8d3
+highlight vimfilerClosedFile  ctermfg=246 guifg=#a8a897
 
 " }}}
