@@ -5,6 +5,16 @@
 " Non-standard {{{
 " ------------
 
+" Window prefix
+nnoremap  [Window]   <Nop>
+nmap      s [Window]
+
+" Unite prefix
+nnoremap [unite]  <Nop>
+xnoremap [unite]  <Nop>
+nmap     f [unite]
+xmap     f [unite]
+
 " Verbose
 map <Nul> <C-Space>
 map! <Nul> <C-Space>
@@ -211,9 +221,6 @@ augroup END
 
 " s: Windows and buffers (High priority) "{{{
 " Credits: https://github.com/Shougo/shougo-s-github
-" The prefix key.
-nnoremap    [Window]   <Nop>
-nmap    s [Window]
 nnoremap <silent> [Window]p  :<C-u>call <SID>split_nicely()<CR>
 nnoremap <silent> [Window]v  :<C-u>split<CR>
 nnoremap <silent> [Window]g  :<C-u>vsplit<CR>

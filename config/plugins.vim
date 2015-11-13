@@ -5,10 +5,6 @@
 if neobundle#tap('unite.vim') "{{{
 	let g:unite_data_directory = $VARPATH.'/unite'
 	let g:unite_source_history_yank_enable = 1
-	nnoremap [unite]  <Nop>
-	xnoremap [unite]  <Nop>
-	nmap     f [unite]
-	xmap     f [unite]
 	nnoremap <silent> [unite]r   :<C-u>UniteResume -no-start-insert -force-redraw<CR>
 	nnoremap <silent> [unite]b   :<C-u>Unite buffer file_mru bookmark<CR>
 	nnoremap <silent> [unite]f   :<C-u>Unite file_rec/async<CR>
@@ -89,8 +85,8 @@ endif
 
 "}}}
 if neobundle#tap('vimfiler.vim') "{{{
-	nnoremap <silent> fe        :<C-u>VimFiler<CR>
-	nnoremap <silent> fa        :<C-u>VimFiler -find<CR>
+	nnoremap <silent> [unite]e        :<C-u>execute 'VimFiler -force-hide -winwidth=25 -buffer-name='.t:project_name<CR>
+	nnoremap <silent> [unite]a        :<C-u>execute 'VimFiler -find -force-hide -winwidth=25 -buffer-name='.t:project_name<CR>
 	let g:vimfiler_data_directory = $VARPATH.'/vimfiler'
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/vimfiler.vim'
 
