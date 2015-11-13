@@ -211,14 +211,6 @@ if neobundle#tap('vim-unite-issue') "{{{
 endif
 
 "}}}
-if neobundle#tap('matchit.zip') "{{{
-	function! neobundle#hooks.on_post_source(bundle)
-		silent! execute 'doautocmd Filetype' &filetype
-	endfunction
-	call neobundle#untap()
-endif
-
-"}}}
 if neobundle#tap('vim-operator-surround') "{{{
 	map <silent>sa <Plug>(operator-surround-append)
 	map <silent>sd <Plug>(operator-surround-delete)
@@ -427,23 +419,7 @@ if neobundle#tap('vim-markdown') "{{{
 	call neobundle#untap()
 endif
 
-" }}}
-if neobundle#tap('vim-mustache-handlebars') "{{{
-	function! neobundle#hooks.on_post_source(bundle)
-		doautocmd BufRead *.mustache, *.hogan, *.hulk, *.hjs, *.handlebars, *.hbs
-	endfunction
-	call neobundle#untap()
-endif
-
-" }}}
-if neobundle#tap('vim-ansible-yaml') "{{{
-	function! neobundle#hooks.on_post_source(bundle)
-		doautocmd BufRead *.yml
-	endfunction
-	call neobundle#untap()
-endif
-
-" }}}
+"}}}
 if neobundle#tap('vim-jinja') "{{{
 	let g:htmljinja_disable_detection = 0
 	call neobundle#untap()
