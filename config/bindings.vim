@@ -79,7 +79,7 @@ noremap <expr> <C-y> (line("w0") <= 1         ? "k" : "3\<C-y>")
 " Navigate window
 nnoremap <C-q> <C-w>
 nnoremap <C-x> <C-w>x
-nnoremap <silent> <C-w>z :ZoomToggle<CR>
+nnoremap <C-w>z :ZoomToggle<CR>
 
 " Select blocks after indenting
 xnoremap < <gv

@@ -11,8 +11,6 @@ autocmd MyAutoCmd BufWritePost vimrc,neobundle.vim
 " Check timestamp on window enter. More eager than 'autoread'
 autocmd MyAutoCmd WinEnter * checktime
 
-command! ZoomToggle call s:ZoomToggle()
-
 " When editing a file, always jump to the last known cursor position.
 " Don't do it when the position is invalid or when inside an event handler
 autocmd MyAutoCmd BufReadPost *
@@ -44,6 +42,11 @@ autocmd MyAutoCmd FileType * execute
 " Update diff
 autocmd MyAutoCmd InsertLeave * if &l:diff | diffupdate | endif
 
+command! ZoomToggle call s:ZoomToggle()
+
+" Remove end of line white space.
+command! -range=% WhitespaceErase call <SID>WhitespaceErase(<line1>,<line2>)
+
 " Diff command credits: https://github.com/Shougo/shougo-s-github
 " Display diff with the file.
 command! -nargs=1 -complete=file Diff vertical diffsplit <args>
@@ -51,8 +54,6 @@ command! -nargs=1 -complete=file Diff vertical diffsplit <args>
 command! DiffOrig vert new | setlocal bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
 " Disable diff mode.
 command! -nargs=0 Undiff setlocal nodiff noscrollbind wrap
-
-command! ToggleTrailingWhitespace call <SID>ToggleTrailingWhitespace()
 
 " Functions
 "---------------------------------------------------------
@@ -75,19 +76,6 @@ function! AppendModeline() "{{{
 	call append(line('$'), l:modeline)
 endfunction "}}}
 
-" Zoom / Restore window
-function! s:ZoomToggle() abort "{{{
-	if exists('t:zoomed') && t:zoomed
-		execute t:zoom_winrestcmd
-		let t:zoomed = -1
-	else
-		let t:zoom_winrestcmd = winrestcmd()
-		resize
-		vertical resize
-		let t:zoomed = bufnr('%')
-	endif
-endfunction "}}}
-
 " Nicer fold text
 " See: http://dhruvasagar.com/2013/03/28/vim-better-foldtext
 function! FoldText() "{{{
@@ -101,19 +89,51 @@ function! FoldText() "{{{
 	return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
 endfunction "}}}
 
-" Highlight trailing whitespace
-function! s:ToggleTrailingWhitespace()
-	if ! exists('b:bad_whitespace_show') || ! b:bad_whitespace_show
-		highlight default BadWhitespace ctermbg=red guibg=red
-		match BadWhitespace /\s\+$/
-		autocmd InsertLeave <buffer> match BadWhitespace /\s\+$/
-		autocmd InsertEnter <buffer> match BadWhitespace /\s\+\%#\@<!$/
-		let b:bad_whitespace_show = 1
+" Zoom / Restore window
+function! s:ZoomToggle() "{{{
+	if exists('t:zoomed') && t:zoomed > -1
+		execute t:zoom_winrestcmd
+		let t:zoomed = -1
 	else
-		match none BadWhitespace
-		let b:bad_whitespace_show = 0
+		let t:zoom_winrestcmd = winrestcmd()
+		resize
+		vertical resize
+		let t:zoomed = bufnr('%')
 	endif
-endfunction
-" }}}
+endfunction "}}}
+
+" Whitespace "{{{
+if v:version >= 702
+	augroup WhitespaceMatch "{{{
+		autocmd!
+		autocmd VimEnter,BufWinEnter * call <SID>ToggleWhitespace('n')
+		autocmd InsertEnter * call <SID>ToggleWhitespace('i')
+		autocmd InsertLeave * call <SID>ToggleWhitespace('n')
+	augroup END "}}}
+endif
+
+function! s:ToggleWhitespace(mode) "{{{
+	if &buftype ==? 'nofile' || &ft ==? ''
+		return
+	elseif a:mode ==? ''
+		call matchdelete(w:whitespace_match_id)
+		return
+	else
+		let pattern = (a:mode ==# 'i') ? '\s\+\%#\@<!$' : '\s\+$\| \+\ze\t'
+		if exists('w:whitespace_match_id')
+			call matchdelete(w:whitespace_match_id)
+			call matchadd('BadWhitespace', pattern, 10, w:whitespace_match_id)
+		else
+			let w:whitespace_match_id = matchadd('BadWhitespace', pattern)
+		endif
+	endif
+endfunction "}}}
+
+function! s:WhitespaceErase(line1, line2) "{{{
+	let l:save_cursor = getpos('.')
+	silent! execute ':'.a:line1.','.a:line2.'s/\s\+$//'
+	call setpos('.', l:save_cursor)
+endfunction "}}}
+"}}}
 
 " vim: set ts=2 sw=2 tw=80 noet :
