@@ -280,11 +280,16 @@ if neobundle#tap('vim-choosewin') "{{{
 	let g:choosewin_label_padding      = 3
 	let g:choosewin_blink_on_land      = 0
 
-	let g:choosewin_color_label = { 'cterm': [ 236, 2 ] }
-	let g:choosewin_color_label_current = { 'cterm': [ 234, 220 ] }
-	let g:choosewin_color_other = { 'cterm': [ 235, 235 ] }
-	let g:choosewin_color_overlay = { 'cterm': [ 2, 10 ] }
-	let g:choosewin_color_overlay_current = { 'cterm': [ 72, 64 ] }
+	let g:choosewin_color_label = {
+		\ 'cterm': [ 236, 2 ], 'gui': [ '#555555', '#000000' ] }
+	let g:choosewin_color_label_current = {
+		\ 'cterm': [ 234, 220 ], 'gui': [ '#333333', '#000000' ] }
+	let g:choosewin_color_other = {
+		\ 'cterm': [ 235, 235 ], 'gui': [ '#333333' ] }
+	let g:choosewin_color_overlay = {
+		\ 'cterm': [ 2, 10 ], 'gui': [ '#88A2A4' ] }
+	let g:choosewin_color_overlay_current = {
+		\ 'cterm': [ 72, 64 ], 'gui': [ '#7BB292' ] }
 
 	call neobundle#untap()
 endif
