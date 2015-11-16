@@ -113,18 +113,18 @@ if v:version >= 702
 endif
 
 function! s:ToggleWhitespace(mode) "{{{
-	if &buftype ==? 'nofile' || &ft ==? ''
+	if &buftype =~? 'nofile\|help' || &filetype ==? ''
 		return
 	elseif a:mode ==? ''
 		call matchdelete(w:whitespace_match_id)
 		return
 	else
-		let pattern = (a:mode ==# 'i') ? '\s\+\%#\@<!$' : '\s\+$\| \+\ze\t'
+		let l:pattern = (a:mode ==# 'i') ? '\s\+\%#\@<!$' : '\s\+$\| \+\ze\t'
 		if exists('w:whitespace_match_id')
 			call matchdelete(w:whitespace_match_id)
-			call matchadd('BadWhitespace', pattern, 10, w:whitespace_match_id)
+			call matchadd('BadWhitespace', l:pattern, 10, w:whitespace_match_id)
 		else
-			let w:whitespace_match_id = matchadd('BadWhitespace', pattern)
+			let w:whitespace_match_id = matchadd('BadWhitespace', l:pattern)
 		endif
 	endif
 endfunction "}}}
