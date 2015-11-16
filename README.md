@@ -5,13 +5,15 @@ Best with Vim 7.4
 
 ## Features
 
-- Modular configuration
+- Robust, yet light weight
 - Lazy-load 90% of plugins with NeoBundle
+- Modular configuration
 - Unite centric work-flow
 - Extensive Neocomplete setup
 - Central location for tags
 - Lightweight simple status/tabline
 - Premium color-schemes
+- Supports Neovim
 
 ## Screenshot
 
@@ -20,8 +22,10 @@ Best with Vim 7.4
 ## Install
 
 1. Clone `git clone git://github.com/rafi/vim-config.git ~/.vim`
-2. Run `make install`
-3. Start `vim`, `gvim`, or `nvim`
+2. Enter directory `cd ~/.vim`
+3. Run `make test` to make sure you have vim with python and lua.
+4. Run `make install`
+5. Start `vim`, `gvim`, or `nvim`
 
 ## Upgrade
 
@@ -36,8 +40,9 @@ specification standard, add this somewhere in your `.profile` or `.bashrc`:
 # Set vimrc's location and source it on vim startup
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 ```
-If you're curious how it's done, see [vimrc:17-24](vimrc#L17-L24)
-and [init.vim:44-49](./config/init.vim#L44-L49).
+
+If you're curious how it's done, see [vimrc:16-23](vimrc#L16-L23)
+and [init.vim:42-47](./config/init.vim#L42-L47).
 
 ## Structure
 - [config](./config)/ - Configuration
