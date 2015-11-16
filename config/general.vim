@@ -9,7 +9,7 @@ set noerrorbells             " Don't trigger bell on error
 set visualbell t_vb=         " Don't make any faces
 set lazyredraw               " don't redraw while in macros
 set hidden                   " hide buffers when abandoned instead of unload
-set ffs=unix,dos,mac         " Use Unix as the standard file type
+set fileformats=unix,dos,mac " Use Unix as the standard file type
 set magic                    " For regular expressions turn magic on
 set path=.,**                " Directories to search when using gf
 set virtualedit=block        " Position cursor anywhere in visual block

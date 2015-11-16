@@ -36,7 +36,7 @@ endif
 " }}}
 " Setup NeoBundle "{{{
 let s:plugins_dir = expand('$VARPATH/plugins')
-let g:neobundle#types#git#default_protocol = 'git'
+"let g:neobundle#types#git#default_protocol = 'https'
 
 if has('vim_starting')
 	if isdirectory($XDG_CONFIG_HOME.'/vim')

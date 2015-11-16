@@ -199,6 +199,7 @@ endif
 " -----
 NeoBundleLazy 'Shougo/unite.vim', {
 	\ 'depends': 'Shougo/tabpagebuffer.vim',
+	\ 'neovim': 1,
 	\ 'commands': [
 	\   { 'name': 'Unite', 'complete': 'customlist,unite#complete_source' }
 	\ ]}

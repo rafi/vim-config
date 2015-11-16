@@ -1,3 +1,6 @@
 /spell
 /.vault.vim
 *~
+/.stignore
+/.stfolder
+/.stversions
