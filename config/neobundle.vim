@@ -175,22 +175,17 @@ NeoBundleLazy 'Shougo/neosnippet.vim', {
 	\ ]}
 
 if $VIM_MINIMAL ==? ''
+	NeoBundleLazy 'benekastah/neomake', { 'commands': [ 'Neomake' ] }
+	NeoBundleLazy 'davidhalter/jedi-vim', { 'filetypes': 'python' }
+	NeoBundleLazy 'shawncplus/phpcomplete.vim', {
+		\ 'insert': 1,
+		\ 'filetypes': 'php'
+		\ }
 	NeoBundleLazy 'ternjs/tern_for_vim', {
 		\ 'build': { 'others': 'npm install' },
 		\ 'disabled': ! executable('npm'),
 		\ 'insert': 1,
 		\ 'filetypes': 'javascript'
-		\ }
-	NeoBundleLazy 'scrooloose/syntastic', {
-		\ 'insert': 1,
-		\ 'commands': [
-		\   'SyntasticCheck', 'SyntasticStatuslineFlag',
-		\   'SyntasticToggleMode', 'SyntasticInfo'
-		\ ]}
-	NeoBundleLazy 'davidhalter/jedi-vim', { 'filetypes': 'python' }
-	NeoBundleLazy 'shawncplus/phpcomplete.vim', {
-		\ 'insert': 1,
-		\ 'filetypes': 'php'
 		\ }
 endif
 

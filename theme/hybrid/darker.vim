@@ -37,10 +37,6 @@ highlight PmenuThumb  ctermbg=238
 " No bold in gvim's error messages
 highlight ErrorMsg     gui=NONE
 highlight Error term=NONE cterm=NONE
-highlight SyntasticErrorSign ctermfg=210
-highlight SyntasticWarningSign ctermfg=95
-highlight SyntasticStyleErrorSign ctermfg=103
-highlight SyntasticStyleWarningSign ctermfg=102
 
 highlight BadWhitespace ctermfg=black ctermbg=darkred guifg=black guibg=#382424
 

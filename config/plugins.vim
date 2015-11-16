@@ -367,9 +367,20 @@ if neobundle#tap('vim-gitgutter') "{{{
 endif
 
 "}}}
-if neobundle#tap('syntastic') "{{{
-	nnoremap <silent> <leader>sy :<C-u>SyntasticToggleMode<CR>
-	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/syntastic.vim'
+if neobundle#tap('neomake') "{{{
+let g:neomake_verbose = 1
+	autocmd MyAutoCmd BufWritePost * call <SID>neomake_custom()
+	function! s:neomake_custom()
+		let filetypes = [
+			\   'python', 'php', 'ruby', 'vim', 'go', 'sh',
+			\   'html', 'javascript', 'css', 'yaml'
+			\ ]
+
+		if empty(&buftype) && index(filetypes, &ft) > -1
+			Neomake
+		endif
+	endfunction
+	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/neomake.vim'
 	call neobundle#untap()
 endif
 
