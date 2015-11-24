@@ -319,6 +319,9 @@ if neobundle#tap('jedi-vim') "{{{
 		\   setlocal omnifunc= |
 		\ endif
 	setlocal completeopt=menuone,longest,preview
+	if has('nvim')
+		let g:jedi#force_py_version = 3
+	endif
 	let g:jedi#completions_enabled = 0
 	let g:jedi#auto_vim_configuration = 0
 	let g:jedi#smart_auto_mappings = 0

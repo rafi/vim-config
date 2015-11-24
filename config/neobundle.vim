@@ -152,8 +152,6 @@ NeoBundleLazy 'rhysd/clever-f.vim', {
 " }}}
 " Completion {{{
 " ----------
-NeoBundleLazy 'Raimondi/delimitMate', { 'insert': 1 }
-NeoBundleLazy 'Shougo/echodoc.vim', { 'insert': 1 }
 NeoBundleLazy 'Shougo/deoplete.nvim', {
 	\ 'depends': 'Shougo/context_filetype.vim',
 	\ 'disabled': ! has('nvim'),
@@ -162,7 +160,7 @@ NeoBundleLazy 'Shougo/deoplete.nvim', {
 	\ }
 NeoBundleLazy 'Shougo/neocomplete', {
 	\ 'depends': 'Shougo/context_filetype.vim',
-	\ 'disabled': ! has('lua'),
+	\ 'disabled': ! has('lua') || has('nvim'),
 	\ 'vim_version': '7.3.885',
 	\ 'insert': 1
 	\ }
@@ -173,6 +171,8 @@ NeoBundleLazy 'Shougo/neosnippet.vim', {
 	\ 'unite_sources': [
 	\    'neosnippet', 'neosnippet/user', 'neosnippet/runtime'
 	\ ]}
+NeoBundleLazy 'Raimondi/delimitMate', { 'insert': 1 }
+NeoBundleLazy 'Shougo/echodoc.vim', { 'insert': 1 }
 
 if $VIM_MINIMAL ==? ''
 	NeoBundleLazy 'benekastah/neomake', { 'commands': [ 'Neomake' ] }

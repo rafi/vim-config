@@ -131,9 +131,14 @@ endif
 " Time {{{
 " --------
 set timeout ttimeout
-set timeoutlen=1000 " Time out on mappings
-set ttimeoutlen=50  " Time out on key codes
+set timeoutlen=750  " Time out on mappings
+set ttimeoutlen=250 " Time out on key codes
 set updatetime=1000 " Idle time to write swap
+
+if has('nvim')
+	" https://github.com/neovim/neovim/issues/2017
+	set ttimeoutlen=-1
+endif
 
 " }}}
 " Searching {{{
@@ -216,6 +221,11 @@ endif
 set t_Co=256
 set background=dark
 let g:theme_name = 'darker'
+
+if has('nvim')
+	let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+"	let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+endif
 
 " base16 themes - Access colors present in 256 colorspace
 let g:base16colorspace = 256
