@@ -173,6 +173,10 @@ NeoBundleLazy 'Shougo/neosnippet.vim', {
 	\ ]}
 NeoBundleLazy 'Raimondi/delimitMate', { 'insert': 1 }
 NeoBundleLazy 'Shougo/echodoc.vim', { 'insert': 1 }
+NeoBundleLazy 'Shougo/neco-vim', { 'filetypes': 'vim', 'insert': 1 }
+NeoBundleLazy 'Shougo/neco-syntax', { 'insert': 1 }
+NeoBundleLazy 'Shougo/neopairs.vim', { 'insert': 1 }
+NeoBundleLazy 'Shougo/neoinclude.vim', { 'filetypes': 'all' }
 
 if $VIM_MINIMAL ==? ''
 	NeoBundleLazy 'benekastah/neomake', { 'commands': [ 'Neomake' ] }
