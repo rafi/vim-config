@@ -20,8 +20,8 @@ let g:neocomplete#manual_completion_start_length = 0
 let g:neocomplete#min_keyword_length = 3
 
 " DISABLED: Use CursorHoldI to delay pop-up by milliseconds
-"let g:neocomplete#enable_cursor_hold_i = 1
-"let g:neocomplete#cursor_hold_i_time = 1000
+let g:neocomplete#enable_cursor_hold_i = 0
+let g:neocomplete#cursor_hold_i_time = 1000
 
 " Selective feature disable
 " ---
@@ -92,8 +92,8 @@ imap <expr><C-j>   pumvisible() ? "\<C-n>" : "\<C-j>"
 imap <expr><C-k>   pumvisible() ? "\<C-p>" : "\<C-k>"
 imap <expr><C-f>   pumvisible() ? "\<PageDown>" : "\<Right>"
 imap <expr><C-b>   pumvisible() ? "\<PageUp>" : "\<Left>"
-imap <expr><C-d>   pumvisible() ? "\<PageDown>" : "\<C-d>"
-imap <expr><C-u>   pumvisible() ? "\<PageUp>" : "\<C-u>"
+imap <expr><C-d>   pumvisible() ? "\<PageDown>" : "\<Right>"
+imap <expr><C-u>   pumvisible() ? "\<PageUp>" : "\<Left>"
 
 inoremap <silent><expr> <C-z>
 	\ unite#start_complete('register', { 'input': unite#get_cur_text() })
@@ -102,7 +102,6 @@ inoremap <silent><expr> <C-z>
 imap <expr> <C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-p>\<Down>"
 " <C-p>: keyword completion.
 imap <expr> <C-p>  pumvisible() ? "\<C-p>" : "\<C-p>\<C-n>"
-"inoremap <expr> '  pumvisible() ? neocomplete#close_popup() : "'"
 
 " Special plugin key-mappings
 imap <expr><C-l> neocomplete#complete_common_string()
@@ -136,10 +135,7 @@ smap <silent><expr><Tab> pumvisible() ? "\<C-n>"
 	\ : (neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)"
 	\ : neocomplete#start_manual_complete()))
 
-imap <silent><expr><S-Tab> pumvisible() ? "\<C-p>"
-	\ : (<SID>is_whitespace() ? "\<BS>"
-	\ : (neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)"
-	\ : neocomplete#start_manual_complete()))
+imap <expr><S-Tab>  pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:is_whitespace()
 	let col = col('.') - 1

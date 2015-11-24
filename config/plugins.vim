@@ -318,14 +318,15 @@ if neobundle#tap('jedi-vim') "{{{
 		\ else |
 		\   setlocal omnifunc= |
 		\ endif
-	setlocal completeopt=menuone,longest,preview
+	setlocal completeopt=menuone,longest
 	if has('nvim')
 		let g:jedi#force_py_version = 3
 	endif
 	let g:jedi#completions_enabled = 0
 	let g:jedi#auto_vim_configuration = 0
 	let g:jedi#smart_auto_mappings = 0
-	let g:jedi#use_splits_not_buffers = 'left'
+	let g:jedi#use_tag_stack = 0
+	let g:jedi#use_splits_not_buffers = 'right'
 	let g:jedi#completions_command = ''
 	let g:jedi#goto_command = '<leader>d'
 	let g:jedi#goto_assignments_command = '<leader>a'
@@ -334,7 +335,7 @@ if neobundle#tap('jedi-vim') "{{{
 	let g:jedi#usages_command = '<leader>n'
 	let g:jedi#popup_on_dot = 0
 	let g:jedi#max_doc_height = 40
-	let g:jedi#show_call_signatures = 1
+	let g:jedi#show_call_signatures = 0
 	let g:jedi#show_call_signatures_delay = 1000
 	call neobundle#untap()
 endif

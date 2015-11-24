@@ -164,7 +164,7 @@ set switchbuf=usetab,split      " Switch buffer behavior
 set backspace=indent,eol,start  " Intuitive backspacing in insert mode
 set diffopt=filler,iwhite       " Diff mode: show fillers, ignore white
 set showfulltag                 " Show tag and tidy search in completion
-set completeopt=menuone,preview " Show preview and menu even for one item
+set completeopt=menuone         " Show menu even for one item
 set complete=.                  " No wins, buffs, tags, include scanning
 set nowrap                      " No wrap by default
 

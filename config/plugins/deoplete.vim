@@ -3,42 +3,46 @@
 
 set completeopt+=noinsert
 
+" Movement within 'ins-completion-menu'
+imap <expr><C-j>   pumvisible() ? "\<C-n>" : "\<C-j>"
+imap <expr><C-k>   pumvisible() ? "\<C-p>" : "\<C-k>"
+
+" Scroll pages in menu
+inoremap <expr><C-f> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<Right>"
+inoremap <expr><C-b> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<Left>"
+imap     <expr><C-d> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
+imap     <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+
+" <C-h>, <BS>: close popup and delete backword char.
+"inoremap <expr><C-h> deolete#mappings#smart_close_popup()."\<C-h>"
+"inoremap <expr><BS>  deoplete#mappings#smart_close_popup()."\<C-h>"
+
+" <CR>: If popup menu visible, expand snippet or close popup with selection,
+"       Otherwise, check if within empty pair and use delimitMate.
+imap <silent><expr><CR> pumvisible() ?
+	\ (neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : "\<C-y>")
+	\ : (neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)"
+		\ : (delimitMate#WithinEmptyPair() ? "\<Plug>delimitMateCR" : "\<CR>"))
+
 " <Tab> completion:
 " 1. If popup menu is visible, select and insert next item
 " 2. Otherwise, if preceding chars are whitespace, insert tab char
 " 3. Otherwise, start manual autocomplete
-imap <expr><silent><Tab> pumvisible() ? "\<C-n>"
+inoremap <silent><expr><Tab> pumvisible() ? "\<C-n>"
 	\ : (<SID>is_whitespace() ? "\<Tab>"
-	\ : deoplete#mappings#manual_complete())
+	\ : (neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)"
+	\ : deoplete#mappings#manual_complete()))
 
-" Movement within 'ins-completion-menu'
-inoremap <expr><C-j>   "\<Down>"
-inoremap <expr><C-k>   "\<Up>"
-inoremap <expr><C-f>   pumvisible() ? "\<PageDown>" : "\<Right>"
-inoremap <expr><C-b>   pumvisible() ? "\<PageUp>" : "\<Left>"
+snoremap <silent><expr><Tab> pumvisible() ? "\<C-n>"
+	\ : (<SID>is_whitespace() ? "\<Tab>"
+	\ : (neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)"
+	\ : deoplete#mappings#manual_complete()))
 
-" <C-d>, <C-u>: Scroll pages in menu
-imap     <expr><C-d> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
-imap     <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
-
-" <CR>: If popup menu visible, expand snippet or close popup with selection.
-imap <expr><silent><CR> pumvisible() ?
-	\ (neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : deoplete#mappings#close_popup())
-	\ : "\<CR>"
-
-" <S-TAB>: completion back.
 inoremap <expr><S-Tab>  pumvisible() ? "\<C-p>" : "\<C-h>"
-
-inoremap <expr><C-y> deoplete#mappings#close_popup()
-inoremap <expr><C-e> deoplete#mappings#cancel_popup()
-
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> deolete#mappings#smart_close_popup()."\<C-h>"
-inoremap <expr><BS>  deoplete#mappings#smart_close_popup()."\<C-h>"
-
-inoremap <expr> '  pumvisible() ? deoplete#mappings#close_popup() : "'"
 
 function! s:is_whitespace() "{{{
 	let col = col('.') - 1
-	return !col || getline('.')[col - 1]  =~ '\s'
+	return !col || getline('.')[col - 1]  =~? '\s'
 endfunction "}}}
+
+" vim: set ts=2 sw=2 tw=80 noet :
