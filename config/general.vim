@@ -233,7 +233,9 @@ let g:base16_shell_path = $VARPATH.'/plugins/base16-shell/'
 function! g:ColorSchemeTheme()
 	if exists('g:colors_name')
 		let l:path = $VIMPATH.'/theme/'.g:colors_name.'/'.g:theme_name.'.vim'
-		silent! execute 'source' fnameescape(l:path)
+		if filereadable(l:path)
+			silent! execute 'source' fnameescape(l:path)
+		endif
 	endif
 endfunction
 

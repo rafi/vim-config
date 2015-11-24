@@ -113,7 +113,7 @@ if v:version >= 702
 endif
 
 function! s:ToggleWhitespace(mode) "{{{
-	if &buftype =~? 'nofile\|help' || &filetype ==? ''
+	if &buftype =~? 'nofile\|help\|quickfix' || &filetype ==? ''
 		return
 	elseif a:mode ==? ''
 		call matchdelete(w:whitespace_match_id)
