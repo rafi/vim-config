@@ -254,6 +254,9 @@ NeoBundleLazy 'osyo-manga/vim-textobj-multiblock', {
 	\ 'depends': 'vim-textobj-user',
 	\ 'mappings': [[ 'ox', '<Plug>' ]]
 	\ }
+NeoBundleLazy 'AndrewRadev/sideways.vim', {
+	\ 'mappings': [[ 'ox', '<Plug>' ]]
+	\ }
 " }}}
 
 " vim: set ts=2 sw=2 tw=80 noet :

@@ -621,5 +621,17 @@ if neobundle#tap('vim-cursorword') "{{{
 endif
 
 "}}}
+if neobundle#tap('sideways.vim') "{{{
+	nnoremap <silent> m" :SidewaysJumpLeft<CR>
+	nnoremap <silent> m' :SidewaysJumpRight<CR>
+	omap a, <Plug>SidewaysArgumentTextobjA
+	xmap a, <Plug>SidewaysArgumentTextobjA
+	omap i, <Plug>SidewaysArgumentTextobjI
+	xmap i, <Plug>SidewaysArgumentTextobjI
+
+	call neobundle#untap()
+endif
+
+"}}}
 
 " vim: set ts=2 sw=2 tw=80 noet :
