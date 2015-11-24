@@ -14,7 +14,8 @@ let g:vimfiler_readonly_file_icon = '⭤'
 let g:vimfiler_marked_file_icon = '✓'
 "let g:vimfiler_preview_action = 'auto_preview'
 let g:vimfiler_ignore_pattern =
-	\ '^\%(\.git\|\.idea\|\.DS_Store\|\.vagrant\|node_modules\|.*\.pyc\)$'
+	\ '^\%(\.git\|\.idea\|\.DS_Store\|\.vagrant\|.stversions'
+	\ .'\|node_modules\|.*\.pyc\)$'
 
 if has('mac')
 	let g:vimfiler_quick_look_command = 'qlmanage -p'

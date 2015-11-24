@@ -8,7 +8,7 @@
 " Smart case, ignore vcs ignore files, search hidden, and plain format.
 let s:ag_opts = [
 	\ '--vimgrep', '--smart-case', '--skip-vcs-ignores', '--hidden',
-	\ '--ignore', '.git', '--ignore', '.idea',
+	\ '--ignore', '.git', '--ignore', '.idea', '--ignore', '.stversions',
 	\ '--ignore', 'bower_modules', '--ignore', 'node_modules'
 	\ ]
 

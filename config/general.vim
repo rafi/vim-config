@@ -52,10 +52,8 @@ if has('wildmenu')
 	set wildmode=list:longest,full
 	set wildoptions=tagfile
 	set wildignorecase
-	set wildignore+=.hg,.git,.svn,*.pyc,*.spl,*.o,*.out,*~,#*#,%*
+	set wildignore+=.git,*.pyc,*.spl,*.o,*.out,*~,#*#,%*
 	set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
-	set wildignore+=**/cache/??,**/cache/mustache,**/cache/media,**/logs/????
-	set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.sass-cache/*
 endif
 
 " }}}
