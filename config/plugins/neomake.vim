@@ -15,14 +15,16 @@ endfunction
 function! s:vint_filter(entry)
 	let l:ignore_errors = [
 		\   'Use scriptencoding when multibyte char',
-		\   'Make the scope explicit like'
+		\   'Make the scope explicit like',
+		\   'Undefined variable: self (see'
 		\ ]
 	for l:pattern in l:ignore_errors
 		call s:filter_item(a:entry, l:pattern)
 	endfor
 endfunction
-let g:neomake_vim_vint_maker = {}
-let g:neomake_vim_vint_maker.postprocess = function('s:vint_filter')
+let g:neomake_vim_vint_maker = {
+	\ 'postprocess': function('s:vint_filter')
+	\ }
 
 function! s:tidy_filter(entry)
 	let l:ignore_errors = [
@@ -35,7 +37,8 @@ function! s:tidy_filter(entry)
 		call s:filter_item(a:entry, l:pattern)
 	endfor
 endfunction
-let g:neomake_html_tidy_maker = {}
-let g:neomake_html_tidy_maker.postprocess = function('s:tidy_filter')
+let g:neomake_html_tidy_maker = {
+	\ 'postprocess': function('s:tidy_filter')
+	\ }
 
 " vim: set ts=2 sw=2 tw=80 noet :

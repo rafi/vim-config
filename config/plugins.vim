@@ -400,7 +400,7 @@ endif
 
 "}}}
 if neobundle#tap('neomake') "{{{
-let g:neomake_verbose = 1
+	let g:neomake_verbose = 0
 	autocmd MyAutoCmd BufWritePost * call <SID>neomake_custom()
 	function! s:neomake_custom()
 		let filetypes = [
