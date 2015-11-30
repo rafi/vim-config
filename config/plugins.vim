@@ -13,9 +13,9 @@ if neobundle#tap('unite.vim') "{{{
 	nnoremap <silent> [unite]u   :<C-u>Unite source<CR>
 	nnoremap <silent> [unite]t   :<C-u>Unite tag<CR>
 	nnoremap <silent> [unite]T   :<C-u>Unite tag/include<CR>
-	nnoremap <silent> [unite]l   :<C-u>Unite -profile-name=location location_list<CR>
+	nnoremap <silent> [unite]l   :<C-u>Unite location_list<CR>
 	nnoremap <silent> [unite]L   :<C-u>Unite line<CR>
-	nnoremap <silent> [unite]q   :<C-u>Unite -profile-name=location quickfix<CR>
+	nnoremap <silent> [unite]q   :<C-u>Unite quickfix<CR>
 	nnoremap <silent> [unite]j   :<C-u>Unite -profile-name=navigate change jump<CR>
 	nnoremap <silent> [unite]h   :<C-u>Unite -buffer-name=register register history/yank<CR>
 	nnoremap <silent> [unite]s   :<C-u>Unite session<CR>
@@ -492,6 +492,21 @@ if neobundle#tap('undotree') "{{{
 endif
 
 "}}}
+if neobundle#tap('vim-findent') "{{{
+	augroup findent
+		autocmd!
+		autocmd BufRead *.c    Findent --no-messages
+		autocmd BufRead *.py   Findent --no-messages
+		autocmd BufRead *.php  Findent --no-messages
+		autocmd BufRead *.css  Findent --no-messages
+		autocmd BufRead *.html Findent --no-messages
+		autocmd BufRead *.js   Findent --no-messages
+	augroup END
+
+	call neobundle#untap()
+endif
+
+"}}}
 if neobundle#tap('caw.vim') "{{{
 	autocmd MyAutoCmd FileType * call s:init_caw()
 	function! s:init_caw()
@@ -568,7 +583,6 @@ endif
 if neobundle#tap('vim-expand-region') "{{{
   xmap v <Plug>(expand_region_expand)
   xmap V <Plug>(expand_region_shrink)
-
   call neobundle#untap()
 endif
 
@@ -581,7 +595,6 @@ endif
 "}}}
 if neobundle#tap('dictionary.vim') "{{{
 	nnoremap <silent> <Leader>? :<C-u>Dictionary -no-duplicate<CR>
-
 	call neobundle#untap()
 endif
 
@@ -628,6 +641,19 @@ if neobundle#tap('sideways.vim') "{{{
 	xmap a, <Plug>SidewaysArgumentTextobjA
 	omap i, <Plug>SidewaysArgumentTextobjI
 	xmap i, <Plug>SidewaysArgumentTextobjI
+
+	call neobundle#untap()
+endif
+
+"}}}
+if neobundle#tap('CamelCaseMotion') "{{{
+	nmap <silent> e <Plug>CamelCaseMotion_e
+	nmap <silent> w <Plug>CamelCaseMotion_w
+	xmap <silent> w <Plug>CamelCaseMotion_w
+	omap <silent> W <Plug>CamelCaseMotion_w
+	nmap <silent> b <Plug>CamelCaseMotion_b
+	xmap <silent> b <Plug>CamelCaseMotion_b
+	omap <silent> B <Plug>CamelCaseMotion_b
 
 	call neobundle#untap()
 endif

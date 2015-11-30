@@ -72,16 +72,11 @@ NeoBundleLazy 'rafi/vim-phpspec', {
 " Commands {{{
 " --------
 NeoBundleLazy 'Shougo/vimfiler.vim', {
-	\ 'depends': [
-	\   'Shougo/unite.vim',
-	\   'Shougo/tabpagebuffer.vim',
-	\   't9md/vim-choosewin'
-	\ ],
+	\ 'depends': 'Shougo/unite.vim',
 	\ 'mappings': '<Plug>',
-	\ 'explorer': 1,
+	\ 'explorer': '^\h\w*:',
 	\ 'commands': [
-	\    { 'name': [ 'VimFiler', 'VimFilerExplorer' ],
-	\      'complete': 'customlist,vimfiler#complete' }
+	\    {'name': ['VimFiler'], 'complete': 'customlist,vimfiler#complete'}
 	\ ]}
 NeoBundleLazy 'tyru/caw.vim', { 'mappings': '<Plug>' }
 NeoBundleLazy 'rafi/vim-tinycomment', {
@@ -111,6 +106,7 @@ NeoBundleLazy 'mbbill/undotree', { 'commands': 'UndotreeToggle' }
 NeoBundleLazy 'terryma/vim-expand-region', {
 	\ 'mappings': [[ 'x', '<Plug>' ]]
 	\ }
+NeoBundleLazy 'lambdalisue/vim-findent', {'explorer': 1}
 
 if $VIM_MINIMAL ==? ''
 	NeoBundleLazy 'lambdalisue/vim-gista', {
@@ -131,7 +127,6 @@ if $VIM_MINIMAL ==? ''
 		\ 'commands': 'Goyo'
 		\ }
 	NeoBundleLazy 'vimwiki/vimwiki', {
-		\ 'rev': 'dev',
 		\ 'commands': [
 		\   'VimwikiIndex', 'VimwikiTabIndex', 'VimwikiUISelect',
 		\   'VimwikiMakeDiaryNote', 'VimwikiTabMakeDiaryNote',
@@ -256,6 +251,9 @@ NeoBundleLazy 'osyo-manga/vim-textobj-multiblock', {
 	\ }
 NeoBundleLazy 'AndrewRadev/sideways.vim', {
 	\ 'mappings': [[ 'ox', '<Plug>' ]]
+	\ }
+NeoBundleLazy 'bkad/CamelCaseMotion', {
+	\ 'mappings': ['<Plug>CamelCaseMotion_w', '<Plug>CamelCaseMotion_b']
 	\ }
 " }}}
 

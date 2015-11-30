@@ -35,10 +35,6 @@ autocmd MyAutoCmd FileType help if &l:buftype ==# 'help'
 autocmd MyAutoCmd FileType qf   if &l:buftype ==# 'quickfix'
 	\ | wincmd J | endif
 
-" Automatically set expandtab
-autocmd MyAutoCmd FileType * execute
-	\ 'setlocal '.(search('^\t.*\n\t.*\n\t', 'n') ? 'no' : '').'expandtab'
-
 " Update diff
 autocmd MyAutoCmd InsertLeave * if &l:diff | diffupdate | endif
 

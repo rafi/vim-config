@@ -4,8 +4,7 @@
 
 " External Tools {{{
 "
-" The silver searcher. Disable .gitignore usage and search everything.
-" Smart case, ignore vcs ignore files, search hidden, and plain format.
+" The silver searcher settings
 let s:ag_opts = [
 	\ '--vimgrep', '--smart-case', '--skip-vcs-ignores', '--hidden',
 	\ '--ignore', '.git', '--ignore', '.idea', '--ignore', '.stversions',
@@ -69,7 +68,7 @@ call unite#custom#profile('default', 'context', {
 	\   'update_time': 500,
 	\   'direction': 'topleft',
 	\   'winwidth': 40,
-	\   'winheight': 13,
+	\   'winheight': 15,
 	\   'no_auto_resize': 1,
 	\   'vertical_preview': 1,
 	\   'cursor_line_time': '0.10',
@@ -84,11 +83,6 @@ call unite#custom#profile('default', 'context', {
 call unite#custom#profile('register', 'context', {
 	\ 'start_insert': 0,
 	\ 'default_action': 'append'
-	\ })
-
-call unite#custom#profile('source/session', 'context', {
-	\   'start_insert': 0,
-	\   'winheight': 8
 	\ })
 
 call unite#custom#profile('source/source', 'context', {
@@ -121,15 +115,13 @@ call unite#custom#profile('source/outline', 'context', {
 	\   'auto_highlight': 0,
 	\ })
 
-call unite#custom#profile('location', 'context', {
-	\   'no_quit': 1,
-	\   'keep_focus': 1,
+call unite#custom#profile('source/location_list,source/quickfix', 'context', {
 	\   'start_insert': 0,
 	\   'direction': 'botright',
 	\   'prompt_direction': 'top',
 	\ })
 
-" General purpose profile for navigating and also for grep
+" General purpose profile for grep and navigating code
 call unite#custom#profile('navigate,source/grep', 'context', {
 	\   'silent': 1,
 	\   'start_insert': 0,
