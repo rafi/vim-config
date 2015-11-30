@@ -85,6 +85,23 @@ function! FoldText() "{{{
 	return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
 endfunction "}}}
 
+function! s:shell_bg(cmd, callback)
+	if ! executable(a:cmd)
+		return
+	endif
+
+	if has('nvim')
+		let l:job = jobstart([a:cmd], {
+		\   'project': ProjectName(),
+		\   'on_stdout': function(a:callback),
+		\   'on_stderr': function(a:callback)
+		\ })
+	elseif exists('*vimproc#system_bg') ||
+		\ (exists('*neobundle#get') && ! empty(neobundle#get('vimproc.vim')))
+			call vimproc#system_bg(a:cmd)
+	endif
+endfunction
+
 function! ProjectName()
 	let dir = ProjectRoot()
 	return fnamemodify(dir ? dir : getcwd(), ':t')
