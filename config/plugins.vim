@@ -256,28 +256,30 @@ endif
 if neobundle#tap('vim-signature') "{{{
 	let g:SignatureMarkTextHLDynamic = 1
 	let g:SignatureMarkerTextHLDynamic = 1
+	let g:SignaturePurgeConfirmation = 1
+	let g:signature_set_location_list_convenience_maps = 0
 	let g:SignatureMap = {
-		\ 'Leader'             :  'm',
-		\ 'PlaceNextMark'      :  'm,',
-		\ 'ToggleMarkAtLine'   :  'm.',
-		\ 'PurgeMarksAtLine'   :  'm-',
-		\ 'DeleteMark'         :  'dm',
-		\ 'PurgeMarks'         :  'm<Space>',
-		\ 'PurgeMarkers'       :  'm<BS>',
-		\ 'GotoNextLineAlpha'  :  '',
-		\ 'GotoPrevLineAlpha'  :  '',
-		\ 'GotoNextSpotAlpha'  :  '`]',
-		\ 'GotoPrevSpotAlpha'  :  '`[',
-		\ 'GotoNextLineByPos'  :  "]'",
-		\ 'GotoPrevLineByPos'  :  "['",
-		\ 'GotoNextSpotByPos'  :  ']`',
-		\ 'GotoPrevSpotByPos'  :  '[`',
-		\ 'GotoNextMarker'     :  '[+',
-		\ 'GotoPrevMarker'     :  '[-',
-		\ 'GotoNextMarkerAny'  :  ']=',
-		\ 'GotoPrevMarkerAny'  :  '[=',
-		\ 'ListLocalMarks'     :  'm/',
-		\ 'ListLocalMarkers'   :  'm?'
+		\ 'ListLocalMarks':    'm/',
+		\ 'ListLocalMarkers':  'm?',
+		\ 'Leader':            'm',
+		\ 'PlaceNextMark':     'm,',
+		\ 'ToggleMarkAtLine':  'm.',
+		\ 'PurgeMarksAtLine':  'm-',
+		\ 'DeleteMark':        'dm',
+		\ 'PurgeMarks':        'm<Space>',
+		\ 'PurgeMarkers':      'm<BS>',
+		\ 'GotoNextSpotAlpha': 'mj',
+		\ 'GotoPrevSpotAlpha': 'mk',
+		\ 'GotoNextMarkerAny': 'mJ',
+		\ 'GotoPrevMarkerAny': 'mK',
+		\ 'GotoNextMarker': '',
+		\ 'GotoPrevMarker': '',
+		\ 'GotoNextLineAlpha': '',
+		\ 'GotoPrevLineAlpha': '',
+		\ 'GotoNextSpotByPos': '',
+		\ 'GotoPrevSpotByPos': '',
+		\ 'GotoNextLineByPos': '',
+		\ 'GotoPrevLineByPos': ''
 		\ }
 
 	call neobundle#untap()
