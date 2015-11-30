@@ -14,9 +14,8 @@ highlight yamlScalar   ctermfg=250  guifg=#a8a897
 
 " }}}
 " Markdown/HTML {{{
-highlight htmlItalic  ctermfg=230 cterm=NONE term=NONE
-" Markdown headers
 highlight link htmlH1 Statement
+highlight htmlItalic  ctermfg=230 cterm=NONE term=NONE
 
 " }}}
 " GitGutter {{{
@@ -35,26 +34,27 @@ highlight PmenuThumb  ctermbg=238
 " }}}
 " Errors {{{
 " No bold in gvim's error messages
-highlight ErrorMsg     gui=NONE
-highlight Error term=NONE cterm=NONE
+highlight ErrorMsg  gui=NONE
+highlight Error     term=NONE cterm=NONE
 
-highlight BadWhitespace ctermfg=black ctermbg=darkred guifg=black guibg=#382424
+highlight BadWhitespace ctermfg=darkred ctermbg=black guifg=#382424 guibg=black
 
 " }}}
 " Unite {{{
 highlight uniteInputPrompt ctermfg=237
 
 " }}}
-" Grep {{{
-highlight link uniteSource__Grep        Directory
-highlight link uniteSource__GrepLineNr  qfLineNr
+" Unite Grep {{{
+highlight link uniteSource__Grep           Normal
+highlight link uniteCandidateInputKeyword  Function
+highlight uniteSource__GrepLineNr       ctermfg=240 guifg=#808070
 highlight uniteSource__GrepLine         ctermfg=245 guifg=#808070
 highlight uniteSource__GrepFile         ctermfg=4   guifg=#8197bf
 highlight uniteSource__GrepSeparator    ctermfg=5   guifg=#f0a0c0
 highlight uniteSource__GrepPattern      ctermfg=1   guifg=#cf6a4c
 
 " }}}
-" Quickfix {{{
+" Unite Quickfix {{{
 highlight UniteQuickFixWarning              ctermfg=1
 highlight uniteSource__QuickFix             ctermfg=8
 highlight uniteSource__QuickFix_Bold        ctermfg=249
