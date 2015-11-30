@@ -1,7 +1,10 @@
 " deoplete for nvim
 " ---
 
-set completeopt+=noinsert
+set completeopt+=noinsert,noselect
+
+let g:deoplete#keyword_patterns = {}
+let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
 
 " Movement within 'ins-completion-menu'
 imap <expr><C-j>   pumvisible() ? "\<C-n>" : "\<C-j>"
