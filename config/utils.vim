@@ -11,6 +11,20 @@ autocmd MyAutoCmd BufWritePost vimrc,neobundle.vim
 " Check timestamp on window enter. More eager than 'autoread'
 autocmd MyAutoCmd WinEnter * checktime
 
+" Write tags automatically in the background for Git repositories.
+autocmd MyAutoCmd BufWritePost *
+	\ if finddir('.git/', getcwd().';') !=? '' && get(g:, 'ctags_compile', 0)
+	\ |   call <SID>shell_bg('ctags', 's:tags_job_handler')
+	\ | endif
+
+function! s:tags_job_handler(job_id, data, event)
+	if a:event ==? 'stdout'
+		echomsg 'Tags index completed. ('.self.project.')'.join(a:data)
+	elseif a:event ==? 'stderr'
+		echoerr 'Unable to run ctags for '.self.project.': '.join(a:data)
+	endif
+endfunction
+
 " When editing a file, always jump to the last known cursor position.
 " Don't do it when the position is invalid or when inside an event handler
 autocmd MyAutoCmd BufReadPost *
