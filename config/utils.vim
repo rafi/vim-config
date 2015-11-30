@@ -85,6 +85,31 @@ function! FoldText() "{{{
 	return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
 endfunction "}}}
 
+function! ProjectName()
+	let dir = ProjectRoot()
+	return fnamemodify(dir ? dir : getcwd(), ':t')
+endfunction
+
+function! ProjectRoot()
+  let dir = getbufvar('%', 'project_dir')
+	let curr_dir = getcwd()
+  if empty(dir) || getbufvar('%', 'project_dir_last_cwd') != curr_dir
+		let patterns = ['.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/']
+		for pattern in patterns
+			let is_dir = stridx(pattern, '/') != -1
+			let match = is_dir ? finddir(pattern, curr_dir.';')
+				\ : findfile(pattern, curr_dir.';')
+			if ! empty(match)
+				let dir = fnamemodify(match, is_dir ? ':p:h:h' : ':p:h')
+				call setbufvar('%', 'project_dir', dir)
+				call setbufvar('%', 'project_dir_last_cwd', curr_dir)
+				break
+			endif
+		endfor
+	endif
+	return dir
+endfunction
+
 " Zoom / Restore window
 function! s:ZoomToggle() "{{{
 	if exists('t:zoomed') && t:zoomed > -1
