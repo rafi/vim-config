@@ -365,6 +365,12 @@ if neobundle#tap('jedi-vim') "{{{
 endif
 
 "}}}
+if neobundle#tap('tern_for_vim') "{{{
+	autocmd MyAutoCmd FileType javascript setlocal omnifunc=tern#Complete
+	call neobundle#untap()
+endif
+
+"}}}
 if neobundle#tap('phpcomplete.vim') "{{{
 	augroup phpSyntaxOverride
 		autocmd!
@@ -496,14 +502,17 @@ endif
 if neobundle#tap('vim-findent') "{{{
 	augroup findent
 		autocmd!
-		autocmd BufRead *.c    Findent --no-messages
-		autocmd BufRead *.py   Findent --no-messages
-		autocmd BufRead *.php  Findent --no-messages
-		autocmd BufRead *.css  Findent --no-messages
-		autocmd BufRead *.html Findent --no-messages
-		autocmd BufRead *.js   Findent --no-messages
+		autocmd BufRead * call s:setupFindent()
 	augroup END
 
+	function! s:setupFindent()
+		execute 'Findent!'
+		if &expandtab
+			IndentGuidesEnable
+		else
+			IndentGuidesDisable
+		endif
+	endfunction
 	call neobundle#untap()
 endif
 
@@ -535,18 +544,18 @@ endif
 if neobundle#tap('vim-indent-guides') "{{{
 	let g:indent_guides_enable_on_vim_startup = 0
 	let g:indent_guides_guide_size = 1
-	let g:indent_guides_start_level = 2
+	let g:indent_guides_start_level = 1
 	let g:indent_guides_exclude_filetypes = ['help', 'unite', 'vimfiler']
 	let g:indent_guides_default_mapping = 0
 	let g:indent_guides_auto_colors = 0
 	let g:indent_guides_indent_levels = 10
 
 	nmap <silent><Leader>i :<C-u>IndentGuidesToggle<CR>
-	autocmd VimEnter,Colorscheme * :highlight IndentGuidesOdd  guibg=#333   ctermbg=235
+	autocmd VimEnter,Colorscheme * :highlight IndentGuidesOdd  guibg=#333 ctermbg=235
 	autocmd VimEnter,Colorscheme * :highlight IndentGuidesEven guibg=#333 ctermbg=235
 
 	function! neobundle#hooks.on_post_source(bundle)
-		autocmd MyAutoCmd BufRead * if &ft == 'python'
+		autocmd MyAutoCmd BufEnter *.py,*.js if &expandtab
 			\ |   IndentGuidesEnable
 			\ | else
 			\ |   IndentGuidesDisable

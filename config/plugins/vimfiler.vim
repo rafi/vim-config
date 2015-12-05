@@ -18,7 +18,8 @@ let g:vimfiler_ignore_pattern =
 	\ .'\|node_modules\|.*\.pyc\)$'
 
 if has('mac')
-	let g:vimfiler_quick_look_command = 'qlmanage -p'
+	let g:vimfiler_quick_look_command =
+		\ '/Applications//Sublime\ Text.app/Contents/MacOS/Sublime\ Text'
 else
 	let g:vimfiler_quick_look_command = 'gloobus-preview'
 endif
@@ -29,6 +30,7 @@ call vimfiler#custom#profile('default', 'context', {
 	\  'explorer': 1,
 	\  'auto_expand': 1,
 	\  'no_quit': 1,
+	\  'force_hide': 1,
 	\  'parent': 0,
 	\  'split': 1,
 	\  'toggle': 1,

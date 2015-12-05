@@ -35,19 +35,6 @@ augroup MyAutoCmd
 	autocmd FileType go highlight default link goErr WarningMsg |
 				\ match goErr /\<err\>/
 
-	" Enable omni completions for file types
-	autocmd FileType c setlocal omnifunc=ccomplete#Complete
-	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-	autocmd FileType go setlocal omnifunc=gocomplete#Complete
-	autocmd FileType html,mustache,markdown
-		\ setlocal omnifunc=htmlcomplete#CompleteTags
-"	autocmd FileType java setlocal omnifunc=javacomplete#Complete
-	autocmd FileType javascript setlocal omnifunc=tern#Complete
-	autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-	autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-	autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
-	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
 augroup END
 
 " }}}

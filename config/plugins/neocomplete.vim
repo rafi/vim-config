@@ -19,10 +19,6 @@ let g:neocomplete#auto_completion_start_length = 2
 let g:neocomplete#manual_completion_start_length = 0
 let g:neocomplete#min_keyword_length = 3
 
-" DISABLED: Use CursorHoldI to delay pop-up by milliseconds
-let g:neocomplete#enable_cursor_hold_i = 0
-let g:neocomplete#cursor_hold_i_time = 1000
-
 " Selective feature disable
 " ---
 
@@ -43,9 +39,7 @@ let g:neocomplete#lock_buffer_name_pattern =
 if ! exists('g:neocomplete#keyword_patterns')
 	let g:neocomplete#keyword_patterns = {}
 endif
-" \h\w* = head of word is a word characters
-let g:neocomplete#keyword_patterns['default'] = ''
-"let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+let g:neocomplete#keyword_patterns._ = '\h\k*(\?'
 
 " Enable omni-completion
 " ---
@@ -137,9 +131,9 @@ smap <silent><expr><Tab> pumvisible() ? "\<C-n>"
 
 imap <expr><S-Tab>  pumvisible() ? "\<C-p>" : "\<C-h>"
 
-function! s:is_whitespace()
+function! s:is_whitespace() "{{{
 	let col = col('.') - 1
 	return ! col || getline('.')[col - 1] =~? '\s'
-endfunction
+endfunction "}}}
 
 " vim: set ts=2 sw=2 tw=80 noet :
