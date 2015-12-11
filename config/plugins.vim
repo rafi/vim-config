@@ -357,12 +357,6 @@ endif
 
 "}}}
 if neobundle#tap('jedi-vim') "{{{
-	autocmd MyAutoCmd FileType python
-		\ if has('python') || has('python3') |
-		\   setlocal omnifunc=jedi#completions |
-		\ else |
-		\   setlocal omnifunc= |
-		\ endif
 	setlocal completeopt=menuone,longest
 	let g:jedi#force_py_version = 3
 	let g:jedi#completions_enabled = 0
@@ -522,7 +516,7 @@ endif
 if neobundle#tap('vim-findent') "{{{
 	augroup findent
 		autocmd!
-		autocmd BufRead * call s:setupFindent()
+		autocmd BufRead *.py,*.js call s:setupFindent()
 	augroup END
 
 	function! s:setupFindent()
