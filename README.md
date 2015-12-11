@@ -20,12 +20,18 @@ Best with Vim 7.4
 ![Vim screenshot](http://rafi.io/static/img/project/vim-config/features.png)
 
 ## Install
-
+### VIM
 1. Clone `git clone git://github.com/rafi/vim-config.git ~/.vim`
 2. Enter directory `cd ~/.vim`
-3. Run `make test` to make sure you have vim with python and lua.
+3. Run `make test` to make sure you have vim compiled with python and lua.
 4. Run `make install`
-5. Start `vim`, `gvim`, or `nvim`
+5. Start `vim` or `gvim`, or `nvim`
+
+### Neovim
+```sh
+mkdir -p "${XDG_CONFIG_HOME:=$HOME/.config}"
+ln -s ~/.vim "${XDG_CONFIG_HOME:=$HOME/.config}/nvim"
+```
 
 ## Upgrade
 

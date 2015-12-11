@@ -43,7 +43,6 @@ if has('vim_starting')
 		" Respect XDG
 		let $MYVIMRC=expand('$XDG_CONFIG_HOME/vim/vimrc')
 		set runtimepath=$VIMPATH,$VIM/vimfiles,$VIMRUNTIME
-		set runtimepath+=$VIM/vimfiles/after,$VIMPATH/after
 	endif
 
 	" Load NeoBundle for package management

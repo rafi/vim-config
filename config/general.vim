@@ -220,11 +220,6 @@ set t_Co=256
 set background=dark
 let g:theme_name = 'darker'
 
-if has('nvim')
-	let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
-"	let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-endif
-
 " base16 themes - Access colors present in 256 colorspace
 let g:base16colorspace = 256
 let g:base16_shell_path = $VARPATH.'/plugins/base16-shell/'
