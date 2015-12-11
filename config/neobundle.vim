@@ -116,6 +116,7 @@ NeoBundleLazy 'matchit.zip', {'on_map': [['nxo', '%', 'g%']]}
 NeoBundleLazy 'kana/vim-niceblock', {'on_map': '<Plug>'}
 NeoBundleLazy 'rhysd/accelerated-jk', {'on_map': '<Plug>'}
 NeoBundleLazy 'rhysd/clever-f.vim', {'on_map': [['n', 'f', 'F', 't', 'T']]}
+NeoBundleLazy 'Konfekt/FastFold', {'on_path': '.*'}
 
 " }}}
 " Completion {{{

@@ -244,6 +244,26 @@ if neobundle#tap('accelerated-jk') "{{{
 endif
 
 "}}}
+if neobundle#tap('FastFold') "{{{
+	" Vim script
+	" augroup: a
+	" function: f
+	" lua: l
+	" perl: p
+	" ruby: r
+	" python: P
+	" tcl: t
+	" mzscheme: m
+	let g:vimsyn_folding = 'af'
+	let g:tex_fold_enabled = 1
+	let g:xml_syntax_folding = 1
+	let g:php_folding = 2
+	let g:php_phpdoc_folding = 1
+	let g:perl_fold = 1
+	call neobundle#untap()
+endif
+
+"}}}
 if neobundle#tap('vim-textobj-multiblock') "{{{
 	omap ab <Plug>(textobj-multiblock-a)
 	omap ib <Plug>(textobj-multiblock-i)
