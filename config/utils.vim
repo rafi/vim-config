@@ -33,7 +33,7 @@ autocmd MyAutoCmd BufReadPost *
 	\|   exe 'normal! g`"zvzz'
 	\| endif
 
-" Disable paste after leaving insert mode
+" Disable paste and/or update diff when leaving insert mode
 autocmd MyAutoCmd InsertLeave *
 		\ if &paste | set nopaste mouse=a | echo 'nopaste' | endif |
 		\ if &l:diff | diffupdate | endif
@@ -50,8 +50,9 @@ autocmd MyAutoCmd FileType help if &l:buftype ==# 'help'
 autocmd MyAutoCmd FileType qf   if &l:buftype ==# 'quickfix'
 	\ | wincmd J | endif
 
-" Update diff
-autocmd MyAutoCmd InsertLeave * if &l:diff | diffupdate | endif
+" }}}
+" Commands {{{
+" --------
 
 command! ZoomToggle call s:ZoomToggle()
 
@@ -66,8 +67,9 @@ command! DiffOrig vert new | setlocal bt=nofile | r # | 0d_ | diffthis | wincmd 
 " Disable diff mode.
 command! -nargs=0 Undiff setlocal nodiff noscrollbind wrap
 
-" Functions
-"---------------------------------------------------------
+" }}}
+" Functions {{{
+"----------
 
 " Makes * and # work on visual mode too.
 " See: http://github.com/nelstrom/vim-visual-star-search
@@ -187,6 +189,7 @@ function! s:WhitespaceErase(line1, line2) "{{{
 	silent! execute ':'.a:line1.','.a:line2.'s/\s\+$//'
 	call setpos('.', l:save_cursor)
 endfunction "}}}
+
 "}}}
 
 " vim: set ts=2 sw=2 tw=80 noet :

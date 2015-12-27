@@ -59,17 +59,17 @@ endif
 " }}}
 " Vim Directories {{{
 " ---------------
-set undofile swapfile nospell nobackup
 if has('nvim')
 	set shada='30,/100,:50,<10,@10,s50,h,n$VARPATH/shada
 else
 	set viminfo='30,/100,:500,<10,@10,s10,h,n$VARPATH/viminfo
 endif
+set undofile swapfile nobackup
 set directory=$VARPATH/swap//,$VARPATH,~/tmp,/var/tmp,/tmp
 set undodir=$VARPATH/undo//,$VARPATH,~/tmp,/var/tmp,/tmp
 set backupdir=$VARPATH/backup/,$VARPATH,~/tmp,/var/tmp,/tmp
 set viewdir=$VARPATH/view/
-set spellfile=$VIMPATH/spell/en.utf-8.add
+set nospell spellfile=$VIMPATH/spell/en.utf-8.add
 
 " Don't backup files in temp directories or shm
 if exists('&backupskip')

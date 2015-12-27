@@ -12,10 +12,3 @@ setlocal previewheight=4
 setlocal errorformat=%f:%l:%c:\ %m
 setlocal errorformat+=%f:%l:\ %m
 setlocal makeprg=flake8\ %
-
-autocmd MyAutoCmd FileType python
-	\ if has('python') || has('python3') |
-	\   setlocal omnifunc=jedi#completions |
-	\ else |
-	\   setlocal omnifunc= |
-	\ endif
