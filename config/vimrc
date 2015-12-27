@@ -52,6 +52,7 @@ endif
 
 " Loading configuration modules {{{
 call s:source_file('general.vim')
+call s:source_file('theme.vim')
 call s:source_file('filetype.vim')
 call s:source_file('terminal.vim')
 call s:source_file('utils.vim')

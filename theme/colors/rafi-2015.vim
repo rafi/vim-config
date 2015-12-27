@@ -1,7 +1,15 @@
 
-" hybrid - custom darker theme
-" ----------------------------
+" rafi-2015 - hybrid custom
+" -------------------------
 
+" gVim Appearance {{{
+" ---------------
+if has('gui_running')
+	set guifont=PragmataPro:h17
+	set noantialias
+endif
+
+" }}}
 " General GUI {{{
 " Whitespace
 highlight SpecialKey   ctermfg=237  guifg=#30302c
@@ -69,5 +77,10 @@ highlight vimfilerNormalFile  ctermfg=243 guifg=#808070
 highlight vimfilerMarkedFile  ctermfg=173
 highlight vimfilerOpenedFile  ctermfg=250 guifg=#e8e8d3
 highlight vimfilerClosedFile  ctermfg=246 guifg=#a8a897
+
+" }}}
+" vim-indent-guides "{{{
+highlight IndentGuidesOdd  guibg=#333333 ctermbg=235
+highlight IndentGuidesEven guibg=#333333 ctermbg=235
 
 " }}}

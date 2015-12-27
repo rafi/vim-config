@@ -1,12 +1,13 @@
 
 " Commands
 "---------------------------------------------------------
+" Autocommands {{{
 
 " Reload .vimrc automatically
 autocmd MyAutoCmd BufWritePost vimrc,neobundle.vim
 		\ | NeoBundleClearCache | source $MYVIMRC
+		\ | call g:SetCustomTheme()
 		\ | call tinyline#define_highlights()
-		\ | call ColorSchemeTheme()
 
 " Check timestamp on window enter. More eager than 'autoread'
 autocmd MyAutoCmd WinEnter * checktime

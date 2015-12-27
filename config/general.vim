@@ -197,11 +197,6 @@ set noequalalways       " Don't resize windows on split or close
 set laststatus=2        " Always show a status line
 set colorcolumn=80      " Highlight the 80th character limit
 
-" Changing characters to fill special ui elements
-set showbreak=↪
-set fillchars=vert:│,fold:─
-set listchars=tab:\⋮\ ,extends:⟫,precedes:⟪,nbsp:.,trail:·
-
 " Do not display completion messages
 " Patch: https://groups.google.com/forum/#!topic/vim_dev/WeBBjkXE8H8
 if has('patch-7.4.314')
@@ -212,44 +207,5 @@ endif
 if has('conceal') && v:version >= 703
 	set conceallevel=2 concealcursor=niv
 endif
-
-" }}}
-" Theme {{{
-" -----
-set t_Co=256
-set background=dark
-let g:theme_name = 'darker'
-
-" base16 themes - Access colors present in 256 colorspace
-let g:base16colorspace = 256
-let g:base16_shell_path = $VARPATH.'/plugins/base16-shell/'
-
-" Theme loader. Uses current selected colorscheme name as base.
-function! g:ColorSchemeTheme()
-	if exists('g:colors_name')
-		let l:path = $VIMPATH.'/theme/'.g:colors_name.'/'.g:theme_name.'.vim'
-		if filereadable(l:path)
-			silent! execute 'source' fnameescape(l:path)
-		endif
-	endif
-endfunction
-
-if ! exists('g:vim_installing')
-	" Automatic theme loading when colorscheme changes.
-	autocmd MyAutoCmd VimEnter,ColorScheme * call ColorSchemeTheme()
-	if ! exists('g:colors_name')
-		colorscheme hybrid
-	endif
-endif
-
-" }}}
-" gVim Appearance {{{
-" ---------------
-if has('gui_running')
-	set lines=44 columns=155
-	set guifont=PragmataPro:h17
-	set noantialias
-endif
-" }}}
 
 " vim: set ts=2 sw=2 tw=80 noet :
