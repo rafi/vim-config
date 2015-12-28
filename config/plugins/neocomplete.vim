@@ -58,6 +58,8 @@ let g:neocomplete#sources#omni#input_patterns.go =
 "	\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 let g:neocomplete#sources#omni#input_patterns.ruby =
 	\ '[^. *\t]\.\w*\|\h\w*::'
+let g:neocomplete#sources#omni#input_patterns.python =
+	\ '[^. *\t]\.\w*\|\h\w*'
 
 " Force omni-completion input patterns
 " ---
@@ -72,9 +74,13 @@ let g:neocomplete#force_omni_input_patterns.typescript =
 	\ '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplete#force_omni_input_patterns.php =
 	\ '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-let g:neocomplete#force_omni_input_patterns.python =
-	\ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+"let g:neocomplete#force_omni_input_patterns.python =
+"	\ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
 " Alternative pattern: \ '\h\w*\|[^. \t]\.\w*'
+
+call neocomplete#custom#source('_', 'converters',
+	\ ['converter_add_paren', 'converter_remove_overlap',
+	\  'converter_delimiter', 'converter_abbr'])
 
 " Mappings
 " --------
@@ -111,25 +117,24 @@ imap <C-Space>  <Plug>(neocomplete_start_unite_complete)
 "       Otherwise, check if within empty pair and use delimitMate.
 imap <silent><expr><CR> pumvisible() ?
 	\ (neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : "\<C-y>")
-	\ : (neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)"
-		\ : (delimitMate#WithinEmptyPair() ? "\<Plug>delimitMateCR" : "\<CR>"))
+		\ : (delimitMate#WithinEmptyPair() ? "\<Plug>delimitMateCR" : "\<CR>")
 
 " <Tab> completion:
 " 1. If popup menu is visible, select and insert next item
-" 2. Otherwise, if preceding chars are whitespace, insert tab char
-" 3. Otherwise, if preceding word is a snippet, expand it
+" 2. Otherwise, if within a snippet, jump to next input
+" 3. Otherwise, if preceding chars are whitespace, insert tab char
 " 4. Otherwise, start manual autocomplete
 imap <silent><expr><Tab> pumvisible() ? "\<C-n>"
+	\ : (neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)"
 	\ : (<SID>is_whitespace() ? "\<Tab>"
-	\ : (neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)"
 	\ : neocomplete#start_manual_complete()))
 
 smap <silent><expr><Tab> pumvisible() ? "\<C-n>"
+	\ : (neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)"
 	\ : (<SID>is_whitespace() ? "\<Tab>"
-	\ : (neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)"
 	\ : neocomplete#start_manual_complete()))
 
-imap <expr><S-Tab>  pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><S-Tab>  pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:is_whitespace() "{{{
 	let col = col('.') - 1
