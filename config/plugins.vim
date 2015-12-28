@@ -292,10 +292,10 @@ if neobundle#tap('vim-signature') "{{{
 		\ 'DeleteMark':        'dm',
 		\ 'PurgeMarks':        'm<Space>',
 		\ 'PurgeMarkers':      'm<BS>',
-		\ 'GotoNextSpotAlpha': 'mj',
-		\ 'GotoPrevSpotAlpha': 'mk',
-		\ 'GotoNextMarkerAny': 'mJ',
-		\ 'GotoPrevMarkerAny': 'mK',
+		\ 'GotoNextSpotAlpha': 'mn',
+		\ 'GotoPrevSpotAlpha': 'mp',
+		\ 'GotoNextMarkerAny': 'mj',
+		\ 'GotoPrevMarkerAny': 'mk',
 		\ 'GotoNextMarker': '',
 		\ 'GotoPrevMarker': '',
 		\ 'GotoNextLineAlpha': '',
@@ -385,6 +385,8 @@ endif
 "}}}
 if neobundle#tap('tern_for_vim') "{{{
 	autocmd MyAutoCmd FileType javascript setlocal omnifunc=tern#Complete
+	let g:tern_show_signature_in_pum = 1
+"	let g:tern_show_argument_hints = 'on_hold'
 	call neobundle#untap()
 endif
 
@@ -458,11 +460,18 @@ if neobundle#tap('vim-go') "{{{
 
 	let g:go_highlight_extra_types = 1
 	let g:go_highlight_operators = 1
-	let g:go_highlight_functions = 1
-	let g:go_highlight_methods = 1
-	let g:go_highlight_structs = 1
-	let g:go_highlight_build_constraints = 1
+	" SLOW:
+"	let g:go_highlight_functions = 1
+"	let g:go_highlight_methods = 1
+"	let g:go_highlight_structs = 1
+"	let g:go_highlight_build_constraints = 1
 
+	call neobundle#untap()
+endif
+
+"}}}
+if neobundle#tap('neopairs.vim') "{{{
+	let g:neopairs#enable = 0
 	call neobundle#untap()
 endif
 
@@ -519,7 +528,7 @@ if neobundle#tap('vim-findent') "{{{
 	augroup END
 
 	function! s:setupFindent()
-		execute 'Findent!'
+		execute 'Findent! --no-warnings'
 		if &expandtab
 			IndentGuidesEnable
 		else
