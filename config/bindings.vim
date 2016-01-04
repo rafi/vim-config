@@ -59,9 +59,6 @@ nmap <Leader>P "+P
 vmap <Leader>p "+p
 vmap <Leader>P "+P
 
-" Copy text to the end-of-line
-nnoremap Y y$
-
 " Start an external command with a single bang
 nnoremap ! :!
 

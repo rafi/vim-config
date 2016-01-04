@@ -84,3 +84,7 @@ highlight IndentGuidesOdd  guibg=#333333 ctermbg=235
 highlight IndentGuidesEven guibg=#333333 ctermbg=235
 
 " }}}
+" Plugin: vim-operator-flashy {{{
+highlight Flashy ctermfg=190 ctermbg=232 guifg=#D6FF00 guibg=#080808
+
+" }}}

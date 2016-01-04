@@ -213,6 +213,10 @@ NeoBundleLazy 'osyo-manga/vim-textobj-multiblock', {
 	\ 'depends': 'vim-textobj-user',
 	\ 'on_map': [['ox', '<Plug>']]
 	\ }
+NeoBundleLazy 'haya14busa/vim-operator-flashy', {
+	\ 'depends': 'vim-textobj-user',
+	\ 'on_map': '<Plug>'
+	\ }
 NeoBundleLazy 'AndrewRadev/sideways.vim', {'on_map': [['ox', '<Plug>']]}
 NeoBundleLazy 'bkad/CamelCaseMotion', {
 	\ 'on_map': ['<Plug>CamelCaseMotion_w', '<Plug>CamelCaseMotion_b']
