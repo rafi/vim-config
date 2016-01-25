@@ -5,10 +5,12 @@
 if neobundle#tap('unite.vim') "{{{
 	let g:unite_data_directory = $VARPATH.'/unite'
 	let g:unite_source_history_yank_enable = 1
+	let g:my_unite_file_source_name =
+		\ 'file_rec/'.(has('nvim') ? 'neovim' : 'async')
+
 	nnoremap <silent> [unite]r   :<C-u>UniteResume -no-start-insert -force-redraw<CR>
 	nnoremap <silent> [unite]b   :<C-u>Unite buffer file_mru bookmark<CR>
-	nnoremap <silent> [unite]f   :<C-u>Unite file_rec/async<CR>
-	nnoremap <silent> [unite]i   :<C-u>Unite file_rec/git<CR>
+	nnoremap <silent> [unite]f   :<C-u>Unite file_rec/`has('nvim') ? 'neovim' : 'async'`<CR>
 	nnoremap <silent> [unite]g   :<C-u>Unite grep:.<CR>
 	nnoremap <silent> [unite]u   :<C-u>Unite source<CR>
 	nnoremap <silent> [unite]t   :<C-u>Unite tag<CR>
@@ -26,8 +28,7 @@ if neobundle#tap('unite.vim') "{{{
 	nnoremap <silent> [unite]mu  :<C-u>Unite -profile-name=mpc mpc/menu<CR>
 	nnoremap <silent> [unite]k
 		\ :<C-u>Unite -buffer-name=files -no-split -multi-line -unique -silent
-		\ -no-short-source-names jump_point file_point file_mru
-		\ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec/async'`
+		\ -no-short-source-names jump_point file_point file_mru file_rec/async
 		\ buffer_tab:- file file/new<CR>
 
 	" Open Unite with word under cursor or selection
