@@ -21,18 +21,6 @@ highlight Visual       ctermbg=236
 highlight yamlScalar   ctermfg=250  guifg=#a8a897
 
 " }}}
-" Markdown/HTML {{{
-highlight link htmlH1 Statement
-highlight htmlItalic  ctermfg=230 cterm=NONE term=NONE
-
-" }}}
-" GitGutter {{{
-highlight GitGutterAdd ctermfg=22
-highlight GitGutterChange ctermfg=94
-highlight GitGutterDelete ctermfg=52
-highlight GitGutterChangeDelete ctermfg=52
-
-" }}}
 " Popup menu {{{
 highlight Pmenu       ctermfg=245 ctermbg=235
 highlight PmenuSel    ctermfg=236 ctermbg=248
@@ -48,11 +36,15 @@ highlight Error     term=NONE cterm=NONE
 highlight BadWhitespace ctermfg=darkred ctermbg=black guifg=#382424 guibg=black
 
 " }}}
-" Unite {{{
-highlight uniteInputPrompt ctermfg=237
+" HTML and Markdown {{{
+highlight link htmlH1 Statement
+highlight htmlItalic  ctermfg=230 cterm=NONE term=NONE
 
 " }}}
-" Unite Grep {{{
+" Plugin: unite.vim {{{
+highlight uniteInputPrompt ctermfg=237
+
+" Unite grep
 highlight link uniteSource__Grep           Normal
 highlight link uniteCandidateInputKeyword  Function
 highlight uniteSource__GrepLineNr       ctermfg=240 guifg=#808070
@@ -62,7 +54,7 @@ highlight uniteSource__GrepSeparator    ctermfg=5   guifg=#f0a0c0
 highlight uniteSource__GrepPattern      ctermfg=1   guifg=#cf6a4c
 
 " }}}
-" Unite Quickfix {{{
+" Plugin: unite-quickfix {{{
 highlight UniteQuickFixWarning              ctermfg=1
 highlight uniteSource__QuickFix             ctermfg=8
 highlight uniteSource__QuickFix_Bold        ctermfg=249
@@ -70,7 +62,7 @@ highlight link uniteSource__QuickFix_File   Directory
 highlight link uniteSource__QuickFix_LineNr qfLineNr
 
 " }}}
-" VimFiler {{{
+" Plugin: vimfiler.vim {{{
 highlight vimfilerNonMark     ctermfg=132 guifg=#4e4e43
 highlight vimfilerLeaf        ctermfg=238 guifg=#30302c
 highlight vimfilerNormalFile  ctermfg=243 guifg=#808070
@@ -79,12 +71,19 @@ highlight vimfilerOpenedFile  ctermfg=250 guifg=#e8e8d3
 highlight vimfilerClosedFile  ctermfg=246 guifg=#a8a897
 
 " }}}
-" vim-indent-guides "{{{
+" Plugin: vim-indent-guides "{{{
 highlight IndentGuidesOdd  guibg=#333333 ctermbg=235
 highlight IndentGuidesEven guibg=#333333 ctermbg=235
 
 " }}}
 " Plugin: vim-operator-flashy {{{
 highlight Flashy ctermfg=190 ctermbg=232 guifg=#D6FF00 guibg=#080808
+
+" }}}
+" Plugin: vim-gitgutter {{{
+highlight GitGutterAdd ctermfg=22
+highlight GitGutterChange ctermfg=94
+highlight GitGutterDelete ctermfg=52
+highlight GitGutterChangeDelete ctermfg=52
 
 " }}}
