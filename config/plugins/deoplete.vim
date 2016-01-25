@@ -26,6 +26,9 @@ imap     <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
 " Undo completion
 inoremap <expr><C-g> deoplete#mappings#undo_completion()
 
+" Redraw candidates
+inoremap <C-l>  a<BS>
+
 " <C-h>, <BS>: close popup and delete backword char.
 "inoremap <expr><C-h> deolete#mappings#smart_close_popup()."\<C-h>"
 "inoremap <expr><BS>  deoplete#mappings#smart_close_popup()."\<C-h>"
