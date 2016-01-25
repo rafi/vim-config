@@ -35,7 +35,7 @@ autocmd MyAutoCmd BufReadPost *
 
 " Disable paste and/or update diff when leaving insert mode
 autocmd MyAutoCmd InsertLeave *
-		\ if &paste | set nopaste mouse=a | echo 'nopaste' | endif |
+		\ if &paste | setlocal nopaste mouse=a | echo 'nopaste' | endif |
 		\ if &l:diff | diffupdate | endif
 
 " Open Quickfix window automatically

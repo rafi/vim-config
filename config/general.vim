@@ -7,7 +7,6 @@ set modeline                 " automatically setting options from modelines
 set report=0                 " Don't report on line changes
 set errorbells               " Trigger bell on error
 set visualbell               " Use visual bell instead of beeping
-set lazyredraw               " don't redraw while in macros
 set hidden                   " hide buffers when abandoned instead of unload
 set fileformats=unix,dos,mac " Use Unix as the standard file type
 set magic                    " For regular expressions turn magic on
@@ -15,7 +14,6 @@ set path=.,**                " Directories to search when using gf
 set virtualedit=block        " Position cursor anywhere in visual block
 set history=500              " Search and commands remembered
 set synmaxcol=1000           " Don't syntax highlight long lines
-syntax sync minlines=256     " Update syntax highlighting for more lines
 set ttyfast                  " Indicate a fast terminal connection
 set formatoptions+=1         " Don't break lines after a one-letter word
 set formatoptions-=t         " Don't auto-wrap text
