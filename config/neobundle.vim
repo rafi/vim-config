@@ -13,7 +13,6 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'christoomey/vim-tmux-navigator'
 NeoBundle 'rafi/vim-tinyline'
 NeoBundle 'rafi/vim-tagabana'
-NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'bogado/file-line'
 NeoBundle 'thinca/vim-localrc'
 
@@ -64,9 +63,8 @@ NeoBundleLazy 'Shougo/vimfiler.vim', {
 	\ 'depends': 'Shougo/unite.vim',
 	\ 'on_map': '<Plug>',
 	\ 'on_path': '.*',
-	\ 'on_cmd': [
-	\    {'name': ['VimFiler'], 'complete': 'customlist,vimfiler#complete'}
-	\ ]}
+	\ 'on_cmd': 'VimFiler'
+	\ }
 NeoBundleLazy 'tyru/caw.vim', {'on_map': '<Plug>'}
 NeoBundleLazy 'lambdalisue/vim-findent', {'on_path': '.*'}
 NeoBundleLazy 'lambdalisue/vim-gita', {'on_cmd': 'Gita'}
@@ -74,11 +72,8 @@ NeoBundleLazy 't9md/vim-choosewin', {'on_map': '<Plug>(choosewin)'}
 NeoBundleLazy 'haya14busa/vim-asterisk', {'on_map': '<Plug>(asterisk-'}
 NeoBundleLazy 'haya14busa/incsearch.vim', {'on_map': '<Plug>(incsearch-'}
 NeoBundleLazy 'mbbill/undotree', {'on_cmd': 'UndotreeToggle'}
-NeoBundleLazy 'Shougo/vinarise.vim', {
-	\ 'on_cmd': [{'name': 'Vinarise', 'complete': 'file'}]}
-NeoBundleLazy 'terryma/vim-expand-region', {
-	\ 'on_map': [['x', '<Plug>']]
-	\ }
+NeoBundleLazy 'Shougo/vinarise.vim', {'on_cmd': 'Vinarise'}
+NeoBundleLazy 'terryma/vim-expand-region', {'on_map': [['x', '<Plug>']]}
 NeoBundleLazy 'rafi/vim-tinycomment', {
 	\ 'augroup': 'tinycomment',
 	\ 'on_cmd': ['TinyCommentLines', 'TinyCommentBlock'],
@@ -117,6 +112,7 @@ NeoBundleLazy 'kana/vim-niceblock', {'on_map': '<Plug>'}
 NeoBundleLazy 'rhysd/accelerated-jk', {'on_map': '<Plug>'}
 NeoBundleLazy 'rhysd/clever-f.vim', {'on_map': [['n', 'f', 'F', 't', 'T']]}
 NeoBundleLazy 'Konfekt/FastFold', {'on_path': '.*'}
+NeoBundleLazy 'Shougo/tabpagebuffer.vim', {'on_ft': 'all'}
 
 " }}}
 " Completion {{{
@@ -129,7 +125,6 @@ NeoBundleLazy 'Shougo/deoplete.nvim', {
 NeoBundleLazy 'Shougo/neocomplete', {
 	\ 'depends': 'Shougo/context_filetype.vim',
 	\ 'disabled': ! has('lua') || has('nvim'),
-	\ 'vim_version': '7.3.885',
 	\ 'on_i': 1
 	\ }
 NeoBundleLazy 'Shougo/neosnippet.vim', {
@@ -161,10 +156,9 @@ endif
 " Unite {{{
 " -----
 NeoBundleLazy 'Shougo/unite.vim', {
-	\ 'depends': 'Shougo/tabpagebuffer.vim',
-	\ 'on_cmd': [
-	\   {'name': 'Unite', 'complete': 'customlist,unite#complete_source'}
-	\ ]}
+	\ 'depends': 'Shougo/neomru.vim',
+	\ 'on_cmd': 'Unite'
+	\ }
 
 " Unite sources {{{
 " -------------
