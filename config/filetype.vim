@@ -35,13 +35,6 @@ augroup MyAutoCmd
 	autocmd FileType go highlight default link goErr WarningMsg |
 				\ match goErr /\<err\>/
 
-	autocmd FileType python
-		\ if has('python') || has('python3') |
-		\   setlocal omnifunc=jedi#completions |
-		\ else |
-		\   setlocal omnifunc= |
-		\ endif
-
 augroup END
 
 augroup vimrc-highlight

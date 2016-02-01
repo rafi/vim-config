@@ -3,15 +3,25 @@
 
 set completeopt+=noinsert,noselect
 
-" Use auto delimiter
-call deoplete#custom#set('_', 'converters',
-	\ ['converter_auto_paren',
-	\  'converter_auto_delimiter', 'remove_overlap'])
+let g:deoplete#auto_completion_start_length = 2
+"let g:deoplete#enable_refresh_always = 1
 
 let g:deoplete#keyword_patterns = {}
 let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
 
 let g:deoplete#sources#go = 'vim-go'
+
+let g:deoplete#omni#input_patterns = {}
+let g:deoplete#omni#input_patterns.python = ''
+
+" Use auto delimiter
+call deoplete#custom#set('_', 'converters',
+	\ ['converter_auto_paren',
+	\  'converter_auto_delimiter', 'remove_overlap'])
+
+" Use full fuzzy matching like YouCompleteMe
+"call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
+"call deoplete#custom#set('_', 'matchers', ['matcher_head'])
 
 " Movement within 'ins-completion-menu'
 imap <expr><C-j>   pumvisible() ? "\<C-n>" : "\<C-j>"
@@ -27,10 +37,10 @@ imap     <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
 inoremap <expr><C-g> deoplete#mappings#undo_completion()
 
 " Redraw candidates
-inoremap <C-l>  a<BS>
+inoremap <expr><C-l> deoplete#mappings#refresh()
 
 " <C-h>, <BS>: close popup and delete backword char.
-"inoremap <expr><C-h> deolete#mappings#smart_close_popup()."\<C-h>"
+"inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
 "inoremap <expr><BS>  deoplete#mappings#smart_close_popup()."\<C-h>"
 
 " <CR>: If popup menu visible, expand snippet or close popup with selection,

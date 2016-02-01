@@ -135,14 +135,14 @@ NeoBundleLazy 'Shougo/neosnippet.vim', {
 NeoBundleLazy 'Raimondi/delimitMate', {'on_i': 1}
 NeoBundleLazy 'Shougo/echodoc.vim', {'on_i': 1}
 NeoBundleLazy 'Shougo/neco-vim', {'on_ft': 'vim', 'on_i': 1}
-NeoBundleLazy 'zchee/deoplete-go', {'on_ft': 'go', 'on_i': 1}
-NeoBundleLazy 'Shougo/neco-syntax', {'on_i': 1}
 NeoBundleLazy 'Shougo/neopairs.vim', {'on_i': 1}
 NeoBundleLazy 'Shougo/neoinclude.vim', {'on_ft': 'all'}
+NeoBundleLazy 'zchee/deoplete-go', {'on_ft': 'go', 'on_i': 1}
+NeoBundleLazy 'zchee/deoplete-jedi', {'on_ft': 'python', 'on_i': 1}
+NeoBundleLazy 'Shougo/neco-syntax', {'on_i': 1}
 
 if $VIM_MINIMAL ==? ''
 	NeoBundleLazy 'benekastah/neomake', {'on_cmd': ['Neomake']}
-	NeoBundleLazy 'davidhalter/jedi-vim', {'on_ft': 'python'}
 	NeoBundleLazy 'shawncplus/phpcomplete.vim', {'on_i': 1, 'on_ft': 'php'}
 	NeoBundleLazy 'ternjs/tern_for_vim', {
 		\ 'build': {'others': 'npm install'},

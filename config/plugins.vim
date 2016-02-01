@@ -157,6 +157,12 @@ if neobundle#tap('deoplete.nvim') && has('nvim') "{{{
 endif
 
 "}}}
+if neobundle#tap('deoplete-jedi') && has('nvim') "{{{
+	autocmd MyAutoCmd FileType python setlocal omnifunc=
+	call neobundle#untap()
+endif
+
+"}}}
 if neobundle#tap('neocomplete') && has('lua') "{{{
 	let g:neocomplete#enable_at_startup = 1
 	let g:neocomplete#data_directory = $VARPATH.'/complete'
@@ -390,6 +396,14 @@ if neobundle#tap('jedi-vim') "{{{
 	let g:jedi#max_doc_height = 40
 	let g:jedi#show_call_signatures = 0
 	let g:jedi#show_call_signatures_delay = 1000
+
+	autocmd MyAutoCmd FileType python
+		\ if has('python') || has('python3') |
+		\   setlocal omnifunc=jedi#completions |
+		\ else |
+		\   setlocal omnifunc= |
+		\ endif
+
 	call neobundle#untap()
 endif
 
