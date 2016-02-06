@@ -143,6 +143,10 @@ NeoBundleLazy 'Shougo/neco-syntax', {'on_i': 1}
 
 if $VIM_MINIMAL ==? ''
 	NeoBundleLazy 'benekastah/neomake', {'on_cmd': ['Neomake']}
+	NeoBundleLazy 'davidhalter/jedi-vim', {
+		\ 'disabled': has('nvim'),
+		\ 'on_ft': 'python'
+		\ }
 	NeoBundleLazy 'shawncplus/phpcomplete.vim', {'on_i': 1, 'on_ft': 'php'}
 	NeoBundleLazy 'ternjs/tern_for_vim', {
 		\ 'build': {'others': 'npm install'},
