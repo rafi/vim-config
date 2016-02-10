@@ -18,7 +18,7 @@ endfunction
 function! tabline#render()
 	" Main tabline function. Draws the whole damn tabline
 
-	let s = '%#TabLineAltFill# %{tabline#project_name()} %#TabLineAltSel#⮀%#TabLine#  '
+	let s = '%#TabLineAltFill# %{ProjectName()} %#TabLineAltSel#⮀%#TabLine#  '
 	let nr = tabpagenr()
 	for i in range(tabpagenr('$'))
 		if i + 1 == nr
@@ -50,38 +50,6 @@ function! tabline#render()
 	endif
 
 	return s
-endfunction
-
-" }}}
-function! tabline#project_name()
-	" Finds the project name from tab current directory.
-	" It tries to find the root path of a git repository.
-
-	" Use the cached (tab scope) variable unless the current dir changed
-	if ! exists('t:project_name') || ! (exists('t:project_dir') && t:project_dir == getcwd())
-		" Store the current dir for caching
-		let t:project_dir = getcwd()
-		let t:project_name = t:project_dir
-		" If no .git folder in cwd = it's not a git repo.
-		" If no .git file in cwd = it's not a git submodule.
-		if ! isdirectory('.git') && ! filereadable('.git')
-			" Look upwards (at parents) for a file or dir named '.git':
-			" First lookup for a .git file, symbolizing a git submodule
-			let t:project_name = substitute(finddir('.git', '.;'), '/.git', '', '')
-			if t:project_name == ''
-				" Secondly, lookup for a .git folder, symbolizing a git repo
-				let parent = substitute(finddir('.git', '.;'), '/.git', '', '')
-			endif
-			if t:project_name == ''
-				let t:project_name = t:project_dir
-			endif
-		endif
-		" Use the tail of the path (last component of the path)
-		if len(t:project_name) > 1
-			let t:project_name = fnamemodify(t:project_name, ':t')
-		endif
-	endif
-  return t:project_name
 endfunction
 
 " }}}
