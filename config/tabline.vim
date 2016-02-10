@@ -39,6 +39,16 @@ function! tabline#render()
 
 	" After the last tab fill with TabLineFill and reset tab page nr
 	let s .= '%#TabLineFill#%T'
+
+	" Right-align the label to show session is loading or loaded
+	if exists('g:SessionLoad')
+		let arrows = {0: '-', 1: '\', 2: '|', 3: '/'}
+		let s .= '%=%#TabLine#['.arrows[g:SessionLoad % 4].']'
+		let g:SessionLoad = g:SessionLoad < 4 ? g:SessionLoad + 1 : 0
+	elseif ! empty(v:this_session)
+		let s .= '%=%#TabLine#[S]'
+	endif
+
 	return s
 endfunction
 
