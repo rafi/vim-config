@@ -414,6 +414,12 @@ if neobundle#tap('jedi-vim') "{{{
 endif
 
 "}}}
+if neobundle#tap('vim-jsx') "{{{
+	let g:jsx_ext_required = 0
+	call neobundle#untap()
+endif
+
+"}}}
 if neobundle#tap('tern_for_vim') "{{{
 	autocmd MyAutoCmd FileType javascript setlocal omnifunc=tern#Complete
 	let g:tern_show_signature_in_pum = 1

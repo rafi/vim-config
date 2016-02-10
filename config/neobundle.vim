@@ -33,24 +33,25 @@ NeoBundleLazy 'chase/vim-ansible-yaml', {'on_ft': ['yaml', 'ansible']}
 NeoBundleLazy 'mitsuhiko/vim-jinja', {'on_ft': ['htmljinja', 'jinja']}
 NeoBundleLazy 'groenewege/vim-less', {'on_ft': 'less'}
 NeoBundleLazy 'hail2u/vim-css3-syntax', {'on_ft': 'css'}
+NeoBundleLazy 'othree/csscomplete.vim', {'on_ft': 'css'}
 NeoBundleLazy 'chrisbra/csv.vim', {'on_ft': 'csv'}
 NeoBundleLazy 'hynek/vim-python-pep8-indent', {'on_ft': 'python'}
-NeoBundleLazy 'robbles/logstash.vim', {'on_ft': 'logstash'}
 NeoBundleLazy 'tmux-plugins/vim-tmux', {'on_ft': 'tmux'}
 NeoBundleLazy 'elzr/vim-json', {'on_ft': 'json'}
 NeoBundleLazy 'cespare/vim-toml', {'on_ft': 'toml'}
 NeoBundleLazy 'PotatoesMaster/i3-vim-syntax', {'on_ft': 'i3'}
 NeoBundleLazy 'ekalinin/Dockerfile.vim', {'on_ft': 'Dockerfile'}
 NeoBundleLazy 'jstrater/mpvim', {'on_ft': 'portfile'}
-NeoBundleLazy 'vim-ruby/vim-ruby', {'on_ft': 'ruby', 'on_map': '<Plug>'}
-NeoBundleLazy 'jelera/vim-javascript-syntax', {'on_ft': 'javascript'}
-NeoBundleLazy 'jiangmiao/simple-javascript-indenter', {'on_ft': 'javascript'}
+NeoBundleLazy 'osyo-manga/vim-monster', {'on_ft': 'ruby'}
+NeoBundleLazy 'othree/yajs.vim', {'on_ft': 'javascript'}
+NeoBundleLazy 'gavocanov/vim-js-indent', {'on_ft': 'javascript'}
+NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {'on_ft': 'javascript'}
+NeoBundleLazy 'mxw/vim-jsx', {'on_ft': 'javascript'}
+NeoBundleLazy 'othree/jspc.vim', {'on_ft': 'javascript'}
+NeoBundleLazy 'heavenshell/vim-jsdoc', {'on_ft': 'javascript'}
+NeoBundleLazy 'moll/vim-node', {'on_ft': 'javascript'}
 NeoBundleLazy 'StanAngeloff/php.vim', {'on_ft': 'php'}
 NeoBundleLazy 'rayburgemeestre/phpfolding.vim', {'on_ft': 'php'}
-NeoBundleLazy 'rafi/vim-phpspec', {
-	\ 'on_ft': 'php',
-	\ 'on_cmd': ['PhpSpecRun', 'PhpSpecRunCurrent']
-	\ }
 NeoBundleLazy 'fatih/vim-go', {
 	\ 'on_ft': 'go',
 	\ 'on_cmd': ['GoInstallBinaries', 'GoUpdateBinaries']
@@ -136,12 +137,14 @@ NeoBundleLazy 'Shougo/neosnippet.vim', {
 	\ }
 NeoBundleLazy 'Raimondi/delimitMate', {'on_i': 1}
 NeoBundleLazy 'Shougo/echodoc.vim', {'on_i': 1}
+NeoBundleLazy 'Shougo/neco-syntax', {'on_i': 1}
 NeoBundleLazy 'Shougo/neco-vim', {'on_ft': 'vim', 'on_i': 1}
 NeoBundleLazy 'Shougo/neopairs.vim', {'on_i': 1}
 NeoBundleLazy 'Shougo/neoinclude.vim', {'on_ft': 'all'}
-NeoBundleLazy 'zchee/deoplete-go', {'on_ft': 'go', 'on_i': 1}
-NeoBundleLazy 'zchee/deoplete-jedi', {'on_ft': 'python', 'on_i': 1}
-NeoBundleLazy 'Shougo/neco-syntax', {'on_i': 1}
+NeoBundleLazy 'zchee/deoplete-go', {
+	\ 'on_ft': 'go', 'on_i': 1, 'disabled': ! has('nvim')}
+NeoBundleLazy 'zchee/deoplete-jedi', {
+	\ 'on_ft': 'python', 'on_i': 1, 'disabled': ! has('nvim')}
 
 if $VIM_MINIMAL ==? ''
 	NeoBundleLazy 'benekastah/neomake', {'on_cmd': ['Neomake']}
