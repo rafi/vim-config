@@ -83,7 +83,7 @@ if $VIM_MINIMAL ==? ''
 	NeoBundleLazy 'lambdalisue/vim-gista', {
 		\ 'on_cmd': 'Gista',
 		\ 'on_map': '<Plug>',
-		\ 'on_unite': 'gista',
+		\ 'on_source': 'unite.vim'
 		\ }
 	NeoBundleLazy 'thinca/vim-guicolorscheme', {'on_cmd': 'GuiColorScheme'}
 	NeoBundleLazy 'guns/xterm-color-table.vim', {'on_cmd': 'XtermColorTable'}
@@ -131,7 +131,8 @@ NeoBundleLazy 'Shougo/neosnippet.vim', {
 	\ 'depends': ['Shougo/neosnippet-snippets', 'Shougo/context_filetype.vim'],
 	\ 'on_i': 1,
 	\ 'on_ft': 'snippet',
-	\ 'on_unite': ['neosnippet', 'neosnippet/user', 'neosnippet/runtime']}
+	\ 'on_source': 'unite.vim'
+	\ }
 NeoBundleLazy 'Raimondi/delimitMate', {'on_i': 1}
 NeoBundleLazy 'Shougo/echodoc.vim', {'on_i': 1}
 NeoBundleLazy 'Shougo/neco-vim', {'on_ft': 'vim', 'on_i': 1}
@@ -166,26 +167,25 @@ NeoBundleLazy 'Shougo/unite.vim', {
 
 " Unite sources {{{
 " -------------
-NeoBundleLazy 'ujihisa/unite-colorscheme'
-NeoBundleLazy 'osyo-manga/unite-filetype'
-NeoBundleLazy 'thinca/vim-unite-history'
-NeoBundleLazy 'Shougo/unite-build'
-NeoBundleLazy 'Shougo/unite-outline'
-NeoBundleLazy 'tacroe/unite-mark'
-NeoBundleLazy 'Shougo/junkfile.vim', {'on_unite': 'junkfile'}
+NeoBundleLazy 'ujihisa/unite-colorscheme', {'on_source': 'unite.vim'}
+NeoBundleLazy 'osyo-manga/unite-filetype', {'on_source': 'unite.vim'}
+NeoBundleLazy 'Shougo/unite-build', {'on_source': 'unite.vim'}
+NeoBundleLazy 'Shougo/unite-outline', {'on_source': 'unite.vim'}
+NeoBundleLazy 'tacroe/unite-mark', {'on_source': 'unite.vim'}
+NeoBundleLazy 'tsukkee/unite-tag', {'on_source': 'unite.vim'}
+NeoBundleLazy 'Shougo/junkfile.vim', {'on_source': 'unite.vim'}
 NeoBundleLazy 'Shougo/neossh.vim', {'on_ft': 'vimfiler', 'sources': 'ssh'}
-NeoBundleLazy 'tsukkee/unite-tag', {
-	\ 'on_unite': ['tag', 'tag/file', 'tag/include']
-	\ }
-NeoBundleLazy 'osyo-manga/unite-quickfix', {
-	\ 'on_unite': ['quickfix', 'location_list']
-	\ }
+NeoBundleLazy 'thinca/vim-unite-history', {'on_source': 'unite.vim'}
+NeoBundleLazy 'osyo-manga/unite-quickfix', {'on_source': 'unite.vim'}
 
 if $VIM_MINIMAL ==? ''
-	NeoBundleLazy 'rafi/vim-unite-issue', {'depends': 'mattn/webapi-vim'}
+	NeoBundleLazy 'rafi/vim-unite-issue', {
+		\ 'depends': 'mattn/webapi-vim',
+		\ 'on_source': 'unite.vim'
+		\ }
 	NeoBundleLazy 'joker1007/unite-pull-request', {
 		\ 'depends': 'mattn/webapi-vim',
-		\ 'on_unite': ['pull_request', 'pull_request_file']
+		\ 'on_source': 'unite.vim'
 		\ }
 endif
 " }}}
