@@ -3,12 +3,6 @@
 "---------------------------------------------------------
 " Autocommands {{{
 
-" Reload .vimrc automatically
-autocmd MyAutoCmd BufWritePost vimrc,neobundle.vim
-		\ | NeoBundleClearCache | source $MYVIMRC
-		\ | call g:SetCustomTheme()
-		\ | call tinyline#define_highlights()
-
 " Check timestamp on window enter. More eager than 'autoread'
 autocmd MyAutoCmd WinEnter * checktime
 
@@ -135,9 +129,9 @@ function! ProjectName()
 endfunction
 
 function! ProjectRoot()
-  let dir = getbufvar('%', 'project_dir')
+	let dir = getbufvar('%', 'project_dir')
 	let curr_dir = getcwd()
-  if empty(dir) || getbufvar('%', 'project_dir_last_cwd') != curr_dir
+	if empty(dir) || getbufvar('%', 'project_dir_last_cwd') != curr_dir
 		let patterns = ['.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/']
 		for pattern in patterns
 			let is_dir = stridx(pattern, '/') != -1

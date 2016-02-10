@@ -4,6 +4,12 @@
 
 augroup MyAutoCmd
 
+	" Reload .vimrc automatically
+	autocmd BufWritePost vimrc,neobundle.vim nested
+			\ | NeoBundleClearCache | source $MYVIMRC | redraw
+"			\ | call g:SetCustomTheme()
+"			\ | call tinyline#define_highlights()
+
 	" Update filetype on save if empty
 	autocmd BufWritePost *
 				\ if &l:filetype ==# '' || exists('b:ftdetect')
