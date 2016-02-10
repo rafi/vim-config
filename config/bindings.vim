@@ -194,6 +194,9 @@ noremap  <Leader>mj :m+<CR>==
 vnoremap <Leader>mk :m-2<CR>gv=gv
 vnoremap <Leader>mj :m'>+<CR>gv=gv
 
+nnoremap <Leader>se :<C-u>SessionSave last<CR>
+nnoremap <Leader>os :<C-u>execute 'source '.g:session_directory.'/last.vim'<CR>
+
 augroup MyAutoCmd " {{{
 
 	if has('mac')

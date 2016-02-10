@@ -12,6 +12,12 @@ autocmd MyAutoCmd BufWritePost vimrc,neobundle.vim
 " Check timestamp on window enter. More eager than 'autoread'
 autocmd MyAutoCmd WinEnter * checktime
 
+" If session is loaded, write session file on quit
+autocmd MyAutoCmd VimLeavePre *
+	\ if ! empty(v:this_session) && ! exists('g:SessionLoad')
+	\ |   execute 'mksession! '.fnameescape(v:this_session)
+	\ | endif
+
 " Write tags automatically in the background for Git repositories.
 autocmd MyAutoCmd BufWritePost *
 	\ if finddir('.git/', getcwd().';') !=? '' && get(g:, 'ctags_compile', 0)
@@ -55,6 +61,10 @@ autocmd MyAutoCmd FileType qf   if &l:buftype ==# 'quickfix'
 " --------
 
 command! ZoomToggle call s:ZoomToggle()
+
+" Save and persist session
+command! -bar -complete=file -nargs=? SessionSave
+	\ call s:session_save(<q-args>)
 
 " Remove end of line white space.
 command! -range=% WhitespaceErase call <SID>WhitespaceErase(<line1>,<line2>)
@@ -142,6 +152,17 @@ function! ProjectRoot()
 		endfor
 	endif
 	return dir
+endfunction
+
+function! s:session_save(file) abort
+	if ! isdirectory(g:session_directory)
+		call mkdir(g:session_directory, 'p')
+	endif
+	let file_name = empty(a:file) ? ProjectName() : a:file
+	let file_path = g:session_directory.file_name.'.vim'
+	execute 'mksession! '.fnameescape(file_path)
+	echo 'Tracking session in '.fnamemodify(file_path, ':~:.')
+	let v:this_session = file_path
 endfunction
 
 " Zoom / Restore window

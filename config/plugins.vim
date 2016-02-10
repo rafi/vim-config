@@ -361,22 +361,6 @@ if neobundle#tap('vim-choosewin') "{{{
 endif
 
 "}}}
-if neobundle#tap('vim-session') "{{{
-	nmap <Leader>se :<C-u>SaveSession<CR>
-	nmap <Leader>os :<C-u>OpenSession last<CR>
-
-	let g:session_directory = $VARPATH.'/session'
-	let g:session_default_name = 'last'
-	let g:session_default_overwrite = 1
-	let g:session_verbose_messages = 0
-	let g:session_autosave = 'no'
-	let g:session_autoload = 'no'
-	let g:session_persist_colors = 0
-	let g:session_menu = 0
-	call neobundle#untap()
-endif
-
-"}}}
 if neobundle#tap('jedi-vim') "{{{
 	setlocal completeopt=menuone,longest
 	let g:jedi#force_py_version = 3

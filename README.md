@@ -162,7 +162,6 @@ Name           | Description
 [matchit] | Intelligent pair matching
 [indentline] | Display vertical indention lines
 [choosewin] | Choose window to use, like tmux's 'display-pane'
-[session] | Extended session management
 
 ### Completion
 Name           | Description
@@ -263,7 +262,6 @@ Name           | Description
 [matchit]: http://www.vim.org/scripts/script.php?script_id=39
 [indentline]: https://github.com/Yggdroot/indentLine
 [choosewin]: https://github.com/t9md/vim-choosewin
-[session]: https://github.com/xolox/vim-session
 
 [delimitmate]: https://github.com/Raimondi/delimitMate
 [echodoc]: https://github.com/Shougo/echodoc.vim

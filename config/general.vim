@@ -30,12 +30,14 @@ endif
 " What to save for views:
 set viewoptions-=options viewoptions+=slash,unix
 
-" What not to save in sessions:
+" What to save in sessions:
+set sessionoptions-=blank
 set sessionoptions-=options
 set sessionoptions-=globals
 set sessionoptions-=folds
 set sessionoptions-=help
 set sessionoptions-=buffers
+set sessionoptions+=tabpages
 
 if has('clipboard') || has('gui_running')
 	" Do not do anything with system's clipboard
@@ -68,6 +70,8 @@ set undodir=$VARPATH/undo//,$VARPATH,~/tmp,/var/tmp,/tmp
 set backupdir=$VARPATH/backup/,$VARPATH,~/tmp,/var/tmp,/tmp
 set viewdir=$VARPATH/view/
 set nospell spellfile=$VIMPATH/spell/en.utf-8.add
+
+let g:session_directory = $VARPATH.'/session/'
 
 " Don't backup files in temp directories or shm
 if exists('&backupskip')
