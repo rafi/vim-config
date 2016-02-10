@@ -113,6 +113,7 @@ NeoBundleLazy 'rhysd/accelerated-jk', {'on_map': '<Plug>'}
 NeoBundleLazy 'rhysd/clever-f.vim', {'on_map': [['n', 'f', 'F', 't', 'T']]}
 NeoBundleLazy 'Konfekt/FastFold', {'on_path': '.*'}
 NeoBundleLazy 'Shougo/tabpagebuffer.vim', {'on_ft': 'all'}
+NeoBundleLazy 'rhysd/committia.vim', {'on_path': 'COMMIT_EDITMSG'}
 
 " }}}
 " Completion {{{
