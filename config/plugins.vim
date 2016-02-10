@@ -322,8 +322,8 @@ if neobundle#tap('vim-signature') "{{{
 	let g:SignaturePurgeConfirmation = 1
 	let g:signature_set_location_list_convenience_maps = 0
 	let g:SignatureMap = {
-		\ 'ListLocalMarks':    'm/',
-		\ 'ListLocalMarkers':  'm?',
+		\ 'ListBufferMarks':   'm/',
+		\ 'ListBufferMarkers': 'm?',
 		\ 'Leader':            'm',
 		\ 'PlaceNextMark':     'm,',
 		\ 'ToggleMarkAtLine':  'm.',
@@ -555,7 +555,7 @@ endif
 if neobundle#tap('vim-findent') "{{{
 	augroup findent
 		autocmd!
-		autocmd BufRead *.py,*.js call s:setupFindent()
+		autocmd BufRead * call s:setupFindent()
 	augroup END
 
 	function! s:setupFindent()
