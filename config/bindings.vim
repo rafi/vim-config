@@ -12,8 +12,8 @@ nmap      s [Window]
 " Unite prefix
 nnoremap [unite]  <Nop>
 xnoremap [unite]  <Nop>
-nmap     f [unite]
-xmap     f [unite]
+nmap     ; [unite]
+xmap     ; [unite]
 
 " Verbose
 map <Nul> <C-Space>
