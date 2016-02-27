@@ -38,29 +38,36 @@ endif
 let s:plugins_dir = expand('$VARPATH/plugins')
 "let g:neobundle#types#git#default_protocol = 'https'
 
-if has('vim_starting')
-	if isdirectory($XDG_CONFIG_HOME.'/vim')
-		" Respect XDG
-		let $MYVIMRC=expand('$XDG_CONFIG_HOME/vim/vimrc')
-		set runtimepath=$VIMPATH,$VIM/vimfiles,$VIMRUNTIME
+" Respect XDG specification
+if isdirectory($XDG_CONFIG_HOME.'/vim')
+	let $MYVIMRC=expand('$XDG_CONFIG_HOME/vim/config/vimrc')
+	if has('nvim')
+		" For Neovim, use .config/vim instead of .config/nvim
+		set runtimepath-=$XDG_CONFIG_HOME/nvim
+		set runtimepath^=$XDG_CONFIG_HOME/vim
+	else
+		set runtimepath-=~/.vim
+		set runtimepath^=$VIMPATH
+		set runtimepath-=~/.vim/after
+		set runtimepath+=$VIMPATH/after
+	endif
+endif
+
+" Load NeoBundle for package management
+if &runtimepath !~? '/neobundle.vim'
+	if ! isdirectory(s:plugins_dir.'/neobundle.vim')
+		" Clone NeoBundle if not found
+		execute printf('!git clone %s://github.com/Shougo/neobundle.vim.git',
+					\ (exists('$http_proxy') ? 'https' : 'git'))
+					\ s:plugins_dir.'/neobundle.vim'
 	endif
 
-	" Load NeoBundle for package management
-	if &runtimepath !~? '/neobundle.vim'
-		if ! isdirectory(s:plugins_dir.'/neobundle.vim')
-			" Clone NeoBundle if not found
-			execute printf('!git clone %s://github.com/Shougo/neobundle.vim.git',
-						\ (exists('$http_proxy') ? 'https' : 'git'))
-						\ s:plugins_dir.'/neobundle.vim'
-		endif
+	execute 'set runtimepath^='.s:plugins_dir.'/neobundle.vim'
+endif
 
-		execute 'set runtimepath^='.s:plugins_dir.'/neobundle.vim'
-	endif
-
-	" Load minimal version of vim while SSHing
-	if len($SSH_CLIENT)
-		let $VIM_MINIMAL = 1
-	endif
+" Load minimal version of vim while SSHing
+if len($SSH_CLIENT)
+	let $VIM_MINIMAL = 1
 endif
 
 " }}}
