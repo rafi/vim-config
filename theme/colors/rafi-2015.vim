@@ -29,9 +29,10 @@ highlight PmenuThumb  ctermbg=238
 
 " }}}
 " Errors {{{
+highlight WarningMsg ctermfg=220 term=NONE gui=NONE
 " No bold in gvim's error messages
-highlight ErrorMsg  gui=NONE
-highlight Error     term=NONE cterm=NONE
+highlight ErrorMsg   gui=NONE
+highlight Error      term=NONE cterm=NONE
 
 highlight BadWhitespace ctermfg=darkred ctermbg=black guifg=#382424 guibg=black
 

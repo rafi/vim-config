@@ -11,7 +11,7 @@ augroup MyAutoCmd
 "			\ | call tinyline#define_highlights()
 
 	" Update filetype on save if empty
-	autocmd BufWritePost *
+	autocmd BufWritePost * nested
 				\ if &l:filetype ==# '' || exists('b:ftdetect')
 				\ |   unlet! b:ftdetect
 				\ |   filetype detect

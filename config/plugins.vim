@@ -244,7 +244,7 @@ endif
 if neobundle#tap('vim-operator-flashy') "{{{
 	map y <Plug>(operator-flashy)
 	nmap Y <Plug>(operator-flashy)$
-	" prevent terminal vim error by pre-setting cursor color
+	" Prevent terminal vim error by pre-setting cursor color
 	highlight Cursor cterm=NONE
 endif
 
