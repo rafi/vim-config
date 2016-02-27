@@ -1,6 +1,8 @@
 " deoplete for nvim
 " ---
 
+autocmd MyAutoCmd CompleteDone * pclose!
+
 set completeopt+=noinsert,noselect
 
 let g:deoplete#auto_completion_start_length = 2
@@ -14,14 +16,10 @@ let g:deoplete#sources#go = 'vim-go'
 let g:deoplete#omni#input_patterns = {}
 let g:deoplete#omni#input_patterns.python = ''
 
-" Use auto delimiter
-call deoplete#custom#set('_', 'converters',
-	\ ['converter_auto_paren',
-	\  'converter_auto_delimiter', 'remove_overlap'])
+call deoplete#custom#set('_', 'converters', ['converter_remove_paren'])
+"call deoplete#custom#set('_', 'converters', ['remove_overlap'])
 
-" Use full fuzzy matching like YouCompleteMe
-"call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
-"call deoplete#custom#set('_', 'matchers', ['matcher_head'])
+call deoplete#custom#set('_', 'disabled_syntaxes', ['Comment', 'String'])
 
 " Movement within 'ins-completion-menu'
 imap <expr><C-j>   pumvisible() ? "\<C-n>" : "\<C-j>"

@@ -13,6 +13,7 @@ let g:neocomplete#max_list = 150
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#enable_camel_case = 1
 let g:neocomplete#enable_fuzzy_completion = 1
+" let g:neocomplete#enable_refresh_always = 1
 
 " Lengths of strings to start completion
 let g:neocomplete#auto_completion_start_length = 2
@@ -104,8 +105,9 @@ imap <expr> <C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-p>\<Down>"
 imap <expr> <C-p>  pumvisible() ? "\<C-p>" : "\<C-p>\<C-n>"
 
 " Special plugin key-mappings
-imap <expr><C-l> neocomplete#complete_common_string()
-imap <expr><C-g> neocomplete#undo_completion()
+"inoremap <expr><C-l>  neocomplete#mappings#complete_common_string()
+inoremap <expr><C-l>  neocomplete#mappings#refresh()
+inoremap <expr><C-g>   neocomplete#undo_completion()
 
 " Start file completion TODO Not working all the time
 imap <silent><expr> <C-x><C-f> neocomplete#start_manual_complete('file')
