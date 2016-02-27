@@ -33,6 +33,12 @@ if get(g:, 'elite_mode')
 	nnoremap <Right> :vertical resize -2<CR>
 endif
 
+" Enable yanking straight to OS clipboard, but not cut.
+"if ( ! has('nvim') || $DISPLAY !=? '') && has('clipboard')
+"	xnoremap <silent> y "*y:let [@+,@"]=[@*,@*]<CR>
+"endif
+nnoremap x "_x
+
 " Double leader key for toggling visual-line mode
 nmap <Leader><Leader> V
 vmap <Leader><Leader> <Esc>
@@ -174,8 +180,8 @@ nnoremap <Leader>d m`YP``
 vnoremap <Leader>d YPgv
 
 " Quick manual search and replace
-nnoremap § *``gn<C-g>
-inoremap § <C-o>gn<C-g>
+nnoremap ± *``gn<C-g>
+inoremap ± <C-o>gn<C-g>
 snoremap <expr> . @.
 
 " Source line and selection in vim

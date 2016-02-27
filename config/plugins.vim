@@ -86,10 +86,13 @@ endif
 
 "}}}
 if neobundle#tap('vimfiler.vim') "{{{
-	nnoremap <silent> [unite]e        :<C-u>execute 'VimFiler -force-hide -winwidth=25 -buffer-name='.t:project_name<CR>
-	nnoremap <silent> [unite]a        :<C-u>execute 'VimFiler -find -force-hide -winwidth=25 -buffer-name='.t:project_name<CR>
 	let g:vimfiler_data_directory = $VARPATH.'/vimfiler'
 	let neobundle#hooks.on_source = $VIMPATH.'/config/plugins/vimfiler.vim'
+
+	nnoremap <silent> [unite]e        :<C-u>execute
+		\ 'VimFiler -winwidth=25 -buffer-name='.ProjectName()<CR>
+	nnoremap <silent> [unite]a        :<C-u>execute
+		\ 'VimFiler -find -winwidth=25 -buffer-name='.ProjectName()<CR>
 
 	function! neobundle#hooks.on_post_source(bundle)
 		autocmd MyAutoCmd FileType vimfiler call s:vimfiler_settings()
