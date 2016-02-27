@@ -1,9 +1,7 @@
-if exists('g:vim_installing') || exists('g:colors_name')
-	finish
-endif
 
 " Theme {{{
 " -----
+
 set t_Co=256
 set background=dark
 colorscheme hybrid

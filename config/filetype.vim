@@ -4,18 +4,21 @@
 
 augroup MyAutoCmd
 
-	" Reload .vimrc automatically
-	autocmd BufWritePost vimrc,neobundle.vim nested
-			\ | NeoBundleClearCache | source $MYVIMRC | redraw
-"			\ | call g:SetCustomTheme()
-"			\ | call tinyline#define_highlights()
+	" Auto reload VimScript
+	autocmd BufWritePost,FileWritePost *.vim nested
+		\ if &l:autoread > 0 | source <afile> | echo 'source ' . bufname('%') |
+		\ endif
+
+	" Reload vim config automatically
+	autocmd BufWritePost vimrc,all.vim,plugins.vim nested
+		\ | source $MYVIMRC | redraw
 
 	" Update filetype on save if empty
 	autocmd BufWritePost * nested
-				\ if &l:filetype ==# '' || exists('b:ftdetect')
-				\ |   unlet! b:ftdetect
-				\ |   filetype detect
-				\ | endif
+		\ if &l:filetype ==# '' || exists('b:ftdetect')
+		\ |   unlet! b:ftdetect
+		\ |   filetype detect
+		\ | endif
 
 	autocmd FileType crontab setlocal nobackup nowritebackup
 
@@ -27,12 +30,12 @@ augroup MyAutoCmd
 
 	" Improved include pattern
 	autocmd FileType html
-				\ setlocal includeexpr=substitute(v:fname,'^\\/','','') |
-				\ setlocal path+=./;/
+		\ setlocal includeexpr=substitute(v:fname,'^\\/','','') |
+		\ setlocal path+=./;/
 
 	autocmd FileType markdown
-				\ setlocal spell expandtab autoindent
-					\ formatoptions=tcroqn2 comments=n:>
+		\ setlocal spell expandtab autoindent
+			\ formatoptions=tcroqn2 comments=n:>
 
 	autocmd FileType apache setlocal path+=./;/
 

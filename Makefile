@@ -5,12 +5,11 @@ default: install
 
 install:
 	mkdir -p "$(XDG_CACHE_HOME)/vim/"{backup,session,swap,tags,undo,view}; \
-	$(vim) --cmd 'let g:vim_installing = 1' +NeoBundleInstall +q
+	$(vim) +q
 
 update:
 	git pull --ff --ff-only; \
-	$(vim) +NeoBundleClearCache +NeoBundleCheck \
-		+NeoBundleUpdate +NeoBundleUpdatesLog +q
+	$(vim) +q
 upgrade: update
 
 uninstall:

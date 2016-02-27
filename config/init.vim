@@ -34,11 +34,7 @@ if filereadable(expand('$VIMPATH/.vault.vim'))
 endif
 
 " }}}
-" Setup NeoBundle "{{{
-let s:plugins_dir = expand('$VARPATH/plugins')
-"let g:neobundle#types#git#default_protocol = 'https'
-
-" Respect XDG specification
+" Respect XDG specification {{{
 if isdirectory($XDG_CONFIG_HOME.'/vim')
 	let $MYVIMRC=expand('$XDG_CONFIG_HOME/vim/config/vimrc')
 	if has('nvim')
@@ -53,19 +49,19 @@ if isdirectory($XDG_CONFIG_HOME.'/vim')
 	endif
 endif
 
-" Load NeoBundle for package management
-if &runtimepath !~? '/neobundle.vim'
-	if ! isdirectory(s:plugins_dir.'/neobundle.vim')
-		" Clone NeoBundle if not found
-		execute printf('!git clone %s://github.com/Shougo/neobundle.vim.git',
-					\ (exists('$http_proxy') ? 'https' : 'git'))
-					\ s:plugins_dir.'/neobundle.vim'
+" }}}
+" Setup dein {{{
+if &runtimepath !~# '/dein.vim'
+	let s:dein_dir = expand('$VARPATH/dein').'/repos/github.com/Shougo/dein.vim'
+	if !isdirectory(s:dein_dir)
+		execute '!git clone https://github.com/Shougo/dein.vim' s:dein_dir
 	endif
 
-	execute 'set runtimepath^='.s:plugins_dir.'/neobundle.vim'
+	execute 'SetGlobal set runtimepath^='.fnamemodify(s:dein_dir, ':p')
 endif
 
-" Load minimal version of vim while SSHing
+" }}}
+" Load less plugins while SSHing to remote machines {{{
 if len($SSH_CLIENT)
 	let $VIM_MINIMAL = 1
 endif

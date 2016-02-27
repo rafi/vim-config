@@ -19,36 +19,42 @@ else
 	let $VARPATH=expand('$HOME/.cache/vim')
 endif
 
-function! s:source_file(path)
+function! s:source_file(path) abort
 	execute 'source' fnameescape($VIMPATH.'/config/'.a:path)
 endfunction
+
+command! -nargs=1 SetGlobal execute substitute(<q-args>,
+	\ '^\s*\<set\%[global]\>',
+	\ (has('vim_starting') ? 'set' : 'setglobal'), '')
 
 " Initialize base requirements
 call s:source_file('init.vim')
 
-" NeoBundle start plugins {{{
-call neobundle#begin(expand('$VARPATH/plugins'))
-if neobundle#load_cache()
-	NeoBundleFetch 'Shougo/neobundle.vim'
-	call s:source_file('neobundle.vim')
-	call neobundle#local(expand('$VARPATH/plugins/awesome-vim-colorschemes'), {})
-	if ! exists('g:vim_installing')
-		NeoBundleSaveCache
-	endif
+let s:cache_busters = [
+	\   expand('<sfile>'),
+	\   expand('$VIMPATH/config/plugins.vim'),
+	\   expand('$VIMPATH/config/plugins/all.vim')
+	\ ]
+
+call dein#begin(expand('$VARPATH/dein'))
+if dein#load_cache(s:cache_busters)
+	call s:source_file('plugins.vim')
+	call dein#local(expand('$VIMPATH/dev'), {'frozen': 1})
+	call dein#local(dein#get('awesome-vim-colorschemes').path,
+		\ {}, ['hybrid', '*.vim'])
+	call dein#save_cache()
 endif
-call neobundle#local(expand('$VIMPATH/dev'), {})
-call s:source_file('plugins.vim')
-call neobundle#end()
-" }}}
+call s:source_file('plugins/all.vim')
+call dein#end()
+
+" Installation check
+if dein#check_install()
+	call dein#install()
+endif
 
 " Must be after plugins
 filetype plugin indent on
 syntax enable
-
-" Plugin installation check
-if ! has('vim_starting')
-	NeoBundleCheck
-endif
 
 " Loading configuration modules {{{
 call s:source_file('general.vim')
@@ -64,7 +70,5 @@ if has('nvim')
 endif
 " }}}
 
-call neobundle#call_hook('on_source')
 set secure
-
 " vim: set ts=2 sw=2 tw=80 noet :
