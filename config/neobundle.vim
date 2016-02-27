@@ -137,28 +137,27 @@ NeoBundleLazy 'Shougo/neosnippet.vim', {
 	\ }
 NeoBundleLazy 'Raimondi/delimitMate', {'on_i': 1}
 NeoBundleLazy 'Shougo/echodoc.vim', {'on_i': 1}
-NeoBundleLazy 'Shougo/neco-syntax', {'on_i': 1}
-NeoBundleLazy 'Shougo/neco-vim', {'on_ft': 'vim', 'on_i': 1}
 NeoBundleLazy 'Shougo/neopairs.vim', {'on_i': 1}
-NeoBundleLazy 'Shougo/neoinclude.vim', {'on_ft': 'all'}
-NeoBundleLazy 'zchee/deoplete-go', {
-	\ 'on_ft': 'go', 'on_i': 1, 'disabled': ! has('nvim')}
-NeoBundleLazy 'zchee/deoplete-jedi', {
-	\ 'on_ft': 'python', 'on_i': 1, 'disabled': ! has('nvim')}
 
 if $VIM_MINIMAL ==? ''
+	NeoBundleLazy 'Shougo/neco-vim', {'on_ft': 'vim', 'on_i': 1}
+	NeoBundleLazy 'Shougo/neco-syntax', {'on_i': 1}
+	NeoBundleLazy 'Shougo/neoinclude.vim', {'on_ft': 'all'}
 	NeoBundleLazy 'benekastah/neomake', {'on_cmd': ['Neomake']}
-	NeoBundleLazy 'davidhalter/jedi-vim', {
-		\ 'disabled': has('nvim'),
-		\ 'on_ft': 'python'
-		\ }
-	NeoBundleLazy 'shawncplus/phpcomplete.vim', {'on_i': 1, 'on_ft': 'php'}
-	NeoBundleLazy 'ternjs/tern_for_vim', {
-		\ 'build': {'others': 'npm install'},
-		\ 'disabled': ! executable('npm'),
-		\ 'on_i': 1,
-		\ 'on_ft': 'javascript'
-		\ }
+	if has('nvim')
+		NeoBundleLazy 'zchee/deoplete-go', {'on_ft': 'go', 'on_i': 1}
+		NeoBundleLazy 'zchee/deoplete-jedi', {'on_ft': 'python', 'on_i': 1}
+		NeoBundleLazy 'carlitux/deoplete-ternjs', {'on_ft': 'javascript', 'on_i': 1}
+	else
+		NeoBundleLazy 'shawncplus/phpcomplete.vim', {'on_i': 1, 'on_ft': 'php'}
+		NeoBundleLazy 'davidhalter/jedi-vim', {'on_ft': 'python', 'on_i': 1}
+		NeoBundleLazy 'ternjs/tern_for_vim', {
+			\ 'build': {'others': 'npm install'},
+			\ 'disabled': ! executable('npm'),
+			\ 'on_i': 1,
+			\ 'on_ft': 'javascript'
+			\ }
+	endif
 endif
 
 " }}}
@@ -171,14 +170,14 @@ NeoBundleLazy 'Shougo/unite.vim', {
 
 " Unite sources {{{
 " -------------
-NeoBundleLazy 'ujihisa/unite-colorscheme', {'on_source': 'unite.vim'}
-NeoBundleLazy 'osyo-manga/unite-filetype', {'on_source': 'unite.vim'}
+NeoBundleLazy 'Shougo/neossh.vim', {'on_ft': 'vimfiler', 'sources': 'ssh'}
 NeoBundleLazy 'Shougo/unite-build', {'on_source': 'unite.vim'}
 NeoBundleLazy 'Shougo/unite-outline', {'on_source': 'unite.vim'}
+NeoBundleLazy 'Shougo/junkfile.vim', {'on_source': 'unite.vim'}
+NeoBundleLazy 'ujihisa/unite-colorscheme', {'on_source': 'unite.vim'}
+NeoBundleLazy 'osyo-manga/unite-filetype', {'on_source': 'unite.vim'}
 NeoBundleLazy 'tacroe/unite-mark', {'on_source': 'unite.vim'}
 NeoBundleLazy 'tsukkee/unite-tag', {'on_source': 'unite.vim'}
-NeoBundleLazy 'Shougo/junkfile.vim', {'on_source': 'unite.vim'}
-NeoBundleLazy 'Shougo/neossh.vim', {'on_ft': 'vimfiler', 'sources': 'ssh'}
 NeoBundleLazy 'thinca/vim-unite-history', {'on_source': 'unite.vim'}
 NeoBundleLazy 'osyo-manga/unite-quickfix', {'on_source': 'unite.vim'}
 
