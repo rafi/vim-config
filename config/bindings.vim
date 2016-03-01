@@ -206,7 +206,7 @@ nnoremap <Leader>os :<C-u>execute 'source '.g:session_directory.'/last.vim'<CR>
 augroup MyAutoCmd " {{{
 
 	if has('mac')
-		" Use Marked for real-time (on save) Markdown preview
+		" Use Marked for real-time Markdown preview
 		autocmd FileType markdown
 			\ nnoremap <Leader>P :silent !open -a Marked\ 2.app '%:p'<CR>:redraw!<CR>
 		" Use Dash on Mac, for context help
@@ -225,122 +225,30 @@ augroup MyAutoCmd " {{{
 augroup END
 " }}}
 
-" s: Windows and buffers (High priority) "{{{
+" s: Windows and buffers {{{
 " Credits: https://github.com/Shougo/shougo-s-github
-nnoremap <silent> [Window]p  :<C-u>call <SID>split_nicely()<CR>
+
+nnoremap <silent> <Tab>      :wincmd w<CR>
+nnoremap <silent> [Window]p  :<C-u>vsplit<CR>:wincmd w<CR>
 nnoremap <silent> [Window]v  :<C-u>split<CR>
 nnoremap <silent> [Window]g  :<C-u>vsplit<CR>
 nnoremap <silent> [Window]t  :tabnew<CR>
 nnoremap <silent> [Window]o  :<C-u>only<CR>
-nnoremap <silent> [Window]D  :<C-u>call <SID>CustomBufferDelete()<CR>
-nnoremap <silent> [Window]x  :<C-u>call <SID>CustomBufferDeleteNew()<CR>
+nnoremap <silent> [Window]x  :<C-u>call <SID>BufferEmpty()<CR>
 nnoremap <silent> [Window]\  :b#<CR>
 nnoremap <silent> [Window]q  :close<CR>
-nnoremap <silent> [Window]Q  :bdelete<CR>
-nnoremap <silent> q :<C-u>call <SID>smart_close()<CR>
-
-" Move around windows beyond tabs
-nnoremap <silent> <Tab> :call <SID>NextWindowOrTab()<CR>
-nnoremap <silent> <S-Tab> :call <SID>PreviousWindowOrTab()<CR>
+nnoremap <silent><expr> q winnr('$') != 1 ? ':<C-u>close<CR>' : ""
 
 " Split current buffer, go to previous window and previous buffer
 nnoremap <Leader>sv :split<CR>:wincmd p<CR>:e#<CR>
 nnoremap <Leader>sg :vsplit<CR>:wincmd p<CR>:e#<CR>
 
-function! s:smart_close() "{{{
-	if winnr('$') != 1
-		close
-	else
-		call s:alternate_buffer()
-	endif
-endfunction "}}}
-
-function! s:NextWindow() "{{{
-	if winnr('$') == 1
-		silent! normal! ``z.
-	else
-		wincmd w
-	endif
-endfunction "}}}
-
-function! s:NextWindowOrTab() "{{{
-	if tabpagenr('$') == 1 && winnr('$') == 1
-		call s:split_nicely()
-	elseif winnr() < winnr('$')
-		wincmd w
-	else
-		tabnext
-		1wincmd w
-	endif
-endfunction "}}}
-
-function! s:PreviousWindowOrTab() "{{{
-	if winnr() > 1
-		wincmd W
-	else
-		tabprevious
-		execute winnr('$') . 'wincmd w'
-	endif
-endfunction "}}}
-
-function! s:split_nicely() "{{{
-	if winwidth(0) > 2 * &winwidth
-		vsplit
-	else
-		split
-	endif
-	wincmd p
-endfunction "}}}
-
-function! s:CustomBufferDelete() "{{{
+function! s:BufferEmpty() "{{{
 	let l:current = bufnr('%')
-	call s:alternate_buffer()
-	silent! execute 'bdelete '.l:current
-endfunction "}}}
-
-function! s:CustomBufferDeleteNew() "{{{
-	let l:current = bufnr('%')
-	if getbufvar(l:current, '&modified')
-		return
-	endif
-	enew
-	silent! execute 'bdelete '.l:current
-endfunction "}}}
-
-function! s:alternate_buffer() "{{{
-	let l:listed_buffer_len = len(filter(range(1, bufnr('$')),
-				\ 's:buflisted(v:val) && getbufvar(v:val, "&filetype") !=# "unite"'))
-	if l:listed_buffer_len <= 1
+	if ! getbufvar(l:current, '&modified')
 		enew
-		return
+		silent! execute 'bdelete '.l:current
 	endif
-
-	let cnt = 0
-	let pos = 1
-	let current = 0
-	while pos <= bufnr('$')
-		if s:buflisted(pos)
-			if pos == bufnr('%')
-				let current = cnt
-			endif
-
-			let cnt += 1
-		endif
-
-		let pos += 1
-	endwhile
-
-	if current > cnt / 2
-		bprevious
-	else
-		bnext
-	endif
-endfunction "}}}
-
-function! s:buflisted(bufnr) "{{{
-	return exists('t:unite_buffer_dictionary') ?
-		\ has_key(t:unite_buffer_dictionary, a:bufnr) && buflisted(a:bufnr) :
-		\ buflisted(a:bufnr)
 endfunction "}}}
 " }}}
 
