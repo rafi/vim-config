@@ -1,19 +1,20 @@
 # Vim config
 
-Lean mean Vim machine, 85ms startup time.
-Best with Vim 7.4
+Lean mean Vim/Neovim machine, ~50ms startup time.
+
+Best with Vim 7.4 +lua +python or Neovim +python.
 
 ## Features
 
+- Neovim-centric
 - Robust, yet light weight
-- Lazy-load 90% of plugins with NeoBundle
+- Lazy-load 90% of plugins with [dein.vim]
 - Modular configuration
 - Unite centric work-flow
 - Extensive Neocomplete setup
 - Central location for tags
 - Lightweight simple status/tabline
 - Premium color-schemes
-- Supports Neovim
 
 ## Screenshot
 
@@ -25,7 +26,7 @@ Best with Vim 7.4
 2. Enter directory `cd ~/.vim`
 3. Run `make test` to make sure you have vim compiled with python and lua.
 4. Run `make install`
-5. Start `vim` or `gvim`, or `nvim`
+5. Start `nvim` or `vim`
 
 ### Neovim
 ```sh
@@ -47,26 +48,28 @@ specification standard, add this somewhere in your `.profile` or `.bashrc`:
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 ```
 
-If you're curious how it's done, see [vimrc:16-23](vimrc#L16-L23)
-and [init.vim:42-47](./config/init.vim#L42-L47).
+If you're curious how it's done, see [vimrc:13-20](./config/vimrc#L13-L20)
+and [init.vim:37-50](./config/init.vim#L37-L50).
 
 ## Structure
 - [config](./config)/ - Configuration
-  - [plugins](./plugins)/ - Individual plugin configurations
+  - [plugins](./plugins)/ - Plugin configurations
   - [bindings.vim](./config/bindings.vim) - Key bindings
-  - [colors.vim](./config/bindings.vim) - Custom colors
   - [filetype.vim](./config/filetype.vim) - Language behavior
-  - [general.vim](./config/general.vim) - VIM general configuration
-  - [init.vim](./config/init.vim) - VIM initialization
-  - [neobundle.vim](./config/neobundle.vim) - Plugin bundles
-  - [config.vim](./config/plugins.vim) - Plugin configuration
+  - [general.vim](./config/general.vim) - General configuration
+  - [init.vim](./config/init.vim) - `runtimepath` initialization
+  - [neovim.vim](./config/neovim.vim) - Neovim specific setup
+  - [plugins.vim](./config/plugins.vim) - Plugin bundles
+  - [tabline.vim](./config/tabline.vim) - Tabline configuration
   - [terminal.vim](./config/terminal.vim) - Terminal configuration
+  - [theme.vim](./config/theme.vim) - Color-scheme and theme setup
   - [utils.vim](./config/utils.vim) - Commands and functions
+  - [vimrc](./config/vimrc) - Initialization
 - [ftplugin](./ftplugin)/ - Language settings
-- [plugin](./plugin)/ - Plugin playground
 - [snippets](./snippets)/ - Code snippets
 - [filetype.vim](./filetype.vim) - Exotic filetype detection
-- [vimrc](./vimrc) - Primary configuration file
+- [init.vim](./init.vim) - Sources `config/vimrc`
+- [vimrc](./vimrc) - Sources `config/vimrc`
 
 ## Plugin Highlights
 
@@ -82,13 +85,13 @@ and [init.vim:42-47](./config/init.vim#L42-L47).
     hex editor, sessions, and much more.
 
 _Note_ that 90% of the plugins are **[lazy-loaded]**.
-[lazy-loaded]: ./config/neobundle.vim
+[lazy-loaded]: ./config/plugins.vim
 
 ## Non Lazy-Loaded Plugins
 
 Name           | Description
 -------------- | ----------------------
-[neobundle] | Next generation package manager
+[dein] | Dark powered Vim/Neovim plugin manager
 [vimproc] | Interactive command execution
 [colorschemes] | Awesome color-schemes
 [file-line] | Allow opening a file in a given line
@@ -197,7 +200,7 @@ Name           | Description
 [textobj-user] | Create your own text objects
 [textobj-multiblock] | Handle multiple brackets objects
 
-[neobundle]: https://github.com/Shougo/neobundle.vim
+[dein.vim]: https://github.com/Shougo/dein.vim
 [vimproc]: https://github.com/Shougo/vimproc.vim
 [colorschemes]: https://github.com/rafi/awesome-vim-colorschemes
 [file-line]: https://github.com/bogado/file-line
@@ -322,7 +325,6 @@ Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 
 Key   | Mode | Action
 ----- |:----:| ------------------
-`f`+`y` | Normal | Yank filepath to X11 clipboard
 `<leader>`+`cd` | Normal | Switch to the directory of opened buffer (:cd %:p:h)
 `<leader>`+`w` | Normal/visual | Write (:w)
 `Ctrl`+`s` | _All_ | Write (:w)
@@ -379,22 +381,22 @@ Key   | Mode | Action
 
 Key   | Mode | Action
 ----- |:----:| ------------------
-`f`+`r` | Normal | Resumes Unite window
-`f`+`f` | Normal | Opens Unite file recursive search
-`f`+`i` | Normal | Opens Unite git file search
-`f`+`g` | Normal | Opens Unite grep with ag (the_silver_searcher)
-`f`+`u` | Normal | Opens Unite source
-`f`+`t` | Normal | Opens Unite tag
-`f`+`T` | Normal | Opens Unite tag/include
-`f`+`l` | Normal | Opens Unite location list
-`f`+`q` | Normal | Opens Unite quick fix
-`f`+`e` | Normal | Opens Unite register
-`f`+`j` | Normal | Opens Unite jump, change
-`f`+`h` | Normal | Opens Unite history/yank
-`f`+`s` | Normal | Opens Unite session
-`f`+`o` | Normal | Opens Unite outline
-`f`+`ma` | Normal | Opens Unite mapping
-`f`+`me` | Normal | Opens Unite output messages
+`;`+`r` | Normal | Resumes Unite window
+`;`+`f` | Normal | Opens Unite file recursive search
+`;`+`i` | Normal | Opens Unite git file search
+`;`+`g` | Normal | Opens Unite grep with ag (the_silver_searcher)
+`;`+`u` | Normal | Opens Unite source
+`;`+`t` | Normal | Opens Unite tag
+`;`+`T` | Normal | Opens Unite tag/include
+`;`+`l` | Normal | Opens Unite location list
+`;`+`q` | Normal | Opens Unite quick fix
+`;`+`e` | Normal | Opens Unite register
+`;`+`j` | Normal | Opens Unite jump, change
+`;`+`h` | Normal | Opens Unite history/yank
+`;`+`s` | Normal | Opens Unite session
+`;`+`o` | Normal | Opens Unite outline
+`;`+`ma` | Normal | Opens Unite mapping
+`;`+`me` | Normal | Opens Unite output messages
 `<leader>`+`b` | Normal | Opens Unite buffers, mru, bookmark
 `<leader>`+`ta` | Normal | Opens Unite tab
 `<leader>`+`gf` | Normal | Opens Unite file with word at cursor
@@ -422,8 +424,8 @@ Key   | Mode | Action
 
 Key   | Mode | Action
 ----- |:----:| ------------------
-`f`+`e` | Normal | Toggle file explorer
-`f`+`a` | Normal | Toggle file explorer on current file
+`;`+`e` | Normal | Toggle file explorer
+`;`+`a` | Normal | Toggle file explorer on current file
 | **Within _VimFiler_ buffers** |||
 `Ctrl`+`j` | Normal | Un-map
 `Ctrl`+`l` | Normal | Un-map
