@@ -229,8 +229,6 @@ endif
 if dein#tap('vim-operator-flashy') "{{{
 	map y <Plug>(operator-flashy)
 	nmap Y <Plug>(operator-flashy)$
-	" Prevent terminal vim error by pre-setting cursor color
-	highlight Cursor cterm=NONE
 endif
 
 "}}}
