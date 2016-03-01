@@ -23,10 +23,6 @@ function! s:source_file(path) abort
 	execute 'source' fnameescape($VIMPATH.'/config/'.a:path)
 endfunction
 
-command! -nargs=1 SetGlobal execute substitute(<q-args>,
-	\ '^\s*\<set\%[global]\>',
-	\ (has('vim_starting') ? 'set' : 'setglobal'), '')
-
 " Initialize base requirements
 call s:source_file('init.vim')
 
