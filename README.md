@@ -53,7 +53,7 @@ and [init.vim:37-50](./config/init.vim#L37-L50).
 
 ## Structure
 - [config](./config)/ - Configuration
-  - [plugins](./plugins)/ - Plugin configurations
+  - [plugins](./config/plugins)/ - Plugin configurations
   - [bindings.vim](./config/bindings.vim) - Key bindings
   - [filetype.vim](./config/filetype.vim) - Language behavior
   - [general.vim](./config/general.vim) - General configuration
@@ -65,15 +65,15 @@ and [init.vim:37-50](./config/init.vim#L37-L50).
   - [theme.vim](./config/theme.vim) - Color-scheme and theme setup
   - [utils.vim](./config/utils.vim) - Commands and functions
   - [vimrc](./config/vimrc) - Initialization
-- [ftplugin](./ftplugin)/ - Language settings
+- [ftplugin](./ftplugin)/ - Language specific custom settings
 - [snippets](./snippets)/ - Code snippets
-- [filetype.vim](./filetype.vim) - Exotic filetype detection
+- [filetype.vim](./filetype.vim) - Custom filetype detection
 - [init.vim](./init.vim) - Sources `config/vimrc`
 - [vimrc](./vimrc) - Sources `config/vimrc`
 
 ## Plugin Highlights
 
-- NeoBundle with caching enabled and lazy loading
+- Package management with caching enabled and lazy loading
 - Project-aware tabs and label
 - Vimfiler as file-manager + SSH connections
 - Go completion via vim-go and gocode
