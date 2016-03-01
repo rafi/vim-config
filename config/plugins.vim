@@ -20,7 +20,7 @@ call dein#add('thinca/vim-localrc')
 " LAZY LOADING from here on!
 " --------------------------------------------------------
 
-" Fetch repositories, but don't add to runtimepath
+" Fetch repositories, but don't add them to runtimepath
 call dein#add('chriskempson/base16-shell', {'rtp': ''})
 call dein#add('rafi/awesome-vim-colorschemes', {'rtp': ''})
 call dein#add('Shougo/neosnippet-snippets', {'rtp': ''})
@@ -39,11 +39,14 @@ call dein#add('othree/csscomplete.vim', {'on_ft': 'css'})
 call dein#add('chrisbra/csv.vim', {'on_ft': 'csv'})
 call dein#add('hynek/vim-python-pep8-indent', {'on_ft': 'python'})
 call dein#add('tmux-plugins/vim-tmux', {'on_ft': 'tmux'})
-call dein#add('elzr/vim-json', {'on_ft': 'json'})
 call dein#add('cespare/vim-toml', {'on_ft': 'toml'})
 call dein#add('PotatoesMaster/i3-vim-syntax', {'on_ft': 'i3'})
 call dein#add('ekalinin/Dockerfile.vim', {'on_ft': 'Dockerfile'})
 call dein#add('jstrater/mpvim', {'on_ft': 'portfile'})
+call dein#add('fatih/vim-go', {'on_ft': 'go'})
+call dein#add('elzr/vim-json', {'on_ft': 'json'})
+call dein#add('StanAngeloff/php.vim', {'on_ft': 'php'})
+call dein#add('rayburgemeestre/phpfolding.vim', {'on_ft': 'php'})
 call dein#add('osyo-manga/vim-monster', {'on_ft': 'ruby'})
 call dein#add('othree/yajs.vim', {'on_ft': 'javascript'})
 call dein#add('gavocanov/vim-js-indent', {'on_ft': 'javascript'})
@@ -52,12 +55,6 @@ call dein#add('mxw/vim-jsx', {'on_ft': 'javascript'})
 call dein#add('othree/jspc.vim', {'on_ft': 'javascript'})
 call dein#add('heavenshell/vim-jsdoc', {'on_ft': 'javascript'})
 call dein#add('moll/vim-node', {'on_ft': 'javascript'})
-call dein#add('StanAngeloff/php.vim', {'on_ft': 'php'})
-call dein#add('rayburgemeestre/phpfolding.vim', {'on_ft': 'php'})
-call dein#add('fatih/vim-go', {
-	\ 'on_ft': 'go',
-	\ 'on_cmd': ['GoInstallBinaries', 'GoUpdateBinaries']
-	\ })
 
 " }}}
 " Commands {{{

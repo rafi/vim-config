@@ -91,7 +91,7 @@ _Note_ that 90% of the plugins are **[lazy-loaded]**.
 
 Name           | Description
 -------------- | ----------------------
-[dein] | Dark powered Vim/Neovim plugin manager
+[dein.vim] | Dark powered Vim/Neovim plugin manager
 [vimproc] | Interactive command execution
 [colorschemes] | Awesome color-schemes
 [file-line] | Allow opening a file in a given line
