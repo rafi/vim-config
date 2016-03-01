@@ -39,9 +39,12 @@ set sessionoptions-=help
 set sessionoptions-=buffers
 set sessionoptions+=tabpages
 
-if has('clipboard') || has('gui_running')
-	" Do not do anything with system's clipboard
-	set clipboard=
+if ( ! has('nvim') || $DISPLAY !=? '') && has('clipboard')
+	if has('unnamedplus')
+		set clipboard& clipboard+=unnamedplus
+	else
+		set clipboard& clipboard+=unnamed
+	endif
 endif
 
 " }}}
