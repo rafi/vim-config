@@ -529,22 +529,29 @@ endif
 
 "}}}
 if dein#tap('caw.vim') "{{{
+	let g:caw_i_sp = ''
+	let g:caw_I_sp = ''
+	let g:caw_a_sp_right = ''
+	let g:caw_box_sp_right = ''
+	let g:caw_wrap_sp_right = ''
+	let g:caw_i_skip_blank_line = 1
+	let g:caw_wrap_skip_blank_line = 1
 	autocmd MyAutoCmd FileType * call s:init_caw()
 	function! s:init_caw()
 		if ! &l:modifiable
 			silent! nunmap <buffer> gc
 			silent! xunmap <buffer> gc
-			silent! nunmap <buffer> gcc
-			silent! xunmap <buffer> gcc
-			silent! nunmap <buffer> gcv
-			silent! xunmap <buffer> gcv
+			silent! nunmap <buffer> <Leader>v
+			silent! xunmap <buffer> <Leader>v
+			silent! nunmap <buffer> <Leader>V
+			silent! xunmap <buffer> <Leader>V
 		else
 			nmap <buffer> gc <Plug>(caw:prefix)
 			xmap <buffer> gc <Plug>(caw:prefix)
-			nmap <buffer> gcc <Plug>(caw:wrap:toggle)
-			xmap <buffer> gcc <Plug>(caw:wrap:toggle)
-			nmap <buffer> gcv <Plug>(caw:I:toggle)
-			xmap <buffer> gcv <Plug>(caw:I:toggle)
+			nmap <buffer> <Leader>V <Plug>(caw:wrap:toggle)
+			xmap <buffer> <Leader>V <Plug>(caw:wrap:toggle)
+			nmap <buffer> <Leader>v <Plug>(caw:I:toggle)
+			xmap <buffer> <Leader>v <Plug>(caw:I:toggle)
 		endif
 	endfunction
 endif
