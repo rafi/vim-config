@@ -14,7 +14,6 @@ set path=.,**                " Directories to search when using gf
 set virtualedit=block        " Position cursor anywhere in visual block
 set history=500              " Search and commands remembered
 set synmaxcol=1000           " Don't syntax highlight long lines
-set ttyfast                  " Indicate a fast terminal connection
 set formatoptions+=1         " Don't break lines after a one-letter word
 set formatoptions-=t         " Don't auto-wrap text
 

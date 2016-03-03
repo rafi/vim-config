@@ -111,15 +111,19 @@ function! s:shell_bg(cmd, callback)
 		return
 	endif
 
+	let l:msg = '['.getcwd().'] Running background command: '.a:cmd
 	if has('nvim')
+		echo l:msg
 		let l:job = jobstart([a:cmd], {
-		\   'project': ProjectName(),
-		\   'on_stdout': function(a:callback),
-		\   'on_stderr': function(a:callback)
-		\ })
-	elseif exists('*vimproc#system_bg') ||
-		\ (exists('*neobundle#get') && ! empty(neobundle#get('vimproc.vim')))
-			call vimproc#system_bg(a:cmd)
+			\   'project': ProjectName(),
+			\   'on_stdout': function(a:callback),
+			\   'on_stderr': function(a:callback)
+			\ })
+	elseif exists('*vimproc#system_bg')
+		echo l:msg
+		call vimproc#system_bg(a:cmd)
+	else
+		echoerr 'For background tasks please use Neovim or install vimproc plugin.'
 	endif
 endfunction
 

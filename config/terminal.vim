@@ -1,8 +1,12 @@
 
 " Xterm & Tmux
 "---------------------------------------------------------
+if has('nvim')
+	finish
+endif
 
-if exists('$TMUX') && ! has('nvim') "{{{
+if exists('$TMUX') "{{{
+	set ttyfast
 	set ttymouse=sgr
 
 	" Assigns some xterm(1)-style keys to escape sequences passed by tmux
@@ -58,8 +62,8 @@ if exists('$TMUX') && ! has('nvim') "{{{
 	let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>[0 q\<Esc>\\"
 
 "}}}
-elseif ! has('nvim') "{{{
-	set ttymouse=urxvt     " Set mouse terminal type
+else "{{{
+	set ttymouse=urxvt
 
 	" Cursor shape outside of tmux
 	let &t_SI = "\<Esc>[3 q"
