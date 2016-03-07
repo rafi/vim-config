@@ -2,53 +2,48 @@
 " Commands
 "---------------------------------------------------------
 " Autocommands {{{
+augroup MyAutoCmd
 
-" Check timestamp on window enter. More eager than 'autoread'
-autocmd MyAutoCmd WinEnter * checktime
+	" Check timestamp on window enter. More eager than 'autoread'
+	autocmd WinEnter * checktime
 
-" If session is loaded, write session file on quit
-autocmd MyAutoCmd VimLeavePre *
-	\ if ! empty(v:this_session) && ! exists('g:SessionLoad')
-	\ |   execute 'mksession! '.fnameescape(v:this_session)
-	\ | endif
+	" If session is loaded, write session file on quit
+	autocmd VimLeavePre *
+		\ if ! empty(v:this_session) && ! exists('g:SessionLoad')
+		\ |   execute 'mksession! '.fnameescape(v:this_session)
+		\ | endif
 
-" Write tags automatically in the background for Git repositories.
-autocmd MyAutoCmd BufWritePost *
-	\ if finddir('.git/', getcwd().';') !=? '' && get(g:, 'ctags_compile', 0)
-	\ |   call <SID>shell_bg('ctags', 's:tags_job_handler')
-	\ | endif
+	" Write tags automatically in the background for Git repositories.
+	autocmd BufWritePost *
+		\ if finddir('.git/', getcwd().';') !=? '' && get(g:, 'ctags_compile', 0)
+		\ |   call <SID>shell_bg('ctags', 's:tags_job_handler')
+		\ | endif
 
-function! s:tags_job_handler(job_id, data, event)
-	if a:event ==? 'stdout'
-		echomsg 'Tags index completed. ('.self.project.')'.join(a:data)
-	elseif a:event ==? 'stderr'
-		echoerr 'Unable to run ctags for '.self.project.': '.join(a:data)
-	endif
-endfunction
+	" When editing a file, always jump to the last known cursor position.
+	" Don't do it when the position is invalid or when inside an event handler
+	autocmd BufReadPost *
+		\ if &ft !~ '^git\c' && ! &diff && line("'\"") > 0 && line("'\"") <= line("$")
+		\|   exe 'normal! g`"zvzz'
+		\| endif
 
-" When editing a file, always jump to the last known cursor position.
-" Don't do it when the position is invalid or when inside an event handler
-autocmd MyAutoCmd BufReadPost *
-	\ if &ft !~ '^git\c' && ! &diff && line("'\"") > 0 && line("'\"") <= line("$")
-	\|   exe 'normal! g`"zvzz'
-	\| endif
+	" Disable paste and/or update diff when leaving insert mode
+	autocmd InsertLeave *
+			\ if &paste | setlocal nopaste mouse=a | echo 'nopaste' | endif |
+			\ if &l:diff | diffupdate | endif
 
-" Disable paste and/or update diff when leaving insert mode
-autocmd MyAutoCmd InsertLeave *
-		\ if &paste | setlocal nopaste mouse=a | echo 'nopaste' | endif |
-		\ if &l:diff | diffupdate | endif
+	" Open Quickfix window automatically
+	autocmd QuickFixCmdPost [^l]* leftabove copen
+		\ | wincmd p | redraw!
+	autocmd QuickFixCmdPost l* leftabove lopen
+		\ | wincmd p | redraw!
 
-" Open Quickfix window automatically
-autocmd MyAutoCmd QuickFixCmdPost [^l]* leftabove copen
-	\ | wincmd p | redraw!
-autocmd MyAutoCmd QuickFixCmdPost l* leftabove lopen
-	\ | wincmd p | redraw!
+	" Fix window position of help/quickfix
+	autocmd FileType help if &l:buftype ==# 'help'
+		\ | wincmd K | endif
+	autocmd FileType qf   if &l:buftype ==# 'quickfix'
+		\ | wincmd J | endif
 
-" Fix window position of help/quickfix
-autocmd MyAutoCmd FileType help if &l:buftype ==# 'help'
-	\ | wincmd K | endif
-autocmd MyAutoCmd FileType qf   if &l:buftype ==# 'quickfix'
-	\ | wincmd J | endif
+augroup END
 
 " }}}
 " Commands {{{
@@ -105,6 +100,14 @@ function! FoldText() "{{{
 	let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
 	return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
 endfunction "}}}
+
+function! s:tags_job_handler(job_id, data, event)
+	if a:event ==? 'stdout'
+		echomsg 'Tags index completed. ('.self.project.')'.join(a:data)
+	elseif a:event ==? 'stderr'
+		echoerr 'Unable to run ctags for '.self.project.': '.join(a:data)
+	endif
+endfunction
 
 function! s:shell_bg(cmd, callback)
 	if ! executable(a:cmd)

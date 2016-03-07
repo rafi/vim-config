@@ -19,13 +19,14 @@ endif
 
 call vimfiler#custom#profile('default', 'context', {
 	\  'safe': 0,
-	\  'winwidth': 25,
 	\  'explorer': 1,
+	\  'winwidth': 25,
+	\  'split': 1,
+	\  'direction': 'topleft',
 	\  'auto_expand': 1,
 	\  'no_quit': 1,
 	\  'force_hide': 1,
 	\  'parent': 0,
-	\  'split': 1,
 	\  'toggle': 1,
 	\ })
 

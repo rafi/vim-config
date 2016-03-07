@@ -11,7 +11,7 @@ if dein#tap('unite.vim') "{{{
 	nnoremap <silent> [unite]f   :<C-u>Unite file_rec/`has('nvim') ? 'neovim' : 'async'`<CR>
 	nnoremap <silent> [unite]g   :<C-u>Unite grep:.<CR>
 	nnoremap <silent> [unite]u   :<C-u>Unite source<CR>
-	nnoremap <silent> [unite]t   :<C-u>Unite tag<CR>
+	nnoremap <silent> [unite]t   :<C-u>Unite tag -start-insert<CR>
 	nnoremap <silent> [unite]T   :<C-u>Unite tag/include<CR>
 	nnoremap <silent> [unite]l   :<C-u>Unite location_list<CR>
 	nnoremap <silent> [unite]L   :<C-u>Unite line<CR>
@@ -22,7 +22,7 @@ if dein#tap('unite.vim') "{{{
 	nnoremap <silent> [unite]o   :<C-u>Unite outline<CR>
 	nnoremap <silent> [unite]ma  :<C-u>Unite mapping -silent<CR>
 	nnoremap <silent> [unite]mk  :<C-u>Unite mark<CR>
-	nnoremap <silent> [unite]mt  :<C-u>Unite -auto-resize -select=`tabpagenr()-1` tab<CR>
+	nnoremap <silent> [unite]mt  :<C-u>Unite -select=`tabpagenr()-1` tab<CR>
 	nnoremap <silent> [unite]mu  :<C-u>Unite -profile-name=mpc mpc/menu<CR>
 	nnoremap <silent> [unite]k
 		\ :<C-u>Unite -buffer-name=files -no-split -multi-line -unique -silent
@@ -31,10 +31,10 @@ if dein#tap('unite.vim') "{{{
 
 	" Open Unite with word under cursor or selection
 	nnoremap <silent> <Leader>gf :UniteWithCursorWord file_rec/async -profile-name=navigate<CR>
-	nnoremap <silent> <Leader>gg :UniteWithCursorWord grep:. -profile-name=navigate<CR>
-	nnoremap <silent> <Leader>gt :UniteWithCursorWord tag -profile-name=navigate<CR>
-	vnoremap <silent> <Leader>gt :<C-u>call VSetSearch('/')<CR>:execute 'Unite tag -profile-name=navigate -input='.@/<CR>
-	vnoremap <silent> <Leader>gg :<C-u>call VSetSearch('/')<CR>:execute 'Unite grep:. -profile-name=navigate -input='.@/<CR>
+	nnoremap <silent> <Leader>gg :UniteWithCursorWord grep:.<CR>
+	nnoremap <silent> <Leader>gt :UniteWithCursorWord tag -start-insert<CR>
+	vnoremap <silent> <Leader>gt :<C-u>call VSetSearch('/')<CR>:execute 'Unite tag -input='.@/<CR>
+	vnoremap <silent> <Leader>gg :<C-u>call VSetSearch('/')<CR>:execute 'Unite grep:. -input='.@/<CR>
 
 	execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
 		\ 'source '.$VIMPATH.'/config/plugins/unite.vim'
@@ -85,9 +85,9 @@ if dein#tap('vimfiler.vim') "{{{
 	let g:vimfiler_data_directory = $VARPATH.'/vimfiler'
 
 	nnoremap <silent> [unite]e        :<C-u>execute
-		\ 'VimFiler -winwidth=25 -buffer-name='.ProjectName()<CR>
+		\ 'VimFiler -winwidth=25 -direction=topleft -buffer-name='.ProjectName()<CR>
 	nnoremap <silent> [unite]a        :<C-u>execute
-		\ 'VimFiler -find -winwidth=25 -buffer-name='.ProjectName()<CR>
+		\ 'VimFiler -find -winwidth=25 -direction=topleft -buffer-name='.ProjectName()<CR>
 
 	execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
 		\ 'source '.$VIMPATH.'/config/plugins/vimfiler.vim'
@@ -565,7 +565,7 @@ if dein#tap('vim-indent-guides') "{{{
 
 	nmap <silent><Leader>i :<C-u>IndentGuidesToggle<CR>
 
-	autocmd MyAutoCmd BufEnter *.py,*.js if &expandtab
+	autocmd MyAutoCmd BufEnter *.py,*.js nested if &expandtab
 		\ |   IndentGuidesEnable
 		\ | else
 		\ |   IndentGuidesDisable

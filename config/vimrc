@@ -36,8 +36,7 @@ call dein#begin(expand('$VARPATH/dein'))
 if dein#load_cache(s:cache_busters)
 	call s:source_file('plugins.vim')
 	call dein#local(expand('$VIMPATH/dev'), {'frozen': 1})
-	call dein#local(dein#get('awesome-vim-colorschemes').path,
-		\ {}, ['hybrid', '*.vim'])
+	call dein#local(dein#get('awesome-vim-colorschemes').path)
 	call dein#save_cache()
 endif
 call s:source_file('plugins/all.vim')
