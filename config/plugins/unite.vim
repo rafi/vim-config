@@ -8,7 +8,7 @@
 let g:my_ag_opts = get(g:, 'g:my_ag_opts', []) + [
 	\ '--vimgrep', '--smart-case', '--skip-vcs-ignores', '--hidden',
 	\ '--ignore', '.git', '--ignore', '.idea', '--ignore', '.stversions',
-	\ '--ignore', 'bower_modules', '--ignore', 'node_modules'
+	\ '--ignore', 'bower_modules', '--ignore', 'node_modules', '--ignore', '.tmp'
 	\ ]
 
 "}}}

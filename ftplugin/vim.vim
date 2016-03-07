@@ -23,6 +23,6 @@ setlocal suffixesadd=.vim
 setlocal includeexpr=fnamemodify(substitute(v:fname,'#','/','g'),':h')
 
 " Append plugins' tags
-execute "setlocal tags+=$VARPATH/tags/".g:TagabanaHash($VARPATH.'/plugins')
+execute 'setlocal tags+=$VARPATH/tags/'.g:TagabanaHash($VARPATH.'/dein/repos')
 
 let &cpo = s:save_cpo

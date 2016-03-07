@@ -4,6 +4,9 @@
 
 augroup MyAutoCmd
 
+	" Automatically set read-only for files being edited elsewhere
+	autocmd SwapExists * nested let v:swapchoice = 'o'
+
 	" Auto reload VimScript
 	autocmd BufWritePost,FileWritePost *.vim nested
 		\ if &l:autoread > 0 | source <afile> | echo 'source ' . bufname('%') |

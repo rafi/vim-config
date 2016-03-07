@@ -7,7 +7,7 @@ let g:vimfiler_restore_alternate_file = 1
 "let g:vimfiler_preview_action = 'auto_preview'
 
 let g:vimfiler_ignore_pattern =
-	\ '^\%(\.git\|\.idea\|\.DS_Store\|\.vagrant\|.stversions'
+	\ '^\%(\.git\|\.idea\|\.DS_Store\|\.vagrant\|\.stversions\|\.tmp'
 	\ .'\|node_modules\|.*\.pyc\|.*\.egg-info\|__pycache__\)$'
 
 if has('mac')
