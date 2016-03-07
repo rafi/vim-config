@@ -13,12 +13,10 @@ let g:base16_shell_path = $VARPATH.'/plugins/base16-shell/'
 
 " Theme loader. Uses current selected colorscheme name as base.
 function! g:SetCustomTheme()
-	for subdir in [ 'colors', 'icons' ]
-		let l:path = $VIMPATH.'/theme/'.subdir.'/'.g:theme_name.'.vim'
-		if filereadable(l:path)
-			silent! execute 'source' fnameescape(l:path)
-		endif
-	endfor
+	let l:path = $VIMPATH.'/theme/'.g:theme_name.'.vim'
+	if filereadable(l:path)
+		silent! execute 'source' fnameescape(l:path)
+	endif
 endfunction
 
 " Automatic theme loading when colorscheme changes.

@@ -196,9 +196,9 @@ function! s:ToggleWhitespace(mode) "{{{
 		let l:pattern = (a:mode ==# 'i') ? '\s\+\%#\@<!$' : '\s\+$\| \+\ze\t'
 		if exists('w:whitespace_match_id')
 			call matchdelete(w:whitespace_match_id)
-			call matchadd('BadWhitespace', l:pattern, 10, w:whitespace_match_id)
+			call matchadd('ExtraWhitespace', l:pattern, 10, w:whitespace_match_id)
 		else
-			let w:whitespace_match_id = matchadd('BadWhitespace', l:pattern)
+			let w:whitespace_match_id = matchadd('ExtraWhitespace', l:pattern)
 		endif
 	endif
 endfunction "}}}
