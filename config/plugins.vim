@@ -1,23 +1,20 @@
 
 " Plugins
-"---------------------------------------------------------
+" --------------------------------------------------------
 
-" Always loaded {{{
-" -------------
+" Loaded on startup {{{
+" ---
 call dein#add('Shougo/dein.vim')
 call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 call dein#add('itchyny/vim-cursorword')
 call dein#add('itchyny/vim-gitbranch')
-call dein#add('airblade/vim-gitgutter')
-call dein#add('kshenoy/vim-signature')
-call dein#add('nathanaelkane/vim-indent-guides')
 call dein#add('christoomey/vim-tmux-navigator')
 call dein#add('rafi/vim-tinyline')
 call dein#add('rafi/vim-tagabana')
 call dein#add('bogado/file-line')
 call dein#add('thinca/vim-localrc')
 
-" LAZY LOADING from here on!
+" LAZY LOADING
 " --------------------------------------------------------
 
 " Fetch repositories, but don't add them to runtimepath
@@ -104,6 +101,9 @@ endif
 " }}}
 " Interface {{{
 " ---------
+call dein#add('airblade/vim-gitgutter', {'on_path': '.*'})
+call dein#add('kshenoy/vim-signature', {'on_path': '.*'})
+call dein#add('nathanaelkane/vim-indent-guides', {'on_path': '.*'})
 call dein#add('matchit.zip', {'on_map': [['nxo', '%', 'g%']]})
 call dein#add('kana/vim-niceblock', {'on_map': '<Plug>'})
 call dein#add('rhysd/accelerated-jk', {'on_map': '<Plug>'})
