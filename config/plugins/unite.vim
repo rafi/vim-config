@@ -60,47 +60,46 @@ endif
 " Contexts {{{
 
 " Global default context
+
 call unite#custom#profile('default', 'context', {
 	\   'safe': 0,
 	\   'start_insert': 1,
 	\   'short_source_names': 1,
-	\   'update_time': 500,
-	\   'direction': 'topleft',
+	\   'prompt_direction': 'top',
+	\   'direction': 'botright',
 	\   'winwidth': 40,
 	\   'winheight': 15,
+	\   'update_time': 500,
+	\   'cursor_line_time': '0.10',
 	\   'max_candidates': 100,
 	\   'no_auto_resize': 1,
 	\   'vertical_preview': 1,
-	\   'cursor_line_time': '0.10',
 	\   'hide_icon': 0,
 	\   'candidate-icon': ' ',
 	\   'marked_icon': '✓',
-	\   'prompt' : '⮀ '
+	\   'prompt' : 'λ: ',
 	\ })
 
 " Conveniently set settings globally per-source
 
 call unite#custom#profile('register', 'context', {
-	\ 'start_insert': 0,
-	\ 'default_action': 'append'
+	\   'start_insert': 0,
+	\   'default_action': 'append'
 	\ })
 
 call unite#custom#profile('source/source', 'context', {
 	\   'vertical': 1,
-	\   'winwidth': 80,
-	\   'prompt_direction': 'top',
-	\   'direction': 'botright',
 	\ })
 
 call unite#custom#profile('completion', 'context', {
 	\   'winheight': 25,
-	\   'prompt_direction': 'top',
-	\   'direction': 'botright',
 	\   'no_here': 1
 	\ })
 
 call unite#custom#profile('mpc', 'context', {
 	\   'start_insert': 0,
+	\   'direction': 'topleft',
+	\   'prompt_direction': 'bottom',
 	\   'quit': 1,
 	\   'keep_focus': 1,
 	\   'winheight': 20,
@@ -108,29 +107,22 @@ call unite#custom#profile('mpc', 'context', {
 
 call unite#custom#profile('source/outline', 'context', {
 	\   'vertical': 1,
-	\   'direction': 'botright',
-	\   'prompt_direction': 'top',
 	\   'start_insert': 0,
+	\   'no_focus': 1,
 	\   'no_quit': 1,
-	\   'auto_highlight': 0,
+	\   'auto_highlight': 1,
 	\ })
 
 call unite#custom#profile('source/location_list,source/quickfix', 'context', {
 	\   'start_insert': 0,
-	\   'direction': 'botright',
-	\   'prompt_direction': 'top',
 	\ })
 
 " General purpose profile for grep and navigating code
-call unite#custom#profile('navigate,source/grep', 'context', {
+call unite#custom#profile('navigate,source/grep,source/tag', 'context', {
 	\   'silent': 1,
 	\   'start_insert': 0,
 	\   'winheight': 20,
-	\   'no_quit': 1,
 	\   'no_empty': 1,
-	\   'keep_focus': 1,
-	\   'direction': 'botright',
-	\   'prompt_direction': 'top',
 	\ })
 
 " }}}
@@ -142,9 +134,11 @@ call unite#custom#source(
   \ ['converter_relative_word', 'matcher_fuzzy'])
 
 call unite#custom#source(
-  \ 'file_rec,file_rec/async,file_rec/git,file_rec/neovim,file_mru,neomru/file',
+  \ 'file_rec,file_rec/async,file_rec/neovim,file_mru,neomru/file',
        \ 'converters',
   \ ['converter_file_directory'])
+
+"call unite#custom#source('tag', 'converters', ['converter_file_directory'])
 
 call unite#filters#sorter_default#use(['sorter_rank'])
 
