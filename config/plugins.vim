@@ -202,6 +202,10 @@ call dein#add('rhysd/vim-operator-surround', {
 	\ 'depends': 'vim-operator-user',
 	\ 'on_map': '<Plug>'
 	\ })
+call dein#add('haya14busa/vim-operator-flashy', {
+	\ 'depends': 'vim-operator-user',
+	\ 'on_map': '<Plug>'
+	\ })
 
 " }}}
 " Text objects {{{
@@ -210,10 +214,6 @@ call dein#add('kana/vim-textobj-user', {'lazy': 1})
 call dein#add('osyo-manga/vim-textobj-multiblock', {
 	\ 'depends': 'vim-textobj-user',
 	\ 'on_map': [['ox', '<Plug>']]
-	\ })
-call dein#add('haya14busa/vim-operator-flashy', {
-	\ 'depends': 'vim-textobj-user',
-	\ 'on_map': '<Plug>'
 	\ })
 call dein#add('AndrewRadev/sideways.vim', {'on_map': [['ox', '<Plug>']]})
 call dein#add('bkad/CamelCaseMotion', {

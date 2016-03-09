@@ -279,7 +279,6 @@ if dein#tap('committia.vim') "{{{
 		" Map <C-n> and <C-p>
 		imap <buffer><C-n> <Plug>(committia-scroll-diff-down-half)
 		imap <buffer><C-p> <Plug>(committia-scroll-diff-up-half)
-
 	endfunction
 endif
 
