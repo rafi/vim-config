@@ -382,28 +382,9 @@ if dein#tap('jedi-vim') "{{{
 endif
 
 "}}}
-if dein#tap('vim-jsx') "{{{
-	let g:jsx_ext_required = 0
-endif
-
-"}}}
 if dein#tap('tern_for_vim') "{{{
 	autocmd MyAutoCmd FileType javascript setlocal omnifunc=tern#Complete
 	let g:tern_show_signature_in_pum = 1
-"	let g:tern_show_argument_hints = 'on_hold'
-endif
-
-"}}}
-if dein#tap('phpcomplete.vim') "{{{
-	augroup phpSyntaxOverride
-		autocmd!
-		autocmd FileType php hi! def link phpDocTags phpDefine
-	augroup END
-endif
-
-"}}}
-if dein#tap('phpfolding.vim') "{{{
-	let g:DisableAutoPHPFolding = 1
 endif
 
 "}}}
@@ -510,23 +491,6 @@ if dein#tap('undotree') "{{{
 endif
 
 "}}}
-if dein#tap('vim-findent') "{{{
-	augroup findent
-		autocmd!
-		autocmd BufRead * call s:setupFindent()
-	augroup END
-
-	function! s:setupFindent()
-		execute 'Findent! --no-warnings'
-		if &expandtab
-			IndentGuidesEnable
-		else
-			IndentGuidesDisable
-		endif
-	endfunction
-endif
-
-"}}}
 if dein#tap('caw.vim') "{{{
 	let g:caw_i_sp = ''
 	let g:caw_I_sp = ''
@@ -592,17 +556,6 @@ if dein#tap('incsearch.vim') "{{{
 	map g/ <Plug>(incsearch-stay)
 	map n  <Plug>(incsearch-nohl-n)
 	map N  <Plug>(incsearch-nohl-N)
-endif
-
-"}}}
-if dein#tap('vim-expand-region') "{{{
-  xmap v <Plug>(expand_region_expand)
-  xmap V <Plug>(expand_region_shrink)
-endif
-
-"}}}
-if dein#tap('vim-quickrun') "{{{
-  nmap <silent> <Leader>r <Plug>(quickrun)
 endif
 
 "}}}

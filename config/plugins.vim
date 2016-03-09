@@ -43,12 +43,10 @@ call dein#add('jstrater/mpvim', {'on_ft': 'portfile'})
 call dein#add('fatih/vim-go', {'on_ft': 'go'})
 call dein#add('elzr/vim-json', {'on_ft': 'json'})
 call dein#add('StanAngeloff/php.vim', {'on_ft': 'php'})
-call dein#add('rayburgemeestre/phpfolding.vim', {'on_ft': 'php'})
 call dein#add('osyo-manga/vim-monster', {'on_ft': 'ruby'})
 call dein#add('othree/yajs.vim', {'on_ft': 'javascript'})
 call dein#add('gavocanov/vim-js-indent', {'on_ft': 'javascript'})
 call dein#add('othree/javascript-libraries-syntax.vim', {'on_ft': 'javascript'})
-call dein#add('mxw/vim-jsx', {'on_ft': 'javascript'})
 call dein#add('othree/jspc.vim', {'on_ft': 'javascript'})
 call dein#add('heavenshell/vim-jsdoc', {'on_ft': 'javascript'})
 call dein#add('moll/vim-node', {'on_ft': 'javascript'})
@@ -63,24 +61,15 @@ call dein#add('Shougo/vimfiler.vim', {
 	\ })
 
 call dein#add('tyru/caw.vim', {'on_map': '<Plug>'})
-call dein#add('lambdalisue/vim-findent', {'on_path': '.*'})
 call dein#add('lambdalisue/vim-gita', {'on_cmd': 'Gita'})
 call dein#add('t9md/vim-choosewin', {'on_map': '<Plug>(choosewin)'})
 call dein#add('haya14busa/vim-asterisk', {'on_map': '<Plug>(asterisk-'})
 call dein#add('haya14busa/incsearch.vim', {'on_map': '<Plug>(incsearch-'})
 call dein#add('mbbill/undotree', {'on_cmd': 'UndotreeToggle'})
 call dein#add('Shougo/vinarise.vim', {'on_cmd': 'Vinarise'})
-call dein#add('terryma/vim-expand-region', {'on_map': [['x', '<Plug>']]})
 
 if $VIM_MINIMAL ==? ''
-	call dein#add('lambdalisue/vim-gista', {
-		\ 'on_cmd': 'Gista',
-		\ 'on_map': '<Plug>',
-		\ 'on_source': 'unite.vim'
-		\ })
-	call dein#add('thinca/vim-guicolorscheme', {'on_cmd': 'GuiColorScheme'})
 	call dein#add('guns/xterm-color-table.vim', {'on_cmd': 'XtermColorTable'})
-	call dein#add('thinca/vim-quickrun', {'on_map': '<Plug>'})
 	call dein#add('itchyny/dictionary.vim', {'on_cmd': 'Dictionary'})
 	call dein#add('thinca/vim-prettyprint', {'on_cmd': 'PP', 'on_func': 'PP'})
 	call dein#add('beloglazov/vim-online-thesaurus', {
@@ -89,6 +78,11 @@ if $VIM_MINIMAL ==? ''
 	call dein#add('junegunn/goyo.vim', {
 		\ 'depends': 'limelight.vim',
 		\ 'on_cmd': 'Goyo'
+		\ })
+	call dein#add('lambdalisue/vim-gista', {
+		\ 'on_cmd': 'Gista',
+		\ 'on_map': '<Plug>',
+		\ 'on_source': 'unite.vim'
 		\ })
 	call dein#add('vimwiki/vimwiki', {
 		\ 'on_cmd': [
