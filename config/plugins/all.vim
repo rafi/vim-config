@@ -354,13 +354,15 @@ endif
 
 "}}}
 if dein#tap('jedi-vim') "{{{
-	setlocal completeopt=menuone,longest
 	let g:jedi#force_py_version = 3
 	let g:jedi#completions_enabled = 0
 	let g:jedi#auto_vim_configuration = 0
 	let g:jedi#smart_auto_mappings = 0
 	let g:jedi#use_tag_stack = 0
 	let g:jedi#popup_select_first = 0
+	let g:jedi#popup_on_dot = 0
+	let g:jedi#show_call_signatures = 0
+	let g:jedi#max_doc_height = 45
 	let g:jedi#use_splits_not_buffers = 'right'
 	let g:jedi#completions_command = ''
 	let g:jedi#goto_command = '<leader>d'
@@ -368,17 +370,16 @@ if dein#tap('jedi-vim') "{{{
 	let g:jedi#documentation_command = 'K'
 	let g:jedi#rename_command = '<leader>r'
 	let g:jedi#usages_command = '<leader>n'
-	let g:jedi#popup_on_dot = 0
-	let g:jedi#max_doc_height = 40
-	let g:jedi#show_call_signatures = 0
-	let g:jedi#show_call_signatures_delay = 1000
 
-	autocmd MyAutoCmd FileType python
-		\ if has('python') || has('python3') |
-		\   setlocal omnifunc=jedi#completions |
-		\ else |
-		\   setlocal omnifunc= |
-		\ endif
+	if ! has('nvim')
+		setlocal completeopt=menuone,longest
+		autocmd MyAutoCmd FileType python
+			\ if has('python') || has('python3') |
+			\   setlocal omnifunc=jedi#completions |
+			\ else |
+			\   setlocal omnifunc= |
+			\ endif
+	endif
 endif
 
 "}}}

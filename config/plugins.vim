@@ -134,6 +134,7 @@ if $VIM_MINIMAL ==? ''
 	call dein#add('Shougo/neco-vim', {'on_ft': 'vim', 'on_i': 1})
 	call dein#add('Shougo/neco-syntax', {'on_i': 1})
 	call dein#add('Shougo/neoinclude.vim', {'on_ft': 'all'})
+	call dein#add('davidhalter/jedi-vim', {'on_ft': 'python'})
 	if has('nvim')
 		call dein#add('benekastah/neomake', {'on_cmd': 'Neomake'})
 		call dein#add('zchee/deoplete-go', {'on_ft': 'go', 'on_i': 1})
@@ -145,7 +146,6 @@ if $VIM_MINIMAL ==? ''
 			\ })
 	else
 		call dein#add('shawncplus/phpcomplete.vim', {'on_i': 1, 'on_ft': 'php'})
-		call dein#add('davidhalter/jedi-vim', {'on_ft': 'python', 'on_i': 1})
 		call dein#add('ternjs/tern_for_vim', {
 			\ 'build': {'others': 'npm install'},
 			\ 'if': 'executable("npm")',
