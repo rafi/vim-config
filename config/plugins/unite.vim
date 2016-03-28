@@ -33,8 +33,11 @@ endif
 
 " }}}
 " Source: tag {{{
+let g:unite_source_tag_max_kind_length = 4
 let g:unite_source_tag_max_name_length = 30
-let g:unite_source_tag_max_fname_length = 30
+let g:unite_source_tag_name_footer_length = 20
+let g:unite_source_tag_max_fname_length = 35
+let g:unite_source_tag_fname_footer_length = 25
 
 " }}}
 " Source: mru {{{
