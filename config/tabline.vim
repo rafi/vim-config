@@ -1,7 +1,14 @@
 " Limit display of directories in path
-let g:tabline_display_max_dirs = 3
+let g:tabline_display_max_dirs = 1
 " Limit display of characters in each directory in path
-let g:tabline_display_max_dir_chars = 5
+let g:tabline_display_max_dir_chars = 8
+
+let g:tabline_tab_right_normal_edge =
+	\ get(g:, 'tabline_tab_right_normal_edge', ' ')
+let g:tabline_tab_right_active_edge =
+	\ get(g:, 'tabline_tab_right_active_edge', '⮀ ')
+let g:tabline_tab_project_edge =
+	\ get(g:, 'tabline_tab_project_edge', '⮀')
 
 " }}}
 function! tabline#define_highlights() " {{{
@@ -18,7 +25,9 @@ endfunction
 function! tabline#render()
 	" Main tabline function. Draws the whole damn tabline
 
-	let s = '%#TabLineAltFill# %{ProjectName()} %#TabLineAltSel#⮀%#TabLine#  '
+	let s = '%#TabLineAltFill# %{ProjectName()} '
+		\ .'%#TabLineAltSel#'.g:tabline_tab_project_edge
+		\ .'%#TabLine#  '
 	let nr = tabpagenr()
 	for i in range(tabpagenr('$'))
 		if i + 1 == nr
@@ -31,9 +40,9 @@ function! tabline#render()
 		let s .= '%'.(i + 1).'T'
 		let s .= '%{tabline#tab_label('.(i + 1).')} '
 		if i + 1 == nr
-			let s .= '%#TabLineAlt#⮀ '
+			let s .= '%#TabLineAlt#'.g:tabline_tab_right_active_edge
 		else
-			let s .= ' '
+			let s .= g:tabline_tab_right_normal_edge
 		endif
 	endfor
 
@@ -42,7 +51,7 @@ function! tabline#render()
 
 	" Right-align the label to show session is loading or loaded
 	if exists('g:SessionLoad')
-		let arrows = {0: '-', 1: '\', 2: '|', 3: '/'}
+		let arrows = ['-', '\', '|', '/']
 		let s .= '%=%#TabLine#['.arrows[g:SessionLoad % 4].']'
 		let g:SessionLoad = g:SessionLoad < 4 ? g:SessionLoad + 1 : 0
 	elseif ! empty(v:this_session)
@@ -66,7 +75,7 @@ function! tabline#tab_label(n)
 		let project_dir = gettabvar(a:n, 'project_dir')
 		if strridx(filepath, project_dir) == 0
 			let filepath = strpart(filepath, len(project_dir))
-			let pre .= gettabvar(a:n, 'project_name').'⮀'
+			let pre .= gettabvar(a:n, 'project_name').g:tabline_tab_project_edge
 		endif
 
 		" Shorten dir names
