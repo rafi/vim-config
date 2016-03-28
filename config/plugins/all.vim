@@ -474,13 +474,13 @@ endif
 
 "}}}
 if dein#tap('caw.vim') "{{{
-	let g:caw_i_sp = ''
-	let g:caw_I_sp = ''
-	let g:caw_a_sp_right = ''
+	let g:caw_zeropos_sp = ''
+	let g:caw_zeropos_sp_right = ''
+	let g:caw_tildepos_sp = ''
+	let g:caw_tildepos_skip_blank_line = 1
+	let g:caw_dollarpos_sp_right = ''
+	let g:caw_dollarpos_skip_blank_line = 1
 	let g:caw_box_sp_right = ''
-	let g:caw_wrap_sp_right = ''
-	let g:caw_i_skip_blank_line = 1
-	let g:caw_wrap_skip_blank_line = 1
 	autocmd MyAutoCmd FileType * call s:init_caw()
 	function! s:init_caw()
 		if ! &l:modifiable
@@ -493,10 +493,10 @@ if dein#tap('caw.vim') "{{{
 		else
 			nmap <buffer> gc <Plug>(caw:prefix)
 			xmap <buffer> gc <Plug>(caw:prefix)
-			nmap <buffer> <Leader>V <Plug>(caw:wrap:toggle)
-			xmap <buffer> <Leader>V <Plug>(caw:wrap:toggle)
-			nmap <buffer> <Leader>v <Plug>(caw:I:toggle)
-			xmap <buffer> <Leader>v <Plug>(caw:I:toggle)
+			nmap <buffer> <Leader>V <Plug>(caw:tildepos:toggle)
+			xmap <buffer> <Leader>V <Plug>(caw:tildepos:toggle)
+			nmap <buffer> <Leader>v <Plug>(caw:zeropos:toggle)
+			xmap <buffer> <Leader>v <Plug>(caw:zeropos:toggle)
 		endif
 	endfunction
 endif
