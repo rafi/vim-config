@@ -5,21 +5,23 @@ autocmd MyAutoCmd CompleteDone * pclose!
 
 set completeopt+=noinsert,noselect
 
-let g:deoplete#auto_completion_start_length = 2
-"let g:deoplete#enable_refresh_always = 1
+let g:deoplete#enable_refresh_always = 1
+let g:deoplete#enable_camel_case = 1
+let g:deoplete#auto_complete_start_length = 2
 
 let g:deoplete#keyword_patterns = {}
 let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
 
 let g:deoplete#sources#go = 'vim-go'
+let g:deoplete#sources#jedi#enable_cache = 1
+let g:deoplete#sources#jedi#statement_length = 30
 
 let g:deoplete#omni#input_patterns = {}
 let g:deoplete#omni#input_patterns.python = ''
 
-call deoplete#custom#set('_', 'converters', ['converter_remove_paren'])
+"call deoplete#custom#set('_', 'converters', ['converter_remove_paren'])
 "call deoplete#custom#set('_', 'converters', ['remove_overlap'])
-
-call deoplete#custom#set('_', 'disabled_syntaxes', ['Comment', 'String'])
+"call deoplete#custom#set('_', 'disabled_syntaxes', ['Comment', 'String'])
 
 " Movement within 'ins-completion-menu'
 imap <expr><C-j>   pumvisible() ? "\<C-n>" : "\<C-j>"
@@ -44,7 +46,7 @@ inoremap <expr><C-l> deoplete#mappings#refresh()
 " <CR>: If popup menu visible, expand snippet or close popup with selection,
 "       Otherwise, check if within empty pair and use delimitMate.
 imap <silent><expr><CR> pumvisible() ?
-	\ (neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : "\<C-y>")
+	\ (neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : deoplete#mappings#close_popup())
 		\ : (delimitMate#WithinEmptyPair() ? "\<Plug>delimitMateCR" : "\<CR>")
 
 " <Tab> completion:
@@ -66,7 +68,7 @@ inoremap <expr><S-Tab>  pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:is_whitespace() "{{{
 	let col = col('.') - 1
-	return !col || getline('.')[col - 1]  =~? '\s'
+	return ! col || getline('.')[col - 1] =~? '\s'
 endfunction "}}}
 
 " vim: set ts=2 sw=2 tw=80 noet :
