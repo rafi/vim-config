@@ -298,7 +298,7 @@ Key   | Mode | Action
 `Space` | Normal | **Leader**
 Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `Backspace` | Normal | Match bracket (%)
-`K` | Normal | Open Zeal or Dash on many filetypes (not in vim and python)
+`K` | Normal | Open Zeal or Dash on many file types (except Python+Vim script)
 `<leader>`+`y` | Normal/visual | Copy selection to X11 clipboard ("+y)
 `<leader>`+`p` | Normal/visual | Paste selection from X11 clipboard ("+p)
 `Y` | Normal | Yank to the end of line (y$)

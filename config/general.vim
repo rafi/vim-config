@@ -135,7 +135,7 @@ endif
 set timeout ttimeout
 set timeoutlen=750  " Time out on mappings
 set ttimeoutlen=250 " Time out on key codes
-set updatetime=1000 " Idle time to write swap
+set updatetime=1500 " Idle time to write swap and trigger CursorHold
 
 if has('nvim')
 	" https://github.com/neovim/neovim/issues/2017
@@ -205,6 +205,11 @@ set colorcolumn=80      " Highlight the 80th character limit
 " Patch: https://groups.google.com/forum/#!topic/vim_dev/WeBBjkXE8H8
 if has('patch-7.4.314')
 	set shortmess+=c
+endif
+
+" Do not display message when editing files
+if has('patch-7.4.1570')
+	set shortmess+=F
 endif
 
 " For snippet_complete marker
