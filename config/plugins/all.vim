@@ -244,25 +244,6 @@ if dein#tap('accelerated-jk') "{{{
 endif
 
 "}}}
-if dein#tap('FastFold') "{{{
-	" Vim script
-	" augroup: a
-	" function: f
-	" lua: l
-	" perl: p
-	" ruby: r
-	" python: P
-	" tcl: t
-	" mzscheme: m
-	let g:vimsyn_folding = 'af'
-	let g:tex_fold_enabled = 1
-	let g:xml_syntax_folding = 1
-	let g:php_folding = 2
-	let g:php_phpdoc_folding = 1
-	let g:perl_fold = 1
-endif
-
-"}}}
 if dein#tap('committia.vim') "{{{
 	let g:committia_min_window_width = 80
 	let g:committia_hooks = {}

@@ -55,27 +55,27 @@ augroup vimrc-highlight
 augroup END
 
 " }}}
-" Internal Plugin Settings " {{{
+" Internal Plugin Settings  {{{
 " ------------------------
 
-" PHP "{{{
+" PHP {{{
 let g:PHP_removeCRwhenUnix = 0
 
 " }}}
-" Python "{{{
+" Python {{{
 let g:python_highlight_all = 1
 
 " }}}
-" Vim "{{{
+" Vim {{{
 let g:vimsyntax_noerror = 1
 "let g:vim_indent_cont = 0
 
 " }}}
-" Bash "{{{
+" Bash {{{
 let g:is_bash = 1
 
 " }}}
-" Java "{{{
+" Java {{{
 let g:java_highlight_functions = 'style'
 let g:java_highlight_all = 1
 let g:java_highlight_debug = 1
@@ -84,25 +84,35 @@ let g:java_space_errors = 1
 let g:java_highlight_functions = 1
 
 " }}}
-" JavaScript "{{{
+" JavaScript {{{
 let g:SimpleJsIndenter_BriefMode = 1
 let g:SimpleJsIndenter_CaseIndentLevel = -1
 
 " }}}
-" Markdown "{{{
+" Markdown {{{
 let g:markdown_fenced_languages = [
-	\  'coffee',
 	\  'css',
-	\  'erb=eruby',
 	\  'javascript',
 	\  'js=javascript',
 	\  'json=javascript',
-	\  'ruby',
+	\  'python',
+	\  'py=python',
+	\  'sh',
 	\  'sass',
 	\  'xml',
 	\  'vim'
 	\]
 
+" }}}
+" Folding {{{
+" augroup: a
+" function: f
+let g:vimsyn_folding = 'af'
+let g:tex_fold_enabled = 1
+let g:xml_syntax_folding = 1
+let g:php_folding = 2
+let g:php_phpdoc_folding = 1
+let g:perl_fold = 1
 " }}}
 " }}}
 " vim: set ts=2 sw=2 tw=80 noet :
