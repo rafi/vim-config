@@ -55,7 +55,6 @@ call s:source_file('filetype.vim')
 call s:source_file('terminal.vim')
 call s:source_file('utils.vim')
 call s:source_file('bindings.vim')
-call s:source_file('tabline.vim')
 
 if has('nvim')
 	call s:source_file('neovim.vim')

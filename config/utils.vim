@@ -159,7 +159,7 @@ function! s:session_save(file) abort
 	if ! isdirectory(g:session_directory)
 		call mkdir(g:session_directory, 'p')
 	endif
-	let file_name = empty(a:file) ? ProjectName() : a:file
+	let file_name = empty(a:file) ? block#project() : a:file
 	let file_path = g:session_directory.file_name.'.vim'
 	execute 'mksession! '.fnameescape(file_path)
 	echo 'Tracking session in '.fnamemodify(file_path, ':~:.')

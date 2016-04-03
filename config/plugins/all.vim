@@ -85,9 +85,9 @@ if dein#tap('vimfiler.vim') "{{{
 	let g:vimfiler_data_directory = $VARPATH.'/vimfiler'
 
 	nnoremap <silent> [unite]e        :<C-u>execute
-		\ 'VimFiler -winwidth=25 -direction=topleft -buffer-name='.ProjectName()<CR>
+		\ 'VimFiler -winwidth=25 -direction=topleft -buffer-name='.block#project()<CR>
 	nnoremap <silent> [unite]a        :<C-u>execute
-		\ 'VimFiler -find -winwidth=25 -direction=topleft -buffer-name='.ProjectName()<CR>
+		\ 'VimFiler -find -winwidth=25 -direction=topleft -buffer-name='.block#project()<CR>
 
 	execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
 		\ 'source '.$VIMPATH.'/config/plugins/vimfiler.vim'
