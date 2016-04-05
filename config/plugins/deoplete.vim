@@ -16,7 +16,18 @@ let g:deoplete#sources#go = 'vim-go'
 let g:deoplete#sources#jedi#enable_cache = 1
 let g:deoplete#sources#jedi#statement_length = 30
 
-let g:deoplete#omni#input_patterns = {}
+let g:deoplete#sources#jedi#enable_cache = 1
+let g:deoplete#sources#jedi#statement_length = 30
+let g:deoplete#sources#jedi#show_docstring = 1
+let g:deoplete#sources#jedi#short_types = 1
+
+let g:deoplete#omni#functions = get(g:, 'deoplete#omni#functions', {})
+let g:deoplete#omni#functions.php = 'phpcomplete_extended#CompletePHP'
+let g:deoplete#omni_patterns = get(g:, 'deoplete#omni_patterns', {})
+let g:deoplete#omni_patterns.php =
+	\ '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+
+let g:deoplete#omni#input_patterns = get(g:, 'deoplete#omni#input_patterns', {})
 let g:deoplete#omni#input_patterns.python = ''
 
 "call deoplete#custom#set('_', 'converters', ['converter_remove_paren'])
