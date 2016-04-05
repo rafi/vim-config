@@ -1,8 +1,13 @@
 
-" File Types {{{
+" File Types
 "-------------------------------------------------
 
-augroup MyAutoCmd
+" Reload vim config automatically {{{
+execute 'autocmd MyAutoCmd BufWritePost '.$VIMPATH.'/config/*vim,vimrc nested'
+	\ .' source $MYVIMRC | redraw'
+" }}}
+
+augroup MyAutoCmd " {{{
 
 	" Automatically set read-only for files being edited elsewhere
 	autocmd SwapExists * nested let v:swapchoice = 'o'
@@ -12,10 +17,6 @@ augroup MyAutoCmd
 		\ if &l:autoread > 0 | source <afile> |
 		\   echo 'source '.bufname('%') |
 		\ endif
-
-	" Reload vim config automatically
-	autocmd BufWritePost vimrc,all.vim,plugins.vim nested
-		\ | source $MYVIMRC | redraw
 
 	" Update filetype on save if empty
 	autocmd BufWritePost * nested
@@ -48,14 +49,13 @@ augroup MyAutoCmd
 	autocmd FileType go highlight default link goErr WarningMsg |
 				\ match goErr /\<err\>/
 
-augroup END
+augroup END " }}}
 
-augroup vimrc-highlight
+augroup vimrc-highlight " {{{
 	autocmd!
 	autocmd Syntax * if 5000 < line('$') | syntax sync minlines=100 | endif
-augroup END
+augroup END "}}}
 
-" }}}
 " Internal Plugin Settings  {{{
 " ------------------------
 

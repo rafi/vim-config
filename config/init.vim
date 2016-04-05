@@ -53,11 +53,12 @@ endif
 " Setup dein {{{
 if &runtimepath !~# '/dein.vim'
 	let s:dein_dir = expand('$VARPATH/dein').'/repos/github.com/Shougo/dein.vim'
-	if !isdirectory(s:dein_dir)
+	if ! isdirectory(s:dein_dir)
 		execute '!git clone https://github.com/Shougo/dein.vim' s:dein_dir
 	endif
 
-	execute 'set runtimepath^='.fnamemodify(s:dein_dir, ':p')
+	execute 'set runtimepath^='.substitute(
+		\ fnamemodify(s:dein_dir, ':p') , '/$', '', '')
 endif
 
 " }}}

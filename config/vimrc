@@ -23,28 +23,38 @@ function! s:source_file(path) abort
 	execute 'source' fnameescape($VIMPATH.'/config/'.a:path)
 endfunction
 
+augroup MyAutoCmd
+	autocmd!
+augroup END
+
 " Initialize base requirements
-call s:source_file('init.vim')
+if has('vim_starting')
+	call s:source_file('init.vim')
+endif
 
 " Initialize dein.vim (package manager)
 let s:path = expand('$VARPATH/dein')
 if dein#load_state(s:path)
-	call dein#begin(s:path)
+	call dein#begin(s:path, [expand('<sfile>'), expand('$VIMPATH/config/plugins.vim')])
 	call s:source_file('plugins.vim')
-	call dein#local(expand('$VIMPATH/dev'), {'frozen': 1})
-	call dein#local(dein#get('awesome-vim-colorschemes').path, {'frozen': 1})
+	if isdirectory(expand('$VIMPATH/dev'))
+		call dein#local(expand('$VIMPATH/dev'), {'frozen': 1, 'merged': 0})
+	endif
+	call dein#local(dein#get('awesome-vim-colorschemes').path)
 	call dein#end()
 	call dein#save_state()
+	if has('vim_starting') && dein#check_install()
+		call dein#install()
+	endif
 endif
 
 call s:source_file('plugins/all.vim')
 
-" Installation check
-if has('vim_starting') && dein#check_install()
-	call dein#install()
+if ! has('vim_starting')
+	call dein#call_hook('source')
+	call dein#call_hook('post_source')
 endif
 
-" Must be after plugins
 filetype plugin indent on
 syntax enable
 
