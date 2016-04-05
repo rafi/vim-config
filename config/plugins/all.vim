@@ -476,8 +476,8 @@ endif
 if dein#tap('caw.vim') "{{{
 	let g:caw_zeropos_sp = ''
 	let g:caw_zeropos_sp_right = ''
-	let g:caw_tildepos_sp = ''
-	let g:caw_tildepos_skip_blank_line = 1
+	let g:caw_hatpos_sp = ''
+	let g:caw_hatpos_skip_blank_line = 1
 	let g:caw_dollarpos_sp_right = ''
 	let g:caw_dollarpos_skip_blank_line = 1
 	let g:caw_box_sp_right = ''
