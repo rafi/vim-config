@@ -6,13 +6,14 @@
 " ---
 call dein#add('Shougo/dein.vim')
 call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+call dein#add('christoomey/vim-tmux-navigator')
 call dein#add('itchyny/vim-cursorword')
 call dein#add('itchyny/vim-gitbranch')
-call dein#add('christoomey/vim-tmux-navigator')
+call dein#add('itchyny/vim-parenmatch')
+call dein#add('thinca/vim-localrc')
 call dein#add('rafi/vim-tagabana')
 call dein#add('bogado/file-line')
 call dein#add('rafi/vim-blocks')
-call dein#add('thinca/vim-localrc')
 
 " LAZY LOADING
 " --------------------------------------------------------
