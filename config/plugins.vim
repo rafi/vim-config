@@ -56,15 +56,15 @@ call dein#add('moll/vim-node', {'on_ft': 'javascript'})
 " --------
 call dein#add('Shougo/vimfiler.vim', {
 	\ 'depends': 'unite.vim',
-	\ 'on_map': '<Plug>',
+	\ 'on_map': [['n', '<Plug>']],
 	\ 'on_path': '.*',
 	\ })
 
-call dein#add('tyru/caw.vim', {'on_map': '<Plug>'})
+call dein#add('tyru/caw.vim', {'on_map': [['nx', '<Plug>']]})
 call dein#add('lambdalisue/vim-gita', {'on_cmd': 'Gita'})
-call dein#add('t9md/vim-choosewin', {'on_map': '<Plug>(choosewin)'})
-call dein#add('haya14busa/vim-asterisk', {'on_map': '<Plug>(asterisk-'})
-call dein#add('haya14busa/incsearch.vim', {'on_map': '<Plug>(incsearch-'})
+call dein#add('t9md/vim-choosewin', {'on_map': [['n', '<Plug>']]})
+call dein#add('haya14busa/vim-asterisk', {'on_map': [['n', '<Plug>']]})
+call dein#add('haya14busa/incsearch.vim', {'on_map': [['n', '<Plug>']]})
 call dein#add('mbbill/undotree', {'on_cmd': 'UndotreeToggle'})
 call dein#add('Shougo/vinarise.vim', {'on_cmd': 'Vinarise'})
 
@@ -81,7 +81,7 @@ if $VIM_MINIMAL ==? ''
 		\ })
 	call dein#add('lambdalisue/vim-gista', {
 		\ 'on_cmd': 'Gista',
-		\ 'on_map': '<Plug>',
+		\ 'on_map': [['n', '<Plug>']],
 		\ 'on_source': 'unite.vim'
 		\ })
 	call dein#add('vimwiki/vimwiki', {
@@ -98,9 +98,8 @@ endif
 call dein#add('airblade/vim-gitgutter', {'on_path': '.*'})
 call dein#add('kshenoy/vim-signature', {'on_path': '.*'})
 call dein#add('nathanaelkane/vim-indent-guides', {'on_path': '.*'})
-call dein#add('matchit.zip', {'on_map': [['nxo', '%', 'g%']]})
-call dein#add('kana/vim-niceblock', {'on_map': '<Plug>'})
-call dein#add('rhysd/accelerated-jk', {'on_map': '<Plug>'})
+call dein#add('kana/vim-niceblock', {'on_map': [['x', '<Plug>']]})
+call dein#add('rhysd/accelerated-jk', {'on_map': [['n', '<Plug>']]})
 call dein#add('rhysd/clever-f.vim', {'on_map': [['n', 'f', 'F', 't', 'T']]})
 call dein#add('Konfekt/FastFold', {'on_path': '.*'})
 call dein#add('Shougo/tabpagebuffer.vim', {'on_ft': 'all'})
@@ -194,11 +193,11 @@ call dein#add('kana/vim-operator-replace', {
 	\ })
 call dein#add('rhysd/vim-operator-surround', {
 	\ 'depends': 'vim-operator-user',
-	\ 'on_map': '<Plug>'
+	\ 'on_map': [['n', '<Plug>']]
 	\ })
 call dein#add('haya14busa/vim-operator-flashy', {
 	\ 'depends': 'vim-operator-user',
-	\ 'on_map': '<Plug>'
+	\ 'on_map': [['nx', '<Plug>']]
 	\ })
 
 " }}}
@@ -211,7 +210,7 @@ call dein#add('osyo-manga/vim-textobj-multiblock', {
 	\ })
 call dein#add('AndrewRadev/sideways.vim', {'on_map': [['ox', '<Plug>']]})
 call dein#add('bkad/CamelCaseMotion', {
-	\ 'on_map': ['<Plug>CamelCaseMotion_w', '<Plug>CamelCaseMotion_b']
+	\ 'on_map': [['n', '<Plug>CamelCaseMotion']]
 	\ })
 " }}}
 
