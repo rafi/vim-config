@@ -12,7 +12,6 @@ call dein#add('itchyny/vim-gitbranch')
 call dein#add('itchyny/vim-parenmatch')
 call dein#add('thinca/vim-localrc')
 call dein#add('rafi/vim-tagabana')
-call dein#add('bogado/file-line')
 call dein#add('rafi/vim-blocks')
 
 " LAZY LOADING
