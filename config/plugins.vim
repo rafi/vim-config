@@ -58,6 +58,7 @@ call dein#add('Shougo/vimfiler.vim', {
 	\ 'depends': 'unite.vim',
 	\ 'on_map': [['n', '<Plug>']],
 	\ 'on_path': '.*',
+	\ 'hook_post_source': 'source '.$VIMPATH.'/config/plugins/vimfiler.vim'
 	\ })
 
 call dein#add('tyru/caw.vim', {'on_map': [['nx', '<Plug>']]})
@@ -77,7 +78,8 @@ if $VIM_MINIMAL ==? ''
 	call dein#add('junegunn/limelight.vim', {'lazy': 1})
 	call dein#add('junegunn/goyo.vim', {
 		\ 'depends': 'limelight.vim',
-		\ 'on_cmd': 'Goyo'
+		\ 'on_cmd': 'Goyo',
+		\ 'hook_add': 'source '.$VIMPATH.'/config/plugins/goyo.vim'
 		\ })
 	call dein#add('lambdalisue/vim-gista', {
 		\ 'on_cmd': 'Gista',
@@ -101,9 +103,12 @@ call dein#add('nathanaelkane/vim-indent-guides', {'on_path': '.*'})
 call dein#add('kana/vim-niceblock', {'on_map': [['x', '<Plug>']]})
 call dein#add('rhysd/accelerated-jk', {'on_map': [['n', '<Plug>']]})
 call dein#add('rhysd/clever-f.vim', {'on_map': [['n', 'f', 'F', 't', 'T']]})
-call dein#add('Konfekt/FastFold', {'on_path': '.*'})
 call dein#add('Shougo/tabpagebuffer.vim', {'on_ft': 'all'})
 call dein#add('rhysd/committia.vim', {'on_path': 'COMMIT_EDITMSG'})
+call dein#add('Konfekt/FastFold', {
+	\ 'on_i': 1,
+	\ 'hook_post_source': 'FastFoldUpdate'
+	\ })
 
 " }}}
 " Completion {{{
@@ -111,12 +116,15 @@ call dein#add('rhysd/committia.vim', {'on_path': 'COMMIT_EDITMSG'})
 call dein#add('Shougo/deoplete.nvim', {
 	\ 'depends': 'context_filetype.vim',
 	\ 'if': 'has("nvim")',
-	\ 'on_i': 1
+	\ 'on_i': 1,
+	\ 'hook_source': 'let g:deoplete#enable_at_startup = 1'
+	\   .' | source '.$VIMPATH.'/config/plugins/deoplete.vim'
 	\ })
 call dein#add('Shougo/neocomplete', {
 	\ 'depends': 'context_filetype.vim',
 	\ 'if': '! has("nvim") && has("lua")',
-	\ 'on_i': 1
+	\ 'on_i': 1,
+	\ 'hook_add': 'source '.$VIMPATH.'/config/plugins/neocomplete.vim'
 	\ })
 call dein#add('Shougo/neosnippet.vim', {
 	\ 'depends': ['neosnippet-snippets', 'context_filetype.vim'],
@@ -127,7 +135,11 @@ call dein#add('Shougo/neosnippet.vim', {
 call dein#add('Shougo/echodoc.vim', {'on_i': 1})
 call dein#add('Shougo/neopairs.vim', {'on_i': 1})
 call dein#add('Shougo/context_filetype.vim', {'lazy': 1})
-call dein#add('Raimondi/delimitMate', {'on_i': 1})
+call dein#add('Raimondi/delimitMate', {
+	\ 'on_i': 1,
+	\ 'hook_source': 'let g:delimitMate_expand_cr = 1',
+	\ 'hook_add': 'silent! iunmap <buffer> <C-g>g'
+	\ })
 
 if $VIM_MINIMAL ==? ''
 	call dein#add('Shougo/neco-vim', {'on_ft': 'vim', 'on_i': 1})
@@ -135,7 +147,10 @@ if $VIM_MINIMAL ==? ''
 	call dein#add('Shougo/neoinclude.vim', {'on_ft': 'all'})
 	call dein#add('davidhalter/jedi-vim', {'on_ft': 'python'})
 	if has('nvim')
-		call dein#add('benekastah/neomake', {'on_cmd': 'Neomake'})
+		call dein#add('benekastah/neomake', {
+			\ 'on_cmd': 'Neomake',
+			\ 'hook_add': 'source '.$VIMPATH.'/config/plugins/neomake.vim'
+			\ })
 		call dein#add('zchee/deoplete-go', {'on_ft': 'go', 'on_i': 1})
 		call dein#add('zchee/deoplete-jedi', {'on_ft': 'python', 'on_i': 1})
 		call dein#add('carlitux/deoplete-ternjs', {
@@ -157,7 +172,11 @@ endif
 " }}}
 " Unite {{{
 " -----
-call dein#add('Shougo/unite.vim', {'depends': 'neomru.vim', 'lazy': 1})
+call dein#add('Shougo/unite.vim', {
+	\ 'lazy': 1,
+	\ 'depends': 'neomru.vim',
+	\ 'hook_post_source': 'source '.$VIMPATH.'/config/plugins/unite.vim'
+	\ })
 call dein#add('Shougo/neomru.vim', {'lazy': 1})
 
 " Unite sources {{{

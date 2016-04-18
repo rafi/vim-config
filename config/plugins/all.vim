@@ -36,9 +36,6 @@ if dein#tap('unite.vim') "{{{
 	vnoremap <silent> <Leader>gt :<C-u>call VSetSearch('/')<CR>:execute 'Unite tag -input='.@/<CR>
 	vnoremap <silent> <Leader>gg :<C-u>call VSetSearch('/')<CR>:execute 'Unite grep:. -input='.@/<CR>
 
-	execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
-		\ 'source '.$VIMPATH.'/config/plugins/unite.vim'
-
 	autocmd MyAutoCmd BufEnter *
 		\  if empty(&buftype) && &ft != 'go'
 		\|   nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
@@ -88,9 +85,6 @@ if dein#tap('vimfiler.vim') "{{{
 		\ 'VimFiler -winwidth=25 -direction=topleft -buffer-name='.block#project()<CR>
 	nnoremap <silent> [unite]a        :<C-u>execute
 		\ 'VimFiler -find -winwidth=25 -direction=topleft -buffer-name='.block#project()<CR>
-
-	execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
-		\ 'source '.$VIMPATH.'/config/plugins/vimfiler.vim'
 
 	autocmd MyAutoCmd FileType vimfiler call s:vimfiler_settings()
 
@@ -147,13 +141,6 @@ if dein#tap('vimfiler.vim') "{{{
 endif
 
 "}}}
-if dein#tap('deoplete.nvim') && has('nvim') "{{{
-	let g:deoplete#enable_at_startup = 1
-	execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
-		\ 'source '.$VIMPATH.'/config/plugins/deoplete.vim'
-endif
-
-"}}}
 if dein#tap('deoplete-jedi') && has('nvim') "{{{
 	autocmd MyAutoCmd FileType python setlocal omnifunc=
 endif
@@ -162,8 +149,6 @@ endif
 if dein#tap('neocomplete') && has('lua') "{{{
 	let g:neocomplete#enable_at_startup = 1
 	let g:neocomplete#data_directory = $VARPATH.'/complete'
-	execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
-		\ 'source '.$VIMPATH.'/config/plugins/neocomplete.vim'
 endif
 
 "}}}
@@ -305,8 +290,6 @@ endif
 "}}}
 if dein#tap('goyo.vim') "{{{
 	nnoremap <Leader>G :Goyo<CR>
-	execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
-		\ 'source '.$VIMPATH.'/config/plugins/goyo.vim'
 endif
 
 "}}}
@@ -396,8 +379,6 @@ if dein#tap('neomake') "{{{
 			Neomake
 		endif
 	endfunction
-	execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
-		\ 'source '.$VIMPATH.'/config/plugins/neomake.vim'
 endif
 
 "}}}
@@ -432,13 +413,6 @@ endif
 "}}}
 if dein#tap('neopairs.vim') "{{{
 	let g:neopairs#enable = 0
-endif
-
-"}}}
-if dein#tap('delimitMate') "{{{
-	let g:delimitMate_expand_cr = 1
-	execute 'autocmd MyAutoCmd User' 'dein#source#'.g:dein#name
-		\ 'silent! iunmap <buffer> <C-g>g'
 endif
 
 "}}}
