@@ -485,10 +485,14 @@ if dein#tap('vim-indent-guides') "{{{
 
 	nmap <silent><Leader>i :<C-u>IndentGuidesToggle<CR>
 
-	autocmd MyAutoCmd BufEnter *.py,*.js nested if &expandtab
-		\ |   IndentGuidesEnable
-		\ | else
-		\ |   IndentGuidesDisable
+	" Automatically toggle indent guides for all file-types
+	autocmd MyAutoCmd BufEnter *
+		\ if ! has('vim_starting') && ! empty(&l:filetype)
+		\ |   if g:indent_guides_autocmds_enabled == 0 && &expandtab
+		\ |     IndentGuidesEnable
+		\ |   elseif g:indent_guides_autocmds_enabled == 1 && ! &expandtab
+		\ |     IndentGuidesDisable
+		\ |   endif
 		\ | endif
 endif
 
