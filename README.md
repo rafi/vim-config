@@ -2,7 +2,7 @@
 
 Lean mean Vim/Neovim machine, ~40ms startup time.
 
-Best with Vim 7.4 +lua +python or Neovim +python.
+Best with Neovim +python or Vim 7.4 +lua +python.
 
 ## Features
 
@@ -24,9 +24,8 @@ Best with Vim 7.4 +lua +python or Neovim +python.
 ### VIM
 1. Clone `git clone git://github.com/rafi/vim-config.git ~/.vim`
 2. Enter directory `cd ~/.vim`
-3. Run `make test` to make sure you have vim compiled with python and lua.
-4. Run `make install`
-5. Start `nvim` or `vim`
+3. Run `make install`
+4. Start `nvim` or `vim`
 
 ### Neovim
 ```sh
@@ -49,7 +48,7 @@ export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 ```
 
 If you're curious how it's done, see [vimrc:13-20](./config/vimrc#L13-L20)
-and [init.vim:37-50](./config/init.vim#L37-L50).
+and [init.vim:33-46](./config/init.vim#L33-L46).
 
 ## Structure
 - [config](./config)/ - Configuration

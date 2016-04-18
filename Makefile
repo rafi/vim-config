@@ -15,12 +15,4 @@ upgrade: update
 uninstall:
 	rm -rf "$(XDG_CACHE_HOME)/vim"
 
-test:
-	echo 'Testing Vim 7.4... ' && $(vim) --version | head -n1 | grep -q '7\.4' \
-		&& echo 'OK' || echo '  .. MISSING! Install newer Vim version'; \
-		echo 'Testing +python... ' && $(vim) --version | grep -q '+python' \
-			&& echo 'OK' || echo '  .. MISSING! Install Vim with +python'; \
-			echo 'Testing +lua... ' && $(vim) --version | grep -q '+lua' \
-				&& echo 'OK' || echo '  .. MISSING! Install Vim with +lua'
-
-.PHONY: install update upgrade uninstall test default
+.PHONY: install update upgrade uninstall default
