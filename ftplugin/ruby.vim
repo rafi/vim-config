@@ -8,8 +8,6 @@ else
 endif
 let b:undo_ftplugin .= 'setl modeline<'
 
-setlocal shiftwidth=2
-setlocal softtabstop=2
-setlocal tabstop=2
+setlocal shiftwidth=2 softtabstop=2 tabstop=2
 
 let &cpo = s:save_cpo

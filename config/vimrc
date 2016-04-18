@@ -23,6 +23,7 @@ function! s:source_file(path) abort
 	execute 'source' fnameescape($VIMPATH.'/config/'.a:path)
 endfunction
 
+" Set augroup
 augroup MyAutoCmd
 	autocmd!
 augroup END

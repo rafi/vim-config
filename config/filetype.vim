@@ -49,12 +49,9 @@ augroup MyAutoCmd " {{{
 	autocmd FileType go highlight default link goErr WarningMsg |
 				\ match goErr /\<err\>/
 
-augroup END " }}}
+	autocmd Syntax * if 5000 < line('$') | syntax sync minlines=200 | endif
 
-augroup vimrc-highlight " {{{
-	autocmd!
-	autocmd Syntax * if 5000 < line('$') | syntax sync minlines=100 | endif
-augroup END "}}}
+augroup END " }}}
 
 " Internal Plugin Settings  {{{
 " ------------------------

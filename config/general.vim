@@ -126,7 +126,9 @@ if has('folding')
 	set foldenable
 	set foldmethod=syntax
 	set foldlevelstart=99
-	set foldtext=FoldText()
+	if &filetype !=# 'help'
+		set foldtext=FoldText()
+	endif
 endif
 
 " }}}

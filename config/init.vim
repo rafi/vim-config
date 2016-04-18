@@ -24,12 +24,6 @@ if ! isdirectory(expand($VARPATH))
 endif
 
 " }}}
-" Set augroup "{{{
-augroup MyAutoCmd
-	autocmd!
-augroup END
-
-" }}}
 " Load vault settings "{{{
 if filereadable(expand('$VIMPATH/.vault.vim'))
 	execute 'source' expand('$VIMPATH/.vault.vim')
