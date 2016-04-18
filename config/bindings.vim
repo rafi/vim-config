@@ -37,7 +37,7 @@ endif
 "if ( ! has('nvim') || $DISPLAY !=? '') && has('clipboard')
 "	xnoremap <silent> y "*y:let [@+,@"]=[@*,@*]<CR>
 "endif
-nnoremap x "_x
+"nnoremap x "_x
 
 " Double leader key for toggling visual-line mode
 nmap <Leader><Leader> V
