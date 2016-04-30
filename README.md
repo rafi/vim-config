@@ -2,7 +2,7 @@
 
 Lean mean Vim/Neovim machine, ~40ms startup time.
 
-Best with Neovim +python or Vim 7.4 +lua +python.
+Best with Neovim or Vim 7.4+ with +lua +python extensions enabled.
 
 ## Features
 
@@ -21,17 +21,19 @@ Best with Neovim +python or Vim 7.4 +lua +python.
 ![Vim screenshot](http://rafi.io/static/img/project/vim-config/features.png)
 
 ## Install
-### VIM
-1. Clone `git clone git://github.com/rafi/vim-config.git ~/.vim`
-2. Enter directory `cd ~/.vim`
-3. Run `make install`
-4. Start `nvim` or `vim`
 
-### Neovim
-```sh
-mkdir -p "${XDG_CONFIG_HOME:=$HOME/.config}"
-ln -s ~/.vim "${XDG_CONFIG_HOME:=$HOME/.config}/nvim"
-```
+1.
+    If you are using Neovim, clone with:
+    ```
+    mkdir -p "${XDG_CONFIG_HOME:=$HOME/.config}"
+    git clone git://github.com/rafi/vim-config.git "${XDG_CONFIG_HOME:=$HOME/.config}/nvim"
+    ```
+
+    Or, if you are using Vim: `git clone git://github.com/rafi/vim-config.git ~/.vim`
+2. Enter the directory you've cloned into
+3. Run `make test` to make sure you have required dependencies
+4. Run `make install`
+5. Start `nvim` or `vim`.
 
 ## Upgrade
 
@@ -39,9 +41,10 @@ Run `make update`
 
 ## XDG conformity
 
-VIM looks for its configuration in the `~/.vim` directory. My setup **also**
-supports the XDG location, `.config/vim`. If you want to use the XDG
-specification standard, add this somewhere in your `.profile` or `.bashrc`:
+VIM (Not Neovim!) looks for its configuration in the `~/.vim` directory.
+My setup **also** supports the XDG location, `.config/vim`. If you want to
+use the XDG specification standard, add this somewhere
+in your `.profile` or `.bashrc`:
 ```sh
 # Set vimrc's location and source it on vim startup
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
