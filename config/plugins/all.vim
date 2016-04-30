@@ -180,6 +180,11 @@ if dein#tap('neomru.vim') "{{{
 endif
 
 "}}}
+if dein#tap('tmux-complete.vim') "{{{
+	let g:tmuxcomplete#trigger = ''
+endif
+
+"}}}
 if dein#tap('echodoc.vim') "{{{
 	let g:echodoc_enable_at_startup = 1
 endif

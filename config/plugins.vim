@@ -42,6 +42,7 @@ call dein#add('ekalinin/Dockerfile.vim', {'on_ft': 'Dockerfile'})
 call dein#add('jstrater/mpvim', {'on_ft': 'portfile'})
 call dein#add('fatih/vim-go', {'on_ft': 'go'})
 call dein#add('elzr/vim-json', {'on_ft': 'json'})
+call dein#add('m2mdas/phpcomplete-extended', {'on_i': 1, 'on_ft': 'php'})
 call dein#add('StanAngeloff/php.vim', {'on_ft': 'php'})
 call dein#add('osyo-manga/vim-monster', {'on_ft': 'ruby'})
 call dein#add('othree/yajs.vim', {'on_ft': 'javascript'})
@@ -50,6 +51,7 @@ call dein#add('othree/javascript-libraries-syntax.vim', {'on_ft': 'javascript'})
 call dein#add('othree/jspc.vim', {'on_ft': 'javascript'})
 call dein#add('heavenshell/vim-jsdoc', {'on_ft': 'javascript'})
 call dein#add('moll/vim-node', {'on_ft': 'javascript'})
+call dein#add('vim-jp/syntax-vim-ex', {'on_ft': 'vim'})
 
 " }}}
 " Commands {{{
@@ -57,11 +59,12 @@ call dein#add('moll/vim-node', {'on_ft': 'javascript'})
 call dein#add('Shougo/vimfiler.vim', {
 	\ 'depends': 'unite.vim',
 	\ 'on_map': [['n', '<Plug>']],
-	\ 'on_path': '.*',
+	\ 'on_if': "isdirectory(bufname('%'))",
 	\ 'hook_post_source': 'source '.$VIMPATH.'/config/plugins/vimfiler.vim'
 	\ })
 
 call dein#add('tyru/caw.vim', {'on_map': [['nx', '<Plug>']]})
+call dein#add('lambdalisue/vim-findent', {'on_cmd': 'Findent', 'on_if': 1})
 call dein#add('lambdalisue/vim-gita', {'on_cmd': 'Gita'})
 call dein#add('t9md/vim-choosewin', {'on_map': [['n', '<Plug>']]})
 call dein#add('haya14busa/vim-asterisk', {'on_map': [['n', '<Plug>']]})
@@ -103,10 +106,11 @@ call dein#add('nathanaelkane/vim-indent-guides', {'on_path': '.*'})
 call dein#add('kana/vim-niceblock', {'on_map': [['x', '<Plug>']]})
 call dein#add('rhysd/accelerated-jk', {'on_map': [['n', '<Plug>']]})
 call dein#add('rhysd/clever-f.vim', {'on_map': [['n', 'f', 'F', 't', 'T']]})
-call dein#add('Shougo/tabpagebuffer.vim', {'on_ft': 'all'})
+call dein#add('Shougo/tabpagebuffer.vim', {'on_if': 'tabpagenr() > 1'})
 call dein#add('rhysd/committia.vim', {'on_path': 'COMMIT_EDITMSG'})
+call dein#add('itchyny/thumbnail.vim', {'on_cmd': 'Thumbnail'})
 call dein#add('Konfekt/FastFold', {
-	\ 'on_i': 1,
+	\ 'on_event': 'InsertEnter',
 	\ 'hook_post_source': 'FastFoldUpdate'
 	\ })
 
@@ -123,29 +127,33 @@ call dein#add('Shougo/deoplete.nvim', {
 call dein#add('Shougo/neocomplete', {
 	\ 'depends': 'context_filetype.vim',
 	\ 'if': '! has("nvim") && has("lua")',
-	\ 'on_i': 1,
-	\ 'hook_add': 'source '.$VIMPATH.'/config/plugins/neocomplete.vim'
+	\ 'on_event': 'InsertEnter',
+	\ 'hook_source': 'let g:neocomplete#enable_at_startup = 1'
+	\   .' | source '.$VIMPATH.'/config/plugins/neocomplete.vim'
 	\ })
 call dein#add('Shougo/neosnippet.vim', {
 	\ 'depends': ['neosnippet-snippets', 'context_filetype.vim'],
-	\ 'on_i': 1,
-	\ 'on_ft': 'snippet',
-	\ 'on_source': 'unite.vim'
+	\ 'on_event': 'InsertCharPre',
+	\ 'on_ft': 'snippet'
 	\ })
-call dein#add('Shougo/echodoc.vim', {'on_i': 1})
-call dein#add('Shougo/neopairs.vim', {'on_i': 1})
+call dein#add('Shougo/echodoc.vim', {
+	\ 'on_event': 'InsertCharPre',
+	\ 'hook_add': 'let g:echodoc_enable_at_startup = 1'
+	\ })
 call dein#add('Shougo/context_filetype.vim', {'lazy': 1})
 call dein#add('Raimondi/delimitMate', {
 	\ 'on_i': 1,
 	\ 'hook_source': 'let g:delimitMate_expand_cr = 1',
-	\ 'hook_add': 'silent! iunmap <buffer> <C-g>g'
 	\ })
 
 if $VIM_MINIMAL ==? ''
-	call dein#add('Shougo/neco-vim', {'on_ft': 'vim', 'on_i': 1})
-	call dein#add('Shougo/neco-syntax', {'on_i': 1})
-	call dein#add('Shougo/neoinclude.vim', {'on_ft': 'all'})
+	call dein#add('wellle/tmux-complete.vim', {'on_i': 1})
+	call dein#add('Shougo/neoinclude.vim', {'on_if': 1})
 	call dein#add('davidhalter/jedi-vim', {'on_ft': 'python'})
+	call dein#add('Shougo/neco-vim', {'on_ft': 'vim'})
+	call dein#add('Shougo/neco-syntax', {'on_source':
+		\ ['neocomplete.vim', 'deoplete.nvim']})
+
 	if has('nvim')
 		call dein#add('benekastah/neomake', {
 			\ 'on_cmd': 'Neomake',
@@ -159,9 +167,8 @@ if $VIM_MINIMAL ==? ''
 			\ 'on_i': 1
 			\ })
 	else
-		call dein#add('shawncplus/phpcomplete.vim', {'on_i': 1, 'on_ft': 'php'})
 		call dein#add('ternjs/tern_for_vim', {
-			\ 'build': {'others': 'npm install'},
+			\ 'build': 'npm install',
 			\ 'if': 'executable("npm")',
 			\ 'on_i': 1,
 			\ 'on_ft': 'javascript'
@@ -177,7 +184,8 @@ call dein#add('Shougo/unite.vim', {
 	\ 'depends': 'neomru.vim',
 	\ 'hook_post_source': 'source '.$VIMPATH.'/config/plugins/unite.vim'
 	\ })
-call dein#add('Shougo/neomru.vim', {'lazy': 1})
+call dein#add('Shougo/neomru.vim', {'on_if': 1})
+call dein#add('Shougo/neoyank.vim', {'on_if': 1, 'on_source': 'unite.vim'})
 
 " Unite sources {{{
 " -------------
