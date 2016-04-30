@@ -21,19 +21,18 @@ Best with Neovim or Vim 7.4+ with +lua +python extensions enabled.
 ![Vim screenshot](http://rafi.io/static/img/project/vim-config/features.png)
 
 ## Install
+If you are using Neovim, clone with:
+```sh
+mkdir -p "${XDG_CONFIG_HOME:=$HOME/.config}"
+git clone git://github.com/rafi/vim-config.git "${XDG_CONFIG_HOME:=$HOME/.config}/nvim"
+```
 
-1.
-    If you are using Neovim, clone with:
-    ```
-    mkdir -p "${XDG_CONFIG_HOME:=$HOME/.config}"
-    git clone git://github.com/rafi/vim-config.git "${XDG_CONFIG_HOME:=$HOME/.config}/nvim"
-    ```
+Or, if you are using Vim: `git clone git://github.com/rafi/vim-config.git ~/.vim`
 
-    Or, if you are using Vim: `git clone git://github.com/rafi/vim-config.git ~/.vim`
-2. Enter the directory you've cloned into
-3. Run `make test` to make sure you have required dependencies
-4. Run `make install`
-5. Start `nvim` or `vim`.
+1. Enter the directory you've cloned into
+2. Run `make test` to make sure you have required dependencies
+3. Run `make install`
+4. Start `nvim` or `vim`.
 
 ## Upgrade
 
