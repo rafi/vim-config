@@ -91,11 +91,11 @@ if dein#tap('vimfiler.vim') "{{{
 	function! s:vimfiler_settings() abort "{{{
 		setlocal nonumber norelativenumber
 
-		nunmap <buffer> <Space>
-		nunmap <buffer> <C-l>
-		nunmap <buffer> <C-j>
-		nunmap <buffer> gr
-		nunmap <buffer> -
+		silent! nunmap <buffer> <Space>
+		silent! nunmap <buffer> <C-l>
+		silent! nunmap <buffer> <C-j>
+		silent! nunmap <buffer> gr
+		silent! nunmap <buffer> -
 
 		nnoremap <silent><buffer> gr  :<C-u>Unite grep:<C-R>=<SID>selected()<CR><CR>
 		nnoremap <silent><buffer> gf  :<C-u>Unite file_rec/async:<C-R>=<SID>selected()<CR><CR>
