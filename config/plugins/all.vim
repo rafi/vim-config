@@ -30,7 +30,7 @@ if dein#tap('unite.vim') "{{{
 		\ buffer_tab:- file file/new<CR>
 
 	" Open Unite with word under cursor or selection
-	nnoremap <silent> <Leader>gf :UniteWithCursorWord file_rec/async -profile-name=navigate<CR>
+	nnoremap <silent> <Leader>gf :UniteWithCursorWord file_rec/`has('nvim') ? 'neovim' : 'async'` -profile-name=navigate<CR>
 	nnoremap <silent> <Leader>gg :UniteWithCursorWord grep:.<CR>
 	nnoremap <silent> <Leader>gt :UniteWithCursorWord tag -start-insert<CR>
 	vnoremap <silent> <Leader>gt :<C-u>call VSetSearch('/')<CR>:execute 'Unite tag -input='.@/<CR>
@@ -95,11 +95,12 @@ if dein#tap('vimfiler.vim') "{{{
 		silent! nunmap <buffer> <C-l>
 		silent! nunmap <buffer> <C-j>
 		silent! nunmap <buffer> gr
+		silent! nunmap <buffer> gs
 		silent! nunmap <buffer> -
 
 		nnoremap <silent><buffer> gr  :<C-u>Unite grep:<C-R>=<SID>selected()<CR><CR>
-		nnoremap <silent><buffer> gf  :<C-u>Unite file_rec/async:<C-R>=<SID>selected()<CR><CR>
-		nnoremap <silent><buffer> gc  :<C-u>call <SID>change_vim_current_dir()<CR>
+		nnoremap <silent><buffer> gf  :<C-u>Unite file_rec/`has('nvim') ? 'neovim' : 'async'`:<C-R>=<SID>selected()<CR><CR>
+		nnoremap <silent><buffer> gs  :<C-u>call <SID>change_vim_current_dir()<CR>
 		nnoremap <silent><buffer><expr> sg  vimfiler#do_action('vsplit')
 		nnoremap <silent><buffer><expr> sv  vimfiler#do_action('split')
 		nmap <buffer> '      <Plug>(vimfiler_toggle_mark_current_line)
@@ -111,21 +112,18 @@ if dein#tap('vimfiler.vim') "{{{
 		nmap <buffer> <C-r>  <Plug>(vimfiler_redraw_screen)
 	endfunction "}}}
 
+	" Returns selected items, or current cursor directory position
+	" Provide an argument to limit results with an integer.
 	function! s:selected(...) " {{{
-		" Returns selected items, or current cursor directory position
-		" Provide an argument to limit results with an integer.
-		let marked_files = vimfiler#get_escaped_marked_files(b:vimfiler)
-		if empty(marked_files)
+		let marked = map(vimfiler#get_marked_files(b:vimfiler), 'v:val.action__path')
+		if empty(marked)
 			let file_dir = vimfiler#get_file_directory()
-			if empty(file_dir)
-				return '.'
-			endif
-			call add(marked_files, file_dir)
+			call add(marked, empty(file_dir) ? '.' : file_dir)
 		endif
 		if a:0 > 0
-			let marked_files = marked_files[: a:1]
+			let marked = marked[: a:1]
 		endif
-		return join(marked_files, "\n")
+		return join(marked, "\n")
 	endfunction "}}}
 
 	function! s:change_vim_current_dir() "{{{
@@ -135,8 +133,8 @@ if dein#tap('vimfiler.vim') "{{{
 			let winnr = unite#helper#choose_window()
 			execute winnr.'wincmd w'
 			execute 'lcd '.fnameescape(selected)
+			echo 'Changed local buffer working directory to `'.selected.'`'
 		endif
-
 	endfunction "}}}
 endif
 
