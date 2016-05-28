@@ -4,7 +4,7 @@
 
 if dein#tap('unite.vim') "{{{
 	let g:unite_data_directory = $VARPATH.'/unite'
-	let g:unite_source_history_yank_enable = 1
+	let g:neoyank#file = g:unite_data_directory.'/history_yank'
 
 	nnoremap <silent> [unite]r   :<C-u>UniteResume -no-start-insert -force-redraw<CR>
 	nnoremap <silent> [unite]b   :<C-u>Unite buffer file_mru bookmark<CR>
@@ -365,7 +365,7 @@ if dein#tap('vim-gitgutter') "{{{
 	nmap <Leader>hj <Plug>GitGutterNextHunk
 	nmap <Leader>hk <Plug>GitGutterPrevHunk
 	nmap <Leader>hs <Plug>GitGutterStageHunk
-	nmap <Leader>hr <Plug>GitGutterRevertHunk
+	nmap <Leader>hr <Plug>GitGutterUndoHunk
 	nmap <Leader>hp <Plug>GitGutterPreviewHunk
 endif
 
@@ -451,7 +451,7 @@ endif
 
 "}}}
 if dein#tap('vim-gista') "{{{
-	let g:gista#directory = $VARPATH.'/gista/'
+	let g:gista#client#cache_dir = $VARPATH.'/gista/'
 endif
 
 "}}}

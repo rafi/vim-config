@@ -73,6 +73,8 @@ call dein#add('mbbill/undotree', {'on_cmd': 'UndotreeToggle'})
 call dein#add('Shougo/vinarise.vim', {'on_cmd': 'Vinarise'})
 
 if $VIM_MINIMAL ==? ''
+	call dein#add('lambdalisue/vim-gista', {'on_cmd': 'Gista'})
+	call dein#add('lambdalisue/vim-gista-unite', {'on_source': 'unite.vim'})
 	call dein#add('guns/xterm-color-table.vim', {'on_cmd': 'XtermColorTable'})
 	call dein#add('itchyny/dictionary.vim', {'on_cmd': 'Dictionary'})
 	call dein#add('thinca/vim-prettyprint', {'on_cmd': 'PP', 'on_func': 'PP'})
@@ -83,10 +85,6 @@ if $VIM_MINIMAL ==? ''
 		\ 'depends': 'limelight.vim',
 		\ 'on_cmd': 'Goyo',
 		\ 'hook_add': 'source '.$VIMPATH.'/config/plugins/goyo.vim'
-		\ })
-	call dein#add('lambdalisue/vim-gista', {
-		\ 'on_cmd': 'Gista',
-		\ 'on_map': {'n': '<Plug>'}
 		\ })
 	call dein#add('vimwiki/vimwiki', {
 		\ 'on_cmd': [
@@ -188,6 +186,7 @@ call dein#add('Shougo/neoyank.vim', {'on_if': 1, 'on_source': 'unite.vim'})
 
 " Unite sources {{{
 " -------------
+call dein#add('mattn/webapi-vim', {'lazy': 1})
 call dein#add('Shougo/neossh.vim', {'on_ft': 'vimfiler', 'sources': 'ssh'})
 call dein#add('Shougo/unite-build', {'on_source': 'unite.vim'})
 call dein#add('Shougo/unite-outline', {'on_source': 'unite.vim'})
@@ -206,7 +205,6 @@ call dein#add('joker1007/unite-pull-request', {
 	\ 'depends': 'webapi-vim',
 	\ 'on_source': 'unite.vim'
 	\ })
-call dein#add('mattn/webapi-vim', {'lazy': 1})
 " }}}
 
 " }}}
