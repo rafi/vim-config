@@ -5,11 +5,6 @@
 " Enable 256 color terminal
 set t_Co=256
 
-" Enable true color
-if exists('+guicolors')
-	set guicolors
-endif
-
 " Automatic theme loading when colorscheme changes.
 let g:theme_name = 'rafi-2016'
 let g:theme_path = $VIMPATH.'/themes/'.g:theme_name.'.vim'
