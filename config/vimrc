@@ -11,7 +11,7 @@ if &compatible
 endif
 
 " Respect XDG
-if isdirectory($XDG_CONFIG_HOME.'/vim')
+if ! empty($XDG_CONFIG_HOME) && isdirectory($XDG_CONFIG_HOME.'/vim')
 	let $VIMPATH=expand('$XDG_CONFIG_HOME/vim')
 	let $VARPATH=expand('$XDG_CACHE_HOME/vim')
 else

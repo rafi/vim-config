@@ -18,7 +18,7 @@ setlocal formatoptions-=o
 setlocal formatoptions-=r
 
 " For gf
-let &l:path = expand('$VIMPATH').','.join(map(split(&runtimepath, ','), 'v:val."/autoload"'), ',')
+let &l:path = join(map(split(&runtimepath, ','), 'v:val."/autoload"'), ',')
 setlocal suffixesadd=.vim
 setlocal includeexpr=fnamemodify(substitute(v:fname,'#','/','g'),':h')
 

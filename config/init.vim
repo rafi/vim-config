@@ -31,7 +31,7 @@ endif
 
 " }}}
 " Respect XDG specification {{{
-if isdirectory($XDG_CONFIG_HOME.'/vim')
+if ! empty($XDG_CONFIG_HOME) && isdirectory($XDG_CONFIG_HOME.'/vim')
 	let $MYVIMRC=expand('$XDG_CONFIG_HOME/vim/config/vimrc')
 	if has('nvim')
 		" For Neovim, use .config/vim instead of .config/nvim
