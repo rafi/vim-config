@@ -25,6 +25,9 @@ augroup MyAutoCmd " {{{
 		\ |   filetype detect
 		\ | endif
 
+	autocmd FileType help
+		\ setlocal iskeyword+=: | setlocal iskeyword+=# | setlocal iskeyword+=-
+
 	autocmd FileType crontab setlocal nobackup nowritebackup
 
 	autocmd FileType gitcommit setlocal spell

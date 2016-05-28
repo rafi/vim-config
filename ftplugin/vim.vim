@@ -14,8 +14,6 @@ setlocal iskeyword+=:,#
 setlocal foldenable
 setlocal foldmethod=marker
 setlocal keywordprg=:help
-setlocal formatoptions-=o
-setlocal formatoptions-=r
 
 " For gf
 let &l:path = join(map(split(&runtimepath, ','), 'v:val."/autoload"'), ',')
