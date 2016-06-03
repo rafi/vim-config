@@ -129,19 +129,17 @@ call unite#custom#profile('navigate,source/grep,source/tag', 'context', {
 	\ })
 
 " }}}
-" Filters {{{
+" Matches, converters, and filters {{{
 
 call unite#custom#source(
-  \ 'buffer,file_rec,file_rec/async,file_rec/git,file_rec/neovim,neomru/file',
-       \ 'matchers',
-  \ ['converter_relative_word', 'matcher_fuzzy'])
+	\ 'buffer,file_rec,file_rec/async,file_rec/git,file_rec/neovim,neomru/file',
+	\ 'matchers',
+	\ ['converter_relative_word', 'matcher_fuzzy'])
 
 call unite#custom#source(
-  \ 'file_rec,file_rec/async,file_rec/neovim,file_mru,neomru/file',
-       \ 'converters',
-  \ ['converter_file_directory'])
-
-"call unite#custom#source('tag', 'converters', ['converter_file_directory'])
+	\ 'file_rec,file_rec/async,file_rec/neovim,file_mru,neomru/file',
+	\ 'converters',
+	\ ['converter_file_directory'])
 
 call unite#filters#sorter_default#use(['sorter_rank'])
 
