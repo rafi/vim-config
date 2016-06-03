@@ -134,8 +134,8 @@ call dein#add('Shougo/neosnippet.vim', {
 	\ 'on_ft': 'snippet'
 	\ })
 call dein#add('Shougo/echodoc.vim', {
-	\ 'on_event': 'InsertCharPre',
-	\ 'hook_add': 'let g:echodoc_enable_at_startup = 1'
+	\ 'on_event': 'CompleteDone',
+	\ 'hook_source': 'call echodoc#enable()'
 	\ })
 call dein#add('Shougo/context_filetype.vim', {'lazy': 1})
 call dein#add('Raimondi/delimitMate', {

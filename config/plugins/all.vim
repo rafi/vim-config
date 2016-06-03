@@ -183,11 +183,6 @@ if dein#tap('tmux-complete.vim') "{{{
 endif
 
 "}}}
-if dein#tap('echodoc.vim') "{{{
-	let g:echodoc_enable_at_startup = 1
-endif
-
-"}}}
 if dein#tap('vim-unite-issue') "{{{
 	let g:unite_source_issue_file_dir = '~/docs/issues'
 	let g:unite_source_issue_jira_priority_table = {
@@ -322,7 +317,6 @@ endif
 
 "}}}
 if dein#tap('jedi-vim') "{{{
-	let g:jedi#force_py_version = 3
 	let g:jedi#completions_enabled = 0
 	let g:jedi#auto_vim_configuration = 0
 	let g:jedi#smart_auto_mappings = 0
@@ -340,7 +334,6 @@ if dein#tap('jedi-vim') "{{{
 	let g:jedi#usages_command = '<leader>n'
 
 	if ! has('nvim')
-		setlocal completeopt=menuone,longest
 		autocmd MyAutoCmd FileType python
 			\ if has('python') || has('python3') |
 			\   setlocal omnifunc=jedi#completions |

@@ -3,18 +3,14 @@
 
 autocmd MyAutoCmd CompleteDone * pclose!
 
-set completeopt+=noinsert,noselect
-
-let g:deoplete#enable_refresh_always = 1
+"let g:deoplete#enable_refresh_always = 1
 let g:deoplete#enable_camel_case = 1
-let g:deoplete#auto_complete_start_length = 2
+"let g:deoplete#auto_complete_start_length = 3
 
 let g:deoplete#keyword_patterns = {}
 let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
 
 let g:deoplete#sources#go = 'vim-go'
-let g:deoplete#sources#jedi#enable_cache = 1
-let g:deoplete#sources#jedi#statement_length = 30
 
 let g:deoplete#sources#jedi#enable_cache = 1
 let g:deoplete#sources#jedi#statement_length = 30

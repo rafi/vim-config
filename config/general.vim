@@ -159,6 +159,7 @@ set cpoptions-=m    " showmatch will wait 0.5s or until a char is typed
 " }}}
 " Behavior {{{
 " --------
+set nowrap                      " No wrap by default
 set linebreak                   " Break long lines at 'breakat'
 set breakat=\ \	;:,!?           " Long lines break chars
 set nostartofline               " Cursor in same column for few commands
@@ -168,9 +169,12 @@ set switchbuf=usetab,split      " Switch buffer behavior
 set backspace=indent,eol,start  " Intuitive backspacing in insert mode
 set diffopt=filler,iwhite       " Diff mode: show fillers, ignore white
 set showfulltag                 " Show tag and tidy search in completion
-set completeopt=menuone         " Show menu even for one item
 set complete=.                  " No wins, buffs, tags, include scanning
-set nowrap                      " No wrap by default
+set completeopt=menuone         " Show menu even for one item
+set completeopt+=noselect       " Do not select a match in the menu
+if has('patch-7.4.775')
+	set completeopt+=noinsert
+endif
 
 " }}}
 " Editor UI Appearance {{{

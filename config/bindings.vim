@@ -210,13 +210,13 @@ augroup MyAutoCmd " {{{
 		autocmd FileType markdown
 			\ nnoremap <Leader>P :silent !open -a Marked\ 2.app '%:p'<CR>:redraw!<CR>
 		" Use Dash on Mac, for context help
-		autocmd FileType ansible,go,python,php,css,less,html,markdown
+		autocmd FileType ansible,go,php,css,less,html,markdown
 			\ nnoremap <silent><buffer> K :!open -g dash://"<C-R>=&ft<CR>:<cword>"&<CR><CR>
 		autocmd FileType javascript,sql,ruby,conf,sh
 			\ nnoremap <silent><buffer> K :!open -g dash://"<cword>"&<CR><CR>
 	else
 		" Use Zeal on Linux for context help
-		autocmd FileType ansible,go,python,php,css,less,html,markdown
+		autocmd FileType ansible,go,php,css,less,html,markdown
 			\ nnoremap <silent><buffer> K :!zeal --query "<C-R>=&ft<CR>:<cword>"&<CR><CR>
 		autocmd FileType javascript,sql,ruby,conf,sh
 			\ nnoremap <silent><buffer> K :!zeal --query "<cword>"&<CR><CR>
