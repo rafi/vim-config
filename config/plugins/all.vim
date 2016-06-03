@@ -259,7 +259,8 @@ if dein#tap('vim-signature') "{{{
 	let g:SignatureMarkTextHLDynamic = 1
 	let g:SignatureMarkerTextHLDynamic = 1
 	let g:SignaturePurgeConfirmation = 1
-	let g:SignatureDeleteConfirmation = 1
+	let g:SignatureDeleteConfirmation = 0
+	let g:SignatureForceRemoveGlobal = 1
 	let g:signature_set_location_list_convenience_maps = 0
 	let g:SignatureMap = {
 		\ 'ListBufferMarks':   'm/',
