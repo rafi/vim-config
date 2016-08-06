@@ -107,7 +107,7 @@ call dein#add('Shougo/tabpagebuffer.vim', {'on_if': 'tabpagenr() > 1'})
 call dein#add('rhysd/committia.vim', {'on_path': 'COMMIT_EDITMSG'})
 call dein#add('itchyny/thumbnail.vim', {'on_cmd': 'Thumbnail'})
 call dein#add('Konfekt/FastFold', {
-	\ 'on_event': 'InsertEnter',
+	\ 'on_event': 'BufEnter',
 	\ 'hook_post_source': 'FastFoldUpdate'
 	\ })
 

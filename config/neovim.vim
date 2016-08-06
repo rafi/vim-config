@@ -12,8 +12,3 @@ if isdirectory($VARPATH.'/venv/neovim3')
 endif
 
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
-
-" Enable true color
-if exists('+termguicolors')
-	set termguicolors
-endif
