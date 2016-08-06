@@ -55,7 +55,7 @@ function! Tabline() abort "{{{
 	endfor
 	" Empty space and session indicator
 	let s:tabline .=
-		\ '%#TabLineFill#%T%=%#TabLine#%{block#session("[S]")}'
+		\ '%#TabLineFill#%T%=%#TabLine#%{block#session("['.fnamemodify(v:this_session, ':t:r').']")}'
 	return s:tabline
 endfunction "}}}
 
