@@ -140,6 +140,14 @@ call unite#custom#source(
 	\ 'file_rec,file_rec/async,file_rec/neovim,file_mru,neomru/file',
 	\ 'converters',
 	\ ['converter_file_directory'])
+"	\ ['converter_uniq_word'])
+
+"call unite#custom#source(
+"	\ 'buffer',
+"	\ 'converters',
+"	\ ['converter_uniq_word', 'converter_word_abbr'])
+
+"call unite#custom#source('tag', 'converters', ['converter_file_directory'])
 
 call unite#filters#sorter_default#use(['sorter_rank'])
 

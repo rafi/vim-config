@@ -25,6 +25,26 @@ let g:deoplete#omni_patterns.php =
 
 let g:deoplete#omni#input_patterns = get(g:, 'deoplete#omni#input_patterns', {})
 let g:deoplete#omni#input_patterns.python = ''
+let g:deoplete#omni#input_patterns.javascript = '[^. \t]\.\%\(\h\w*\)\?'
+let g:deoplete#omni#input_patterns.php =
+	\ '\w+|[^. \t]->\w*|\w+::\w*'
+
+let g:deoplete#member#prefix_patterns = get(g:, 'deoplete#member#prefix_patterns', {})
+let g:deoplete#member#prefix_patterns.javascript = ['\.']
+
+let g:deoplete#tag#cache_limit_size = 5000000
+"let g:deoplete#ignore_sources = {'_': ['tag']}
+
+" call deoplete#custom#set('buffer', 'mark', '')
+" call deoplete#custom#set('_', 'matchers', ['matcher_head'])
+" call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
+" call deoplete#custom#set('_', 'disabled_syntaxes', ['Comment', 'String'])
+" call deoplete#custom#set('buffer', 'mark', '*')
+"
+" Use auto delimiter
+" call deoplete#custom#set('_', 'converters',
+"		\ ['converter_auto_paren',
+"		\  'converter_auto_delimiter', 'remove_overlap'])
 
 call deoplete#custom#set('_', 'converters', [
 	\ 'converter_remove_paren',
@@ -45,19 +65,19 @@ imap     <expr><C-d> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
 imap     <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
 
 " Undo completion
-inoremap <expr><C-g> deoplete#mappings#undo_completion()
+inoremap <expr><C-g> deoplete#undo_completion()
 
 " Redraw candidates
-inoremap <expr><C-l> deoplete#mappings#refresh()
+inoremap <expr><C-l> deoplete#refresh()
 
 " <C-h>, <BS>: close popup and delete backword char.
-"inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
-"inoremap <expr><BS>  deoplete#mappings#smart_close_popup()."\<C-h>"
+"inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+"inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
 
 " <CR>: If popup menu visible, expand snippet or close popup with selection,
 "       Otherwise, check if within empty pair and use delimitMate.
 imap <silent><expr><CR> pumvisible() ?
-	\ (neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : deoplete#mappings#close_popup())
+	\ (neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : deoplete#close_popup())
 		\ : (delimitMate#WithinEmptyPair() ? "\<Plug>delimitMateCR" : "\<CR>")
 
 " <Tab> completion:
@@ -68,12 +88,12 @@ imap <silent><expr><CR> pumvisible() ?
 imap <silent><expr><Tab> pumvisible() ? "\<C-n>"
 	\ : (neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)"
 	\ : (<SID>is_whitespace() ? "\<Tab>"
-	\ : deoplete#mappings#manual_complete()))
+	\ : deoplete#manual_complete()))
 
 smap <silent><expr><Tab> pumvisible() ? "\<C-n>"
 	\ : (neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)"
 	\ : (<SID>is_whitespace() ? "\<Tab>"
-	\ : deoplete#mappings#manual_complete()))
+	\ : deoplete#manual_complete()))
 
 inoremap <expr><S-Tab>  pumvisible() ? "\<C-p>" : "\<C-h>"
 
