@@ -41,10 +41,6 @@ if exists('$TMUX') "{{{
 	execute "set <F11>=\e[23;*~"
 	execute "set <F12>=\e[24;*~"
 
-	" Hijack Vim unused keymaps for URxvt special key-codes
-	execute "set <F13>=<S-Return>"
-	execute "set <F14>=<C-Return>"
-
 	execute "set t_kP=^[[5;*~"
 	execute "set t_kN=^[[6;*~"
 

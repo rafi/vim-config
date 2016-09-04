@@ -5,8 +5,9 @@
 " gVim Appearance {{{
 " ---------------------------------------------------------
 if has('gui_running')
-	set guifont=PragmataPro:h17
-	set noantialias
+	set guifont=Monaco:h14
+"	set guifont=PragmataPro:h14
+"	set noantialias
 endif
 " }}}
 
@@ -120,6 +121,9 @@ augroup END "}}}
 " Highlights: General GUI {{{
 " ---------------------------------------------------------
 highlight! Error  term=NONE cterm=NONE
+highlight! link mkdLineBreak      NONE
+highlight! link pythonSpaceError  NONE
+highlight! link pythonIndentError NONE
 highlight! link ExtraWhitespace  SpellBad
 highlight! link WarningMsg  Comment
 " }}}
@@ -133,6 +137,14 @@ let g:vimfiler_tree_closed_icon = '▷'
 let g:vimfiler_file_icon = ' '
 let g:vimfiler_readonly_file_icon = '⭤'
 let g:vimfiler_marked_file_icon = '✓'
+"}}}
+
+" Plugin: Neomake icons {{{
+" ---------------------------------------------------------
+let g:neomake_error_sign = {'text': '✖', 'texthl': 'ErrorMsg'}
+let g:neomake_warning_sign = {'text': '▷', 'texthl': 'WarningMsg'}
+let g:neomake_message_sign = {'text': '➤', 'texthl': 'NeomakeMessageSign'}
+let g:neomake_info_sign = {'text': 'ℹ', 'texthl': 'NeomakeInfoSign'}
 "}}}
 
 " Plugin: GitGutter icons {{{
