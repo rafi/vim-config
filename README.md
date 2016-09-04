@@ -38,8 +38,8 @@ Once cloned,
 
 1. Enter the directory you've cloned into
 2. Run `make test` to make sure you have required dependencies
-3. Run `make install`
-4. Start `nvim` or `vim`.
+3. Run `make`
+4. That's it! Start `nvim` or `vim`.
 
 ## Upgrade
 

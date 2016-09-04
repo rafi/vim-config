@@ -5,8 +5,8 @@ XDG_CACHE_HOME ?= $(HOME)/.cache
 default: install
 
 install:
-	@mkdir -p "$(XDG_CACHE_HOME)/vim/"{backup,session,swap,tags,undo,view}; \
-	$(vim) +q
+	@mkdir -vp "$(XDG_CACHE_HOME)/vim/"{backup,session,swap,tags,undo,view}; \
+	$(vim) -c 'call dein#recache_runtimepath() | echo "Installation complete!"' +q
 
 update:
 	@git pull --ff --ff-only; \
@@ -41,4 +41,4 @@ endif
 	@echo All tests passed, hooray!
 
 
-.PHONY: install update upgrade uninstall test default
+.PHONY: install update upgrade uninstall test
