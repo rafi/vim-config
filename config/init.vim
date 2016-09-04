@@ -53,7 +53,7 @@ if &runtimepath !~# '/dein.vim'
 		execute '!git clone https://github.com/Shougo/dein.vim' s:dein_dir
 	endif
 
-	execute 'set runtimepath^='.substitute(
+	execute 'set runtimepath+='.substitute(
 		\ fnamemodify(s:dein_dir, ':p') , '/$', '', '')
 endif
 

@@ -23,32 +23,63 @@ function! s:source_file(path) abort
 	execute 'source' fnameescape($VIMPATH.'/config/'.a:path)
 endfunction
 
+function! s:lazy_load_filetype() abort
+	if &l:filetype ==# '' && bufname('%') ==# ''
+		return
+	endif
+
+	redir => filetype_out
+	silent! filetype
+	redir END
+	if filetype_out =~# 'OFF'
+		silent! filetype plugin indent on
+		syntax enable
+		filetype detect
+	endif
+endfunction "}}}
+
 " Set augroup
 augroup MyAutoCmd
 	autocmd!
+"	autocmd MyAutoCmd FileType,Syntax,BufNewFile,BufNew,BufRead
+"		\ * call s:lazy_load_filetype()
 augroup END
 
 " Initialize base requirements
 if has('vim_starting')
 	call s:source_file('init.vim')
+	if has('nvim')
+		call s:source_file('neovim.vim')
+	endif
 endif
 
 " Initialize dein.vim (package manager)
 let s:path = expand('$VARPATH/dein')
 if dein#load_state(s:path)
-	call dein#begin(s:path, [expand('<sfile>'), expand('$VIMPATH/config/plugins.vim')])
+	call dein#begin(s:path, [
+		\ expand('<sfile>'),
+		\ expand('$VIMPATH/config/plugins.vim')
+		\ ])
 	call s:source_file('plugins.vim')
+
 	if isdirectory(expand('$VIMPATH/dev'))
 		call dein#local(expand('$VIMPATH/dev'), {'frozen': 1, 'merged': 0})
 	endif
 	call dein#local(dein#get('awesome-vim-colorschemes').path)
 	call dein#end()
 	call dein#save_state()
-	if has('vim_starting') && dein#check_install()
+	if dein#check_install()
 		if ! has('nvim')
 			set nomore
 		endif
 		call dein#install()
+		" After initial installation, the colorschemes are not registered.
+		" Bug in dein.vim?
+		if &runtimepath !~# '/awesome-vim-colorschemes'
+			let s:theme = dein#get('awesome-vim-colorschemes').path.'/hybrid'
+			execute 'set runtimepath+='.
+				\ substitute(fnamemodify(s:theme, ':p') , '/$', '', '')
+		endif
 	endif
 endif
 
@@ -57,22 +88,19 @@ call s:source_file('plugins/all.vim')
 if ! has('vim_starting')
 	call dein#call_hook('source')
 	call dein#call_hook('post_source')
-endif
 
-filetype plugin indent on
-syntax enable
+	filetype plugin indent on
+	syntax enable
+endif
 
 " Loading configuration modules {{{
 call s:source_file('general.vim')
 call s:source_file('theme.vim')
 call s:source_file('filetype.vim')
+call s:lazy_load_filetype()
 call s:source_file('terminal.vim')
 call s:source_file('utils.vim')
 call s:source_file('bindings.vim')
-
-if has('nvim')
-	call s:source_file('neovim.vim')
-endif
 " }}}
 
 set secure
