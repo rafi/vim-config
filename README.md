@@ -7,14 +7,16 @@ Best with Neovim or Vim 7.4+ with +lua +python extensions enabled.
 ## Features
 
 - Neovim-centric
+- Fast startup time
 - Robust, yet light weight
 - Lazy-load 90% of plugins with [dein.vim]
 - Modular configuration
 - Unite centric work-flow
-- Extensive Neocomplete setup
-- Central location for tags
+- Extensive Deoplete and Neocomplete setup
 - Lightweight simple status/tabline
+- Easy customizable theme
 - Premium color-schemes
+- Central location for tags
 
 ## Screenshot
 
@@ -27,7 +29,12 @@ mkdir -p "${XDG_CONFIG_HOME:=$HOME/.config}"
 git clone git://github.com/rafi/vim-config.git "${XDG_CONFIG_HOME:=$HOME/.config}/nvim"
 ```
 
-Or, if you are using Vim: `git clone git://github.com/rafi/vim-config.git ~/.vim`
+Or, if you are using Vim:
+```sh
+git clone git://github.com/rafi/vim-config.git ~/.vim
+```
+
+Once cloned,
 
 1. Enter the directory you've cloned into
 2. Run `make test` to make sure you have required dependencies
