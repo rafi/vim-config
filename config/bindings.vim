@@ -5,39 +5,27 @@
 " Non-standard {{{
 " ------------
 
-" Window prefix
+" Window control prefix
 nnoremap  [Window]   <Nop>
 nmap      s [Window]
 
-" Unite prefix
+" Unite control prefix
 nnoremap [unite]  <Nop>
 xnoremap [unite]  <Nop>
 nmap     ; [unite]
 xmap     ; [unite]
 
-" Verbose
+" Fix keybind name for Ctrl+Spacebar
 map <Nul> <C-Space>
 map! <Nul> <C-Space>
 
-" Map unused Vim commands to custom terminal bindings
-map <F13> <S-Return>
-map <F14> <C-Return>
-map! <F13> <S-Return>
-map! <F14> <C-Return>
-
+" Disable arrow movement, resize splits instead.
 if get(g:, 'elite_mode')
-	" Arrows resize splits
 	nnoremap <Up>    :resize +2<CR>
 	nnoremap <Down>  :resize -2<CR>
 	nnoremap <Left>  :vertical resize +2<CR>
 	nnoremap <Right> :vertical resize -2<CR>
 endif
-
-" Enable yanking straight to OS clipboard, but not cut.
-"if ( ! has('nvim') || $DISPLAY !=? '') && has('clipboard')
-"	xnoremap <silent> y "*y:let [@+,@"]=[@*,@*]<CR>
-"endif
-"nnoremap x "_x
 
 " Double leader key for toggling visual-line mode
 nmap <Leader><Leader> V
@@ -45,6 +33,7 @@ vmap <Leader><Leader> <Esc>
 
 " Toggle fold
 nnoremap <CR> za
+
 " Focus the current fold by closing all others
 nnoremap <S-Return> zMza
 
@@ -56,24 +45,21 @@ xmap <BS> %
 " Global niceties {{{
 " ---------------
 
-" I do not use clipboard=unnamed, these
-" yank and paste from X11's clipboard.
-vmap <Leader>y "+y
-vmap <Leader>d "+d
-nmap <Leader>p "+p
-nmap <Leader>P "+P
-vmap <Leader>p "+p
-vmap <Leader>P "+P
-
 " Start an external command with a single bang
 nnoremap ! :!
 
-" Allow misspellings when :wq
-cabbrev Wq :wq
-cabbrev qw :wq
-cabbrev Qa :qa
+" Allow misspellings
+cnoreabbrev qw wq
+cnoreabbrev Wq wq
+cnoreabbrev WQ wq
+cnoreabbrev Q q
+cnoreabbrev Qa qa
+cnoreabbrev Bd bd
+cnoreabbrev bD bd
+cnoreabbrev t tabe
+cnoreabbrev T tabe
 
-" Start new line
+" Start new line from any cursor position
 inoremap <S-Return> <C-o>o
 
 " Quick substitute within selected area
@@ -112,9 +98,13 @@ nnoremap  Q <Nop>
 nnoremap gQ <Nop>
 
 " Navigation in command line
-cnoremap <C-a> <Home>
-cnoremap <C-b> <Left>
+cnoremap <C-j> <Left>
+cnoremap <C-k> <Right>
+cnoremap <C-h> <Home>
+cnoremap <C-l> <End>
 cnoremap <C-f> <Right>
+cnoremap <C-b> <Left>
+cnoremap <C-d> <C-w>
 
 " }}}
 " File operations {{{
@@ -192,7 +182,7 @@ nnoremap <Leader>S ^vg_y:execute @@<CR>:echo 'Sourced line.'<CR>
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 
 " Yank buffer's absolute path to X11 clipboard
-nnoremap <C-c> :let @+=expand("%:p")<CR>:echo 'Copied to clipboard.'<CR>
+nnoremap <Leader>y :let @+=expand("%:p")<CR>:echo 'Copied to clipboard.'<CR>
 
 " Drag current line/s vertically and auto-indent
 noremap  <Leader>mk :m-2<CR>==
@@ -210,15 +200,15 @@ augroup MyAutoCmd " {{{
 		autocmd FileType markdown
 			\ nnoremap <Leader>P :silent !open -a Marked\ 2.app '%:p'<CR>:redraw!<CR>
 		" Use Dash on Mac, for context help
-		autocmd FileType ansible.yaml,go,php,css,less,html,markdown
+		autocmd FileType ansible,go,php,css,less,html,markdown
 			\ nnoremap <silent><buffer> K :!open -g dash://"<C-R>=split(&ft, '\.')[0]<CR>:<cword>"&<CR><CR>
-		autocmd FileType javascript,sql,ruby,conf,sh
+		autocmd FileType javascript,javascript.jsx,sql,ruby,conf,sh
 			\ nnoremap <silent><buffer> K :!open -g dash://"<cword>"&<CR><CR>
 	else
 		" Use Zeal on Linux for context help
-		autocmd FileType ansible.yaml,go,php,css,less,html,markdown
+		autocmd FileType ansible,go,php,css,less,html,markdown
 			\ nnoremap <silent><buffer> K :!zeal --query "<C-R>=split(&ft, '\.')[0]<CR>:<cword>"&<CR><CR>
-		autocmd FileType javascript,sql,ruby,conf,sh
+		autocmd FileType javascript,javascript.jsx,sql,ruby,conf,sh
 			\ nnoremap <silent><buffer> K :!zeal --query "<cword>"&<CR><CR>
 	endif
 
@@ -226,22 +216,19 @@ augroup END
 " }}}
 
 " s: Windows and buffers {{{
-" Credits: https://github.com/Shougo/shougo-s-github
 
-nnoremap <silent> <Tab>      :wincmd w<CR>
-nnoremap <silent> [Window]p  :<C-u>vsplit<CR>:wincmd w<CR>
 nnoremap <silent> [Window]v  :<C-u>split<CR>
 nnoremap <silent> [Window]g  :<C-u>vsplit<CR>
 nnoremap <silent> [Window]t  :tabnew<CR>
 nnoremap <silent> [Window]o  :<C-u>only<CR>
+nnoremap <silent> [Window]b  :b#<CR>
+nnoremap <silent> [Window]c  :close<CR>
 nnoremap <silent> [Window]x  :<C-u>call <SID>BufferEmpty()<CR>
-nnoremap <silent> [Window]\  :b#<CR>
-nnoremap <silent> [Window]q  :close<CR>
-nnoremap <silent><expr> q winnr('$') != 1 ? ':<C-u>close<CR>' : ""
+nnoremap <silent><expr> q winnr('$') != 1 ? ':<C-u>close<CR>' : ''
 
 " Split current buffer, go to previous window and previous buffer
-nnoremap <Leader>sv :split<CR>:wincmd p<CR>:e#<CR>
-nnoremap <Leader>sg :vsplit<CR>:wincmd p<CR>:e#<CR>
+nnoremap <silent> [Window]sv :split<CR>:wincmd p<CR>:e#<CR>
+nnoremap <silent> [Window]sg :vsplit<CR>:wincmd p<CR>:e#<CR>
 
 function! s:BufferEmpty() "{{{
 	let l:current = bufnr('%')
