@@ -8,11 +8,16 @@ endif
 
 augroup filetypedetect " {{{
 
-	autocmd BufNewFile,BufRead */inventory/*        setf ansible
-	autocmd BufNewFile,BufRead */playbooks/*/*.yml  setf ansible
+	autocmd BufNewFile,BufReadPost *.feature,*.story setf cucumber
 
-	autocmd BufNewFile,BufRead *.j2                 setf jinja
-	autocmd BufNewFile,BufRead Tmuxfile,tmux/config setf tmux
+	autocmd BufNewFile,BufRead */inventory/*         setf ansible
+	autocmd BufNewFile,BufRead */playbooks/*/*.yml   setf ansible
+
+	autocmd BufNewFile,BufRead .tern-project         setf json
+
+	autocmd BufNewFile,BufRead Tmuxfile,tmux/config  setf tmux
+
+"	autocmd BufNewFile,BufRead *.j2                  setf jinja
 
 augroup END " }}}
 

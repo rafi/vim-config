@@ -34,6 +34,9 @@ augroup MyAutoCmd " {{{
 
 	autocmd FileType gitcommit,qfreplace setlocal nofoldenable
 
+	" https://webpack.github.io/docs/webpack-dev-server.html#working-with-editors-ides-supporting-safe-write
+	autocmd FileType html,css,jsx,javascript.jsx setlocal backupcopy=yes
+
 	autocmd FileType zsh setlocal foldenable foldmethod=marker
 
 	" Improved include pattern

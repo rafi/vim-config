@@ -162,7 +162,7 @@ if dein#tap('neosnippet.vim') "{{{
 				\$VIMPATH.'/snippets,'
 				\.dein#get('neosnippet-snippets').path.'/neosnippets,'
 				\.dein#get('mpvim').path.'/snippets,'
-				\.dein#get('vim-ansible-yaml').path.'/snippets,'
+				\.dein#get('ansible-vim').path.'/UltiSnips,'
 				\.dein#get('vim-go').path.'/gosnippets/snippets'
 
 	imap <expr><C-o> neosnippet#expandable_or_jumpable()
@@ -175,6 +175,18 @@ endif
 if dein#tap('neomru.vim') "{{{
 	let g:neomru#file_mru_path = $VARPATH.'/unite/mru/file'
 	let g:neomru#directory_mru_path  = $VARPATH.'/unite/mru/directory'
+endif
+
+"}}}
+if dein#tap('emmet-vim') "{{{
+	let g:use_emmet_complete_tag = 0
+	let g:user_emmet_install_global = 0
+	let g:user_emmet_install_command = 0
+	let g:user_emmet_mode = 'i'
+
+	autocmd MyAutoCmd FileType html,css,jsx,javascript.jsx
+		\ EmmetInstall
+		\ | imap <buffer> <C-Return> <Plug>(emmet-expand-abbr)
 endif
 
 "}}}
@@ -228,11 +240,9 @@ endif
 
 "}}}
 if dein#tap('committia.vim') "{{{
-	let g:committia_min_window_width = 80
+	let g:committia_min_window_width = 70
 	let g:committia_hooks = {}
 	function! g:committia_hooks.edit_open(info)
-		setlocal spell
-
 		" If no commit message, start with insert mode
 		if a:info.vcs ==# 'git' && getline(1) ==# ''
 			resize 4
@@ -285,6 +295,14 @@ if dein#tap('vim-signature') "{{{
 		\ 'GotoNextLineByPos': '',
 		\ 'GotoPrevLineByPos': ''
 		\ }
+endif
+
+"}}}
+if dein#tap('vim-peekaboo') "{{{
+	nnoremap <buffer> <silent> " :<c-u>call peekaboo#peek(v:count1, 'quote',  0)<cr>
+	xnoremap <buffer> <silent> " :<c-u>call peekaboo#peek(v:count1, 'quote',  1)<cr>
+	nnoremap <buffer> <silent> @ :<c-u>call peekaboo#peek(v:count1, 'replay', 0)<cr>
+	inoremap <buffer> <silent> <c-r> <c-o>:call peekaboo#peek(1, 'ctrl-r',  0)<cr>
 endif
 
 "}}}
@@ -351,6 +369,11 @@ if dein#tap('tern_for_vim') "{{{
 endif
 
 "}}}
+if dein#tap('javascript-libraries-syntax.vim') "{{{
+	let g:used_javascript_libs = 'jquery,flux,underscore,backbone,react'
+endif
+
+"}}}
 if dein#tap('vim-gitgutter') "{{{
 "	let g:gitgutter_realtime = 1
 "	let g:gitgutter_eager = 0
@@ -365,15 +388,14 @@ endif
 
 "}}}
 if dein#tap('neomake') "{{{
-	let g:neomake_verbose = 0
 	autocmd MyAutoCmd BufWritePost * call <SID>neomake_custom()
 	function! s:neomake_custom()
 		let filetypes = [
-			\   'python', 'php', 'ruby', 'vim', 'go', 'sh',
-			\   'html', 'javascript', 'css', 'yaml'
+			\   'ansible', 'python', 'php', 'ruby', 'vim', 'go', 'sh',
+			\   'html', 'javascript', 'javascript.jsx', 'css', 'yaml'
 			\ ]
 
-		if empty(&buftype) && index(filetypes, &ft) > -1
+		if empty(&buftype) && index(filetypes, &filetype) > -1
 			Neomake
 		endif
 	endfunction
@@ -416,7 +438,9 @@ endif
 "}}}
 if dein#tap('vim-markdown') "{{{
 	let g:vim_markdown_initial_foldlevel = 5
+	let g:vim_markdown_new_list_item_indent = 2
 	let g:vim_markdown_frontmatter = 1
+	let g:vim_markdown_conceal = 0
 endif
 
 "}}}
@@ -451,6 +475,24 @@ endif
 "}}}
 if dein#tap('undotree') "{{{
 	nnoremap <Leader>gu  :UndotreeToggle<CR>
+endif
+
+"}}}
+if dein#tap('vim-findent') "{{{
+	augroup findent
+		autocmd!
+		autocmd BufRead *.js*,*.html,*.css,.tern*
+			\ call s:setupFindent()
+	augroup END
+
+	function! s:setupFindent()
+		execute 'Findent! --no-warnings'
+		if &expandtab
+			IndentGuidesEnable
+		else
+			IndentGuidesDisable
+		endif
+	endfunction
 endif
 
 "}}}
@@ -503,15 +545,25 @@ if dein#tap('vim-indent-guides') "{{{
 endif
 
 "}}}
-if dein#tap('vim-asterisk') "{{{
-	map *   <Plug>(asterisk-*)
-	map #   <Plug>(asterisk-#)
-	map g*  <Plug>(asterisk-g*)
-	map g#  <Plug>(asterisk-g#)
-	map z*  <Plug>(asterisk-z*)
-	map gz* <Plug>(asterisk-gz*)
-	map z#  <Plug>(asterisk-z#)
-	map gz# <Plug>(asterisk-gz#)
+if dein#tap('GoldenView.Vim') "{{{
+	let g:goldenview__enable_default_mapping = 0
+	" Split to tiled windows
+	nmap <silent> [Window]p  <Plug>GoldenViewSplit
+
+	" Quickly switch current window with the main pane and toggle back
+	nmap <silent> [Window]m  <Plug>GoldenViewSwitchMain
+	nmap <silent> [Window]w  <Plug>GoldenViewSwitchToggle
+
+	" Jump to next and previous window
+	nmap <silent> <Tab>    <Plug>GoldenViewNext
+	nmap <silent> <S-Tab>  <Plug>GoldenViewPrevious
+endif
+
+"}}}
+if dein#tap('vim-anzu') "{{{
+	let g:anzu_status_format = 'match %i of %l'
+
+	autocmd MyAutoCmd CursorMoved * call anzu#clear_search_status()
 endif
 
 "}}}
@@ -521,8 +573,19 @@ if dein#tap('incsearch.vim') "{{{
 	map /  <Plug>(incsearch-forward)
 	map ?  <Plug>(incsearch-backward)
 	map g/ <Plug>(incsearch-stay)
-	map n  <Plug>(incsearch-nohl-n)
-	map N  <Plug>(incsearch-nohl-N)
+
+	map n <Plug>(incsearch-nohl)<Plug>(anzu-n)
+	map N <Plug>(incsearch-nohl)<Plug>(anzu-N)
+
+	map *   <Plug>(incsearch-nohl)<Plug>(asterisk-*)<Plug>(anzu-update-search-status)
+	map g*  <Plug>(incsearch-nohl)<Plug>(asterisk-g*)<Plug>(anzu-update-search-status)
+	map #   <Plug>(incsearch-nohl)<Plug>(asterisk-#)<Plug>(anzu-update-search-status)
+	map g#  <Plug>(incsearch-nohl)<Plug>(asterisk-g#)<Plug>(anzu-update-search-status)
+
+	map z*  <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)<Plug>(anzu-update-search-status)
+	map gz* <Plug>(incsearch-nohl0)<Plug>(asterisk-gz*)<Plug>(anzu-update-search-status)
+	map z#  <Plug>(incsearch-nohl0)<Plug>(asterisk-z#)<Plug>(anzu-update-search-status)
+	map gz# <Plug>(incsearch-nohl0)<Plug>(asterisk-gz#)<Plug>(anzu-update-search-status)
 endif
 
 "}}}
