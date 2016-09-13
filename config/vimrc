@@ -24,10 +24,6 @@ function! s:source_file(path) abort
 endfunction
 
 function! s:lazy_load_filetype() abort
-	if &l:filetype ==# '' && bufname('%') ==# ''
-		return
-	endif
-
 	redir => filetype_out
 	silent! filetype
 	redir END
@@ -36,13 +32,11 @@ function! s:lazy_load_filetype() abort
 		syntax enable
 		filetype detect
 	endif
-endfunction "}}}
+endfunction
 
 " Set augroup
 augroup MyAutoCmd
 	autocmd!
-"	autocmd MyAutoCmd FileType,Syntax,BufNewFile,BufNew,BufRead
-"		\ * call s:lazy_load_filetype()
 augroup END
 
 " Initialize base requirements
