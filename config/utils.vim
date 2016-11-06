@@ -4,8 +4,8 @@
 " Autocommands {{{
 augroup MyAutoCmd
 
-	" Check timestamp on window enter. More eager than 'autoread'
-	autocmd WinEnter * checktime
+	" More eager than 'autoread'.
+	autocmd WinEnter,FocusGained * checktime
 
 	" If session is loaded, write session file on quit
 	autocmd VimLeavePre *
@@ -39,7 +39,7 @@ augroup MyAutoCmd
 
 	" Fix window position of help/quickfix
 	autocmd FileType help if &l:buftype ==# 'help'
-		\ | wincmd K | endif
+		\ | wincmd L | endif
 	autocmd FileType qf   if &l:buftype ==# 'quickfix'
 		\ | wincmd J | endif
 

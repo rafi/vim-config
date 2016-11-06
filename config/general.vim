@@ -165,7 +165,7 @@ set breakat=\ \	;:,!?           " Long lines break chars
 set nostartofline               " Cursor in same column for few commands
 set whichwrap+=h,l,<,>,[,],~    " Move to following line on certain keys
 set splitbelow splitright       " Splits open bottom right
-set switchbuf=usetab,split      " Switch buffer behavior
+set switchbuf=useopen,usetab,vsplit " Switch buffer behavior
 set backspace=indent,eol,start  " Intuitive backspacing in insert mode
 set diffopt=filler,iwhite       " Diff mode: show fillers, ignore white
 set showfulltag                 " Show tag and tidy search in completion
@@ -182,22 +182,23 @@ endif
 set noshowmode          " Don't show mode in cmd window
 set shortmess=aoOTI     " Shorten messages and don't show intro
 set scrolloff=2         " Keep at least 2 lines above/below
-set sidescrolloff=2     " Keep at least 2 lines left/right
-set pumheight=20        " Pop-up menu's line height
+set sidescrolloff=5     " Keep at least 2 lines left/right
 set number              " Show line numbers
 set relativenumber      " Use relative instead of absolute line numbers
 set noruler             " Disable default status ruler
 set list                " Show hidden characters
 
 set showtabline=2       " Always show the tabs line
-set tabpagemax=30       " Maximum number of tab pages
-set winwidth=30         " Minimum width for current window
-set winheight=1         " Minimum height for current window
-set previewheight=8     " Completion preview height
+set tabpagemax=10       " Maximum number of tab pages
+set winwidth=80         " Minimum width for current window
+set winminwidth=8       " Minimum width for inactive windows
+set winheight=13        " Minimum height for active window
+set winminheight=3      " Minimum height for inactive windows
+set pumheight=20        " Pop-up menu's line height
 set helpheight=12       " Minimum help window height
+set previewheight=8     " Completion preview height
 
 set display=lastline
-set notitle             " No need for a title
 set noshowcmd           " Don't show command in status line
 set cmdheight=2         " Height of the command line
 set cmdwinheight=5      " Command-line lines
