@@ -307,10 +307,10 @@ Key   | Mode | Action
 Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `Backspace` | Normal | Match bracket (%)
 `K` | Normal | Open Zeal or Dash on many file types (except Python+Vim script)
-`<leader>`+`y` | Normal/visual | Copy selection to X11 clipboard ("+y)
-`<leader>`+`p` | Normal/visual | Paste selection from X11 clipboard ("+p)
 `Y` | Normal | Yank to the end of line (y$)
-`Enter` | Normal | Toggle fold (za)
+`<Return>` | Normal | Toggle fold (za)
+`S`+`<Return>` | Insert | Start new line from any cursor position (\<C-o>o)
+`S`+`<Return>` | Normal | Focus the current fold by closing all others
 `hjkl` | Normal | Smart cursor movements (g/hjkl)
 `Ctrl`+`f` | Normal | Smart page forward (C-f/C-d)
 `Ctrl`+`b` | Normal | Smart page backwards (C-b/C-u)
@@ -318,16 +318,27 @@ Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `Ctrl`+`y` | Normal | Smart scroll up (3C-y/k)
 `Ctrl`+`q` | Normal | `Ctrl`+`w`
 `Ctrl`+`x` | Normal | Switch buffer and placement
+`Ctrl`+`w`, `p` | _All_ | Toggle paste mode
 `}` | Normal | After paragraph motion go to first non-blank char (}^)
 `<` | Visual/Normal | Indent to left and re-select
 `>` | Visual/Normal | Indent to right and re-select
 `Tab` | Visual | Indent to right and re-select
 `Shift`+`Tab` | Visual | Indent to left and re-select
+`gh` | Normal | Show highlight group that matches current cursor
 `gp` | Normal | Select last paste
-`Q`/`gQ` | Normal | Disable EX-mode (<Nop>)
+`Q`/`gQ` | Normal | Disable EX-mode (\<Nop>)
+`s` | Visual | Replace within selected area
 `Ctrl`+`a` | Command | Navigation in command line
 `Ctrl`+`b` | Command | Move cursor backward in command line
 `Ctrl`+`f` | Command | Move cursor forward in command line
+`Ctrl`+`r` | Visual | Replace selection with step-by-step confirmation
+`,`+`Space` | Normal | Remove all spaces at EOL
+`,`+`d` | Normal | Toggle diff
+`<leader>`+`os` | Normal | Load last session
+`<leader>`+`se` | Normal | Save current workspace as last session
+`<leader>`+`d` | Normal/Visual | Duplicate line or selection
+`<leader>`+`S` | Normal/visual | Source selection
+`<leader>`+`ml` | Normal | Append modeline
 
 ### File Operations
 
@@ -335,6 +346,7 @@ Key   | Mode | Action
 ----- |:----:| ------------------
 `<leader>`+`cd` | Normal | Switch to the directory of opened buffer (:cd %:p:h)
 `<leader>`+`w` | Normal/visual | Write (:w)
+`<leader>`+`y` | Normal | Copy file-path to X11 clipboard
 `Ctrl`+`s` | _All_ | Write (:w)
 `W!!` | Command | Write as root
 
@@ -342,8 +354,6 @@ Key   | Mode | Action
 
 Key   | Mode | Action
 ----- |:----:| ------------------
-`F2` | _All_ | Toggle paste mode
-`F3` | Normal | Show highlight group that matches current cursor
 `<leader>`+`ts` | Normal | Toggle spell-checker (:setlocal spell!)
 `<leader>`+`tn` | Normal | Toggle line numbers (:setlocal nonumber!)
 `<leader>`+`tl` | Normal | Toggle hidden characters (:setlocal nolist!)
@@ -358,14 +368,8 @@ Key   | Mode | Action
 `Ctrl`+`l` | Normal | Move to right split (<C-w>l)
 `*` | Visual | Search selection forwards
 `#` | Visual | Search selection backwards
-`,`+`Space` | Normal | Remove all spaces at EOL
-`,`+`d` | Normal | Toggle diff
-`Ctrl`+`r` | Visual | Replace selection
-`<leader>`+`lj` | Normal | Next on location list
-`<leader>`+`lk` | Normal | Previous on location list
-`<leader>`+`S` | Normal/visual | Source selection
-`<leader>`+`ml` | Normal | Append modeline
-`f`+`z` | Normal | Focus the current fold by closing all others
+`<leader>`+`j` | Normal | Next on location list
+`<leader>`+`k` | Normal | Previous on location list
 
 ### Window Management
 
@@ -415,16 +419,19 @@ Key   | Mode | Action
 `Ctrl`+`r` | Normal | Redraw
 `Ctrl`+`j` | Insert | Select next line
 `Ctrl`+`k` | Insert | Select previous line
+`jj` | Insert | Leave Insert mode
 `'` | Normal | Toggle mark current candidate, up
 `e` | Normal | Run default action
-`Ctrl`+`v` | Normal | Open in a split
-`Ctrl`+`s` | Normal | Open in a vertical split
-`Ctrl`+`t` | Normal | Open in a new tab
-`Tab` | Normal | `Ctrl`+`w`+`w`
-`Escape` | Normal | Exit unite
-`jj` | Insert | Leave Insert mode
+`gr` | Normal | Grep with Unite on current directory
+`gf` | Normal | Find files with Unite on current directory
+`gd` | Normal | Change directory for all windows in current tab
+`sv` | Normal | Open in a split
+`sg` | Normal | Open in a vertical split
+`st` | Normal | Open in a new tab
 `r` | Normal | Replace ('search' profile) or rename
-`Tab` | Insert | Unite autocompletion
+`Tab` | Normal | Move to other window (`Ctrl`+`w`+`w`)
+`Tab` | Insert | Unite auto-completion
+`Escape` | Normal | Exit unite
 `Ctrl`+`z` | Normal/insert | Toggle transpose window
 `Ctrl`+`w` | Insert | Delete backward path
 
@@ -435,17 +442,17 @@ Key   | Mode | Action
 `;`+`e` | Normal | Toggle file explorer
 `;`+`a` | Normal | Toggle file explorer on current file
 | **Within _VimFiler_ buffers** |||
-`Ctrl`+`j` | Normal | Un-map
-`Ctrl`+`l` | Normal | Un-map
-`E` | Normal | Un-map
 `sv` | Normal | Split edit
 `sg` | Normal | Vertical split edit
 `p` | Normal | Preview
 `i` | Normal | Switch to directory history
 `Ctrl`+`r` | Normal | Redraw
 `Ctrl`+`q` | Normal | Quick look
+`Ctrl`+`j` | Normal | Un-mapped
+`Ctrl`+`l` | Normal | Un-mapped
+`E` | Normal | Un-mapped
 
-### Plugin: neocomplete
+### Plugin: deoplete / neocomplete
 
 Key   | Mode | Action
 ----- |:----:| ------------------
@@ -462,7 +469,7 @@ Key   | Mode | Action
 `Ctrl`+`d` | Insert | Scroll down
 `Ctrl`+`u` | Insert | Scroll up
 
-### Plugin: TinyComment
+### Plugin: Caw
 
 Key   | Mode | Action
 ----- |:----:| ------------------
@@ -519,7 +526,6 @@ Key   | Mode | Action
 ----- |:----:| ------------------
 `<leader>`+`gu` | Normal | Open undo tree
 `<leader>`+`i` | Normal | Toggle indentation lines
-`<leader>`+`j` | Normal | Start smalls
 `<leader>`+`r` | Normal | Quickrun
 `<leader>`+`?` | Normal | Dictionary
 `<leader>`+`W` | Normal | Wiki

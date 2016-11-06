@@ -15,7 +15,7 @@ let g:theme_name = 'rafi-2016'
 let g:theme_path = $VIMPATH.'/themes/'.g:theme_name.'.vim'
 
 autocmd MyAutoCmd ColorScheme * if filereadable(g:theme_path)
-	\ |   silent! execute 'source' fnameescape(g:theme_path)
+	\ |   execute 'source' fnameescape(g:theme_path)
 	\ | endif
 
 " Set 'hybrid' dark color-scheme
