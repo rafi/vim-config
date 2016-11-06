@@ -1,0 +1,318 @@
+---
+# PLUGINS
+# ==========================================
+
+# Startup
+# -------
+- repo: Shougo/dein.vim
+- { repo: Shougo/vimproc.vim, build: make }
+- repo: christoomey/vim-tmux-navigator
+- repo: itchyny/vim-gitbranch
+- repo: itchyny/vim-parenmatch
+- repo: itchyny/vim-cursorword
+- repo: thinca/vim-localrc
+- repo: rafi/vim-tagabana
+- repo: rafi/vim-blocks
+
+# ==========================================
+# Lazy Loading
+# ------------
+- { repo: chriskempson/base16-shell, rtp: '' }
+- { repo: rafi/awesome-vim-colorschemes, rtp: '' }
+- { repo: Shougo/neosnippet-snippets }
+
+# ==========================================
+# Languages
+# ---------
+- { repo: othree/html5.vim, on_ft: html }
+- { repo: mustache/vim-mustache-handlebars, on_ft: html }
+- { repo: plasticboy/vim-markdown, on_ft: markdown }
+- { repo: rhysd/vim-gfm-syntax, on_ft: markdown }
+- { repo: pearofducks/ansible-vim, on_ft: ansible }
+- { repo: mitsuhiko/vim-jinja, on_ft: [ htmljinja, jinja ]}
+- { repo: groenewege/vim-less, on_ft: less }
+- { repo: hail2u/vim-css3-syntax, on_ft: css }
+- { repo: othree/csscomplete.vim, on_ft: css }
+- { repo: chrisbra/csv.vim, on_ft: csv }
+- { repo: mitsuhiko/vim-python-combined, on_ft: python }
+- { repo: raimon49/requirements.txt.vim, on_ft: requirements }
+- { repo: tmux-plugins/vim-tmux, on_ft: tmux }
+- { repo: cespare/vim-toml, on_ft: toml }
+- { repo: PotatoesMaster/i3-vim-syntax, on_ft: i3 }
+- { repo: ekalinin/Dockerfile.vim, on_ft: Dockerfile }
+- { repo: jstrater/mpvim, on_ft: portfile }
+- { repo: fatih/vim-go, on_ft: go }
+- { repo: tpope/vim-git,
+    on_ft: [ gitcommit, gitrebase, gitconfig, gitsendemail ]}
+- { repo: elzr/vim-json, on_ft: json }
+- { repo: m2mdas/phpcomplete-extended, on_i: 1, on_ft: php }
+- { repo: StanAngeloff/php.vim, on_ft: php }
+- { repo: osyo-manga/vim-monster, on_ft: ruby }
+- { repo: robbles/logstash.vim, on_ft: logstash }
+- { repo: vim-jp/syntax-vim-ex, on_ft: vim }
+- { repo: andreshazard/vim-logreview, on_ft: logreview }
+- { repo: exu/pgsql.vim, on_ft: pgsql }
+- { repo: othree/nginx-contrib-vim, on_ft: nginx }
+- { repo: tbastos/vim-lua, on_ft: lua }
+- { repo: othree/yajs.vim, on_ft: javascript }
+- { repo: gavocanov/vim-js-indent, on_ft: javascript }
+- { repo: othree/javascript-libraries-syntax.vim, on_ft: javascript }
+- { repo: othree/jspc.vim, on_ft: javascript }
+- { repo: heavenshell/vim-jsdoc, on_ft: javascript }
+- { repo: moll/vim-node, on_ft: javascript }
+- { repo: mxw/vim-jsx, on_ft: javascript, hook_add: 'let g:jsx_ext_required=0' }
+
+# ==========================================
+# Commands
+# --------
+- repo: Shougo/vimfiler.vim
+  depends: unite.vim
+  on_map: { n: <Plug> }
+  on_if: isdirectory(bufname('%'))
+  hook_add: let g:vimfiler_data_directory = $VARPATH.'/vimfiler'
+  hook_post_source: source $VIMPATH/config/plugins/vimfiler.vim
+
+- { repo: tyru/caw.vim, on_map: { nx: <Plug> }}
+- { repo: lambdalisue/vim-findent, on_cmd: Findent, on_i: 1 }
+- { repo: lambdalisue/vim-gita, on_cmd: Gita }
+- { repo: t9md/vim-choosewin, on_map: { n: <Plug> }}
+- { repo: Shougo/vinarise.vim, on_cmd: Vinarise }
+- { repo: kana/vim-niceblock, on_map: { x: <Plug> }}
+- { repo: guns/xterm-color-table.vim, on_cmd: XtermColorTable }
+- { repo: thinca/vim-prettyprint, on_cmd: PP, on_func: PP }
+
+- repo: metakirby5/codi.vim
+  if: empty($VIM_MINIMAL)
+  on_cmd: Codi
+
+- repo: mbbill/undotree
+  on_cmd: UndotreeToggle
+  hook_add: nnoremap <Leader>gu :UndotreeToggle<CR>
+
+- repo: lambdalisue/vim-gista
+  if: empty($VIM_MINIMAL)
+  on_cmd: Gista
+  hook_add: let g:gista#client#cache_dir = $VARPATH.'/gista/'
+
+- repo: lambdalisue/vim-gista-unite
+  on_source: [ vim-gista, unite.vim ]
+
+- repo: itchyny/dictionary.vim
+  if: empty($VIM_MINIMAL)
+  on_cmd: Dictionary
+  hook_add: nnoremap <silent> <Leader>? :<C-u>Dictionary -no-duplicate<CR>
+
+- repo: beloglazov/vim-online-thesaurus
+  if: empty($VIM_MINIMAL)
+  on_cmd: [ OnlineThesaurusCurrentWord, Thesaurus ]
+  hook_source: let g:online_thesaurus_map_keys = 0
+  hook_add: nnoremap <silent> <Leader>K :<C-u>OnlineThesaurusCurrentWord<CR>
+
+# ==========================================
+# Interface
+# ---------
+- { repo: airblade/vim-gitgutter, on_path: .* }
+- { repo: kshenoy/vim-signature, on_path: .* }
+- { repo: nathanaelkane/vim-indent-guides, on_path: .* }
+- { repo: osyo-manga/vim-anzu, on_map: { nv: <Plug> }}
+- { repo: haya14busa/vim-asterisk, on_map: { nv: <Plug> }}
+- { repo: rhysd/clever-f.vim, on_map: [[ n, f, F, t, T ]]}
+- { repo: rhysd/accelerated-jk, on_map: { n: <Plug> }}
+- { repo: rhysd/committia.vim, on_path: COMMIT_EDITMSG }
+- { repo: Shougo/tabpagebuffer.vim, on_if: tabpagenr() > 1 }
+
+- repo: Konfekt/FastFold
+  on_event: BufEnter
+  hook_post_source: FastFoldUpdate
+
+- repo: benekastah/neomake
+  if: has('nvim') && empty($VIM_MINIMAL)
+  on_cmd: Neomake
+  hook_add: source $VIMPATH/config/plugins/neomake.vim
+
+- repo: junegunn/goyo.vim
+  if: empty($VIM_MINIMAL)
+  depends: limelight.vim
+  on_cmd: Goyo
+  hook_add: nnoremap <Leader>G :Goyo<CR>
+  hook_source: source $VIMPATH/config/plugins/goyo.vim
+
+- repo: junegunn/limelight.vim
+  if: empty($VIM_MINIMAL)
+  on_cmd: Limelight
+
+- repo: junegunn/vim-peekaboo
+  if: empty($VIM_MINIMAL)
+  on_map: [[ n, '\"' ]]
+  hook_post_source: silent! augroup! peekaboo_init
+
+- repo: vimwiki/vimwiki
+  if: empty($VIM_MINIMAL)
+  on_cmd: [ VimwikiIndex, VimwikiTabIndex, VimwikiUISelect
+    VimwikiMakeDiaryNote, VimwikiTabMakeDiaryNote, VimwikiDiaryIndex ]
+
+# ==========================================
+# Completion
+# ----------
+- repo: Shougo/deoplete.nvim
+  depends: context_filetype.vim
+  if: has('nvim')
+  on_i: 1
+  hook_source:
+    let g:deoplete#enable_at_startup = 1
+      | source $VIMPATH/config/plugins/deoplete.vim
+
+- repo: Shougo/neocomplete
+  depends: context_filetype.vim
+  if: ! has('nvim') && has('lua')
+  on_event: InsertEnter
+  hook_add: let g:neocomplete#data_directory = $VARPATH.'/complete'
+  hook_source:
+    let g:neocomplete#enable_at_startup = 1
+      | source $VIMPATH/config/plugins/neocomplete.vim
+
+- repo: Shougo/neosnippet.vim
+  depends: [ neosnippet-snippets, context_filetype.vim ]
+  on_event: InsertCharPre
+  on_ft: snippet
+  hook_add: let g:neosnippet#data_directory = $VARPATH.'/snippets'
+  hook_source:
+    let g:neosnippet#enable_snipmate_compatibility = 1
+    | let g:neosnippet#enable_completed_snippet = 1
+    | let g:neosnippet#expand_word_boundary = 1
+
+- repo: mattn/emmet-vim
+  on_i: 1
+  on_ft: [ css, html, jsx, javascript.jsx ]
+  hook_source:
+    let g:use_emmet_complete_tag = 0
+    | let g:user_emmet_install_global = 0
+    | let g:user_emmet_install_command = 0
+    | let g:user_emmet_mode = 'i'
+
+- repo: Shougo/echodoc.vim
+  on_event: CompleteDone
+  hook_source: call echodoc#enable()
+
+- repo: Raimondi/delimitMate
+  on_i: 1
+  hook_source: let g:delimitMate_expand_cr = 1
+
+- { repo: Shougo/context_filetype.vim, lazy: 1 }
+- { repo: Shougo/neoinclude.vim, on_if: 1 }
+- { repo: Shougo/neco-vim, on_ft: vim }
+- { repo: Shougo/neco-syntax, on_source: [ neocomplete.vim, deoplete.nvim ]}
+- { repo: davidhalter/jedi-vim, on_ft: python, if: empty($VIM_MINIMAL) }
+
+- repo: wellle/tmux-complete.vim
+  on_i: 1
+  hook_source: let g:tmuxcomplete#trigger = ''
+
+# Only NeoVim
+- repo: zchee/deoplete-go
+  if: has('nvim') && empty($VIM_MINIMAL)
+  on_ft: go
+  on_i: 1
+
+- repo: zchee/deoplete-jedi
+  if: has('nvim') && empty($VIM_MINIMAL)
+  on_ft: python
+  on_i: 1
+  hook_source: autocmd MyAutoCmd FileType python setlocal omnifunc=
+
+- repo: carlitux/deoplete-ternjs
+  if: executable('tern') && has('nvim') && empty($VIM_MINIMAL)
+  on_ft: javascript
+  on_i: 1
+
+# Only Vim
+- repo: ternjs/tern_for_vim
+  build: npm install
+  if: executable('npm') && ! has('nvim') && empty($VIM_MINIMAL)
+  on_i: 1
+  on_ft: javascript
+  hook_add: let g:tern_show_signature_in_pum = 1
+  hook_post_source:
+    autocmd MyAutoCmd FileType javascript setlocal omnifunc=tern#Complete
+
+# ==========================================
+# Denite
+# ------
+- repo: Shougo/denite.nvim
+  if: has('nvim')
+  on_cmd: Denite
+  hook_source: source $VIMPATH/config/plugins/denite.vim
+
+# ==========================================
+# Unite
+# -----
+- repo: Shougo/unite.vim
+  on_source: denite.nvim
+  hook_post_source: source $VIMPATH/config/plugins/unite.vim
+  hook_add:
+    let g:unite_data_directory = $VARPATH.'/unite'
+    | let g:neoyank#file = g:unite_data_directory.'/history_yank'
+    | let g:neomru#file_mru_path = g:unite_data_directory.'/mru/file'
+    | let g:neomru#directory_mru_path = g:unite_data_directory.'/mru/directory'
+
+- repo: Shougo/neoyank.vim
+  on_if: 1
+  on_event: TextYankPost
+  on_source: [ unite.vim, denite.nvim ]
+
+- repo: Shougo/neomru.vim
+  on_if: 1
+  on_source: [ unite.vim, denite.nvim ]
+
+# ==========================================
+# Unite sources
+# -------------
+- { repo: mattn/webapi-vim, lazy: 1 }
+- { repo: Shougo/neossh.vim, on_ft: vimfiler, sources: ssh }
+- { repo: Shougo/unite-build, on_source: unite.vim }
+- { repo: Shougo/unite-outline, on_source: unite.vim }
+- { repo: Shougo/junkfile.vim, on_source: unite.vim }
+- { repo: ujihisa/unite-colorscheme, on_source: unite.vim }
+- { repo: osyo-manga/unite-filetype, on_source: unite.vim }
+- { repo: tacroe/unite-mark, on_source: unite.vim }
+- { repo: tsukkee/unite-tag, on_source: unite.vim }
+- { repo: thinca/vim-unite-history, on_source: unite.vim }
+- { repo: osyo-manga/unite-quickfix, on_source: unite.vim }
+
+- repo: rafi/vim-unite-issue
+  depends: webapi-vim
+  on_source: unite.vim
+
+- repo: joker1007/unite-pull-request
+  depends: webapi-vim
+  on_source: unite.vim
+
+# ==========================================
+# Operators
+# ---------
+- { repo: kana/vim-operator-user, lazy: 1 }
+
+- repo: kana/vim-operator-replace
+  depends: vim-operator-user
+  on_map: { vnx: <Plug> }
+
+- repo: rhysd/vim-operator-surround
+  depends: vim-operator-user
+  on_map: { n: <Plug> }
+
+- repo: haya14busa/vim-operator-flashy
+  depends: vim-operator-user
+  on_map: { nx: <Plug> }
+
+# ==========================================
+# Text objects
+# ------------
+- { repo: AndrewRadev/sideways.vim, on_map: { ox: <Plug>Sideways }}
+- { repo: bkad/CamelCaseMotion, on_map: { nx: <Plug>CamelCaseMotion }}
+- { repo: kana/vim-textobj-user, lazy: 1 }
+
+- repo: osyo-manga/vim-textobj-multiblock
+  depends: vim-textobj-user
+  on_map: { ox: <Plug> }
+
+#  vim: set ts=2 sw=2 tw=80 et :
