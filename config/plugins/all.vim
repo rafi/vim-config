@@ -598,10 +598,10 @@ endif
 "}}}
 if dein#tap('vimwiki') "{{{
 	let wiki = {}
-	let wiki.diary_header = 'Rafi''s Diary'
+	let wiki.diary_header = 'Diary'
 	let wiki.diary_link_fmt = '%Y-%m/%d'
-	let wiki.path = '~/docs/wiki/'
-	let wiki.path_html = '~/docs/wiki/html/'
+	let wiki.path = '~/Documents/wiki/'
+	let wiki.path_html = '~/Documents/wiki/html/'
 	let wiki.syntax = 'markdown'
 	let wiki.ext = '.md'
 	let g:vimwiki_list = [ wiki ]
@@ -643,6 +643,11 @@ if dein#tap('CamelCaseMotion') "{{{
 	nmap <silent> b <Plug>CamelCaseMotion_b
 	xmap <silent> b <Plug>CamelCaseMotion_b
 	omap <silent> B <Plug>CamelCaseMotion_b
+endif
+
+"}}}
+if dein#tap('vim-json') "{{{
+	let g:vim_json_syntax_conceal = 0
 endif
 
 "}}}

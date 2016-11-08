@@ -16,6 +16,8 @@ set history=500              " Search and commands remembered
 set synmaxcol=1000           " Don't syntax highlight long lines
 set formatoptions+=1         " Don't break lines after a one-letter word
 set formatoptions-=t         " Don't auto-wrap text
+" set cursorline               " Set row highlight
+" set cursorcolumn             " Set column highlight
 
 if has('vim_starting')
 	set encoding=utf-8

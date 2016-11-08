@@ -20,7 +20,7 @@ autocmd MyAutoCmd ColorScheme * if filereadable(g:theme_path)
 
 " Set 'hybrid' dark color-scheme
 set background=dark
-colorscheme hybrid
+colorscheme gruvbox
 
 " }}}
 

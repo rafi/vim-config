@@ -25,9 +25,10 @@ call vimfiler#custom#profile('default', 'context', {
 	\  'direction': 'topleft',
 	\  'auto_expand': 1,
 	\  'no_quit': 1,
-	\  'force_hide': 1,
+	\  'force_hide': 0,
 	\  'parent': 0,
 	\  'toggle': 1,
+	\  'edit_action': 'tabopen',
 	\ })
 
 " vim: set ts=2 sw=2 tw=80 noet :
