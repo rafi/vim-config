@@ -22,7 +22,7 @@ call denite#custom#var('grep', 'recursive_opts', [])
 call denite#custom#var('grep', 'final_opts', [])
 call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'default_opts',
-	\ ['--vimgrep', '--smart-case', '--skip-vcs-ignores'])
+	\ ['--vimgrep', '--smart-case' ])
 
 " KEY MAPPINGS
 let insert_mode_mappings = {
