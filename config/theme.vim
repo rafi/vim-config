@@ -11,7 +11,7 @@ if has('nvim') && exists('+termguicolors')
 endif
 
 " Automatic theme loading when colorscheme changes.
-let g:theme_name = 'rafi-2016'
+let g:theme_name = 'sergio-2016'
 let g:theme_path = $VIMPATH.'/themes/'.g:theme_name.'.vim'
 
 autocmd MyAutoCmd ColorScheme * if filereadable(g:theme_path)
