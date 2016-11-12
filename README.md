@@ -23,7 +23,11 @@ Best with Neovim or Vim 7.4+ with +lua +python extensions enabled.
 ![Vim screenshot](http://rafi.io/static/img/project/vim-config/features.png)
 
 ## Install
-If you are using Neovim, clone with:
+You'll need a YAML interpreter, either install [yaml2json], or:
+
+`pip install --user PyYAML`
+
+Now, let's clone this repo! If you are using Neovim, clone with:
 ```sh
 mkdir -p "${XDG_CONFIG_HOME:=$HOME/.config}"
 git clone git://github.com/rafi/vim-config.git "${XDG_CONFIG_HOME:=$HOME/.config}/nvim"
@@ -93,7 +97,6 @@ and [init.vim:33-46](./config/init.vim#L33-L46).
     hex editor, sessions, and much more.
 
 _Note_ that 90% of the plugins are **[lazy-loaded]**.
-[lazy-loaded]: ./config/plugins.vim
 
 ## Non Lazy-Loaded Plugins
 
@@ -532,3 +535,6 @@ Key   | Mode | Action
 `<leader>`+`K` | Normal | Thesaurus
 
 ## Enjoy!
+
+[lazy-loaded]: ./config/plugins.vim
+[yaml2json]: https://github.com/koraa/large-yaml2json-json2yaml

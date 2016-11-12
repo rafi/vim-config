@@ -3,9 +3,6 @@
 "---------------------------------------------------------
 
 if dein#tap('unite.vim') "{{{
-	let g:unite_data_directory = $VARPATH.'/unite'
-	let g:neoyank#file = g:unite_data_directory.'/history_yank'
-
 	nnoremap <silent> [unite]r   :<C-u>UniteResume -no-start-insert -force-redraw<CR>
 	nnoremap <silent> [unite]b   :<C-u>Unite buffer file_mru bookmark<CR>
 	nnoremap <silent> [unite]f   :<C-u>Unite file_rec/`has('nvim') ? 'neovim' : 'async'`<CR>
@@ -80,8 +77,6 @@ endif
 
 "}}}
 if dein#tap('vimfiler.vim') "{{{
-	let g:vimfiler_data_directory = $VARPATH.'/vimfiler'
-
 	nnoremap <silent> [unite]e        :<C-u>execute
 		\ 'VimFiler -winwidth=25 -direction=topleft -buffer-name='.block#project()<CR>
 	nnoremap <silent> [unite]a        :<C-u>execute
@@ -141,71 +136,21 @@ if dein#tap('vimfiler.vim') "{{{
 endif
 
 "}}}
-if dein#tap('deoplete-jedi') && has('nvim') "{{{
-	autocmd MyAutoCmd FileType python setlocal omnifunc=
-endif
-
-"}}}
-if dein#tap('neocomplete') && has('lua') "{{{
-	let g:neocomplete#enable_at_startup = 1
-	let g:neocomplete#data_directory = $VARPATH.'/complete'
-endif
-
-"}}}
 if dein#tap('neosnippet.vim') "{{{
-	let g:neosnippet#enable_snipmate_compatibility = 0
-	let g:neosnippet#enable_preview = 1
-	let g:neosnippet#enable_completed_snippet = 1
-	let g:neosnippet#enable_complete_done = 1
-	let g:neosnippet#expand_word_boundary = 1
-	let g:neosnippet#disable_runtime_snippets = { '_': 1 }
-	let g:neosnippet#data_directory  = $VARPATH.'/snippets'
-	let g:neosnippet#snippets_directory =
-				\$VIMPATH.'/snippets,'
-				\.dein#get('neosnippet-snippets').path.'/neosnippets,'
-				\.dein#get('mpvim').path.'/snippets,'
-				\.dein#get('ansible-vim').path.'/UltiSnips,'
-				\.dein#get('vim-go').path.'/gosnippets/snippets'
-
 	imap <expr><C-o> neosnippet#expandable_or_jumpable()
 		\ ? "\<Plug>(neosnippet_expand_or_jump)" : "\<ESC>o"
 	xmap <silent><C-s>      <Plug>(neosnippet_register_oneshot_snippet)
 	imap <silent><C-Space>  <Plug>(neosnippet_start_unite_snippet)
-endif
-
-"}}}
-if dein#tap('neomru.vim') "{{{
-	let g:neomru#file_mru_path = $VARPATH.'/unite/mru/file'
-	let g:neomru#directory_mru_path  = $VARPATH.'/unite/mru/directory'
+"	smap <silent>L     <Plug>(neosnippet_jump_or_expand)
+"	xmap <silent>L     <Plug>(neosnippet_expand_target)
+	echomsg
 endif
 
 "}}}
 if dein#tap('emmet-vim') "{{{
-	let g:use_emmet_complete_tag = 0
-	let g:user_emmet_install_global = 0
-	let g:user_emmet_install_command = 0
-	let g:user_emmet_mode = 'i'
-
 	autocmd MyAutoCmd FileType html,css,jsx,javascript.jsx
 		\ EmmetInstall
 		\ | imap <buffer> <C-Return> <Plug>(emmet-expand-abbr)
-endif
-
-"}}}
-if dein#tap('tmux-complete.vim') "{{{
-	let g:tmuxcomplete#trigger = ''
-endif
-
-"}}}
-if dein#tap('vim-unite-issue') "{{{
-	let g:unite_source_issue_file_dir = '~/docs/issues'
-	let g:unite_source_issue_jira_priority_table = {
-		\ 2: 'ᛏ', 3: '●', 4: '▽', 5: '◡', 6: '○', 7: '⚡'}
-endif
-
-"}}}
-if dein#tap('mpc') "{{{
-	let g:unite_mpc_random_tracks = 50
 endif
 
 "}}}
@@ -252,18 +197,9 @@ if dein#tap('committia.vim') "{{{
 		end
 
 		" Scroll the diff window from insert mode
-		" Map <C-n> and <C-p>
-		imap <buffer><C-n> <Plug>(committia-scroll-diff-down-half)
-		imap <buffer><C-p> <Plug>(committia-scroll-diff-up-half)
+		imap <buffer><C-d> <Plug>(committia-scroll-diff-down-half)
+		imap <buffer><C-u> <Plug>(committia-scroll-diff-up-half)
 	endfunction
-endif
-
-"}}}
-if dein#tap('vim-textobj-multiblock') "{{{
-	omap ab <Plug>(textobj-multiblock-a)
-	omap ib <Plug>(textobj-multiblock-i)
-	xmap ab <Plug>(textobj-multiblock-a)
-	xmap ib <Plug>(textobj-multiblock-i)
 endif
 
 "}}}
@@ -305,11 +241,6 @@ if dein#tap('vim-peekaboo') "{{{
 	xnoremap <buffer> <silent> " :<c-u>call peekaboo#peek(v:count1, 'quote',  1)<cr>
 	nnoremap <buffer> <silent> @ :<c-u>call peekaboo#peek(v:count1, 'replay', 0)<cr>
 	inoremap <buffer> <silent> <c-r> <c-o>:call peekaboo#peek(1, 'ctrl-r',  0)<cr>
-endif
-
-"}}}
-if dein#tap('goyo.vim') "{{{
-	nnoremap <Leader>G :Goyo<CR>
 endif
 
 "}}}
@@ -362,12 +293,6 @@ if dein#tap('jedi-vim') "{{{
 			\   setlocal omnifunc= |
 			\ endif
 	endif
-endif
-
-"}}}
-if dein#tap('tern_for_vim') "{{{
-	autocmd MyAutoCmd FileType javascript setlocal omnifunc=tern#Complete
-	let g:tern_show_signature_in_pum = 1
 endif
 
 "}}}
@@ -425,16 +350,6 @@ if dein#tap('vim-go') "{{{
 
 	let g:go_highlight_extra_types = 1
 	let g:go_highlight_operators = 1
-	" SLOW:
-"	let g:go_highlight_functions = 1
-"	let g:go_highlight_methods = 1
-"	let g:go_highlight_structs = 1
-"	let g:go_highlight_build_constraints = 1
-endif
-
-"}}}
-if dein#tap('neopairs.vim') "{{{
-	let g:neopairs#enable = 0
 endif
 
 "}}}
@@ -446,8 +361,9 @@ if dein#tap('vim-markdown') "{{{
 endif
 
 "}}}
-if dein#tap('vim-jinja') "{{{
-	let g:htmljinja_disable_detection = 0
+if dein#tap('vim-gfm-syntax') "{{{
+	let g:gfm_syntax_enable_always = 0
+	let g:gfm_syntax_enable_filetypes = ['markdown']
 endif
 
 "}}}
@@ -467,16 +383,6 @@ if dein#tap('vim-gita') "{{{
 		\ nmap <buffer> cA    <Plug>(gita-commit-open-amend) |
 		\ nmap <buffer> dg    <Plug>(gita-diff-right) |
 		\ nmap <buffer> sg    <Plug>(gita-edit-right)
-endif
-
-"}}}
-if dein#tap('vim-gista') "{{{
-	let g:gista#client#cache_dir = $VARPATH.'/gista/'
-endif
-
-"}}}
-if dein#tap('undotree') "{{{
-	nnoremap <Leader>gu  :UndotreeToggle<CR>
 endif
 
 "}}}
@@ -547,52 +453,26 @@ if dein#tap('vim-indent-guides') "{{{
 endif
 
 "}}}
-if dein#tap('GoldenView.Vim') "{{{
-	let g:goldenview__enable_default_mapping = 0
-	" Split to tiled windows
-	nmap <silent> [Window]p  <Plug>GoldenViewSplit
-
-	" Quickly switch current window with the main pane and toggle back
-	nmap <silent> [Window]m  <Plug>GoldenViewSwitchMain
-	nmap <silent> [Window]w  <Plug>GoldenViewSwitchToggle
-
-	" Jump to next and previous window
-	nmap <silent> <Tab>    <Plug>GoldenViewNext
-	nmap <silent> <S-Tab>  <Plug>GoldenViewPrevious
-endif
-
-"}}}
 if dein#tap('vim-anzu') "{{{
 	let g:anzu_status_format = 'match %i of %l'
 
-	autocmd MyAutoCmd CursorMoved * call anzu#clear_search_status()
+	nmap n n<Plug>(anzu-update-search-status)
+	nmap N N<Plug>(anzu-update-search-status)
+	nmap <silent> <Leader>cc :<C-u>call anzu#clear_search_status()<CR>
+	autocmd MyAutoCmd CursorHold * call anzu#clear_search_status()
 endif
 
 "}}}
-if dein#tap('incsearch.vim') "{{{
-	let g:incsearch#auto_nohlsearch = 1
+if dein#tap('vim-asterisk') "{{{
+	map *   <Plug>(asterisk-g*)<Plug>(anzu-update-search-status)
+	map g*  <Plug>(asterisk-*)<Plug>(anzu-update-search-status)
+	map #   <Plug>(asterisk-g#)<Plug>(anzu-update-search-status)
+	map g#  <Plug>(asterisk-#)<Plug>(anzu-update-search-status)
 
-	map /  <Plug>(incsearch-forward)
-	map ?  <Plug>(incsearch-backward)
-	map g/ <Plug>(incsearch-stay)
-
-	map n <Plug>(incsearch-nohl)<Plug>(anzu-n)
-	map N <Plug>(incsearch-nohl)<Plug>(anzu-N)
-
-	map *   <Plug>(incsearch-nohl)<Plug>(asterisk-*)<Plug>(anzu-update-search-status)
-	map g*  <Plug>(incsearch-nohl)<Plug>(asterisk-g*)<Plug>(anzu-update-search-status)
-	map #   <Plug>(incsearch-nohl)<Plug>(asterisk-#)<Plug>(anzu-update-search-status)
-	map g#  <Plug>(incsearch-nohl)<Plug>(asterisk-g#)<Plug>(anzu-update-search-status)
-
-	map z*  <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)<Plug>(anzu-update-search-status)
-	map gz* <Plug>(incsearch-nohl0)<Plug>(asterisk-gz*)<Plug>(anzu-update-search-status)
-	map z#  <Plug>(incsearch-nohl0)<Plug>(asterisk-z#)<Plug>(anzu-update-search-status)
-	map gz# <Plug>(incsearch-nohl0)<Plug>(asterisk-gz#)<Plug>(anzu-update-search-status)
-endif
-
-"}}}
-if dein#tap('dictionary.vim') "{{{
-	nnoremap <silent> <Leader>? :<C-u>Dictionary -no-duplicate<CR>
+	map z*  <Plug>(asterisk-z*)<Plug>(anzu-update-search-status)
+	map gz* <Plug>(asterisk-gz*)<Plug>(anzu-update-search-status)
+	map z#  <Plug>(asterisk-z#)<Plug>(anzu-update-search-status)
+	map gz# <Plug>(asterisk-gz#)<Plug>(anzu-update-search-status)
 endif
 
 "}}}
@@ -607,12 +487,6 @@ if dein#tap('vimwiki') "{{{
 	let g:vimwiki_list = [ wiki ]
 
 	nnoremap <silent> <Leader>W :<C-u>VimwikiIndex<CR>
-endif
-
-"}}}
-if dein#tap('vim-online-thesaurus') "{{{
-	let g:online_thesaurus_map_keys = 0
-	nnoremap <silent> <Leader>K :<C-u>OnlineThesaurusCurrentWord<CR>
 endif
 
 "}}}
@@ -643,6 +517,14 @@ if dein#tap('CamelCaseMotion') "{{{
 	nmap <silent> b <Plug>CamelCaseMotion_b
 	xmap <silent> b <Plug>CamelCaseMotion_b
 	omap <silent> B <Plug>CamelCaseMotion_b
+endif
+
+"}}}
+if dein#tap('vim-textobj-multiblock') "{{{
+	omap ab <Plug>(textobj-multiblock-a)
+	omap ib <Plug>(textobj-multiblock-i)
+	xmap ab <Plug>(textobj-multiblock-a)
+	xmap ib <Plug>(textobj-multiblock-i)
 endif
 
 "}}}
