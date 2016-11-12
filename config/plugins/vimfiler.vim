@@ -3,7 +3,7 @@
 " --------
 
 let g:vimfiler_as_default_explorer = 1
-let g:vimfiler_restore_alternate_file = 1
+let g:vimfiler_restore_alternate_file = 0
 "let g:vimfiler_preview_action = 'auto_preview'
 
 let g:vimfiler_ignore_pattern =
@@ -11,8 +11,10 @@ let g:vimfiler_ignore_pattern =
 	\ .'\|node_modules\|.*\.pyc\|.*\.egg-info\|__pycache__\)$'
 
 if has('mac')
-	let g:vimfiler_quick_look_command =
-		\ '/Applications//Sublime\ Text.app/Contents/MacOS/Sublime\ Text'
+	let g:vimfiler_quick_look_command = '/usr/bin/qlmanage -p'
+	let g:vimfiler_execute_file_list = {
+		\ '_': '/Applications/Atom.app/Contents/MacOS/Atom'
+		\ }
 else
 	let g:vimfiler_quick_look_command = 'gloobus-preview'
 endif

@@ -28,7 +28,7 @@ if get(g:, 'elite_mode')
 endif
 
 " Double leader key for toggling visual-line mode
-nmap <Leader><Leader> V
+nmap <silent> <Leader><Leader> :nohlsearch<CR>V
 vmap <Leader><Leader> <Esc>
 
 " Toggle fold
@@ -40,6 +40,9 @@ nnoremap <S-Return> zMza
 " Use backspace key for matchit.vim
 nmap <BS> %
 xmap <BS> %
+
+" Better x
+"nnoremap x "_x
 
 "}}}
 " Global niceties {{{

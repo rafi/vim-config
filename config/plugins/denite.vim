@@ -26,11 +26,11 @@ call denite#custom#var('grep', 'default_opts',
 
 " KEY MAPPINGS
 let insert_mode_mappings = {
-	\ "<C-j>": 'move_to_next_line',
-	\ "<C-k>": 'move_to_prev_line',
-	\ "<C-r>": 'redraw',
-	\ "<C-p>": 'do_action:preview',
-	\ "<Esc>": 'enter_mode:normal'
+	\ '<C-j>': 'move_to_next_line',
+	\ '<C-k>': 'move_to_prev_line',
+	\ '<C-r>': 'redraw',
+	\ '<C-p>': 'do_action:preview',
+	\ '<Esc>': 'enter_mode:normal'
 	\}
 
 let normal_mode_mappings = {

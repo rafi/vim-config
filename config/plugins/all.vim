@@ -207,9 +207,8 @@ if dein#tap('vim-signature') "{{{
 	let g:SignatureMarkTextHLDynamic = 1
 	let g:SignatureMarkerTextHLDynamic = 1
 	let g:SignaturePurgeConfirmation = 1
-	let g:SignatureDeleteConfirmation = 0
-	let g:SignatureForceRemoveGlobal = 1
-	let g:signature_set_location_list_convenience_maps = 0
+"	let g:SignatureForceRemoveGlobal = 1
+"	let g:signature_set_location_list_convenience_maps = 0
 	let g:SignatureMap = {
 		\ 'ListBufferMarks':   'm/',
 		\ 'ListBufferMarkers': 'm?',
@@ -248,12 +247,14 @@ if dein#tap('vim-choosewin') "{{{
 	nmap -         <Plug>(choosewin)
 	nmap <Leader>- :<C-u>ChooseWinSwap<CR>
 
-	let g:choosewin_label = 'FGHJKLZXCVBNM'
+"	let g:choosewin_label = 'FGHJKLZXCVBNM'
 	let g:choosewin_overlay_enable = 1
 	let g:choosewin_statusline_replace = 1
-	let g:choosewin_tabline_replace = 1
-	let g:choosewin_label_padding = 3
+	let g:choosewin_overlay_clear_multibyte = 0
+"	let g:choosewin_tabline_replace = 1
+"	let g:choosewin_label_padding = 3
 	let g:choosewin_blink_on_land = 0
+"	let g:choosewin_overlay_shade = 1
 
 	let g:choosewin_color_label = {
 		\ 'cterm': [ 236, 2 ], 'gui': [ '#555555', '#000000' ] }
@@ -305,6 +306,7 @@ if dein#tap('vim-gitgutter') "{{{
 "	let g:gitgutter_realtime = 1
 "	let g:gitgutter_eager = 0
 	let g:gitgutter_map_keys = 0
+	let g:gitgutter_sh = $SHELL
 
 	nmap <Leader>hj <Plug>GitGutterNextHunk
 	nmap <Leader>hk <Plug>GitGutterPrevHunk
@@ -319,7 +321,8 @@ if dein#tap('neomake') "{{{
 	function! s:neomake_custom()
 		let filetypes = [
 			\   'ansible', 'python', 'php', 'ruby', 'vim', 'go', 'sh',
-			\   'html', 'javascript', 'javascript.jsx', 'css', 'yaml'
+			\   'javascript', 'javascript.jsx', 'json', 'css', 'yaml',
+			\   'markdown', 'html'
 			\ ]
 
 		if empty(&buftype) && index(filetypes, &filetype) > -1

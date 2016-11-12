@@ -58,13 +58,8 @@ command! -bar -complete=file -nargs=? SessionSave
 " Remove end of line white space.
 command! -range=% WhitespaceErase call <SID>WhitespaceErase(<line1>,<line2>)
 
-" Diff command credits: https://github.com/Shougo/shougo-s-github
-" Display diff with the file.
-command! -nargs=1 -complete=file Diff vertical diffsplit <args>
 " Display diff from last save.
 command! DiffOrig vert new | setlocal bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
-" Disable diff mode.
-command! -nargs=0 Undiff setlocal nodiff noscrollbind wrap
 
 " }}}
 " Functions {{{
