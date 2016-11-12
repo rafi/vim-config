@@ -76,11 +76,6 @@ call unite#custom#profile('default', 'context', {
 
 " Conveniently set settings globally per-source
 
-call unite#custom#profile('register', 'context', {
-	\   'start_insert': 0,
-	\   'default_action': 'append'
-	\ })
-
 call unite#custom#profile('source/source', 'context', {
 	\   'vertical': 1,
 	\ })
@@ -109,14 +104,6 @@ call unite#custom#profile('source/outline', 'context', {
 
 call unite#custom#profile('source/location_list,source/quickfix', 'context', {
 	\   'start_insert': 0,
-	\ })
-
-" General purpose profile for grep and navigating code
-call unite#custom#profile('navigate,source/grep,source/tag', 'context', {
-	\   'silent': 1,
-	\   'start_insert': 0,
-	\   'winheight': 20,
-	\   'no_empty': 1,
 	\ })
 
 " }}}
