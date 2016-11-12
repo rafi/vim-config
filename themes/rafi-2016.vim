@@ -72,6 +72,7 @@ let s:stl .= "%6*%{block#modified('+')}%0*"       " Write symbol
 let s:stl .= ' %1*%{block#filename()}%*'          " Filename
 let s:stl .= ' %<'                                " Truncate here
 let s:stl .= '%( %{block#branch()} %)'           " Git branch name
+let s:stl .= '%(/ %{anzu#search_status()} %)'     " Search position
 let s:stl .= "%4*%(%{block#trails('WS:%s')} %)"  " Whitespace
 let s:stl .= '%(%{block#syntax()} %)%*'           " syntax check
 let s:stl .= '%='                                 " Align to right
@@ -81,8 +82,7 @@ let s:stl .= '%4*%*%( %{&ft} %)'                 " File type
 let s:stl .= '%3*%2* %l/%2c%4p%% %*'             " Line and column
 
 " Non-active Statusline {{{
-let s:stl_nc  = " %{&paste ? '=' : ''}"        " Paste symbol
-let s:stl_nc .= "%{block#mode('', 'Z')}%n"    " Readonly & buffer
+let s:stl_nc = " %{block#mode('', 'Z')}%n"    " Readonly & buffer
 let s:stl_nc .= "%6*%{block#modified('+')}%*"  " Write symbol
 let s:stl_nc .= ' %{block#filename()}'         " Relative supername
 let s:stl_nc .= '%='                           " Align to right
@@ -171,9 +171,17 @@ highlight GitGutterDelete ctermfg=52 guifg=#600000 ctermbg=NONE
 highlight GitGutterChangeDelete ctermfg=52 guifg=#600000 ctermbg=NONE
 " }}}
 
+" Plugin: denite {{{
+" ---------------------------------------------------------
+"highlight deniteSource_base
+highlight deniteMatched ctermfg=221 guifg=#f0c674
+highlight link deniteGrepInput Constant
+"highlight deniteSourceLine_file_mru
+" }}}
+
 " Plugin: unite.vim {{{
 " ---------------------------------------------------------
-highlight link uniteInputPrompt   Question
+highlight link uniteInputPrompt Question
 " }}}
 
 " Plugin: vimfiler.vim {{{
