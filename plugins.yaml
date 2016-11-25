@@ -243,6 +243,13 @@
   on_cmd: Denite
   hook_source: source $VIMPATH/config/plugins/denite.vim
 
+- repo: rafi/vim-denite-mpc
+  if: executable('mpc')
+  on_source: denite.nvim
+  hook_source:
+    call denite#custom#var('mpc', 'host', 'music.host')
+    | call denite#custom#var('mpc', 'default_view', 'date')
+
 # ==========================================
 # Unite
 # -----
@@ -272,8 +279,6 @@
 - { repo: Shougo/unite-build, on_source: unite.vim }
 - { repo: Shougo/unite-outline, on_source: unite.vim }
 - { repo: Shougo/junkfile.vim, on_source: unite.vim }
-- { repo: ujihisa/unite-colorscheme, on_source: unite.vim }
-- { repo: osyo-manga/unite-filetype, on_source: unite.vim }
 - { repo: tacroe/unite-mark, on_source: unite.vim }
 - { repo: tsukkee/unite-tag, on_source: unite.vim }
 - { repo: thinca/vim-unite-history, on_source: unite.vim }
