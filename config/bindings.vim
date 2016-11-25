@@ -141,7 +141,7 @@ nmap gh :echo 'hi<'.synIDattr(synID(line('.'), col('.'), 1), 'name')
 
 " Toggle editor visuals
 nmap <silent> <Leader>ts :setlocal spell!<cr>
-nmap <silent> <Leader>tn :setlocal nonumber! norelativenumber!<CR>
+nmap <silent> <Leader>tn :setlocal nonumber!<CR>
 nmap <silent> <Leader>tl :setlocal nolist!<CR>
 nmap <silent> <Leader>th :nohlsearch<CR>
 nmap <silent> <Leader>tw :setlocal wrap! breakindent!<CR>

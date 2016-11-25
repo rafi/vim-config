@@ -176,6 +176,10 @@ if has('patch-7.4.775')
 	set completeopt+=noinsert
 endif
 
+if exists('+inccommand')
+	set inccommand=nosplit
+endif
+
 " }}}
 " Editor UI Appearance {{{
 " --------------------
@@ -184,7 +188,6 @@ set shortmess=aoOTI     " Shorten messages and don't show intro
 set scrolloff=2         " Keep at least 2 lines above/below
 set sidescrolloff=5     " Keep at least 2 lines left/right
 set number              " Show line numbers
-set relativenumber      " Use relative instead of absolute line numbers
 set noruler             " Disable default status ruler
 set list                " Show hidden characters
 
