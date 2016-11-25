@@ -132,7 +132,7 @@ cmap W!! w !sudo tee % >/dev/null
 " ---------
 
 " Toggle paste mode
-set pastetoggle=<C-w>p
+set pastetoggle=<F2>
 
 " Show highlight names under cursor
 nmap gh :echo 'hi<'.synIDattr(synID(line('.'), col('.'), 1), 'name')

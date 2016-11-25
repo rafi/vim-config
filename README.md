@@ -321,7 +321,7 @@ Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `Ctrl`+`y` | Normal | Smart scroll up (3C-y/k)
 `Ctrl`+`q` | Normal | `Ctrl`+`w`
 `Ctrl`+`x` | Normal | Switch buffer and placement
-`Ctrl`+`w`, `p` | _All_ | Toggle paste mode
+`F2` | _All_ | Toggle paste mode
 `}` | Normal | After paragraph motion go to first non-blank char (}^)
 `<` | Visual/Normal | Indent to left and re-select
 `>` | Visual/Normal | Indent to right and re-select

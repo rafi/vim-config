@@ -15,5 +15,7 @@ hash virtualenv-3.4 2>/dev/null && vrenv3=virtualenv-3.4
 [ -d "$venv/neovim3" ] || $vrenv3 "$venv/neovim3"
 
 # Install or upgrade dependencies
+echo 'PYTHON 2'
 "$venv/neovim2/bin/pip" install -U neovim PyYAML
+echo 'PYTHON 3'
 "$venv/neovim3/bin/pip" install -U neovim PyYAML

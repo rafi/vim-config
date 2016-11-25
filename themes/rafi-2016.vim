@@ -135,7 +135,7 @@ let g:vimfiler_tree_leaf_icon = '┆'
 let g:vimfiler_tree_opened_icon = '▼'
 let g:vimfiler_tree_closed_icon = '▷'
 let g:vimfiler_file_icon = ' '
-let g:vimfiler_readonly_file_icon = '⭤'
+let g:vimfiler_readonly_file_icon = '🔧'
 let g:vimfiler_marked_file_icon = '✓'
 "}}}
 
@@ -143,7 +143,7 @@ let g:vimfiler_marked_file_icon = '✓'
 " ---------------------------------------------------------
 let g:neomake_error_sign = {'text': '✖', 'texthl': 'ErrorMsg'}
 let g:neomake_warning_sign = {'text': '▷', 'texthl': 'WarningMsg'}
-let g:neomake_message_sign = {'text': '➤', 'texthl': 'NeomakeMessageSign'}
+let g:neomake_message_sign = {'text': '▣', 'texthl': 'NeomakeMessageSign'}
 let g:neomake_info_sign = {'text': 'ℹ', 'texthl': 'NeomakeInfoSign'}
 "}}}
 
