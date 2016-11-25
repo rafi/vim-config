@@ -3,7 +3,8 @@
 
 autocmd MyAutoCmd CompleteDone * pclose!
 
-let g:deoplete#enable_refresh_always = 1
+let g:deoplete#auto_complete_delay = 0
+let g:deoplete#auto_refresh_delay = 1000
 let g:deoplete#enable_camel_case = 1
 "let g:deoplete#auto_complete_start_length = 3
 
