@@ -46,6 +46,9 @@ function! s:source_file(path) abort
 endfunction
 
 function! s:lazy_load_filetype() abort
+	if &l:filetype ==# '' && bufname('%') ==# ''
+		return
+	endif
 	redir => filetype_out
 	silent! filetype
 	redir END
@@ -53,12 +56,18 @@ function! s:lazy_load_filetype() abort
 		silent! filetype plugin indent on
 		syntax enable
 		filetype detect
+		" For some reason this event isn't being
+		" triggered, and theme doesn't load
+		doautoall ColorScheme
 	endif
 endfunction
 
 " Set augroup
 augroup MyAutoCmd
 	autocmd!
+	" Lazy-loading filetype syntax and highlighting
+	autocmd MyAutoCmd FileType,Syntax,BufNewFile,BufNew,BufRead
+		\ * call s:lazy_load_filetype()
 augroup END
 
 " Initialize base requirements
