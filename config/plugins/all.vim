@@ -540,5 +540,13 @@ if dein#tap('vim-textobj-multiblock') "{{{
 endif
 
 "}}}
+if dein#tap('vim-textobj-function') "{{{
+	omap af <Plug>(textobj-function-a)
+	omap if <Plug>(textobj-function-i)
+	xmap af <Plug>(textobj-function-a)
+	xmap if <Plug>(textobj-function-i)
+endif
+
+"}}}
 
 " vim: set ts=2 sw=2 tw=80 noet :

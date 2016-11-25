@@ -297,7 +297,7 @@
   on_map: { vnx: <Plug> }
 
 - repo: rhysd/vim-operator-surround
-  depends: vim-operator-user
+  depends: [ vim-operator-user, vim-textobj-multiblock ]
   on_map: { n: <Plug> }
 
 - repo: haya14busa/vim-operator-flashy
@@ -308,11 +308,17 @@
 # Text objects
 # ------------
 - { repo: AndrewRadev/sideways.vim, on_map: { ox: <Plug>Sideways }}
-- { repo: bkad/CamelCaseMotion, on_map: { nx: <Plug>CamelCaseMotion }}
-- { repo: kana/vim-textobj-user, lazy: 1 }
+- { repo: bkad/CamelCaseMotion, on_map: { nox: <Plug>CamelCaseMotion }}
+- { repo: kana/vim-textobj-user, on_func: textobj#user# }
 
 - repo: osyo-manga/vim-textobj-multiblock
   depends: vim-textobj-user
   on_map: { ox: <Plug> }
+  hook_source: let g:textobj_multiblock_no_default_key_mappings = 1
+
+- repo: kana/vim-textobj-function
+  depends: vim-textobj-user
+  on_map: { ox: <Plug> }
+  hook_source: let g:textobj_function_no_default_key_mappings = 1
 
 #  vim: set ts=2 sw=2 tw=80 et :
