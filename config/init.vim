@@ -30,22 +30,6 @@ if filereadable(expand('$VIMPATH/.vault.vim'))
 endif
 
 " }}}
-" Respect XDG specification {{{
-if ! empty($XDG_CONFIG_HOME) && isdirectory($XDG_CONFIG_HOME.'/vim')
-	let $MYVIMRC=expand('$XDG_CONFIG_HOME/vim/config/vimrc')
-	if has('nvim')
-		" For Neovim, use .config/vim instead of .config/nvim
-		set runtimepath-=$XDG_CONFIG_HOME/nvim
-		set runtimepath^=$XDG_CONFIG_HOME/vim
-	else
-		set runtimepath-=~/.vim
-		set runtimepath^=$VIMPATH
-		set runtimepath-=~/.vim/after
-		set runtimepath+=$VIMPATH/after
-	endif
-endif
-
-" }}}
 " Setup dein {{{
 if &runtimepath !~# '/dein.vim'
 	let s:dein_dir = expand('$VARPATH/dein').'/repos/github.com/Shougo/dein.vim'

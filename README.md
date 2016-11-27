@@ -1,6 +1,6 @@
 # Vim config
 
-Lean mean Vim/Neovim machine, ~40ms startup time.
+Lean mean Vim/Neovim machine, ~30ms startup time.
 
 Best with Neovim or Vim 7.4+ with +lua +python extensions enabled.
 
@@ -27,41 +27,26 @@ You'll need a YAML interpreter, either install [yaml2json], or:
 
 `pip install --user PyYAML`
 
-Now, let's clone this repo! If you are using Neovim, clone with:
+Now, let's clone this repo! Clone to `~/.config/nvim`,
+we'll also symlink it for Vim:
+
 ```sh
-mkdir -p "${XDG_CONFIG_HOME:=$HOME/.config}"
-git clone git://github.com/rafi/vim-config.git "${XDG_CONFIG_HOME:=$HOME/.config}/nvim"
+mkdir ~/.config
+git clone git://github.com/rafi/vim-config.git ~/.config/nvim
+ln -s ~/.vim ~/.config/nvim
 ```
 
-Or, if you are using Vim:
-```sh
-git clone git://github.com/rafi/vim-config.git ~/.vim
-```
+_Note:_ If your system sets `$XDG_CONFIG_HOME`, use that instead of `~/.config`
+in the code above. Nvim follows the XDG base-directories convention.
 
-Once cloned,
+2. Run `make test` to test your nvim/vim version and compatibility.
+3. Run `make` to install all plugins.
 
-1. Enter the directory you've cloned into
-2. Run `make test` to make sure you have required dependencies
-3. Run `make`
-4. That's it! Start `nvim` or `vim`.
+That's it, enjoy!
 
 ## Upgrade
 
 Run `make update`
-
-## XDG conformity
-
-VIM (Not Neovim!) looks for its configuration in the `~/.vim` directory.
-My setup **also** supports the XDG location, `.config/vim`. If you want to
-use the XDG specification standard, add this somewhere
-in your `.profile` or `.bashrc`:
-```sh
-# Set vimrc's location and source it on vim startup
-export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
-```
-
-If you're curious how it's done, see [vimrc:13-20](./config/vimrc#L13-L20)
-and [init.vim:33-46](./config/init.vim#L33-L46).
 
 ## Structure
 - [config](./config)/ - Configuration

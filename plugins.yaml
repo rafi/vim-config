@@ -6,6 +6,7 @@
 # -------
 - repo: Shougo/dein.vim
 - { repo: Shougo/vimproc.vim, build: make }
+- repo: w0ng/vim-hybrid
 - repo: christoomey/vim-tmux-navigator
 - repo: itchyny/vim-gitbranch
 - repo: itchyny/vim-parenmatch
@@ -17,9 +18,6 @@
 # ==========================================
 # Lazy Loading
 # ------------
-- { repo: chriskempson/base16-shell, rtp: '' }
-- { repo: rafi/awesome-vim-colorschemes, rtp: '' }
-- { repo: Shougo/neosnippet-snippets }
 
 # ==========================================
 # Languages
@@ -198,8 +196,9 @@
   on_i: 1
   hook_source: let g:delimitMate_expand_cr = 1
 
+- { repo: Shougo/neosnippet-snippets }
 - { repo: Shougo/context_filetype.vim, lazy: 1 }
-- { repo: Shougo/neoinclude.vim, on_if: 1 }
+#- { repo: Shougo/neoinclude.vim, on_if: 1 }  # CRASHES DEOPLETE!
 - { repo: Shougo/neco-vim, on_ft: vim }
 - { repo: Shougo/neco-syntax, on_source: [ neocomplete.vim, deoplete.nvim ]}
 - { repo: davidhalter/jedi-vim, on_ft: python, if: empty($VIM_MINIMAL) }

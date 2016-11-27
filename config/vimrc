@@ -10,14 +10,9 @@ if &compatible
 	set nocompatible
 endif
 
-" Respect XDG
-if ! empty($XDG_CONFIG_HOME) && isdirectory($XDG_CONFIG_HOME.'/vim')
-	let $VIMPATH=expand('$XDG_CONFIG_HOME/vim')
-	let $VARPATH=expand('$XDG_CACHE_HOME/vim')
-else
-	let $VIMPATH=expand('$HOME/.vim')
-	let $VARPATH=expand('$HOME/.cache/vim')
-endif
+" Set main configuration directory, and where cache is stored.
+let $VIMPATH = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
+let $VARPATH = expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : '~/.cache').'/vim')
 
 function! s:dein_load_yaml(filename) abort
 	if executable('yaml2json')
@@ -85,6 +80,7 @@ if dein#load_state(s:path)
 	try
 		call s:dein_load_yaml(expand('$VIMPATH/plugins.yaml'))
 	catch /.*/
+		echoerr v:exception
 		echomsg 'Error loading plugins.yaml...'
 		echomsg 'Caught: ' v:exception
 		echoerr 'Please run: pip install --user PyYAML'
@@ -93,7 +89,6 @@ if dein#load_state(s:path)
 	if isdirectory(expand('$VIMPATH/dev'))
 		call dein#local(expand('$VIMPATH/dev'), {'frozen': 1, 'merged': 0})
 	endif
-	call dein#local(dein#get('awesome-vim-colorschemes').path)
 	call dein#end()
 	call dein#save_state()
 	if dein#check_install()
@@ -101,13 +96,6 @@ if dein#load_state(s:path)
 			set nomore
 		endif
 		call dein#install()
-		" After initial installation, the colorschemes are not registered.
-		" Bug in dein.vim?
-		if &runtimepath !~# '/awesome-vim-colorschemes'
-			let s:theme = dein#get('awesome-vim-colorschemes').path.'/hybrid'
-			execute 'set runtimepath+='.
-				\ substitute(fnamemodify(s:theme, ':p') , '/$', '', '')
-		endif
 	endif
 endif
 
