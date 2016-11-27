@@ -5,8 +5,8 @@
 " Enable 256 color terminal
 set t_Co=256
 
-" Enable true color (only in Neovim)
-if has('nvim') && exists('+termguicolors')
+" Enable true color (only in Neovim, but not in urxvt)
+if has('nvim') && $TERM !~# '^rxvt'  && exists('+termguicolors')
 	set termguicolors
 endif
 
