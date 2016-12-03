@@ -48,9 +48,8 @@ if dein#tap('unite.vim') "{{{
 		\|   nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
 		\| endif
 
+	" Unite window mappings {{{
 	autocmd MyAutoCmd FileType unite call s:unite_settings()
-
-	" Unite bindings
 	function! s:unite_settings() abort "{{{
 		silent! nunmap <buffer> <Space>
 		silent! nunmap <buffer> <C-h>
@@ -197,13 +196,8 @@ endif
 
 "}}}
 if dein#tap('committia.vim') "{{{
-	let g:committia_min_window_width = 70
 	let g:committia_hooks = {}
 	function! g:committia_hooks.edit_open(info)
-		if a:info.vcs ==# 'git' && getline(1) ==# ''
-			resize 4
-			startinsert
-		end
 		imap <buffer><C-d> <Plug>(committia-scroll-diff-down-half)
 		imap <buffer><C-u> <Plug>(committia-scroll-diff-up-half)
 	endfunction
@@ -211,10 +205,6 @@ endif
 
 "}}}
 if dein#tap('vim-signature') "{{{
-	let g:SignatureMarkTextHLDynamic = 1
-	let g:SignatureMarkerTextHLDynamic = 1
-	let g:SignaturePurgeConfirmation = 1
-	let g:SignatureForceRemoveGlobal = 0
 	let g:SignatureMap = {
 		\ 'ListBufferMarks':   'm/',
 		\ 'ListBufferMarkers': 'm?',
@@ -256,65 +246,22 @@ endif
 
 "}}}
 if dein#tap('jedi-vim') "{{{
-	let g:jedi#completions_enabled = 0
-	let g:jedi#auto_vim_configuration = 0
-	let g:jedi#smart_auto_mappings = 0
-	let g:jedi#show_call_signatures = 0
-	let g:jedi#use_tag_stack = 0
-	let g:jedi#popup_select_first = 0
-	let g:jedi#popup_on_dot = 0
-	let g:jedi#max_doc_height = 45
-	let g:jedi#use_splits_not_buffers = 'right'
 	let g:jedi#completions_command = ''
-	let g:jedi#goto_command = '<leader>d'
-	let g:jedi#goto_assignments_command = '<leader>a'
 	let g:jedi#documentation_command = 'K'
-	let g:jedi#rename_command = '<leader>r'
-	let g:jedi#usages_command = '<leader>n'
-
-	if ! has('nvim')
-		autocmd MyAutoCmd FileType python
-			\ if has('python') || has('python3') |
-			\   setlocal omnifunc=jedi#completions |
-			\ else |
-			\   setlocal omnifunc= |
-			\ endif
-	endif
-endif
-
-"}}}
-if dein#tap('javascript-libraries-syntax.vim') "{{{
-	let g:used_javascript_libs = 'jquery,flux,underscore,backbone,react'
+	let g:jedi#use_splits_not_buffers = 'right'
+	let g:jedi#goto_command = '<C-]>'
+	let g:jedi#goto_assignments_command = '<C-[>'
+	let g:jedi#rename_command = '<Leader>r'
+	let g:jedi#usages_command = '<Leader>n'
 endif
 
 "}}}
 if dein#tap('vim-gitgutter') "{{{
-"	let g:gitgutter_realtime = 1
-"	let g:gitgutter_eager = 0
-	let g:gitgutter_map_keys = 0
-	let g:gitgutter_sh = $SHELL
-
 	nmap <Leader>hj <Plug>GitGutterNextHunk
 	nmap <Leader>hk <Plug>GitGutterPrevHunk
 	nmap <Leader>hs <Plug>GitGutterStageHunk
 	nmap <Leader>hr <Plug>GitGutterUndoHunk
 	nmap <Leader>hp <Plug>GitGutterPreviewHunk
-endif
-
-"}}}
-if dein#tap('neomake') "{{{
-	autocmd MyAutoCmd BufWritePost * call <SID>neomake_custom()
-	function! s:neomake_custom()
-		let filetypes = [
-			\   'ansible', 'python', 'php', 'ruby', 'vim', 'go', 'sh',
-			\   'javascript', 'javascript.jsx', 'json', 'css', 'yaml',
-			\   'markdown', 'html'
-			\ ]
-
-		if empty(&buftype) && index(filetypes, &filetype) > -1
-			Neomake
-		endif
-	endfunction
 endif
 
 "}}}
@@ -330,29 +277,6 @@ if dein#tap('vim-go') "{{{
 		\ | nmap <Leader>goe  <Plug>(go-referrers)
 		\ | nmap <Leader>gor  <Plug>(go-run)
 		\ | nmap <Leader>gov  <Plug>(go-vet)
-
-	let g:go_def_mapping_enabled = 0
-
-	" vim-go, do not mess with my neosnippet config!
-	let g:go_loaded_gosnippets = 1
-	let g:go_snippet_engine = 'neosnippet'
-
-	let g:go_highlight_extra_types = 1
-	let g:go_highlight_operators = 1
-endif
-
-"}}}
-if dein#tap('vim-markdown') "{{{
-	let g:vim_markdown_initial_foldlevel = 5
-	let g:vim_markdown_new_list_item_indent = 2
-	let g:vim_markdown_frontmatter = 1
-	let g:vim_markdown_conceal = 0
-endif
-
-"}}}
-if dein#tap('vim-gfm-syntax') "{{{
-	let g:gfm_syntax_enable_always = 0
-	let g:gfm_syntax_enable_filetypes = ['markdown']
 endif
 
 "}}}
@@ -375,76 +299,17 @@ if dein#tap('vim-gita') "{{{
 endif
 
 "}}}
-if dein#tap('vim-findent') "{{{
-	augroup findent
-		autocmd!
-		autocmd BufRead *.js*,*.html,*.css,.tern*
-			\ call s:setupFindent()
-	augroup END
-
-	function! s:setupFindent()
-		execute 'Findent! --no-warnings'
-		if &expandtab
-			IndentGuidesEnable
-		else
-			IndentGuidesDisable
-		endif
-	endfunction
-endif
-
-"}}}
 if dein#tap('caw.vim') "{{{
-	let g:caw_zeropos_sp = ''
-	let g:caw_zeropos_sp_right = ''
-	let g:caw_hatpos_sp = ''
-	let g:caw_hatpos_skip_blank_line = 1
-	let g:caw_dollarpos_sp_right = ''
-	let g:caw_dollarpos_skip_blank_line = 1
-	let g:caw_box_sp_right = ''
-	autocmd MyAutoCmd FileType * call s:init_caw()
-	function! s:init_caw()
-		if ! &l:modifiable
-			silent! nunmap <buffer> gc
-			silent! xunmap <buffer> gc
-			silent! nunmap <buffer> <Leader>v
-			silent! xunmap <buffer> <Leader>v
-			silent! nunmap <buffer> <Leader>V
-			silent! xunmap <buffer> <Leader>V
-		else
-			nmap <buffer> gc <Plug>(caw:prefix)
-			xmap <buffer> gc <Plug>(caw:prefix)
-			nmap <buffer> <Leader>V <Plug>(caw:tildepos:toggle)
-			xmap <buffer> <Leader>V <Plug>(caw:tildepos:toggle)
-			nmap <buffer> <Leader>v <Plug>(caw:zeropos:toggle)
-			xmap <buffer> <Leader>v <Plug>(caw:zeropos:toggle)
-		endif
-	endfunction
-endif
-
-"}}}
-if dein#tap('vim-indent-guides') "{{{
-	let g:indent_guides_enable_on_vim_startup = 0
-	let g:indent_guides_exclude_filetypes = ['help', 'unite', 'vimfiler']
-	let g:indent_guides_default_mapping = 0
-	let g:indent_guides_indent_levels = 15
-
-	nmap <silent><Leader>i :<C-u>IndentGuidesToggle<CR>
-
-	" Automatically toggle indent guides for all file-types
-	autocmd MyAutoCmd BufEnter *
-		\ if ! has('vim_starting') && ! empty(&l:filetype)
-		\ |   if g:indent_guides_autocmds_enabled == 0 && &expandtab
-		\ |     IndentGuidesEnable
-		\ |   elseif g:indent_guides_autocmds_enabled == 1 && ! &expandtab
-		\ |     IndentGuidesDisable
-		\ |   endif
-		\ | endif
+	nmap gc <Plug>(caw:prefix)
+	xmap gc <Plug>(caw:prefix)
+	nmap <Leader>V <Plug>(caw:tildepos:toggle)
+	xmap <Leader>V <Plug>(caw:tildepos:toggle)
+	nmap <Leader>v <Plug>(caw:zeropos:toggle)
+	xmap <Leader>v <Plug>(caw:zeropos:toggle)
 endif
 
 "}}}
 if dein#tap('vim-anzu') "{{{
-	let g:anzu_status_format = 'match %i of %l'
-
 	nmap n n<Plug>(anzu-update-search-status)
 	nmap N N<Plug>(anzu-update-search-status)
 	nmap <silent> <Leader>cc :<C-u>call anzu#clear_search_status()<CR>
@@ -465,26 +330,9 @@ if dein#tap('vim-asterisk') "{{{
 endif
 
 "}}}
-if dein#tap('vimwiki') "{{{
-	let wiki = {}
-	let wiki.diary_header = 'Rafi''s Diary'
-	let wiki.diary_link_fmt = '%Y-%m/%d'
-	let wiki.path = '~/docs/wiki/'
-	let wiki.path_html = '~/docs/wiki/html/'
-	let wiki.syntax = 'markdown'
-	let wiki.ext = '.md'
-	let g:vimwiki_list = [ wiki ]
-
-	nnoremap <silent> <Leader>W :<C-u>VimwikiIndex<CR>
-endif
-
-"}}}
-if dein#tap('vim-cursorword') "{{{
-	augroup cursorword-filetype
-		autocmd!
-		autocmd FileType qf,vimfiler,vimshell,thumbnail,vimcalc,quickrun,github-dashboard
-			\ let b:cursorword = 0
-	augroup END
+if dein#tap('dsf.vim') "{{{
+	nmap dsf <Plug>DsfDelete
+	nmap csf <Plug>DsfChange
 endif
 
 "}}}

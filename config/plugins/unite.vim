@@ -33,12 +33,10 @@ let g:unite_source_tag_fname_footer_length = 25
 " }}}
 " Source: mru {{{
 let g:neomru#file_mru_limit = 500
-let g:neomru#directory_mru_limit = 15
+let g:neomru#directory_mru_limit = 25
 
 " }}}
 " Source: grep {{{
-"let g:unite_source_grep_max_candidates = 400
-
 " Use the_silver_searcher or ack or default grep
 if executable('ag')
 	let g:unite_source_grep_command = 'ag'
@@ -118,14 +116,6 @@ call unite#custom#source(
 	\ 'file_rec,file_rec/async,file_rec/neovim,file_mru,neomru/file',
 	\ 'converters',
 	\ ['converter_file_directory'])
-"	\ ['converter_uniq_word'])
-
-"call unite#custom#source(
-"	\ 'buffer',
-"	\ 'converters',
-"	\ ['converter_uniq_word', 'converter_word_abbr'])
-
-"call unite#custom#source('tag', 'converters', ['converter_file_directory'])
 
 call unite#filters#sorter_default#use(['sorter_rank'])
 
