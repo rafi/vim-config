@@ -114,7 +114,7 @@ cnoremap <C-d> <C-w>
 " ---------------
 
 " When pressing <leader>cd switch to the directory of the open buffer
-map <Leader>cd :cd %:p:h<CR>:pwd<CR>
+map <Leader>cd :lcd %:p:h<CR>:pwd<CR>
 
 " Fast saving
 nnoremap <Leader>w :write<CR>
@@ -165,8 +165,8 @@ nnoremap <silent> <expr> ,d ":\<C-u>".(&diff?"diffoff":"diffthis")."\<CR>"
 xnoremap <C-r> :<C-u>call VSetSearch('/')<CR>:%s/\V<C-R>=@/<CR>//gc<Left><Left><Left>
 
 " Location list movement
-nmap <Leader>j :lnext<CR>
-nmap <Leader>k :lprev<CR>
+nmap <Leader>lj :lnext<CR>
+nmap <Leader>lk :lprev<CR>
 
 " Duplicate lines
 nnoremap <Leader>d m`YP``
@@ -185,10 +185,10 @@ nnoremap <Leader>S ^vg_y:execute @@<CR>:echo 'Sourced line.'<CR>
 nnoremap <Leader>y :let @+=expand("%:p")<CR>:echo 'Copied to clipboard.'<CR>
 
 " Drag current line/s vertically and auto-indent
+vnoremap mk :m-2<CR>gv=gv
+vnoremap mj :m'>+<CR>gv=gv
 noremap  <Leader>mk :m-2<CR>==
 noremap  <Leader>mj :m+<CR>==
-vnoremap <Leader>mk :m-2<CR>gv=gv
-vnoremap <Leader>mj :m'>+<CR>gv=gv
 
 nnoremap <Leader>se :<C-u>SessionSave last<CR>
 nnoremap <Leader>os :<C-u>execute 'source '.g:session_directory.'/last.vim'<CR>

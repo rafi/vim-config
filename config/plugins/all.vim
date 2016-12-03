@@ -167,6 +167,7 @@ if dein#tap('vim-operator-surround') "{{{
 	map <silent>sa <Plug>(operator-surround-append)
 	map <silent>sd <Plug>(operator-surround-delete)
 	map <silent>sr <Plug>(operator-surround-replace)
+	nmap <silent>saa <Plug>(operator-surround-append)<Plug>(textobj-multiblock-i)
 	nmap <silent>sdd <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
 	nmap <silent>srr <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
 endif
@@ -519,12 +520,14 @@ endif
 "}}}
 if dein#tap('CamelCaseMotion') "{{{
 	nmap <silent> e <Plug>CamelCaseMotion_e
+	xmap <silent> e <Plug>CamelCaseMotion_e
+	omap <silent> e <Plug>CamelCaseMotion_e
 	nmap <silent> w <Plug>CamelCaseMotion_w
 	xmap <silent> w <Plug>CamelCaseMotion_w
-	omap <silent> W <Plug>CamelCaseMotion_w
+	omap <silent> w <Plug>CamelCaseMotion_w
 	nmap <silent> b <Plug>CamelCaseMotion_b
 	xmap <silent> b <Plug>CamelCaseMotion_b
-	omap <silent> B <Plug>CamelCaseMotion_b
+	omap <silent> b <Plug>CamelCaseMotion_b
 endif
 
 "}}}
@@ -542,7 +545,6 @@ if dein#tap('vim-textobj-function') "{{{
 	xmap af <Plug>(textobj-function-a)
 	xmap if <Plug>(textobj-function-i)
 endif
-
 "}}}
 
 " vim: set ts=2 sw=2 tw=80 noet :

@@ -52,7 +52,7 @@ function! s:lazy_load_filetype() abort
 		syntax enable
 		filetype detect
 		" For some reason this event isn't being
-		" triggered, and theme doesn't load
+		" triggered, and theme doesn't load.
 		doautoall ColorScheme
 	endif
 endfunction
