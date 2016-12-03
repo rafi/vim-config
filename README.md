@@ -1,6 +1,6 @@
 # Vim config
 
-Lean mean Vim/Neovim machine, ~30ms startup time.
+Lean mean Vim/Neovim machine, 15-30ms startup time.
 
 Best with Neovim or Vim 7.4+ with +lua +python extensions enabled.
 
@@ -23,11 +23,8 @@ Best with Neovim or Vim 7.4+ with +lua +python extensions enabled.
 ![Vim screenshot](http://rafi.io/static/img/project/vim-config/features.png)
 
 ## Install
-You'll need a YAML interpreter, either install [yaml2json], or:
 
-`pip install --user PyYAML`
-
-Now, let's clone this repo! Clone to `~/.config/nvim`,
+**_1._** Let's clone this repo! Clone to `~/.config/nvim`,
 we'll also symlink it for Vim:
 
 ```sh
@@ -36,11 +33,28 @@ git clone git://github.com/rafi/vim-config.git ~/.config/nvim
 ln -s ~/.vim ~/.config/nvim
 ```
 
-_Note:_ If your system sets `$XDG_CONFIG_HOME`, use that instead of `~/.config`
-in the code above. Nvim follows the XDG base-directories convention.
+* _Note:_ If your system sets `$XDG_CONFIG_HOME`,
+use that instead of `~/.config` in the code above.
+Nvim follows the XDG base-directories convention.
 
-2. Run `make test` to test your nvim/vim version and compatibility.
-3. Run `make` to install all plugins.
+**_2._** Almost done! You'll need a YAML interpreter,
+either install [yaml2json], or use PyYAML:
+
+```sh
+pip install --user PyYAML
+```
+
+**_3._** If you are a _first-time Neovim user_, you need the python-neovim
+packages. Don't worry, just run the script provided:
+
+```sh
+cd ~/.config/nvim
+./venv.sh
+```
+
+**_4._** Run `make test` to test your nvim/vim version and compatibility.
+
+**_5._** Run `make` to install all plugins.
 
 That's it, enjoy!
 
@@ -49,24 +63,23 @@ That's it, enjoy!
 Run `make update`
 
 ## Structure
+
 - [config](./config)/ - Configuration
   - [plugins](./config/plugins)/ - Plugin configurations
-  - [bindings.vim](./config/bindings.vim) - Key bindings
+  - [mappings.vim](./config/mappings.vim) - Key-mappings
   - [filetype.vim](./config/filetype.vim) - Language behavior
   - [general.vim](./config/general.vim) - General configuration
   - [init.vim](./config/init.vim) - `runtimepath` initialization
   - [neovim.vim](./config/neovim.vim) - Neovim specific setup
   - [plugins.vim](./config/plugins.vim) - Plugin bundles
-  - [tabline.vim](./config/tabline.vim) - Tabline configuration
   - [terminal.vim](./config/terminal.vim) - Terminal configuration
   - [theme.vim](./config/theme.vim) - Color-scheme and theme setup
-  - [utils.vim](./config/utils.vim) - Commands and functions
   - [vimrc](./config/vimrc) - Initialization
 - [ftplugin](./ftplugin)/ - Language specific custom settings
-- [snippets](./snippets)/ - Code snippets
+- [plugin](./plugin)/ - Customized small plugins
+- [snippets](./snippets)/ - Personal code snippets
+- [themes](./themes)/ - Themes! Combination of styles and color-scheme
 - [filetype.vim](./filetype.vim) - Custom filetype detection
-- [init.vim](./init.vim) - Sources `config/vimrc`
-- [vimrc](./vimrc) - Sources `config/vimrc`
 
 ## Plugin Highlights
 
@@ -287,7 +300,7 @@ Name           | Description
 [textobj-user]: https://github.com/kana/vim-textobj-user
 [textobj-multiblock]: https://github.com/osyo-manga/vim-textobj-multiblock
 
-## Custom Key bindings
+## Custom Key-mappings
 
 Key   | Mode | Action
 ----- |:----:| ------------------
@@ -519,7 +532,10 @@ Key   | Mode | Action
 `<leader>`+`W` | Normal | Wiki
 `<leader>`+`K` | Normal | Thesaurus
 
-## Enjoy!
+## Credits & Contribution
 
+Big thanks to the dark knight [Shougo].
+
+[Shougo]: https://github.com/Shougo
 [lazy-loaded]: ./config/plugins.vim
 [yaml2json]: https://github.com/koraa/large-yaml2json-json2yaml
