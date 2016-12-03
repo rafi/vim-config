@@ -78,7 +78,7 @@ noremap <expr> <C-b> max([winheight(0) - 2, 1])
 noremap <expr> <C-e> (line("w$") >= line('$') ? "j" : "3\<C-e>")
 noremap <expr> <C-y> (line("w0") <= 1         ? "k" : "3\<C-y>")
 
-" Navigate window
+" Window control
 nnoremap <C-q> <C-w>
 nnoremap <C-x> <C-w>x
 nnoremap <C-w>z :ZoomToggle<CR>
@@ -117,11 +117,11 @@ cnoremap <C-d> <C-w>
 map <Leader>cd :cd %:p:h<CR>:pwd<CR>
 
 " Fast saving
-nnoremap <Leader>w :w<CR>
-vnoremap <Leader>w <Esc>:w<CR>
-nnoremap <C-s> :<C-u>w<CR>
-vnoremap <C-s> :<C-u>w<CR>
-cnoremap <C-s> <C-u>w<CR>
+nnoremap <Leader>w :write<CR>
+vnoremap <Leader>w <Esc>:write<CR>
+nnoremap <C-s> :<C-u>write<CR>
+vnoremap <C-s> :<C-u>write<CR>
+cnoremap <C-s> <C-u>write<CR>
 
 " Save a file with sudo
 " http://forrst.com/posts/Use_w_to_sudo_write_a_file_with_Vim-uAN
@@ -181,9 +181,6 @@ snoremap <expr> . @.
 vnoremap <Leader>S y:execute @@<CR>:echo 'Sourced selection.'<CR>
 nnoremap <Leader>S ^vg_y:execute @@<CR>:echo 'Sourced line.'<CR>
 
-" Append modeline to EOF
-nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
-
 " Yank buffer's absolute path to X11 clipboard
 nnoremap <Leader>y :let @+=expand("%:p")<CR>:echo 'Copied to clipboard.'<CR>
 
@@ -216,6 +213,19 @@ augroup MyAutoCmd " {{{
 	endif
 
 augroup END
+" }}}
+
+" Append modeline to EOF {{{
+nnoremap <silent> <Leader>ml :call <SID>append_modeline()<CR>
+
+" Append modeline after last line in buffer
+" See: http://vim.wikia.com/wiki/Modeline_magic
+function! s:append_modeline() "{{{
+	let l:modeline = printf(' vim: set ts=%d sw=%d tw=%d %set :',
+				\ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
+	let l:modeline = substitute(&commentstring, '%s', l:modeline, '')
+	call append(line('$'), l:modeline)
+endfunction "}}}
 " }}}
 
 " s: Windows and buffers {{{

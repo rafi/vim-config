@@ -16,18 +16,18 @@ set history=500              " Search and commands remembered
 set synmaxcol=1000           " Don't syntax highlight long lines
 set formatoptions+=1         " Don't break lines after a one-letter word
 set formatoptions-=t         " Don't auto-wrap text
+if has('patch-7.3.541')
+	set formatoptions+=j       " Remove comment leader when joining lines
+endif
 
 if has('vim_starting')
 	set encoding=utf-8
 	scriptencoding utf-8
 endif
 
-if has('patch-7.3.541')
-	set formatoptions+=j       " Remove comment leader when joining lines
-endif
-
 " What to save for views:
-set viewoptions-=options viewoptions+=slash,unix
+set viewoptions-=options
+set viewoptions+=slash,unix
 
 " What to save in sessions:
 set sessionoptions-=blank
@@ -120,16 +120,6 @@ set shiftround      " Round indent to multiple of 'shiftwidth'
 set shiftwidth=2    " Number of spaces to use in auto(indent)
 
 " }}}
-" Folds {{{
-" -----
-if has('folding')
-	set foldenable
-	set foldmethod=syntax
-	set foldlevelstart=99
-	set foldtext=FoldText()
-endif
-
-" }}}
 " Time {{{
 " --------
 set timeout ttimeout
@@ -165,7 +155,8 @@ set breakat=\ \	;:,!?           " Long lines break chars
 set nostartofline               " Cursor in same column for few commands
 set whichwrap+=h,l,<,>,[,],~    " Move to following line on certain keys
 set splitbelow splitright       " Splits open bottom right
-set switchbuf=useopen,usetab,vsplit " Switch buffer behavior
+set switchbuf=useopen,usetab    " Jump to the first open window in any tab
+set switchbuf+=vsplit           " Switch buffer behavior to vsplit
 set backspace=indent,eol,start  " Intuitive backspacing in insert mode
 set diffopt=filler,iwhite       " Diff mode: show fillers, ignore white
 set showfulltag                 " Show tag and tidy search in completion
@@ -201,13 +192,13 @@ set pumheight=20        " Pop-up menu's line height
 set helpheight=12       " Minimum help window height
 set previewheight=8     " Completion preview height
 
-set display=lastline
 set noshowcmd           " Don't show command in status line
 set cmdheight=2         " Height of the command line
 set cmdwinheight=5      " Command-line lines
 set noequalalways       " Don't resize windows on split or close
 set laststatus=2        " Always show a status line
 set colorcolumn=80      " Highlight the 80th character limit
+set display=lastline
 
 " Do not display completion messages
 " Patch: https://groups.google.com/forum/#!topic/vim_dev/WeBBjkXE8H8
@@ -224,5 +215,74 @@ endif
 if has('conceal') && v:version >= 703
 	set conceallevel=2 concealcursor=niv
 endif
+
+" }}}
+" Folds {{{
+" -----
+if has('folding')
+	set foldenable
+	set foldmethod=syntax
+	set foldlevelstart=99
+	set foldtext=FoldText()
+endif
+
+" Nicer fold text
+" See: http://dhruvasagar.com/2013/03/28/vim-better-foldtext
+function! FoldText() "{{{
+	let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
+	let lines_count = v:foldend - v:foldstart + 1
+	let lines_count_text = '| ' . printf('%10s', lines_count . ' lines') . ' |'
+	let foldchar = matchstr(&fillchars, 'fold:\zs.')
+	let foldtextstart = strpart('+' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
+	let foldtextend = lines_count_text . repeat(foldchar, 8)
+	let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
+	return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
+endfunction "}}}
+" }}}
+
+" Autocommands features {{{
+" ---------------------
+augroup MyAutoCmd
+
+	" More eager than 'autoread'.
+	autocmd WinEnter,FocusGained * checktime
+
+	" When editing a file, always jump to the last known cursor position.
+	" Don't do it when the position is invalid or when inside an event handler
+	autocmd BufReadPost *
+		\ if &ft !~ '^git\c' && ! &diff && line("'\"") > 0 && line("'\"") <= line("$")
+		\|   exe 'normal! g`"zvzz'
+		\| endif
+
+	" Disable paste and/or update diff when leaving insert mode
+	autocmd InsertLeave *
+			\ if &paste | setlocal nopaste mouse=a | echo 'nopaste' | endif |
+			\ if &l:diff | diffupdate | endif
+
+	" Open Quickfix window automatically
+	autocmd QuickFixCmdPost [^l]* leftabove copen
+		\ | wincmd p | redraw!
+	autocmd QuickFixCmdPost l* leftabove lopen
+		\ | wincmd p | redraw!
+
+	" Fix window position of help/quickfix
+	autocmd FileType help if &l:buftype ==# 'help'
+		\ | wincmd L | endif
+	autocmd FileType qf   if &l:buftype ==# 'quickfix'
+		\ | wincmd J | endif
+
+augroup END
+" }}}
+
+" Display diff from last save.
+command! DiffOrig vert new | setlocal bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
+
+" Returns visually selected text
+function! VSetSearch(cmdtype) "{{{
+	let temp = @s
+	normal! gv"sy
+	let @/ = substitute(escape(@s, '\'.a:cmdtype), '\n', '\\n', 'g')
+	let @s = temp
+endfunction "}}}
 
 " vim: set ts=2 sw=2 tw=80 noet :

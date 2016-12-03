@@ -1,5 +1,5 @@
 
-" Theme {{{
+" Theme
 " -----
 
 " Enable 256 color terminal

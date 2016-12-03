@@ -1,5 +1,5 @@
 
-" Xterm & Tmux
+" Vim Only: Xterm & Tmux
 "---------------------------------------------------------
 if has('nvim')
 	finish

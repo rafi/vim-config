@@ -7,7 +7,7 @@
 let g:mapleader="\<Space>"
 let g:maplocalleader=','
 
-" Release keymappings for plug-in.
+" Release keymappings for plug-ins.
 nnoremap ;  <Nop>
 xnoremap ;  <Nop>
 nnoremap <Space>  <Nop>
