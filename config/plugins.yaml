@@ -155,11 +155,8 @@
 - { repo: Shougo/tabpagebuffer.vim, on_if: tabpagenr() > 1 }
 
 - repo: itchyny/vim-cursorword
-  hook_source:
-    augroup cursorword-filetype
-    |   autocmd!
-    |   autocmd FileType vimfiler let b:cursorword = 0
-    | augroup END
+  on_path: .*
+  hook_source: autocmd MyAutoCmd FileType vimfiler,denite let b:cursorword = 0
 
 - repo: airblade/vim-gitgutter
   on_path: .*
