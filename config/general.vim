@@ -61,11 +61,6 @@ endif
 " }}}
 " Vim Directories {{{
 " ---------------
-if has('nvim')
-	set shada='30,/100,:50,<10,@10,s50,h,n$VARPATH/shada
-else
-	set viminfo='30,/100,:500,<10,@10,s10,h,n$VARPATH/viminfo
-endif
 set undofile swapfile nobackup
 set directory=$VARPATH/swap//,$VARPATH,~/tmp,/var/tmp,/tmp
 set undodir=$VARPATH/undo//,$VARPATH,~/tmp,/var/tmp,/tmp
@@ -73,38 +68,22 @@ set backupdir=$VARPATH/backup/,$VARPATH,~/tmp,/var/tmp,/tmp
 set viewdir=$VARPATH/view/
 set nospell spellfile=$VIMPATH/spell/en.utf-8.add
 
-let g:session_directory = $VARPATH.'/session/'
-
-" Don't backup files in temp directories or shm
-if exists('&backupskip')
-	set backupskip+=/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*,/private/var/*,.vault.vim
+" History saving
+if has('nvim')
+	"  ShaDa/viminfo:
+	"   " - Maximum number of lines saved for each register
+	"   ' - Maximum number of previously edited files marks
+	"   / - Maximum number of items in the search pattern history
+	"   : - Maximum number of items in the command-line history
+	"   < - Maximum number of lines saved for each register
+	"   @ - Maximum number of items in the input-line history to be
+	"   h - Disable the effect of 'hlsearch' when loading the shada
+	"   n - Name of the shada file.  The name must immediately follow
+	"   s - Maximum size of an item contents in KiB
+	set shada='300,/2000,:2000,<100,@100,s200,h,n$VARPATH/shada
+else
+	set viminfo='30,/500,:500,<100,@50,s10,h,n$VARPATH/viminfo
 endif
-
-" Don't keep swap files in temp directories or shm
-augroup swapskip
-	autocmd!
-	silent! autocmd BufNewFile,BufReadPre
-		\ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*,/private/var/*,.vault.vim
-		\ setlocal noswapfile
-augroup END
-
-" Don't keep undo files in temp directories or shm
-if has('persistent_undo')
-	augroup undoskip
-		autocmd!
-		silent! autocmd BufWritePre
-			\ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*,/private/var/*,.vault.vim
-			\ setlocal noundofile
-	augroup END
-endif
-
-" Don't keep viminfo for files in temp directories or shm
-augroup viminfoskip
-	autocmd!
-	silent! autocmd BufNewFile,BufReadPre
-		\ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*,/private/var/*,.vault.vim
-		\ setlocal viminfo=
-augroup END
 
 " }}}
 " Tabs and Indents {{{
