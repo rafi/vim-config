@@ -75,12 +75,13 @@ endif
 " Initialize dein.vim (package manager)
 let s:path = expand('$VARPATH/dein')
 if dein#load_state(s:path)
-	call dein#begin(s:path, [expand('<sfile>'), expand('$VIMPATH/plugins.yaml')])
+	call dein#begin(s:path, [
+		\ expand('<sfile>'), expand('$VIMPATH/config/plugins.yaml')])
 	try
-		call s:dein_load_yaml(expand('$VIMPATH/plugins.yaml'))
+		call s:dein_load_yaml(expand('$VIMPATH/config/plugins.yaml'))
 	catch /.*/
 		echoerr v:exception
-		echomsg 'Error loading plugins.yaml...'
+		echomsg 'Error loading config/plugins.yaml...'
 		echomsg 'Caught: ' v:exception
 		echoerr 'Please run: pip install --user PyYAML'
 	endtry
@@ -110,11 +111,11 @@ endif
 
 " Loading configuration modules {{{
 call s:source_file('general.vim')
+call s:source_file('terminal.vim')
 call s:source_file('theme.vim')
 call s:source_file('filetype.vim')
 call s:lazy_load_filetype()
-call s:source_file('terminal.vim')
-call s:source_file('bindings.vim')
+call s:source_file('mappings.vim')
 " }}}
 
 set secure
