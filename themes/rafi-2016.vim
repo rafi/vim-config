@@ -175,6 +175,7 @@ highlight GitGutterChangeDelete ctermfg=52 guifg=#600000 ctermbg=NONE
 " ---------------------------------------------------------
 "highlight deniteSource_base
 highlight deniteMatched ctermfg=221 guifg=#f0c674
+highlight deniteMatchedChar ctermfg=245 guifg=#eeeeee
 highlight link deniteGrepInput Constant
 "highlight deniteSourceLine_file_mru
 " }}}

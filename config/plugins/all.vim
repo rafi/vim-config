@@ -10,15 +10,15 @@ if dein#tap('denite.nvim') "{{{
 	nnoremap <silent> [unite]d  :<C-u>Denite directory_rec -default-action=cd<CR>
 	nnoremap <silent> [unite]b  :<C-u>Denite buffer file_mru<CR>
 	nnoremap <silent> [unite]n  :<C-u>Denite dein<CR>
-	nnoremap <silent> [unite]g  :<C-u>Denite grep<CR>
+	nnoremap <silent> [unite]g  :<C-u>Denite grep -buffer-name=grep<CR>
 	nnoremap <silent> [unite]j  :<C-u>Denite file_point<CR>
 	nnoremap <silent> [unite]h  :<C-u>Denite neoyank -default-action=cd<CR>
 
 	" Open Unite with word under cursor or selection
 	nnoremap <silent> <Leader>gf :DeniteCursorWord file_rec<CR>
-	nnoremap <silent> <Leader>gg :DeniteCursorWord grep<CR><CR>
+	nnoremap <silent> <Leader>gg :DeniteCursorWord grep -buffer-name=grep<CR><CR>
 	vnoremap <silent> <Leader>gg
-		\ :<C-u>call VSetSearch('/')<CR>:execute 'Denite grep -input='.@/<CR><CR>
+		\ :<C-u>call VSetSearch('/')<CR>:execute 'Denite grep -buffer-name=grep -input='.@/<CR><CR>
 endif
 
 " }}}
