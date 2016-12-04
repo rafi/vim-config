@@ -3,7 +3,7 @@
 "-------------------------------------------------
 
 " Reload vim config automatically {{{
-execute 'autocmd MyAutoCmd BufWritePost '.$VIMPATH.'/config/*vim,vimrc nested'
+execute 'autocmd MyAutoCmd BufWritePost '.$VIMPATH.'/config/*,vimrc nested'
 	\ .' source $MYVIMRC | redraw'
 " }}}
 
@@ -12,11 +12,8 @@ augroup MyAutoCmd " {{{
 	" Automatically set read-only for files being edited elsewhere
 	autocmd SwapExists * nested let v:swapchoice = 'o'
 
-	" Reload Vim script automatically if setlocal autoread
-	autocmd BufWritePost,FileWritePost *.vim nested
-		\ if &l:autoread > 0 | source <afile> |
-		\   echo 'source '.bufname('%') |
-		\ endif
+	" More eager than 'autoread'.
+	autocmd WinEnter,FocusGained * checktime
 
 	" Update filetype on save if empty
 	autocmd BufWritePost * nested
@@ -24,6 +21,24 @@ augroup MyAutoCmd " {{{
 		\ |   unlet! b:ftdetect
 		\ |   filetype detect
 		\ | endif
+
+	" Reload Vim script automatically if setlocal autoread
+	autocmd BufWritePost,FileWritePost *.vim nested
+		\ if &l:autoread > 0 | source <afile> |
+		\   echo 'source '.bufname('%') |
+		\ endif
+
+	" When editing a file, always jump to the last known cursor position.
+	" Don't do it when the position is invalid or when inside an event handler
+	autocmd BufReadPost *
+		\ if &ft !~ '^git\c' && ! &diff && line("'\"") > 0 && line("'\"") <= line("$")
+		\|   exe 'normal! g`"zvzz'
+		\| endif
+
+	" Disable paste and/or update diff when leaving insert mode
+	autocmd InsertLeave *
+			\ if &paste | setlocal nopaste mouse=a | echo 'nopaste' | endif |
+			\ if &l:diff | diffupdate | endif
 
 	autocmd FileType help
 		\ setlocal iskeyword+=: | setlocal iskeyword+=# | setlocal iskeyword+=-
@@ -56,6 +71,18 @@ augroup MyAutoCmd " {{{
 				\ match goErr /\<err\>/
 
 	autocmd Syntax * if 5000 < line('$') | syntax sync minlines=200 | endif
+
+	" Open Quickfix window automatically
+	autocmd QuickFixCmdPost [^l]* leftabove copen
+		\ | wincmd p | redraw!
+	autocmd QuickFixCmdPost l* leftabove lopen
+		\ | wincmd p | redraw!
+
+	" Fix window position of help/quickfix
+	autocmd FileType help if &l:buftype ==# 'help'
+		\ | wincmd L | endif
+	autocmd FileType qf   if &l:buftype ==# 'quickfix'
+		\ | wincmd J | endif
 
 augroup END " }}}
 

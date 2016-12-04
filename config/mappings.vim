@@ -190,6 +190,7 @@ vnoremap mj :m'>+<CR>gv=gv
 noremap  <Leader>mk :m-2<CR>==
 noremap  <Leader>mj :m+<CR>==
 
+" Last session management shortcuts
 nnoremap <Leader>se :<C-u>SessionSave last<CR>
 nnoremap <Leader>os :<C-u>execute 'source '.g:session_directory.'/last.vim'<CR>
 
@@ -213,6 +214,18 @@ augroup MyAutoCmd " {{{
 	endif
 
 augroup END
+" }}}
+
+" Returns visually selected text
+function! VSetSearch(cmdtype) "{{{
+	let temp = @s
+	normal! gv"sy
+	let @/ = substitute(escape(@s, '\'.a:cmdtype), '\n', '\\n', 'g')
+	let @s = temp
+endfunction "}}}
+
+" Display diff from last save {{{
+command! DiffOrig vert new | setlocal bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
 " }}}
 
 " Append modeline to EOF {{{

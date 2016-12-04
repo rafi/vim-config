@@ -217,51 +217,7 @@ function! FoldText() "{{{
 	let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
 	return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
 endfunction "}}}
+
 " }}}
-
-" Autocommands features {{{
-" ---------------------
-augroup MyAutoCmd
-
-	" More eager than 'autoread'.
-	autocmd WinEnter,FocusGained * checktime
-
-	" When editing a file, always jump to the last known cursor position.
-	" Don't do it when the position is invalid or when inside an event handler
-	autocmd BufReadPost *
-		\ if &ft !~ '^git\c' && ! &diff && line("'\"") > 0 && line("'\"") <= line("$")
-		\|   exe 'normal! g`"zvzz'
-		\| endif
-
-	" Disable paste and/or update diff when leaving insert mode
-	autocmd InsertLeave *
-			\ if &paste | setlocal nopaste mouse=a | echo 'nopaste' | endif |
-			\ if &l:diff | diffupdate | endif
-
-	" Open Quickfix window automatically
-	autocmd QuickFixCmdPost [^l]* leftabove copen
-		\ | wincmd p | redraw!
-	autocmd QuickFixCmdPost l* leftabove lopen
-		\ | wincmd p | redraw!
-
-	" Fix window position of help/quickfix
-	autocmd FileType help if &l:buftype ==# 'help'
-		\ | wincmd L | endif
-	autocmd FileType qf   if &l:buftype ==# 'quickfix'
-		\ | wincmd J | endif
-
-augroup END
-" }}}
-
-" Display diff from last save.
-command! DiffOrig vert new | setlocal bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
-
-" Returns visually selected text
-function! VSetSearch(cmdtype) "{{{
-	let temp = @s
-	normal! gv"sy
-	let @/ = substitute(escape(@s, '\'.a:cmdtype), '\n', '\\n', 'g')
-	let @s = temp
-endfunction "}}}
 
 " vim: set ts=2 sw=2 tw=80 noet :
