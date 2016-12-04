@@ -359,6 +359,7 @@
   if: has('nvim')
   on_cmd: Denite
   hook_source: source $VIMPATH/config/plugins/denite.vim
+  hook_post_source: source $VIMPATH/config/menus.vim
 
 - repo: rafi/vim-denite-mpc
   if: executable('mpc')
