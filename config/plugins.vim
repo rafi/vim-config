@@ -108,7 +108,7 @@ endif
 call dein#add('airblade/vim-gitgutter', {'on_path': '.*'})
 call dein#add('kshenoy/vim-signature', {'on_path': '.*'})
 call dein#add('nathanaelkane/vim-indent-guides', {'on_path': '.*'})
-call dein#add('zhaocai/GoldenView.Vim', {'on_map': {'n': '<Plug>GoldenView'}})
+call dein#add('sergiopatino/GoldenView.Vim', {'on_map': {'n': '<Plug>GoldenView'}})
 call dein#add('kana/vim-niceblock', {'on_map': {'x': '<Plug>'}})
 call dein#add('rhysd/accelerated-jk', {'on_map': {'n': '<Plug>'}})
 call dein#add('rhysd/clever-f.vim', {'on_map': [['n', 'f', 'F', 't', 'T']]})
