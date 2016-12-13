@@ -149,9 +149,8 @@ if dein#tap('neosnippet.vim') "{{{
 		\ ? "\<Plug>(neosnippet_expand_or_jump)" : "\<ESC>o"
 	xmap <silent><C-s>      <Plug>(neosnippet_register_oneshot_snippet)
 	imap <silent><C-Space>  <Plug>(neosnippet_start_unite_snippet)
-"	smap <silent>L     <Plug>(neosnippet_jump_or_expand)
-"	xmap <silent>L     <Plug>(neosnippet_expand_target)
-	echomsg
+	smap <silent>L          <Plug>(neosnippet_jump_or_expand)
+	xmap <silent>L          <Plug>(neosnippet_expand_target)
 endif
 
 "}}}

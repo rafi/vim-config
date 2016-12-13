@@ -5,11 +5,11 @@
 " Non-standard {{{
 " ------------
 
-" Window control prefix
+" Window-control prefix
 nnoremap  [Window]   <Nop>
 nmap      s [Window]
 
-" Unite control prefix
+" Denite/Unite prefix
 nnoremap [unite]  <Nop>
 xnoremap [unite]  <Nop>
 nmap     ; [unite]
@@ -40,9 +40,6 @@ nnoremap <S-Return> zMza
 " Use backspace key for matchit.vim
 nmap <BS> %
 xmap <BS> %
-
-" Better x
-"nnoremap x "_x
 
 "}}}
 " Global niceties {{{
@@ -81,7 +78,7 @@ noremap <expr> <C-y> (line("w0") <= 1         ? "k" : "3\<C-y>")
 " Window control
 nnoremap <C-q> <C-w>
 nnoremap <C-x> <C-w>x
-nnoremap <C-w>z :ZoomToggle<CR>
+nnoremap <silent><C-w>z :vert resize<CR>:resize<CR>:normal! ze<CR>
 
 " Select blocks after indenting
 xnoremap < <gv
@@ -171,11 +168,6 @@ nmap <Leader>lk :lprev<CR>
 " Duplicate lines
 nnoremap <Leader>d m`YP``
 vnoremap <Leader>d YPgv
-
-" Quick manual search and replace
-nnoremap ± *``gn<C-g>
-inoremap ± <C-o>gn<C-g>
-snoremap <expr> . @.
 
 " Source line and selection in vim
 vnoremap <Leader>S y:execute @@<CR>:echo 'Sourced selection.'<CR>
