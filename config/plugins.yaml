@@ -391,24 +391,12 @@
   on_if: 1
   on_source: [ unite.vim, denite.nvim ]
 
-- repo: Shougo/vimproc.vim
-  build: make
-  on_source: unite.vim
-
-# ==========================================
-# Unite sources
-# -------------
-- { repo: tacroe/unite-mark, on_source: unite.vim }
 - { repo: tsukkee/unite-tag, on_source: unite.vim }
 - { repo: osyo-manga/unite-quickfix, on_source: unite.vim }
-- { repo: mattn/webapi-vim, lazy: 1 }
+- { repo: tacroe/unite-mark, on_source: unite.vim }
 
-- repo: rafi/vim-unite-issue
-  depends: webapi-vim
-  on_source: unite.vim
-
-- repo: joker1007/unite-pull-request
-  depends: webapi-vim
+- repo: Shougo/vimproc.vim
+  build: make
   on_source: unite.vim
 
 # ==========================================
