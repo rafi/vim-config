@@ -82,7 +82,7 @@ let s:stl .= '%4*%*%( %{&ft} %)'                 " File type
 let s:stl .= '%3*%2* %l/%2c%4p%% %*'             " Line and column
 
 " Non-active Statusline {{{
-let s:stl_nc = " %{block#mode('', 'Z')}%n"    " Readonly & buffer
+let s:stl_nc = " %{block#mode('⚒', 'Z')}%n"    " Readonly & buffer
 let s:stl_nc .= "%6*%{block#modified('+')}%*"  " Write symbol
 let s:stl_nc .= ' %{block#filename()}'         " Relative supername
 let s:stl_nc .= '%='                           " Align to right
@@ -141,7 +141,7 @@ let g:vimfiler_tree_leaf_icon = '┆'
 let g:vimfiler_tree_opened_icon = '▼'
 let g:vimfiler_tree_closed_icon = '▷'
 let g:vimfiler_file_icon = ' '
-let g:vimfiler_readonly_file_icon = '🔧'
+let g:vimfiler_readonly_file_icon = '⚒'
 let g:vimfiler_marked_file_icon = '✓'
 "}}}
 
