@@ -54,8 +54,9 @@ if has('wildmenu')
 	set wildmode=list:longest,full
 	set wildoptions=tagfile
 	set wildignorecase
-	set wildignore+=.git,*.pyc,*.spl,*.o,*.out,*~,#*#,%*
+	set wildignore+=.git,.hg,.svn,.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
 	set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
+	set wildignore+=**/node_modules/**,**/bower_modules/**,*/.sass-cache/*
 endif
 
 " }}}
@@ -78,9 +79,8 @@ if has('nvim')
 	"   < - Maximum number of lines saved for each register
 	"   @ - Maximum number of items in the input-line history to be
 	"   h - Disable the effect of 'hlsearch' when loading the shada
-	"   n - Name of the shada file.  The name must immediately follow
 	"   s - Maximum size of an item contents in KiB
-	set shada='300,/2000,:2000,<100,@100,s200,h,n$VARPATH/shada
+	set shada='300,/2000,:2000,<100,@100,s200,h
 else
 	set viminfo='30,/500,:500,<100,@50,s10,h,n$VARPATH/viminfo
 endif
@@ -205,18 +205,28 @@ if has('folding')
 	set foldtext=FoldText()
 endif
 
-" Nicer fold text
-" See: http://dhruvasagar.com/2013/03/28/vim-better-foldtext
-function! FoldText() "{{{
-	let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
-	let lines_count = v:foldend - v:foldstart + 1
-	let lines_count_text = '| ' . printf('%10s', lines_count . ' lines') . ' |'
-	let foldchar = matchstr(&fillchars, 'fold:\zs.')
-	let foldtextstart = strpart('+' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
-	let foldtextend = lines_count_text . repeat(foldchar, 8)
-	let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
-	return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
-endfunction "}}}
+" Improved Vim fold-text
+" See: http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/
+function! FoldText()
+	" Get first non-blank line
+	let fs = v:foldstart
+	while getline(fs) =~? '^\s*$' | let fs = nextnonblank(fs + 1)
+	endwhile
+	if fs > v:foldend
+		let line = getline(v:foldstart)
+	else
+		let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
+	endif
+
+	let w = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
+	let foldSize = 1 + v:foldend - v:foldstart
+	let foldSizeStr = ' ' . foldSize . ' lines '
+	let foldLevelStr = repeat('+--', v:foldlevel)
+	let lineCount = line('$')
+	let foldPercentage = printf('[%.1f', (foldSize*1.0)/lineCount*100) . '%] '
+	let expansionString = repeat('.', w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
+	return line . expansionString . foldSizeStr . foldPercentage . foldLevelStr
+endfunction
 
 " }}}
 
