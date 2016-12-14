@@ -193,6 +193,10 @@ if dein#tap('committia.vim') "{{{
 	function! g:committia_hooks.edit_open(info)
 		imap <buffer><C-d> <Plug>(committia-scroll-diff-down-half)
 		imap <buffer><C-u> <Plug>(committia-scroll-diff-up-half)
+
+		setlocal winminheight=1 winheight=1
+		resize 10
+		startinsert
 	endfunction
 endif
 
@@ -242,8 +246,8 @@ if dein#tap('jedi-vim') "{{{
 	let g:jedi#completions_command = ''
 	let g:jedi#documentation_command = 'K'
 	let g:jedi#use_splits_not_buffers = 'right'
-	let g:jedi#goto_command = '<C-]>'
-	let g:jedi#goto_assignments_command = '<C-[>'
+	let g:jedi#goto_command = '<leader>d'
+	let g:jedi#goto_assignments_command = '<leader>g'
 	let g:jedi#rename_command = '<Leader>r'
 	let g:jedi#usages_command = '<Leader>n'
 endif
