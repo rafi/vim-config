@@ -188,6 +188,15 @@ if dein#tap('accelerated-jk') "{{{
 endif
 
 "}}}
+if dein#tap('vim-markology') "{{{
+	noremap <silent> mm :MarkologyPlaceMark<CR>
+	noremap <silent> mp :MarkologyPrevLocalMarkPos<CR>
+	noremap <silent> mn :MarkologyNextLocalMarkPos<CR>
+	noremap <silent> m- :MarkologyClearMark<CR>
+	noremap <silent> m/ :MarkologyLocationList<CR>
+endif
+
+"}}}
 if dein#tap('committia.vim') "{{{
 	let g:committia_hooks = {}
 	function! g:committia_hooks.edit_open(info)
@@ -198,33 +207,6 @@ if dein#tap('committia.vim') "{{{
 		resize 10
 		startinsert
 	endfunction
-endif
-
-"}}}
-if dein#tap('vim-signature') "{{{
-	let g:SignatureMap = {
-		\ 'ListBufferMarks':   'm/',
-		\ 'ListBufferMarkers': 'm?',
-		\ 'Leader':            'm',
-		\ 'PlaceNextMark':     'm,',
-		\ 'ToggleMarkAtLine':  'm.',
-		\ 'PurgeMarksAtLine':  'm-',
-		\ 'DeleteMark':        'dm',
-		\ 'PurgeMarks':        'm<Space>',
-		\ 'PurgeMarkers':      'm<BS>',
-		\ 'GotoNextSpotAlpha': 'mn',
-		\ 'GotoPrevSpotAlpha': 'mp',
-		\ 'GotoNextMarkerAny': 'mj',
-		\ 'GotoPrevMarkerAny': 'mk',
-		\ 'GotoNextMarker': '',
-		\ 'GotoPrevMarker': '',
-		\ 'GotoNextLineAlpha': '',
-		\ 'GotoPrevLineAlpha': '',
-		\ 'GotoNextSpotByPos': '',
-		\ 'GotoPrevSpotByPos': '',
-		\ 'GotoNextLineByPos': '',
-		\ 'GotoPrevLineByPos': ''
-		\ }
 endif
 
 "}}}

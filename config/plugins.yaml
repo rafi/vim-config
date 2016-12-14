@@ -177,13 +177,17 @@
     | let g:indent_guides_indent_levels = 15
     | let g:indent_guides_exclude_filetypes = ['help', 'denite', 'vimfiler']
 
-- repo: kshenoy/vim-signature
+- repo: jeetsukumaran/vim-markology
   on_path: .*
   hook_source:
-    let g:SignatureMarkTextHLDynamic = 1
-    | let g:SignatureMarkerTextHLDynamic = 1
-    | let g:SignaturePurgeConfirmation = 1
-    | let g:SignatureForceRemoveGlobal = 0
+    let g:markology_disable_mappings = 1
+    | let g:markology_set_location_list_convenience_maps = 0
+    | let g:markology_ignore_type = 'hpq'
+    | let g:markology_textlower = "\t"
+    | let g:markology_textupper = "\t"
+    | let g:markology_textother = "\t"
+    | let g:markology_include = 'abcdefghijklmnopqrstuvwxyz'
+        .'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 
 - repo: lambdalisue/vim-findent
   on_cmd: Findent

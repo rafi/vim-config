@@ -212,6 +212,12 @@ highlight IndentGuidesEven guibg=#303030 ctermbg=236
 highlight link Flashy Todo
 " }}}
 
+" Plugin: vim-markology {{{
+" ---------------------------------------------------------
+hi default MarkologyHLl ctermfg=240 ctermbg=NONE cterm=NONE guifg=#575757 guibg=NONE
+hi default MarkologyHLm ctermfg=249 ctermbg=NONE cterm=NONE guifg=#aaaaaa guibg=NONE
+" }}}
+
 " Plugin: vim-choosewin {{{
 " ---------------------------------------------------------
 "	let g:choosewin_label = 'FGHJKLZXCVBNM'
