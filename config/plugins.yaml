@@ -95,6 +95,7 @@
   hook_add: let g:vimfiler_data_directory = $VARPATH.'/vimfiler'
   hook_post_source: source $VIMPATH/config/plugins/vimfiler.vim
 
+- { repo: majutsushi/tagbar, on_cmd: TagbarToggle }
 - { repo: Shougo/neossh.vim, on_ft: vimfiler, sources: ssh }
 - { repo: lambdalisue/vim-gita, on_cmd: Gita }
 - { repo: t9md/vim-choosewin, on_map: { n: <Plug> }}
@@ -397,11 +398,10 @@
 # ==========================================
 # Unite sources
 # -------------
-- { repo: mattn/webapi-vim, lazy: 1 }
-- { repo: Shougo/unite-outline, on_source: unite.vim }
 - { repo: tacroe/unite-mark, on_source: unite.vim }
 - { repo: tsukkee/unite-tag, on_source: unite.vim }
 - { repo: osyo-manga/unite-quickfix, on_source: unite.vim }
+- { repo: mattn/webapi-vim, lazy: 1 }
 
 - repo: rafi/vim-unite-issue
   depends: webapi-vim

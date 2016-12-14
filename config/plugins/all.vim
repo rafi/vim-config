@@ -22,6 +22,16 @@ if dein#tap('denite.nvim') "{{{
 endif
 
 " }}}
+if dein#tap('tagbar') "{{{
+	let g:tagbar_iconchars = ['▷', '◢']
+
+	let g:tagbar_map_openfold = ['l', '+', 'zo']
+	let g:tagbar_map_closefold = ['h', '-', 'zc']
+
+	nnoremap <silent> [unite]o   :<C-u>TagbarOpenAutoClose<CR>
+endif
+
+" }}}
 if dein#tap('unite.vim') "{{{
 	nnoremap <silent> [unite]u   :<C-u>Unite source<CR>
 	nnoremap <silent> [unite]t   :<C-u>Unite tag -start-insert<CR>
@@ -29,7 +39,6 @@ if dein#tap('unite.vim') "{{{
 	nnoremap <silent> [unite]l   :<C-u>Unite location_list<CR>
 	nnoremap <silent> [unite]q   :<C-u>Unite quickfix<CR>
 	nnoremap <silent> [unite]s   :<C-u>Unite session<CR>
-	nnoremap <silent> [unite]o   :<C-u>Unite outline<CR>
 	nnoremap <silent> [unite]ma  :<C-u>Unite mapping -silent<CR>
 	nnoremap <silent> [unite]mt  :<C-u>Unite tab -select=`tabpagenr()-1`<CR>
 
