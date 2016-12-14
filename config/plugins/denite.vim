@@ -5,13 +5,19 @@
 " INTERFACE
 call denite#custom#option('default', 'prompt', 'λ:')
 call denite#custom#option('default', 'vertical_preview', 1)
+
 call denite#custom#option('grep', 'empty', 0)
+call denite#custom#option('grep', 'vertical_preview', 1)
 
 " MATCHERS
-call denite#custom#source('file_mru', 'matchers', ['matcher_fuzzy'])
+call denite#custom#source('file_mru,file_old,file_rec', 'matchers',
+	\ ['matcher_cpsm', 'matcher_fuzzy'])
+
+call denite#custom#source('mark', 'matchers',
+	\ ['matcher_fuzzy', 'matcher_project_files'])
 
 " CONVERTERS
-call denite#custom#source('file_mru', 'converters',
+call denite#custom#source('file_mru,file_old,mark', 'converters',
 	\ ['converter_relative_word'])
 
 " FIND and GREP COMMANDS
@@ -50,6 +56,7 @@ let insert_mode_mappings = [
 	\ ]
 
 let normal_mode_mappings = [
+	\   ["'", '<denite:toggle_select_down>', 'noremap'],
 	\   ['<C-n>', '<denite:jump_to_next_source>', 'noremap'],
 	\   ['<C-p>', '<denite:jump_to_previous_source>', 'noremap'],
 	\   ['gg', '<denite:move_to_first_line>', 'noremap'],

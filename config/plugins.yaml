@@ -358,8 +358,11 @@
 - repo: Shougo/denite.nvim
   if: has('nvim')
   on_cmd: Denite
+  depends: cpsm
   hook_source: source $VIMPATH/config/plugins/denite.vim
   hook_post_source: source $VIMPATH/config/menus.vim
+
+- { repo: nixprime/cpsm, lazy: 1 }
 
 - repo: rafi/vim-denite-mpc
   if: executable('mpc')

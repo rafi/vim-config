@@ -112,8 +112,14 @@ highlight User8 guifg=#ffb964 guibg=#30302c ctermfg=215 ctermbg=236
 " Toggle Statusline {{{
 augroup statusline
 	autocmd!
-	autocmd WinEnter,FileType,BufWinEnter,BufReadPost * let &l:statusline = s:stl
-	autocmd WinLeave * let &l:statusline = s:stl_nc
+	autocmd WinEnter,FileType,BufWinEnter,BufReadPost *
+		\ if &filetype !~? 'denite\|unite\|vimfiler\|tagbar\|undotree\|gundo\|diff'
+	  \ | let &l:statusline = s:stl
+		\ | endif
+	autocmd WinLeave *
+		\ if &filetype !~? 'denite\|unite\|vimfiler\|tagbar\|undotree\|gundo\|diff'
+	  \ | let &l:statusline = s:stl_nc
+		\ | endif
 augroup END "}}}
 
 " }}}
@@ -174,8 +180,8 @@ highlight GitGutterChangeDelete ctermfg=52 guifg=#600000 ctermbg=NONE
 " Plugin: denite {{{
 " ---------------------------------------------------------
 "highlight deniteSource_base
-highlight deniteMatched ctermfg=221 guifg=#f0c674
-highlight deniteMatchedChar ctermfg=245 guifg=#eeeeee
+highlight deniteMatched ctermfg=243 guifg=#999999
+highlight deniteMatchedChar ctermfg=221 guifg=#f0c674
 highlight link deniteGrepInput Constant
 "highlight deniteSourceLine_file_mru
 " }}}

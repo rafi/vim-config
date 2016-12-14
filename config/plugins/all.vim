@@ -8,7 +8,7 @@ if dein#tap('denite.nvim') "{{{
 	nnoremap <silent> [unite]r  :<C-u>Denite -resume<CR>
 	nnoremap <silent> [unite]f  :<C-u>Denite file_rec<CR>
 	nnoremap <silent> [unite]d  :<C-u>Denite directory_rec -default-action=cd<CR>
-	nnoremap <silent> [unite]b  :<C-u>Denite buffer file_mru<CR>
+	nnoremap <silent> [unite]b  :<C-u>Denite buffer file_old<CR>
 	nnoremap <silent> [unite]n  :<C-u>Denite dein<CR>
 	nnoremap <silent> [unite]g  :<C-u>Denite grep -buffer-name=grep<CR>
 	nnoremap <silent> [unite]j  :<C-u>Denite file_point<CR>
@@ -31,13 +31,7 @@ if dein#tap('unite.vim') "{{{
 	nnoremap <silent> [unite]s   :<C-u>Unite session<CR>
 	nnoremap <silent> [unite]o   :<C-u>Unite outline<CR>
 	nnoremap <silent> [unite]ma  :<C-u>Unite mapping -silent<CR>
-	nnoremap <silent> [unite]mk  :<C-u>Unite mark<CR>
-	nnoremap <silent> [unite]mt  :<C-u>Unite -select=`tabpagenr()-1` tab<CR>
-	nnoremap <silent> [unite]mu  :<C-u>Unite -profile-name=mpc mpc/menu<CR>
-	nnoremap <silent> [unite]k
-		\ :<C-u>Unite -buffer-name=files -no-split -multi-line -unique -silent
-		\ -no-short-source-names jump_point file_point file_mru file_rec/async
-		\ buffer_tab:- file file/new<CR>
+	nnoremap <silent> [unite]mt  :<C-u>Unite tab -select=`tabpagenr()-1`<CR>
 
 	" Open Unite with word under cursor or selection
 	nnoremap <silent> <Leader>gt :UniteWithCursorWord tag -start-insert<CR>
@@ -45,7 +39,7 @@ if dein#tap('unite.vim') "{{{
 
 	autocmd MyAutoCmd BufEnter *
 		\  if empty(&buftype) && &ft != 'go'
-		\|   nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+		\|   nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord tag -immediately<CR>
 		\| endif
 
 	" Unite window mappings {{{
@@ -102,8 +96,8 @@ if dein#tap('vimfiler.vim') "{{{
 		silent! nunmap <buffer> gf
 		silent! nunmap <buffer> -
 
-		nnoremap <silent><buffer> gr  :<C-u>Unite grep:<C-R>=<SID>selected()<CR><CR>
-		nnoremap <silent><buffer> gf  :<C-u>Unite file_rec/`has('nvim') ? 'neovim' : 'async'`:<C-R>=<SID>selected()<CR><CR>
+		nnoremap <silent><buffer> gr  :<C-u>Denite grep:<C-R>=<SID>selected()<CR> -buffer-name=grep<CR>
+		nnoremap <silent><buffer> gf  :<C-u>Denite file_rec:<C-R>=<SID>selected()<CR><CR>
 		nnoremap <silent><buffer> gd  :<C-u>call <SID>change_vim_current_dir()<CR>
 		nnoremap <silent><buffer><expr> sg  vimfiler#do_action('vsplit')
 		nnoremap <silent><buffer><expr> sv  vimfiler#do_action('split')
