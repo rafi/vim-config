@@ -3,16 +3,20 @@
 "---------------------------------------------------------
 
 if dein#tap('denite.nvim') "{{{
-	nnoremap <silent> [unite]/ :<C-u>Denite line<CR>
-	nnoremap <silent> [unite]* :<C-u>DeniteCursorWord line<CR>
 	nnoremap <silent> [unite]r  :<C-u>Denite -resume<CR>
 	nnoremap <silent> [unite]f  :<C-u>Denite file_rec<CR>
 	nnoremap <silent> [unite]d  :<C-u>Denite directory_rec -default-action=cd<CR>
 	nnoremap <silent> [unite]b  :<C-u>Denite buffer file_old<CR>
-	nnoremap <silent> [unite]n  :<C-u>Denite dein<CR>
+	nnoremap <silent> [unite]l  :<C-u>Denite location_list -buffer-name=list<CR>
+	nnoremap <silent> [unite]q  :<C-u>Denite quickfix -buffer-name=list<CR>
+	nnoremap <silent> [unite]n  :<C-u>Denite dein -no-quit<CR>
 	nnoremap <silent> [unite]g  :<C-u>Denite grep -buffer-name=grep<CR>
 	nnoremap <silent> [unite]j  :<C-u>Denite file_point<CR>
 	nnoremap <silent> [unite]h  :<C-u>Denite neoyank -default-action=cd<CR>
+	nnoremap <silent> [unite]k  :<C-u>Denite mark -buffer-name=list<CR>
+	nnoremap <silent> [unite]mu :<C-u>Denite mpc -buffer-name=mpc<CR>
+	nnoremap <silent> [unite]/  :<C-u>Denite line<CR>
+	nnoremap <silent> [unite]*  :<C-u>DeniteCursorWord line<CR>
 
 	" Open Unite with word under cursor or selection
 	nnoremap <silent> <Leader>gf :DeniteCursorWord file_rec<CR>
@@ -28,7 +32,7 @@ if dein#tap('tagbar') "{{{
 	let g:tagbar_map_openfold = ['l', '+', 'zo']
 	let g:tagbar_map_closefold = ['h', '-', 'zc']
 
-	nnoremap <silent> [unite]o   :<C-u>TagbarOpenAutoClose<CR>
+	nnoremap <silent> <Leader>o   :<C-u>TagbarOpenAutoClose<CR>
 endif
 
 " }}}
@@ -36,8 +40,6 @@ if dein#tap('unite.vim') "{{{
 	nnoremap <silent> [unite]u   :<C-u>Unite source<CR>
 	nnoremap <silent> [unite]t   :<C-u>Unite tag -start-insert<CR>
 	nnoremap <silent> [unite]T   :<C-u>Unite tag/include<CR>
-	nnoremap <silent> [unite]l   :<C-u>Unite location_list<CR>
-	nnoremap <silent> [unite]q   :<C-u>Unite quickfix<CR>
 	nnoremap <silent> [unite]s   :<C-u>Unite session<CR>
 	nnoremap <silent> [unite]ma  :<C-u>Unite mapping -silent<CR>
 	nnoremap <silent> [unite]mt  :<C-u>Unite tab -select=`tabpagenr()-1`<CR>

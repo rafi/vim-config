@@ -128,9 +128,6 @@
   on_cmd: Gista
   hook_add: let g:gista#client#cache_dir = $VARPATH.'/gista/'
 
-- repo: lambdalisue/vim-gista-unite
-  on_source: [ vim-gista, unite.vim ]
-
 - repo: itchyny/dictionary.vim
   if: empty($VIM_MINIMAL)
   on_cmd: Dictionary
@@ -302,7 +299,6 @@
 
 - { repo: Shougo/neosnippet-snippets }
 - { repo: Shougo/context_filetype.vim, lazy: 1 }
-#- { repo: Shougo/neoinclude.vim, on_if: 1 }  # CRASHES DEOPLETE!
 - { repo: Shougo/neco-vim, on_ft: vim }
 - { repo: Shougo/neco-syntax, on_source: [ neocomplete.vim, deoplete.nvim ]}
 
@@ -357,18 +353,15 @@
 - repo: Shougo/denite.nvim
   if: has('nvim')
   on_cmd: Denite
-  depends: cpsm
   hook_source: source $VIMPATH/config/plugins/denite.vim
   hook_post_source: source $VIMPATH/config/menus.vim
 
-- { repo: nixprime/cpsm, lazy: 1 }
+- { repo: chemzqm/unite-location, on_source: denite.nvim }
 
 - repo: rafi/vim-denite-mpc
   if: executable('mpc')
   on_source: denite.nvim
-  hook_source:
-    call denite#custom#var('mpc', 'host', 'music.host')
-    | call denite#custom#var('mpc', 'default_view', 'date')
+  hook_source: call denite#custom#var('mpc', 'default_view', 'date')
 
 # ==========================================
 # Unite
@@ -376,28 +369,28 @@
 - repo: Shougo/unite.vim
   on_source: denite.nvim
   hook_post_source: source $VIMPATH/config/plugins/unite.vim
-  hook_add:
-    let g:unite_data_directory = $VARPATH.'/unite'
-    | let g:neoyank#file = g:unite_data_directory.'/history_yank'
-    | let g:neomru#file_mru_path = g:unite_data_directory.'/mru/file'
-    | let g:neomru#directory_mru_path = g:unite_data_directory.'/mru/directory'
+  hook_add: let g:unite_data_directory = $VARPATH.'/unite'
+
+- repo: Shougo/vimproc.vim
+  build: make
+  on_source: unite.vim
 
 - repo: Shougo/neoyank.vim
   on_if: 1
   on_event: TextYankPost
   on_source: [ unite.vim, denite.nvim ]
+  hook_add: let g:neoyank#file = $VARPATH.'/history/yank'
 
 - repo: Shougo/neomru.vim
   on_if: 1
   on_source: [ unite.vim, denite.nvim ]
+  hook_add:
+    let g:neomru#file_mru_path = $VARPATH.'/history/mru_file'
+    | let g:neomru#directory_mru_path = $VARPATH.'/history/mru_dir'
+    | let g:neomru#file_mru_limit = 500
+    | let g:neomru#directory_mru_limit = 100
 
 - { repo: tsukkee/unite-tag, on_source: unite.vim }
-- { repo: osyo-manga/unite-quickfix, on_source: unite.vim }
-- { repo: tacroe/unite-mark, on_source: unite.vim }
-
-- repo: Shougo/vimproc.vim
-  build: make
-  on_source: unite.vim
 
 # ==========================================
 # Operators

@@ -5,12 +5,22 @@
 " INTERFACE
 call denite#custom#option('default', 'prompt', 'λ:')
 call denite#custom#option('default', 'vertical_preview', 1)
+call denite#custom#option('default', 'short_source_names', 1)
 
 call denite#custom#option('grep', 'empty', 0)
 call denite#custom#option('grep', 'vertical_preview', 1)
+"call denite#custom#option('grep', 'auto_highlight', 1)
+
+call denite#custom#option('list', 'quit', 0)
+call denite#custom#option('list', 'mode', 'normal')
+call denite#custom#option('list', 'winheight', 8)
+
+call denite#custom#option('mpc', 'quit', 0)
+call denite#custom#option('mpc', 'mode', 'normal')
+call denite#custom#option('mpc', 'winheight', 10)
 
 " MATCHERS
-call denite#custom#source('file_mru,file_old,file_rec', 'matchers',
+call denite#custom#source('file_mru,file_old,file_rec,grep', 'matchers',
 	\ ['matcher_cpsm', 'matcher_fuzzy'])
 
 call denite#custom#source('mark', 'matchers',

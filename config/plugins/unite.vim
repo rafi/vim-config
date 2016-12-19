@@ -8,6 +8,8 @@ let g:unite_restore_alternate_file = 1
 let g:unite_matcher_fuzzy_max_input_length = 25
 let g:unite_kind_jump_list_after_jump_scroll = 50
 
+call unite#filters#sorter_default#use(['sorter_rank'])
+
 " }}}
 " Source: rec(ursive) {{{
 let g:unite_source_rec_unit = 3000
@@ -29,11 +31,6 @@ let g:unite_source_tag_max_name_length = 30
 let g:unite_source_tag_name_footer_length = 20
 let g:unite_source_tag_max_fname_length = 35
 let g:unite_source_tag_fname_footer_length = 25
-
-" }}}
-" Source: mru {{{
-let g:neomru#file_mru_limit = 500
-let g:neomru#directory_mru_limit = 25
 
 " }}}
 " Source: grep {{{
@@ -82,42 +79,6 @@ call unite#custom#profile('completion', 'context', {
 	\   'winheight': 25,
 	\   'no_here': 1
 	\ })
-
-call unite#custom#profile('mpc', 'context', {
-	\   'start_insert': 0,
-	\   'direction': 'topleft',
-	\   'prompt_direction': 'bottom',
-	\   'quit': 1,
-	\   'keep_focus': 1,
-	\   'winheight': 20,
-	\ })
-
-call unite#custom#profile('source/outline', 'context', {
-	\   'vertical': 1,
-	\   'start_insert': 0,
-	\   'no_focus': 1,
-	\   'no_quit': 1,
-	\   'auto_highlight': 1,
-	\ })
-
-call unite#custom#profile('source/location_list,source/quickfix', 'context', {
-	\   'start_insert': 0,
-	\ })
-
-" }}}
-" Matches, converters, and filters {{{
-
-call unite#custom#source(
-	\ 'buffer,file_rec,file_rec/async,file_rec/git,file_rec/neovim,neomru/file',
-	\ 'matchers',
-	\ ['converter_relative_word', 'matcher_fuzzy'])
-
-call unite#custom#source(
-	\ 'file_rec,file_rec/async,file_rec/neovim,file_mru,neomru/file',
-	\ 'converters',
-	\ ['converter_file_directory'])
-
-call unite#filters#sorter_default#use(['sorter_rank'])
 
 " }}}
 " vim: set ts=2 sw=2 tw=80 noet :
