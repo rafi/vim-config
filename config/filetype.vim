@@ -13,7 +13,10 @@ augroup MyAutoCmd " {{{
 	autocmd SwapExists * nested let v:swapchoice = 'o'
 
 	" More eager than 'autoread'.
-	autocmd WinEnter,FocusGained * checktime
+	autocmd WinEnter * checktime
+"	autocmd WinEnter,FocusGained * checktime
+
+	autocmd Syntax * if 5000 < line('$') | syntax sync minlines=200 | endif
 
 	" Update filetype on save if empty
 	autocmd BufWritePost * nested
@@ -54,7 +57,7 @@ augroup MyAutoCmd " {{{
 
 	autocmd FileType zsh setlocal foldenable foldmethod=marker
 
-	" Improved include pattern
+	" Improved HTML include pattern
 	autocmd FileType html
 		\ setlocal includeexpr=substitute(v:fname,'^\\/','','') |
 		\ setlocal path+=./;/
@@ -69,8 +72,6 @@ augroup MyAutoCmd " {{{
 
 	autocmd FileType go highlight default link goErr WarningMsg |
 				\ match goErr /\<err\>/
-
-	autocmd Syntax * if 5000 < line('$') | syntax sync minlines=200 | endif
 
 	" Open Quickfix window automatically
 	autocmd QuickFixCmdPost [^l]* leftabove copen

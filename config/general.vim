@@ -12,7 +12,6 @@ set fileformats=unix,dos,mac " Use Unix as the standard file type
 set magic                    " For regular expressions turn magic on
 set path=.,**                " Directories to search when using gf
 set virtualedit=block        " Position cursor anywhere in visual block
-set history=500              " Search and commands remembered
 set synmaxcol=1000           " Don't syntax highlight long lines
 set formatoptions+=1         " Don't break lines after a one-letter word
 set formatoptions-=t         " Don't auto-wrap text
@@ -39,11 +38,7 @@ set sessionoptions-=buffers
 set sessionoptions+=tabpages
 
 if ( ! has('nvim') || $DISPLAY !=? '') && has('clipboard')
-	if has('unnamedplus')
-		set clipboard& clipboard+=unnamedplus
-	else
-		set clipboard& clipboard+=unnamed
-	endif
+	set clipboard& clipboard+=unnamedplus
 endif
 
 " }}}
@@ -70,19 +65,17 @@ set viewdir=$VARPATH/view/
 set nospell spellfile=$VIMPATH/spell/en.utf-8.add
 
 " History saving
+set history=2000
 if has('nvim')
 	"  ShaDa/viminfo:
-	"   " - Maximum number of lines saved for each register
 	"   ' - Maximum number of previously edited files marks
-	"   / - Maximum number of items in the search pattern history
-	"   : - Maximum number of items in the command-line history
 	"   < - Maximum number of lines saved for each register
 	"   @ - Maximum number of items in the input-line history to be
-	"   h - Disable the effect of 'hlsearch' when loading the shada
 	"   s - Maximum size of an item contents in KiB
-	set shada='300,/2000,:2000,<100,@100,s200,h
+	"   h - Disable the effect of 'hlsearch' when loading the shada
+	set shada='300,<10,@50,s100,h
 else
-	set viminfo='30,/500,:500,<100,@50,s10,h,n$VARPATH/viminfo
+	set viminfo='300,<10,@50,h,n$VARPATH/viminfo
 endif
 
 " }}}
@@ -92,23 +85,25 @@ set textwidth=80    " Text width maximum chars before wrapping
 set noexpandtab     " Don't expand tabs to spaces.
 set tabstop=2       " The number of spaces a tab is
 set softtabstop=2   " While performing editing operations
+set shiftwidth=2    " Number of spaces to use in auto(indent)
 set smarttab        " Tab insert blanks according to 'shiftwidth'
 set autoindent      " Use same indenting on new lines
 set smartindent     " Smart autoindenting on new lines
 set shiftround      " Round indent to multiple of 'shiftwidth'
-set shiftwidth=2    " Number of spaces to use in auto(indent)
 
 " }}}
 " Time {{{
 " --------
 set timeout ttimeout
 set timeoutlen=750  " Time out on mappings
-set ttimeoutlen=250 " Time out on key codes
-set updatetime=1500 " Idle time to write swap and trigger CursorHold
+set updatetime=2000 " Idle time to write swap and trigger CursorHold
 
+" Time out on key codes
 if has('nvim')
 	" https://github.com/neovim/neovim/issues/2017
 	set ttimeoutlen=-1
+else
+	set ttimeoutlen=250
 endif
 
 " }}}
@@ -116,7 +111,7 @@ endif
 " ---------
 set ignorecase      " Search ignoring case
 set smartcase       " Keep case when searching with *
-set infercase
+set infercase       " Adjust case in insert completion mode
 set incsearch       " Incremental search
 set hlsearch        " Highlight search results
 set wrapscan        " Searches wrap around the end of the file
