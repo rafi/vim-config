@@ -377,23 +377,6 @@
   build: make
   on_source: unite.vim
 
-- repo: Shougo/neoyank.vim
-  on_if: 1
-  on_event: TextYankPost
-  on_source: [ unite.vim, denite.nvim ]
-  hook_add: let g:neoyank#file = $VARPATH.'/history/yank'
-
-- repo: Shougo/neomru.vim
-  on_if: 1
-  on_source: [ unite.vim, denite.nvim ]
-  hook_add:
-    let g:neomru#file_mru_path = $VARPATH.'/history/mru_file'
-    | let g:neomru#directory_mru_path = $VARPATH.'/history/mru_dir'
-    | let g:neomru#file_mru_limit = 500
-    | let g:neomru#directory_mru_limit = 100
-
-- { repo: tsukkee/unite-tag, on_source: unite.vim }
-
 # ==========================================
 # Operators
 # ---------

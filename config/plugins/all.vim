@@ -12,7 +12,6 @@ if dein#tap('denite.nvim') "{{{
 	nnoremap <silent> [unite]n  :<C-u>Denite dein -no-quit<CR>
 	nnoremap <silent> [unite]g  :<C-u>Denite grep -buffer-name=grep<CR>
 	nnoremap <silent> [unite]j  :<C-u>Denite file_point<CR>
-	nnoremap <silent> [unite]h  :<C-u>Denite neoyank -default-action=cd<CR>
 	nnoremap <silent> [unite]k  :<C-u>Denite mark -buffer-name=list<CR>
 	nnoremap <silent> [unite]mu :<C-u>Denite mpc -buffer-name=mpc<CR>
 	nnoremap <silent> [unite]/  :<C-u>Denite line<CR>
@@ -37,21 +36,9 @@ endif
 
 " }}}
 if dein#tap('unite.vim') "{{{
-	nnoremap <silent> [unite]u   :<C-u>Unite source<CR>
-	nnoremap <silent> [unite]t   :<C-u>Unite tag -start-insert<CR>
-	nnoremap <silent> [unite]T   :<C-u>Unite tag/include<CR>
 	nnoremap <silent> [unite]s   :<C-u>Unite session<CR>
 	nnoremap <silent> [unite]ma  :<C-u>Unite mapping -silent<CR>
 	nnoremap <silent> [unite]mt  :<C-u>Unite tab -select=`tabpagenr()-1`<CR>
-
-	" Open Unite with word under cursor or selection
-	nnoremap <silent> <Leader>gt :UniteWithCursorWord tag -start-insert<CR>
-	vnoremap <silent> <Leader>gt :<C-u>call VSetSearch('/')<CR>:execute 'Unite tag -input='.@/<CR>
-
-	autocmd MyAutoCmd BufEnter *
-		\  if empty(&buftype) && &ft != 'go'
-		\|   nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord tag -immediately<CR>
-		\| endif
 
 	" Unite window mappings {{{
 	autocmd MyAutoCmd FileType unite call s:unite_settings()
