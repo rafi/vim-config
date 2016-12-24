@@ -155,43 +155,45 @@
   on_path: .*
   hook_source: |
     let g:gitgutter_map_keys = 0
-    | let g:gitgutter_sh = $SHELL
+    let g:gitgutter_sh = $SHELL
+
+- repo: lambdalisue/vim-findent
+  depends: vim-indent-guides
+  on_cmd: Findent
+  hook_add: |
+    augroup findent
+      autocmd!
+      autocmd FileType * Findent --no-messages --no-warnings
+    augroup END
+  hook_post_source: |
+    let g:indent_guides_autocmds_enabled = 0
+    autocmd findent-process-reservation BufEnter * if ! empty(&l:filetype)
+      \|   if g:indent_guides_autocmds_enabled == 0 && &l:expandtab
+      \|     IndentGuidesEnable
+      \|   elseif g:indent_guides_autocmds_enabled == 1 && ! &l:expandtab
+      \|     IndentGuidesDisable
+      \|   endif
+      \| endif
 
 - repo: nathanaelkane/vim-indent-guides
   on_cmd: [IndentGuidesEnable, IndentGuidesDisable, IndentGuidesToggle]
-  hook_add:
-    nmap <silent><Leader>i :<C-u>IndentGuidesToggle<CR>
-    | let g:indent_guides_autocmds_enabled = 0
-    | autocmd MyAutoCmd BufEnter * if ! empty(&l:filetype)
-    |   if g:indent_guides_autocmds_enabled == 0 && &expandtab
-    |     IndentGuidesEnable
-    |   elseif g:indent_guides_autocmds_enabled == 1 && ! &expandtab
-    |     IndentGuidesDisable
-    |   endif
-    | endif
-  hook_source:
+  hook_source: |
     let g:indent_guides_enable_on_vim_startup = 0
-    | let g:indent_guides_default_mapping = 0
-    | let g:indent_guides_indent_levels = 15
-    | let g:indent_guides_exclude_filetypes = ['help', 'denite', 'vimfiler']
+    let g:indent_guides_default_mapping = 0
+    let g:indent_guides_indent_levels = 15
+    let g:indent_guides_exclude_filetypes = ['help', 'denite', 'vimfiler']
 
 - repo: jeetsukumaran/vim-markology
   on_path: .*
   hook_source: |
     let g:markology_disable_mappings = 1
-    | let g:markology_set_location_list_convenience_maps = 0
-    | let g:markology_ignore_type = 'hpq'
-    | let g:markology_textlower = "\t"
-    | let g:markology_textupper = "\t"
-    | let g:markology_textother = "\t"
-    | let g:markology_include = 'abcdefghijklmnopqrstuvwxyz'
-        .'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-
-- repo: lambdalisue/vim-findent
-  on_cmd: Findent
-  hook_add:
-    autocmd MyAutoCmd BufEnter *.js*,*.html,*.css,.tern*
-      execute 'Findent! --no-warnings'
+    let g:markology_set_location_list_convenience_maps = 0
+    let g:markology_ignore_type = 'hpq'
+    let g:markology_textlower = "\t"
+    let g:markology_textupper = "\t"
+    let g:markology_textother = "\t"
+    let g:markology_include = 'abcdefghijklmnopqrstuvwxyz'
+      \ .'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 
 - repo: osyo-manga/vim-anzu
   on_map: { nv: <Plug> }

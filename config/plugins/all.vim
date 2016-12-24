@@ -199,6 +199,11 @@ if dein#tap('accelerated-jk') "{{{
 endif
 
 "}}}
+if dein#tap('vim-indent-guides') "{{{
+	nmap <silent><Leader>ti :<C-u>IndentGuidesToggle<CR>
+endif
+
+"}}}
 if dein#tap('vim-markology') "{{{
 	noremap <silent> mm :MarkologyPlaceMark<CR>
 	noremap <silent> mp :MarkologyPrevLocalMarkPos<CR>
