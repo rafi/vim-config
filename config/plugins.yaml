@@ -28,17 +28,17 @@
 
 - repo: plasticboy/vim-markdown
   on_ft: markdown
-  hook_source:
+  hook_source: |
     let g:vim_markdown_initial_foldlevel = 5
-    | let g:vim_markdown_new_list_item_indent = 2
-    | let g:vim_markdown_frontmatter = 1
-    | let g:vim_markdown_conceal = 0
+    let g:vim_markdown_new_list_item_indent = 2
+    let g:vim_markdown_frontmatter = 1
+    let g:vim_markdown_conceal = 0
 
 - repo: rhysd/vim-gfm-syntax
   on_ft: markdown
-  hook_source:
+  hook_source: |
     let g:gfm_syntax_enable_always = 0
-    | let g:gfm_syntax_enable_filetypes = ['markdown']
+    let g:gfm_syntax_enable_filetypes = ['markdown']
 
 - { repo: elzr/vim-json, on_ft: json }
 - { repo: othree/yajs.vim, on_ft: javascript }
@@ -58,12 +58,12 @@
 
 - repo: fatih/vim-go
   on_ft: go
-  hook_source:
+  hook_source: |
     let g:go_def_mapping_enabled = 0
-    | let g:go_loaded_gosnippets = 1
-    | let g:go_snippet_engine = 'neosnippet'
-    | let g:go_highlight_extra_types = 1
-    | let g:go_highlight_operators = 1
+    let g:go_loaded_gosnippets = 1
+    let g:go_snippet_engine = 'neosnippet'
+    let g:go_highlight_extra_types = 1
+    let g:go_highlight_operators = 1
 
 - { repo: tbastos/vim-lua, on_ft: lua }
 - { repo: mitsuhiko/vim-python-combined, on_ft: python }
@@ -106,14 +106,14 @@
 
 - repo: tyru/caw.vim
   on_map: { nx: <Plug> }
-  hook_source:
+  hook_source: |
     let g:caw_zeropos_sp = ''
-    | let g:caw_zeropos_sp_right = ''
-    | let g:caw_hatpos_sp = ''
-    | let g:caw_hatpos_skip_blank_line = 1
-    | let g:caw_dollarpos_sp_right = ''
-    | let g:caw_dollarpos_skip_blank_line = 1
-    | let g:caw_box_sp_right = ''
+    let g:caw_zeropos_sp_right = ''
+    let g:caw_hatpos_sp = ''
+    let g:caw_hatpos_skip_blank_line = 1
+    let g:caw_dollarpos_sp_right = ''
+    let g:caw_dollarpos_skip_blank_line = 1
+    let g:caw_box_sp_right = ''
 
 - repo: metakirby5/codi.vim
   if: empty($VIM_MINIMAL)
@@ -153,7 +153,7 @@
 
 - repo: airblade/vim-gitgutter
   on_path: .*
-  hook_source:
+  hook_source: |
     let g:gitgutter_map_keys = 0
     | let g:gitgutter_sh = $SHELL
 
@@ -177,7 +177,7 @@
 
 - repo: jeetsukumaran/vim-markology
   on_path: .*
-  hook_source:
+  hook_source: |
     let g:markology_disable_mappings = 1
     | let g:markology_set_location_list_convenience_maps = 0
     | let g:markology_ignore_type = 'hpq'
@@ -209,16 +209,16 @@
   if: has('nvim') && empty($VIM_MINIMAL)
   on_cmd: Neomake
   hook_source: source $VIMPATH/config/plugins/neomake.vim
-  hook_add:
-    let g:neomake_do_filetypes = [
-      'ansible', 'python', 'php', 'ruby', 'vim', 'go', 'sh',
-      'javascript', 'javascript.jsx', 'json', 'css', 'yaml',
-      'markdown', 'html'
-    ] |
+  hook_add: |
+    let g:lint_filetypes = [
+      \  'ansible', 'python', 'php', 'ruby', 'vim', 'go', 'sh',
+      \  'javascript', 'javascript.jsx', 'json', 'css', 'yaml',
+      \  'markdown', 'html'
+      \ ]
     autocmd MyAutoCmd BufWritePost *
-    if index(g:neomake_do_filetypes, &filetype) > -1 && empty(&buftype)
-    | Neomake
-    | endif
+      \ if index(g:lint_filetypes, &filetype) > -1 && empty(&buftype)
+      \| Neomake
+      \| endif
 
 - repo: junegunn/goyo.vim
   if: empty($VIM_MINIMAL)
@@ -241,15 +241,15 @@
   on_cmd: [ VimwikiIndex, VimwikiTabIndex, VimwikiUISelect
     VimwikiMakeDiaryNote, VimwikiTabMakeDiaryNote, VimwikiDiaryIndex ]
   hook_add: nnoremap <silent> <Leader>W :<C-u>VimwikiIndex<CR>
-  hook_source:
+  hook_source: |
     let wiki = {}
-    | let wiki.diary_header = 'Diary'
-    | let wiki.diary_link_fmt = '%Y-%m/%d'
-    | let wiki.path = '~/docs/wiki/'
-    | let wiki.path_html = '~/docs/wiki/html/'
-    | let wiki.syntax = 'markdown'
-    | let wiki.ext = '.md'
-    | let g:vimwiki_list = [ wiki ]
+    let wiki.diary_header = 'Diary'
+    let wiki.diary_link_fmt = '%Y-%m/%d'
+    let wiki.path = '~/docs/wiki/'
+    let wiki.path_html = '~/docs/wiki/html/'
+    let wiki.syntax = 'markdown'
+    let wiki.ext = '.md'
+    let g:vimwiki_list = [ wiki ]
 
 # ==========================================
 # Completion
@@ -265,9 +265,9 @@
   depends: context_filetype.vim
   if: ! has('nvim') && has('lua')
   on_event: InsertEnter
-  hook_add:
+  hook_add: |
     let g:neocomplete#data_directory = $VARPATH.'/complete'
-    | let g:neocomplete#enable_at_startup = 1
+    let g:neocomplete#enable_at_startup = 1
   hook_source: source $VIMPATH/config/plugins/neocomplete.vim
 
 - repo: Shougo/neosnippet.vim
@@ -275,19 +275,19 @@
   on_event: InsertCharPre
   on_ft: snippet
   hook_add: let g:neosnippet#data_directory = $VARPATH.'/snippets'
-  hook_source:
+  hook_source: |
     let g:neosnippet#enable_snipmate_compatibility = 1
-    | let g:neosnippet#enable_completed_snippet = 1
-    | let g:neosnippet#expand_word_boundary = 1
+    let g:neosnippet#enable_completed_snippet = 1
+    let g:neosnippet#expand_word_boundary = 1
 
 - repo: mattn/emmet-vim
   on_i: 1
   on_ft: [ css, html, jsx, javascript.jsx ]
-  hook_source:
+  hook_source: |
     let g:use_emmet_complete_tag = 0
-    | let g:user_emmet_install_global = 0
-    | let g:user_emmet_install_command = 0
-    | let g:user_emmet_mode = 'i'
+    let g:user_emmet_install_global = 0
+    let g:user_emmet_install_command = 0
+    let g:user_emmet_mode = 'i'
 
 - repo: Shougo/echodoc.vim
   on_event: CompleteDone
@@ -305,16 +305,16 @@
 - repo: davidhalter/jedi-vim
   on_ft: python
   if: empty($VIM_MINIMAL)
-  hook_add:
+  hook_add: |
     let g:jedi#completions_enabled = 0
-    | let g:jedi#auto_vim_configuration = 0
-    | let g:jedi#smart_auto_mappings = 0
-    | let g:jedi#show_call_signatures = 0
-  hook_source:
+    let g:jedi#auto_vim_configuration = 0
+    let g:jedi#smart_auto_mappings = 0
+    let g:jedi#show_call_signatures = 0
+  hook_source: |
     let g:jedi#use_tag_stack = 0
-    | let g:jedi#popup_select_first = 0
-    | let g:jedi#popup_on_dot = 0
-    | let g:jedi#max_doc_height = 45
+    let g:jedi#popup_select_first = 0
+    let g:jedi#popup_on_dot = 0
+    let g:jedi#max_doc_height = 45
 
 - repo: wellle/tmux-complete.vim
   on_i: 1
