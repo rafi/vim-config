@@ -13,6 +13,7 @@ if dein#tap('denite.nvim') "{{{
 	nnoremap <silent> [unite]g  :<C-u>Denite grep -buffer-name=grep<CR>
 	nnoremap <silent> [unite]j  :<C-u>Denite file_point<CR>
 	nnoremap <silent> [unite]k  :<C-u>Denite mark -buffer-name=list<CR>
+	nnoremap <silent> [unite]s  :<C-u>Denite session<CR>
 	nnoremap <silent> [unite]mu :<C-u>Denite mpc -buffer-name=mpc<CR>
 	nnoremap <silent> [unite]/  :<C-u>Denite line<CR>
 	nnoremap <silent> [unite]*  :<C-u>DeniteCursorWord line<CR>
@@ -36,7 +37,6 @@ endif
 
 " }}}
 if dein#tap('unite.vim') "{{{
-	nnoremap <silent> [unite]s   :<C-u>Unite session<CR>
 	nnoremap <silent> [unite]ma  :<C-u>Unite mapping -silent<CR>
 	nnoremap <silent> [unite]mt  :<C-u>Unite tab -select=`tabpagenr()-1`<CR>
 

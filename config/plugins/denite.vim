@@ -20,8 +20,13 @@ call denite#custom#option('mpc', 'mode', 'normal')
 call denite#custom#option('mpc', 'winheight', 10)
 
 " MATCHERS
+let s:matchers = ['matcher_fuzzy']
+if &runtimepath =~# 'cpsm'
+	let s:matchers = ['matcher_cpsm', 'matcher_fuzzy']
+endif
+
 call denite#custom#source('file_mru,file_old,file_rec,grep', 'matchers',
-	\ ['matcher_cpsm', 'matcher_fuzzy'])
+	\ s:matchers)
 
 call denite#custom#source('mark', 'matchers',
 	\ ['matcher_fuzzy', 'matcher_project_files'])
