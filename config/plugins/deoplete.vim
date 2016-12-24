@@ -11,6 +11,8 @@ let g:deoplete#enable_camel_case = 1
 let g:deoplete#keyword_patterns = {}
 let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
 
+let g:deoplete#skip_chars = ['(', ')']
+
 let g:deoplete#sources#go = 'vim-go'
 
 let g:deoplete#sources#jedi#statement_length = 0

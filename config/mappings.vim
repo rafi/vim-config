@@ -12,6 +12,7 @@ nmap      s [Window]
 " Denite/Unite prefix
 nnoremap [unite]  <Nop>
 xnoremap [unite]  <Nop>
+nmap     , [unite]
 nmap     ; [unite]
 xmap     ; [unite]
 

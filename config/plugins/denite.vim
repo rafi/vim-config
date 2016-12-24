@@ -38,8 +38,9 @@ if executable('ag')
 
 	call denite#custom#var('grep', 'command', ['ag'])
 	call denite#custom#var('grep', 'recursive_opts', [])
-	call denite#custom#var('grep', 'final_opts', [])
+	call denite#custom#var('grep', 'pattern_opt', [])
 	call denite#custom#var('grep', 'separator', ['--'])
+	call denite#custom#var('grep', 'final_opts', [])
 	call denite#custom#var('grep', 'default_opts',
 		\ [ '--vimgrep', '--smart-case' ])
 
@@ -47,8 +48,9 @@ elseif executable('ack')
 	" Ack command
 	call denite#custom#var('grep', 'command', ['ack'])
 	call denite#custom#var('grep', 'recursive_opts', [])
+	call denite#custom#var('grep', 'pattern_opt', ['--match'])
+	call denite#custom#var('grep', 'separator', ['--'])
 	call denite#custom#var('grep', 'final_opts', [])
-	call denite#custom#var('grep', 'separator', [])
 	call denite#custom#var('grep', 'default_opts',
 			\ ['--ackrc', $HOME.'/.config/ackrc', '-H',
 			\ '--nopager', '--nocolor', '--nogroup', '--column'])

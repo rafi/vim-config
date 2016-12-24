@@ -15,7 +15,7 @@ endif
 " ---------------------------------------------------------
 set showbreak=↪
 set fillchars=vert:│,fold:─
-set listchars=tab:\⋮\ ,extends:⟫,precedes:⟪,nbsp:.,trail:·
+set listchars=tab:\⋮\ ,extends:⟫,precedes:⟪,nbsp:␣,trail:·
 " }}}
 
 " Tabline {{{
@@ -114,11 +114,11 @@ augroup statusline
 	autocmd!
 	autocmd WinEnter,FileType,BufWinEnter,BufReadPost *
 		\ if &filetype !~? 'denite\|unite\|vimfiler\|tagbar\|undotree\|gundo\|diff'
-	  \ | let &l:statusline = s:stl
+		\ | let &l:statusline = s:stl
 		\ | endif
 	autocmd WinLeave *
 		\ if &filetype !~? 'denite\|unite\|vimfiler\|tagbar\|undotree\|gundo\|diff'
-	  \ | let &l:statusline = s:stl_nc
+		\ | let &l:statusline = s:stl_nc
 		\ | endif
 augroup END "}}}
 
@@ -220,12 +220,11 @@ hi default MarkologyHLm ctermfg=249 ctermbg=NONE cterm=NONE guifg=#aaaaaa guibg=
 
 " Plugin: vim-choosewin {{{
 " ---------------------------------------------------------
-"	let g:choosewin_label = 'FGHJKLZXCVBNM'
+let g:choosewin_label = 'SDFJKLZXCV'
 let g:choosewin_overlay_enable = 1
 let g:choosewin_statusline_replace = 1
 let g:choosewin_overlay_clear_multibyte = 0
 let g:choosewin_blink_on_land = 0
-"	let g:choosewin_overlay_shade = 1
 
 let g:choosewin_color_label = {
 	\ 'cterm': [ 236, 2 ], 'gui': [ '#555555', '#000000' ] }
