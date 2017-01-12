@@ -234,18 +234,25 @@
 
 - repo: vimwiki/vimwiki
   if: empty($VIM_MINIMAL)
-  on_cmd: [ VimwikiIndex, VimwikiTabIndex, VimwikiUISelect
-    VimwikiMakeDiaryNote, VimwikiTabMakeDiaryNote, VimwikiDiaryIndex ]
-  hook_add: nnoremap <silent> <Leader>W :<C-u>VimwikiIndex<CR>
+  on_map: { n: <Plug> }
+  on_cmd: Vimwiki
+  hook_add: |
+    let g:vimwiki_use_calendar = 1
+    let g:vimwiki_hl_headers = 1
+    let g:vimwiki_hl_cb_checked = 1
+    let g:vimwiki_autowriteall = 0
   hook_source: |
-    let wiki = {}
-    let wiki.diary_header = 'Diary'
-    let wiki.diary_link_fmt = '%Y-%m/%d'
-    let wiki.path = '~/docs/wiki/'
-    let wiki.path_html = '~/docs/wiki/html/'
-    let wiki.syntax = 'markdown'
-    let wiki.ext = '.md'
-    let g:vimwiki_list = [ wiki ]
+    let g:vimwiki_list = [
+    \   { 'diary_header': 'Diary',
+    \     'diary_link_fmt': '%Y-%m/%d',
+    \     'auto_toc': 1,
+    \     'path': '~/docs/wiki/',
+    \     'syntax': 'markdown',
+    \     'ext': '.md' },
+    \   { 'path': '~/docs/blog/',
+    \     'syntax': 'markdown',
+    \     'ext': '.md' }
+    \ ]
 
 # ==========================================
 # Completion
