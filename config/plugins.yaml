@@ -232,6 +232,13 @@
   on_map: [[ n, '\"' ]]
   hook_post_source: silent! augroup! peekaboo_init
 
+- repo: itchyny/calendar.vim
+  if: empty($VIM_MINIMAL)
+  on_cmd: Calendar
+  hook_source: |
+    let g:calendar_google_calendar = 1
+    let g:calendar_google_task = 1
+
 - repo: vimwiki/vimwiki
   if: empty($VIM_MINIMAL)
   on_map: { n: <Plug> }
