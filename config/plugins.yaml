@@ -371,7 +371,7 @@
 - { repo: chemzqm/unite-location, on_source: denite.nvim }
 
 - repo: rafi/vim-denite-mpc
-  if: executable('mpc')
+  if: executable('mpc') && empty($VIM_MINIMAL)
   on_source: denite.nvim
   hook_source: call denite#custom#var('mpc', 'default_view', 'date')
 
