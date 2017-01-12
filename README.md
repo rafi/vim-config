@@ -116,6 +116,7 @@ Name           | Description
 ## Lazy-Loaded Plugins
 
 ### Language
+
 Name           | Description
 -------------- | ----------------------
 [html5] | HTML5 omnicomplete and syntax
@@ -147,6 +148,7 @@ Name           | Description
 [phpspec] | PhpSpec integration
 
 ### Commands
+
 Name           | Description
 -------------- | ----------------------
 [vimfiler] | Powerful file explorer
@@ -166,7 +168,8 @@ Name           | Description
 [vimwiki] | Personal Wiki for Vim
 [thesaurus] | Look up words in an online thesaurus
 
-### Commands
+### Interface
+
 Name           | Description
 -------------- | ----------------------
 [goyo] | Distraction-free writing
@@ -176,6 +179,7 @@ Name           | Description
 [choosewin] | Choose window to use, like tmux's 'display-pane'
 
 ### Completion
+
 Name           | Description
 -------------- | ----------------------
 [delimitmate] | Insert mode auto-completion for quotes, parens, brackets
@@ -185,6 +189,7 @@ Name           | Description
 [neosnippet] | Contains neocomplete snippets source
 
 ### Unite
+
 Name           | Description
 -------------- | ----------------------
 [unite] | Unite and create user interfaces
@@ -201,6 +206,7 @@ Name           | Description
 [unite-issue] | Issue manager for JIRA and GitHub
 
 ### Operators & Text Objects
+
 Name           | Description
 -------------- | ----------------------
 [operator-user] | Define your own operator easily
@@ -363,10 +369,10 @@ Key   | Mode | Action
 `g0` | Normal | Go to first tab (:tabfirst)
 `g$` | Normal | Go to last tab (:tablast)
 `gr` | Normal | Go to preview tab (:tabprevious)
-`Ctrl`+`j` | Normal | Move to split below (<C-w>j)
-`Ctrl`+`k` | Normal | Move to upper split (<C-w>k)
-`Ctrl`+`h` | Normal | Move to left split (<C-w>h)
-`Ctrl`+`l` | Normal | Move to right split (<C-w>l)
+`Ctrl`+`j` | Normal | Move to split below (\<C-w>j)
+`Ctrl`+`k` | Normal | Move to upper split (\<C-w>k)
+`Ctrl`+`h` | Normal | Move to left split (\<C-w>h)
+`Ctrl`+`l` | Normal | Move to right split (\<C-w>l)
 `*` | Visual | Search selection forwards
 `#` | Visual | Search selection backwards
 `<leader>`+`j` | Normal | Next on location list
