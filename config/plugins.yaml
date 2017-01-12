@@ -7,11 +7,17 @@
 - repo: Shougo/dein.vim
 - repo: w0ng/vim-hybrid
 - repo: rafi/vim-blocks
-- repo: rafi/vim-tagabana
 - repo: itchyny/vim-gitbranch
 - repo: itchyny/vim-parenmatch
 - repo: thinca/vim-localrc
 - repo: christoomey/vim-tmux-navigator
+
+- repo: ludovicchabant/vim-gutentags
+  if: executable('ctags')
+  hook_add: |
+    let g:gutentags_cache_dir = $VARPATH.'/tags'
+    let g:gutentags_generate_on_missing = 0
+    let g:gutentags_generate_on_new = 0
 
 # Lazy Loading
 # ==========================================

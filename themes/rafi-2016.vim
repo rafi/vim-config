@@ -79,7 +79,8 @@ let s:stl .= '%='                                 " Align to right
 let s:stl .= '%{block#format()} %4*%*'           " File format
 let s:stl .= '%( %{&fenc} %)'                     " File encoding
 let s:stl .= '%4*%*%( %{&ft} %)'                 " File type
-let s:stl .= '%3*%2* %l/%2c%4p%% %*'             " Line and column
+let s:stl .= '%3*%2* %l/%2c%4p%% '               " Line and column
+let s:stl .= "%{gutentags#statusline('[*]')}%*"
 
 " Non-active Statusline {{{
 let s:stl_nc = " %{block#mode('⚒', 'Z')}%n"    " Readonly & buffer
