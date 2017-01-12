@@ -103,6 +103,9 @@
 - { repo: kana/vim-niceblock, on_map: { x: <Plug> }}
 - { repo: guns/xterm-color-table.vim, on_cmd: XtermColorTable }
 - { repo: thinca/vim-prettyprint, on_cmd: PP, on_func: PP }
+- { repo: mbbill/undotree, on_cmd: UndotreeToggle }
+- { repo: metakirby5/codi.vim, on_cmd: Codi, if: empty($VIM_MINIMAL) }
+- { repo: itchyny/dictionary.vim, on_cmd: Dictionary, if: empty($VIM_MINIMAL) }
 
 - repo: tyru/caw.vim
   on_map: { nx: <Plug> }
@@ -115,29 +118,15 @@
     let g:caw_dollarpos_skip_blank_line = 1
     let g:caw_box_sp_right = ''
 
-- repo: metakirby5/codi.vim
-  if: empty($VIM_MINIMAL)
-  on_cmd: Codi
-
-- repo: mbbill/undotree
-  on_cmd: UndotreeToggle
-  hook_add: nnoremap <Leader>gu :UndotreeToggle<CR>
-
 - repo: lambdalisue/vim-gista
   if: empty($VIM_MINIMAL)
   on_cmd: Gista
   hook_add: let g:gista#client#cache_dir = $VARPATH.'/gista/'
 
-- repo: itchyny/dictionary.vim
-  if: empty($VIM_MINIMAL)
-  on_cmd: Dictionary
-  hook_add: nnoremap <silent> <Leader>? :<C-u>Dictionary -no-duplicate<CR>
-
 - repo: beloglazov/vim-online-thesaurus
   if: empty($VIM_MINIMAL)
   on_cmd: [ OnlineThesaurusCurrentWord, Thesaurus ]
   hook_source: let g:online_thesaurus_map_keys = 0
-  hook_add: nnoremap <silent> <Leader>K :<C-u>OnlineThesaurusCurrentWord<CR>
 
 # ==========================================
 # Interface
@@ -226,7 +215,6 @@
   if: empty($VIM_MINIMAL)
   depends: limelight.vim
   on_cmd: Goyo
-  hook_add: nnoremap <Leader>G :Goyo<CR>
   hook_source: source $VIMPATH/config/plugins/goyo.vim
 
 - repo: junegunn/limelight.vim
@@ -258,14 +246,14 @@
 # ----------
 - repo: Shougo/deoplete.nvim
   depends: context_filetype.vim
-  if: has('nvim')
+  if: has('nvim') && empty($VIM_MINIMAL)
   on_i: 1
   hook_add: let g:deoplete#enable_at_startup = 1
   hook_source: source $VIMPATH/config/plugins/deoplete.vim
 
 - repo: Shougo/neocomplete
   depends: context_filetype.vim
-  if: ! has('nvim') && has('lua')
+  if: ! has('nvim') && has('lua') && empty($VIM_MINIMAL)
   on_event: InsertEnter
   hook_add: |
     let g:neocomplete#data_directory = $VARPATH.'/complete'
@@ -276,6 +264,7 @@
   depends: [ neosnippet-snippets, context_filetype.vim ]
   on_event: InsertCharPre
   on_ft: snippet
+  if: empty($VIM_MINIMAL)
   hook_add: let g:neosnippet#data_directory = $VARPATH.'/snippets'
   hook_source: |
     let g:neosnippet#enable_snipmate_compatibility = 1
@@ -299,7 +288,7 @@
   on_i: 1
   hook_source: let g:delimitMate_expand_cr = 1
 
-- { repo: Shougo/neosnippet-snippets }
+- { repo: Shougo/neosnippet-snippets, if: empty($VIM_MINIMAL) }
 - { repo: Shougo/context_filetype.vim, lazy: 1 }
 - { repo: Shougo/neco-vim, on_ft: vim }
 - { repo: Shougo/neco-syntax, on_source: [ neocomplete.vim, deoplete.nvim ]}
@@ -320,6 +309,7 @@
 
 - repo: wellle/tmux-complete.vim
   on_i: 1
+  if: empty($VIM_MINIMAL)
   hook_add: let g:tmuxcomplete#trigger = ''
 
 # Only NeoVim

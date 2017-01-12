@@ -213,11 +213,21 @@ if dein#tap('committia.vim') "{{{
 endif
 
 "}}}
+if dein#tap('goyo.vim') "{{{
+	nnoremap <Leader>G :Goyo<CR>
+endif
+
+"}}}
 if dein#tap('vim-peekaboo') "{{{
 	nnoremap <buffer> <silent> " :<c-u>call peekaboo#peek(v:count1, 'quote',  0)<cr>
 	xnoremap <buffer> <silent> " :<c-u>call peekaboo#peek(v:count1, 'quote',  1)<cr>
 	nnoremap <buffer> <silent> @ :<c-u>call peekaboo#peek(v:count1, 'replay', 0)<cr>
 	inoremap <buffer> <silent> <c-r> <c-o>:call peekaboo#peek(1, 'ctrl-r',  0)<cr>
+endif
+
+"}}}
+if dein#tap('vimwiki') "{{{
+	nnoremap <silent> <Leader>W :<C-u>VimwikiIndex<CR>
 endif
 
 "}}}
@@ -288,6 +298,21 @@ if dein#tap('caw.vim') "{{{
 	xmap <Leader>V <Plug>(caw:tildepos:toggle)
 	nmap <Leader>v <Plug>(caw:zeropos:toggle)
 	xmap <Leader>v <Plug>(caw:zeropos:toggle)
+endif
+
+"}}}
+if dein#tap('undotree') "{{{
+	nnoremap <Leader>gu :UndotreeToggle<CR>
+endif
+
+"}}}
+if dein#tap('dictionary.vim') "{{{
+	nnoremap <silent> <Leader>? :<C-u>Dictionary -no-duplicate<CR>
+endif
+
+"}}}
+if dein#tap('vim-online-thesaurus') "{{{
+	nnoremap <silent> <Leader>K :<C-u>OnlineThesaurusCurrentWord<CR>
 endif
 
 "}}}
