@@ -180,11 +180,12 @@ highlight GitGutterChangeDelete ctermfg=52 guifg=#600000 ctermbg=NONE
 
 " Plugin: denite {{{
 " ---------------------------------------------------------
-"highlight deniteSource_base
-highlight deniteMatched ctermfg=243 guifg=#999999
-highlight deniteMatchedChar ctermfg=221 guifg=#f0c674
-highlight link deniteGrepInput Constant
-"highlight deniteSourceLine_file_mru
+highlight clear WildMenu
+highlight link WildMenu CursorLine
+highlight link deniteSelectedLine Type
+highlight link deniteMatchedChar Function
+highlight link deniteMatchedRange Underlined
+highlight link deniteMode Comment
 " }}}
 
 " Plugin: unite.vim {{{
