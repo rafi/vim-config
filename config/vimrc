@@ -40,13 +40,7 @@ function! s:source_file(path) abort
 endfunction
 
 function! s:lazy_load_filetype() abort
-	if &l:filetype ==# '' && bufname('%') ==# ''
-		return
-	endif
-	redir => filetype_out
-	silent! filetype
-	redir END
-	if filetype_out =~# 'OFF'
+	if execute('filetype') =~# 'OFF'
 		silent! filetype plugin indent on
 		syntax enable
 		filetype detect
@@ -60,9 +54,35 @@ endfunction
 augroup MyAutoCmd
 	autocmd!
 	" Lazy-loading filetype syntax and highlighting
-	autocmd MyAutoCmd FileType,Syntax,BufNewFile,BufNew,BufRead
-		\ * call s:lazy_load_filetype()
+	autocmd FileType,Syntax,BufNewFile,BufNew,BufRead *?
+		\ call s:lazy_load_filetype()
 augroup END
+
+" When running n/vim with -S (source session) argument, the first buffer
+" isn't type-detected, fix it by reloading the windows in the first tab.
+augroup session-load-fix
+	autocmd!
+	autocmd SessionLoadPost *
+		\ if has('vim_starting') && ! exists('s:session_ft')
+		\ |  let s:session_ft = timer_start(1, 'OnSessionLoadPost', {'repeat': 1})
+		\ | endif
+augroup END
+
+function! OnSessionLoadPost(timer)
+	" Store the current window and tab index
+  let win = winnr()
+  let altwin = winnr('#')
+	let tab = tabpagenr()
+	" Reload windows in the first tab
+	tabn 1 | windo e
+	" Restore alternate window, current window and tab
+  execute altwin.'wincmd w'
+  execute win.'wincmd w'
+	execute 'tabn '.tab
+	" Clear augroup
+	augroup session-load-fix | autocmd!
+	augroup END
+endfunc
 
 " Initialize base requirements
 if has('vim_starting')
@@ -101,6 +121,10 @@ endif
 
 call s:source_file('plugins/all.vim')
 
+if has('vim_starting') && ! empty(argv())
+	call s:lazy_load_filetype()
+endif
+
 if ! has('vim_starting')
 	call dein#call_hook('source')
 	call dein#call_hook('post_source')
@@ -114,7 +138,6 @@ call s:source_file('general.vim')
 call s:source_file('terminal.vim')
 call s:source_file('theme.vim')
 call s:source_file('filetype.vim')
-call s:lazy_load_filetype()
 call s:source_file('mappings.vim')
 " }}}
 
