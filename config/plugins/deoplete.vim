@@ -3,7 +3,7 @@
 
 autocmd MyAutoCmd CompleteDone * pclose!
 
-let g:deoplete#auto_complete_delay = 0
+let g:deoplete#auto_complete_delay = 60
 let g:deoplete#auto_refresh_delay = 1000
 let g:deoplete#enable_camel_case = 1
 "let g:deoplete#auto_complete_start_length = 3
@@ -15,7 +15,7 @@ let g:deoplete#skip_chars = ['(', ')']
 
 let g:deoplete#sources#go = 'vim-go'
 
-let g:deoplete#sources#jedi#statement_length = 0
+let g:deoplete#sources#jedi#statement_length = 1
 let g:deoplete#sources#jedi#show_docstring = 1
 let g:deoplete#sources#jedi#short_types = 1
 "let g:deoplete#sources#jedi#worker_threads = 2
@@ -24,6 +24,7 @@ let g:deoplete#omni#functions = get(g:, 'deoplete#omni#functions', {})
 let g:deoplete#omni#functions.php = 'phpcomplete_extended#CompletePHP'
 let g:deoplete#omni#functions.css = 'csscomplete#CompleteCSS'
 "let g:deoplete#omni#functions.html = 'htmlcomplete#CompleteTags'
+let g:deoplete#omni#functions.javascript = [ 'jspc#omni' ]
 
 let g:deoplete#omni#input_patterns = get(g:, 'deoplete#omni#input_patterns', {})
 let g:deoplete#omni#input_patterns.python = ''
@@ -41,11 +42,12 @@ let g:deoplete#member#prefix_patterns.javascript = ['\.']
 
 let g:deoplete#tag#cache_limit_size = 5000000
 
+call deoplete#custom#set('_', 'min_pattern_length', 1)
 " call deoplete#custom#set('buffer', 'mark', '')
+" call deoplete#custom#set('buffer', 'mark', '*')
 " call deoplete#custom#set('_', 'matchers', ['matcher_head'])
 " call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
 " call deoplete#custom#set('_', 'disabled_syntaxes', ['Comment', 'String'])
-" call deoplete#custom#set('buffer', 'mark', '*')
 "
 " Use auto delimiter
 " call deoplete#custom#set('_', 'converters',
@@ -56,9 +58,9 @@ call deoplete#custom#set('_', 'converters', [
 	\ 'converter_remove_paren',
 	\ 'converter_remove_overlap',
 	\ 'converter_truncate_abbr',
-	\ 'converter_truncate_menu',
-	\ 'converter_auto_delimiter',
 	\ ])
+"	\ 'converter_truncate_menu',
+"	\ 'converter_auto_delimiter',
 
 " Movement within 'ins-completion-menu'
 imap <expr><C-j>   pumvisible() ? "\<C-n>" : "\<C-j>"

@@ -46,21 +46,18 @@
     let g:gfm_syntax_enable_always = 0
     let g:gfm_syntax_enable_filetypes = ['markdown']
 
-- { repo: elzr/vim-json, on_ft: json }
-- { repo: othree/yajs.vim, on_ft: javascript }
-- { repo: gavocanov/vim-js-indent, on_ft: javascript }
+- { repo: pangloss/vim-javascript, on_ft: javascript }
+#- { repo: othree/yajs.vim, on_ft: javascript }
+#- { repo: gavocanov/vim-js-indent, on_ft: javascript }
 - { repo: othree/jspc.vim, on_ft: javascript }
+- { repo: MaxMEllon/vim-jsx-pretty, on_ft: javascript }
 - { repo: heavenshell/vim-jsdoc, on_ft: javascript }
 - { repo: moll/vim-node, on_ft: javascript }
+- { repo: elzr/vim-json, on_ft: json }
 
-- repo: mxw/vim-jsx
-  on_ft: javascript
-  hook_source: let g:jsx_ext_required = 0
-
-- repo: othree/javascript-libraries-syntax.vim
-  on_ft: javascript
-  hook_source:
-    let g:used_javascript_libs = 'jquery,flux,underscore,backbone,react'
+#- repo: mxw/vim-jsx
+#  on_ft: javascript
+#  hook_source: let g:jsx_ext_required = 0
 
 - repo: fatih/vim-go
   on_ft: go
@@ -293,7 +290,7 @@
 
 - repo: mattn/emmet-vim
   on_i: 1
-  on_ft: [ css, html, jsx, javascript.jsx ]
+  on_ft: [ css, html, jsx, javascript, javascript.jsx ]
   hook_source: |
     let g:use_emmet_complete_tag = 0
     let g:user_emmet_install_global = 0
@@ -345,9 +342,13 @@
   hook_source: autocmd MyAutoCmd FileType python setlocal omnifunc=
 
 - repo: carlitux/deoplete-ternjs
-  if: executable('tern') && has('nvim') && empty($VIM_MINIMAL)
-  on_ft: javascript
+  build: npm install -g tern
+  if: executable('npm') && has('nvim') && empty($VIM_MINIMAL)
   on_i: 1
+  on_ft: javascript
+  hook_source: |
+    let g:tern_request_timeout = 1
+    let g:tern_show_signature_in_pum = 0
 
 # Only Vim
 - repo: ternjs/tern_for_vim
