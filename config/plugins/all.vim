@@ -27,12 +27,11 @@ endif
 
 " }}}
 if dein#tap('tagbar') "{{{
-	let g:tagbar_iconchars = ['▷', '◢']
-
-	let g:tagbar_map_openfold = ['l', '+', 'zo']
-	let g:tagbar_map_closefold = ['h', '-', 'zc']
-
 	nnoremap <silent> <Leader>o   :<C-u>TagbarOpenAutoClose<CR>
+
+	" Also use h/l to open/close folds
+	let g:tagbar_map_closefold = ['h', '-', 'zc']
+	let g:tagbar_map_openfold = ['l', '+', 'zo']
 endif
 
 " }}}

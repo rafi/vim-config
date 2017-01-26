@@ -146,6 +146,11 @@ let g:vimfiler_readonly_file_icon = '⚒'
 let g:vimfiler_marked_file_icon = '✓'
 "}}}
 
+" Plugin: Tagbar icons {{{
+" ---------------------------------------------------------
+let g:tagbar_iconchars = ['▷', '◢']
+"}}}
+
 " Plugin: Neomake icons {{{
 " ---------------------------------------------------------
 let g:neomake_error_sign = {'text': '✖', 'texthl': 'ErrorMsg'}
