@@ -11,9 +11,8 @@ call denite#custom#option('grep', 'empty', 0)
 call denite#custom#option('grep', 'vertical_preview', 1)
 "call denite#custom#option('grep', 'auto_highlight', 1)
 
-call denite#custom#option('list', 'quit', 0)
 call denite#custom#option('list', 'mode', 'normal')
-call denite#custom#option('list', 'winheight', 8)
+call denite#custom#option('list', 'winheight', 10)
 
 call denite#custom#option('mpc', 'quit', 0)
 call denite#custom#option('mpc', 'mode', 'normal')

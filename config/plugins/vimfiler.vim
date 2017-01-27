@@ -24,6 +24,7 @@ call vimfiler#custom#profile('default', 'context', {
 	\  'explorer': 1,
 	\  'winwidth': 25,
 	\  'split': 1,
+	\  'edit_action': 'open',
 	\  'direction': 'topleft',
 	\  'auto_expand': 1,
 	\  'no_quit': 1,

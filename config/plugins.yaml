@@ -12,13 +12,6 @@
 - repo: thinca/vim-localrc
 - repo: christoomey/vim-tmux-navigator
 
-- repo: ludovicchabant/vim-gutentags
-  if: executable('ctags')
-  hook_add: |
-    let g:gutentags_cache_dir = $VARPATH.'/tags'
-    let g:gutentags_generate_on_missing = 0
-    let g:gutentags_generate_on_new = 0
-
 # Lazy Loading
 # ==========================================
 
@@ -71,10 +64,14 @@
 - { repo: tbastos/vim-lua, on_ft: lua }
 - { repo: mitsuhiko/vim-python-combined, on_ft: python }
 - { repo: raimon49/requirements.txt.vim, on_ft: requirements }
-- { repo: m2mdas/phpcomplete-extended, on_i: 1, on_ft: php }
 - { repo: StanAngeloff/php.vim, on_ft: php }
 - { repo: osyo-manga/vim-monster, on_ft: ruby }
 - { repo: vim-jp/syntax-vim-ex, on_ft: vim }
+
+- repo: m2mdas/phpcomplete-extended
+  on_ft: php
+  on_i: 1
+  hook_source: let g:phpcomplete_extended_use_default_mapping = 0
 
 - { repo: chrisbra/csv.vim, on_ft: csv }
 - { repo: tmux-plugins/vim-tmux, on_ft: tmux }
@@ -162,7 +159,7 @@
     augroup findent
       autocmd!
       autocmd FileType css,html,javascript,json,jsx,go,sh,php,yaml,vim
-        \ Findent! --no-warnings
+        \ Findent! --no-warnings --no-messages
     augroup END
 
 - repo: nathanaelkane/vim-indent-guides
@@ -196,8 +193,8 @@
       \ .'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 
 - repo: osyo-manga/vim-anzu
-  on_map: { nv: <Plug> }
-  hook_source: let g:anzu_status_format = 'match %i of %l'
+  hook_add: let g:anzu_status_format = '?%i/%l'
+#  on_map: { nv: <Plug> }
 
 - repo: rhysd/committia.vim
   on_path: COMMIT_EDITMSG
@@ -295,6 +292,15 @@
     let g:neosnippet#enable_snipmate_compatibility = 1
     let g:neosnippet#enable_completed_snippet = 1
     let g:neosnippet#expand_word_boundary = 1
+
+- repo: ludovicchabant/vim-gutentags
+  if: executable('ctags')
+  on_path: .*
+  hook_add: |
+    let g:gutentags_cache_dir = $VARPATH.'/tags'
+    let g:gutentags_generate_on_missing = 0
+    let g:gutentags_generate_on_new = 0
+    let g:gutentags_modules = ['ctags']
 
 - repo: mattn/emmet-vim
   on_i: 1

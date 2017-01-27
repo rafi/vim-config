@@ -17,9 +17,10 @@ function! s:theme_reload(name) abort
 	endif
 endfunction
 
+autocmd MyAutoCmd Syntax,ColorScheme * call s:theme_reload(g:theme_name)
+
 let g:theme_name = 'rafi-2016'
 set background=dark
-autocmd MyAutoCmd ColorScheme * call s:theme_reload(g:theme_name)
 colorscheme hybrid
 
 " vim: set ts=2 sw=2 tw=80 noet :

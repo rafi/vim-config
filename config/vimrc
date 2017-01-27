@@ -44,9 +44,6 @@ function! s:lazy_load_filetype() abort
 		silent! filetype plugin indent on
 		syntax enable
 		filetype detect
-		" For some reason this event isn't being
-		" triggered, and theme doesn't load.
-		doautoall ColorScheme
 	endif
 endfunction
 
@@ -63,22 +60,18 @@ augroup END
 augroup session-load-fix
 	autocmd!
 	autocmd SessionLoadPost *
-		\ if has('vim_starting') && ! exists('s:session_ft')
+		\ if ! exists('s:session_ft')
 		\ |  let s:session_ft = timer_start(1, 'OnSessionLoadPost', {'repeat': 1})
 		\ | endif
 augroup END
 
 function! OnSessionLoadPost(timer)
 	" Store the current window and tab index
-  let win = winnr()
-  let altwin = winnr('#')
-	let tab = tabpagenr()
+	let [tabnr, winnr, altwinnr] = [tabpagenr(), winnr(), winnr('#')]
 	" Reload windows in the first tab
-	tabn 1 | windo e
+	tabn 1 | windo if empty(&ft) | edit | endif
 	" Restore alternate window, current window and tab
-  execute altwin.'wincmd w'
-  execute win.'wincmd w'
-	execute 'tabn '.tab
+	execute 'tabn '.tabnr.' | '.altwinnr.'wincmd w | '.winnr.'wincmd w'
 	" Clear augroup
 	augroup session-load-fix | autocmd!
 	augroup END
@@ -120,6 +113,7 @@ if dein#load_state(s:path)
 endif
 
 call s:source_file('plugins/all.vim')
+call s:source_file('theme.vim')
 
 if has('vim_starting') && ! empty(argv())
 	call s:lazy_load_filetype()
@@ -136,7 +130,6 @@ endif
 " Loading configuration modules {{{
 call s:source_file('general.vim')
 call s:source_file('terminal.vim')
-call s:source_file('theme.vim')
 call s:source_file('filetype.vim')
 call s:source_file('mappings.vim')
 " }}}

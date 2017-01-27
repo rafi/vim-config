@@ -270,6 +270,13 @@ if dein#tap('vim-go') "{{{
 endif
 
 "}}}
+if dein#tap('phpcomplete-extended') "{{{
+	silent! nmap <silent> <unique> K <Plug>(phpcomplete-extended-doc)
+	silent! nmap <silent> <unique> <C-]> <Plug>(phpcomplete-extended-goto)
+	silent! nmap <silent> <unique> <Leader>a <Plug>(phpcomplete-extended-add-use)
+endif
+
+"}}}
 if dein#tap('vim-gita') "{{{
 	nnoremap <silent> <leader>gs :<C-u>Gita status<CR>
 	nnoremap <silent> <leader>gc :<C-u>Gita commit<CR>

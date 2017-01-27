@@ -80,7 +80,7 @@ let s:stl .= '%{block#format()} %4*%*'           " File format
 let s:stl .= '%( %{&fenc} %)'                     " File encoding
 let s:stl .= '%4*%*%( %{&ft} %)'                 " File type
 let s:stl .= '%3*%2* %l/%2c%4p%% '               " Line and column
-let s:stl .= "%{gutentags#statusline('[*]')}%*"
+"let s:stl .= "%{gutentags#statusline('[*]')}%*"
 
 " Non-active Statusline {{{
 let s:stl_nc = " %{block#mode('⚒', 'Z')}%n"    " Readonly & buffer
@@ -113,7 +113,7 @@ highlight User8 guifg=#ffb964 guibg=#30302c ctermfg=215 ctermbg=236
 " Toggle Statusline {{{
 augroup statusline
 	autocmd!
-	autocmd WinEnter,FileType,BufWinEnter,BufReadPost *
+	autocmd FileType,WinEnter,BufWinEnter,BufReadPost *
 		\ if &filetype !~? 'denite\|unite\|vimfiler\|tagbar\|undotree\|gundo\|diff'
 		\ | let &l:statusline = s:stl
 		\ | endif
