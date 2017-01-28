@@ -162,15 +162,14 @@
 
 - repo: nathanaelkane/vim-indent-guides
   on_cmd: [ IndentGuidesEnable, IndentGuidesDisable, IndentGuidesToggle ]
-  on_source: vim-findent
-  hook_source: |
+  hook_add: |
     let g:indent_guides_enable_on_vim_startup = 0
     let g:indent_guides_default_mapping = 0
     let g:indent_guides_indent_levels = 15
-    let g:indent_guides_exclude_filetypes =
-      \ ['help', 'denite', 'vimfiler', 'tagbar']
+    let g:indent_guides_exclude_filetypes = [ 'help', 'denite', 'vimfiler' ]
     let g:indent_guides_autocmds_enabled = 0
     autocmd MyAutoCmd BufEnter * if ! empty(&l:filetype)
+      \   && index(g:indent_guides_exclude_filetypes, &l:filetype) == -1
       \|   if g:indent_guides_autocmds_enabled == 0 && &l:expandtab
       \|     IndentGuidesEnable
       \|   elseif g:indent_guides_autocmds_enabled == 1 && ! &l:expandtab
