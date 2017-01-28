@@ -35,47 +35,32 @@ endpython
 	unlet g:denite_plugins
 endfunction
 
-function! s:source_file(path) abort
-	execute 'source' fnameescape($VIMPATH.'/config/'.a:path)
-endfunction
-
-function! s:lazy_load_filetype() abort
-	if execute('filetype') =~# 'OFF'
-		silent! filetype plugin indent on
-		syntax enable
-		filetype detect
+function! s:source_file(path, ...) abort "{{{
+	let use_global = get(a:000, 0, ! has('vim_starting'))
+	let abspath = resolve(expand($VIMPATH.'/config/'.a:path))
+	if !use_global
+		execute 'source' fnameescape(abspath)
+		return
 	endif
-endfunction
+
+	let content = map(readfile(abspath),
+		\ "substitute(v:val, '^\\W*\\zsset\\ze\\W', 'setglobal', '')")
+	let tempfile = tempname()
+	try
+		call writefile(content, tempfile)
+		execute printf('source %s', fnameescape(tempfile))
+	finally
+		if filereadable(tempfile)
+			call delete(tempfile)
+		endif
+	endtry
+endfunction "}}}
 
 " Set augroup
 augroup MyAutoCmd
 	autocmd!
-	" Lazy-loading filetype syntax and highlighting
-	autocmd FileType,Syntax,BufNewFile,BufNew,BufRead *?
-		\ call s:lazy_load_filetype()
+	autocmd CursorHold *? syntax sync minlines=300
 augroup END
-
-" When running n/vim with -S (source session) argument, the first buffer
-" isn't type-detected, fix it by reloading the windows in the first tab.
-augroup session-load-fix
-	autocmd!
-	autocmd SessionLoadPost *
-		\ if ! exists('s:session_ft')
-		\ |  let s:session_ft = timer_start(1, 'OnSessionLoadPost', {'repeat': 1})
-		\ | endif
-augroup END
-
-function! OnSessionLoadPost(timer)
-	" Store the current window and tab index
-	let [tabnr, winnr, altwinnr] = [tabpagenr(), winnr(), winnr('#')]
-	" Reload windows in the first tab
-	tabn 1 | windo if empty(&ft) | edit | endif
-	" Restore alternate window, current window and tab
-	execute 'tabn '.tabnr.' | '.altwinnr.'wincmd w | '.winnr.'wincmd w'
-	" Clear augroup
-	augroup session-load-fix | autocmd!
-	augroup END
-endfunc
 
 " Initialize base requirements
 if has('vim_starting')
@@ -113,18 +98,13 @@ if dein#load_state(s:path)
 endif
 
 call s:source_file('plugins/all.vim')
-call s:source_file('theme.vim')
 
-if has('vim_starting') && ! empty(argv())
-	call s:lazy_load_filetype()
-endif
+filetype plugin indent on
+syntax enable
 
 if ! has('vim_starting')
 	call dein#call_hook('source')
 	call dein#call_hook('post_source')
-
-	filetype plugin indent on
-	syntax enable
 endif
 
 " Loading configuration modules {{{
@@ -132,6 +112,7 @@ call s:source_file('general.vim')
 call s:source_file('terminal.vim')
 call s:source_file('filetype.vim')
 call s:source_file('mappings.vim')
+call s:source_file('theme.vim')
 " }}}
 
 set secure

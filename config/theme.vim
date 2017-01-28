@@ -10,14 +10,14 @@ if has('nvim') && $TERM !~# '^rxvt' && exists('+termguicolors')
 	set termguicolors
 endif
 
-function! s:theme_reload(name) abort
+function! s:theme_reload(name)
 	let theme_path = $VIMPATH.'/themes/'.a:name.'.vim'
 	if filereadable(theme_path)
 		execute 'source' fnameescape(theme_path)
 	endif
 endfunction
 
-autocmd MyAutoCmd Syntax,ColorScheme * call s:theme_reload(g:theme_name)
+autocmd MyAutoCmd ColorScheme * call s:theme_reload(g:theme_name)
 
 let g:theme_name = 'rafi-2016'
 set background=dark
