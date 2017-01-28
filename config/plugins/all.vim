@@ -93,11 +93,17 @@ if dein#tap('vimfiler.vim') "{{{
 		silent! nunmap <buffer> gf
 		silent! nunmap <buffer> -
 
+		" Smarter l
+		nmap <buffer><silent><expr> l
+			\ vimfiler#mappings#smart_cursor_map(
+			\  "\<Plug>(vimfiler_expand_tree)",
+			\  ":<C-u>call <SID>smarter_edit_file()<CR>")
+
 		nnoremap <silent><buffer> gr  :<C-u>Denite grep:<C-R>=<SID>selected()<CR> -buffer-name=grep<CR>
 		nnoremap <silent><buffer> gf  :<C-u>Denite file_rec:<C-R>=<SID>selected()<CR><CR>
 		nnoremap <silent><buffer> gd  :<C-u>call <SID>change_vim_current_dir()<CR>
-		nnoremap <silent><buffer><expr> sg  vimfiler#do_action('vsplit')
-		nnoremap <silent><buffer><expr> sv  vimfiler#do_action('split')
+		nnoremap <silent><buffer><expr> sg  vimfiler#do_action('vsplitswitch')
+		nnoremap <silent><buffer><expr> sv  vimfiler#do_action('splitswitch')
 		nnoremap <silent><buffer><expr> st  vimfiler#do_action('tabswitch')
 		nmap <buffer> gx     <Plug>(vimfiler_execute_vimfiler_associated)
 		nmap <buffer> '      <Plug>(vimfiler_toggle_mark_current_line)
@@ -108,6 +114,29 @@ if dein#tap('vimfiler.vim') "{{{
 		nmap <buffer> <Tab>  <Plug>(vimfiler_switch_to_other_window)
 		nmap <buffer> <C-r>  <Plug>(vimfiler_redraw_screen)
 	endfunction "}}}
+
+	" Smarter file edit
+	" Jump to matching window if file is already opened.
+	" If empty buffer exists in tab page, use it,
+	" otherwise, let user select a pane to vertically split from.
+	function! s:smarter_edit_file()
+		if has('patch-7.4.1557')
+			let filename = vimfiler#get_filename()
+			let opened = win_findbuf(bufnr(filename))
+			if ! empty(opened)
+				call vimfiler#util#hide_buffer(b:vimfiler.bufnr)
+				call win_gotoid(opened[0])
+				return
+			endif
+		endif
+
+		let empties = filter(range(1, winnr('$')), "empty(getwinvar(v:val, '&ft'))")
+		if empty(empties)
+			call vimfiler#mappings#do_switch_action(b:vimfiler, 'vsplit')
+		else
+			call vimfiler#mappings#do_switch_action(b:vimfiler, b:vimfiler.context.edit_action)
+		endif
+	endfunction
 
 	" Returns selected items, or current cursor directory position
 	" Provide an argument to limit results with an integer.
