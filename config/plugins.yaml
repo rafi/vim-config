@@ -215,6 +215,8 @@
     autocmd MyAutoCmd BufWritePost *
       \ if index(g:lint_filetypes, &filetype) > -1 && empty(&buftype)
       \|   Neomake
+      \| elseif &filetype =~ 'html'
+      \|   Neomake tidy
       \| endif
 
 - repo: junegunn/goyo.vim
@@ -229,7 +231,7 @@
 
 - repo: junegunn/vim-peekaboo
   if: empty($VIM_MINIMAL)
-  on_map: [[ n, '\"' ]]
+  on_map: [[ nx, '"' ]]
   hook_post_source: silent! augroup! peekaboo_init
 
 - repo: itchyny/calendar.vim
@@ -329,12 +331,13 @@
     let g:jedi#completions_enabled = 0
     let g:jedi#auto_vim_configuration = 0
     let g:jedi#smart_auto_mappings = 0
-    let g:jedi#show_call_signatures = 0
+    let g:jedi#show_call_signatures = 1
   hook_source: |
     let g:jedi#use_tag_stack = 0
     let g:jedi#popup_select_first = 0
     let g:jedi#popup_on_dot = 0
-    let g:jedi#max_doc_height = 45
+    let g:jedi#quickfix_window_height = 10
+    let g:jedi#max_doc_height = 100
 
 - repo: wellle/tmux-complete.vim
   on_i: 1

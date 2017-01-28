@@ -18,11 +18,11 @@ if dein#tap('denite.nvim') "{{{
 	nnoremap <silent> [unite]/  :<C-u>Denite line<CR>
 	nnoremap <silent> [unite]*  :<C-u>DeniteCursorWord line<CR>
 
-	" Open Unite with word under cursor or selection
+	" Open Denite with word under cursor or selection
 	nnoremap <silent> <Leader>gf :DeniteCursorWord file_rec<CR>
-	nnoremap <silent> <Leader>gg :DeniteCursorWord grep -buffer-name=grep<CR><CR>
+	nnoremap <silent> <Leader>gg :Denite grep -buffer-name=grep<CR><C-R>=expand('<cword>')<CR><CR>
 	vnoremap <silent> <Leader>gg
-		\ :<C-u>call VSetSearch('/')<CR>:execute 'Denite grep -buffer-name=grep -input='.@/<CR><CR>
+		\ :<C-u>call VSetSearch('/')<CR>:execute 'Denite -buffer-name=grep grep:::'.@/<CR><CR>
 endif
 
 " }}}
@@ -271,9 +271,10 @@ endif
 
 "}}}
 if dein#tap('phpcomplete-extended') "{{{
-	silent! nmap <silent> <unique> K <Plug>(phpcomplete-extended-doc)
-	silent! nmap <silent> <unique> <C-]> <Plug>(phpcomplete-extended-goto)
-	silent! nmap <silent> <unique> <Leader>a <Plug>(phpcomplete-extended-add-use)
+	autocmd MyAutoCmd FileType php
+		\   nmap <silent> <unique> K <Plug>(phpcomplete-extended-doc)
+		\ | nmap <silent> <unique> <C-]> <Plug>(phpcomplete-extended-goto)
+		\ | nmap <silent> <unique> <Leader>a <Plug>(phpcomplete-extended-add-use)
 endif
 
 "}}}
@@ -351,10 +352,10 @@ endif
 if dein#tap('sideways.vim') "{{{
 	nnoremap <silent> m" :SidewaysJumpLeft<CR>
 	nnoremap <silent> m' :SidewaysJumpRight<CR>
-	omap a, <Plug>SidewaysArgumentTextobjA
-	xmap a, <Plug>SidewaysArgumentTextobjA
-	omap i, <Plug>SidewaysArgumentTextobjI
-	xmap i, <Plug>SidewaysArgumentTextobjI
+	omap <silent> a, <Plug>SidewaysArgumentTextobjA
+	xmap <silent> a, <Plug>SidewaysArgumentTextobjA
+	omap <silent> i, <Plug>SidewaysArgumentTextobjI
+	xmap <silent> i, <Plug>SidewaysArgumentTextobjI
 endif
 
 "}}}

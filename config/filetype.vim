@@ -59,8 +59,8 @@ augroup MyAutoCmd " {{{
 
 	" Improved HTML include pattern
 	autocmd FileType html
-		\ setlocal includeexpr=substitute(v:fname,'^\\/','','') |
-		\ setlocal path+=./;/
+		\ setlocal includeexpr=substitute(v:fname, '^\\/', '', '')
+		\ | setlocal path+=./;/
 
 	autocmd FileType markdown
 		\ setlocal spell expandtab autoindent

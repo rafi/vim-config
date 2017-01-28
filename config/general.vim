@@ -2,7 +2,7 @@
 " General Settings
 "---------------------------------------------------------
 " General {{{
-set mouse=nvi                " Disable mouse in command-line mode
+set mouse=nv                 " Disable mouse in command-line mode
 set modeline                 " automatically setting options from modelines
 set report=0                 " Don't report on line changes
 set errorbells               " Trigger bell on error
@@ -52,6 +52,7 @@ if has('wildmenu')
 	set wildignore+=.git,.hg,.svn,.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
 	set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
 	set wildignore+=**/node_modules/**,**/bower_modules/**,*/.sass-cache/*
+	set wildignore+=__pycache__,*.egg-info
 endif
 
 " }}}
