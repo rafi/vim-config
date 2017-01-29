@@ -1,6 +1,6 @@
 # Vim config
 
-Lean mean Vim/Neovim machine, 15-30ms startup time.
+Lean mean Vim/Neovim machine, 30-45ms startup time.
 
 Best with Neovim or Vim 7.4+ with +lua +python extensions enabled.
 

@@ -68,6 +68,7 @@
 - { repo: raimon49/requirements.txt.vim, on_ft: requirements }
 - { repo: StanAngeloff/php.vim, on_ft: php }
 - { repo: osyo-manga/vim-monster, on_ft: ruby }
+- { repo: toyamarinyon/vim-swift, on_ft: swift }
 - { repo: vim-jp/syntax-vim-ex, on_ft: vim }
 
 - repo: m2mdas/phpcomplete-extended
