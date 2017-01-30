@@ -91,14 +91,14 @@
 # ==========================================
 # Commands
 # --------
-- repo: Shougo/vimfiler.vim
-  depends: unite.vim
+- repo: scrooloose/nerdtree
+  depends: nerdtree-git-plugin
   on_map: { n: <Plug> }
-  on_if: isdirectory(bufname('%'))
-  hook_add: let g:vimfiler_data_directory = $VARPATH.'/vimfiler'
-  hook_post_source: source $VIMPATH/config/plugins/vimfiler.vim
+  hook_post_source: source $VIMPATH/config/plugins/nerdtree.vim
 
-- { repo: Shougo/neossh.vim, on_ft: vimfiler, sources: ssh }
+- repo: Xuyuanp/nerdtree-git-plugin
+  on_source: nerdtree
+
 - { repo: lambdalisue/vim-gita, on_cmd: Gita }
 - { repo: t9md/vim-choosewin, on_map: { n: <Plug> }}
 - { repo: Shougo/vinarise.vim, on_cmd: Vinarise }

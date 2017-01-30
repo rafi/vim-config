@@ -114,11 +114,11 @@ highlight User8 guifg=#ffb964 guibg=#30302c ctermfg=215 ctermbg=236
 augroup statusline
 	autocmd!
 	autocmd FileType,WinEnter,BufWinEnter,BufReadPost *
-		\ if &filetype !~? 'denite\|unite\|vimfiler\|tagbar\|undotree\|gundo\|diff'
+		\ if &filetype !~? 'denite\|unite\|vimfiler\|tagbar\|nerdtree\|undotree\|gundo\|diff'
 		\ | let &l:statusline = s:stl
 		\ | endif
 	autocmd WinLeave *
-		\ if &filetype !~? 'denite\|unite\|vimfiler\|tagbar\|undotree\|gundo\|diff'
+		\ if &filetype !~? 'denite\|unite\|vimfiler\|tagbar\|nerdtree\|undotree\|gundo\|diff'
 		\ | let &l:statusline = s:stl_nc
 		\ | endif
 augroup END "}}}
@@ -144,6 +144,55 @@ let g:vimfiler_tree_closed_icon = '▷'
 let g:vimfiler_file_icon = ' '
 let g:vimfiler_readonly_file_icon = '⚒'
 let g:vimfiler_marked_file_icon = '✓'
+"}}}
+
+" Plugin: NERDTree icons and highlights {{{
+" ---------------------------------------------------------
+let g:NERDTreeIndicatorMapCustom = {
+	\ 'Modified':  '*',
+	\ 'Staged':    '✚',
+	\ 'Untracked': '?',
+	\ 'Renamed':   '➜',
+	\ 'Unmerged':  '═',
+	\ 'Deleted':   '✖',
+	\ 'Dirty':     '-',
+	\ 'Clean':     '✓',
+	\ 'Unknown':   '?'
+	\ }
+
+let g:NERDTreeDirArrowExpandable = '▷'
+let g:NERDTreeDirArrowCollapsible = '▼'
+
+highlight! NERDTreeOpenable ctermfg=132 guifg=#B05E87
+highlight! def link NERDTreeClosable NERDTreeOpenable
+highlight! NERDTreeFlags ctermfg=bg guifg=bg
+highlight! NERDTreeCWD ctermfg=240 guifg=#777777
+
+highlight! def link NERDTreeGitStatusModified Special
+highlight! def link NERDTreeGitStatusStaged Function
+highlight! def link NERDTreeGitStatusRenamed Title
+highlight! def link NERDTreeGitStatusUnmerged Label
+highlight! def link NERDTreeGitStatusUntracked Comment
+highlight! def link NERDTreeGitStatusUnknown Comment
+highlight! def link NERDTreeGitStatusDirDirty Tag
+highlight! def link NERDTreeGitStatusDirClean DiffAdd
+
+function! s:NERDTreeHighlight()
+	for l:name in keys(g:NERDTreeIndicatorMapCustom)
+		let l:prefix = index(['Dirty', 'Clean'], l:name) > -1 ? 'Dir' : ''
+		let l:hiname = escape('NERDTreeGitStatus'.l:prefix.l:name, '~')
+		let l:icon = g:NERDTreeIndicatorMapCustom[l:name]
+		execute 'syntax match '.l:hiname.' #'.l:icon.'# containedin=NERDTreeFlags'
+	endfor
+
+	syntax match NERDTreeOpenBracket /\[/
+		\ contained containedin=NERDTreeFlags conceal
+endfunction
+
+augroup AddHighlighting
+	autocmd!
+	autocmd FileType nerdtree call s:NERDTreeHighlight()
+augroup END
 "}}}
 
 " Plugin: Tagbar icons {{{

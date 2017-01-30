@@ -75,6 +75,23 @@ if dein#tap('unite.vim') "{{{
 endif
 
 "}}}
+if dein#tap('nerdtree') "{{{
+	let g:NERDTreeMapOpenSplit = 'sv'
+	let g:NERDTreeMapOpenVSplit = 'sg'
+	let g:NERDTreeMapOpenInTab = 'st'
+
+	cnoreabbrev E NERDTreeToggle
+	nnoremap <silent> [unite]e :<C-u>NERDTreeToggle<CR>
+	nnoremap <silent> [unite]a :<C-u>NERDTreeFind<CR>
+
+	autocmd MyAutoCmd FileType nerdtree call s:nerdtree_settings()
+	function! s:nerdtree_settings() abort "{{{
+		set expandtab " To enable vim-indent-guides
+		nmap <buffer> N  :<C-u>call NERDTreeAddNode()<CR>
+	endfunction
+endif
+
+"}}}
 if dein#tap('vimfiler.vim') "{{{
 	nnoremap <silent> [unite]e        :<C-u>execute
 		\ 'VimFiler -winwidth=25 -direction=topleft -buffer-name='.block#project()<CR>
