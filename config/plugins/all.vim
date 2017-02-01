@@ -235,13 +235,19 @@ if dein#tap('vim-indent-guides') "{{{
 endif
 
 "}}}
-if dein#tap('vim-markology') "{{{
-	noremap <silent> mm :MarkologyPlaceMark<CR>
-	noremap <silent> mp :MarkologyPrevLocalMarkPos<CR>
-	noremap <silent> mn :MarkologyNextLocalMarkPos<CR>
-	noremap <silent> m- :MarkologyClearMark<CR>
-	noremap <silent> m/ :MarkologyLocationList<CR>
-endif
+"if dein#tap('vim-bookmarks') "{{{
+"	let g:bookmark_auto_save_dir = $VARPATH.'/bookmarks'
+"	nnoremap <silent> <Plug>BookmarkShowAll :<C-u>BookmarkShowAll<CR>
+"	nnoremap <silent> <Plug>BookmarkNext :<C-u>BookmarkNext<CR>
+"	nnoremap <silent> <Plug>BookmarkPrev :<C-u>BookmarkPrev<CR>
+"	nnoremap <silent> <Plug>BookmarkToggle :<C-u>let b:bm_sync=0<CR>:<C-u>BookmarkToggle<CR>
+"	nnoremap <silent> <Plug>BookmarkAnnotate :<C-u>let b:bm_sync=0<CR>:<C-u>BookmarkAnnotate<CR>
+"	nmap ma <Plug>BookmarkShowAll
+"	nmap mn <Plug>BookmarkNext
+"	nmap mp <Plug>BookmarkPrev
+"	nmap mm <Plug>BookmarkToggle
+"	nmap mi <Plug>BookmarkAnnotate
+"endif
 
 "}}}
 if dein#tap('committia.vim') "{{{

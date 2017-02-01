@@ -178,17 +178,14 @@
       \|   endif
       \| endif
 
-- repo: jeetsukumaran/vim-markology
+- repo: MattesGroeger/vim-bookmarks
   on_path: .*
   hook_source: |
-    let g:markology_disable_mappings = 1
-    let g:markology_set_location_list_convenience_maps = 0
-    let g:markology_ignore_type = 'hpq'
-    let g:markology_textlower = "\t"
-    let g:markology_textupper = "\t"
-    let g:markology_textother = "\t"
-    let g:markology_include = 'abcdefghijklmnopqrstuvwxyz'
-      \ .'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+    let g:bookmark_auto_save_file = $VARPATH.'/bookmarks'
+#    let g:bookmark_auto_save_dir = $VARPATH.'/bookmarks'
+#    if ! isdirectory(g:bookmark_auto_save_dir)
+#      call mkdir(g:bookmark_auto_save_dir, 'p')
+#    endif
 
 - repo: osyo-manga/vim-anzu
   hook_add: let g:anzu_status_format = '?%i/%l'
