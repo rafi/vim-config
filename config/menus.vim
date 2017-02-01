@@ -21,8 +21,8 @@ let s:menus.project.command_candidates = [
 	\   ['────────────────┼──────────────', ''],
 	\   ['▶ Explorer      │ ;e',          'VimFiler'],
 	\   ['▶ Outline       │ <Leader>o',   'TagbarToggle'],
-	\   ['▶ Unite: Tags   │ ;t',          'Unite tag -start-insert'],
 	\   ['▶ Git Status    │ <Leader>gs',  'Gita status'],
+	\   ['▶ Bookmarks     │ ma',          'Bookmarks'],
 	\   ['▶ Undo Tree     │ <Leader>un',  'UndotreeToggle'],
 	\   ['────────────────┴──────────────', '']
 	\ ]
@@ -36,7 +36,6 @@ let s:menus.files.command_candidates = [
 	\   ['▶ Denite: Buffers           │ ;b',  'Denite buffer'],
 	\   ['▶ Denite: MRU               │',  'Denite file_old'],
 	\   ['▶ Denite: Line              │ ;/',  'Denite line'],
-	\   ['▶ Unite: Bookmarks          │',  'Unite bookmark'],
 	\   ['────────────────────────────┴──────────────', '']
 	\ ]
 

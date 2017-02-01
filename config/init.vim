@@ -3,17 +3,20 @@
 " ------------------
 
 " Global Mappings "{{{
-" Use spacebar instead of '\' as leader. Require before loading plugins.
+" Use spacebar instead of '\' as leader.
+" Required before loading plugins!
 let g:mapleader="\<Space>"
 let g:maplocalleader=','
 
-" Release keymappings for plug-ins.
-nnoremap ;  <Nop>
-xnoremap ;  <Nop>
+" Release keymappings prefixes, evict entirely for use of plug-ins.
 nnoremap <Space>  <Nop>
 xnoremap <Space>  <Nop>
 nnoremap ,        <Nop>
 xnoremap ,        <Nop>
+nnoremap ;        <Nop>
+xnoremap ;        <Nop>
+nnoremap m        <Nop>
+xnoremap m        <Nop>
 
 " }}}
 " Ensure cache directory "{{{

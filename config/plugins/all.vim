@@ -3,20 +3,20 @@
 "---------------------------------------------------------
 
 if dein#tap('denite.nvim') "{{{
-	nnoremap <silent> [unite]r  :<C-u>Denite -resume<CR>
-	nnoremap <silent> [unite]f  :<C-u>Denite file_rec<CR>
-	nnoremap <silent> [unite]d  :<C-u>Denite directory_rec -default-action=cd<CR>
-	nnoremap <silent> [unite]b  :<C-u>Denite buffer file_old<CR>
-	nnoremap <silent> [unite]l  :<C-u>Denite location_list -buffer-name=list<CR>
-	nnoremap <silent> [unite]q  :<C-u>Denite quickfix -buffer-name=list<CR>
-	nnoremap <silent> [unite]n  :<C-u>Denite dein -no-quit<CR>
-	nnoremap <silent> [unite]g  :<C-u>Denite grep -buffer-name=grep<CR>
-	nnoremap <silent> [unite]j  :<C-u>Denite file_point<CR>
-	nnoremap <silent> [unite]k  :<C-u>Denite mark -buffer-name=list<CR>
-	nnoremap <silent> [unite]s  :<C-u>Denite session<CR>
-	nnoremap <silent> [unite]mu :<C-u>Denite mpc -buffer-name=mpc<CR>
-	nnoremap <silent> [unite]/  :<C-u>Denite line<CR>
-	nnoremap <silent> [unite]*  :<C-u>DeniteCursorWord line<CR>
+	nnoremap <silent> [Tools]r  :<C-u>Denite -resume<CR>
+	nnoremap <silent> [Tools]f  :<C-u>Denite file_rec<CR>
+	nnoremap <silent> [Tools]d  :<C-u>Denite directory_rec -default-action=cd<CR>
+	nnoremap <silent> [Tools]b  :<C-u>Denite buffer file_old -default-action=switch<CR>
+	nnoremap <silent> [Tools]l  :<C-u>Denite location_list -buffer-name=list<CR>
+	nnoremap <silent> [Tools]q  :<C-u>Denite quickfix -buffer-name=list<CR>
+	nnoremap <silent> [Tools]n  :<C-u>Denite dein -no-quit<CR>
+	nnoremap <silent> [Tools]g  :<C-u>Denite grep -buffer-name=grep<CR>
+	nnoremap <silent> [Tools]j  :<C-u>Denite file_point<CR>
+	nnoremap <silent> [Tools]k  :<C-u>Denite mark -buffer-name=list<CR>
+	nnoremap <silent> [Tools]s  :<C-u>Denite session<CR>
+	nnoremap <silent> [Tools]mu :<C-u>Denite mpc -buffer-name=mpc<CR>
+	nnoremap <silent> [Tools]/  :<C-u>Denite line<CR>
+	nnoremap <silent> [Tools]*  :<C-u>DeniteCursorWord line<CR>
 
 	" Open Denite with word under cursor or selection
 	nnoremap <silent> <Leader>gf :DeniteCursorWord file_rec<CR>
@@ -81,8 +81,8 @@ if dein#tap('nerdtree') "{{{
 	let g:NERDTreeMapOpenInTab = 'st'
 
 	cnoreabbrev E NERDTreeToggle
-	nnoremap <silent> [unite]e :<C-u>NERDTreeToggle<CR>
-	nnoremap <silent> [unite]a :<C-u>NERDTreeFind<CR>
+	nnoremap <silent> [Tools]e :<C-u>NERDTreeToggle<CR>
+	nnoremap <silent> [Tools]a :<C-u>NERDTreeFind<CR>
 
 	autocmd MyAutoCmd FileType nerdtree call s:nerdtree_settings()
 	function! s:nerdtree_settings() abort "{{{
@@ -291,7 +291,7 @@ if dein#tap('jedi-vim') "{{{
 	let g:jedi#completions_command = ''
 	let g:jedi#documentation_command = 'K'
 	let g:jedi#use_splits_not_buffers = 'right'
-	let g:jedi#goto_command = '<leader>d'
+	let g:jedi#goto_command = '<C-]>'
 	let g:jedi#goto_assignments_command = '<leader>g'
 	let g:jedi#rename_command = '<Leader>r'
 	let g:jedi#usages_command = '<Leader>n'

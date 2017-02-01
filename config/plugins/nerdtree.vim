@@ -39,12 +39,12 @@ endfunction
 " Project root
 " ---
 call NERDTreeAddKeyMap({
-	\ 'key': 'gh',
+	\ 'key': '&',
 	\ 'callback': s:SNR.'jump_project_root',
 	\ 'quickhelpText': 'Open current git root' })
 
 call NERDTreeAddKeyMap({
-	\ 'key': '~',
+	\ 'key': 'gh',
 	\ 'callback': s:SNR.'jump_home',
 	\ 'quickhelpText': 'open user home directory' })
 

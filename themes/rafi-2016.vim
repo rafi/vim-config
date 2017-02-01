@@ -142,20 +142,20 @@ let g:vimfiler_tree_leaf_icon = '┆'
 let g:vimfiler_tree_opened_icon = '▼'
 let g:vimfiler_tree_closed_icon = '▷'
 let g:vimfiler_file_icon = ' '
-let g:vimfiler_readonly_file_icon = '⚒'
+let g:vimfiler_readonly_file_icon = '✖'
 let g:vimfiler_marked_file_icon = '✓'
 "}}}
 
 " Plugin: NERDTree icons and highlights {{{
 " ---------------------------------------------------------
 let g:NERDTreeIndicatorMapCustom = {
-	\ 'Modified':  '*',
-	\ 'Staged':    '✚',
-	\ 'Untracked': '?',
-	\ 'Renamed':   '➜',
-	\ 'Unmerged':  '═',
-	\ 'Deleted':   '✖',
-	\ 'Dirty':     '-',
+	\ 'Modified':  'M',
+	\ 'Staged':    'Ṁ',
+	\ 'Untracked': '⁇',
+	\ 'Renamed':   'R',
+	\ 'Unmerged':  'U',
+	\ 'Deleted':   'D',
+	\ 'Dirty':     '⠟',
 	\ 'Clean':     '✓',
 	\ 'Unknown':   '?'
 	\ }
@@ -165,17 +165,20 @@ let g:NERDTreeDirArrowCollapsible = '▼'
 
 highlight! NERDTreeOpenable ctermfg=132 guifg=#B05E87
 highlight! def link NERDTreeClosable NERDTreeOpenable
+
+highlight! NERDTreeFile ctermfg=246 guifg=#999999
+highlight! NERDTreeExecFile ctermfg=246 guifg=#999999
 highlight! NERDTreeFlags ctermfg=bg guifg=bg
 highlight! NERDTreeCWD ctermfg=240 guifg=#777777
 
-highlight! def link NERDTreeGitStatusModified Special
-highlight! def link NERDTreeGitStatusStaged Function
+highlight! NERDTreeGitStatusModified ctermfg=1 guifg=#D370A3
+highlight! NERDTreeGitStatusStaged ctermfg=10 guifg=#A3D572
+highlight! NERDTreeGitStatusUntracked ctermfg=12 guifg=#98CBFE
 highlight! def link NERDTreeGitStatusRenamed Title
 highlight! def link NERDTreeGitStatusUnmerged Label
-highlight! def link NERDTreeGitStatusUntracked Comment
-highlight! def link NERDTreeGitStatusUnknown Comment
-highlight! def link NERDTreeGitStatusDirDirty Tag
+highlight! def link NERDTreeGitStatusDirDirty Comment
 highlight! def link NERDTreeGitStatusDirClean DiffAdd
+highlight! def link NERDTreeGitStatusUnknown Comment
 
 function! s:NERDTreeHighlight()
 	for l:name in keys(g:NERDTreeIndicatorMapCustom)
