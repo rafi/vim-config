@@ -112,9 +112,6 @@ inoremap <expr><C-g>   neocomplete#undo_completion()
 " Start file completion TODO Not working all the time
 imap <silent><expr> <C-x><C-f> neocomplete#start_manual_complete('file')
 
-" <C+Space> unite completion
-imap <C-Space>  <Plug>(neocomplete_start_unite_complete)
-
 " <CR>: If popup menu visible, expand snippet or close popup with selection,
 "       Otherwise, check if within empty pair and use delimitMate.
 imap <silent><expr><CR> pumvisible() ?

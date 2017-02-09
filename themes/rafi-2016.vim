@@ -110,15 +110,18 @@ highlight User7 guifg=#99ad6a guibg=#30302c ctermfg=107 ctermbg=236
 highlight User8 guifg=#ffb964 guibg=#30302c ctermfg=215 ctermbg=236
 " }}}
 
+let s:disable_statusline =
+	\ 'denite\|unite\|vimfiler\|tagbar\|nerdtree\|undotree\|gundo\|diff'
+
 " Toggle Statusline {{{
 augroup statusline
 	autocmd!
 	autocmd FileType,WinEnter,BufWinEnter,BufReadPost *
-		\ if &filetype !~? 'denite\|unite\|vimfiler\|tagbar\|nerdtree\|undotree\|gundo\|diff'
+		\ if &filetype !~? s:disable_statusline
 		\ | let &l:statusline = s:stl
 		\ | endif
 	autocmd WinLeave *
-		\ if &filetype !~? 'denite\|unite\|vimfiler\|tagbar\|nerdtree\|undotree\|gundo\|diff'
+		\ if &filetype !~? s:disable_statusline
 		\ | let &l:statusline = s:stl_nc
 		\ | endif
 augroup END "}}}
@@ -243,11 +246,6 @@ highlight link deniteSelectedLine Type
 highlight link deniteMatchedChar Function
 highlight link deniteMatchedRange Underlined
 highlight link deniteMode Comment
-" }}}
-
-" Plugin: unite.vim {{{
-" ---------------------------------------------------------
-highlight link uniteInputPrompt Question
 " }}}
 
 " Plugin: vimfiler.vim {{{

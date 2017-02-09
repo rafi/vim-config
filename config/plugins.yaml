@@ -396,18 +396,6 @@
   hook_source: call denite#custom#var('mpc', 'default_view', 'date')
 
 # ==========================================
-# Unite
-# -----
-- repo: Shougo/unite.vim
-  on_source: denite.nvim
-  hook_post_source: source $VIMPATH/config/plugins/unite.vim
-  hook_add: let g:unite_data_directory = $VARPATH.'/unite'
-
-- repo: Shougo/vimproc.vim
-  build: make
-  on_source: unite.vim
-
-# ==========================================
 # Operators
 # ---------
 - { repo: kana/vim-operator-user, lazy: 1 }
