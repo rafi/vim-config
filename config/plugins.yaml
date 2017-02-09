@@ -87,6 +87,7 @@
 - { repo: andreshazard/vim-logreview, on_ft: logreview }
 - { repo: exu/pgsql.vim, on_ft: pgsql }
 - { repo: othree/nginx-contrib-vim, on_ft: nginx }
+- { repo: IN3D/vim-raml, on_ft: raml }
 
 # ==========================================
 # Commands
@@ -107,7 +108,13 @@
 - { repo: thinca/vim-prettyprint, on_cmd: PP, on_func: PP }
 - { repo: mbbill/undotree, on_cmd: UndotreeToggle }
 - { repo: metakirby5/codi.vim, on_cmd: Codi, if: empty($VIM_MINIMAL) }
-- { repo: itchyny/dictionary.vim, on_cmd: Dictionary, if: empty($VIM_MINIMAL) }
+- { repo: Shougo/vimproc.vim, build: make, on_func: vimproc# }
+
+- repo: kien/tabman.vim
+  on_map: { n: <Plug> }
+  hook_add: |
+    let g:loaded_tabman = 1
+    nnoremap <Plug>Tabman :call tabman#toggle()<CR>
 
 - repo: majutsushi/tagbar
   on_cmd: TagbarToggle
@@ -424,6 +431,8 @@
 - { repo: kana/vim-textobj-user, on_func: textobj#user# }
 - { repo: bkad/CamelCaseMotion, on_map: { nox: <Plug>CamelCaseMotion }}
 - { repo: AndrewRadev/sideways.vim, on_map: { ox: <Plug>Sideways }}
+- { repo: AndrewRadev/splitjoin.vim, on_map: { n: <plug>Splitjoin }}
+- { repo: AndrewRadev/linediff.vim, on_cmd: Linediff }
 
 - repo: AndrewRadev/dsf.vim
   on_map: { n: <Plug>Dsf }

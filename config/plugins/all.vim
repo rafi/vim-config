@@ -20,7 +20,8 @@ if dein#tap('denite.nvim') "{{{
 
 	" Open Denite with word under cursor or selection
 	nnoremap <silent> <Leader>gf :DeniteCursorWord file_rec<CR>
-	nnoremap <silent> <Leader>gg :Denite grep -buffer-name=grep<CR><C-R>=expand('<cword>')<CR><CR>
+	nnoremap <silent> <Leader>gg
+		\ :Denite -buffer-name=grep grep:::<C-R>=expand('<cword>')<CR><CR>
 	vnoremap <silent> <Leader>gg
 		\ :<C-u>call VSetSearch('/')<CR>:execute 'Denite -buffer-name=grep grep:::'.@/<CR><CR>
 endif
@@ -263,6 +264,11 @@ if dein#tap('committia.vim') "{{{
 endif
 
 "}}}
+if dein#tap('tabman.vim') "{{{
+	nmap <silent> <Leader>ta <Plug>Tabman
+endif
+
+"}}}
 if dein#tap('goyo.vim') "{{{
 	nnoremap <Leader>G :Goyo<CR>
 endif
@@ -364,13 +370,9 @@ if dein#tap('undotree') "{{{
 endif
 
 "}}}
-if dein#tap('dictionary.vim') "{{{
-	nnoremap <silent> <Leader>? :<C-u>Dictionary -no-duplicate<CR>
-endif
-
-"}}}
 if dein#tap('vim-online-thesaurus') "{{{
 	nnoremap <silent> <Leader>K :<C-u>OnlineThesaurusCurrentWord<CR>
+	nnoremap <silent> <Leader>? :<C-u>Thesaurus<CR>
 endif
 
 "}}}
@@ -425,18 +427,18 @@ endif
 
 "}}}
 if dein#tap('vim-textobj-multiblock') "{{{
-	omap ab <Plug>(textobj-multiblock-a)
-	omap ib <Plug>(textobj-multiblock-i)
-	xmap ab <Plug>(textobj-multiblock-a)
-	xmap ib <Plug>(textobj-multiblock-i)
+	omap <silent> ab <Plug>(textobj-multiblock-a)
+	omap <silent> ib <Plug>(textobj-multiblock-i)
+	xmap <silent> ab <Plug>(textobj-multiblock-a)
+	xmap <silent> ib <Plug>(textobj-multiblock-i)
 endif
 
 "}}}
 if dein#tap('vim-textobj-function') "{{{
-	omap af <Plug>(textobj-function-a)
-	omap if <Plug>(textobj-function-i)
-	xmap af <Plug>(textobj-function-a)
-	xmap if <Plug>(textobj-function-i)
+	omap <silent> af <Plug>(textobj-function-a)
+	omap <silent> if <Plug>(textobj-function-i)
+	xmap <silent> af <Plug>(textobj-function-a)
+	xmap <silent> if <Plug>(textobj-function-i)
 endif
 "}}}
 
