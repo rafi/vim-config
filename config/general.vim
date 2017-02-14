@@ -158,14 +158,14 @@ set noruler             " Disable default status ruler
 set list                " Show hidden characters
 
 set showtabline=2       " Always show the tabs line
-set tabpagemax=10       " Maximum number of tab pages
-set winwidth=80         " Minimum width for current window
+set tabpagemax=15       " Maximum number of tab pages
+set winwidth=75         " Minimum width for current window
 set winminwidth=8       " Minimum width for inactive windows
-set winheight=13        " Minimum height for active window
-set winminheight=3      " Minimum height for inactive windows
+set winheight=10        " Minimum height for active window
+set winminheight=4      " Minimum height for inactive windows
 set pumheight=20        " Pop-up menu's line height
 set helpheight=12       " Minimum help window height
-set previewheight=8     " Completion preview height
+set previewheight=10    " Completion preview height
 
 set noshowcmd           " Don't show command in status line
 set cmdheight=2         " Height of the command line

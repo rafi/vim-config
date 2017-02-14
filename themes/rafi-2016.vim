@@ -151,12 +151,12 @@ let g:vimfiler_marked_file_icon = '✓'
 " Plugin: NERDTree icons and highlights {{{
 " ---------------------------------------------------------
 let g:NERDTreeIndicatorMapCustom = {
-	\ 'Modified':  'M',
-	\ 'Staged':    'Ṁ',
+	\ 'Modified':  '',
+	\ 'Staged':    'ᴍ',
 	\ 'Untracked': '⁇',
-	\ 'Renamed':   'R',
-	\ 'Unmerged':  'U',
-	\ 'Deleted':   'D',
+	\ 'Renamed':   '',
+	\ 'Unmerged':  '',
+	\ 'Deleted':   '',
 	\ 'Dirty':     '·',
 	\ 'Clean':     '✓',
 	\ 'Unknown':   '?'
@@ -212,10 +212,10 @@ let g:tagbar_iconchars = ['▷', '◢']
 
 " Plugin: Neomake icons {{{
 " ---------------------------------------------------------
-let g:neomake_error_sign = {'text': '✖', 'texthl': 'ErrorMsg'}
-let g:neomake_warning_sign = {'text': '▷', 'texthl': 'WarningMsg'}
-let g:neomake_message_sign = {'text': '▣', 'texthl': 'NeomakeMessageSign'}
-let g:neomake_info_sign = {'text': 'ℹ', 'texthl': 'NeomakeInfoSign'}
+let g:neomake_error_sign = {'text': '⎖', 'texthl': 'ErrorMsg'}
+let g:neomake_warning_sign = {'text': '⎖', 'texthl': 'WarningMsg'}
+let g:neomake_message_sign = {'text': 's', 'texthl': 'NeomakeMessageSign'}
+let g:neomake_info_sign = {'text': 'i', 'texthl': 'NeomakeInfoSign'}
 "}}}
 
 " Plugin: GitGutter icons {{{
