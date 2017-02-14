@@ -247,24 +247,16 @@ if dein#tap('vim-online-thesaurus') "{{{
 endif
 
 "}}}
-if dein#tap('vim-anzu') "{{{
-	nmap n n<Plug>(anzu-update-search-status)
-	nmap N N<Plug>(anzu-update-search-status)
-	nmap <silent> <Leader>cc :<C-u>call anzu#clear_search_status()<CR>
-	autocmd MyAutoCmd CursorHold * call anzu#clear_search_status()
-endif
-
-"}}}
 if dein#tap('vim-asterisk') "{{{
-	map *   <Plug>(asterisk-g*)<Plug>(anzu-update-search-status)
-	map g*  <Plug>(asterisk-*)<Plug>(anzu-update-search-status)
-	map #   <Plug>(asterisk-g#)<Plug>(anzu-update-search-status)
-	map g#  <Plug>(asterisk-#)<Plug>(anzu-update-search-status)
+	map *   <Plug>(asterisk-g*)
+	map g*  <Plug>(asterisk-*)
+	map #   <Plug>(asterisk-g#)
+	map g#  <Plug>(asterisk-#)
 
-	map z*  <Plug>(asterisk-z*)<Plug>(anzu-update-search-status)
-	map gz* <Plug>(asterisk-gz*)<Plug>(anzu-update-search-status)
-	map z#  <Plug>(asterisk-z#)<Plug>(anzu-update-search-status)
-	map gz# <Plug>(asterisk-gz#)<Plug>(anzu-update-search-status)
+	map z*  <Plug>(asterisk-z*)
+	map gz* <Plug>(asterisk-gz*)
+	map z#  <Plug>(asterisk-z#)
+	map gz# <Plug>(asterisk-gz#)
 endif
 
 "}}}

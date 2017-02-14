@@ -72,7 +72,6 @@ let s:stl .= "%6*%{block#modified('+')}%0*"       " Write symbol
 let s:stl .= ' %1*%{block#filename()}%*'          " Filename
 let s:stl .= ' %<'                                " Truncate here
 let s:stl .= '%( %{block#branch()} %)'           " Git branch name
-let s:stl .= '%(/ %{anzu#search_status()} %)'     " Search position
 let s:stl .= "%4*%(%{block#trails('WS:%s')} %)"  " Whitespace
 let s:stl .= '%(%{block#syntax()} %)%*'           " syntax check
 let s:stl .= '%='                                 " Align to right

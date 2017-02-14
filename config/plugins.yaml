@@ -195,10 +195,6 @@
 #      call mkdir(g:bookmark_auto_save_dir, 'p')
 #    endif
 
-- repo: osyo-manga/vim-anzu
-  hook_add: let g:anzu_status_format = '?%i/%l'
-#  on_map: { nv: <Plug> }
-
 - repo: rhysd/committia.vim
   on_path: COMMIT_EDITMSG
   hook_source: let g:committia_min_window_width = 70
