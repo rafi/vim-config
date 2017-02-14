@@ -164,7 +164,7 @@
   hook_add: |
     augroup findent
       autocmd!
-      autocmd FileType css,html,javascript,json,jsx,go,sh,php,yaml,vim
+      autocmd BufReadPost *.css,*.html,*.js*,*.go,*.sh,*.php,*.yaml,*.vim,*.py
         \ Findent! --no-warnings --no-messages
     augroup END
 
