@@ -241,6 +241,13 @@ if dein#tap('undotree') "{{{
 endif
 
 "}}}
+if dein#tap('vim-leader-guide') "{{{
+	nmap  <Leader>ll  <Plug>leaderguide-global
+	nmap  <Leader>lb  <Plug>leaderguide-buffer
+	nnoremap  <Leader>l<Space>  :<C-u>LeaderGuide ';'<CR>
+endif
+
+"}}}
 if dein#tap('vim-online-thesaurus') "{{{
 	nnoremap <silent> <Leader>K :<C-u>OnlineThesaurusCurrentWord<CR>
 	nnoremap <silent> <Leader>? :<C-u>Thesaurus<CR>

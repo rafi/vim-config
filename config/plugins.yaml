@@ -117,6 +117,10 @@
     let g:loaded_tabman = 1
     nnoremap <Plug>Tabman :call tabman#toggle()<CR>
 
+- repo: hecal3/vim-leader-guide
+  on_cmd: [ LeaderGuide, LeaderGuideVisual ]
+  on_map: { nv: <Plug>leaderguide- }
+
 - repo: majutsushi/tagbar
   on_cmd: TagbarToggle
   hook_source: |
