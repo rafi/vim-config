@@ -65,6 +65,7 @@
 
 - { repo: tbastos/vim-lua, on_ft: lua }
 - { repo: mitsuhiko/vim-python-combined, on_ft: python }
+- { repo: python_match.vim, on_ft: python }
 - { repo: raimon49/requirements.txt.vim, on_ft: requirements }
 - { repo: StanAngeloff/php.vim, on_ft: php }
 - { repo: osyo-manga/vim-monster, on_ft: ruby }
@@ -139,6 +140,8 @@
     let g:caw_dollarpos_sp_right = ''
     let g:caw_dollarpos_skip_blank_line = 1
     let g:caw_box_sp_right = ''
+
+- { repo: reedes/vim-wordy, on_cmd: [ Wordy, NextWordy, PrevWordy ] }
 
 - repo: lambdalisue/vim-gista
   if: empty($VIM_MINIMAL)

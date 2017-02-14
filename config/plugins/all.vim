@@ -135,6 +135,12 @@ if dein#tap('committia.vim') "{{{
 endif
 
 "}}}
+if dein#tap('python_match.vim') "{{{
+	nmap <buffer> {{ [%
+	nmap <buffer> }} ]%
+endif
+
+"}}}
 if dein#tap('tabman.vim') "{{{
 	nmap <silent> <Leader>ta <Plug>Tabman
 endif
