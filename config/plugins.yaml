@@ -80,7 +80,8 @@
 - { repo: tmux-plugins/vim-tmux, on_ft: tmux }
 - { repo: cespare/vim-toml, on_ft: toml }
 - { repo: PotatoesMaster/i3-vim-syntax, on_ft: i3 }
-- { repo: ekalinin/Dockerfile.vim, on_ft: Dockerfile }
+- { repo: dag/vim-fish, on_ft: fish }
+- { repo: ekalinin/Dockerfile.vim, on_ft: [ Dockerfile, docker-compose ]}
 - { repo: jstrater/mpvim, on_ft: portfile }
 - { repo: tpope/vim-git, on_ft: [ gitcommit, gitrebase, gitconfig ]}
 - { repo: robbles/logstash.vim, on_ft: logstash }
