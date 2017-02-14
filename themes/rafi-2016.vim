@@ -157,7 +157,7 @@ let g:NERDTreeIndicatorMapCustom = {
 	\ 'Renamed':   'R',
 	\ 'Unmerged':  'U',
 	\ 'Deleted':   'D',
-	\ 'Dirty':     '⠟',
+	\ 'Dirty':     '·',
 	\ 'Clean':     '✓',
 	\ 'Unknown':   '?'
 	\ }
@@ -170,7 +170,9 @@ highlight! def link NERDTreeClosable NERDTreeOpenable
 
 highlight! NERDTreeFile ctermfg=246 guifg=#999999
 highlight! NERDTreeExecFile ctermfg=246 guifg=#999999
-highlight! NERDTreeFlags ctermfg=bg guifg=bg
+
+highlight! clear NERDTreeFlags
+highlight! NERDTreeFlags ctermfg=234 guifg=#1d1f21
 highlight! NERDTreeCWD ctermfg=240 guifg=#777777
 
 highlight! NERDTreeGitStatusModified ctermfg=1 guifg=#D370A3
@@ -178,15 +180,18 @@ highlight! NERDTreeGitStatusStaged ctermfg=10 guifg=#A3D572
 highlight! NERDTreeGitStatusUntracked ctermfg=12 guifg=#98CBFE
 highlight! def link NERDTreeGitStatusRenamed Title
 highlight! def link NERDTreeGitStatusUnmerged Label
-highlight! def link NERDTreeGitStatusDirDirty Comment
+highlight! def link NERDTreeGitStatusDirDirty Constant
 highlight! def link NERDTreeGitStatusDirClean DiffAdd
 highlight! def link NERDTreeGitStatusUnknown Comment
 
 function! s:NERDTreeHighlight()
 	for l:name in keys(g:NERDTreeIndicatorMapCustom)
+		let l:icon = g:NERDTreeIndicatorMapCustom[l:name]
+		if empty(l:icon)
+			continue
+		endif
 		let l:prefix = index(['Dirty', 'Clean'], l:name) > -1 ? 'Dir' : ''
 		let l:hiname = escape('NERDTreeGitStatus'.l:prefix.l:name, '~')
-		let l:icon = g:NERDTreeIndicatorMapCustom[l:name]
 		execute 'syntax match '.l:hiname.' #'.l:icon.'# containedin=NERDTreeFlags'
 	endfor
 

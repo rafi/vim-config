@@ -96,9 +96,6 @@ imap <expr><C-b>   pumvisible() ? "\<PageUp>" : "\<Left>"
 imap <expr><C-d>   pumvisible() ? "\<PageDown>" : "\<Right>"
 imap <expr><C-u>   pumvisible() ? "\<PageUp>" : "\<Left>"
 
-inoremap <silent><expr> <C-z>
-	\ unite#start_complete('register', { 'input': unite#get_cur_text() })
-
 " <C-n>: neocomplete.
 imap <expr> <C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-p>\<Down>"
 " <C-p>: keyword completion.

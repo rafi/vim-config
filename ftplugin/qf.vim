@@ -23,10 +23,6 @@ vnoremap <silent> <buffer> d :call <SID>del_entry()<CR>
 vnoremap <silent> <buffer> x :call <SID>del_entry()<CR>
 nnoremap <silent> <buffer> u :<C-u>call <SID>undo_entry()<CR>
 
-"if exists('*s:undo_entry')
-"  finish
-"endif
-
 function! s:undo_entry()
   let history = get(w:, 'qf_history', [])
   if !empty(history)
