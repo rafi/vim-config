@@ -162,6 +162,34 @@ nnoremap <silent> <expr> ,d ":\<C-u>".(&diff?"diffoff":"diffthis")."\<CR>"
 " C-r: Easier search and replace
 xnoremap <C-r> :<C-u>call VSetSearch('/')<CR>:%s/\V<C-R>=@/<CR>//gc<Left><Left><Left>
 
+" Background dark/light toggle and contrasts
+nnoremap <Leader>b :<C-u>call <SID>toggle_background()<CR>
+nmap <leader>- :<c-u>call <SID>toggle_contrast(-v:count1)<cr>
+nmap <leader>= :<c-u>call <SID>toggle_contrast(+v:count1)<cr>
+
+function! s:toggle_background()
+	if g:colors_name =~# 'solarized8'
+		execute 'colorscheme' (g:colors_name =~# 'dark'
+					\ ? substitute(g:colors_name, 'dark', 'light', '')
+					\ : substitute(g:colors_name, 'light', 'dark', ''))
+	else
+		execute 'set background='.(&background ==# 'dark' ? 'light' : 'dark')
+	endif
+endfunction
+
+function! s:toggle_contrast(delta)
+	let l:scheme = ''
+	if g:colors_name =~# 'solarized8'
+		let l:schemes = map(['_low', '_flat', '', '_high'],
+			\ '"solarized8_".(&background).v:val')
+		let l:contrast = ((a:delta+index(l:schemes, g:colors_name)) % 4 + 4) % 4
+		let l:scheme = l:schemes[l:contrast]
+	endif
+	if l:scheme !=# ''
+		execute 'colorscheme' l:scheme
+	endif
+endfunction
+
 " Location list movement
 nmap <Leader>lj :lnext<CR>
 nmap <Leader>lk :lprev<CR>
