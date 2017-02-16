@@ -56,7 +56,29 @@ cd ~/.config/nvim
 
 **_5._** Run `make` to install all plugins.
 
-That's it, enjoy!
+Enjoy!
+
+### Install Linters
+
+* Node.js based linters:
+  ```sh
+  npm -g install jshint jsonlint stylelint markdownlint-cli sass-lint
+  npm -g install jsxhint write-good raml-cop
+  ```
+* Python based linters:
+  ```sh
+  pip install --user pycodestyle pyflakes flake8 vim-vint proselint yamllint
+  ```
+* Shell lint: [shellcheck.net](https://www.shellcheck.net/)
+* HTML Tidy: [html-tidy.org](http://www.html-tidy.org/)
+
+### Install Tools
+
+* Tern: `npm -g install tern`
+* Universal ctags: [ctags.io](https://ctags.io/)
+* The Silver Searcher: [ggreer/the_silver_searcher](https://github.com/ggreer/the_silver_searcher)
+* Fuzzy file finders: [fzf](https://github.com/junegunn/fzf) or [peco](https://github.com/peco/peco)
+* z - jump around: [rupa/z](https://github.com/rupa/z)
 
 ## Upgrade
 
