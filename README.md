@@ -124,11 +124,11 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | Name           | Description
 | -------------- | ----------------------
 | [Shougo/dein.vim] | Dark powered Vim/Neovim plugin manager
-| [w0ng/vim-hybrid] | 
-| [rafi/vim-blocks] | 
+| [w0ng/vim-hybrid] | Beautiful dark color scheme
+| [rafi/vim-blocks] | Bite-size blocks for Vim tab & status lines.
 | [itchyny/vim-gitbranch] | Lightweight git branch detection
-| [itchyny/vim-parenmatch] | 
-| [thinca/vim-localrc] | 
+| [itchyny/vim-parenmatch] | Efficient alternative to the standard matchparen plugin
+| [thinca/vim-localrc] | Enable configuration file of each directory
 | [christoomey/tmux-navigator] | Seamless navigation between tmux panes and vim splits
 | [itchyny/cursorword] | Underlines word under cursor
 
@@ -144,59 +144,59 @@ Name           | Description
 [mitsuhiko/vim-jinja] | Jinja support in vim
 [groenewege/vim-less] | Syntax for LESS
 [hail2u/vim-css3-syntax] | CSS3 syntax support to vim's built-in `syntax/css.vim`
-[othree/csscomplete.vim] | 
+[othree/csscomplete.vim] | Updated built-in CSS complete with latest standards
 [plasticboy/vim-markdown] | Markdown syntax highlighting
-[rhysd/vim-gfm-syntax] | 
+[rhysd/vim-gfm-syntax] | GitHub Flavored Markdown syntax highlight extension
 [pangloss/vim-javascript] | Enhanced Javascript syntax
-[othree/jspc.vim] | 
-[MaxMEllon/vim-jsx-pretty] | 
-[heavenshell/vim-jsdoc] | 
-[moll/vim-node] | 
+[othree/jspc.vim] | JavaScript Parameter Complete
+[MaxMEllon/vim-jsx-pretty] | React JSX syntax pretty highlighting
+[heavenshell/vim-jsdoc] | Generate JSDoc to your JavaScript code
+[moll/vim-node] | Superb development with Node.js
 [elzr/vim-json] | Better JSON support
 [fatih/vim-go] | Go development
-[tbastos/vim-lua] | 
-[mitsuhiko/vim-python-combined] | 
-[python_match.vim] | 
-[raimon49/requirements.txt.vim] | 
-[StanAngeloff/php.vim] | Up-to-date PHP syntax file
-[osyo-manga/vim-monster] | 
-[toyamarinyon/vim-swift] | 
-[vim-jp/syntax-vim-ex] | 
-[m2mdas/phpcomplete-extended] | 
+[tbastos/vim-lua] | Improved Lua 5.3 syntax and indentation support
+[mitsuhiko/vim-python-combined] | Fork of the python.vim for 2.x and 3.x
+[python_match.vim] | Extend the % motion for Python files
+[raimon49/requirements.txt.vim] | Python requirements file format
+[StanAngeloff/php.vim] | Up-to-date PHP syntax file (5.3 – 7.1 support)
+[osyo-manga/vim-monster] | Ruby code completion
+[toyamarinyon/vim-swift] | Swift support
+[vim-jp/syntax-vim-ex] | Excellent Vim syntax highlighting
+[m2mdas/phpcomplete-extended] | Fast PHP auto-complete with code inspection
 [chrisbra/csv.vim] | Handling column separated data
 [tmux-plugins/vim-tmux] | vim plugin for tmux.conf
 [cespare/vim-toml] | Syntax for TOML
 [PotatoesMaster/i3-vim-syntax] | i3 window manager config syntax
-[dag/vim-fish] | 
+[dag/vim-fish] | Fish shell edit support
 [ekalinin/Dockerfile.vim] | syntax and snippets for Dockerfile
 [jstrater/mpvim] | Macports portfile configuration files
-[tpope/vim-git] | 
+[tpope/vim-git] | Git runtime files
 [robbles/logstash.vim] | Highlights logstash configuration files
-[andreshazard/vim-logreview] | 
-[exu/pgsql.vim] | 
-[othree/nginx-contrib-vim] | 
-[IN3D/vim-raml] | 
+[andreshazard/vim-logreview] | Bueatify log viewing
+[exu/pgsql.vim] | PostgreSQL syntax
+[othree/nginx-contrib-vim] | Fork official vim nginx
+[IN3D/vim-raml] | Syntax and language settings for RAML
 
 ### Commands
 
 Name           | Description
 -------------- | ----------------------
-[scrooloose/nerdtree] | 
-[Xuyuanp/nerdtree-git-plugin] | 
-[tpope/vim-commentary] | 
+[scrooloose/nerdtree] | Tree explorer plugin
+[Xuyuanp/nerdtree-git-plugin] | NERDTree plugin for showing git status
+[tpope/vim-commentary] | Comment stuff out
 [lambdalisue/vim-gita] | An awesome git handling plugin
 [t9md/vim-choosewin] | Choose window to use, like tmux's 'display-pane'
 [Shougo/vinarise.vim] | Hex editor
-[kana/vim-niceblock] | 
-[guns/xterm-color-table.vim] | 
+[kana/vim-niceblock] | Make blockwise Visual mode more useful
+[guns/xterm-color-table.vim] | Display 256 xterm colors with their RGB equivalents
 [thinca/vim-prettyprint] | Pretty-print vim variables
 [mbbill/undotree] | Ultimate undo history visualizer
-[metakirby5/codi.vim] | 
+[metakirby5/codi.vim] | The interactive scratchpad for hackers
 [Shougo/vimproc.vim] | Interactive command execution
-[reedes/vim-wordy] | 
-[kien/tabman.vim] | 
-[hecal3/vim-leader-guide] | 
-[majutsushi/tagbar] | 
+[reedes/vim-wordy] | Uncover usage problems in your writing
+[kien/tabman.vim] | Tab management
+[hecal3/vim-leader-guide] | Keymap-display loosely inspired by emacs's guide-key
+[majutsushi/tagbar] | Displays tags in a window, ordered by scope
 [lambdalisue/vim-gista] | Manipulate gists in Vim
 [beloglazov/vim-online-thesaurus] | Look up words in an online thesaurus
 
@@ -204,19 +204,19 @@ Name           | Description
 
 Name           | Description
 -------------- | ----------------------
-[haya14busa/vim-asterisk] | 
-[rhysd/accelerated-jk] | 
-[Shougo/tabpagebuffer.vim] | 
-[airblade/vim-gitgutter] | 
-[lambdalisue/vim-findent] | 
-[nathanaelkane/vim-indent-guides] | 
+[haya14busa/vim-asterisk] | Improved * motions
+[rhysd/accelerated-jk] | Accelerate up-down moving
+[Shougo/tabpagebuffer.vim] | Tabpage buffer interface
+[airblade/vim-gitgutter] | Show git diff in the gutter and stages/undoes hunks
+[lambdalisue/vim-findent] | Apply reasonable indent rules for current buffers
+[nathanaelkane/vim-indent-guides] | Visually display indent levels in code
 [MattesGroeger/vim-bookmarks] | Bookmarks, works independently from vim marks
-[rhysd/committia.vim] | 
-[benekastah/neomake] | 
+[rhysd/committia.vim] | Pleasant editing on Git commit messages
+[benekastah/neomake] | Asynchronous linting and make framework
 [goyo] | Distraction-free writing
 [limelight] | Hyperfocus-writing
-[junegunn/vim-peekaboo] | 
-[itchyny/calendar.vim] | 
+[junegunn/vim-peekaboo] | See the contents of the registers
+[itchyny/calendar.vim] | Calendar application
 [vimwiki/vimwiki] | Personal Wiki for Vim
 
 ### Completion
@@ -227,25 +227,25 @@ Name           | Description
 [Shougo/neocomplete] | Next generation completion framework
 [Shougo/neosnippet.vim] | Contains neocomplete snippets source
 [Raimondi/delimitMate] | Insert mode auto-completion for quotes, parens, brackets
-[ludovicchabant/vim-gutentags] | 
-[mattn/emmet-vim] | 
+[ludovicchabant/vim-gutentags] | Manages your tag files
+[mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet
 [Shougo/echodoc.vim] | Print objects' documentation in echo area
-[Shougo/neosnippet-snippets] | 
+[Shougo/neosnippet-snippets] | Standard snippets repository for neosnippet
 [davidhalter/jedi-vim] | Python jedi autocompletion library
-[zchee/deoplete-go] | 
-[zchee/deoplete-jedi] | 
-[carlitux/deoplete-ternjs] | 
-[wellle/tmux-complete.vim] | 
+[zchee/deoplete-go] | deoplete.nvim source for Go
+[zchee/deoplete-jedi] | deoplete.nvim source for Python
+[carlitux/deoplete-ternjs] | deoplete.nvim source for javascript
+[wellle/tmux-complete.vim] | Completion of words in adjacent tmux panes
 [ternjs/tern_for_vim] | Provides Tern-based JavaScript editing support
 
 ### Denite
 
 Name           | Description
 -------------- | ----------------------
-[Shougo/denite.nvim] | 
-[nixprime/cpsm] | 
-[chemzqm/unite-location] | 
-[rafi/vim-denite-mpc] | 
+[Shougo/denite.nvim] | Dark powered asynchronous unite all interfaces
+[nixprime/cpsm] | File matcher, specialized for paths
+[chemzqm/unite-location] | Denite location & quickfix lists
+[rafi/vim-denite-mpc] | denite-mpc is a source for browsing and playing your MPD music library and managing playlists.
 
 ### Operators & Text Objects
 
@@ -266,11 +266,11 @@ Name           | Description
 [kana/vim-textobj-function] | 
 
 [Shougo/dein.vim]: https://github.com/Shougo/dein.vim
-[w0ng/vim-hybrid]: 
-[rafi/vim-blocks]: 
+[w0ng/vim-hybrid]: https://github.com/w0ng/vim-hybrid
+[rafi/vim-blocks]: https://github.com/rafi/vim-blocks
 [itchyny/vim-gitbranch]: https://github.com/itchyny/vim-gitbranch
-[itchyny/vim-parenmatch]: 
-[thinca/vim-localrc]: 
+[itchyny/vim-parenmatch]: https://github.com/itchyny/vim-parenmatch
+[thinca/vim-localrc]: https://github.com/thinca/vim-localrc
 [christoomey/tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator
 [itchyny/cursorword]: https://github.com/itchyny/vim-cursorword
 
@@ -280,92 +280,92 @@ Name           | Description
 [mitsuhiko/vim-jinja]: https://github.com/mitsuhiko/vim-jinja
 [groenewege/vim-less]: https://github.com/groenewege/vim-less
 [hail2u/vim-css3-syntax]: https://github.com/hail2u/vim-css3-syntax
-[othree/csscomplete.vim]: 
+[othree/csscomplete.vim]: https://github.com/othree/csscomplete.vim
 [plasticboy/vim-markdown]: https://github.com/plasticboy/vim-markdown
-[rhysd/vim-gfm-syntax]: 
+[rhysd/vim-gfm-syntax]: https://github.com/rhysd/vim-gfm-syntax
 [pangloss/vim-javascript]: https://github.com/pangloss/vim-javascript
-[othree/jspc.vim]: 
-[MaxMEllon/vim-jsx-pretty]: 
-[heavenshell/vim-jsdoc]: 
-[moll/vim-node]: 
+[othree/jspc.vim]: https://github.com/othree/jspc.vim
+[MaxMEllon/vim-jsx-pretty]: https://github.com/MaxMEllon/vim-jsx-pretty
+[heavenshell/vim-jsdoc]: https://github.com/heavenshell/vim-jsdoc
+[moll/vim-node]: https://github.com/moll/vim-node
 [elzr/vim-json]: https://github.com/elzr/vim-json
 [fatih/vim-go]: https://github.com/fatih/vim-go
-[tbastos/vim-lua]: 
-[mitsuhiko/vim-python-combined]: 
-[python_match.vim]: 
-[raimon49/requirements.txt.vim]: 
+[tbastos/vim-lua]: https://github.com/tbastos/vim-lua
+[mitsuhiko/vim-python-combined]: https://github.com/mitsuhiko/vim-python-combined
+[python_match.vim]: https://github.com/vim-scripts/python_match.vim
+[raimon49/requirements.txt.vim]: https://github.com/raimon49/requirements.txt.vim
 [StanAngeloff/php.vim]: https://github.com/StanAngeloff/php.vim
-[osyo-manga/vim-monster]: 
-[toyamarinyon/vim-swift]: 
-[vim-jp/syntax-vim-ex]: 
-[m2mdas/phpcomplete-extended]: 
+[osyo-manga/vim-monster]: https://github.com/osyo-manga/vim-monster
+[toyamarinyon/vim-swift]: https://github.com/toyamarinyon/vim-swift
+[vim-jp/syntax-vim-ex]: https://github.com/vim-jp/syntax-vim-ex
+[m2mdas/phpcomplete-extended]: https://github.com/m2mdas/phpcomplete-extended
 [chrisbra/csv.vim]: https://github.com/chrisbra/csv.vim
 [tmux-plugins/vim-tmux]: https://github.com/tmux-plugins/vim-tmux
 [cespare/vim-toml]: https://github.com/cespare/vim-toml
 [PotatoesMaster/i3-vim-syntax]: https://github.com/PotatoesMaster/i3-vim-syntax
-[dag/vim-fish]: 
+[dag/vim-fish]: https://github.com/dag/vim-fish
 [ekalinin/Dockerfile.vim]: https://github.com/ekalinin/Dockerfile.vim
 [jstrater/mpvim]: https://github.com/jstrater/mpvim
-[tpope/vim-git]: 
+[tpope/vim-git]: https://github.com/tpope/vim-git
 [robbles/logstash.vim]: https://github.com/robbles/logstash.vim
-[andreshazard/vim-logreview]: 
-[exu/pgsql.vim]: 
-[othree/nginx-contrib-vim]: 
-[IN3D/vim-raml]: 
+[andreshazard/vim-logreview]: https://github.com/andreshazard/vim-logreview
+[exu/pgsql.vim]: https://github.com/exu/pgsql.vim
+[othree/nginx-contrib-vim]: https://github.com/othree/nginx-contrib-vim
+[IN3D/vim-raml]: https://github.com/IN3D/vim-raml
 
-[scrooloose/nerdtree]: 
-[Xuyuanp/nerdtree-git-plugin]: 
-[tpope/vim-commentary]: 
+[scrooloose/nerdtree]: https://github.com/scrooloose/nerdtree
+[Xuyuanp/nerdtree-git-plugin]: https://github.com/Xuyuanp/nerdtree-git-plugin
+[tpope/vim-commentary]: https://github.com/tpope/vim-commentary
 [lambdalisue/vim-gita]: https://github.com/lambdalisue/vim-gita
 [t9md/vim-choosewin]: https://github.com/t9md/vim-choosewin
 [Shougo/vinarise.vim]: https://github.com/Shougo/vinarise.vim
-[kana/vim-niceblock]: 
-[guns/xterm-color-table.vim]: 
+[kana/vim-niceblock]: https://github.com/kana/vim-niceblock
+[guns/xterm-color-table.vim]: https://github.com/guns/xterm-color-table.vim
 [thinca/vim-prettyprint]: https://github.com/thinca/vim-prettyprint
 [mbbill/undotree]: https://github.com/mbbill/undotree
-[metakirby5/codi.vim]: 
+[metakirby5/codi.vim]: https://github.com/metakirby5/codi.vim
 [Shougo/vimproc.vim]: https://github.com/Shougo/vimproc.vim
-[reedes/vim-wordy]:
-[kien/tabman.vim]:
-[hecal3/vim-leader-guide]:
-[majutsushi/tagbar]:
+[reedes/vim-wordy]: https://github.com/reedes/vim-wordy
+[kien/tabman.vim]: https://github.com/kien/tabman.vim
+[hecal3/vim-leader-guide]: https://github.com/hecal3/vim-leader-guide
+[majutsushi/tagbar]: https://github.com/majutsushi/tagbar
 [lambdalisue/vim-gista]: https://github.com/lambdalisue/vim-gista
 [beloglazov/vim-online-thesaurus]: https://github.com/beloglazov/vim-online-thesaurus
 
-[haya14busa/vim-asterisk]:
-[rhysd/accelerated-jk]:
-[Shougo/tabpagebuffer.vim]:
+[haya14busa/vim-asterisk]: https://github.com/haya14busa/vim-asterisk
+[rhysd/accelerated-jk]: https://github.com/rhysd/accelerated-jk
+[Shougo/tabpagebuffer.vim]: https://github.com/Shougo/tabpagebuffer.vim
 [airblade/vim-gitgutter]: https://github.com/airblade/vim-gitgutter
-[lambdalisue/vim-findent]:
-[nathanaelkane/vim-indent-guides]:
+[lambdalisue/vim-findent]: https://github.com/lambdalisue/vim-findent
+[nathanaelkane/vim-indent-guides]: https://github.com/nathanaelkane/vim-indent-guides
 [MattesGroeger/vim-bookmarks]: https://github.com/MattesGroeger/vim-bookmarks
-[rhysd/committia.vim]: 
-[benekastah/neomake]: 
+[rhysd/committia.vim]: https://github.com/rhysd/committia.vim
+[benekastah/neomake]: https://github.com/neomake/neomake
 [goyo]: https://github.com/junegunn/goyo.vim
 [limelight]: https://github.com/junegunn/limelight.vim
-[junegunn/vim-peekaboo]: 
-[itchyny/calendar.vim]: 
+[junegunn/vim-peekaboo]: https://github.com/junegunn/vim-peekaboo
+[itchyny/calendar.vim]: https://github.com/itchyny/calendar.vim
 [vimwiki/vimwiki]: https://github.com/vimwiki/vimwiki
 
 [Shougo/deoplete.nvim]: https://github.com/Shougo/deoplete.nvim
 [Shougo/neocomplete]: https://github.com/Shougo/neocomplete.vim
 [Shougo/neosnippet.vim]: https://github.com/Shougo/neosnippet.vim
 [Raimondi/delimitMate]: https://github.com/Raimondi/delimitMate
-[ludovicchabant/vim-gutentags]: 
-[mattn/emmet-vim]: 
+[ludovicchabant/vim-gutentags]: https://github.com/ludovicchabant/vim-gutentags
+[mattn/emmet-vim]: https://github.com/mattn/emmet-vim
 [Shougo/echodoc.vim]: https://github.com/Shougo/echodoc.vim
-[Shougo/neosnippet-snippets]: 
+[Shougo/neosnippet-snippets]: https://github.com/Shougo/neosnippet-snippets
 [davidhalter/jedi-vim]: https://github.com/davidhalter/jedi-vim
-[zchee/deoplete-go]: 
-[zchee/deoplete-jedi]: 
-[carlitux/deoplete-ternjs]: 
-[wellle/tmux-complete.vim]: 
+[zchee/deoplete-go]: https://github.com/zchee/deoplete-go
+[zchee/deoplete-jedi]: https://github.com/zchee/deoplete-jedi
+[carlitux/deoplete-ternjs]: https://github.com/carlitux/deoplete-ternjs
+[wellle/tmux-complete.vim]: https://github.com/wellle/tmux-complete.vim
 [ternjs/tern_for_vim]: https://github.com/ternjs/tern_for_vim
 
-[Shougo/denite.nvim]: 
-[nixprime/cpsm]: 
-[chemzqm/unite-location]: 
-[rafi/vim-denite-mpc]: 
+[Shougo/denite.nvim]: https://github.com/Shougo/denite.nvim
+[nixprime/cpsm]: https://github.com/nixprime/cpsm
+[chemzqm/unite-location]: https://github.com/chemzqm/unite-location
+[rafi/vim-denite-mpc]: https://github.com/rafi/vim-denite-mpc
 
 [kana/vim-operator-user]: https://github.com/kana/vim-operator-user
 [kana/vim-operator-replace]: https://github.com/kana/vim-operator-replace
