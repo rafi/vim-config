@@ -1,6 +1,6 @@
-# Vim config
+# Rafael Bodill's Neo/vim Config
 
-Lean mean Vim/Neovim machine, 30-45ms startup time.
+Lean mean Neo/vim machine, 30-45ms startup time.
 
 Best with Neovim or Vim 7.4+ with +lua +python extensions enabled.
 
@@ -11,7 +11,7 @@ Best with Neovim or Vim 7.4+ with +lua +python extensions enabled.
 - Robust, yet light weight
 - Lazy-load 90% of plugins with [dein.vim]
 - Modular configuration
-- Unite centric work-flow
+- Denite (Unite successor) centric work-flow
 - Extensive Deoplete and Neocomplete setup
 - Lightweight simple status/tabline
 - Easy customizable theme
@@ -45,7 +45,7 @@ pip install --user PyYAML
 ```
 
 **_3._** If you are a _first-time Neovim user_, you need the python-neovim
-packages. Don't worry, just run the script provided:
+packages. Don't worry, run the script provided:
 
 ```sh
 cd ~/.config/nvim
@@ -98,20 +98,16 @@ _Note_ that 90% of the plugins are **[lazy-loaded]**.
 
 ## Non Lazy-Loaded Plugins
 
-Name           | Description
--------------- | ----------------------
-[dein.vim] | Dark powered Vim/Neovim plugin manager
-[vimproc] | Interactive command execution
-[colorschemes] | Awesome color-schemes
-[file-line] | Allow opening a file in a given line
-[neomru] | MRU source for Unite
-[cursorword] | Underlines word under cursor
-[gitbranch] | Lightweight git branch detection
-[gitgutter] | Shows git diffs in the gutter
-[tinyline] | Tiny great looking statusline
-[tagabana] | Central location for all tags
-[bookmarks] | Bookmarks, works independently from vim marks
-[tmux-navigator] | Seamless navigation between tmux panes and vim splits
+| Name           | Description
+| -------------- | ----------------------
+| [Shougo/dein.vim] | Dark powered Vim/Neovim plugin manager
+| [w0ng/vim-hybrid] | 
+| [rafi/vim-blocks] | 
+| [itchyny/vim-gitbranch] | Lightweight git branch detection
+| [itchyny/vim-parenmatch] | 
+| [thinca/vim-localrc] | 
+| [christoomey/tmux-navigator] | Seamless navigation between tmux panes and vim splits
+| [itchyny/cursorword] | Underlines word under cursor
 
 ## Lazy-Loaded Plugins
 
@@ -119,192 +115,248 @@ Name           | Description
 
 Name           | Description
 -------------- | ----------------------
-[html5] | HTML5 omnicomplete and syntax
-[mustache] | Mustache and handlebars syntax
-[markdown] | Markdown syntax highlighting
-[ansible-yaml] | Additional support for Ansible
-[jinja] | Jinja support in vim
-[less] | Syntax for LESS
-[css3-syntax] | CSS3 syntax support to vim's built-in `syntax/css.vim`
-[csv] | Handling column separated data
-[pep8-indent] | Nicer Python indentation
-[logstash] | Highlights logstash configuration files
-[tmux] | vim plugin for tmux.conf
-[json] | Better JSON support
-[toml] | Syntax for TOML
-[i3] | i3 window manager config syntax
-[Dockerfile] | syntax and snippets for Dockerfile
-[go] | Go development
-[jedi-vim] | Python jedi autocompletion library
-[ruby] | Ruby configuration files
-[portfile] | Macports portfile configuration files
-[javascript] | Enhanced Javascript syntax
-[javascript-indent] | Javascript indent script
-[tern] | Provides Tern-based JavaScript editing support
-[php] | Up-to-date PHP syntax file
-[phpfold] | PHP folding
-[phpcomplete] | Improved PHP omnicompletion
-[phpindent] | PHP official indenting
-[phpspec] | PhpSpec integration
+[othree/html5.vim] | HTML5 omnicomplete and syntax
+[mustache/vim-mustache-handlebars] | Mustache and handlebars syntax
+[pearofducks/ansible-vim] | Additional support for Ansible
+[mitsuhiko/vim-jinja] | Jinja support in vim
+[groenewege/vim-less] | Syntax for LESS
+[hail2u/vim-css3-syntax] | CSS3 syntax support to vim's built-in `syntax/css.vim`
+[othree/csscomplete.vim] | 
+[plasticboy/vim-markdown] | Markdown syntax highlighting
+[rhysd/vim-gfm-syntax] | 
+[pangloss/vim-javascript] | Enhanced Javascript syntax
+[othree/jspc.vim] | 
+[MaxMEllon/vim-jsx-pretty] | 
+[heavenshell/vim-jsdoc] | 
+[moll/vim-node] | 
+[elzr/vim-json] | Better JSON support
+[fatih/vim-go] | Go development
+[tbastos/vim-lua] | 
+[mitsuhiko/vim-python-combined] | 
+[python_match.vim] | 
+[raimon49/requirements.txt.vim] | 
+[StanAngeloff/php.vim] | Up-to-date PHP syntax file
+[osyo-manga/vim-monster] | 
+[toyamarinyon/vim-swift] | 
+[vim-jp/syntax-vim-ex] | 
+[m2mdas/phpcomplete-extended] | 
+[chrisbra/csv.vim] | Handling column separated data
+[tmux-plugins/vim-tmux] | vim plugin for tmux.conf
+[cespare/vim-toml] | Syntax for TOML
+[PotatoesMaster/i3-vim-syntax] | i3 window manager config syntax
+[dag/vim-fish] | 
+[ekalinin/Dockerfile.vim] | syntax and snippets for Dockerfile
+[jstrater/mpvim] | Macports portfile configuration files
+[tpope/vim-git] | 
+[robbles/logstash.vim] | Highlights logstash configuration files
+[andreshazard/vim-logreview] | 
+[exu/pgsql.vim] | 
+[othree/nginx-contrib-vim] | 
+[IN3D/vim-raml] | 
 
 ### Commands
 
 Name           | Description
 -------------- | ----------------------
-[vimfiler] | Powerful file explorer
-[tinycomment] | Robust but light-weight commenting
-[vinarise] | Hex editor
-[syntastic] | Syntax checking hacks
-[gita] | An awesome git handling plugin
-[gista] | Manipulate gists in Vim
-[undotree] | Ultimate undo history visualizer
-[incsearch] | Improved incremental searching
-[expand-region] | Visually select increasingly larger regions of text
-[open-browser] | Open URI with your favorite browser
-[prettyprint] | Pretty-print vim variables
-[quickrun] | Run commands quickly
-[ref] | Integrated reference viewer
-[dictionary] | Dictionary.app interface
-[vimwiki] | Personal Wiki for Vim
-[thesaurus] | Look up words in an online thesaurus
+[scrooloose/nerdtree] | 
+[Xuyuanp/nerdtree-git-plugin] | 
+[tpope/vim-commentary] | 
+[lambdalisue/vim-gita] | An awesome git handling plugin
+[t9md/vim-choosewin] | Choose window to use, like tmux's 'display-pane'
+[Shougo/vinarise.vim] | Hex editor
+[kana/vim-niceblock] | 
+[guns/xterm-color-table.vim] | 
+[thinca/vim-prettyprint] | Pretty-print vim variables
+[mbbill/undotree] | Ultimate undo history visualizer
+[metakirby5/codi.vim] | 
+[Shougo/vimproc.vim] | Interactive command execution
+[reedes/vim-wordy] | 
+[kien/tabman.vim] | 
+[hecal3/vim-leader-guide] | 
+[majutsushi/tagbar] | 
+[lambdalisue/vim-gista] | Manipulate gists in Vim
+[beloglazov/vim-online-thesaurus] | Look up words in an online thesaurus
 
 ### Interface
 
 Name           | Description
 -------------- | ----------------------
+[haya14busa/vim-asterisk] | 
+[rhysd/accelerated-jk] | 
+[Shougo/tabpagebuffer.vim] | 
+[airblade/vim-gitgutter] | 
+[lambdalisue/vim-findent] | 
+[nathanaelkane/vim-indent-guides] | 
+[MattesGroeger/vim-bookmarks] | Bookmarks, works independently from vim marks
+[rhysd/committia.vim] | 
+[benekastah/neomake] | 
 [goyo] | Distraction-free writing
 [limelight] | Hyperfocus-writing
-[matchit] | Intelligent pair matching
-[indentline] | Display vertical indention lines
-[choosewin] | Choose window to use, like tmux's 'display-pane'
+[junegunn/vim-peekaboo] | 
+[itchyny/calendar.vim] | 
+[vimwiki/vimwiki] | Personal Wiki for Vim
 
 ### Completion
 
 Name           | Description
 -------------- | ----------------------
-[delimitmate] | Insert mode auto-completion for quotes, parens, brackets
-[echodoc] | Print objects' documentation in echo area
-[deoplete] | Neovim: Dark powered asynchronous completion framework
-[neocomplete] | Next generation completion framework
-[neosnippet] | Contains neocomplete snippets source
+[Shougo/deoplete.nvim] | Neovim: Dark powered asynchronous completion framework
+[Shougo/neocomplete] | Next generation completion framework
+[Shougo/neosnippet.vim] | Contains neocomplete snippets source
+[Raimondi/delimitMate] | Insert mode auto-completion for quotes, parens, brackets
+[ludovicchabant/vim-gutentags] | 
+[mattn/emmet-vim] | 
+[Shougo/echodoc.vim] | Print objects' documentation in echo area
+[Shougo/neosnippet-snippets] | 
+[davidhalter/jedi-vim] | Python jedi autocompletion library
+[zchee/deoplete-go] | 
+[zchee/deoplete-jedi] | 
+[carlitux/deoplete-ternjs] | 
+[wellle/tmux-complete.vim] | 
+[ternjs/tern_for_vim] | Provides Tern-based JavaScript editing support
 
-### Unite
+### Denite
 
 Name           | Description
 -------------- | ----------------------
-[unite] | Unite and create user interfaces
-[unite-colorscheme] | Browse colorschemes
-[unite-filetype] | Select file type
-[unite-history] | Browse history of command/search
-[unite-build] | Build with Unite interface
-[unite-outline] | File "outline" source for unite
-[unite-tag] | Tags source for Unite
-[unite-quickfix] | Quickfix source for Unite
-[neossh] | SSH interface for plugins
-[unite-pull-request] | GitHub pull-request source for Unite
-[junkfile] | Create temporary files for memo and testing
-[unite-issue] | Issue manager for JIRA and GitHub
+[Shougo/denite.nvim] | 
+[nixprime/cpsm] | 
+[chemzqm/unite-location] | 
+[rafi/vim-denite-mpc] | 
 
 ### Operators & Text Objects
 
 Name           | Description
 -------------- | ----------------------
-[operator-user] | Define your own operator easily
-[operator-replace] | Operator to replace text with register content
-[operator-surround] | Operator to enclose text objects
-[textobj-user] | Create your own text objects
-[textobj-multiblock] | Handle multiple brackets objects
+[kana/vim-operator-user] | Define your own operator easily
+[kana/vim-operator-replace] | Operator to replace text with register content
+[rhysd/vim-operator-surround] | Operator to enclose text objects
+[haya14busa/vim-operator-flashy] | 
+[kana/vim-textobj-user] | Create your own text objects
+[bkad/CamelCaseMotion] | 
+[AndrewRadev/sideways.vim] | 
+[AndrewRadev/splitjoin.vim] | 
+[AndrewRadev/linediff.vim] | 
+[glts/vim-textobj-comment] | 
+[AndrewRadev/dsf.vim] | 
+[osyo-manga/vim-textobj-multiblock] | Handle multiple brackets objects
+[kana/vim-textobj-function] | 
 
-[dein.vim]: https://github.com/Shougo/dein.vim
-[vimproc]: https://github.com/Shougo/vimproc.vim
-[colorschemes]: https://github.com/rafi/awesome-vim-colorschemes
-[file-line]: https://github.com/bogado/file-line
-[neomru]: https://github.com/Shougo/neomru.vim
-[cursorword]: https://github.com/itchyny/vim-cursorword
-[gitbranch]: https://github.com/itchyny/vim-gitbranch
-[gitgutter]: https://github.com/airblade/vim-gitgutter
-[bookmarks]: https://github.com/MattesGroeger/vim-bookmarks
-[tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator
-[tinyline]: https://github.com/rafi/vim-tinyline
-[tagabana]: https://github.com/rafi/vim-tagabana
+[Shougo/dein.vim]: https://github.com/Shougo/dein.vim
+[w0ng/vim-hybrid]: 
+[rafi/vim-blocks]: 
+[itchyny/vim-gitbranch]: https://github.com/itchyny/vim-gitbranch
+[itchyny/vim-parenmatch]: 
+[thinca/vim-localrc]: 
+[christoomey/tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator
+[itchyny/cursorword]: https://github.com/itchyny/vim-cursorword
 
-[html5]: https://github.com/othree/html5.vim
-[mustache]: https://github.com/mustache/vim-mustache-handlebars
-[markdown]: https://github.com/rcmdnk/vim-markdown
-[ansible-yaml]: https://github.com/chase/vim-ansible-yaml
-[jinja]: https://github.com/mitsuhiko/vim-jinja
-[less]: https://github.com/groenewege/vim-less
-[css3-syntax]: https://github.com/hail2u/vim-css3-syntax
-[csv]: https://github.com/chrisbra/csv.vim
-[pep8-indent]: https://github.com/hynek/vim-python-pep8-indent
-[logstash]: https://github.com/robbles/logstash.vim
-[tmux]: https://github.com/tmux-plugins/vim-tmux
-[json]: https://github.com/elzr/vim-json
-[toml]: https://github.com/cespare/vim-toml
-[i3]: https://github.com/PotatoesMaster/i3-vim-syntax
-[Dockerfile]: https://github.com/ekalinin/Dockerfile.vim
-[go]: https://github.com/fatih/vim-go
-[jedi-vim]: https://github.com/davidhalter/jedi-vim
-[ruby]: https://github.com/vim-ruby/vim-ruby
-[portfile]: https://github.com/jstrater/mpvim
+[othree/html5.vim]: https://github.com/othree/html5.vim
+[mustache/vim-mustache-handlebars]: https://github.com/mustache/vim-mustache-handlebars
+[pearofducks/ansible-vim]: https://github.com/pearofducks/ansible-vim
+[mitsuhiko/vim-jinja]: https://github.com/mitsuhiko/vim-jinja
+[groenewege/vim-less]: https://github.com/groenewege/vim-less
+[hail2u/vim-css3-syntax]: https://github.com/hail2u/vim-css3-syntax
+[othree/csscomplete.vim]: 
+[plasticboy/vim-markdown]: https://github.com/plasticboy/vim-markdown
+[rhysd/vim-gfm-syntax]: 
+[pangloss/vim-javascript]: https://github.com/pangloss/vim-javascript
+[othree/jspc.vim]: 
+[MaxMEllon/vim-jsx-pretty]: 
+[heavenshell/vim-jsdoc]: 
+[moll/vim-node]: 
+[elzr/vim-json]: https://github.com/elzr/vim-json
+[fatih/vim-go]: https://github.com/fatih/vim-go
+[tbastos/vim-lua]: 
+[mitsuhiko/vim-python-combined]: 
+[python_match.vim]: 
+[raimon49/requirements.txt.vim]: 
+[StanAngeloff/php.vim]: https://github.com/StanAngeloff/php.vim
+[osyo-manga/vim-monster]: 
+[toyamarinyon/vim-swift]: 
+[vim-jp/syntax-vim-ex]: 
+[m2mdas/phpcomplete-extended]: 
+[chrisbra/csv.vim]: https://github.com/chrisbra/csv.vim
+[tmux-plugins/vim-tmux]: https://github.com/tmux-plugins/vim-tmux
+[cespare/vim-toml]: https://github.com/cespare/vim-toml
+[PotatoesMaster/i3-vim-syntax]: https://github.com/PotatoesMaster/i3-vim-syntax
+[dag/vim-fish]: 
+[ekalinin/Dockerfile.vim]: https://github.com/ekalinin/Dockerfile.vim
+[jstrater/mpvim]: https://github.com/jstrater/mpvim
+[tpope/vim-git]: 
+[robbles/logstash.vim]: https://github.com/robbles/logstash.vim
+[andreshazard/vim-logreview]: 
+[exu/pgsql.vim]: 
+[othree/nginx-contrib-vim]: 
+[IN3D/vim-raml]: 
 
-[javascript]: https://github.com/jelera/vim-javascript-syntax
-[javascript-indent]: https://github.com/jiangmiao/simple-javascript-indenter
-[tern]: https://github.com/marijnh/tern_for_vim
+[scrooloose/nerdtree]: 
+[Xuyuanp/nerdtree-git-plugin]: 
+[tpope/vim-commentary]: 
+[lambdalisue/vim-gita]: https://github.com/lambdalisue/vim-gita
+[t9md/vim-choosewin]: https://github.com/t9md/vim-choosewin
+[Shougo/vinarise.vim]: https://github.com/Shougo/vinarise.vim
+[kana/vim-niceblock]: 
+[guns/xterm-color-table.vim]: 
+[thinca/vim-prettyprint]: https://github.com/thinca/vim-prettyprint
+[mbbill/undotree]: https://github.com/mbbill/undotree
+[metakirby5/codi.vim]: 
+[Shougo/vimproc.vim]: https://github.com/Shougo/vimproc.vim
+[reedes/vim-wordy]:
+[kien/tabman.vim]:
+[hecal3/vim-leader-guide]:
+[majutsushi/tagbar]:
+[lambdalisue/vim-gista]: https://github.com/lambdalisue/vim-gista
+[beloglazov/vim-online-thesaurus]: https://github.com/beloglazov/vim-online-thesaurus
 
-[php]: https://github.com/StanAngeloff/php.vim
-[phpfold]: https://github.com/rayburgemeestre/phpfolding.vim
-[phpcomplete]: https://github.com/shawncplus/phpcomplete.vim
-[phpindent]: https://github.com/2072/PHP-Indenting-for-VIm
-[phpspec]: https://github.com/rafi/vim-phpspec
-
-[vimfiler]: https://github.com/Shougo/vimfiler.vim
-[tinycomment]: https://github.com/rafi/vim-tinycomment
-[vinarise]: https://github.com/Shougo/vinarise.vim
-[syntastic]: https://github.com/scrooloose/syntastic
-[gita]: https://github.com/lambdalisue/vim-gita
-[gista]: https://github.com/lambdalisue/vim-gista
-[undotree]: https://github.com/mbbill/undotree
-[incsearch]: https://github.com/haya14busa/incsearch.vim
-[expand-region]: https://github.com/terryma/vim-expand-region
-[open-browser]: https://github.com/tyru/open-browser.vim
-[prettyprint]: https://github.com/thinca/vim-prettyprint
-[quickrun]: https://github.com/thinca/vim-quickrun
-[ref]: https://github.com/thinca/vim-ref
-[dictionary]: https://github.com/itchyny/dictionary.vim
-[vimwiki]: https://github.com/vimwiki/vimwiki
-[thesaurus]: https://github.com/beloglazov/vim-online-thesaurus
-
+[haya14busa/vim-asterisk]:
+[rhysd/accelerated-jk]:
+[Shougo/tabpagebuffer.vim]:
+[airblade/vim-gitgutter]: https://github.com/airblade/vim-gitgutter
+[lambdalisue/vim-findent]:
+[nathanaelkane/vim-indent-guides]:
+[MattesGroeger/vim-bookmarks]: https://github.com/MattesGroeger/vim-bookmarks
+[rhysd/committia.vim]: 
+[benekastah/neomake]: 
 [goyo]: https://github.com/junegunn/goyo.vim
 [limelight]: https://github.com/junegunn/limelight.vim
-[matchit]: http://www.vim.org/scripts/script.php?script_id=39
-[indentline]: https://github.com/Yggdroot/indentLine
-[choosewin]: https://github.com/t9md/vim-choosewin
+[junegunn/vim-peekaboo]: 
+[itchyny/calendar.vim]: 
+[vimwiki/vimwiki]: https://github.com/vimwiki/vimwiki
 
-[delimitmate]: https://github.com/Raimondi/delimitMate
-[echodoc]: https://github.com/Shougo/echodoc.vim
-[deoplete]: https://github.com/Shougo/deoplete.nvim
-[neocomplete]: https://github.com/Shougo/neocomplete.vim
-[neosnippet]: https://github.com/Shougo/neosnippet.vim
+[Shougo/deoplete.nvim]: https://github.com/Shougo/deoplete.nvim
+[Shougo/neocomplete]: https://github.com/Shougo/neocomplete.vim
+[Shougo/neosnippet.vim]: https://github.com/Shougo/neosnippet.vim
+[Raimondi/delimitMate]: https://github.com/Raimondi/delimitMate
+[ludovicchabant/vim-gutentags]: 
+[mattn/emmet-vim]: 
+[Shougo/echodoc.vim]: https://github.com/Shougo/echodoc.vim
+[Shougo/neosnippet-snippets]: 
+[davidhalter/jedi-vim]: https://github.com/davidhalter/jedi-vim
+[zchee/deoplete-go]: 
+[zchee/deoplete-jedi]: 
+[carlitux/deoplete-ternjs]: 
+[wellle/tmux-complete.vim]: 
+[ternjs/tern_for_vim]: https://github.com/ternjs/tern_for_vim
 
-[unite]: https://github.com/Shougo/unite.vim
-[unite-colorscheme]: https://github.com/ujihisa/unite-colorscheme
-[unite-filetype]: https://github.com/osyo-manga/unite-filetype
-[unite-history]: https://github.com/thinca/vim-unite-history
-[unite-build]: https://github.com/Shougo/unite-build
-[unite-outline]: https://github.com/h1mesuke/unite-outline
-[unite-tag]: https://github.com/tsukkee/unite-tag
-[unite-quickfix]: https://github.com/osyo-manga/unite-quickfix
-[neossh]: https://github.com/Shougo/neossh.vim
-[unite-pull-request]: https://github.com/joker1007/unite-pull-request
-[junkfile]: https://github.com/Shougo/junkfile.vim
-[unite-issue]: https://github.com/rafi/vim-unite-issue
+[Shougo/denite.nvim]: 
+[nixprime/cpsm]: 
+[chemzqm/unite-location]: 
+[rafi/vim-denite-mpc]: 
 
-[operator-user]: https://github.com/kana/vim-operator-user
-[operator-replace]: https://github.com/kana/vim-operator-replace
-[operator-surround]: https://github.com/rhysd/vim-operator-surround
-[textobj-user]: https://github.com/kana/vim-textobj-user
-[textobj-multiblock]: https://github.com/osyo-manga/vim-textobj-multiblock
+[kana/vim-operator-user]: https://github.com/kana/vim-operator-user
+[kana/vim-operator-replace]: https://github.com/kana/vim-operator-replace
+[rhysd/vim-operator-surround]: https://github.com/rhysd/vim-operator-surround
+[haya14busa/vim-operator-flashy]: 
+[kana/vim-textobj-user]: https://github.com/kana/vim-textobj-user
+[bkad/CamelCaseMotion]: 
+[AndrewRadev/sideways.vim]: 
+[AndrewRadev/splitjoin.vim]: 
+[AndrewRadev/linediff.vim]: 
+[glts/vim-textobj-comment]: 
+[AndrewRadev/dsf.vim]: 
+[osyo-manga/vim-textobj-multiblock]: https://github.com/osyo-manga/vim-textobj-multiblock
+[kana/vim-textobj-function]: 
 
 ## Custom Key-mappings
 
@@ -543,5 +595,5 @@ Key   | Mode | Action
 Big thanks to the dark knight [Shougo].
 
 [Shougo]: https://github.com/Shougo
-[lazy-loaded]: ./config/plugins.vim
+[lazy-loaded]: ./config/plugins.yaml
 [yaml2json]: https://github.com/koraa/large-yaml2json-json2yaml
