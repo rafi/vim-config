@@ -34,8 +34,8 @@ ln -s ~/.vim ~/.config/nvim
 ```
 
 * _Note:_ If your system sets `$XDG_CONFIG_HOME`,
-use that instead of `~/.config` in the code above.
-Nvim follows the XDG base-directories convention.
+  use that instead of `~/.config` in the code above.
+  Nvim follows the XDG base-directories convention.
 
 **_2._** Almost done! You'll need a YAML interpreter,
 either install [yaml2json], or use PyYAML:
@@ -64,21 +64,22 @@ Run `make update`
 
 ## Structure
 
-- [config](./config)/ - Configuration
-  - [plugins](./config/plugins)/ - Plugin configurations
-  - [mappings.vim](./config/mappings.vim) - Key-mappings
-  - [filetype.vim](./config/filetype.vim) - Language behavior
-  - [general.vim](./config/general.vim) - General configuration
-  - [init.vim](./config/init.vim) - `runtimepath` initialization
-  - [neovim.vim](./config/neovim.vim) - Neovim specific setup
-  - [plugins.vim](./config/plugins.vim) - Plugin bundles
-  - [terminal.vim](./config/terminal.vim) - Terminal configuration
-  - [theme.vim](./config/theme.vim) - Color-scheme and theme setup
+- [config/](./config) - Configuration
+  - [plugins/](./config/plugins) - Plugin configurations
+  - [plugins.yaml](./config/plugins.yaml) - _**Plugins!**_
   - [vimrc](./config/vimrc) - Initialization
-- [ftplugin](./ftplugin)/ - Language specific custom settings
-- [plugin](./plugin)/ - Customized small plugins
-- [snippets](./snippets)/ - Personal code snippets
-- [themes](./themes)/ - Themes! Combination of styles and color-scheme
+  - [init.vim](./config/init.vim) - `runtimepath` initialization
+  - [general.vim](./config/general.vim) - General configuration
+  - [neovim.vim](./config/neovim.vim) - Neovim specific setup
+  - [mappings.vim](./config/mappings.vim) - Key-mappings
+  - [theme.vim](./config/theme.vim) - Color-scheme and theme setup
+  - [filetype.vim](./config/filetype.vim) - Language behavior
+  - [menus.vim](./config/menus.vim) - User menus for reference
+  - [terminal.vim](./config/terminal.vim) - Terminal configuration
+- [ftplugin/](./ftplugin) - Language specific custom settings
+- [plugin/](./plugin) - Customized small plugins
+- [snippets/](./snippets) - Personal code snippets
+- [themes/](./themes) - Themes! Combination of styles and color-scheme
 - [filetype.vim](./filetype.vim) - Custom filetype detection
 
 ## Plugin Highlights
@@ -94,7 +95,7 @@ Run `make update`
 - Helpers: Undo tree, bookmarks, git, tmux navigation,
     hex editor, sessions, and much more.
 
-_Note_ that 90% of the plugins are **[lazy-loaded]**.
+_Note_ that 95% of the plugins are **[lazy-loaded]**.
 
 ## Non Lazy-Loaded Plugins
 
@@ -516,7 +517,6 @@ Key   | Mode | Action
 Key   | Mode | Action
 ----- |:----:| ------------------
 `Enter` | Insert | Smart snippet expansion
-`Ctrl`+`space` | Insert | Autocomplete with Unite
 `Tab` | Insert/select | Smart tab movement or completion
 `Ctrl`+`j/k/f/b` | Insert | Movement in popup
 `Ctrl`+`g` | Insert | Undo completion
@@ -528,7 +528,7 @@ Key   | Mode | Action
 `Ctrl`+`d` | Insert | Scroll down
 `Ctrl`+`u` | Insert | Scroll up
 
-### Plugin: Caw
+### Plugin: Commentary
 
 Key   | Mode | Action
 ----- |:----:| ------------------
