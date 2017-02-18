@@ -46,7 +46,7 @@ if dein#tap('nerdtree') "{{{
 	nnoremap <silent> [Tools]a :<C-u>NERDTreeFind<CR>
 
 	autocmd MyAutoCmd FileType nerdtree call s:nerdtree_settings()
-	function! s:nerdtree_settings() abort "{{{
+	function! s:nerdtree_settings() abort
 		set expandtab " To enable vim-indent-guides
 		nmap <buffer> N  :<C-u>call NERDTreeAddNode()<CR>
 	endfunction

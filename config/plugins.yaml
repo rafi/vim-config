@@ -106,23 +106,26 @@
 - { repo: Shougo/vinarise.vim, on_cmd: Vinarise }
 - { repo: kana/vim-niceblock, on_map: { x: <Plug> }}
 - { repo: guns/xterm-color-table.vim, on_cmd: XtermColorTable }
-- { repo: thinca/vim-prettyprint, on_cmd: PP, on_func: PP }
 - { repo: mbbill/undotree, on_cmd: UndotreeToggle }
 - { repo: metakirby5/codi.vim, on_cmd: Codi, if: empty($VIM_MINIMAL) }
+- { repo: thinca/vim-prettyprint, on_cmd: PP, on_func: PP }
 - { repo: Shougo/vimproc.vim, build: make, on_func: vimproc# }
 - { repo: reedes/vim-wordy, on_cmd: [ Wordy, NextWordy, PrevWordy ]}
 
 - repo: kien/tabman.vim
+  if: empty($VIM_MINIMAL)
   on_map: { n: <Plug> }
   hook_add: |
     let g:loaded_tabman = 1
     nnoremap <Plug>Tabman :call tabman#toggle()<CR>
 
 - repo: hecal3/vim-leader-guide
+  if: empty($VIM_MINIMAL)
   on_cmd: [ LeaderGuide, LeaderGuideVisual ]
   on_map: { nv: <Plug>leaderguide- }
 
 - repo: majutsushi/tagbar
+  if: empty($VIM_MINIMAL)
   on_cmd: TagbarToggle
   hook_source: |
     let g:tagbar_width = 40
@@ -167,7 +170,8 @@
     let g:indent_guides_enable_on_vim_startup = 0
     let g:indent_guides_default_mapping = 0
     let g:indent_guides_indent_levels = 15
-    let g:indent_guides_exclude_filetypes = [ 'help', 'denite', 'vimfiler' ]
+    let g:indent_guides_exclude_filetypes =
+      \ [ 'help', 'denite', 'vimfiler', 'codi' ]
     let g:indent_guides_autocmds_enabled = 0
     autocmd MyAutoCmd BufEnter * if ! empty(&l:filetype)
       \   && index(g:indent_guides_exclude_filetypes, &l:filetype) == -1
@@ -272,9 +276,9 @@
 
 - repo: Shougo/neosnippet.vim
   depends: [ neosnippet-snippets, context_filetype.vim ]
+  if: empty($VIM_MINIMAL)
   on_event: InsertCharPre
   on_ft: snippet
-  if: empty($VIM_MINIMAL)
   hook_add: let g:neosnippet#data_directory = $VARPATH.'/snippets'
   hook_source: |
     let g:neosnippet#enable_snipmate_compatibility = 1
@@ -282,7 +286,7 @@
     let g:neosnippet#expand_word_boundary = 1
 
 - repo: ludovicchabant/vim-gutentags
-  if: executable('ctags')
+  if: executable('ctags') && empty($VIM_MINIMAL)
   on_path: .*
   hook_add: |
     let g:gutentags_cache_dir = $VARPATH.'/tags'
@@ -291,6 +295,7 @@
     let g:gutentags_modules = ['ctags']
 
 - repo: mattn/emmet-vim
+  if: empty($VIM_MINIMAL)
   on_i: 1
   on_ft: [ css, html, jsx, javascript, javascript.jsx ]
   hook_source: |
@@ -300,6 +305,7 @@
     let g:user_emmet_mode = 'i'
 
 - repo: Shougo/echodoc.vim
+  if: empty($VIM_MINIMAL)
   on_event: CompleteDone
   hook_post_source: call echodoc#enable()
 
@@ -308,8 +314,8 @@
   hook_source: let g:delimitMate_expand_cr = 1
 
 - { repo: Shougo/neosnippet-snippets, if: empty($VIM_MINIMAL) }
-- { repo: Shougo/context_filetype.vim, lazy: 1 }
-- { repo: Shougo/neco-vim, on_ft: vim }
+- { repo: Shougo/context_filetype.vim, lazy: 1, if: empty($VIM_MINIMAL) }
+- { repo: Shougo/neco-vim, on_ft: vim, if: empty($VIM_MINIMAL) }
 - { repo: Shougo/neco-syntax, on_source: [ neocomplete.vim, deoplete.nvim ]}
 
 - repo: davidhalter/jedi-vim
@@ -327,12 +333,7 @@
     let g:jedi#quickfix_window_height = 10
     let g:jedi#max_doc_height = 100
 
-- repo: wellle/tmux-complete.vim
-  on_i: 1
-  if: empty($VIM_MINIMAL)
-  hook_add: let g:tmuxcomplete#trigger = ''
-
-# Only NeoVim
+# Only NeoVim ------------------------------
 - repo: zchee/deoplete-go
   if: has('nvim') && empty($VIM_MINIMAL)
   on_ft: go
@@ -353,7 +354,12 @@
     let g:tern_request_timeout = 1
     let g:tern_show_signature_in_pum = '0'
 
-# Only Vim
+- repo: wellle/tmux-complete.vim
+  if: has('nvim') && empty($VIM_MINIMAL)
+  on_i: 1
+  hook_add: let g:tmuxcomplete#trigger = ''
+
+# Only Vim ---------------------------------
 - repo: ternjs/tern_for_vim
   build: npm install
   if: executable('npm') && ! has('nvim') && empty($VIM_MINIMAL)
