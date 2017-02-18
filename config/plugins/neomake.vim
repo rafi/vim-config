@@ -3,7 +3,7 @@
 " ---------
 let g:neomake_verbose = 1
 let g:neomake_serialize = 1
-let g:neomake_serialize_abort_on_error = 1
+let g:neomake_serialize_abort_on_error = 0
 let g:airline#extensions#neomake#enabled = 0
 
 " JAVASCRIPT / JSX

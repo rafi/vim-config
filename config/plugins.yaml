@@ -12,7 +12,10 @@
 - repo: thinca/vim-localrc
 - repo: christoomey/vim-tmux-navigator
 - repo: itchyny/vim-cursorword
-  hook_add: autocmd MyAutoCmd FileType vimfiler,denite,qf let b:cursorword=0
+  hook_add: |
+    autocmd MyAutoCmd FileType vimfiler,denite,qf let b:cursorword=0
+    autocmd MyAutoCmd InsertEnter * let b:cursorword=0
+    autocmd MyAutoCmd InsertLeave * let b:cursorword=1
 
 # Lazy Loading
 # ==========================================
@@ -168,13 +171,13 @@
   on_cmd: [ IndentGuidesEnable, IndentGuidesDisable, IndentGuidesToggle ]
   hook_add: |
     let g:indent_guides_enable_on_vim_startup = 0
-    let g:indent_guides_default_mapping = 0
-    let g:indent_guides_indent_levels = 15
-    let g:indent_guides_exclude_filetypes =
-      \ [ 'help', 'denite', 'vimfiler', 'codi' ]
     let g:indent_guides_autocmds_enabled = 0
-    autocmd MyAutoCmd BufEnter * if ! empty(&l:filetype)
-      \   && index(g:indent_guides_exclude_filetypes, &l:filetype) == -1
+    let g:indent_guides_default_mapping = 0
+    let g:indent_guides_exclude = [ 'help', 'denite', 'codi' ]
+    let g:indent_guides_indent_levels = 15
+    autocmd MyAutoCmd BufEnter *
+      \ if ! has('vim_starting') && ! empty(&l:filetype)
+      \      && index(g:indent_guides_exclude, &l:filetype) == -1
       \|   if g:indent_guides_autocmds_enabled == 0 && &l:expandtab
       \|     IndentGuidesEnable
       \|   elseif g:indent_guides_autocmds_enabled == 1 && ! &l:expandtab
@@ -224,7 +227,6 @@
 - repo: junegunn/vim-peekaboo
   if: empty($VIM_MINIMAL)
   on_map: [[ nx, '"' ]]
-  hook_post_source: silent! augroup! peekaboo_init
 
 - repo: itchyny/calendar.vim
   if: empty($VIM_MINIMAL)
