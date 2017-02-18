@@ -58,7 +58,7 @@ cd ~/.config/nvim
 
 Enjoy!
 
-### Install Linters
+### Recommended Linters
 
 * Node.js based linters:
   ```sh
@@ -72,7 +72,7 @@ Enjoy!
 * Shell lint: [shellcheck.net](https://www.shellcheck.net/)
 * HTML Tidy: [html-tidy.org](http://www.html-tidy.org/)
 
-### Install Tools
+### Recommended Tools
 
 * Tern: `npm -g install tern`
 * Universal ctags: [ctags.io](https://ctags.io/)
@@ -226,7 +226,7 @@ Name           | Description
 [Shougo/deoplete.nvim] | Neovim: Dark powered asynchronous completion framework
 [Shougo/neocomplete] | Next generation completion framework
 [Shougo/neosnippet.vim] | Contains neocomplete snippets source
-[Raimondi/delimitMate] | Insert mode auto-completion for quotes, parens, brackets
+[Raimondi/delimitMate] | Auto-completion for quotes, parens, brackets
 [ludovicchabant/vim-gutentags] | Manages your tag files
 [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet
 [Shougo/echodoc.vim] | Print objects' documentation in echo area
@@ -245,7 +245,7 @@ Name           | Description
 [Shougo/denite.nvim] | Dark powered asynchronous unite all interfaces
 [nixprime/cpsm] | File matcher, specialized for paths
 [chemzqm/unite-location] | Denite location & quickfix lists
-[rafi/vim-denite-mpc] | denite-mpc is a source for browsing and playing your MPD music library and managing playlists.
+[rafi/vim-denite-mpc] | Denite source for browsing your MPD music library
 
 ### Operators & Text Objects
 
@@ -254,16 +254,16 @@ Name           | Description
 [kana/vim-operator-user] | Define your own operator easily
 [kana/vim-operator-replace] | Operator to replace text with register content
 [rhysd/vim-operator-surround] | Operator to enclose text objects
-[haya14busa/vim-operator-flashy] | 
+[haya14busa/vim-operator-flashy] | Highlight yanked area
 [kana/vim-textobj-user] | Create your own text objects
-[bkad/CamelCaseMotion] | 
-[AndrewRadev/sideways.vim] | 
-[AndrewRadev/splitjoin.vim] | 
-[AndrewRadev/linediff.vim] | 
-[glts/vim-textobj-comment] | 
-[AndrewRadev/dsf.vim] | 
+[bkad/CamelCaseMotion] | Provide CamelCase motion through words
+[AndrewRadev/sideways.vim] | Match function arguments
+[AndrewRadev/splitjoin.vim] | Transition code between multi-line and single-line
+[AndrewRadev/linediff.vim] | Perform diffs on blocks of code
+[glts/vim-textobj-comment] | Text objects for comments
+[AndrewRadev/dsf.vim] | Delete surrounding function call
 [osyo-manga/vim-textobj-multiblock] | Handle multiple brackets objects
-[kana/vim-textobj-function] | 
+[kana/vim-textobj-function] | Text objects for functions
 
 [Shougo/dein.vim]: https://github.com/Shougo/dein.vim
 [w0ng/vim-hybrid]: https://github.com/w0ng/vim-hybrid
@@ -370,16 +370,16 @@ Name           | Description
 [kana/vim-operator-user]: https://github.com/kana/vim-operator-user
 [kana/vim-operator-replace]: https://github.com/kana/vim-operator-replace
 [rhysd/vim-operator-surround]: https://github.com/rhysd/vim-operator-surround
-[haya14busa/vim-operator-flashy]: 
+[haya14busa/vim-operator-flashy]: https://github.com/haya14busa/vim-operator-flashy
 [kana/vim-textobj-user]: https://github.com/kana/vim-textobj-user
-[bkad/CamelCaseMotion]: 
-[AndrewRadev/sideways.vim]: 
-[AndrewRadev/splitjoin.vim]: 
-[AndrewRadev/linediff.vim]: 
-[glts/vim-textobj-comment]: 
-[AndrewRadev/dsf.vim]: 
+[bkad/CamelCaseMotion]: https://github.com/bkad/CamelCaseMotion
+[AndrewRadev/sideways.vim]: https://github.com/AndrewRadev/sideways.vim
+[AndrewRadev/splitjoin.vim]: https://github.com/AndrewRadev/splitjoin.vim
+[AndrewRadev/linediff.vim]: https://github.com/AndrewRadev/linediff.vim
+[glts/vim-textobj-comment]: https://github.com/glts/vim-textobj-comment
+[AndrewRadev/dsf.vim]: https://github.com/AndrewRadev/dsf.vim
 [osyo-manga/vim-textobj-multiblock]: https://github.com/osyo-manga/vim-textobj-multiblock
-[kana/vim-textobj-function]: 
+[kana/vim-textobj-function]: https://github.com/kana/vim-textobj-function
 
 ## Custom Key-mappings
 
