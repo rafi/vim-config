@@ -5,7 +5,7 @@
 # Startup
 # -------
 - repo: Shougo/dein.vim
-- repo: w0ng/vim-hybrid
+- repo: rafi/awesome-vim-colorschemes
 - repo: rafi/vim-blocks
 - repo: itchyny/vim-gitbranch
 - repo: itchyny/vim-parenmatch
@@ -99,9 +99,8 @@
   on_map: { n: <Plug> }
   hook_post_source: source $VIMPATH/config/plugins/nerdtree.vim
 
-- repo: Xuyuanp/nerdtree-git-plugin
-  on_source: nerdtree
-
+- { repo: Xuyuanp/nerdtree-git-plugin, on_source: nerdtree }
+- { repo: tpope/vim-commentary, on_map: <Plug>Commentary }
 - { repo: lambdalisue/vim-gita, on_cmd: Gita }
 - { repo: t9md/vim-choosewin, on_map: { n: <Plug> }}
 - { repo: Shougo/vinarise.vim, on_cmd: Vinarise }
@@ -111,6 +110,7 @@
 - { repo: mbbill/undotree, on_cmd: UndotreeToggle }
 - { repo: metakirby5/codi.vim, on_cmd: Codi, if: empty($VIM_MINIMAL) }
 - { repo: Shougo/vimproc.vim, build: make, on_func: vimproc# }
+- { repo: reedes/vim-wordy, on_cmd: [ Wordy, NextWordy, PrevWordy ]}
 
 - repo: kien/tabman.vim
   on_map: { n: <Plug> }
@@ -130,19 +130,6 @@
       let g:tagbar_type_javascript = { 'ctagsbin': 'jsctags' }
     endif
 
-- repo: tyru/caw.vim
-  on_map: { nx: <Plug> }
-  hook_source: |
-    let g:caw_zeropos_sp = ''
-    let g:caw_zeropos_sp_right = ''
-    let g:caw_hatpos_sp = ''
-    let g:caw_hatpos_skip_blank_line = 1
-    let g:caw_dollarpos_sp_right = ''
-    let g:caw_dollarpos_skip_blank_line = 1
-    let g:caw_box_sp_right = ''
-
-- { repo: reedes/vim-wordy, on_cmd: [ Wordy, NextWordy, PrevWordy ] }
-
 - repo: lambdalisue/vim-gista
   if: empty($VIM_MINIMAL)
   on_cmd: Gista
@@ -157,9 +144,7 @@
 # Interface
 # ---------
 - { repo: haya14busa/vim-asterisk, on_map: { nv: <Plug> }}
-- { repo: rhysd/clever-f.vim, on_map: [[ n, f, F, t, T ]]}
 - { repo: rhysd/accelerated-jk, on_map: { n: <Plug> }}
-- { repo: Shougo/tabpagebuffer.vim, on_if: tabpagenr() > 1 }
 
 - repo: airblade/vim-gitgutter
   on_path: .*
@@ -195,12 +180,7 @@
 
 - repo: MattesGroeger/vim-bookmarks
   on_path: .*
-  hook_source: |
-    let g:bookmark_auto_save_file = $VARPATH.'/bookmarks'
-#    let g:bookmark_auto_save_dir = $VARPATH.'/bookmarks'
-#    if ! isdirectory(g:bookmark_auto_save_dir)
-#      call mkdir(g:bookmark_auto_save_dir, 'p')
-#    endif
+  hook_source: let g:bookmark_auto_save_file = $VARPATH.'/bookmarks'
 
 - repo: rhysd/committia.vim
   on_path: COMMIT_EDITMSG
@@ -333,8 +313,8 @@
 - { repo: Shougo/neco-syntax, on_source: [ neocomplete.vim, deoplete.nvim ]}
 
 - repo: davidhalter/jedi-vim
-  on_ft: python
   if: empty($VIM_MINIMAL)
+  on_ft: python
   hook_add: |
     let g:jedi#completions_enabled = 0
     let g:jedi#auto_vim_configuration = 0

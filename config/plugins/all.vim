@@ -232,16 +232,6 @@ if dein#tap('vim-gita') "{{{
 endif
 
 "}}}
-if dein#tap('caw.vim') "{{{
-	nmap gc <Plug>(caw:prefix)
-	xmap gc <Plug>(caw:prefix)
-	nmap <Leader>V <Plug>(caw:tildepos:toggle)
-	xmap <Leader>V <Plug>(caw:tildepos:toggle)
-	nmap <Leader>v <Plug>(caw:zeropos:toggle)
-	xmap <Leader>v <Plug>(caw:zeropos:toggle)
-endif
-
-"}}}
 if dein#tap('undotree') "{{{
 	nnoremap <Leader>gu :UndotreeToggle<CR>
 endif
@@ -299,6 +289,18 @@ if dein#tap('CamelCaseMotion') "{{{
 	nmap <silent> b <Plug>CamelCaseMotion_b
 	xmap <silent> b <Plug>CamelCaseMotion_b
 	omap <silent> b <Plug>CamelCaseMotion_b
+endif
+
+"}}}
+if dein#tap('vim-commentary') "{{{
+	xmap <Leader>v  <Plug>Commentary
+	nmap <Leader>v  <Plug>CommentaryLine
+	xmap gc  <Plug>Commentary
+	nmap gc  <Plug>Commentary
+	omap gc  <Plug>Commentary
+	nmap gcc <Plug>CommentaryLine
+	nmap cgc <Plug>ChangeCommentary
+	nmap gcu <Plug>Commentary<Plug>Commentary
 endif
 
 "}}}
