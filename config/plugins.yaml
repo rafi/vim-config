@@ -67,7 +67,8 @@
     let g:go_highlight_operators = 1
 
 - { repo: tbastos/vim-lua, on_ft: lua }
-- { repo: mitsuhiko/vim-python-combined, on_ft: python }
+- { repo: vim-python/python-syntax, on_ft: python }
+- { repo: Vimjas/vim-python-pep8-indent, on_ft: python }
 - { repo: python_match.vim, on_ft: python }
 - { repo: raimon49/requirements.txt.vim, on_ft: requirements }
 - { repo: StanAngeloff/php.vim, on_ft: php }

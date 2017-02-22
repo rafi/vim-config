@@ -155,7 +155,8 @@ Name           | Description
 [elzr/vim-json] | Better JSON support
 [fatih/vim-go] | Go development
 [tbastos/vim-lua] | Improved Lua 5.3 syntax and indentation support
-[mitsuhiko/vim-python-combined] | Fork of the python.vim for 2.x and 3.x
+[vim-python/python-syntax] | Enhanced version of the original Python syntax
+[Vimjas/vim-python-pep8-indent] | A nicer Python indentation style
 [python_match.vim] | Extend the % motion for Python files
 [raimon49/requirements.txt.vim] | Python requirements file format
 [StanAngeloff/php.vim] | Up-to-date PHP syntax file (5.3 – 7.1 support)
@@ -291,7 +292,8 @@ Name           | Description
 [elzr/vim-json]: https://github.com/elzr/vim-json
 [fatih/vim-go]: https://github.com/fatih/vim-go
 [tbastos/vim-lua]: https://github.com/tbastos/vim-lua
-[mitsuhiko/vim-python-combined]: https://github.com/mitsuhiko/vim-python-combined
+[vim-python/python-syntax]: https://github.com/vim-python/python-syntax
+[Vimjas/vim-python-pep8-indent]: https://github.com/Vimjas/vim-python-pep8-indent
 [python_match.vim]: https://github.com/vim-scripts/python_match.vim
 [raimon49/requirements.txt.vim]: https://github.com/raimon49/requirements.txt.vim
 [StanAngeloff/php.vim]: https://github.com/StanAngeloff/php.vim
