@@ -159,15 +159,6 @@
     let g:gitgutter_map_keys = 0
     let g:gitgutter_sh = $SHELL
 
-- repo: lambdalisue/vim-findent
-  on_cmd: Findent
-  hook_add: |
-    augroup findent
-      autocmd!
-      autocmd BufReadPost *.css,*.html,*.js*,*.go,*.sh,*.php,*.yaml,*.vim,*.py
-        \ Findent! --no-warnings --no-messages
-    augroup END
-
 - repo: nathanaelkane/vim-indent-guides
   on_cmd: [ IndentGuidesEnable, IndentGuidesDisable, IndentGuidesToggle ]
   hook_add: |
