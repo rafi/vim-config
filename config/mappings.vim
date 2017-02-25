@@ -115,11 +115,11 @@ cnoremap <C-d> <C-w>
 map <Leader>cd :lcd %:p:h<CR>:pwd<CR>
 
 " Fast saving
-nnoremap <Leader>w :write<CR>
-vnoremap <Leader>w <Esc>:write<CR>
-nnoremap <C-s> :<C-u>write<CR>
-vnoremap <C-s> :<C-u>write<CR>
-cnoremap <C-s> <C-u>write<CR>
+nnoremap <silent><Leader>w :write<CR>:nohlsearch<CR>
+vnoremap <silent><Leader>w <Esc>:write<CR>:nohlsearch<CR>
+nnoremap <silent><C-s> :<C-u>write<CR>:nohlsearch<CR>
+vnoremap <silent><C-s> :<C-u>write<CR>:nohlsearch<CR>
+cnoremap <silent><C-s> <C-u>write<CR>:nohlsearch<CR>
 
 " Save a file with sudo
 " http://forrst.com/posts/Use_w_to_sudo_write_a_file_with_Vim-uAN
@@ -164,8 +164,8 @@ xnoremap <C-r> :<C-u>call VSetSearch('/')<CR>:%s/\V<C-R>=@/<CR>//gc<Left><Left><
 
 " Background dark/light toggle and contrasts
 nnoremap <silent><Leader>b :<C-u>call <SID>toggle_background()<CR>
-nmap <silent><leader>- :<c-u>call <SID>toggle_contrast(-v:count1)<cr>
-nmap <silent><leader>= :<c-u>call <SID>toggle_contrast(+v:count1)<cr>
+nmap <silent> s- :<c-u>call <SID>toggle_contrast(-v:count1)<cr>
+nmap <silent> s= :<c-u>call <SID>toggle_contrast(+v:count1)<cr>
 
 function! s:toggle_background()
 	if ! exists('g:colors_name')
@@ -205,8 +205,8 @@ function! s:toggle_contrast(delta)
 endfunction
 
 " Location list movement
-nmap <Leader>lj :lnext<CR>
-nmap <Leader>lk :lprev<CR>
+nmap <Leader>j :lnext<CR>
+nmap <Leader>k :lprev<CR>
 
 " Duplicate lines
 nnoremap <Leader>d m`YP``

@@ -166,7 +166,7 @@ endif
 "}}}
 if dein#tap('vim-choosewin') "{{{
 	nmap -         <Plug>(choosewin)
-	nmap <Leader>- :<C-u>ChooseWinSwap<CR>
+	nmap <Leader>- :<C-u>ChooseWinSwapStay<CR>
 endif
 
 "}}}
