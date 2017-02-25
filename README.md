@@ -124,7 +124,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | Name           | Description
 | -------------- | ----------------------
 | [Shougo/dein.vim] | Dark powered Vim/Neovim plugin manager
-| [w0ng/vim-hybrid] | Beautiful dark color scheme
+| [awesome-colorschemes] | Awesome color-schemes
 | [rafi/vim-blocks] | Bite-size blocks for Vim tab & status lines.
 | [itchyny/vim-gitbranch] | Lightweight git branch detection
 | [itchyny/vim-parenmatch] | Efficient alternative to the standard matchparen plugin
@@ -266,7 +266,7 @@ Name           | Description
 [kana/vim-textobj-function] | Text objects for functions
 
 [Shougo/dein.vim]: https://github.com/Shougo/dein.vim
-[w0ng/vim-hybrid]: https://github.com/w0ng/vim-hybrid
+[awesome-colorschemes]: https://github.com/rafi/awesome-vim-colorschemes
 [rafi/vim-blocks]: https://github.com/rafi/vim-blocks
 [itchyny/vim-gitbranch]: https://github.com/itchyny/vim-gitbranch
 [itchyny/vim-parenmatch]: https://github.com/itchyny/vim-parenmatch
@@ -436,6 +436,7 @@ Key   | Mode | Action
 
 Key   | Mode | Action
 ----- |:----:| ------------------
+`<leader>`+`ti` | Normal | Toggle indentation lines
 `<leader>`+`ts` | Normal | Toggle spell-checker (:setlocal spell!)
 `<leader>`+`tn` | Normal | Toggle line numbers (:setlocal nonumber!)
 `<leader>`+`tl` | Normal | Toggle hidden characters (:setlocal nolist!)
@@ -452,6 +453,9 @@ Key   | Mode | Action
 `#` | Visual | Search selection backwards
 `<leader>`+`j` | Normal | Next on location list
 `<leader>`+`k` | Normal | Previous on location list
+`<leader>`+`b` | Normal | Toggle colorscheme background dark/light
+`s`+`-` | Normal | Lower colorscheme contrast (Only solarized8)
+`s`+`=` | Normal | Raise colorscheme contrast (Only solarized8)
 
 ### Window Management
 
@@ -459,8 +463,8 @@ Key   | Mode | Action
 ----- |:----:| ------------------
 `q` | Normal | Smart buffer close
 `s`+`p` | Normal | Split nicely
-`s`+`v` | Normal | :split
-`s`+`g` | Normal | :vsplit
+`s`+`v` | Normal | Horizontal (:split)
+`s`+`g` | Normal | Vertical split (:vsplit)
 `s`+`t` | Normal | Open new tab (:tabnew)
 `s`+`o` | Normal | Close other windows (:only)
 `s`+`x` | Normal | Remove buffer, leave blank window
@@ -471,68 +475,54 @@ Key   | Mode | Action
 `<leader>`+`sv` | Normal | Split with previous buffer
 `<leader>`+`sg` | Normal | Vertical split with previous buffer
 
-### Plugin: Unite
+### Plugin: Denite
 
 Key   | Mode | Action
 ----- |:----:| ------------------
-`;`+`r` | Normal | Resumes Unite window
-`;`+`f` | Normal | Opens Unite file recursive search
-`;`+`i` | Normal | Opens Unite git file search
-`;`+`g` | Normal | Opens Unite grep with ag (the_silver_searcher)
-`;`+`u` | Normal | Opens Unite source
-`;`+`t` | Normal | Opens Unite tag
-`;`+`T` | Normal | Opens Unite tag/include
-`;`+`l` | Normal | Opens Unite location list
-`;`+`q` | Normal | Opens Unite quick fix
-`;`+`e` | Normal | Opens Unite register
-`;`+`j` | Normal | Opens Unite jump, change
-`;`+`h` | Normal | Opens Unite history/yank
-`;`+`s` | Normal | Opens Unite session
-`;`+`o` | Normal | Opens Unite outline
-`;`+`ma` | Normal | Opens Unite mapping
-`;`+`me` | Normal | Opens Unite output messages
-`<leader>`+`b` | Normal | Opens Unite buffers, mru, bookmark
-`<leader>`+`ta` | Normal | Opens Unite tab
-`<leader>`+`gf` | Normal | Opens Unite file with word at cursor
-`<leader>`+`gt` | Normal/visual | Opens Unite tag with word at cursor
-`<leader>`+`gg` | Visual | Opens Unite navigate with word at cursor
-| **Within _Unite_ buffers** |||
-`Ctrl`+`h/k/l/r` | Normal | Un-map
-`Ctrl`+`r` | Normal | Redraw
-`Ctrl`+`j` | Insert | Select next line
-`Ctrl`+`k` | Insert | Select previous line
+`;`+`r` | Normal | Resumes Denite window
+`;`+`f` | Normal | Open file recursive search
+`;`+`b` | Normal | List buffers and MRU
+`;`+`d` | Normal | List directories
+`;`+`l` | Normal | Open location list entries
+`;`+`q` | Normal | Open quick fix entries
+`;`+`n` | Normal | Open Dein plugin list
+`;`+`g` | Normal | Input for grep search
+`;`+`j` | Normal | Open file jump points
+`;`+`k` | Normal | Open all marks
+`;`+`s` | Normal | List all sessions
+`;`+`/` | Normal | List all lines
+`;`+`*` | Normal | Search word in all lines
+`<leader>`+`gf` | Normal | Open matching file results with word at cursor
+`<leader>`+`gg` | Visual | Open grep results with word at cursor
+| **Within _Denite_ mode** |||
+`Escape` | Normal/Insert | Toggle modes
 `jj` | Insert | Leave Insert mode
-`'` | Normal | Toggle mark current candidate, up
-`e` | Normal | Run default action
-`gr` | Normal | Grep with Unite on current directory
-`gf` | Normal | Find files with Unite on current directory
-`gd` | Normal | Change directory for all windows in current tab
-`sv` | Normal | Open in a split
-`sg` | Normal | Open in a vertical split
+`Ctrl`+`y` | Insert | Redraw
+`r` | Normal | Redraw
 `st` | Normal | Open in a new tab
-`r` | Normal | Replace ('search' profile) or rename
-`Tab` | Normal | Move to other window (`Ctrl`+`w`+`w`)
-`Tab` | Insert | Unite auto-completion
-`Escape` | Normal | Exit unite
-`Ctrl`+`z` | Normal/insert | Toggle transpose window
-`Ctrl`+`w` | Insert | Delete backward path
+`sg` | Normal | Open in a vertical split
+`sv` | Normal | Open in a split
+`'` | Normal | Toggle mark current candidate
 
-### Plugin: VimFiler
+### Plugin: NERDTree
 
 Key   | Mode | Action
 ----- |:----:| ------------------
 `;`+`e` | Normal | Toggle file explorer
 `;`+`a` | Normal | Toggle file explorer on current file
-| **Within _VimFiler_ buffers** |||
-`sv` | Normal | Split edit
-`sg` | Normal | Vertical split edit
-`p` | Normal | Preview
-`i` | Normal | Switch to directory history
-`Ctrl`+`r` | Normal | Redraw
-`Ctrl`+`q` | Normal | Quick look
-`Ctrl`+`j` | Normal | Un-mapped
-`Ctrl`+`l` | Normal | Un-mapped
-`E` | Normal | Un-mapped
+| **Within _NERDTree_ buffers** |||
+`h/j/k/l` | Normal | Movement + collapse/expand + file open
+`w` | Normal | Toggle window size
+`N` | Normal | Create new file or directory
+`yy` | Normal | Yank selected item to clipboard
+`sv` | Normal | Open file in new tab
+`sv` | Normal | Open file in a horizontal split
+`sg` | Normal | Open file in a vertical split
+`&` | Normal | Jump to project root
+`gh` | Normal | Jump to user's home directory
+`gd` | Normal | Open split diff on selected file
+`gf` | Normal | Search in selected directory for files
+`gr` | Normal | Grep in selected directory
 
 ### Plugin: deoplete / neocomplete
 
@@ -557,12 +547,6 @@ Key   | Mode | Action
 `<leader>`+`v` | Normal/visual | Toggle single-line comments
 `<leader>`+`V` | Normal/visual | Toggle comment block
 
-### Plugin: Goyo and Limelight
-
-Key   | Mode | Action
------ |:----:| ------------------
-`<leader>`+`G` | Normal | Toggle distraction-free writing
-
 ### Plugin: ChooseWin
 
 Key   | Mode | Action
@@ -579,6 +563,13 @@ Key   | Mode | Action
 `m`+`n` | Normal | Jump to next bookmark
 `m`+`p` | Normal | Jump to previous bookmark
 `m`+`i` | Normal | Annotate bookmark
+
+### Plugin: Tagbar
+
+Key   | Mode | Action
+----- |:----:| ------------------
+`h` | Normal | Close fold
+`l` | Normal | Open fold
 
 ### Plugin: Gita
 
@@ -605,10 +596,8 @@ Key   | Mode | Action
 
 Key   | Mode | Action
 ----- |:----:| ------------------
+`<leader>`+`G` | Normal | Toggle distraction-free writing
 `<leader>`+`gu` | Normal | Open undo tree
-`<leader>`+`i` | Normal | Toggle indentation lines
-`<leader>`+`r` | Normal | Quickrun
-`<leader>`+`?` | Normal | Dictionary
 `<leader>`+`W` | Normal | Wiki
 `<leader>`+`K` | Normal | Thesaurus
 
