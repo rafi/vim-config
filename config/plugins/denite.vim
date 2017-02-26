@@ -9,7 +9,7 @@ call denite#custom#option('default', 'short_source_names', 1)
 
 call denite#custom#option('grep', 'empty', 0)
 call denite#custom#option('grep', 'vertical_preview', 1)
-"call denite#custom#option('grep', 'auto_highlight', 1)
+call denite#custom#option('grep', 'auto_highlight', 0)
 
 call denite#custom#option('list', 'mode', 'normal')
 call denite#custom#option('list', 'winheight', 10)

@@ -294,9 +294,10 @@
   on_path: .*
   hook_add: |
     let g:gutentags_cache_dir = $VARPATH.'/tags'
+    let g:gutentags_ctags_executable = 'ctags'
     let g:gutentags_generate_on_missing = 0
     let g:gutentags_generate_on_new = 0
-    let g:gutentags_modules = ['ctags']
+    let g:gutentags_ctags_tagfile = ''
 
 - repo: mattn/emmet-vim
   if: empty($VIM_MINIMAL)

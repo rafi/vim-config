@@ -124,7 +124,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | Name           | Description
 | -------------- | ----------------------
 | [Shougo/dein.vim] | Dark powered Vim/Neovim plugin manager
-| [awesome-colorschemes] | Awesome color-schemes
+| [rafi/awesome-colorschemes] | Awesome color-schemes
 | [rafi/vim-blocks] | Bite-size blocks for Vim tab & status lines.
 | [itchyny/vim-gitbranch] | Lightweight git branch detection
 | [itchyny/vim-parenmatch] | Efficient alternative to the standard matchparen plugin
@@ -266,7 +266,7 @@ Name           | Description
 [kana/vim-textobj-function] | Text objects for functions
 
 [Shougo/dein.vim]: https://github.com/Shougo/dein.vim
-[awesome-colorschemes]: https://github.com/rafi/awesome-vim-colorschemes
+[rafi/awesome-colorschemes]: https://github.com/rafi/awesome-vim-colorschemes
 [rafi/vim-blocks]: https://github.com/rafi/vim-blocks
 [itchyny/vim-gitbranch]: https://github.com/itchyny/vim-gitbranch
 [itchyny/vim-parenmatch]: https://github.com/itchyny/vim-parenmatch
@@ -391,8 +391,8 @@ Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `K` | Normal | Open Zeal or Dash on many file types (except Python+Vim script)
 `Y` | Normal | Yank to the end of line (y$)
 `<Return>` | Normal | Toggle fold (za)
+`S`+`<Return>` | Normal | Focus the current fold by closing all others (zMza)
 `S`+`<Return>` | Insert | Start new line from any cursor position (\<C-o>o)
-`S`+`<Return>` | Normal | Focus the current fold by closing all others
 `hjkl` | Normal | Smart cursor movements (g/hjkl)
 `Ctrl`+`f` | Normal | Smart page forward (C-f/C-d)
 `Ctrl`+`b` | Normal | Smart page backwards (C-b/C-u)
@@ -401,6 +401,7 @@ Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `Ctrl`+`q` | Normal | `Ctrl`+`w`
 `Ctrl`+`x` | Normal | Switch buffer and placement
 `F2` | _All_ | Toggle paste mode
+`!` | Normal | Shortcut for `:!`
 `}` | Normal | After paragraph motion go to first non-blank char (}^)
 `<` | Visual/Normal | Indent to left and re-select
 `>` | Visual/Normal | Indent to right and re-select
@@ -426,7 +427,7 @@ Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 
 Key   | Mode | Action
 ----- |:----:| ------------------
-`<leader>`+`cd` | Normal | Switch to the directory of opened buffer (:cd %:p:h)
+`<leader>`+`cd` | Normal | Switch to the directory of opened buffer (:lcd %:p:h)
 `<leader>`+`w` | Normal/visual | Write (:w)
 `<leader>`+`y` | Normal | Copy file-path to X11 clipboard
 `Ctrl`+`s` | _All_ | Write (:w)
@@ -596,6 +597,8 @@ Key   | Mode | Action
 
 Key   | Mode | Action
 ----- |:----:| ------------------
+`<leader>`+`o` | Normal | Open tag-bar
+`<leader>`+`tt` | Normal | Open tab-manager
 `<leader>`+`G` | Normal | Toggle distraction-free writing
 `<leader>`+`gu` | Normal | Open undo tree
 `<leader>`+`W` | Normal | Wiki

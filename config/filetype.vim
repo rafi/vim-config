@@ -20,8 +20,7 @@ augroup MyAutoCmd " {{{
 	autocmd SwapExists * nested let v:swapchoice = 'o'
 
 	" More eager than 'autoread'.
-	autocmd WinEnter * checktime
-"	autocmd WinEnter,FocusGained * checktime
+	autocmd WinEnter,FocusGained * checktime
 
 	autocmd Syntax * if 5000 < line('$') | syntax sync minlines=200 | endif
 
