@@ -142,7 +142,7 @@ endif
 
 "}}}
 if dein#tap('tabman.vim') "{{{
-	nmap <silent> <Leader>ta <Plug>Tabman
+	nmap <silent> <Leader>tt <Plug>Tabman
 endif
 
 "}}}

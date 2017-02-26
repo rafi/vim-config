@@ -64,10 +64,7 @@ augroup MyAutoCmd " {{{
 
 	autocmd FileType zsh setlocal foldenable foldmethod=marker
 
-	" Improved HTML include pattern
-	autocmd FileType html
-		\ setlocal includeexpr=substitute(v:fname, '^\\/', '', '')
-		\ | setlocal path+=./;/
+	autocmd FileType html setlocal path+=./;/
 
 	autocmd FileType markdown
 		\ setlocal spell expandtab autoindent
