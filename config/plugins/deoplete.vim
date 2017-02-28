@@ -5,21 +5,18 @@
 " ---
 autocmd MyAutoCmd CompleteDone * pclose!
 
-let g:deoplete#auto_complete_delay = 200
-let g:deoplete#auto_refresh_delay = 200
+" let g:deoplete#auto_complete_delay = 200
+" let g:deoplete#auto_refresh_delay = 200
+let g:deoplete#enable_refresh_always = 0
 let g:deoplete#enable_camel_case = 1
-" let g:deoplete#enable_refresh_always = 1
-let g:deoplete#max_abbr_width = 25
-let g:deoplete#max_menu_width = 30
+let g:deoplete#max_abbr_width = 35
+let g:deoplete#max_menu_width = 20
 let g:deoplete#skip_chars = ['(', ')', '<', '>']
 let g:deoplete#tag#cache_limit_size = 800000
 let g:deoplete#file#enable_buffer_path = 1
 
 call deoplete#custom#set('_', 'min_pattern_length', 1)
 " call deoplete#custom#set('_', 'disabled_syntaxes', ['Comment', 'String'])
-
-" call deoplete#custom#set('_', 'matchers', ['matcher_head'])
-" call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
 
 let g:deoplete#sources = get(g:, 'deoplete#sources', {})
 let g:deoplete#sources.go = ['vim-go']
@@ -96,21 +93,19 @@ call deoplete#custom#set('tmux-complete', 'rank', 300)
 call deoplete#custom#set('syntax',        'rank', 200)
 
 " }}}
-" Converters " {{{
+" Matchers and Converters " {{{
 " ---
 
-" Use auto delimiter
-" call deoplete#custom#set('_', 'converters',
-"		\ ['converter_auto_paren',
-"		\  'converter_auto_delimiter', 'remove_overlap'])
+" Default sorters: ['sorter_rank']
+" Default matchers: ['matcher_length', 'matcher_fuzzy']
 
 call deoplete#custom#set('_', 'converters', [
 	\ 'converter_remove_paren',
 	\ 'converter_remove_overlap',
 	\ 'converter_truncate_abbr',
+	\ 'converter_truncate_menu',
+	\ 'converter_auto_delimiter',
 	\ ])
-"	\ 'converter_truncate_menu',
-"	\ 'converter_auto_delimiter',
 
 " }}}
 " Key-mappings " {{{
