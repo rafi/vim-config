@@ -9,13 +9,6 @@
 nnoremap  [Window]   <Nop>
 nmap      s [Window]
 
-" Tools prefix (Denite and NERDTree)
-nnoremap [Tools]  <Nop>
-xnoremap [Tools]  <Nop>
-nmap     , [Tools]
-nmap     ; [Tools]
-xmap     ; [Tools]
-
 " Fix keybind name for Ctrl+Spacebar
 map <Nul> <C-Space>
 map! <Nul> <C-Space>

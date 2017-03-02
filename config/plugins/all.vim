@@ -3,20 +3,20 @@
 "---------------------------------------------------------
 
 if dein#tap('denite.nvim') "{{{
-	nnoremap <silent> [Tools]r  :<C-u>Denite -resume<CR>
-	nnoremap <silent> [Tools]f  :<C-u>Denite file_rec<CR>
-	nnoremap <silent> [Tools]d  :<C-u>Denite directory_rec -default-action=cd<CR>
-	nnoremap <silent> [Tools]b  :<C-u>Denite buffer file_old -default-action=switch<CR>
-	nnoremap <silent> [Tools]l  :<C-u>Denite location_list -buffer-name=list<CR>
-	nnoremap <silent> [Tools]q  :<C-u>Denite quickfix -buffer-name=list<CR>
-	nnoremap <silent> [Tools]n  :<C-u>Denite dein -no-quit<CR>
-	nnoremap <silent> [Tools]g  :<C-u>Denite grep -buffer-name=grep<CR>
-	nnoremap <silent> [Tools]j  :<C-u>Denite file_point<CR>
-	nnoremap <silent> [Tools]k  :<C-u>Denite mark -buffer-name=list<CR>
-	nnoremap <silent> [Tools]s  :<C-u>Denite session<CR>
-	nnoremap <silent> [Tools]mu :<C-u>Denite mpc -buffer-name=mpc<CR>
-	nnoremap <silent> [Tools]/  :<C-u>Denite line<CR>
-	nnoremap <silent> [Tools]*  :<C-u>DeniteCursorWord line<CR>
+	nnoremap <silent><LocalLeader>r :<C-u>Denite -resume<CR>
+	nnoremap <silent><LocalLeader>f :<C-u>Denite file_rec<CR>
+	nnoremap <silent><LocalLeader>b :<C-u>Denite buffer file_old -default-action=switch<CR>
+	nnoremap <silent><LocalLeader>d :<C-u>Denite directory_rec -default-action=cd<CR>
+	nnoremap <silent><LocalLeader>l :<C-u>Denite location_list -buffer-name=list<CR>
+	nnoremap <silent><LocalLeader>q :<C-u>Denite quickfix -buffer-name=list<CR>
+	nnoremap <silent><LocalLeader>n :<C-u>Denite dein -no-quit<CR>
+	nnoremap <silent><LocalLeader>g :<C-u>Denite grep -buffer-name=grep<CR>
+	nnoremap <silent><LocalLeader>j :<C-u>Denite file_point<CR>
+	nnoremap <silent><LocalLeader>k :<C-u>Denite mark -buffer-name=list<CR>
+	nnoremap <silent><LocalLeader>s :<C-u>Denite session<CR>
+	nnoremap <silent><LocalLeader>m :<C-u>Denite mpc -buffer-name=mpc<CR>
+	nnoremap <silent><LocalLeader>/ :<C-u>Denite line<CR>
+	nnoremap <silent><LocalLeader>* :<C-u>DeniteCursorWord line<CR>
 
 	" Open Denite with word under cursor or selection
 	nnoremap <silent> <Leader>gf :DeniteCursorWord file_rec<CR>
@@ -41,13 +41,12 @@ if dein#tap('nerdtree') "{{{
 	let g:NERDTreeMapOpenVSplit = 'sg'
 	let g:NERDTreeMapOpenInTab = 'st'
 
-	cnoreabbrev E NERDTreeToggle
-	nnoremap <silent> [Tools]e :<C-u>NERDTreeToggle<CR>
-	nnoremap <silent> [Tools]a :<C-u>NERDTreeFind<CR>
+	nnoremap <silent> <LocalLeader>e :<C-u>NERDTreeToggle<CR>
+	nnoremap <silent> <LocalLeader>a :<C-u>NERDTreeFind<CR>
 
 	autocmd MyAutoCmd FileType nerdtree call s:nerdtree_settings()
 	function! s:nerdtree_settings() abort
-		set expandtab " To enable vim-indent-guides
+		set expandtab " Enabling vim-indent-guides
 		nmap <buffer> N  :<C-u>call NERDTreeAddNode()<CR>
 	endfunction
 endif
@@ -56,9 +55,9 @@ endif
 if dein#tap('neosnippet.vim') "{{{
 	imap <expr><C-o> neosnippet#expandable_or_jumpable()
 		\ ? "\<Plug>(neosnippet_expand_or_jump)" : "\<ESC>o"
-	xmap <silent><C-s>      <Plug>(neosnippet_register_oneshot_snippet)
-	smap <silent>L          <Plug>(neosnippet_jump_or_expand)
-	xmap <silent>L          <Plug>(neosnippet_expand_target)
+	xmap <silent><C-s> <Plug>(neosnippet_register_oneshot_snippet)
+	smap <silent>L     <Plug>(neosnippet_jump_or_expand)
+	xmap <silent>L     <Plug>(neosnippet_expand_target)
 endif
 
 "}}}
