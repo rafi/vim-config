@@ -211,23 +211,23 @@ if dein#tap('phpcomplete-extended') "{{{
 		\ | nmap <silent> <unique> <Leader>a <Plug>(phpcomplete-extended-add-use)
 endif
 
-"}}}
-if dein#tap('vim-gita') "{{{
-	nnoremap <silent> <leader>gs :<C-u>Gita status<CR>
-	nnoremap <silent> <leader>gc :<C-u>Gita commit<CR>
-	nnoremap <silent> <leader>ga :<C-u>Gita commit --amend<CR>
-	nnoremap <silent> <leader>gd :<C-u>Gita diff<CR>
-	nnoremap <silent> <leader>gb :<C-u>Gita browse<CR>
-	nnoremap <silent> <leader>gl :<C-u>Gita blame<CR>
-	nnoremap <silent> <leader>gp :<C-u>Gita push<CR>
+" }}}
+if dein#tap('vim-fugitive') "{{{
+	nnoremap <silent> <leader>ga :Git add %:p<CR>
+	nnoremap <silent> <leader>gs :Gstatus<CR>
+	nnoremap <silent> <leader>gd :Gdiff<CR>
+	nnoremap <silent> <leader>gD :Gdiffoff<CR>
+	nnoremap <silent> <leader>gc :Gcommit<CR>
+	nnoremap <silent> <leader>gb :Gblame<CR>
+	nnoremap <silent> <leader>gB :Gbrowse<CR>
+	nnoremap <silent> <leader>gp :Git push<CR>
+endif
 
-	autocmd MyAutoCmd FileType gita-status
-		\ silent! nunmap <buffer> <C-L> |
-		\ nmap <buffer> <C-R> <Plug>(gita-common-redraw) |
-		\ nmap <buffer> cc    <Plug>(gita-commit-open) |
-		\ nmap <buffer> cA    <Plug>(gita-commit-open-amend) |
-		\ nmap <buffer> dg    <Plug>(gita-diff-right) |
-		\ nmap <buffer> sg    <Plug>(gita-edit-right)
+"}}}
+if dein#tap('gitv') "{{{
+	nmap <Leader>gl :Gitv --all<cr>
+	nmap <Leader>gL :Gitv! --all<cr>
+	vmap <Leader>gL :Gitv! --all<cr>
 endif
 
 "}}}

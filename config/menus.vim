@@ -19,9 +19,9 @@ let s:menus.project = { 'description': 'Project & structure (rafi/vim-config)' }
 let s:menus.project.command_candidates = [
 	\   ['  Project Tools │ Key Mapping', ''],
 	\   ['────────────────┼──────────────', ''],
-	\   ['▶ Explorer      │ ;e',          'VimFiler'],
+	\   ['▶ File Explorer │ ;e',          'NERDTree'],
 	\   ['▶ Outline       │ <Leader>o',   'TagbarToggle'],
-	\   ['▶ Git Status    │ <Leader>gs',  'Gita status'],
+	\   ['▶ Git Status    │ <Leader>gs',  'Git status'],
 	\   ['▶ Bookmarks     │ ma',          'Bookmarks'],
 	\   ['▶ Undo Tree     │ <Leader>un',  'UndotreeToggle'],
 	\   ['────────────────┴──────────────', '']
@@ -43,17 +43,16 @@ let s:menus.tools = { 'description': 'Tools (rafi/vim-config)' }
 let s:menus.tools.command_candidates = [
 	\   ['  Tools              │ Key Mapping', ''],
 	\   ['─────────────────────┼──────────────', ''],
-	\   ['▶ Git commands       │', 'Gita'],
-	\   ['▶ Gists              │', 'Gista'],
+	\   ['▶ Git commands       │', 'Git'],
+	\   ['▶ Git log            │', 'Gitv --all'],
 	\   ['▶ Check Syntax       │', 'Noemake'],
 	\   ['▶ Goyo               │', 'Goyo'],
 	\   ['▶ List marks         │', 'Denite marks'],
-	\   ['▶ Dictionary         │', 'Dictionary'],
 	\   ['▶ Thesaurus          │', 'Thesaurus'],
 	\   ['▶ Xterm color-table  │', 'XtermColorTable'],
 	\   ['▶ Hex editor         │', 'Vinarise'],
 	\   ['▶ Tag-bar            │', 'TagbarToggle'],
-	\   ['▶ File explorer      │', 'VimFiler'],
+	\   ['▶ File explorer      │', 'NERDTree'],
 	\   ['▶ Codi (python)      │', 'Codi python'],
 	\   ['─────────────────────┴──────────────', '']
 	\ ]

@@ -115,7 +115,6 @@
 
 - { repo: Xuyuanp/nerdtree-git-plugin, on_source: nerdtree }
 - { repo: tpope/vim-commentary, on_map: <Plug>Commentary }
-- { repo: lambdalisue/vim-gita, on_cmd: Gita }
 - { repo: t9md/vim-choosewin, on_map: { n: <Plug> }}
 - { repo: Shougo/vinarise.vim, on_cmd: Vinarise }
 - { repo: kana/vim-niceblock, on_map: { x: <Plug> }}
@@ -134,6 +133,14 @@
     let g:EasyMotion_keys = 'fjdksweoavn'
     let g:EasyMotion_smartcase = 1
     let g:EasyMotion_use_smartsign_us = 1
+
+- repo: tpope/vim-fugitive
+  on_cmd: [ Git, Gcommit, Gblame, Gstatus, Gitdiff, Gbrowse ]
+
+- repo: gregsexton/gitv
+  depends: vim-fugitive
+  on_cmd: Gitv
+# hook_source: let g:Gitv_DoNotMapCtrlKey = 1
 
 - repo: kien/tabman.vim
   if: empty($VIM_MINIMAL)
@@ -155,11 +162,6 @@
     if executable('jsctags')
       let g:tagbar_type_javascript = { 'ctagsbin': 'jsctags' }
     endif
-
-- repo: lambdalisue/vim-gista
-  if: empty($VIM_MINIMAL)
-  on_cmd: Gista
-  hook_add: let g:gista#client#cache_dir = $VARPATH.'/gista/'
 
 - repo: beloglazov/vim-online-thesaurus
   if: empty($VIM_MINIMAL)

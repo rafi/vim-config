@@ -185,8 +185,9 @@ Name           | Description
 -------------- | ----------------------
 [scrooloose/nerdtree] | Tree explorer plugin
 [Xuyuanp/nerdtree-git-plugin] | NERDTree plugin for showing git status
+[tpope/fugitive] | Git wrapper
+[gregsexton/gitv] | gitk-like interface
 [tpope/vim-commentary] | Comment stuff out
-[lambdalisue/vim-gita] | An awesome git handling plugin
 [t9md/vim-choosewin] | Choose window to use, like tmux's 'display-pane'
 [Shougo/vinarise.vim] | Hex editor
 [kana/vim-niceblock] | Make blockwise Visual mode more useful
@@ -200,7 +201,6 @@ Name           | Description
 [kien/tabman.vim] | Tab management
 [hecal3/vim-leader-guide] | Keymap-display loosely inspired by emacs's guide-key
 [majutsushi/tagbar] | Displays tags in a window, ordered by scope
-[lambdalisue/vim-gista] | Manipulate gists in Vim
 [beloglazov/vim-online-thesaurus] | Look up words in an online thesaurus
 
 ### Interface
@@ -320,8 +320,9 @@ Name           | Description
 
 [scrooloose/nerdtree]: https://github.com/scrooloose/nerdtree
 [Xuyuanp/nerdtree-git-plugin]: https://github.com/Xuyuanp/nerdtree-git-plugin
+[tpope/fugitive]: https://github.com/tpope/vim-fugitive
+[gregsexton/gitv]: https://github.com/gregsexton/gitv
 [tpope/vim-commentary]: https://github.com/tpope/vim-commentary
-[lambdalisue/vim-gita]: https://github.com/lambdalisue/vim-gita
 [t9md/vim-choosewin]: https://github.com/t9md/vim-choosewin
 [Shougo/vinarise.vim]: https://github.com/Shougo/vinarise.vim
 [kana/vim-niceblock]: https://github.com/kana/vim-niceblock
@@ -335,7 +336,6 @@ Name           | Description
 [kien/tabman.vim]: https://github.com/kien/tabman.vim
 [hecal3/vim-leader-guide]: https://github.com/hecal3/vim-leader-guide
 [majutsushi/tagbar]: https://github.com/majutsushi/tagbar
-[lambdalisue/vim-gista]: https://github.com/lambdalisue/vim-gista
 [beloglazov/vim-online-thesaurus]: https://github.com/beloglazov/vim-online-thesaurus
 
 [haya14busa/vim-asterisk]: https://github.com/haya14busa/vim-asterisk
@@ -593,19 +593,14 @@ Key   | Mode | Action
 `m`+`p` | Normal | Jump to previous bookmark
 `m`+`i` | Normal | Annotate bookmark
 
-### Plugin: Tagbar
+### Plugin: Fugitive
 
 Key   | Mode | Action
 ----- |:----:| ------------------
-`h` | Normal | Close fold
-`l` | Normal | Open fold
-
-### Plugin: Gita
-
-Key   | Mode | Action
------ |:----:| ------------------
+`<leader>`+`ga` | Normal | Git add current file
 `<leader>`+`gs` | Normal | Git status
 `<leader>`+`gd` | Normal | Git diff
+`<leader>`+`gD` | Normal | Close diff
 `<leader>`+`gc` | Normal | Git commit
 `<leader>`+`gb` | Normal | Git blame
 `<leader>`+`gB` | Normal | Open in browser
