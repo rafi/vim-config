@@ -196,6 +196,7 @@ Name           | Description
 [metakirby5/codi.vim] | The interactive scratchpad for hackers
 [Shougo/vimproc.vim] | Interactive command execution
 [reedes/vim-wordy] | Uncover usage problems in your writing
+[easymotion/vim-easymotion] | Vim motions on speed
 [kien/tabman.vim] | Tab management
 [hecal3/vim-leader-guide] | Keymap-display loosely inspired by emacs's guide-key
 [majutsushi/tagbar] | Displays tags in a window, ordered by scope
@@ -330,6 +331,7 @@ Name           | Description
 [metakirby5/codi.vim]: https://github.com/metakirby5/codi.vim
 [Shougo/vimproc.vim]: https://github.com/Shougo/vimproc.vim
 [reedes/vim-wordy]: https://github.com/reedes/vim-wordy
+[easymotion/vim-easymotion]: https://github.com/easymotion/vim-easymotion
 [kien/tabman.vim]: https://github.com/kien/tabman.vim
 [hecal3/vim-leader-guide]: https://github.com/hecal3/vim-leader-guide
 [majutsushi/tagbar]: https://github.com/majutsushi/tagbar
@@ -556,8 +558,23 @@ Key   | Mode | Action
 
 Key   | Mode | Action
 ----- |:----:| ------------------
-`v` | Visual/Select | Expand selection
-`V` | Visual/Select | Reduce selection
+`v` | Visual/select | Expand selection
+`V` | Visual/select | Reduce selection
+
+### Plugin: Easymotion
+
+Key   | Mode | Action
+----- |:----:| ------------------
+`s`+`s` | Normal | Jump to two characters from input
+`s`+`d` | Normal | Jump to a character from input
+`s`+`f` | Normal | Jump over-windows
+`s`+`h` | Normal | Jump backwards in-line
+`s`+`l` | Normal | Jump forwards in-line
+`s`+`j` | Normal | Jump downwards
+`s`+`k` | Normal | Jump upwards
+`s`+`/` | Normal/operator | Jump to free-search
+`s`+`n` | Normal | Smart next occurrence
+`s`+`p` | Normal | Smart previous occurrence
 
 ### Plugin: ChooseWin
 
