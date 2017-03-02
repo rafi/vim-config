@@ -2,14 +2,14 @@
 
 Lean mean Neo/vim machine, 30-45ms startup time.
 
-Best with Neovim or Vim 7.4+ with +lua +python extensions enabled.
+Best with Neovim or Vim 8 with +lua +python extensions enabled.
 
 ## Features
 
 - Neovim-centric
 - Fast startup time
 - Robust, yet light weight
-- Lazy-load 90% of plugins with [dein.vim]
+- Lazy-load 90% of plugins with [Shougo/dein.vim]
 - Modular configuration
 - Denite (Unite successor) centric work-flow
 - Extensive Deoplete and Neocomplete setup
@@ -130,6 +130,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [itchyny/vim-parenmatch] | Efficient alternative to the standard matchparen plugin
 | [thinca/vim-localrc] | Enable configuration file of each directory
 | [christoomey/tmux-navigator] | Seamless navigation between tmux panes and vim splits
+| [tpope/vim-sleuth] | Heuristically set buffer indent options
 | [itchyny/cursorword] | Underlines word under cursor
 
 ## Lazy-Loaded Plugins
@@ -257,6 +258,7 @@ Name           | Description
 [haya14busa/vim-operator-flashy] | Highlight yanked area
 [kana/vim-textobj-user] | Create your own text objects
 [bkad/CamelCaseMotion] | Provide CamelCase motion through words
+[erryma/vim-expand-region] | Visually select increasingly larger regions of text
 [AndrewRadev/sideways.vim] | Match function arguments
 [AndrewRadev/splitjoin.vim] | Transition code between multi-line and single-line
 [AndrewRadev/linediff.vim] | Perform diffs on blocks of code
@@ -272,6 +274,7 @@ Name           | Description
 [itchyny/vim-parenmatch]: https://github.com/itchyny/vim-parenmatch
 [thinca/vim-localrc]: https://github.com/thinca/vim-localrc
 [christoomey/tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator
+[tpope/vim-sleuth]: https://github.com/tpope/vim-sleuth
 [itchyny/cursorword]: https://github.com/itchyny/vim-cursorword
 
 [othree/html5.vim]: https://github.com/othree/html5.vim
@@ -373,6 +376,7 @@ Name           | Description
 [haya14busa/vim-operator-flashy]: https://github.com/haya14busa/vim-operator-flashy
 [kana/vim-textobj-user]: https://github.com/kana/vim-textobj-user
 [bkad/CamelCaseMotion]: https://github.com/bkad/CamelCaseMotion
+[terryma/vim-expand-region]: https://github.com/terryma/vim-expand-region
 [AndrewRadev/sideways.vim]: https://github.com/AndrewRadev/sideways.vim
 [AndrewRadev/splitjoin.vim]: https://github.com/AndrewRadev/splitjoin.vim
 [AndrewRadev/linediff.vim]: https://github.com/AndrewRadev/linediff.vim
@@ -547,6 +551,13 @@ Key   | Mode | Action
 ----- |:----:| ------------------
 `<leader>`+`v` | Normal/visual | Toggle single-line comments
 `<leader>`+`V` | Normal/visual | Toggle comment block
+
+### Plugin: Expand-Region
+
+Key   | Mode | Action
+----- |:----:| ------------------
+`v` | Visual/Select | Expand selection
+`V` | Visual/Select | Reduce selection
 
 ### Plugin: ChooseWin
 

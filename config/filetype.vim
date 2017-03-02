@@ -9,13 +9,6 @@ execute 'autocmd MyAutoCmd BufWritePost '.$VIMPATH.'/config/*,vimrc nested'
 
 augroup MyAutoCmd " {{{
 
-	" Detect space indentation over tabs
-	autocmd MyAutoCmd BufReadPost * if getfsize(bufname('%')) < 256000
-		\ | if len(filter(getbufline(bufname('%'), 1, 250), 'v:val =~ "^\\t"'))
-		\       < len(filter(getbufline(bufname('%'), 1, 250), 'v:val =~ "^ "'))
-		\ |   setlocal expandtab
-		\ | endif
-
 	" Automatically set read-only for files being edited elsewhere
 	autocmd SwapExists * nested let v:swapchoice = 'o'
 

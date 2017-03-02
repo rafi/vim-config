@@ -8,8 +8,6 @@ else
 endif
 let b:undo_ftplugin .= 'setl modeline<'
 
-setlocal shiftwidth=2
-setlocal softtabstop=2
 setlocal iskeyword+=:,#
 setlocal foldenable
 setlocal foldmethod=marker

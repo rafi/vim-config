@@ -173,7 +173,6 @@ endif
 if dein#tap('jedi-vim') "{{{
 	let g:jedi#completions_command = ''
 	let g:jedi#documentation_command = 'K'
-	let g:jedi#use_splits_not_buffers = 'right'
 	let g:jedi#goto_command = '<C-]>'
 	let g:jedi#goto_assignments_command = '<leader>g'
 	let g:jedi#rename_command = '<Leader>r'
@@ -260,6 +259,12 @@ if dein#tap('vim-asterisk') "{{{
 	map gz* <Plug>(asterisk-gz*)
 	map z#  <Plug>(asterisk-z#)
 	map gz# <Plug>(asterisk-gz#)
+endif
+
+"}}}
+if dein#tap('vim-expand-region') "{{{
+	xmap v <Plug>(expand_region_expand)
+	xmap V <Plug>(expand_region_shrink)
 endif
 
 "}}}
