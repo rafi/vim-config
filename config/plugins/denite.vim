@@ -12,27 +12,28 @@ call denite#custom#option('grep', 'vertical_preview', 1)
 call denite#custom#option('grep', 'auto_highlight', 0)
 
 call denite#custom#option('list', 'mode', 'normal')
-call denite#custom#option('list', 'winheight', 10)
+call denite#custom#option('list', 'winheight', 12)
 
 call denite#custom#option('mpc', 'quit', 0)
 call denite#custom#option('mpc', 'mode', 'normal')
-call denite#custom#option('mpc', 'winheight', 10)
+call denite#custom#option('mpc', 'winheight', 12)
 
 " MATCHERS
-let s:matchers = ['matcher_fuzzy']
-if &runtimepath =~# 'cpsm'
-	let s:matchers = ['matcher_cpsm', 'matcher_fuzzy']
+" Default is 'matcher_fuzzy'
+if &runtimepath =~# '\/cpsm'
+	call denite#custom#source(
+		\ 'buffer,file_mru,file_old,file_rec,grep,mpc,line',
+		\ 'matchers', ['matcher_cpsm', 'matcher_fuzzy'])
 endif
 
-call denite#custom#source('file_mru,file_old,file_rec,grep', 'matchers',
-	\ s:matchers)
-
-call denite#custom#source('mark', 'matchers',
-	\ ['matcher_fuzzy', 'matcher_project_files'])
+" SORTERS
+" Default is 'sorter_rank'
 
 " CONVERTERS
-call denite#custom#source('file_mru,file_old,mark', 'converters',
-	\ ['converter_relative_word'])
+" Default is none
+call denite#custom#source(
+	\ 'buffer,file_mru,file_old',
+	\ 'converters', ['converter_relative_word'])
 
 " FIND and GREP COMMANDS
 if executable('ag')

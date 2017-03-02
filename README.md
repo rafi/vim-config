@@ -496,7 +496,7 @@ Key   | Mode | Action
 `;`+`n` | Normal | Open Dein plugin list
 `;`+`g` | Normal | Input for grep search
 `;`+`j` | Normal | Open file jump points
-`;`+`k` | Normal | Open all marks
+`;`+`o` | Normal | Outline file
 `;`+`s` | Normal | List all sessions
 `;`+`/` | Normal | List all lines
 `;`+`*` | Normal | Search word in all lines

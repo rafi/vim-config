@@ -313,7 +313,7 @@
 - repo: mattn/emmet-vim
   if: empty($VIM_MINIMAL)
   on_i: 1
-  on_ft: [ css, html, jsx, javascript, javascript.jsx ]
+  on_ft: [ html, css, jsx, javascript, javascript.jsx ]
   hook_source: |
     let g:use_emmet_complete_tag = 0
     let g:user_emmet_install_global = 0

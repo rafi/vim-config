@@ -153,7 +153,15 @@ nnoremap <silent> ,<Space> :<C-u>silent! keeppatterns %substitute/\s\+$//e<CR>
 nnoremap <silent> <expr> ,d ":\<C-u>".(&diff?"diffoff":"diffthis")."\<CR>"
 
 " C-r: Easier search and replace
-xnoremap <C-r> :<C-u>call VSetSearch('/')<CR>:%s/\V<C-R>=@/<CR>//gc<Left><Left><Left>
+xnoremap <C-r> :<C-u>call s:get_selection('/')<CR>:%s/\V<C-R>=@/<CR>//gc<Left><Left><Left>
+
+" Returns visually selected text
+function! s:get_selection(cmdtype) "{{{
+	let temp = @s
+	normal! gv"sy
+	let @/ = substitute(escape(@s, '\'.a:cmdtype), '\n', '\\n', 'g')
+	let @s = temp
+endfunction "}}}
 
 " Background dark/light toggle and contrasts
 nnoremap <silent><Leader>b :<C-u>call <SID>toggle_background()<CR>
@@ -243,14 +251,6 @@ augroup MyAutoCmd " {{{
 
 augroup END
 " }}}
-
-" Returns visually selected text
-function! VSetSearch(cmdtype) "{{{
-	let temp = @s
-	normal! gv"sy
-	let @/ = substitute(escape(@s, '\'.a:cmdtype), '\n', '\\n', 'g')
-	let @s = temp
-endfunction "}}}
 
 " Display diff from last save {{{
 command! DiffOrig vert new | setlocal bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis

@@ -11,19 +11,27 @@ if dein#tap('denite.nvim') "{{{
 	nnoremap <silent><LocalLeader>q :<C-u>Denite quickfix -buffer-name=list<CR>
 	nnoremap <silent><LocalLeader>n :<C-u>Denite dein -no-quit<CR>
 	nnoremap <silent><LocalLeader>g :<C-u>Denite grep -buffer-name=grep<CR>
-	nnoremap <silent><LocalLeader>j :<C-u>Denite file_point<CR>
-	nnoremap <silent><LocalLeader>k :<C-u>Denite mark -buffer-name=list<CR>
+	nnoremap <silent><LocalLeader>j :<C-u>Denite jump change file_point<CR>
+	nnoremap <silent><LocalLeader>o :<C-u>Denite outline<CR>
 	nnoremap <silent><LocalLeader>s :<C-u>Denite session<CR>
+	nnoremap <silent><LocalLeader>h :<C-u>Denite help<CR>
 	nnoremap <silent><LocalLeader>m :<C-u>Denite mpc -buffer-name=mpc<CR>
 	nnoremap <silent><LocalLeader>/ :<C-u>Denite line<CR>
 	nnoremap <silent><LocalLeader>* :<C-u>DeniteCursorWord line<CR>
 
 	" Open Denite with word under cursor or selection
 	nnoremap <silent> <Leader>gf :DeniteCursorWord file_rec<CR>
-	nnoremap <silent> <Leader>gg
-		\ :Denite -buffer-name=grep grep:::<C-R>=expand('<cword>')<CR><CR>
+	nnoremap <silent> <Leader>gg :DeniteCursorWord grep -buffer-name=grep<CR>
 	vnoremap <silent> <Leader>gg
-		\ :<C-u>call VSetSearch('/')<CR>:execute 'Denite -buffer-name=grep grep:::'.@/<CR><CR>
+		\ :<C-u>call <SID>get_selection('/')<CR>
+		\ :execute 'Denite -buffer-name=grep grep:::'.@/<CR><CR>
+
+	function! s:get_selection(cmdtype) "{{{
+		let temp = @s
+		normal! gv"sy
+		let @/ = substitute(escape(@s, '\'.a:cmdtype), '\n', '\\n', 'g')
+		let @s = temp
+	endfunction "}}}
 endif
 
 " }}}
