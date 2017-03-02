@@ -10,6 +10,7 @@ let g:NERDTreeRespectWildIgnore = 1
 let g:NERDTreeAutoDeleteBuffer = 0
 let g:NERDTreeQuitOnOpen = 1
 let g:NERDTreeHijackNetrw = 1
+let g:NERDTreeBookmarksFile = $VARPATH.'/treemarks'
 
 " Custom plugins
 " ---

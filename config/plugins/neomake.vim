@@ -2,9 +2,11 @@
 " Neomake
 " ---------
 let g:neomake_verbose = 1
-let g:neomake_serialize = 1
-let g:neomake_serialize_abort_on_error = 0
 let g:airline#extensions#neomake#enabled = 0
+
+if ! empty(g:python3_host_prog)
+	let g:neomake_python_python_exe = g:python3_host_prog
+endif
 
 " JAVASCRIPT / JSX
 let g:neomake_jsx_enabled_makers = ['eslint']
