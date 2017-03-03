@@ -87,8 +87,10 @@ nnoremap < <<_
 " Select last paste
 nnoremap <expr> gp '`['.strpart(getregtype(), 0, 1).'`]'
 
+" Re-map macro key
+nnoremap  Q q
+
 " Disable EX-mode
-nnoremap  Q <Nop>
 nnoremap gQ <Nop>
 
 " Navigation in command line

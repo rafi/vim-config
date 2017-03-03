@@ -416,7 +416,8 @@ Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `Shift`+`Tab` | Visual | Indent to left and re-select
 `gh` | Normal | Show highlight group that matches current cursor
 `gp` | Normal | Select last paste
-`Q`/`gQ` | Normal | Disable EX-mode (\<Nop>)
+`Q` | Normal | Start/stop Macro recording
+`gQ` | Normal | Disable EX-mode (\<Nop>)
 `s` | Visual | Replace within selected area
 `Ctrl`+`a` | Command | Navigation in command line
 `Ctrl`+`b` | Command | Move cursor backward in command line
