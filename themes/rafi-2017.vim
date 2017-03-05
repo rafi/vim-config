@@ -1,13 +1,12 @@
 
-" rafi-2016 - hybrid custom
+" rafi-2017 - hybrid custom
 " =========================
 
 " gVim Appearance {{{
 " ---------------------------------------------------------
 if has('gui_running')
-	set guifont=Monaco:h14
-"	set guifont=PragmataPro:h14
-"	set noantialias
+	set guifont=PragmataPro:h14
+	set noantialias
 endif
 " }}}
 
@@ -66,7 +65,7 @@ let &tabline='%!Tabline()'
 " Statusline {{{
 let s:stl  = " %7*%{&paste ? '=' : ''}%*"         " Paste symbol
 let s:stl .= "%4*%{&readonly ? '' : '#'}%*"       " Modifide symbol
-let s:stl .= '%6*%{block#mode()}'                 " Readonly symbol
+let s:stl .= "%6*%{block#mode('⚠', 'Z')}"         " Readonly symbol
 let s:stl .= '%*%n'                               " Buffer number
 let s:stl .= "%6*%{block#modified('+')}%0*"       " Write symbol
 let s:stl .= ' %1*%{block#filename()}%*'          " Filename
@@ -82,7 +81,7 @@ let s:stl .= '%3*%2* %l/%2c%4p%% '               " Line and column
 "let s:stl .= "%{gutentags#statusline('[*]')}%*"
 
 " Non-active Statusline {{{
-let s:stl_nc = " %{block#mode('⚒', 'Z')}%n"    " Readonly & buffer
+let s:stl_nc = " %{block#mode('⚠', 'Z')}%n"    " Readonly & buffer
 let s:stl_nc .= "%6*%{block#modified('+')}%*"  " Write symbol
 let s:stl_nc .= ' %{block#filename()}'         " Relative supername
 let s:stl_nc .= '%='                           " Align to right
@@ -144,7 +143,7 @@ let g:vimfiler_tree_leaf_icon = '┆'
 let g:vimfiler_tree_opened_icon = '▼'
 let g:vimfiler_tree_closed_icon = '▷'
 let g:vimfiler_file_icon = ' '
-let g:vimfiler_readonly_file_icon = '✖'
+let g:vimfiler_readonly_file_icon = '⚠'
 let g:vimfiler_marked_file_icon = '✓'
 "}}}
 
@@ -212,8 +211,8 @@ let g:tagbar_iconchars = ['▷', '◢']
 
 " Plugin: Neomake icons {{{
 " ---------------------------------------------------------
-let g:neomake_error_sign = {'text': '⎖', 'texthl': 'ErrorMsg'}
-let g:neomake_warning_sign = {'text': '⎖', 'texthl': 'WarningMsg'}
+let g:neomake_error_sign = {'text': '◤', 'texthl': 'ErrorMsg'}
+let g:neomake_warning_sign = {'text': '◸', 'texthl': 'WarningMsg'}
 let g:neomake_message_sign = {'text': 's', 'texthl': 'NeomakeMessageSign'}
 let g:neomake_info_sign = {'text': 'i', 'texthl': 'NeomakeInfoSign'}
 "}}}
@@ -236,10 +235,10 @@ let g:indent_guides_auto_colors = 0
 
 " Plugin: vim-gitgutter {{{
 " ---------------------------------------------------------
-highlight GitGutterAdd ctermfg=22 guifg=#006000 ctermbg=NONE
-highlight GitGutterChange ctermfg=58 guifg=#5F6000 ctermbg=NONE
-highlight GitGutterDelete ctermfg=52 guifg=#600000 ctermbg=NONE
-highlight GitGutterChangeDelete ctermfg=52 guifg=#600000 ctermbg=NONE
+highlight! GitGutterAdd ctermfg=22 guifg=#006000 ctermbg=NONE guibg=NONE
+highlight! GitGutterChange ctermfg=58 guifg=#5F6000 ctermbg=NONE guibg=NONE
+highlight! GitGutterDelete ctermfg=52 guifg=#600000 ctermbg=NONE guibg=NONE
+highlight! GitGutterChangeDelete ctermfg=52 guifg=#600000 ctermbg=NONE guibg=NONE
 " }}}
 
 " Plugin: denite {{{
@@ -264,20 +263,22 @@ highlight link vimfilerMarkedFile  Type
 
 " Plugin: vim-indent-guides {{{
 " ---------------------------------------------------------
-highlight IndentGuidesOdd  guibg=#262626 ctermbg=235
-highlight IndentGuidesEven guibg=#303030 ctermbg=236
+highlight IndentGuidesOdd  ctermbg=235 guibg=#262626
+highlight IndentGuidesEven ctermbg=236 guibg=#303030
+" highlight! IndentGuidesOdd  ctermbg=235 guibg=#232323
+" highlight! IndentGuidesEven ctermbg=236 guibg=#292929
 " }}}
 
 " Plugin: vim-operator-flashy {{{
 " ---------------------------------------------------------
-highlight link Flashy Todo
+highlight! link Flashy DiffText
 " }}}
 
 " }}}
 " Plugin: vim-bookmarks {{{
 let g:bookmark_sign = '⚐'
-highlight BookmarkSign            ctermfg=12 guifg=#4EA9D7
-highlight BookmarkAnnotationSign  ctermfg=11 guifg=#EACF49
+highlight! BookmarkSign            ctermfg=12 guifg=#4EA9D7
+highlight! BookmarkAnnotationSign  ctermfg=11 guifg=#EACF49
 " }}}
 
 " Plugin: vim-choosewin {{{
