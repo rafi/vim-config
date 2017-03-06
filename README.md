@@ -9,7 +9,7 @@ Best with Neovim or Vim 8 with +lua +python extensions enabled.
 - Neovim-centric
 - Fast startup time
 - Robust, yet light weight
-- Lazy-load 90% of plugins with [Shougo/dein.vim]
+- Lazy-load 95% of plugins with [Shougo/dein.vim]
 - Modular configuration
 - Denite (Unite successor) centric work-flow
 - Extensive Deoplete and Neocomplete setup
@@ -61,14 +61,14 @@ Enjoy!
 ### Recommended Linters
 
 * Node.js based linters:
-  ```sh
-  npm -g install jshint jsonlint stylelint markdownlint-cli sass-lint
-  npm -g install jsxhint write-good raml-cop
-  ```
+```sh
+npm -g install jshint jsonlint stylelint markdownlint-cli sass-lint
+npm -g install jsxhint write-good raml-cop
+```
 * Python based linters:
-  ```sh
-  pip install --user pycodestyle pyflakes flake8 vim-vint proselint yamllint
-  ```
+```sh
+pip install --user pycodestyle pyflakes flake8 vim-vint proselint yamllint
+```
 * Shell lint: [shellcheck.net](https://www.shellcheck.net/)
 * HTML Tidy: [html-tidy.org](http://www.html-tidy.org/)
 
@@ -108,7 +108,7 @@ Run `make update`
 
 - Package management with caching enabled and lazy loading
 - Project-aware tabs and label
-- Vimfiler as file-manager + SSH connections
+- NERDTree as file-manager + Git status icons
 - Go completion via vim-go and gocode
 - Javascript completion via Tern
 - PHP completion, indent, folds, syntax
@@ -125,7 +125,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | -------------- | ----------------------
 | [Shougo/dein.vim] | Dark powered Vim/Neovim plugin manager
 | [rafi/awesome-colorschemes] | Awesome color-schemes
-| [rafi/vim-blocks] | Bite-size blocks for Vim tab & status lines.
+| [rafi/vim-blocks] | Bite-size blocks for Vim tab & status lines
 | [itchyny/vim-gitbranch] | Lightweight git branch detection
 | [itchyny/vim-parenmatch] | Efficient alternative to the standard matchparen plugin
 | [thinca/vim-localrc] | Enable configuration file of each directory
@@ -259,7 +259,7 @@ Name           | Description
 [haya14busa/vim-operator-flashy] | Highlight yanked area
 [kana/vim-textobj-user] | Create your own text objects
 [bkad/CamelCaseMotion] | Provide CamelCase motion through words
-[erryma/vim-expand-region] | Visually select increasingly larger regions of text
+[terryma/vim-expand-region] | Visually select increasingly larger regions of text
 [AndrewRadev/sideways.vim] | Match function arguments
 [AndrewRadev/splitjoin.vim] | Transition code between multi-line and single-line
 [AndrewRadev/linediff.vim] | Perform diffs on blocks of code
@@ -395,7 +395,7 @@ Key   | Mode | Action
 `;` | _All_ | **Local Leader**
 Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `Backspace` | Normal | Match bracket (%)
-`K` | Normal | Open Zeal or Dash on many file types (except Python+Vim script)
+`K` | Normal | Open Zeal or Dash on some file types (except Python+Vim script)
 `Y` | Normal | Yank to the end of line (y$)
 `<Return>` | Normal | Toggle fold (za)
 `S`+`<Return>` | Normal | Focus the current fold by closing all others (zMza)
@@ -405,8 +405,8 @@ Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `Ctrl`+`b` | Normal | Smart page backwards (C-b/C-u)
 `Ctrl`+`e` | Normal | Smart scroll down (3C-e/j)
 `Ctrl`+`y` | Normal | Smart scroll up (3C-y/k)
-`Ctrl`+`q` | Normal | `Ctrl`+`w`
-`Ctrl`+`x` | Normal | Switch buffer and placement
+`Ctrl`+`q` | Normal | Remap to `Ctrl`+`w`
+`Ctrl`+`x` | Normal | Rotate window placement
 `F2` | _All_ | Toggle paste mode
 `!` | Normal | Shortcut for `:!`
 `}` | Normal | After paragraph motion go to first non-blank char (}^)
@@ -437,7 +437,7 @@ Key   | Mode | Action
 ----- |:----:| ------------------
 `<leader>`+`cd` | Normal | Switch to the directory of opened buffer (:lcd %:p:h)
 `<leader>`+`w` | Normal/visual | Write (:w)
-`<leader>`+`y` | Normal | Copy file-path to X11 clipboard
+`<leader>`+`y` | Normal | Copy file-path to clipboard
 `Ctrl`+`s` | _All_ | Write (:w)
 `W!!` | Command | Write as root
 
@@ -453,7 +453,7 @@ Key   | Mode | Action
 `<leader>`+`tw` | Normal | Toggle wrap (:setlocal wrap! breakindent!)
 `g0` | Normal | Go to first tab (:tabfirst)
 `g$` | Normal | Go to last tab (:tablast)
-`gr` | Normal | Go to preview tab (:tabprevious)
+`gr` | Normal | Go to previous tab (:tabprevious)
 `Ctrl`+`j` | Normal | Move to split below (\<C-w>j)
 `Ctrl`+`k` | Normal | Move to upper split (\<C-w>k)
 `Ctrl`+`h` | Normal | Move to left split (\<C-w>h)
@@ -470,8 +470,7 @@ Key   | Mode | Action
 
 Key   | Mode | Action
 ----- |:----:| ------------------
-`q` | Normal | Smart buffer close
-`s`+`p` | Normal | Split nicely
+`q` | Normal | Quit window (and Vim if last window)
 `s`+`v` | Normal | Horizontal (:split)
 `s`+`g` | Normal | Vertical split (:vsplit)
 `s`+`t` | Normal | Open new tab (:tabnew)
@@ -502,7 +501,7 @@ Key   | Mode | Action
 `;`+`/` | Normal | List all lines
 `;`+`*` | Normal | Search word in all lines
 `<leader>`+`gf` | Normal | Open matching file results with word at cursor
-`<leader>`+`gg` | Visual | Open grep results with word at cursor
+`<leader>`+`gg` | Normal/Visual | Open grep results with word at cursor
 | **Within _Denite_ mode** |||
 `Escape` | Normal/Insert | Toggle modes
 `jj` | Insert | Leave Insert mode
@@ -524,7 +523,7 @@ Key   | Mode | Action
 `w` | Normal | Toggle window size
 `N` | Normal | Create new file or directory
 `yy` | Normal | Yank selected item to clipboard
-`sv` | Normal | Open file in new tab
+`st` | Normal | Open file in new tab
 `sv` | Normal | Open file in a horizontal split
 `sg` | Normal | Open file in a vertical split
 `&` | Normal | Jump to project root
@@ -533,21 +532,19 @@ Key   | Mode | Action
 `gf` | Normal | Search in selected directory for files
 `gr` | Normal | Grep in selected directory
 
-### Plugin: deoplete / neocomplete
+### Plugin: Deoplete / Emmet / Neocomplete
 
 Key   | Mode | Action
 ----- |:----:| ------------------
-`Enter` | Insert | Smart snippet expansion
+`Enter` | Insert | Select completion or expand snippet
 `Tab` | Insert/select | Smart tab movement or completion
-`Ctrl`+`j/k/f/b` | Insert | Movement in popup
-`Ctrl`+`g` | Insert | Undo completion
-`Ctrl`+`l` | Insert | Complete common string
+`Ctrl`+`j/k/f/b/d/u` | Insert | Movement in completion pop-up
+`Ctrl`+`<Return>` | Insert | Expand Emmet sequence
 `Ctrl`+`o` | Insert | Expand snippet
+`Ctrl`+`g` | Insert | Undo completion
+`Ctrl`+`l` | Insert | Refresh candidates
+`Ctrl`+`e` | Insert | Cancel selection and close pop-up
 `Ctrl`+`y` | Insert | Close pop-up
-`Ctrl`+`e` | Insert | Close pop-up
-`Ctrl`+`l` | Insert | Complete common string
-`Ctrl`+`d` | Insert | Scroll down
-`Ctrl`+`u` | Insert | Scroll up
 
 ### Plugin: Commentary
 
@@ -628,6 +625,7 @@ Key   | Mode | Action
 `<leader>`+`gu` | Normal | Open undo tree
 `<leader>`+`W` | Normal | Wiki
 `<leader>`+`K` | Normal | Thesaurus
+`<leader>`+`?` | Normal | Dictionary (macOS only)
 
 ## Credits & Contribution
 
