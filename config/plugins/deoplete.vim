@@ -31,9 +31,6 @@ let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
 " let g:deoplete#ignore_sources.html = ['syntax']
 let g:deoplete#ignore_sources.python = ['syntax']
 
-let g:deoplete#member#prefix_patterns = get(g:, 'deoplete#member#prefix_patterns', {})
-let g:deoplete#member#prefix_patterns.javascript = ['\.']
-
 " let g:deoplete#keyword_patterns = {}
 " let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
 
@@ -73,15 +70,16 @@ call deoplete#custom#set('tag',           'mark', '⌦')
 call deoplete#custom#set('omni',          'mark', '⌾')
 call deoplete#custom#set('ternjs',        'mark', '⌁')
 call deoplete#custom#set('jedi',          'mark', '⌁')
+call deoplete#custom#set('vim',           'mark', '⌁')
 call deoplete#custom#set('neosnippet',    'mark', '⌘')
 call deoplete#custom#set('around',        'mark', '⮀')
 call deoplete#custom#set('syntax',        'mark', '♯')
 call deoplete#custom#set('tmux-complete', 'mark', '⊶')
 
+call deoplete#custom#set('vim',           'rank', 620)
 call deoplete#custom#set('jedi',          'rank', 610)
 call deoplete#custom#set('omni',          'rank', 600)
-call deoplete#custom#set('neosnippet',    'rank', 520)
-call deoplete#custom#set('vim',           'rank', 510)
+call deoplete#custom#set('neosnippet',    'rank', 510)
 call deoplete#custom#set('member',        'rank', 500)
 call deoplete#custom#set('file_include',  'rank', 420)
 call deoplete#custom#set('file',          'rank', 410)
@@ -112,24 +110,20 @@ call deoplete#custom#set('_', 'converters', [
 " ---
 
 " Movement within 'ins-completion-menu'
-imap <expr><C-j>   pumvisible() ? "\<C-n>" : "\<C-j>"
-imap <expr><C-k>   pumvisible() ? "\<C-p>" : "\<C-k>"
+imap <expr><C-j>   pumvisible() ? "\<Down>" : "\<C-j>"
+imap <expr><C-k>   pumvisible() ? "\<Up>" : "\<C-k>"
 
 " Scroll pages in menu
-inoremap <expr><C-f> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<Right>"
-inoremap <expr><C-b> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<Left>"
-imap     <expr><C-d> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
-imap     <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+inoremap <expr><C-f> pumvisible() ? "\<PageDown>" : "\<Right>"
+inoremap <expr><C-b> pumvisible() ? "\<PageUp>" : "\<Left>"
+imap     <expr><C-d> pumvisible() ? "\<PageDown>" : "\<C-d>"
+imap     <expr><C-u> pumvisible() ? "\<PageUp>" : "\<C-u>"
 
 " Undo completion
 inoremap <expr><C-g> deoplete#undo_completion()
 
 " Redraw candidates
 inoremap <expr><C-l> deoplete#refresh()
-
-" <C-h>, <BS>: close popup and delete backword char.
-"inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
-"inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
 
 " <CR>: If popup menu visible, expand snippet or close popup with selection,
 "       Otherwise, check if within empty pair and use delimitMate.
