@@ -199,7 +199,10 @@
 
 - repo: MattesGroeger/vim-bookmarks
   on_path: .*
-  hook_source: let g:bookmark_auto_save_file = $VARPATH.'/bookmarks'
+  hook_source: |
+    let g:bookmark_auto_save_file = $VARPATH.'/bookmarks'
+    let g:bookmark_no_default_key_mappings = 1
+    let g:bookmark_disable_ctrlp = 1
 
 - repo: rhysd/committia.vim
   on_path: COMMIT_EDITMSG
@@ -305,10 +308,9 @@
   on_path: .*
   hook_add: |
     let g:gutentags_cache_dir = $VARPATH.'/tags'
-    let g:gutentags_ctags_executable = 'ctags'
+    let g:gutentags_generate_on_write = 1
     let g:gutentags_generate_on_missing = 0
     let g:gutentags_generate_on_new = 0
-    let g:gutentags_ctags_tagfile = ''
 
 - repo: mattn/emmet-vim
   if: empty($VIM_MINIMAL)

@@ -87,12 +87,6 @@ nnoremap < <<_
 " Select last paste
 nnoremap <expr> gp '`['.strpart(getregtype(), 0, 1).'`]'
 
-" Re-map macro key
-nnoremap  Q q
-
-" Disable EX-mode
-nnoremap gQ <Nop>
-
 " Navigation in command line
 cnoremap <C-j> <Left>
 cnoremap <C-k> <Right>
@@ -126,6 +120,17 @@ cmap W!! w !sudo tee % >/dev/null
 
 " Toggle paste mode
 set pastetoggle=<F2>
+nnoremap cp yap<S-}>p
+nnoremap <leader>a =ip
+
+" I like to :quit with 'q', shrug.
+nnoremap <silent> q :<C-u>:quit<CR>
+nnoremap gQ <Nop>
+
+" Macros
+nnoremap Q q
+nnoremap M @q
+vnoremap M :norm @q<CR>
 
 " Show highlight names under cursor
 nmap gh :echo 'hi<'.synIDattr(synID(line('.'), col('.'), 1), 'name')
@@ -225,33 +230,39 @@ nnoremap <Leader>y :let @+=expand("%:p")<CR>:echo 'Copied to clipboard.'<CR>
 " Drag current line/s vertically and auto-indent
 vnoremap mk :m-2<CR>gv=gv
 vnoremap mj :m'>+<CR>gv=gv
-noremap  <Leader>mk :m-2<CR>==
-noremap  <Leader>mj :m+<CR>==
+noremap  mk :m-2<CR>
+noremap  mj :m+<CR>
 
 " Last session management shortcuts
-nnoremap <Leader>se :<C-u>SessionSave last<CR>
-nnoremap <Leader>os :<C-u>execute 'source '.g:session_directory.'/last.vim'<CR>
+nmap <Leader>se :<C-u>SessionSave last<CR>
+nmap <Leader>os :<C-u>execute 'source '.g:session_directory.'/last.vim'<CR>
 
-augroup MyAutoCmd " {{{
+if has('mac')
+	" Open the macOS dictionary on current word
+	nmap <Leader>? :!open dict://<cword><CR><CR>
 
-	if has('mac')
-		" Use Marked for real-time Markdown preview
-		autocmd FileType markdown
-			\ nnoremap <Leader>P :silent !open -a Marked\ 2.app '%:p'<CR>:redraw!<CR>
-		" Use Dash on Mac, for context help
-		autocmd FileType ansible,go,php,css,less,html,markdown
-			\ nnoremap <silent><buffer> K :!open -g dash://"<C-R>=split(&ft, '\.')[0]<CR>:<cword>"&<CR><CR>
-		autocmd FileType javascript,javascript.jsx,sql,ruby,conf,sh
-			\ nnoremap <silent><buffer> K :!open -g dash://"<cword>"&<CR><CR>
-	else
-		" Use Zeal on Linux for context help
-		autocmd FileType ansible,go,php,css,less,html,markdown
-			\ nnoremap <silent><buffer> K :!zeal --query "<C-R>=split(&ft, '\.')[0]<CR>:<cword>"&<CR><CR>
-		autocmd FileType javascript,javascript.jsx,sql,ruby,conf,sh
-			\ nnoremap <silent><buffer> K :!zeal --query "<cword>"&<CR><CR>
+	" Use Marked for real-time Markdown preview
+	if executable('/Applications/Marked 2.app/Contents/MacOS/Marked 2')
+		autocmd MyAutoCmd FileType markdown
+			\ nmap <buffer><Leader>P :silent !open -a Marked\ 2.app '%:p'<CR>
 	endif
 
-augroup END
+	" Use Dash on Mac, for context help
+	if executable('/Applications/Dash.app/Contents/MacOS/Dash')
+		autocmd MyAutoCmd FileType ansible,go,php,css,less,html,markdown
+			\ nmap <silent><buffer> K :!open -g dash://"<C-R>=split(&ft, '\.')[0]<CR>:<cword>"&<CR><CR>
+		autocmd MyAutoCmd FileType javascript,javascript.jsx,sql,ruby,conf,sh
+			\ nmap <silent><buffer> K :!open -g dash://"<cword>"&<CR><CR>
+	endif
+
+" Use Zeal on Linux for context help
+elseif executable('zeal')
+	autocmd MyAutoCmd FileType ansible,go,php,css,less,html,markdown
+		\ nmap <silent><buffer> K :!zeal --query "<C-R>=split(&ft, '\.')[0]<CR>:<cword>"&<CR><CR>
+	autocmd MyAutoCmd FileType javascript,javascript.jsx,sql,ruby,conf,sh
+		\ nmap <silent><buffer> K :!zeal --query "<cword>"&<CR><CR>
+endif
+
 " }}}
 
 " Display diff from last save {{{
@@ -280,7 +291,6 @@ nnoremap <silent> [Window]o  :<C-u>only<CR>
 nnoremap <silent> [Window]b  :b#<CR>
 nnoremap <silent> [Window]c  :close<CR>
 nnoremap <silent> [Window]x  :<C-u>call <SID>BufferEmpty()<CR>
-nnoremap <silent><expr> q winnr('$') != 1 ? ':<C-u>close<CR>' : ''
 
 " Split current buffer, go to previous window and previous buffer
 nnoremap <silent> [Window]sv :split<CR>:wincmd p<CR>:e#<CR>

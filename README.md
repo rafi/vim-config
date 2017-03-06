@@ -416,8 +416,11 @@ Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `Shift`+`Tab` | Visual | Indent to left and re-select
 `gh` | Normal | Show highlight group that matches current cursor
 `gp` | Normal | Select last paste
-`Q` | Normal | Start/stop Macro recording
-`gQ` | Normal | Disable EX-mode (\<Nop>)
+`Q` | Normal | Start/stop macro recording
+`M` | Normal/Visual | Play macro 'q'
+`mj`/`mk` | Normal/Visual | Move lines down/up
+`gQ` | Normal | Disable EX-mode
+`cp` | Normal | Duplicate paragraph
 `s` | Visual | Replace within selected area
 `Ctrl`+`a` | Command | Navigation in command line
 `Ctrl`+`b` | Command | Move cursor backward in command line
@@ -425,10 +428,11 @@ Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `Ctrl`+`r` | Visual | Replace selection with step-by-step confirmation
 `,`+`Space` | Normal | Remove all spaces at EOL
 `,`+`d` | Normal | Toggle diff
+`<leader>`+`a` | Normal | Align paragraph
 `<leader>`+`os` | Normal | Load last session
 `<leader>`+`se` | Normal | Save current workspace as last session
 `<leader>`+`d` | Normal/Visual | Duplicate line or selection
-`<leader>`+`S` | Normal/visual | Source selection
+`<leader>`+`S` | Normal/Visual | Source selection
 `<leader>`+`ml` | Normal | Append modeline
 
 ### File Operations

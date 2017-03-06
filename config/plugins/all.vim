@@ -114,19 +114,14 @@ if dein#tap('vim-indent-guides') "{{{
 endif
 
 "}}}
-"if dein#tap('vim-bookmarks') "{{{
-"	let g:bookmark_auto_save_dir = $VARPATH.'/bookmarks'
-"	nnoremap <silent> <Plug>BookmarkShowAll :<C-u>BookmarkShowAll<CR>
-"	nnoremap <silent> <Plug>BookmarkNext :<C-u>BookmarkNext<CR>
-"	nnoremap <silent> <Plug>BookmarkPrev :<C-u>BookmarkPrev<CR>
-"	nnoremap <silent> <Plug>BookmarkToggle :<C-u>let b:bm_sync=0<CR>:<C-u>BookmarkToggle<CR>
-"	nnoremap <silent> <Plug>BookmarkAnnotate :<C-u>let b:bm_sync=0<CR>:<C-u>BookmarkAnnotate<CR>
-"	nmap ma <Plug>BookmarkShowAll
-"	nmap mn <Plug>BookmarkNext
-"	nmap mp <Plug>BookmarkPrev
-"	nmap mm <Plug>BookmarkToggle
-"	nmap mi <Plug>BookmarkAnnotate
-"endif
+if dein#tap('vim-bookmarks') "{{{
+	nmap ma :<C-u>cgetexpr bm#location_list()<CR>
+		\ :<C-u>Denite quickfix -buffer-name=list<CR>
+	nmap mn <Plug>BookmarkNext
+	nmap mp <Plug>BookmarkPrev
+	nmap mm <Plug>BookmarkToggle
+	nmap mi <Plug>BookmarkAnnotate
+endif
 
 "}}}
 if dein#tap('committia.vim') "{{{
@@ -252,7 +247,6 @@ endif
 "}}}
 if dein#tap('vim-online-thesaurus') "{{{
 	nnoremap <silent> <Leader>K :<C-u>OnlineThesaurusCurrentWord<CR>
-	nnoremap <silent> <Leader>? :<C-u>Thesaurus<CR>
 endif
 
 "}}}
