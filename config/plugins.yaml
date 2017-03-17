@@ -417,7 +417,7 @@
 
 - repo: rhysd/vim-operator-surround
   depends: [ vim-operator-user, vim-textobj-multiblock ]
-  on_map: { n: <Plug> }
+  on_map: { vnx: <Plug> }
 
 - repo: haya14busa/vim-operator-flashy
   depends: vim-operator-user

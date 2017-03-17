@@ -636,5 +636,5 @@ Key   | Mode | Action
 Big thanks to the dark knight [Shougo].
 
 [Shougo]: https://github.com/Shougo
-[lazy-loaded]: ./config/plugins.yaml
+[lazy-loaded]: ./config/plugins.yaml#L21
 [yaml2json]: https://github.com/koraa/large-yaml2json-json2yaml

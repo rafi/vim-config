@@ -96,6 +96,12 @@ cnoremap <C-f> <Right>
 cnoremap <C-b> <Left>
 cnoremap <C-d> <C-w>
 
+" Switch history search pairs, matching my bash shell
+cnoremap <C-p>  <Up>
+cnoremap <C-n>  <Down>
+cnoremap <Up>   <C-p>
+cnoremap <Down> <C-n>
+
 " }}}
 " File operations {{{
 " ---------------
@@ -160,7 +166,7 @@ nnoremap <silent> ,<Space> :<C-u>silent! keeppatterns %substitute/\s\+$//e<CR>
 nnoremap <silent> <expr> ,d ":\<C-u>".(&diff?"diffoff":"diffthis")."\<CR>"
 
 " C-r: Easier search and replace
-xnoremap <C-r> :<C-u>call s:get_selection('/')<CR>:%s/\V<C-R>=@/<CR>//gc<Left><Left><Left>
+xnoremap <C-r> :<C-u>call <SID>get_selection('/')<CR>:%s/\V<C-R>=@/<CR>//gc<Left><Left><Left>
 
 " Returns visually selected text
 function! s:get_selection(cmdtype) "{{{
