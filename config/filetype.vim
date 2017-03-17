@@ -9,6 +9,9 @@ execute 'autocmd MyAutoCmd BufWritePost '.$VIMPATH.'/config/*,vimrc nested'
 
 augroup MyAutoCmd " {{{
 
+	autocmd WinEnter,InsertLeave * set cursorline
+	autocmd WinLeave,InsertEnter * set nocursorline
+
 	" Automatically set read-only for files being edited elsewhere
 	autocmd SwapExists * nested let v:swapchoice = 'o'
 
@@ -70,10 +73,10 @@ augroup MyAutoCmd " {{{
 				\ match goErr /\<err\>/
 
 	" Open Quickfix window automatically
-	autocmd QuickFixCmdPost [^l]* leftabove copen
-		\ | wincmd p | redraw!
-	autocmd QuickFixCmdPost l* leftabove lopen
-		\ | wincmd p | redraw!
+	" autocmd QuickFixCmdPost [^l]* leftabove copen
+	" 	\ | wincmd p | redraw!
+	" autocmd QuickFixCmdPost l* leftabove lopen
+	" 	\ | wincmd p | redraw!
 
 	" Fix window position of help/quickfix
 	autocmd FileType help if &l:buftype ==# 'help'

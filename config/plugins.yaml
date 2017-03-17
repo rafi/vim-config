@@ -14,7 +14,7 @@
 - repo: itchyny/vim-parenmatch
 - repo: itchyny/vim-cursorword
   hook_add: |
-    autocmd MyAutoCmd FileType vimfiler,denite,qf let b:cursorword=0
+    autocmd MyAutoCmd FileType denite,qf,nerdtree let b:cursorword=0
     autocmd MyAutoCmd InsertEnter * let b:cursorword=0
     autocmd MyAutoCmd InsertLeave * let b:cursorword=1
 
@@ -182,10 +182,14 @@
 
 - repo: nathanaelkane/vim-indent-guides
   on_cmd: [ IndentGuidesEnable, IndentGuidesDisable, IndentGuidesToggle ]
+  hook_post_source: |
+    call indent_guides#init_script_vars()
+    call indent_guides#highlight_colors()
   hook_add: |
-    let g:indent_guides_enable_on_vim_startup = 0
+    let g:indent_guides_color_change_percent = 3
     let g:indent_guides_autocmds_enabled = 0
     let g:indent_guides_default_mapping = 0
+    let g:indent_guides_guide_size = 1
     let g:indent_guides_indent_levels = 15
     let g:custom_exclude = [ 'help', 'denite', 'codi' ]
     autocmd MyAutoCmd BufEnter *
@@ -239,9 +243,9 @@
   if: empty($VIM_MINIMAL)
   on_cmd: Limelight
 
-- repo: junegunn/vim-peekaboo
-  if: empty($VIM_MINIMAL)
-  on_map: [[ nx, '"' ]]
+# - repo: junegunn/vim-peekaboo
+#   if: empty($VIM_MINIMAL)
+#   on_map: [[ nx, '"' ]]
 
 - repo: itchyny/calendar.vim
   if: empty($VIM_MINIMAL)

@@ -241,7 +241,8 @@ endif
 if dein#tap('vim-leader-guide') "{{{
 	nmap  <Leader>ll  <Plug>leaderguide-global
 	nmap  <Leader>lb  <Plug>leaderguide-buffer
-	nnoremap  <Leader>l<Space>  :<C-u>LeaderGuide ';'<CR>
+	let g:leaderGuide_submode_mappings =
+		\ { '<C-C>': 'win_close', '<C-F>': 'page_down', '<C-B>': 'page_up' }
 endif
 
 "}}}

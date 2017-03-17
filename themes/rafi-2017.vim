@@ -226,13 +226,6 @@ let g:gitgutter_sign_removed_first_line = '▔'
 let g:gitgutter_sign_modified_removed = '▋'
 "}}}
 
-" Plugin: Indent-Guides icons {{{
-" ---------------------------------------------------------
-let g:indent_guides_guide_size = 1
-let g:indent_guides_start_level = 1
-let g:indent_guides_auto_colors = 0
-"}}}
-
 " Plugin: vim-gitgutter {{{
 " ---------------------------------------------------------
 highlight! GitGutterAdd ctermfg=22 guifg=#006000 ctermbg=NONE guibg=NONE
@@ -243,30 +236,12 @@ highlight! GitGutterChangeDelete ctermfg=52 guifg=#600000 ctermbg=NONE guibg=NON
 
 " Plugin: denite {{{
 " ---------------------------------------------------------
-highlight clear WildMenu
-highlight link WildMenu CursorLine
-highlight link deniteSelectedLine Type
-highlight link deniteMatchedChar Function
-highlight link deniteMatchedRange Underlined
-highlight link deniteMode Comment
-" }}}
-
-" Plugin: vimfiler.vim {{{
-" ---------------------------------------------------------
-highlight vimfilerNonMark     ctermfg=132 guifg=#B05E87
-highlight vimfilerLeaf        ctermfg=238 guifg=#444444
-highlight vimfilerClosedFile  ctermfg=246 guifg=#949494
-highlight link vimfilerOpenedFile  Normal
-highlight link vimfilerNormalFile  Comment
-highlight link vimfilerMarkedFile  Type
-" }}}
-
-" Plugin: vim-indent-guides {{{
-" ---------------------------------------------------------
-highlight IndentGuidesOdd  ctermbg=235 guibg=#262626
-highlight IndentGuidesEven ctermbg=236 guibg=#303030
-" highlight! IndentGuidesOdd  ctermbg=235 guibg=#232323
-" highlight! IndentGuidesEven ctermbg=236 guibg=#292929
+highlight! clear WildMenu
+highlight! link WildMenu CursorLine
+highlight! link deniteSelectedLine Type
+highlight! link deniteMatchedChar Function
+highlight! link deniteMatchedRange Underlined
+highlight! link deniteMode Comment
 " }}}
 
 " Plugin: vim-operator-flashy {{{
