@@ -136,6 +136,7 @@
 
 - repo: tpope/vim-fugitive
   on_cmd: [ Git, Gcommit, Gblame, Gstatus, Gitdiff, Gbrowse ]
+  hook_post_source: bufdo call fugitive#detect(expand('%:p'))
 
 - repo: gregsexton/gitv
   depends: vim-fugitive
