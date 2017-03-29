@@ -146,6 +146,8 @@ Name           | Description
 [groenewege/vim-less] | Syntax for LESS
 [hail2u/vim-css3-syntax] | CSS3 syntax support to vim's built-in `syntax/css.vim`
 [othree/csscomplete.vim] | Updated built-in CSS complete with latest standards
+[cakebaker/scss-syntax.vim] | Syntax file for scss (Sassy CSS)
+[ap/vim-css-color] | Preview colors in source-code while editing
 [plasticboy/vim-markdown] | Markdown syntax highlighting
 [rhysd/vim-gfm-syntax] | GitHub Flavored Markdown syntax highlight extension
 [pangloss/vim-javascript] | Enhanced Javascript syntax
@@ -287,6 +289,8 @@ Name           | Description
 [groenewege/vim-less]: https://github.com/groenewege/vim-less
 [hail2u/vim-css3-syntax]: https://github.com/hail2u/vim-css3-syntax
 [othree/csscomplete.vim]: https://github.com/othree/csscomplete.vim
+[cakebaker/scss-syntax.vim]: https://github.com/cakebaker/scss-syntax.vim
+[ap/vim-css-color]: https://github.com/ap/vim-css-color
 [plasticboy/vim-markdown]: https://github.com/plasticboy/vim-markdown
 [rhysd/vim-gfm-syntax]: https://github.com/rhysd/vim-gfm-syntax
 [pangloss/vim-javascript]: https://github.com/pangloss/vim-javascript
