@@ -159,6 +159,7 @@ Name           | Description
 [vim-python/python-syntax] | Enhanced version of the original Python syntax
 [Vimjas/vim-python-pep8-indent] | A nicer Python indentation style
 [python_match.vim] | Extend the % motion for Python files
+[tmhedberg/SimpylFold] | No-BS Python code folding
 [raimon49/requirements.txt.vim] | Python requirements file format
 [StanAngeloff/php.vim] | Up-to-date PHP syntax file (5.3 – 7.1 support)
 [osyo-manga/vim-monster] | Ruby code completion
@@ -211,6 +212,7 @@ Name           | Description
 [rhysd/accelerated-jk] | Up/down movement acceleration
 [Shougo/tabpagebuffer.vim] | Tabpage buffer interface
 [airblade/vim-gitgutter] | Show git changes at Vim gutter and un/stages hunks
+[Konfekt/FastFold] | Speed up Vim by updating folds when called-for
 [nathanaelkane/vim-indent-guides] | Visually display indent levels in code
 [MattesGroeger/vim-bookmarks] | Bookmarks, works independently from vim marks
 [rhysd/committia.vim] | Pleasant editing on Git commit messages
@@ -298,6 +300,7 @@ Name           | Description
 [vim-python/python-syntax]: https://github.com/vim-python/python-syntax
 [Vimjas/vim-python-pep8-indent]: https://github.com/Vimjas/vim-python-pep8-indent
 [python_match.vim]: https://github.com/vim-scripts/python_match.vim
+[tmhedberg/SimpylFold]: https://github.com/tmhedberg/SimpylFold
 [raimon49/requirements.txt.vim]: https://github.com/raimon49/requirements.txt.vim
 [StanAngeloff/php.vim]: https://github.com/StanAngeloff/php.vim
 [osyo-manga/vim-monster]: https://github.com/osyo-manga/vim-monster
@@ -342,6 +345,7 @@ Name           | Description
 [rhysd/accelerated-jk]: https://github.com/rhysd/accelerated-jk
 [Shougo/tabpagebuffer.vim]: https://github.com/Shougo/tabpagebuffer.vim
 [airblade/vim-gitgutter]: https://github.com/airblade/vim-gitgutter
+[Konfekt/FastFold]: https://github.com/Konfekt/FastFold
 [nathanaelkane/vim-indent-guides]: https://github.com/nathanaelkane/vim-indent-guides
 [MattesGroeger/vim-bookmarks]: https://github.com/MattesGroeger/vim-bookmarks
 [rhysd/committia.vim]: https://github.com/rhysd/committia.vim

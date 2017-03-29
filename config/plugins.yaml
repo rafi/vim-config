@@ -81,6 +81,7 @@
 - { repo: vim-python/python-syntax, on_ft: python }
 - { repo: Vimjas/vim-python-pep8-indent, on_ft: python }
 - { repo: python_match.vim, on_ft: python }
+- { repo: tmhedberg/SimpylFold, on_ft: python }
 - { repo: raimon49/requirements.txt.vim, on_ft: requirements }
 
 - { repo: StanAngeloff/php.vim, on_ft: php }
@@ -218,9 +219,9 @@
   on_path: COMMIT_EDITMSG
   hook_source: let g:committia_min_window_width = 70
 
-#- repo: Konfekt/FastFold
-#  on_event: BufEnter
-#  hook_post_source: FastFoldUpdate
+- repo: Konfekt/FastFold
+  on_event: BufEnter
+  hook_post_source: FastFoldUpdate
 
 - repo: benekastah/neomake
   if: has('nvim') && empty($VIM_MINIMAL)
