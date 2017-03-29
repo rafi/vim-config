@@ -23,10 +23,11 @@
 
 # Languages
 # ---------
-- { repo: pearofducks/ansible-vim, on_ft: ansible }
 - { repo: hail2u/vim-css3-syntax, on_ft: css }
-- { repo: othree/csscomplete.vim, on_ft: css }
 - { repo: groenewege/vim-less, on_ft: less }
+- { repo: othree/csscomplete.vim, on_ft: css }
+
+- { repo: pearofducks/ansible-vim, on_ft: ansible }
 - { repo: mitsuhiko/vim-jinja, on_ft: [ htmljinja, jinja ]}
 - { repo: mustache/vim-mustache-handlebars, on_ft: html }
 
@@ -54,17 +55,18 @@
     let g:gfm_syntax_highlight_emoji = 0
     let g:gfm_syntax_enable_filetypes = ['markdown']
 
-- { repo: pangloss/vim-javascript, on_ft: javascript }
-- { repo: othree/jspc.vim, on_ft: javascript }
-- { repo: MaxMEllon/vim-jsx-pretty, on_ft: javascript }
-- { repo: heavenshell/vim-jsdoc, on_ft: javascript }
-- { repo: moll/vim-node, on_ft: javascript }
+- { repo: pangloss/vim-javascript, on_ft: [ javascript, jsx, javascript.jsx ] }
+- { repo: othree/jspc.vim, on_ft: [ javascript, jsx, javascript.jsx ] }
+- { repo: MaxMEllon/vim-jsx-pretty, on_ft: [ javascript, jsx, javascript.jsx ]}
+- { repo: heavenshell/vim-jsdoc, on_ft: [ javascript, jsx, javascript.jsx ] }
+- { repo: moll/vim-node, on_ft: [ javascript, jsx, javascript.jsx ] }
 - { repo: elzr/vim-json, on_ft: json }
 
-#- { repo: othree/yajs.vim, on_ft: javascript }
-#- { repo: gavocanov/vim-js-indent, on_ft: javascript }
+# pangloss/javascript vs. othree/yajs
+#- { repo: othree/yajs.vim, on_ft: [ javascript, jsx, javascript.jsx ]}
+#- { repo: gavocanov/vim-js-indent, on_ft: [ javascript, jsx, javascript.jsx ]}
 #- repo: mxw/vim-jsx
-#  on_ft: javascript
+#  on_ft: [ javascript, jsx, javascript.jsx ]
 #  hook_source: let g:jsx_ext_required = 0
 
 - repo: fatih/vim-go
@@ -76,31 +78,34 @@
     let g:go_highlight_extra_types = 1
     let g:go_highlight_operators = 1
 
-- { repo: tbastos/vim-lua, on_ft: lua }
 - { repo: vim-python/python-syntax, on_ft: python }
 - { repo: Vimjas/vim-python-pep8-indent, on_ft: python }
 - { repo: python_match.vim, on_ft: python }
 - { repo: raimon49/requirements.txt.vim, on_ft: requirements }
+
 - { repo: StanAngeloff/php.vim, on_ft: php }
-- { repo: osyo-manga/vim-monster, on_ft: ruby }
-- { repo: toyamarinyon/vim-swift, on_ft: swift }
-- { repo: vim-jp/syntax-vim-ex, on_ft: vim }
 
 - repo: m2mdas/phpcomplete-extended
   on_ft: php
   on_i: 1
   hook_source: let g:phpcomplete_extended_use_default_mapping = 0
 
+- { repo: tbastos/vim-lua, on_ft: lua }
+- { repo: osyo-manga/vim-monster, on_ft: ruby }
+- { repo: toyamarinyon/vim-swift, on_ft: swift }
+- { repo: vim-jp/syntax-vim-ex, on_ft: vim }
+
 - { repo: chrisbra/csv.vim, on_ft: csv }
+- { repo: tpope/vim-git, on_ft: [ gitcommit, gitrebase, gitconfig ]}
+- { repo: ekalinin/Dockerfile.vim, on_ft: [ Dockerfile, docker-compose ]}
 - { repo: tmux-plugins/vim-tmux, on_ft: tmux }
+- { repo: andreshazard/vim-logreview, on_ft: logreview }
+
 - { repo: cespare/vim-toml, on_ft: toml }
 - { repo: PotatoesMaster/i3-vim-syntax, on_ft: i3 }
 - { repo: dag/vim-fish, on_ft: fish }
-- { repo: ekalinin/Dockerfile.vim, on_ft: [ Dockerfile, docker-compose ]}
 - { repo: jstrater/mpvim, on_ft: portfile }
-- { repo: tpope/vim-git, on_ft: [ gitcommit, gitrebase, gitconfig ]}
 - { repo: robbles/logstash.vim, on_ft: logstash }
-- { repo: andreshazard/vim-logreview, on_ft: logreview }
 - { repo: exu/pgsql.vim, on_ft: pgsql }
 - { repo: othree/nginx-contrib-vim, on_ft: nginx }
 - { repo: IN3D/vim-raml, on_ft: raml }
@@ -435,7 +440,7 @@
 - { repo: bkad/CamelCaseMotion, on_map: { nox: <Plug>CamelCaseMotion }}
 - { repo: terryma/vim-expand-region, on_map: { x: <Plug> }}
 - { repo: AndrewRadev/sideways.vim, on_map: { ox: <Plug>Sideways }}
-- { repo: AndrewRadev/splitjoin.vim, on_map: { n: <plug>Splitjoin }}
+- { repo: AndrewRadev/splitjoin.vim, on_map: { n: <Plug>Splitjoin }}
 - { repo: AndrewRadev/linediff.vim, on_cmd: Linediff }
 
 - repo: AndrewRadev/dsf.vim

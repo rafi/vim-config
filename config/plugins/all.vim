@@ -270,12 +270,6 @@ if dein#tap('vim-expand-region') "{{{
 endif
 
 "}}}
-if dein#tap('dsf.vim') "{{{
-	nmap dsf <Plug>DsfDelete
-	nmap csf <Plug>DsfChange
-endif
-
-"}}}
 if dein#tap('sideways.vim') "{{{
 	nnoremap <silent> m" :SidewaysJumpLeft<CR>
 	nnoremap <silent> m' :SidewaysJumpRight<CR>
@@ -283,6 +277,27 @@ if dein#tap('sideways.vim') "{{{
 	xmap <silent> a, <Plug>SidewaysArgumentTextobjA
 	omap <silent> i, <Plug>SidewaysArgumentTextobjI
 	xmap <silent> i, <Plug>SidewaysArgumentTextobjI
+endif
+
+"}}}
+if dein#tap('splitjoin.vim') "{{{
+	let g:splitjoin_split_mapping = ''
+	let g:splitjoin_join_mapping = ''
+	nmap sj :SplitjoinSplit<CR>
+	nmap sk :SplitjoinJoin<CR>
+endif
+
+"}}}
+if dein#tap('linediff.vim') "{{{
+	vnoremap df :Linediff<CR>
+	vnoremap da :LinediffAdd<CR>
+	vnoremap dr :LinediffReset<CR>
+endif
+
+"}}}
+if dein#tap('dsf.vim') "{{{
+	nmap dsf <Plug>DsfDelete
+	nmap csf <Plug>DsfChange
 endif
 
 "}}}
@@ -317,8 +332,8 @@ if dein#tap('vim-easymotion') "{{{
 	nmap sf <Plug>(easymotion-overwin-f)
 	map  sh <Plug>(easymotion-linebackward)
 	map  sl <Plug>(easymotion-lineforward)
-	map  sj <Plug>(easymotion-j)
-	map  sk <Plug>(easymotion-k)
+	" map  sj <Plug>(easymotion-j)
+	" map  sk <Plug>(easymotion-k)
 	map  s/ <Plug>(easymotion-sn)
 	omap s/ <Plug>(easymotion-tn)
 	map  sn <Plug>(easymotion-next)
