@@ -128,24 +128,13 @@ augroup END "}}}
 
 " Highlights: General GUI {{{
 " ---------------------------------------------------------
-highlight! Error  term=NONE cterm=NONE
-highlight! link mkdLineBreak      NONE
+" highlight! Error  term=NONE cterm=NONE
+" highlight! link WarningMsg  Comment
 highlight! link pythonSpaceError  NONE
 highlight! link pythonIndentError NONE
-highlight! link WarningMsg  Comment
+" highlight! link mkdLineBreak      NONE
 highlight! link ExtraWhitespace  SpellBad
 " }}}
-
-" Plugin: VimFiler icons {{{
-" ---------------------------------------------------------
-let g:vimfiler_tree_indentation = 1
-let g:vimfiler_tree_leaf_icon = '┆'
-let g:vimfiler_tree_opened_icon = '▼'
-let g:vimfiler_tree_closed_icon = '▷'
-let g:vimfiler_file_icon = ' '
-let g:vimfiler_readonly_file_icon = '⚠'
-let g:vimfiler_marked_file_icon = '✓'
-"}}}
 
 " Plugin: NERDTree icons and highlights {{{
 " ---------------------------------------------------------
@@ -242,6 +231,7 @@ highlight! link deniteSelectedLine Type
 highlight! link deniteMatchedChar Function
 highlight! link deniteMatchedRange Underlined
 highlight! link deniteMode Comment
+highlight! link deniteSource_QuickfixPosition qfLineNr
 " }}}
 
 " Plugin: vim-operator-flashy {{{
