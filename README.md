@@ -141,7 +141,7 @@ Name           | Description
 -------------- | ----------------------
 [othree/html5.vim] | HTML5 omnicomplete and syntax
 [mustache/vim-mustache-handlebars] | Mustache and handlebars syntax
-[pearofducks/ansible-vim] | Additional support for Ansible
+[pearofducks/ansible-vim] | Improved YAML support for Ansible
 [mitsuhiko/vim-jinja] | Jinja support in vim
 [groenewege/vim-less] | Syntax for LESS
 [hail2u/vim-css3-syntax] | CSS3 syntax support to vim's built-in `syntax/css.vim`
@@ -163,7 +163,7 @@ Name           | Description
 [StanAngeloff/php.vim] | Up-to-date PHP syntax file (5.3 – 7.1 support)
 [osyo-manga/vim-monster] | Ruby code completion
 [toyamarinyon/vim-swift] | Swift support
-[vim-jp/syntax-vim-ex] | Excellent Vim syntax highlighting
+[vim-jp/syntax-vim-ex] | Improved Vim syntax highlighting
 [m2mdas/phpcomplete-extended] | Fast PHP auto-complete with code inspection
 [chrisbra/csv.vim] | Handling column separated data
 [tmux-plugins/vim-tmux] | vim plugin for tmux.conf
@@ -187,7 +187,7 @@ Name           | Description
 [Xuyuanp/nerdtree-git-plugin] | NERDTree plugin for showing git status
 [tpope/fugitive] | Git wrapper
 [gregsexton/gitv] | gitk-like interface
-[tpope/vim-commentary] | Comment stuff out
+[tpope/vim-commentary] | Code commenting helper
 [t9md/vim-choosewin] | Choose window to use, like tmux's 'display-pane'
 [Shougo/vinarise.vim] | Hex editor
 [kana/vim-niceblock] | Make blockwise Visual mode more useful
@@ -199,7 +199,7 @@ Name           | Description
 [reedes/vim-wordy] | Uncover usage problems in your writing
 [easymotion/vim-easymotion] | Vim motions on speed
 [kien/tabman.vim] | Tab management
-[hecal3/vim-leader-guide] | Keymap-display loosely inspired by emacs's guide-key
+[hecal3/vim-leader-guide] | Keymap-display inspired by emacs's guide-key
 [majutsushi/tagbar] | Displays tags in a window, ordered by scope
 [beloglazov/vim-online-thesaurus] | Look up words in an online thesaurus
 
@@ -208,9 +208,9 @@ Name           | Description
 Name           | Description
 -------------- | ----------------------
 [haya14busa/vim-asterisk] | Improved * motions
-[rhysd/accelerated-jk] | Accelerate up-down moving
+[rhysd/accelerated-jk] | Up/down movement acceleration
 [Shougo/tabpagebuffer.vim] | Tabpage buffer interface
-[airblade/vim-gitgutter] | Show git diff in the gutter and stages/undoes hunks
+[airblade/vim-gitgutter] | Show git changes at Vim gutter and un/stages hunks
 [nathanaelkane/vim-indent-guides] | Visually display indent levels in code
 [MattesGroeger/vim-bookmarks] | Bookmarks, works independently from vim marks
 [rhysd/committia.vim] | Pleasant editing on Git commit messages
@@ -253,7 +253,7 @@ Name           | Description
 
 Name           | Description
 -------------- | ----------------------
-[kana/vim-operator-user] | Define your own operator easily
+[kana/vim-operator-user] | Define your own custom operators
 [kana/vim-operator-replace] | Operator to replace text with register content
 [rhysd/vim-operator-surround] | Operator to enclose text objects
 [haya14busa/vim-operator-flashy] | Highlight yanked area
@@ -265,7 +265,7 @@ Name           | Description
 [AndrewRadev/linediff.vim] | Perform diffs on blocks of code
 [glts/vim-textobj-comment] | Text objects for comments
 [AndrewRadev/dsf.vim] | Delete surrounding function call
-[osyo-manga/vim-textobj-multiblock] | Handle multiple brackets objects
+[osyo-manga/vim-textobj-multiblock] | Handle bracket objects
 [kana/vim-textobj-function] | Text objects for functions
 
 [Shougo/dein.vim]: https://github.com/Shougo/dein.vim
@@ -467,8 +467,8 @@ Key   | Mode | Action
 `<leader>`+`j` | Normal | Next on location list
 `<leader>`+`k` | Normal | Previous on location list
 `<leader>`+`b` | Normal | Toggle colorscheme background dark/light
-`s`+`-` | Normal | Lower colorscheme contrast (Only solarized8)
-`s`+`=` | Normal | Raise colorscheme contrast (Only solarized8)
+`s`+`-` | Normal | Lower colorscheme contrast (Support solarized8)
+`s`+`=` | Normal | Raise colorscheme contrast (Support solarized8)
 
 ### Window Management
 
