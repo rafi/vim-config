@@ -14,12 +14,22 @@ endif
 let $VIMPATH = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
 let $VARPATH = expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : '~/.cache').'/vim')
 
+function! s:dein_check_ruby() abort
+	call system("ruby -e 'require \"json\"; require \"yaml\"'")
+	return (v:shell_error == 0) ? 1 : 0
+endfunction
+
 function! s:dein_load_yaml(filename) abort
 	if executable('yaml2json') && exists('*json_decode')
 		" Decode YAML using the CLI tool yaml2json
 		" See: https://github.com/koraa/large-yaml2json-json2yaml
 		let g:denite_plugins = json_decode(
 					\ system('yaml2json', readfile(a:filename)))
+	elseif executable('ruby') && exists('*json_decode') && s:dein_check_ruby()
+		let g:denite_plugins = json_decode(
+					\ system("ruby -e 'require \"json\"; require \"yaml\"; ".
+									\ "print JSON.generate YAML.load \$stdin.read'",
+									\ readfile(a:filename)))
 	else
 		" Fallback to use python3 and PyYAML
 	python3 << endpython
