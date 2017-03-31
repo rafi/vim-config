@@ -21,8 +21,8 @@ function! s:dein_load_yaml(filename) abort
 		let g:denite_plugins = json_decode(
 					\ system('yaml2json', readfile(a:filename)))
 	else
-		" Fallback to use python and PyYAML
-	python << endpython
+		" Fallback to use python3 and PyYAML
+	python3 << endpython
 import vim, yaml
 with open(vim.eval('a:filename'), 'r') as f:
 	vim.vars['denite_plugins'] = yaml.load(f.read())
