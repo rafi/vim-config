@@ -3,10 +3,8 @@
 
 " General settings " {{{
 " ---
-autocmd MyAutoCmd CompleteDone * pclose!
-
-" let g:deoplete#auto_complete_delay = 200
-" let g:deoplete#auto_refresh_delay = 200
+" let g:deoplete#auto_complete_delay = 50  " Default is 50
+" let g:deoplete#auto_refresh_delay = 500  " Default is 500
 let g:deoplete#enable_refresh_always = 0
 let g:deoplete#enable_camel_case = 1
 let g:deoplete#max_abbr_width = 35
@@ -15,35 +13,40 @@ let g:deoplete#skip_chars = ['(', ')', '<', '>']
 let g:deoplete#tag#cache_limit_size = 800000
 let g:deoplete#file#enable_buffer_path = 1
 
-call deoplete#custom#set('_', 'min_pattern_length', 1)
-" call deoplete#custom#set('_', 'disabled_syntaxes', ['Comment', 'String'])
+let g:deoplete#sources#jedi#statement_length = 1
+let g:deoplete#sources#jedi#show_docstring = 1
+let g:deoplete#sources#jedi#short_types = 1
+
+" }}}
+" Limit Sources " {{{
+" ---
 
 let g:deoplete#sources = get(g:, 'deoplete#sources', {})
 let g:deoplete#sources.go = ['vim-go']
 " let g:deoplete#sources.javascript = ['file', 'ternjs']
 " let g:deoplete#sources.jsx = ['file', 'ternjs']
 
-let g:deoplete#sources#jedi#statement_length = 1
-let g:deoplete#sources#jedi#show_docstring = 1
-let g:deoplete#sources#jedi#short_types = 1
-
 let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
 " let g:deoplete#ignore_sources.html = ['syntax']
-let g:deoplete#ignore_sources.python = ['syntax']
+" let g:deoplete#ignore_sources.python = ['syntax']
 
-" let g:deoplete#keyword_patterns = {}
-" let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
+" call deoplete#custom#set('_', 'disabled_syntaxes', ['Comment', 'String'])
 
 " }}}
 " Omni functions and patterns " {{{
 " ---
+call deoplete#custom#set('_', 'min_pattern_length', 1)
+
+" let g:deoplete#keyword_patterns = {}
+" let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
+
 let g:deoplete#omni#functions = get(g:, 'deoplete#omni#functions', {})
 let g:deoplete#omni#functions.php = 'phpcomplete_extended#CompletePHP'
 let g:deoplete#omni#functions.css = 'csscomplete#CompleteCSS'
 let g:deoplete#omni#functions.html = 'htmlcomplete#CompleteTags'
 let g:deoplete#omni#functions.markdown = 'htmlcomplete#CompleteTags'
 " let g:deoplete#omni#functions.javascript =
-"	\ [ 'jspc#omni', 'javascriptcomplete#CompleteJS' ]
+"	\ [ 'tern#Complete', 'jspc#omni', 'javascriptcomplete#CompleteJS' ]
 
 let g:deoplete#omni_patterns = get(g:, 'deoplete#omni_patterns', {})
 let g:deoplete#omni_patterns.html = '<[^>]*'
@@ -76,7 +79,8 @@ call deoplete#custom#set('around',        'mark', '⮀')
 call deoplete#custom#set('syntax',        'mark', '♯')
 call deoplete#custom#set('tmux-complete', 'mark', '⊶')
 
-call deoplete#custom#set('vim',           'rank', 620)
+call deoplete#custom#set('vim',           'rank', 630)
+call deoplete#custom#set('ternjs',        'rank', 620)
 call deoplete#custom#set('jedi',          'rank', 610)
 call deoplete#custom#set('omni',          'rank', 600)
 call deoplete#custom#set('neosnippet',    'rank', 510)
@@ -106,8 +110,10 @@ call deoplete#custom#set('_', 'converters', [
 	\ ])
 
 " }}}
-" Key-mappings " {{{
+" Key-mappings and Events " {{{
 " ---
+
+autocmd MyAutoCmd CompleteDone * pclose!
 
 " Movement within 'ins-completion-menu'
 imap <expr><C-j>   pumvisible() ? "\<Down>" : "\<C-j>"
