@@ -288,13 +288,6 @@ if dein#tap('splitjoin.vim') "{{{
 endif
 
 "}}}
-if dein#tap('linediff.vim') "{{{
-	vnoremap df :Linediff<CR>
-	vnoremap da :LinediffAdd<CR>
-	vnoremap dr :LinediffReset<CR>
-endif
-
-"}}}
 if dein#tap('dsf.vim') "{{{
 	nmap dsf <Plug>DsfDelete
 	nmap csf <Plug>DsfChange
