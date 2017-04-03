@@ -435,7 +435,6 @@ Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `Ctrl`+`f` | Command | Move cursor forward in command line
 `Ctrl`+`r` | Visual | Replace selection with step-by-step confirmation
 `,`+`Space` | Normal | Remove all spaces at EOL
-`,`+`d` | Normal | Toggle diff
 `<leader>`+`a` | Normal | Align paragraph
 `<leader>`+`os` | Normal | Load last session
 `<leader>`+`se` | Normal | Save current workspace as last session
@@ -626,6 +625,15 @@ Key   | Mode | Action
 `<leader>`+`hs` | Normal | Stage hunk
 `<leader>`+`hr` | Normal | Revert hunk
 `<leader>`+`hp` | Normal | Preview hunk
+
+### Plugin: Linediff
+
+Key   | Mode | Action
+----- |:----:| ------------------
+`,`+`df` | Visual | Mark lines and open diff if 2nd region
+`,`+`da` | Visual | Mark lines for diff
+`,`+`ds` | Normal | Shows the diff between all the marked areas
+`,`+`dr` | Normal | Removes the signs denoting the diff'ed regions
 
 ### Misc Plugins
 
