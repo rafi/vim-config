@@ -87,11 +87,7 @@
 - { repo: raimon49/requirements.txt.vim, on_ft: requirements }
 
 - { repo: StanAngeloff/php.vim, on_ft: php }
-
-- repo: m2mdas/phpcomplete-extended
-  on_ft: php
-  on_i: 1
-  hook_source: let g:phpcomplete_extended_use_default_mapping = 0
+- { repo: shawncplus/phpcomplete.vim, on_ft: php, on_i: 1 }
 
 - { repo: tbastos/vim-lua, on_ft: lua }
 - { repo: osyo-manga/vim-monster, on_ft: ruby }

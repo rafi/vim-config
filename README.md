@@ -111,9 +111,8 @@ Run `make update`
 - NERDTree as file-manager + Git status icons
 - Go completion via vim-go and gocode
 - Javascript completion via Tern
-- PHP completion, indent, folds, syntax
 - Python jedi completion, pep8 convention
-- Languages: Ansible, css3, csv, json, less, markdown, mustache
+- Languages: PHP, Ansible, css3, csv, json, less, markdown, mustache
 - Helpers: Undo tree, bookmarks, git, tmux navigation,
     hex editor, sessions, and much more.
 
@@ -164,10 +163,10 @@ Name           | Description
 [tmhedberg/SimpylFold] | No-BS Python code folding
 [raimon49/requirements.txt.vim] | Python requirements file format
 [StanAngeloff/php.vim] | Up-to-date PHP syntax file (5.3 – 7.1 support)
+[shawncplus/phpcomplete.vim] | PHP completion
 [osyo-manga/vim-monster] | Ruby code completion
 [toyamarinyon/vim-swift] | Swift support
 [vim-jp/syntax-vim-ex] | Improved Vim syntax highlighting
-[m2mdas/phpcomplete-extended] | Fast PHP auto-complete with code inspection
 [chrisbra/csv.vim] | Handling column separated data
 [tmux-plugins/vim-tmux] | vim plugin for tmux.conf
 [cespare/vim-toml] | Syntax for TOML
@@ -307,10 +306,10 @@ Name           | Description
 [tmhedberg/SimpylFold]: https://github.com/tmhedberg/SimpylFold
 [raimon49/requirements.txt.vim]: https://github.com/raimon49/requirements.txt.vim
 [StanAngeloff/php.vim]: https://github.com/StanAngeloff/php.vim
+[shawncplus/phpcomplete.vim]: https://github.com/shawncplus/phpcomplete.vim
 [osyo-manga/vim-monster]: https://github.com/osyo-manga/vim-monster
 [toyamarinyon/vim-swift]: https://github.com/toyamarinyon/vim-swift
 [vim-jp/syntax-vim-ex]: https://github.com/vim-jp/syntax-vim-ex
-[m2mdas/phpcomplete-extended]: https://github.com/m2mdas/phpcomplete-extended
 [chrisbra/csv.vim]: https://github.com/chrisbra/csv.vim
 [tmux-plugins/vim-tmux]: https://github.com/tmux-plugins/vim-tmux
 [cespare/vim-toml]: https://github.com/cespare/vim-toml
