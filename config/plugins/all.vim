@@ -54,8 +54,9 @@ if dein#tap('nerdtree') "{{{
 
 	autocmd MyAutoCmd FileType nerdtree call s:nerdtree_settings()
 	function! s:nerdtree_settings() abort
-		set expandtab " Enabling vim-indent-guides
+		setlocal expandtab " Enabling vim-indent-guides
 		nmap <buffer> N  :<C-u>call NERDTreeAddNode()<CR>
+		vertical resize 25
 	endfunction
 endif
 

@@ -4,18 +4,19 @@
 
 " Reload vim config automatically {{{
 execute 'autocmd MyAutoCmd BufWritePost '.$VIMPATH.'/config/*,vimrc nested'
-	\ .' source $MYVIMRC | redraw | doautocmd ColorScheme'
+	\ .' source $MYVIMRC | redraw | silent doautocmd ColorScheme'
 " }}}
 
 augroup MyAutoCmd " {{{
 
+	" Highlight current line only on focused window
 	autocmd WinEnter,InsertLeave * set cursorline
 	autocmd WinLeave,InsertEnter * set nocursorline
 
 	" Automatically set read-only for files being edited elsewhere
 	autocmd SwapExists * nested let v:swapchoice = 'o'
 
-	" More eager than 'autoread'.
+	" Check if file changed when its window is focus, more eager than 'autoread'
 	autocmd WinEnter,FocusGained * checktime
 
 	autocmd Syntax * if 5000 < line('$') | syntax sync minlines=200 | endif
@@ -37,7 +38,7 @@ augroup MyAutoCmd " {{{
 	" Don't do it when the position is invalid or when inside an event handler
 	autocmd BufReadPost *
 		\ if &ft !~ '^git\c' && ! &diff && line("'\"") > 0 && line("'\"") <= line("$")
-		\|   exe 'normal! g`"zvzz'
+		\|   execute 'normal! g`"zvzz'
 		\| endif
 
 	" Disable paste and/or update diff when leaving insert mode
@@ -55,7 +56,7 @@ augroup MyAutoCmd " {{{
 	autocmd FileType gitcommit,qfreplace setlocal nofoldenable
 
 	" https://webpack.github.io/docs/webpack-dev-server.html#working-with-editors-ides-supporting-safe-write
-	autocmd FileType html,css,jsx,javascript.jsx setlocal backupcopy=yes
+	autocmd FileType html,css,javascript,jsx,javascript.jsx setlocal backupcopy=yes
 
 	autocmd FileType zsh setlocal foldenable foldmethod=marker
 
@@ -71,12 +72,6 @@ augroup MyAutoCmd " {{{
 
 	autocmd FileType go highlight default link goErr WarningMsg |
 				\ match goErr /\<err\>/
-
-	" Open Quickfix window automatically
-	" autocmd QuickFixCmdPost [^l]* leftabove copen
-	" 	\ | wincmd p | redraw!
-	" autocmd QuickFixCmdPost l* leftabove lopen
-	" 	\ | wincmd p | redraw!
 
 	" Fix window position of help/quickfix
 	autocmd FileType help if &l:buftype ==# 'help'
@@ -99,7 +94,7 @@ let g:python_highlight_all = 1
 " }}}
 " Vim {{{
 let g:vimsyntax_noerror = 1
-"let g:vim_indent_cont = 0
+let g:vim_indent_cont = &shiftwidth
 
 " }}}
 " Bash {{{

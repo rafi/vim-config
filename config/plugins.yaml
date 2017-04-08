@@ -386,7 +386,7 @@
   on_ft: javascript
   hook_source: |
     let g:tern_request_timeout = 1
-    let g:tern_show_signature_in_pum = '0'
+    let g:tern_show_signature_in_pum = 0
 
 - repo: wellle/tmux-complete.vim
   if: has('nvim') && empty($VIM_MINIMAL)
@@ -399,8 +399,10 @@
   if: executable('npm') && ! has('nvim') && empty($VIM_MINIMAL)
   on_i: 1
   on_ft: javascript
-  hook_add: let g:tern_show_signature_in_pum = 1
-  hook_post_source:
+  hook_add: |
+    let g:tern_show_signature_in_pum = 1
+    let g:tern_request_timeout = 1
+  hook_post_source: |
     autocmd MyAutoCmd FileType javascript setlocal omnifunc=tern#Complete
 
 # ==========================================
