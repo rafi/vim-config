@@ -3,20 +3,24 @@
 " -----------
 
 " INTERFACE
-call denite#custom#option('default', 'prompt', 'λ:')
-call denite#custom#option('default', 'vertical_preview', 1)
-call denite#custom#option('default', 'short_source_names', 1)
+call denite#custom#option('_', {
+	\ 'prompt': 'λ:',
+	\ 'empty': 0,
+	\ 'short_source_names': 1,
+	\ 'vertical_preview': 1,
+	\ 'auto_highlight': 0,
+	\ })
 
-call denite#custom#option('grep', 'empty', 0)
-call denite#custom#option('grep', 'vertical_preview', 1)
-call denite#custom#option('grep', 'auto_highlight', 0)
+call denite#custom#option('list', {
+	\ 'mode': 'normal',
+	\ 'winheight': 12,
+	\ })
 
-call denite#custom#option('list', 'mode', 'normal')
-call denite#custom#option('list', 'winheight', 12)
-
-call denite#custom#option('mpc', 'quit', 0)
-call denite#custom#option('mpc', 'mode', 'normal')
-call denite#custom#option('mpc', 'winheight', 12)
+call denite#custom#option('mpc', {
+	\ 'quit': 0,
+	\ 'mode': 'normal',
+	\ 'winheight': 12,
+	\ })
 
 " MATCHERS
 " Default is 'matcher_fuzzy'
@@ -40,6 +44,9 @@ if executable('ag')
 	" The Silver Searcher
 	call denite#custom#var('file_rec', 'command',
 		\ ['ag', '-U', '--hidden', '--follow', '--nocolor', '--nogroup', '-g', ''])
+
+	" Setup ignore patterns in your .agignore file!
+	" https://github.com/ggreer/the_silver_searcher/wiki/Advanced-Usage
 
 	call denite#custom#var('grep', 'command', ['ag'])
 	call denite#custom#var('grep', 'recursive_opts', [])

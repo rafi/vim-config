@@ -10,7 +10,7 @@ if dein#tap('denite.nvim') "{{{
 	nnoremap <silent><LocalLeader>l :<C-u>Denite location_list -buffer-name=list<CR>
 	nnoremap <silent><LocalLeader>q :<C-u>Denite quickfix -buffer-name=list<CR>
 	nnoremap <silent><LocalLeader>n :<C-u>Denite dein -no-quit<CR>
-	nnoremap <silent><LocalLeader>g :<C-u>Denite grep -buffer-name=grep<CR>
+	nnoremap <silent><LocalLeader>g :<C-u>Denite grep<CR>
 	nnoremap <silent><LocalLeader>j :<C-u>Denite jump change file_point<CR>
 	nnoremap <silent><LocalLeader>o :<C-u>Denite outline<CR>
 	nnoremap <silent><LocalLeader>s :<C-u>Denite session<CR>
@@ -21,10 +21,10 @@ if dein#tap('denite.nvim') "{{{
 
 	" Open Denite with word under cursor or selection
 	nnoremap <silent> <Leader>gf :DeniteCursorWord file_rec<CR>
-	nnoremap <silent> <Leader>gg :DeniteCursorWord grep -buffer-name=grep<CR>
+	nnoremap <silent> <Leader>gg :DeniteCursorWord grep<CR>
 	vnoremap <silent> <Leader>gg
 		\ :<C-u>call <SID>get_selection('/')<CR>
-		\ :execute 'Denite -buffer-name=grep grep:::'.@/<CR><CR>
+		\ :execute 'Denite grep:::'.@/<CR><CR>
 
 	function! s:get_selection(cmdtype) "{{{
 		let temp = @s
