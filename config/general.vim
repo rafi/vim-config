@@ -159,18 +159,18 @@ set list                " Show hidden characters
 
 set showtabline=2       " Always show the tabs line
 set tabpagemax=15       " Maximum number of tab pages
-set winwidth=75         " Minimum width for current window
-set winminwidth=8       " Minimum width for inactive windows
-set winheight=10        " Minimum height for active window
-set winminheight=4      " Minimum height for inactive windows
-set pumheight=20        " Pop-up menu's line height
+set winwidth=83         " Minimum width for current window
+set winminwidth=12      " Minimum width for inactive windows
+set winheight=12        " Minimum height for active window
+set winminheight=0      " Minimum height for inactive windows
+set pumheight=15        " Pop-up menu's line height
 set helpheight=12       " Minimum help window height
-set previewheight=10    " Completion preview height
+set previewheight=12    " Completion preview height
 
 set noshowcmd           " Don't show command in status line
 set cmdheight=2         " Height of the command line
 set cmdwinheight=5      " Command-line lines
-set noequalalways       " Don't resize windows on split or close
+set equalalways         " Resize windows on split or close
 set laststatus=2        " Always show a status line
 set colorcolumn=80      " Highlight the 80th character limit
 set display=lastline
