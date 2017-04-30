@@ -202,6 +202,7 @@ Name           | Description
 [metakirby5/codi.vim] | The interactive scratchpad for hackers
 [Shougo/vimproc.vim] | Interactive command execution
 [reedes/vim-wordy] | Uncover usage problems in your writing
+[brooth/far.vim] | Fast find and replace plugin
 [jreybert/vimagit] | Ease your git work-flow within Vim
 [easymotion/vim-easymotion] | Vim motions on speed
 [hecal3/vim-leader-guide] | Keymap-display inspired by emacs's guide-key
@@ -341,6 +342,7 @@ Name           | Description
 [metakirby5/codi.vim]: https://github.com/metakirby5/codi.vim
 [Shougo/vimproc.vim]: https://github.com/Shougo/vimproc.vim
 [reedes/vim-wordy]: https://github.com/reedes/vim-wordy
+[brooth/far.vim]: https://github.com/brooth/far.vim
 [jreybert/vimagit]: https://github.com/jreybert/vimagit
 [easymotion/vim-easymotion]: https://github.com/easymotion/vim-easymotion
 [hecal3/vim-leader-guide]: https://github.com/hecal3/vim-leader-guide

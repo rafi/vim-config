@@ -128,6 +128,7 @@
 - { repo: thinca/vim-prettyprint, on_cmd: PP, on_func: PP }
 - { repo: Shougo/vimproc.vim, build: make, on_func: vimproc# }
 - { repo: reedes/vim-wordy, on_cmd: [ Wordy, NextWordy, PrevWordy ]}
+- { repo: brooth/far.vim, on_cmd: [ Far, Farp, F ] }
 - { repo: jreybert/vimagit, on_cmd: Magit }
 
 - repo: easymotion/vim-easymotion
