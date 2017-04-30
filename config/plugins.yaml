@@ -147,13 +147,6 @@
   on_cmd: Gitv
 # hook_source: let g:Gitv_DoNotMapCtrlKey = 1
 
-- repo: kien/tabman.vim
-  if: empty($VIM_MINIMAL)
-  on_map: { n: <Plug> }
-  hook_add: |
-    let g:loaded_tabman = 1
-    nnoremap <Plug>Tabman :call tabman#toggle()<CR>
-
 - repo: hecal3/vim-leader-guide
   if: empty($VIM_MINIMAL)
   on_cmd: [ LeaderGuide, LeaderGuideVisual ]

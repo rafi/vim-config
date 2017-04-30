@@ -204,7 +204,6 @@ Name           | Description
 [Shougo/vimproc.vim] | Interactive command execution
 [reedes/vim-wordy] | Uncover usage problems in your writing
 [easymotion/vim-easymotion] | Vim motions on speed
-[kien/tabman.vim] | Tab management
 [hecal3/vim-leader-guide] | Keymap-display inspired by emacs's guide-key
 [majutsushi/tagbar] | Displays tags in a window, ordered by scope
 [beloglazov/vim-online-thesaurus] | Look up words in an online thesaurus
@@ -343,7 +342,6 @@ Name           | Description
 [Shougo/vimproc.vim]: https://github.com/Shougo/vimproc.vim
 [reedes/vim-wordy]: https://github.com/reedes/vim-wordy
 [easymotion/vim-easymotion]: https://github.com/easymotion/vim-easymotion
-[kien/tabman.vim]: https://github.com/kien/tabman.vim
 [hecal3/vim-leader-guide]: https://github.com/hecal3/vim-leader-guide
 [majutsushi/tagbar]: https://github.com/majutsushi/tagbar
 [beloglazov/vim-online-thesaurus]: https://github.com/beloglazov/vim-online-thesaurus

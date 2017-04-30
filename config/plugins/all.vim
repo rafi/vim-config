@@ -144,11 +144,6 @@ if dein#tap('python_match.vim') "{{{
 endif
 
 "}}}
-if dein#tap('tabman.vim') "{{{
-	nmap <silent> <Leader>tt <Plug>Tabman
-endif
-
-"}}}
 if dein#tap('goyo.vim') "{{{
 	nnoremap <Leader>G :Goyo<CR>
 endif
