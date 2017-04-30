@@ -32,6 +32,7 @@ endif
 
 " SORTERS
 " Default is 'sorter_rank'
+call denite#custom#source('z', 'sorters', ['sorter_z'])
 
 " CONVERTERS
 " Default is none

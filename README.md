@@ -115,7 +115,7 @@ Run `make update`
 - NERDTree as file-manager + Git status icons
 - Go completion via vim-go and gocode
 - Javascript completion via Tern
-- Python jedi completion, pep8 convention
+- Python Jedi completion, PEP8 convention
 - Languages: PHP, Ansible, css3, csv, json, less, markdown, mustache
 - Helpers: Undo tree, bookmarks, git, tmux navigation,
     hex editor, sessions, and much more.
@@ -255,6 +255,8 @@ Name           | Description
 [nixprime/cpsm] | File matcher, specialized for paths
 [chemzqm/unite-location] | Denite location & quickfix lists
 [chemzqm/denite-git] | gitlog, gitstatus and gitchanged sources
+[rafi/vim-denite-z] | Filter and browse Z (jump around) data file
+[rafi/vim-denite-session] | Browse and open sessions
 [rafi/vim-denite-mpc] | Denite source for browsing your MPD music library
 
 ### Operators & Text Objects
@@ -382,6 +384,9 @@ Name           | Description
 [Shougo/denite.nvim]: https://github.com/Shougo/denite.nvim
 [nixprime/cpsm]: https://github.com/nixprime/cpsm
 [chemzqm/unite-location]: https://github.com/chemzqm/unite-location
+[chemzqm/denite-git]: https://github.com/chemzqm/denite-git
+[rafi/vim-denite-z]: https://github.com/rafi/vim-denite-session
+[rafi/vim-denite-session]: https://github.com/rafi/vim-denite-z
 [rafi/vim-denite-mpc]: https://github.com/rafi/vim-denite-mpc
 
 [kana/vim-operator-user]: https://github.com/kana/vim-operator-user
@@ -513,6 +518,7 @@ Key   | Mode | Action
 `;`+`j` | Normal | Open file jump points
 `;`+`o` | Normal | Outline file
 `;`+`s` | Normal | List all sessions
+`;`+`h` | Normal | Browse help
 `;`+`/` | Normal | List all lines
 `;`+`*` | Normal | Search word in all lines
 `<leader>`+`gl` | Normal | Browse Git log
@@ -645,8 +651,8 @@ Key   | Mode | Action
 
 Key   | Mode | Action
 ----- |:----:| ------------------
+`m`+`g` | Normal | Open Magit
 `<leader>`+`o` | Normal | Open tag-bar
-`<leader>`+`tt` | Normal | Open Magit
 `<leader>`+`G` | Normal | Toggle distraction-free writing
 `<leader>`+`gu` | Normal | Open undo tree
 `<leader>`+`W` | Normal | Wiki

@@ -18,6 +18,7 @@ if dein#tap('denite.nvim') "{{{
 	nnoremap <silent><LocalLeader>m :<C-u>Denite mpc -buffer-name=mpc<CR>
 	nnoremap <silent><LocalLeader>/ :<C-u>Denite line<CR>
 	nnoremap <silent><LocalLeader>* :<C-u>DeniteCursorWord line<CR>
+	nnoremap <silent><LocalLeader>z :<C-u>Denite z<CR>
 
 	" chemzqm/denite-git
 	nnoremap <silent> <Leader>gl :<C-u>Denite gitlog<CR>
@@ -36,6 +37,12 @@ if dein#tap('denite.nvim') "{{{
 		let @/ = substitute(escape(@s, '\'.a:cmdtype), '\n', '\\n', 'g')
 		let @s = temp
 	endfunction "}}}
+endif
+
+" }}}
+if dein#tap('vim-denite-z') "{{{
+	command! -nargs=+ -complete=command Z
+		\ call denite#start([{'name': 'z', 'args': [<q-args>], {'immediately': 1}}])
 endif
 
 " }}}
