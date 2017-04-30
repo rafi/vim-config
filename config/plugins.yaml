@@ -128,6 +128,7 @@
 - { repo: thinca/vim-prettyprint, on_cmd: PP, on_func: PP }
 - { repo: Shougo/vimproc.vim, build: make, on_func: vimproc# }
 - { repo: reedes/vim-wordy, on_cmd: [ Wordy, NextWordy, PrevWordy ]}
+- { repo: jreybert/vimagit, on_cmd: Magit }
 
 - repo: easymotion/vim-easymotion
   on_map: { n: <Plug> }
@@ -138,14 +139,9 @@
     let g:EasyMotion_smartcase = 1
     let g:EasyMotion_use_smartsign_us = 1
 
-- repo: tpope/vim-fugitive
-  on_cmd: [ Git, Gcommit, Gblame, Gstatus, Gitdiff, Gbrowse ]
-  hook_post_source: bufdo call fugitive#detect(expand('%:p'))
-
-- repo: gregsexton/gitv
-  depends: vim-fugitive
-  on_cmd: Gitv
-# hook_source: let g:Gitv_DoNotMapCtrlKey = 1
+- repo: chemzqm/vim-easygit
+  on_cmd: [ Gcd, Glcd, Gcommit, Gblame, Gstatus, Gdiff, Gbrowse, Gstatus ]
+  hook_source: let g:easygit_enable_command = 1
 
 - repo: hecal3/vim-leader-guide
   if: empty($VIM_MINIMAL)
@@ -404,6 +400,7 @@
   hook_post_source: source $VIMPATH/config/menus.vim
 
 - { repo: chemzqm/unite-location, on_source: denite.nvim }
+- { repo: chemzqm/denite-git, on_source: denite.nvim }
 
 - repo: rafi/vim-denite-mpc
   if: executable('mpc') && empty($VIM_MINIMAL)

@@ -191,8 +191,7 @@ Name           | Description
 -------------- | ----------------------
 [scrooloose/nerdtree] | Tree explorer plugin
 [Xuyuanp/nerdtree-git-plugin] | NERDTree plugin for showing git status
-[tpope/fugitive] | Git wrapper
-[gregsexton/gitv] | gitk-like interface
+[chemzqm/vim-easygit] | Git wrapper focus on simplity and usability
 [tpope/vim-commentary] | Code commenting helper
 [t9md/vim-choosewin] | Choose window to use, like tmux's 'display-pane'
 [Shougo/vinarise.vim] | Hex editor
@@ -203,6 +202,7 @@ Name           | Description
 [metakirby5/codi.vim] | The interactive scratchpad for hackers
 [Shougo/vimproc.vim] | Interactive command execution
 [reedes/vim-wordy] | Uncover usage problems in your writing
+[jreybert/vimagit] | Ease your git work-flow within Vim
 [easymotion/vim-easymotion] | Vim motions on speed
 [hecal3/vim-leader-guide] | Keymap-display inspired by emacs's guide-key
 [majutsushi/tagbar] | Displays tags in a window, ordered by scope
@@ -253,6 +253,7 @@ Name           | Description
 [Shougo/denite.nvim] | Dark powered asynchronous unite all interfaces
 [nixprime/cpsm] | File matcher, specialized for paths
 [chemzqm/unite-location] | Denite location & quickfix lists
+[chemzqm/denite-git] | gitlog, gitstatus and gitchanged sources
 [rafi/vim-denite-mpc] | Denite source for browsing your MPD music library
 
 ### Operators & Text Objects
@@ -329,8 +330,7 @@ Name           | Description
 
 [scrooloose/nerdtree]: https://github.com/scrooloose/nerdtree
 [Xuyuanp/nerdtree-git-plugin]: https://github.com/Xuyuanp/nerdtree-git-plugin
-[tpope/fugitive]: https://github.com/tpope/vim-fugitive
-[gregsexton/gitv]: https://github.com/gregsexton/gitv
+[chemzqm/vim-easygit]: https://github.com/chemzqm/vim-easygit
 [tpope/vim-commentary]: https://github.com/tpope/vim-commentary
 [t9md/vim-choosewin]: https://github.com/t9md/vim-choosewin
 [Shougo/vinarise.vim]: https://github.com/Shougo/vinarise.vim
@@ -341,6 +341,7 @@ Name           | Description
 [metakirby5/codi.vim]: https://github.com/metakirby5/codi.vim
 [Shougo/vimproc.vim]: https://github.com/Shougo/vimproc.vim
 [reedes/vim-wordy]: https://github.com/reedes/vim-wordy
+[jreybert/vimagit]: https://github.com/jreybert/vimagit
 [easymotion/vim-easymotion]: https://github.com/easymotion/vim-easymotion
 [hecal3/vim-leader-guide]: https://github.com/hecal3/vim-leader-guide
 [majutsushi/tagbar]: https://github.com/majutsushi/tagbar
@@ -512,6 +513,8 @@ Key   | Mode | Action
 `;`+`s` | Normal | List all sessions
 `;`+`/` | Normal | List all lines
 `;`+`*` | Normal | Search word in all lines
+`<leader>`+`gl` | Normal | Browse Git log
+`<leader>`+`gs` | Normal | Browse Git status
 `<leader>`+`gf` | Normal | Open matching file results with word at cursor
 `<leader>`+`gg` | Normal/Visual | Open grep results with word at cursor
 | **Within _Denite_ mode** |||
@@ -604,12 +607,12 @@ Key   | Mode | Action
 `m`+`p` | Normal | Jump to previous bookmark
 `m`+`i` | Normal | Annotate bookmark
 
-### Plugin: Fugitive
+### Plugin: Easygit
 
 Key   | Mode | Action
 ----- |:----:| ------------------
 `<leader>`+`ga` | Normal | Git add current file
-`<leader>`+`gs` | Normal | Git status
+`<leader>`+`gS` | Normal | Git status
 `<leader>`+`gd` | Normal | Git diff
 `<leader>`+`gD` | Normal | Close diff
 `<leader>`+`gc` | Normal | Git commit
@@ -641,7 +644,7 @@ Key   | Mode | Action
 Key   | Mode | Action
 ----- |:----:| ------------------
 `<leader>`+`o` | Normal | Open tag-bar
-`<leader>`+`tt` | Normal | Open tab-manager
+`<leader>`+`tt` | Normal | Open Magit
 `<leader>`+`G` | Normal | Toggle distraction-free writing
 `<leader>`+`gu` | Normal | Open undo tree
 `<leader>`+`W` | Normal | Wiki

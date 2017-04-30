@@ -19,6 +19,10 @@ if dein#tap('denite.nvim') "{{{
 	nnoremap <silent><LocalLeader>/ :<C-u>Denite line<CR>
 	nnoremap <silent><LocalLeader>* :<C-u>DeniteCursorWord line<CR>
 
+	" chemzqm/denite-git
+	nnoremap <silent> <Leader>gl :<C-u>Denite gitlog<CR>
+	nnoremap <silent> <Leader>gs :<C-u>Denite gitstatus<CR>
+
 	" Open Denite with word under cursor or selection
 	nnoremap <silent> <Leader>gf :DeniteCursorWord file_rec<CR>
 	nnoremap <silent> <Leader>gg :DeniteCursorWord grep<CR>
@@ -210,22 +214,19 @@ if dein#tap('phpcomplete-extended') "{{{
 endif
 
 " }}}
-if dein#tap('vim-fugitive') "{{{
-	nnoremap <silent> <leader>ga :Git add %:p<CR>
-	nnoremap <silent> <leader>gs :Gstatus<CR>
+if dein#tap('vimagit') "{{{
+	nnoremap <silent> mg :Magit<CR>
+endif
+
+" }}}
+if dein#tap('vim-easygit') "{{{
 	nnoremap <silent> <leader>gd :Gdiff<CR>
 	nnoremap <silent> <leader>gD :Gdiffoff<CR>
 	nnoremap <silent> <leader>gc :Gcommit<CR>
 	nnoremap <silent> <leader>gb :Gblame<CR>
 	nnoremap <silent> <leader>gB :Gbrowse<CR>
+	nnoremap <silent> <leader>gS :Gstatus<CR>
 	nnoremap <silent> <leader>gp :Git push<CR>
-endif
-
-"}}}
-if dein#tap('gitv') "{{{
-	nmap <Leader>gl :Gitv --all<cr>
-	nmap <Leader>gL :Gitv! --all<cr>
-	vmap <Leader>gL :Gitv! --all<cr>
 endif
 
 "}}}
