@@ -33,7 +33,7 @@ git clone git://github.com/rafi/vim-config.git ~/.config/nvim
 ln -s ~/.vim ~/.config/nvim
 ```
 
-* _Note:_ If your system sets `$XDG_CONFIG_HOME`,
+- _Note:_ If your system sets `$XDG_CONFIG_HOME`,
   use that instead of `~/.config` in the code above.
   Nvim follows the XDG base-directories convention.
 
@@ -60,25 +60,29 @@ Enjoy!
 
 ### Recommended Linters
 
-* Node.js based linters:
+- Node.js based linters:
+
 ```sh
 npm -g install jshint jsonlint stylelint markdownlint-cli sass-lint
 npm -g install jsxhint write-good raml-cop
 ```
-* Python based linters:
+
+- Python based linters:
+
 ```sh
 pip install --user pycodestyle pyflakes flake8 vim-vint proselint yamllint
 ```
-* Shell lint: [shellcheck.net](https://www.shellcheck.net/)
-* HTML Tidy: [html-tidy.org](http://www.html-tidy.org/)
+
+- Shell lint: [shellcheck.net](https://www.shellcheck.net/)
+- HTML Tidy: [html-tidy.org](http://www.html-tidy.org/)
 
 ### Recommended Tools
 
-* Tern: `npm -g install tern`
-* Universal ctags: [ctags.io](https://ctags.io/)
-* The Silver Searcher: [ggreer/the_silver_searcher](https://github.com/ggreer/the_silver_searcher)
-* Fuzzy file finders: [fzf](https://github.com/junegunn/fzf) or [peco](https://github.com/peco/peco)
-* z - jump around: [rupa/z](https://github.com/rupa/z)
+- Tern: `npm -g install tern`
+- Universal ctags: [ctags.io](https://ctags.io/)
+- The Silver Searcher: [ggreer/the_silver_searcher](https://github.com/ggreer/the_silver_searcher)
+- Fuzzy file finders: [fzf](https://github.com/junegunn/fzf) or [peco](https://github.com/peco/peco)
+- z - jump around: [rupa/z](https://github.com/rupa/z)
 
 ## Upgrade
 
@@ -120,17 +124,17 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 
 ## Non Lazy-Loaded Plugins
 
-| Name           | Description
-| -------------- | ----------------------
-| [Shougo/dein.vim] | Dark powered Vim/Neovim plugin manager
-| [rafi/awesome-colorschemes] | Awesome color-schemes
-| [rafi/vim-blocks] | Bite-size blocks for Vim tab & status lines
-| [itchyny/vim-gitbranch] | Lightweight git branch detection
-| [itchyny/vim-parenmatch] | Efficient alternative to the standard matchparen plugin
-| [thinca/vim-localrc] | Enable configuration file of each directory
-| [christoomey/tmux-navigator] | Seamless navigation between tmux panes and vim splits
-| [tpope/vim-sleuth] | Heuristically set buffer indent options
-| [itchyny/cursorword] | Underlines word under cursor
+Name           | Description
+-------------- | ----------------------
+[Shougo/dein.vim] | Dark powered Vim/Neovim plugin manager
+[rafi/awesome-colorschemes] | Awesome color-schemes
+[rafi/vim-blocks] | Bite-size blocks for Vim tab & status lines
+[itchyny/vim-gitbranch] | Lightweight git branch detection
+[itchyny/vim-parenmatch] | Efficient alternative to the standard matchparen plugin
+[thinca/vim-localrc] | Enable configuration file of each directory
+[christoomey/tmux-navigator] | Seamless navigation between tmux panes and vim splits
+[tpope/vim-sleuth] | Heuristically set buffer indent options
+[itchyny/cursorword] | Underlines word under cursor
 
 ## Lazy-Loaded Plugins
 
