@@ -46,6 +46,8 @@ augroup MyAutoCmd " {{{
 			\ if &paste | setlocal nopaste mouse=a | echo 'nopaste' | endif |
 			\ if &l:diff | diffupdate | endif
 
+	autocmd TabLeave * let g:lasttab = tabpagenr()
+
 	autocmd FileType help
 		\ setlocal iskeyword+=: | setlocal iskeyword+=# | setlocal iskeyword+=-
 

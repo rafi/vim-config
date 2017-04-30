@@ -59,6 +59,9 @@ inoremap <S-Return> <C-o>o
 " Quick substitute within selected area
 xnoremap s :s//g<Left><Left>
 
+nnoremap zl z5l
+nnoremap zh z5h
+
 " Improve scroll, credits: https://github.com/Shougo
 nnoremap <expr> zz (winline() == (winheight(0)+1) / 2) ?
 	\ 'zt' : (winline() == 1) ? 'zb' : 'zz'
@@ -139,7 +142,7 @@ nnoremap M @q
 vnoremap M :norm @q<CR>
 
 " Show highlight names under cursor
-nmap gh :echo 'hi<'.synIDattr(synID(line('.'), col('.'), 1), 'name')
+nmap <silent> gh :echo 'hi<'.synIDattr(synID(line('.'), col('.'), 1), 'name')
 	\.'> trans<'.synIDattr(synID(line('.'), col('.'), 0), 'name').'> lo<'
 	\.synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name').'>'<CR>
 
@@ -154,6 +157,14 @@ nmap <silent> <Leader>tw :setlocal wrap! breakindent!<CR>
 nnoremap <silent> g0 :<C-u>tabfirst<CR>
 nnoremap <silent> g$ :<C-u>tablast<CR>
 nnoremap <silent> gr :<C-u>tabprevious<CR>
+nnoremap <silent> <A-j> :<C-U>tabnext<CR>
+nnoremap <silent> <A-k> :<C-U>tabprevious<CR>
+nnoremap <silent> <C-Tab> :<C-U>tabnext<CR>
+nnoremap <silent> <C-S-Tab> :<C-U>tabprevious<CR>
+" Uses g:lasttab set on TabLeave in MyAutoCmd
+let g:lasttab = 1
+nmap <silent> \\ :execute 'tabn '.g:lasttab<CR>
+
 
 " }}}
 " Totally Custom {{{
