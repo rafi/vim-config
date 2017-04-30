@@ -507,24 +507,25 @@ Key   | Mode | Action
 
 Key   | Mode | Action
 ----- |:----:| ------------------
-`;`+`r` | Normal | Resumes Denite window
-`;`+`f` | Normal | Open file recursive search
-`;`+`b` | Normal | List buffers and MRU
-`;`+`d` | Normal | List directories
-`;`+`l` | Normal | Open location list entries
-`;`+`q` | Normal | Open quick fix entries
-`;`+`n` | Normal | Open Dein plugin list
-`;`+`g` | Normal | Input for grep search
-`;`+`j` | Normal | Open file jump points
-`;`+`o` | Normal | Outline file
-`;`+`s` | Normal | List all sessions
-`;`+`h` | Normal | Browse help
-`;`+`/` | Normal | List all lines
-`;`+`*` | Normal | Search word in all lines
-`<leader>`+`gl` | Normal | Browse Git log
-`<leader>`+`gs` | Normal | Browse Git status
-`<leader>`+`gf` | Normal | Open matching file results with word at cursor
-`<leader>`+`gg` | Normal/Visual | Open grep results with word at cursor
+`;`+`r` | Normal | Resumes last Denite window
+`;`+`f` | Normal | File search
+`;`+`b` | Normal | Buffers and MRU
+`;`+`d` | Normal | Directories
+`;`+`l` | Normal | Location list
+`;`+`q` | Normal | Quick fix
+`;`+`n` | Normal | Dein plugin list
+`;`+`g` | Normal | Grep search
+`;`+`j` | Normal | Jump points
+`;`+`o` | Normal | Outline tags
+`;`+`s` | Normal | Sessions
+`;`+`h` | Normal | Help
+`;`+`/` | Normal | Buffer lines
+`;`+`*` | Normal | Match line
+`;`+`z` | Normal | Z (jump around)
+`<leader>`+`gl` | Normal | Git log
+`<leader>`+`gs` | Normal | Git status
+`<leader>`+`gf` | Normal | Grep word under cursor
+`<leader>`+`gg` | Normal/Visual | Grep word under cursor
 | **Within _Denite_ mode** |||
 `Escape` | Normal/Insert | Toggle modes
 `jj` | Insert | Leave Insert mode
