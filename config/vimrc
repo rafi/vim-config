@@ -45,7 +45,7 @@ endpython
 	unlet g:denite_plugins
 endfunction
 
-function! s:source_file(path, ...) abort "{{{
+function! s:source_file(path, ...) abort
 	let use_global = get(a:000, 0, ! has('vim_starting'))
 	let abspath = resolve(expand($VIMPATH.'/config/'.a:path))
 	if ! use_global
@@ -64,7 +64,7 @@ function! s:source_file(path, ...) abort "{{{
 			call delete(tempfile)
 		endif
 	endtry
-endfunction "}}}
+endfunction
 
 " Set augroup
 augroup MyAutoCmd
@@ -117,13 +117,12 @@ if ! has('vim_starting')
 	call dein#call_hook('post_source')
 endif
 
-" Loading configuration modules {{{
+" Loading configuration modules
 call s:source_file('general.vim')
 call s:source_file('terminal.vim')
 call s:source_file('filetype.vim')
 call s:source_file('mappings.vim')
 call s:source_file('theme.vim')
-" }}}
-
 set secure
+
 " vim: set ts=2 sw=2 tw=80 noet :

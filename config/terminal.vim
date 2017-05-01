@@ -5,7 +5,7 @@ if has('nvim')
 	finish
 endif
 
-if exists('$TMUX') "{{{
+if exists('$TMUX')
 	set ttyfast
 	set ttymouse=sgr
 
@@ -57,13 +57,12 @@ if exists('$TMUX') "{{{
 	let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>[3 q\<Esc>\\"
 	let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>[0 q\<Esc>\\"
 
-"}}}
-else "{{{
+else
 	set ttymouse=urxvt
 
 	" Cursor shape outside of tmux
 	let &t_SI = "\<Esc>[3 q"
 	let &t_EI = "\<Esc>[0 q"
-endif "}}}
+endif
 
 " vim: set ts=2 sw=2 tw=80 noet :

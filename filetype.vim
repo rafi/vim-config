@@ -6,7 +6,7 @@ if exists('did_load_filetypes')
 	finish
 endif
 
-augroup filetypedetect " {{{
+augroup filetypedetect
 
 	autocmd BufNewFile,BufReadPost *.feature,*.story setf cucumber
 
@@ -19,6 +19,6 @@ augroup filetypedetect " {{{
 
 "	autocmd BufNewFile,BufRead *.j2                  setf jinja
 
-augroup END " }}}
+augroup END
 
 " vim: set ts=2 sw=2 tw=80 noet :

@@ -144,4 +144,4 @@ let g:perl_fold = 1
 " }}}
 " }}}
 
-" vim: set ts=2 sw=2 tw=80 noet :
+" vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :

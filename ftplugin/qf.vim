@@ -17,5 +17,3 @@ nnoremap <buffer> sg <C-w><Enter><C-w>L
 nnoremap <buffer> st <C-w><CR><C-w>T
 
 let &cpoptions = s:save_cpo
-
-" vim: set ts=2 sw=2 tw=80 noet :

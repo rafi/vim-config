@@ -300,4 +300,4 @@ let g:choosewin_color_overlay_current = {
 	\ 'cterm': [ 72, 64 ], 'gui': [ '#7BB292' ] }
 " }}}
 
-" vim: set ts=2 sw=0 tw=80 noet :
+" vim: set foldmethod=marker ts=2 sw=0 tw=80 noet :

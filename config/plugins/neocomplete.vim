@@ -137,4 +137,4 @@ function! s:is_whitespace() "{{{
 	return ! col || getline('.')[col - 1] =~? '\s'
 endfunction "}}}
 
-" vim: set ts=2 sw=2 tw=80 noet :
+" vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :

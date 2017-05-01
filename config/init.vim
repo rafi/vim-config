@@ -83,4 +83,4 @@ let g:loaded_zip = 1
 let g:loaded_zipPlugin = 1
 " }}}
 
-" vim: set ts=2 sw=2 tw=80 noet :
+" vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :

@@ -2,7 +2,7 @@
 " Plugin Settings
 "---------------------------------------------------------
 
-if dein#tap('denite.nvim') "{{{
+if dein#tap('denite.nvim')
 	nnoremap <silent><LocalLeader>r :<C-u>Denite -resume<CR>
 	nnoremap <silent><LocalLeader>f :<C-u>Denite file_rec<CR>
 	nnoremap <silent><LocalLeader>b :<C-u>Denite buffer file_old -default-action=switch<CR>
@@ -31,7 +31,7 @@ if dein#tap('denite.nvim') "{{{
 		\ :<C-u>call <SID>get_selection('/')<CR>
 		\ :execute 'Denite grep:::'.@/<CR><CR>
 
-	function! s:get_selection(cmdtype) "{{{
+	function! s:get_selection(cmdtype)
 		let temp = @s
 		normal! gv"sy
 		let @/ = substitute(escape(@s, '\'.a:cmdtype), '\n', '\\n', 'g')
@@ -39,14 +39,12 @@ if dein#tap('denite.nvim') "{{{
 	endfunction "}}}
 endif
 
-" }}}
-if dein#tap('vim-denite-z') "{{{
+if dein#tap('vim-denite-z')
 	command! -nargs=+ -complete=command Z
 		\ call denite#start([{'name': 'z', 'args': [<q-args>], {'immediately': 1}}])
 endif
 
-" }}}
-if dein#tap('tagbar') "{{{
+if dein#tap('tagbar')
 	nnoremap <silent> <Leader>o   :<C-u>TagbarOpenAutoClose<CR>
 
 	" Also use h/l to open/close folds
@@ -54,8 +52,7 @@ if dein#tap('tagbar') "{{{
 	let g:tagbar_map_openfold = ['l', '+', 'zo']
 endif
 
-"}}}
-if dein#tap('nerdtree') "{{{
+if dein#tap('nerdtree')
 	let g:NERDTreeMapOpenSplit = 'sv'
 	let g:NERDTreeMapOpenVSplit = 'sg'
 	let g:NERDTreeMapOpenInTab = 'st'
@@ -71,8 +68,7 @@ if dein#tap('nerdtree') "{{{
 	endfunction
 endif
 
-"}}}
-if dein#tap('neosnippet.vim') "{{{
+if dein#tap('neosnippet.vim')
 	imap <expr><C-o> neosnippet#expandable_or_jumpable()
 		\ ? "\<Plug>(neosnippet_expand_or_jump)" : "\<ESC>o"
 	xmap <silent><C-s> <Plug>(neosnippet_register_oneshot_snippet)
@@ -80,15 +76,13 @@ if dein#tap('neosnippet.vim') "{{{
 	xmap <silent>L     <Plug>(neosnippet_expand_target)
 endif
 
-"}}}
-if dein#tap('emmet-vim') "{{{
+if dein#tap('emmet-vim')
 	autocmd MyAutoCmd FileType html,css,jsx,javascript,javascript.jsx
 		\ EmmetInstall
 		\ | imap <buffer> <C-Return> <Plug>(emmet-expand-abbr)
 endif
 
-"}}}
-if dein#tap('vim-operator-surround') "{{{
+if dein#tap('vim-operator-surround')
 	map <silent>sa <Plug>(operator-surround-append)
 	map <silent>sd <Plug>(operator-surround-delete)
 	map <silent>sr <Plug>(operator-surround-replace)
@@ -97,36 +91,30 @@ if dein#tap('vim-operator-surround') "{{{
 	nmap <silent>srr <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
 endif
 
-"}}}
-if dein#tap('vim-operator-replace') "{{{
+if dein#tap('vim-operator-replace')
 	xmap p <Plug>(operator-replace)
 endif
 
-"}}}
-if dein#tap('vim-operator-flashy') "{{{
+if dein#tap('vim-operator-flashy')
 	map y <Plug>(operator-flashy)
 	nmap Y <Plug>(operator-flashy)$
 endif
 
-"}}}
-if dein#tap('vim-niceblock') "{{{
+if dein#tap('vim-niceblock')
 	xmap I  <Plug>(niceblock-I)
 	xmap A  <Plug>(niceblock-A)
 endif
 
-"}}}
-if dein#tap('accelerated-jk') "{{{
+if dein#tap('accelerated-jk')
 	nmap <silent>j <Plug>(accelerated_jk_gj)
 	nmap <silent>k <Plug>(accelerated_jk_gk)
 endif
 
-"}}}
-if dein#tap('vim-indent-guides') "{{{
+if dein#tap('vim-indent-guides')
 	nmap <silent><Leader>ti :<C-u>IndentGuidesToggle<CR>
 endif
 
-"}}}
-if dein#tap('vim-bookmarks') "{{{
+if dein#tap('vim-bookmarks')
 	nmap ma :<C-u>cgetexpr bm#location_list()<CR>
 		\ :<C-u>Denite quickfix -buffer-name=list<CR>
 	nmap mn <Plug>BookmarkNext
@@ -135,8 +123,7 @@ if dein#tap('vim-bookmarks') "{{{
 	nmap mi <Plug>BookmarkAnnotate
 endif
 
-"}}}
-if dein#tap('committia.vim') "{{{
+if dein#tap('committia.vim')
 	let g:committia_hooks = {}
 	function! g:committia_hooks.edit_open(info)
 		imap <buffer><C-d> <Plug>(committia-scroll-diff-down-half)
@@ -148,38 +135,32 @@ if dein#tap('committia.vim') "{{{
 	endfunction
 endif
 
-"}}}
-if dein#tap('python_match.vim') "{{{
+if dein#tap('python_match.vim')
 	nmap <buffer> {{ [%
 	nmap <buffer> }} ]%
 endif
 
-"}}}
-if dein#tap('goyo.vim') "{{{
+if dein#tap('goyo.vim')
 	nnoremap <Leader>G :Goyo<CR>
 endif
 
-"}}}
-if dein#tap('vim-peekaboo') "{{{
+if dein#tap('vim-peekaboo')
 	nnoremap <buffer> <silent> " :<c-u>call peekaboo#peek(v:count1, 'quote',  0)<cr>
 	xnoremap <buffer> <silent> " :<c-u>call peekaboo#peek(v:count1, 'quote',  1)<cr>
 	nnoremap <buffer> <silent> @ :<c-u>call peekaboo#peek(v:count1, 'replay', 0)<cr>
 	inoremap <buffer> <silent> <c-r> <c-o>:call peekaboo#peek(1, 'ctrl-r',  0)<cr>
 endif
 
-"}}}
-if dein#tap('vimwiki') "{{{
+if dein#tap('vimwiki')
 	nnoremap <silent> <Leader>W :<C-u>VimwikiIndex<CR>
 endif
 
-"}}}
-if dein#tap('vim-choosewin') "{{{
+if dein#tap('vim-choosewin')
 	nmap -         <Plug>(choosewin)
 	nmap <Leader>- :<C-u>ChooseWinSwapStay<CR>
 endif
 
-"}}}
-if dein#tap('jedi-vim') "{{{
+if dein#tap('jedi-vim')
 	let g:jedi#completions_command = ''
 	let g:jedi#documentation_command = 'K'
 	let g:jedi#goto_command = '<C-]>'
@@ -197,8 +178,7 @@ if dein#tap('vim-gitgutter') "{{{
 	nmap <Leader>hp <Plug>GitGutterPreviewHunk
 endif
 
-"}}}
-if dein#tap('vim-go') "{{{
+if dein#tap('vim-go')
 	autocmd MyAutoCmd FileType go
 		\   nmap <C-]> <Plug>(go-def)
 		\ | nmap <Leader>god  <Plug>(go-describe)
@@ -212,21 +192,18 @@ if dein#tap('vim-go') "{{{
 		\ | nmap <Leader>gov  <Plug>(go-vet)
 endif
 
-"}}}
-if dein#tap('phpcomplete-extended') "{{{
+if dein#tap('phpcomplete-extended')
 	autocmd MyAutoCmd FileType php
 		\   nmap <silent> <unique> K <Plug>(phpcomplete-extended-doc)
 		\ | nmap <silent> <unique> <C-]> <Plug>(phpcomplete-extended-goto)
 		\ | nmap <silent> <unique> <Leader>a <Plug>(phpcomplete-extended-add-use)
 endif
 
-" }}}
-if dein#tap('vimagit') "{{{
+if dein#tap('vimagit')
 	nnoremap <silent> mg :Magit<CR>
 endif
 
-" }}}
-if dein#tap('vim-easygit') "{{{
+if dein#tap('vim-easygit')
 	nnoremap <silent> <leader>gd :Gdiff<CR>
 	nnoremap <silent> <leader>gD :Gdiffoff<CR>
 	nnoremap <silent> <leader>gc :Gcommit<CR>
@@ -236,26 +213,22 @@ if dein#tap('vim-easygit') "{{{
 	nnoremap <silent> <leader>gp :Git push<CR>
 endif
 
-"}}}
-if dein#tap('undotree') "{{{
+if dein#tap('undotree')
 	nnoremap <Leader>gu :UndotreeToggle<CR>
 endif
 
-"}}}
-if dein#tap('vim-leader-guide') "{{{
+if dein#tap('vim-leader-guide')
 	nmap  <Leader>ll  <Plug>leaderguide-global
 	nmap  <Leader>lb  <Plug>leaderguide-buffer
 	let g:leaderGuide_submode_mappings =
 		\ { '<C-C>': 'win_close', '<C-F>': 'page_down', '<C-B>': 'page_up' }
 endif
 
-"}}}
-if dein#tap('vim-online-thesaurus') "{{{
+if dein#tap('vim-online-thesaurus')
 	nnoremap <silent> <Leader>K :<C-u>OnlineThesaurusCurrentWord<CR>
 endif
 
-"}}}
-if dein#tap('vim-asterisk') "{{{
+if dein#tap('vim-asterisk')
 	map *   <Plug>(asterisk-g*)
 	map g*  <Plug>(asterisk-*)
 	map #   <Plug>(asterisk-g#)
@@ -267,14 +240,12 @@ if dein#tap('vim-asterisk') "{{{
 	map gz# <Plug>(asterisk-gz#)
 endif
 
-"}}}
-if dein#tap('vim-expand-region') "{{{
+if dein#tap('vim-expand-region')
 	xmap v <Plug>(expand_region_expand)
 	xmap V <Plug>(expand_region_shrink)
 endif
 
-"}}}
-if dein#tap('sideways.vim') "{{{
+if dein#tap('sideways.vim')
 	nnoremap <silent> m" :SidewaysJumpLeft<CR>
 	nnoremap <silent> m' :SidewaysJumpRight<CR>
 	omap <silent> a, <Plug>SidewaysArgumentTextobjA
@@ -283,30 +254,26 @@ if dein#tap('sideways.vim') "{{{
 	xmap <silent> i, <Plug>SidewaysArgumentTextobjI
 endif
 
-"}}}
-if dein#tap('splitjoin.vim') "{{{
+if dein#tap('splitjoin.vim')
 	let g:splitjoin_split_mapping = ''
 	let g:splitjoin_join_mapping = ''
 	nmap sj :SplitjoinSplit<CR>
 	nmap sk :SplitjoinJoin<CR>
 endif
 
-"}}}
-if dein#tap('linediff.vim') "{{{
+if dein#tap('linediff.vim')
 	vnoremap ,df :Linediff<CR>
 	vnoremap ,da :LinediffAdd<CR>
 	nnoremap ,ds :<C-u>LinediffShow<CR>
 	nnoremap ,dr :<C-u>LinediffReset<CR>
 endif
 
-"}}}
-if dein#tap('dsf.vim') "{{{
+if dein#tap('dsf.vim')
 	nmap dsf <Plug>DsfDelete
 	nmap csf <Plug>DsfChange
 endif
 
-"}}}
-if dein#tap('CamelCaseMotion') "{{{
+if dein#tap('CamelCaseMotion')
 	nmap <silent> e <Plug>CamelCaseMotion_e
 	xmap <silent> e <Plug>CamelCaseMotion_e
 	omap <silent> e <Plug>CamelCaseMotion_e
@@ -318,8 +285,7 @@ if dein#tap('CamelCaseMotion') "{{{
 	omap <silent> b <Plug>CamelCaseMotion_b
 endif
 
-"}}}
-if dein#tap('vim-commentary') "{{{
+if dein#tap('vim-commentary')
 	xmap <Leader>v  <Plug>Commentary
 	nmap <Leader>v  <Plug>CommentaryLine
 	xmap gc  <Plug>Commentary
@@ -330,8 +296,7 @@ if dein#tap('vim-commentary') "{{{
 	nmap gcu <Plug>Commentary<Plug>Commentary
 endif
 
-"}}}
-if dein#tap('vim-easymotion') "{{{
+if dein#tap('vim-easymotion')
 	nmap ss <Plug>(easymotion-s2)
 	nmap sd <Plug>(easymotion-s)
 	nmap sf <Plug>(easymotion-overwin-f)
@@ -345,21 +310,18 @@ if dein#tap('vim-easymotion') "{{{
 	map  sp <Plug>(easymotion-prev)
 endif
 
-"}}}
-if dein#tap('vim-textobj-multiblock') "{{{
+if dein#tap('vim-textobj-multiblock')
 	omap <silent> ab <Plug>(textobj-multiblock-a)
 	omap <silent> ib <Plug>(textobj-multiblock-i)
 	xmap <silent> ab <Plug>(textobj-multiblock-a)
 	xmap <silent> ib <Plug>(textobj-multiblock-i)
 endif
 
-"}}}
-if dein#tap('vim-textobj-function') "{{{
+if dein#tap('vim-textobj-function')
 	omap <silent> af <Plug>(textobj-function-a)
 	omap <silent> if <Plug>(textobj-function-i)
 	xmap <silent> af <Plug>(textobj-function-a)
 	xmap <silent> if <Plug>(textobj-function-i)
 endif
-"}}}
 
 " vim: set ts=2 sw=2 tw=80 noet :

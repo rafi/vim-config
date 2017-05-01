@@ -216,4 +216,4 @@ highlight IndentGuidesEven guibg=#303030 ctermbg=236
 highlight link Flashy Todo
 " }}}
 
-" vim: set ts=2 sw=0 tw=80 noet :
+" vim: set foldmethod=marker ts=2 sw=0 tw=80 noet :

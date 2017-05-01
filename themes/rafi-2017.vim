@@ -239,7 +239,6 @@ highlight! link deniteSource_QuickfixPosition qfLineNr
 highlight! link Flashy DiffText
 " }}}
 
-" }}}
 " Plugin: vim-bookmarks {{{
 let g:bookmark_sign = '⚐'
 highlight! BookmarkSign            ctermfg=12 guifg=#4EA9D7
@@ -266,4 +265,4 @@ let g:choosewin_color_overlay_current = {
 	\ 'cterm': [ 72, 64 ], 'gui': [ '#7BB292' ] }
 " }}}
 
-" vim: set ts=2 sw=0 tw=80 noet :
+" vim: set foldmethod=marker ts=2 sw=0 tw=80 noet :

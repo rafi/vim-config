@@ -9,8 +9,7 @@ endif
 let b:undo_ftplugin .= 'setl modeline<'
 
 setlocal iskeyword+=:,#
-setlocal foldenable
-setlocal foldmethod=marker
+setlocal foldmethod=indent
 setlocal keywordprg=:help
 
 " For gf
