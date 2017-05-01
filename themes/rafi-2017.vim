@@ -78,9 +78,7 @@ let s:stl .= '%{badge#format()} %4*%*'           " File format
 let s:stl .= '%( %{&fenc} %)'                     " File encoding
 let s:stl .= '%4*%*%( %{&ft} %)'                 " File type
 let s:stl .= '%3*%2* %l/%2c%4p%% '               " Line and column
-if exists('*badge#loading')
-	let s:stl .= '%{badge#loading()}%*'
-endif
+let s:stl .= '%{badge#indexing()}%*'              " Indexing tags indicator
 
 " Non-active Statusline {{{
 let s:stl_nc = " %{badge#mode('⚠', 'Z')}%n"    " Readonly & buffer
