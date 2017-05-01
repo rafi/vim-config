@@ -29,7 +29,7 @@ hi TabLineSel2Shade ctermfg=238 ctermbg=236 guifg=#444444 guibg=#303030
 
 function! Tabline() abort "{{{
 	let s:tabline =
-		\ '%#TabLineSel2# %{block#project()} '.
+		\ '%#TabLineSel2# %{badge#project()} '.
 		\ '%#TabLineSel2Shade#⮀'.
 		\ '%#TabLine#  '
 
@@ -38,17 +38,17 @@ function! Tabline() abort "{{{
 		if i + 1 == nr
 			let s:tabline .=
 				\ '%#TabLineSelShade#░%#TabLineSel#'.
-				\ '%'.(i+1).'T%{block#label('.(i+1).', "⮀")} '.
+				\ '%'.(i+1).'T%{badge#label('.(i+1).', "⮀")} '.
 				\ '%#TabLineAlt#⮀ '
 		else
 			let s:tabline .=
 				\ '%#TabLine# '.
-				\ '%'.(i+1).'T%{block#label('.(i+1).', "⮀")} '.
+				\ '%'.(i+1).'T%{badge#label('.(i+1).', "⮀")} '.
 				\ ' '
 		endif
 	endfor
 	let s:tabline .=
-		\ '%#TabLineFill#%T%=%#TabLine#%{block#session("[S]")}'
+		\ '%#TabLineFill#%T%=%#TabLine#%{badge#session("[S]")}'
 	return s:tabline
 endfunction "}}}
 
@@ -61,16 +61,16 @@ let &tabline='%!Tabline()'
 " ------------------------------------------+--------------------+------------
 let s:stl =" %7*%{&paste?'=':''}%*"        "| Paste symbol       | =
 let s:stl.="%4*%{&ro?'':'#'}%*"            "| Modifiable symbol  | #
-let s:stl.='%6*%{block#mode()}'            "| Readonly symbol    | 
+let s:stl.='%6*%{badge#mode()}'            "| Readonly symbol    | 
 let s:stl.='%*%n'                          "| Buffer number      | 3
-let s:stl.='%6*%{block#modified()}%0*'     "| Write symbol       | +
-let s:stl.=' %1*%{block#filename()}%*'     "| Relative supername | cor/app.js
+let s:stl.='%6*%{badge#modified()}%0*'     "| Write symbol       | +
+let s:stl.=' %1*%{badge#filename()}%*'     "| Relative supername | cor/app.js
 let s:stl.=' %<'                           "| Truncate here      |
-let s:stl.='%( %{block#branch()} %)'      "| Git branch name    |  master
-let s:stl.='%4*%(%{block#trails()} %)'     "| Space and indent   | trail34
-let s:stl.='%(%{block#syntax()} %)%*'      "| syntax error/warn  | E:1W:1
+let s:stl.='%( %{badge#branch()} %)'      "| Git branch name    |  master
+let s:stl.='%4*%(%{badge#trails()} %)'     "| Space and indent   | trail34
+let s:stl.='%(%{badge#syntax()} %)%*'      "| syntax error/warn  | E:1W:1
 let s:stl.='%='                            "| Align to right     |
-let s:stl.='%{block#format()} %4*%*'      "| File format        | unix 
+let s:stl.='%{badge#format()} %4*%*'      "| File format        | unix 
 let s:stl.='%( %{&fenc} %)'                "| File encoding      | utf-8
 let s:stl.='%4*%*%( %{&ft} %)'            "| File type          |  python
 let s:stl.='%3*%2* %l/%2c%4p%% %*'        "| Line and column    | 69:77/ 90%
@@ -79,9 +79,9 @@ let s:stl.='%3*%2* %l/%2c%4p%% %*'        "| Line and column    | 69:77/ 90%
 " Non-active Statusline {{{
 " ------------------------------------------+--------------------+------------
 let s:stl_nc = " %{&paste?'=':''}"         "| Paste symbol       | =
-let s:stl_nc.= '%{block#mode()}%n'         "| Readonly & buffer  | 7
-let s:stl_nc.= '%6*%{block#modified()}%*'  "| Write symbol       | +
-let s:stl_nc.= ' %{block#filename()}'      "| Relative supername | src/main.py
+let s:stl_nc.= '%{badge#mode()}%n'         "| Readonly & buffer  | 7
+let s:stl_nc.= '%6*%{badge#modified()}%*'  "| Write symbol       | +
+let s:stl_nc.= ' %{badge#filename()}'      "| Relative supername | src/main.py
 let s:stl_nc.= '%='                        "| Align to right     |
 let s:stl_nc.= '%{&ft} '                   "| File type          | python
 " ------------------------------------------'--------------------'---------}}}

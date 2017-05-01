@@ -54,7 +54,7 @@ call NERDTreeAddKeyMap({
 	\ 'quickhelpText': 'open user home directory' })
 
 function! s:jump_project_root()
-	let project_dir = block#root()
+	let project_dir = badge#root()
 	if ! empty(project_dir)
 		call s:_set_root(project_dir)
 	endif
