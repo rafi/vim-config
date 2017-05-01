@@ -33,7 +33,7 @@ highlight TabLineAltShade  ctermfg=238 ctermbg=236 guifg=#444444 guibg=#303030
 function! Tabline() abort "{{{
 	" Active project tab
 	let s:tabline =
-		\ '%#TabLineAlt# %{block#project()} '.
+		\ '%#TabLineAlt# %{badge#project()} '.
 		\ '%#TabLineAltShade#▛'.
 		\ '%#TabLineFill#  '
 
@@ -43,19 +43,19 @@ function! Tabline() abort "{{{
 			" Active tab
 			let s:tabline .=
 				\ '%#TabLineSelShade#░%#TabLineSel#'.
-				\ '%'.(i+1).'T%{block#label('.(i+1).', "▛", "N/A")} '.
+				\ '%'.(i+1).'T%{badge#label('.(i+1).', "▛", "N/A")} '.
 				\ '%#TabLineFill#▞ '
 		else
 			" Normal tab
 			let s:tabline .=
 				\ '%#TabLine# '.
-				\ '%'.(i+1).'T%{block#label('.(i+1).', "▛", "N/A")} '.
+				\ '%'.(i+1).'T%{badge#label('.(i+1).', "▛", "N/A")} '.
 				\ '▘ '
 		endif
 	endfor
 	" Empty space and session indicator
 	let s:tabline .=
-		\ '%#TabLineFill#%T%=%#TabLine#%{block#session("['.fnamemodify(v:this_session, ':t:r').']")}'
+		\ '%#TabLineFill#%T%=%#TabLine#%{badge#session("['.fnamemodify(v:this_session, ':t:r').']")}'
 	return s:tabline
 endfunction "}}}
 
@@ -65,25 +65,27 @@ let &tabline='%!Tabline()'
 " Statusline {{{
 let s:stl  = " %7*%{&paste ? '=' : ''}%*"         " Paste symbol
 let s:stl .= "%4*%{&readonly ? '' : '#'}%*"       " Modifide symbol
-let s:stl .= "%6*%{block#mode('⚠', 'Z')}"         " Readonly symbol
+let s:stl .= "%6*%{badge#mode('⚠', 'Z')}"         " Readonly symbol
 let s:stl .= '%*%n'                               " Buffer number
-let s:stl .= "%6*%{block#modified('+')}%0*"       " Write symbol
-let s:stl .= ' %1*%{block#filename()}%*'          " Filename
+let s:stl .= "%6*%{badge#modified('+')}%0*"       " Write symbol
+let s:stl .= ' %1*%{badge#filename()}%*'          " Filename
 let s:stl .= ' %<'                                " Truncate here
-let s:stl .= '%( %{block#branch()} %)'           " Git branch name
-let s:stl .= "%4*%(%{block#trails('WS:%s')} %)"  " Whitespace
-let s:stl .= '%(%{block#syntax()} %)%*'           " syntax check
+let s:stl .= '%( %{badge#branch()} %)'           " Git branch name
+let s:stl .= "%4*%(%{badge#trails('WS:%s')} %)"  " Whitespace
+let s:stl .= '%(%{badge#syntax()} %)%*'           " syntax check
 let s:stl .= '%='                                 " Align to right
-let s:stl .= '%{block#format()} %4*%*'           " File format
+let s:stl .= '%{badge#format()} %4*%*'           " File format
 let s:stl .= '%( %{&fenc} %)'                     " File encoding
 let s:stl .= '%4*%*%( %{&ft} %)'                 " File type
 let s:stl .= '%3*%2* %l/%2c%4p%% '               " Line and column
-"let s:stl .= "%{gutentags#statusline('[*]')}%*"
+if exists('*badge#loading')
+	let s:stl .= '%{badge#loading()}%*'
+endif
 
 " Non-active Statusline {{{
-let s:stl_nc = " %{block#mode('⚠', 'Z')}%n"    " Readonly & buffer
-let s:stl_nc .= "%6*%{block#modified('+')}%*"  " Write symbol
-let s:stl_nc .= ' %{block#filename()}'         " Relative supername
+let s:stl_nc = " %{badge#mode('⚠', 'Z')}%n"    " Readonly & buffer
+let s:stl_nc .= "%6*%{badge#modified('+')}%*"  " Write symbol
+let s:stl_nc .= ' %{badge#filename()}'         " Relative supername
 let s:stl_nc .= '%='                           " Align to right
 let s:stl_nc .= '%{&ft} '                      " File type
 " }}}
