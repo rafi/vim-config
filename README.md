@@ -37,11 +37,12 @@ ln -s ~/.vim ~/.config/nvim
   use that instead of `~/.config` in the code above.
   Nvim follows the XDG base-directories convention.
 
-**_2._** Almost done! You'll need a YAML interpreter,
-either install [yaml2json], or use PyYAML:
+**_2._** Almost done! You'll need a YAML interpreter, if you have Ruby
+installed - you can skip this step. Otherwise, either install [yaml2json],
+or use Python:
 
 ```sh
-pip install --user PyYAML
+pip3 install --user --upgrade PyYAML
 ```
 
 **_3._** If you are a _first-time Neovim user_, you need the python-neovim
@@ -63,8 +64,8 @@ Enjoy!
 - Node.js based linters:
 
 ```sh
-npm -g install jshint jsonlint stylelint markdownlint-cli sass-lint
-npm -g install jsxhint write-good raml-cop
+npm -g install jshint jsxhint jsonlint stylelint sass-lint
+npm -g install raml-cop markdownlint-cli write-good
 ```
 
 - Python based linters:
@@ -78,11 +79,11 @@ pip install --user pycodestyle pyflakes flake8 vim-vint proselint yamllint
 
 ### Recommended Tools
 
-- Tern: `npm -g install tern`
+- ag (The Silver Searcher): [ggreer/the_silver_searcher](https://github.com/ggreer/the_silver_searcher)
+- z (jump around): [rupa/z](https://github.com/rupa/z)
 - Universal ctags: [ctags.io](https://ctags.io/)
-- The Silver Searcher: [ggreer/the_silver_searcher](https://github.com/ggreer/the_silver_searcher)
-- Fuzzy file finders: [fzf](https://github.com/junegunn/fzf) or [peco](https://github.com/peco/peco)
-- z - jump around: [rupa/z](https://github.com/rupa/z)
+- Fuzzy file finders: [fzf](https://github.com/junegunn/fzf), [fzy](https://github.com/jhawthorn/fzy), or [peco](https://github.com/peco/peco)
+- Tern: `npm -g install tern`
 
 ## Upgrade
 
