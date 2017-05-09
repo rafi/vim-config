@@ -46,12 +46,9 @@ nnoremap ! :!
 cnoreabbrev qw wq
 cnoreabbrev Wq wq
 cnoreabbrev WQ wq
-cnoreabbrev Q q
 cnoreabbrev Qa qa
 cnoreabbrev Bd bd
 cnoreabbrev bD bd
-cnoreabbrev t tabe
-cnoreabbrev T tabe
 
 " Start new line from any cursor position
 inoremap <S-Return> <C-o>o
