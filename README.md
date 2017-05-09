@@ -6,12 +6,11 @@ Best with Neovim or Vim 8 with +python3 extensions enabled.
 
 ## Features
 
-- Neovim-centric
 - Fast startup time
-- Robust, yet light weight
+- Robust, yet light-weight
 - Lazy-load 95% of plugins with [Shougo/dein.vim]
 - Modular configuration
-- Denite (Unite successor) centric work-flow
+- Denite (Unite's successor) centric work-flow
 - Extensive Deoplete and Neocomplete setup
 - Lightweight simple status/tabline
 - Easy customizable theme

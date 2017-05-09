@@ -91,7 +91,7 @@ if dein#load_state(s:path)
 		echoerr v:exception
 		echomsg 'Error loading config/plugins.yaml...'
 		echomsg 'Caught: ' v:exception
-		echoerr 'Please run: pip install --user PyYAML'
+		echoerr 'Please run: pip3 install --user PyYAML'
 	endtry
 
 	if isdirectory(expand('$VIMPATH/dev'))
