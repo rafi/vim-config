@@ -5,13 +5,9 @@
 " Enable 256 color terminal
 set t_Co=256
 
-" Enable true color (only in Neovim, but not in urxvt)
-if has('nvim') && $TERM !~# '^rxvt' && has('termguicolors')
+" Enable true color
+if has('termguicolors')
 	set termguicolors
-	if &term =~# 'tmux-256color'
-		let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-		let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-	endif
 endif
 
 function! s:theme_reload(name)
