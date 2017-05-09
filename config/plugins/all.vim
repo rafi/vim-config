@@ -56,16 +56,14 @@ if dein#tap('nerdtree')
 	let g:NERDTreeMapOpenSplit = 'sv'
 	let g:NERDTreeMapOpenVSplit = 'sg'
 	let g:NERDTreeMapOpenInTab = 'st'
+	let g:NERDTreeMapOpenInTabSilent = 'sT'
+	let g:NERDTreeMapUpdirKeepOpen = '<BS>'
+	let g:NERDTreeMapOpenRecursively = 't'
+	let g:NERDTreeMapCloseChildren = 'T'
+	let g:NERDTreeMapToggleHidden = '.'
 
 	nnoremap <silent> <LocalLeader>e :<C-u>NERDTreeToggle<CR>
 	nnoremap <silent> <LocalLeader>a :<C-u>NERDTreeFind<CR>
-
-	autocmd MyAutoCmd FileType nerdtree call s:nerdtree_settings()
-	function! s:nerdtree_settings() abort
-		setlocal expandtab " Enabling vim-indent-guides
-		nmap <buffer> N  :<C-u>call NERDTreeAddNode()<CR>
-		vertical resize 25
-	endfunction
 endif
 
 if dein#tap('neosnippet.vim')

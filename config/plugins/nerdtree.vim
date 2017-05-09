@@ -16,8 +16,13 @@ let NERDTreeIgnore = [
 	\ '\.DS_Store$', '\.sass-cache$', '__pycache__$', '\.egg-info$'
 	\ ]
 
-" Custom plugins
-" ---
+autocmd MyAutoCmd FileType nerdtree call s:nerdtree_settings()
+function! s:nerdtree_settings() abort
+	setlocal expandtab " Enabling vim-indent-guides
+	vertical resize 25
+endfunction
+
+" Private helpers {{{
 function! s:SID()
 	if ! exists('s:sid')
 		let s:sid = matchstr(expand('<sfile>'), '<SNR>\zs\d\+\ze_SID$')
@@ -26,7 +31,19 @@ function! s:SID()
 endfunction
 let s:SNR = '<SNR>'.s:SID().'_'
 
-" Diff file
+function! s:get_containing_dir(node)
+	let path = a:node.path
+	if ! path.isDirectory || ! a:node.isOpen
+		let path = path.getParent()
+	endif
+	return path.str()
+endfunction
+" }}}
+
+" Custom plugins
+" ---
+
+" Plugin: Open diff split on current file {{{
 " ---
 call NERDTreeAddKeyMap({
 	\ 'key': 'gd',
@@ -40,8 +57,9 @@ function! s:diff(node)
 	execute 'vsplit '.fnameescape(a:node.path.str())
 	diffthis
 endfunction
+" }}}
 
-" Project root
+" Plugin: Jump to project root / user home {{{
 " ---
 call NERDTreeAddKeyMap({
 	\ 'key': '&',
@@ -69,8 +87,26 @@ function! s:_set_root(dir)
 	let node = g:NERDTreeDirNode.New(path, b:NERDTree)
 	call b:NERDTree.changeRoot(node)
 endfunction
+" }}}
 
-" Denite fine/grep
+" Plugin: Create a new file or dir in path {{{
+" ---
+call NERDTreeAddKeyMap({
+	\ 'key': 'K',
+	\ 'callback': s:SNR.'create_in_path',
+	\ 'quickhelpText': 'Create file or dir',
+	\ 'scope': 'Node' })
+
+function! s:create_in_path(node)
+	if a:node.path.isDirectory && ! a:node.isOpen
+		call a:node.parent.putCursorHere(0, 0)
+	endif
+
+	call NERDTreeAddNode()
+endfunction
+" }}}
+
+" Plugin: Find and grep in path using Denite {{{
 " ---
 call NERDTreeAddKeyMap({
 	\ 'key': 'gf',
@@ -84,18 +120,15 @@ call NERDTreeAddKeyMap({
 	\ 'scope': 'Node' })
 
 function! s:find_in_path(node)
-	let path = a:node.path
-	let cwd = path.isDirectory ? path.str() : path.getParent().str()
-	execute 'Denite file_rec:'.cwd
+	execute 'Denite file_rec:'.s:get_containing_dir(a:node)
 endfunction
 
 function! s:grep_dir(node)
-	let path = a:node.path
-	let cwd = path.isDirectory ? path.str() : path.getParent().str()
-	execute 'Denite -buffer-name=grep grep:'.cwd
+	execute 'Denite -buffer-name=grep grep:'.s:get_containing_dir(a:node)
 endfunction
+" }}}
 
-" Yank path
+" Plugin: Yank path {{{
 " ---
 call NERDTreeAddKeyMap({
 	\ 'key': 'yy',
@@ -108,8 +141,9 @@ function! s:yank_path(node)
 	call setreg('*', l:path)
 	echomsg 'Yank node: '.l:path
 endfunction
+" }}}
 
-" Toggle width
+" Plugin: Toggle width {{{
 " ---
 call NERDTreeAddKeyMap({
 	\ 'key': 'w',
@@ -117,17 +151,18 @@ call NERDTreeAddKeyMap({
 	\ 'quickhelpText': 'Toggle window width' })
 
 function! s:toggle_width()
-	let l:maxi = 0
+	let l:max = 0
 	for l:z in range(1, line('$'))
-		let l:aktlen = len(getline(l:z))
-		if l:aktlen > l:maxi
-			let l:maxi = l:aktlen
+		let l:len = len(getline(l:z))
+		if l:len > l:max
+			let l:max = l:len
 		endif
 	endfor
-	exe 'vertical resize '.(l:maxi == winwidth('.') ? g:NERDTreeWinSize : l:maxi)
+	exe 'vertical resize '.(l:max == winwidth('.') ? g:NERDTreeWinSize : l:max)
 endfunction
+" }}}
 
-" Modify .local.vimrc of project
+" Menu-item: Modify .local.vimrc of project {{{
 " ---
 call NERDTreeAddMenuItem({
 	\ 'text': '(l)ocal rc',
@@ -135,21 +170,26 @@ call NERDTreeAddMenuItem({
 	\ 'callback': s:SNR.'modify_localvimrc'})
 
 function! s:modify_localvimrc()
-	let currentDir = g:NERDTreeDirNode.GetSelected().path.str({'format': 'Cd'})
-	let oldCWD = getcwd()
-	try
-		execute 'cd '.currentDir
+	let current_dir = g:NERDTreeDirNode.GetSelected().path.str({'format': 'Cd'})
+	if empty(current_dir)
+		echoerr 'Unable to find current directory'
+		return
+	endif
+	let lvimrc_path = current_dir.'/.local.vimrc'
+	let cwd = getcwd()
+	if ! filereadable(lvimrc_path)
 		call writefile([
 			\ 'lcd <sfile>:h',
 			\ '" set isk+=!,?',
 			\ ],
-			\ '.local.vimrc')
-	catch
-		execute 'cd '.oldCWD
-	endtry
+			\ lvimrc_path)
+	endif
+	wincmd w
+	execute 'vsplit '.fnameescape(lvimrc_path)
 endfunction
+" }}}
 
-" Smart h/l navigation
+" Plugin: Smart h/l navigation {{{
 " @see https://github.com/jballanc/nerdtree-space-keys
 " ---
 call NERDTreeAddKeyMap({
@@ -205,5 +245,84 @@ function! s:ascendTree(node)
 		end
 	end
 endfunction
+" }}}
 
-" vim: set ts=2 sw=2 tw=80 noet :
+" Plugin: Execute file with system associated utility {{{
+" ---
+call NERDTreeAddKeyMap({
+	\ 'key': 'x',
+	\ 'callback': s:SNR.'execute_system_associated',
+	\ 'quickhelpText': 'Execute system associated',
+	\ 'scope': 'FileNode' })
+
+function! s:execute_system_associated(filenode)
+	let current_dir = getcwd()
+	let path = a:filenode.parent.path.str()
+
+	" if exists(g:nerdtree_plugin_open_cmd)
+	" 	let cmd = g:nerdtree_plugin_open_cmd.' '.path
+	" 	call system(cmd)
+	" endif
+
+	" Snippet from vital.vim
+	try
+		execute (haslocaldir() ? 'lcd' : 'cd') fnameescape(path)
+		let filename = fnamemodify(a:filenode.path.str(), ':p')
+
+		let s:is_unix = has('unix')
+		let s:is_windows = has('win16') || has('win32') || has('win64') || has('win95')
+		let s:is_cygwin = has('win32unix')
+		let s:is_mac = !s:is_windows && !s:is_cygwin
+					\ && (has('mac') || has('macunix') || has('gui_macvim') ||
+					\   (!isdirectory('/proc') && executable('sw_vers')))
+		" As of 7.4.122, the system()'s 1st argument is converted internally by Vim.
+		" Note that Patch 7.4.122 does not convert system()'s 2nd argument and
+		" return-value. We must convert them manually.
+		let s:need_trans = v:version < 704 || (v:version == 704 && !has('patch122'))
+
+		" Detect desktop environment.
+		if s:is_windows
+			" For URI only.
+			if s:need_trans
+				let filename = iconv(filename, &encoding, 'char')
+			endif
+			" Note:
+			"   # and % required to be escaped (:help cmdline-special)
+			silent execute printf(
+						\ '!start rundll32 url.dll,FileProtocolHandler %s',
+						\ escape(filename, '#%'),
+						\)
+		elseif s:is_cygwin
+			" Cygwin.
+			call system(printf('%s %s', 'cygstart',
+						\ shellescape(filename)))
+		elseif executable('xdg-open')
+			" Linux.
+			call system(printf('%s %s &', 'xdg-open',
+						\ shellescape(filename)))
+		elseif exists('$KDE_FULL_SESSION') && $KDE_FULL_SESSION ==# 'true'
+			" KDE.
+			call system(printf('%s %s &', 'kioclient exec',
+						\ shellescape(filename)))
+		elseif exists('$GNOME_DESKTOP_SESSION_ID')
+			" GNOME.
+			call system(printf('%s %s &', 'gnome-open',
+						\ shellescape(filename)))
+		elseif executable('exo-open')
+			" Xfce.
+			call system(printf('%s %s &', 'exo-open',
+						\ shellescape(filename)))
+		elseif s:is_mac && executable('open')
+			" Mac OS.
+			call system(printf('%s %s &', 'open',
+						\ shellescape(filename)))
+		else
+			throw 'vital: System.File: open(): Not supported.'
+		endif
+	finally
+		execute (haslocaldir() ? 'lcd' : 'cd') fnameescape(current_dir)
+	endtry
+endfunction
+" }}}
+
+" vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :
