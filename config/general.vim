@@ -97,7 +97,7 @@ set shiftround      " Round indent to multiple of 'shiftwidth'
 " ------
 set timeout ttimeout
 set timeoutlen=750  " Time out on mappings
-set updatetime=2000 " Idle time to write swap and trigger CursorHold
+set updatetime=1000 " Idle time to write swap and trigger CursorHold
 
 " Time out on key codes
 if has('nvim')
