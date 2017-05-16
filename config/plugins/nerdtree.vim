@@ -92,7 +92,7 @@ endfunction
 " Plugin: Create a new file or dir in path {{{
 " ---
 call NERDTreeAddKeyMap({
-	\ 'key': 'K',
+	\ 'key': 'N',
 	\ 'callback': s:SNR.'create_in_path',
 	\ 'quickhelpText': 'Create file or dir',
 	\ 'scope': 'Node' })
