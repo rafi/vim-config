@@ -139,15 +139,15 @@ highlight! link ExtraWhitespace  SpellBad
 " Plugin: NERDTree icons and highlights {{{
 " ---------------------------------------------------------
 let g:NERDTreeIndicatorMapCustom = {
-	\ 'Modified':  '',
-	\ 'Staged':    'ᴍ',
-	\ 'Untracked': '⁇',
-	\ 'Renamed':   '',
-	\ 'Unmerged':  '',
-	\ 'Deleted':   '',
-	\ 'Dirty':     '·',
+	\ 'Modified':  '·',
+	\ 'Staged':    '‧',
+	\ 'Untracked': '?',
+	\ 'Renamed':   '≫',
+	\ 'Unmerged':  '≠',
+	\ 'Deleted':   '✃',
+	\ 'Dirty':     '⁖',
 	\ 'Clean':     '✓',
-	\ 'Unknown':   '?'
+	\ 'Unknown':   '⁇'
 	\ }
 
 let g:NERDTreeDirArrowExpandable = '▷'
