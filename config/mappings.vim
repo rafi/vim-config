@@ -22,7 +22,7 @@ if get(g:, 'elite_mode')
 endif
 
 " Double leader key for toggling visual-line mode
-nmap <silent> <Leader><Leader> :nohlsearch<CR>V
+nmap <silent> <Leader><Leader> V
 vmap <Leader><Leader> <Esc>
 
 " Toggle fold
@@ -110,11 +110,11 @@ cnoremap <Down> <C-n>
 map <Leader>cd :lcd %:p:h<CR>:pwd<CR>
 
 " Fast saving
-nnoremap <silent><Leader>w :write<CR>:nohlsearch<CR>
-vnoremap <silent><Leader>w <Esc>:write<CR>:nohlsearch<CR>
-nnoremap <silent><C-s> :<C-u>write<CR>:nohlsearch<CR>
-vnoremap <silent><C-s> :<C-u>write<CR>:nohlsearch<CR>
-cnoremap <silent><C-s> <C-u>write<CR>:nohlsearch<CR>
+nnoremap <silent><Leader>w :write<CR>
+vnoremap <silent><Leader>w <Esc>:write<CR>
+nnoremap <silent><C-s> :<C-u>write<CR>
+vnoremap <silent><C-s> :<C-u>write<CR>
+cnoremap <silent><C-s> <C-u>write<CR>
 
 " Save a file with sudo
 " http://forrst.com/posts/Use_w_to_sudo_write_a_file_with_Vim-uAN
