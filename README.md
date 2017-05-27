@@ -518,12 +518,16 @@ Key   | Mode | Action
 `;`+`j` | Normal | Jump points
 `;`+`o` | Normal | Outline tags
 `;`+`s` | Normal | Sessions
+`;`+`t` | Normal | Tag under cursor
 `;`+`h` | Normal | Help
+`;`+`v` | Normal/Visual | Register
+`;`+`z` | Normal | Z (jump around)
+`;`+`;` | Normal | Command history
 `;`+`/` | Normal | Buffer lines
 `;`+`*` | Normal | Match line
-`;`+`z` | Normal | Z (jump around)
-`<leader>`+`gl` | Normal | Git log
+`<leader>`+`gl` | Normal | Git log (all)
 `<leader>`+`gs` | Normal | Git status
+`<leader>`+`gc` | Normal | Git changed
 `<leader>`+`gf` | Normal | Grep word under cursor
 `<leader>`+`gg` | Normal/Visual | Grep word under cursor
 | **Within _Denite_ mode** |||
