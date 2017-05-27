@@ -25,6 +25,17 @@ endif
 nmap <silent> <Leader><Leader> V
 vmap <Leader><Leader> <Esc>
 
+" Change current word in a repeatable manner
+nnoremap cn *``cgn
+nnoremap cN *``cgN
+
+" Change selected word in a repeatable manner
+vnoremap <expr> cn "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgn"
+vnoremap <expr> cN "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgN"
+
+" xnoremap p  "0p
+" nnoremap x "_x
+
 " Toggle fold
 nnoremap <CR> za
 
@@ -34,6 +45,9 @@ nnoremap <S-Return> zMza
 " Use backspace key for matchit.vim
 nmap <BS> %
 xmap <BS> %
+
+nmap <Tab>  <C-w>w
+nmap <S-Tab>  <C-w>W
 
 "}}}
 " Global niceties {{{
@@ -307,13 +321,21 @@ nnoremap <silent> [Window]x  :<C-u>call <SID>BufferEmpty()<CR>
 nnoremap <silent> [Window]sv :split<CR>:wincmd p<CR>:e#<CR>
 nnoremap <silent> [Window]sg :vsplit<CR>:wincmd p<CR>:e#<CR>
 
-function! s:BufferEmpty() "{{{
+function! s:BufferEmpty() " {{{
 	let l:current = bufnr('%')
 	if ! getbufvar(l:current, '&modified')
 		enew
 		silent! execute 'bdelete '.l:current
 	endif
-endfunction "}}}
+endfunction " }}}
+
+function! s:SweepBuffers() " {{{
+	let bufs = range(1, bufnr('$'))
+	let hidden = filter(bufs, 'buflisted(v:val) && !bufloaded(v:val)')
+	if ! empty(hidden)
+		execute 'silent bdelete' join(hidden)
+	endif
+endfunction " }}}
 " }}}
 
 " vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :

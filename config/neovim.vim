@@ -1,7 +1,5 @@
 " Write history on idle
-augroup MyAutoCmd
-	autocmd CursorHold * if exists(':rshada') | rshada | wshada | endif
-augroup END
+autocmd MyAutoCmd CursorHold * if exists(':rshada') | rshada | wshada | endif
 
 " Search and use environments specifically made for Neovim.
 if isdirectory($VARPATH.'/venv/neovim2')

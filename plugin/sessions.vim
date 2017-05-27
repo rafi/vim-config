@@ -1,6 +1,6 @@
 
 " Session Management
-"---------------------------------------------------------
+" ---
 
 let g:session_directory = $VARPATH.'/session'
 
