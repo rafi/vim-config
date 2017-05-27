@@ -66,16 +66,16 @@ let g:deoplete#omni#input_patterns.javascript = ''
 " }}}
 " Ranking and Marks " {{{
 " Default rank is 100, higher is better.
-call deoplete#custom#set('buffer',        'mark', 'ℬ')
-call deoplete#custom#set('tag',           'mark', '⌦')
 call deoplete#custom#set('omni',          'mark', '⌾')
 call deoplete#custom#set('ternjs',        'mark', '⌁')
 call deoplete#custom#set('jedi',          'mark', '⌁')
 call deoplete#custom#set('vim',           'mark', '⌁')
 call deoplete#custom#set('neosnippet',    'mark', '⌘')
-call deoplete#custom#set('around',        'mark', '⮀')
-call deoplete#custom#set('syntax',        'mark', '♯')
+call deoplete#custom#set('tag',           'mark', '⌦')
+call deoplete#custom#set('around',        'mark', '↻')
+call deoplete#custom#set('buffer',        'mark', 'ℬ')
 call deoplete#custom#set('tmux-complete', 'mark', '⊶')
+call deoplete#custom#set('syntax',        'mark', '♯')
 
 call deoplete#custom#set('vim',           'rank', 630)
 call deoplete#custom#set('ternjs',        'rank', 620)
