@@ -167,8 +167,16 @@ if dein#tap('jedi-vim')
 	let g:jedi#usages_command = '<Leader>n'
 endif
 
-"}}}
-if dein#tap('vim-gitgutter') "{{{
+if dein#tap('tern_for_vim')
+	autocmd MyAutoCmd FileType javascript,jsx,javascript.jsx
+		\  nnoremap <silent><buffer> K          :<C-u>TernDoc<CR>
+		\| nnoremap <silent><buffer> <C-]>      :<C-u>TernDef<CR>
+		\| nnoremap <silent><buffer> <leader>g  :<C-u>TernType<CR>
+		\| nnoremap <silent><buffer> <leader>n  :<C-u>TernRefs<CR>
+		\| nnoremap <silent><buffer> <leader>r  :<C-u>TernRename<CR>
+endif
+
+if dein#tap('vim-gitgutter')
 	nmap <Leader>hj <Plug>GitGutterNextHunk
 	nmap <Leader>hk <Plug>GitGutterPrevHunk
 	nmap <Leader>hs <Plug>GitGutterStageHunk

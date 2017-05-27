@@ -369,7 +369,7 @@
   build: npm install -g tern
   if: executable('npm') && has('nvim') && empty($VIM_MINIMAL)
   on_i: 1
-  on_ft: javascript
+  on_ft: [ javascript, jsx, javascript.jsx ]
   hook_source: |
     let g:tern_request_timeout = 1
     let g:tern_show_signature_in_pum = 0
@@ -379,15 +379,16 @@
   on_i: 1
   hook_add: let g:tmuxcomplete#trigger = ''
 
-# Only Vim ---------------------------------
 - repo: ternjs/tern_for_vim
   build: npm install
-  if: executable('npm') && ! has('nvim') && empty($VIM_MINIMAL)
+  if: executable('npm') && empty($VIM_MINIMAL)
   on_i: 1
-  on_ft: javascript
+  on_ft: [ javascript, jsx, javascript.jsx ]
   hook_add: |
-    let g:tern_show_signature_in_pum = 1
+    let g:tern#command = ['tern']
+    let g:tern#arguments = ['--persistent']
     let g:tern_request_timeout = 1
+    let g:tern_show_signature_in_pum = 0
   hook_post_source: |
     autocmd MyAutoCmd FileType javascript setlocal omnifunc=tern#Complete
 
