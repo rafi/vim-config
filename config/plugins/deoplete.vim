@@ -131,9 +131,10 @@ inoremap <expr><C-l> deoplete#refresh()
 
 " <CR>: If popup menu visible, expand snippet or close popup with selection,
 "       Otherwise, check if within empty pair and use delimitMate.
-imap <silent><expr><CR> pumvisible() ?
+inoremap <silent><expr><CR> pumvisible() ?
 	\ (neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : deoplete#close_popup())
-		\ : (delimitMate#WithinEmptyPair() ? "\<Plug>delimitMateCR" : "\<CR>")
+		\ : "\<CR>"
+		" \ : (delimitMate#WithinEmptyPair() ? "\<Plug>delimitMateCR" : "\<CR>")
 
 " <Tab> completion:
 " 1. If popup menu is visible, select and insert next item

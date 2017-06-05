@@ -58,7 +58,13 @@
     let g:gfm_syntax_highlight_emoji = 0
     let g:gfm_syntax_enable_filetypes = ['markdown']
 
-- { repo: pangloss/vim-javascript, on_ft: [ javascript, jsx, javascript.jsx ] }
+- repo: pangloss/vim-javascript
+  on_ft: [ javascript, jsx, javascript.jsx ]
+  hook_source: |
+    let g:javascript_plugin_jsdoc = 1
+    let g:javascript_plugin_flow = 1
+    highlight! link jsFutureKeys PreProc
+
 - { repo: othree/jspc.vim, on_ft: [ javascript, jsx, javascript.jsx ] }
 - { repo: MaxMEllon/vim-jsx-pretty, on_ft: [ javascript, jsx, javascript.jsx ]}
 - { repo: heavenshell/vim-jsdoc, on_ft: [ javascript, jsx, javascript.jsx ] }
