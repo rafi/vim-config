@@ -216,7 +216,6 @@ Name           | Description
 [rhysd/accelerated-jk] | Up/down movement acceleration
 [Shougo/tabpagebuffer.vim] | Tabpage buffer interface
 [airblade/vim-gitgutter] | Show git changes at Vim gutter and un/stages hunks
-[Konfekt/FastFold] | Speed up Vim by updating folds when called-for
 [nathanaelkane/vim-indent-guides] | Visually display indent levels in code
 [MattesGroeger/vim-bookmarks] | Bookmarks, works independently from vim marks
 [rhysd/committia.vim] | Pleasant editing on Git commit messages
@@ -351,7 +350,6 @@ Name           | Description
 [rhysd/accelerated-jk]: https://github.com/rhysd/accelerated-jk
 [Shougo/tabpagebuffer.vim]: https://github.com/Shougo/tabpagebuffer.vim
 [airblade/vim-gitgutter]: https://github.com/airblade/vim-gitgutter
-[Konfekt/FastFold]: https://github.com/Konfekt/FastFold
 [nathanaelkane/vim-indent-guides]: https://github.com/nathanaelkane/vim-indent-guides
 [MattesGroeger/vim-bookmarks]: https://github.com/MattesGroeger/vim-bookmarks
 [rhysd/committia.vim]: https://github.com/rhysd/committia.vim

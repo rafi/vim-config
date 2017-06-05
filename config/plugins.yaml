@@ -202,10 +202,6 @@
   on_path: COMMIT_EDITMSG
   hook_source: let g:committia_min_window_width = 70
 
-- repo: Konfekt/FastFold
-  on_event: BufEnter
-  hook_post_source: FastFoldUpdate
-
 - repo: benekastah/neomake
   if: has('nvim') && empty($VIM_MINIMAL)
   on_cmd: Neomake
