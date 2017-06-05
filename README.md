@@ -128,11 +128,12 @@ Name           | Description
 -------------- | ----------------------
 [Shougo/dein.vim] | Dark powered Vim/Neovim plugin manager
 [rafi/awesome-colorschemes] | Awesome color-schemes
-[rafi/vim-blocks] | Bite-size blocks for Vim tab & status lines
+[rafi/vim-badge] | Bite-size badges for the tab & status lines
 [itchyny/vim-gitbranch] | Lightweight git branch detection
 [itchyny/vim-parenmatch] | Efficient alternative to the standard matchparen plugin
 [thinca/vim-localrc] | Enable configuration file of each directory
 [christoomey/tmux-navigator] | Seamless navigation between tmux panes and vim splits
+[junegunn/vim-peekaboo] | See the contents of registers
 [tpope/vim-sleuth] | Heuristically set buffer indent options
 [itchyny/cursorword] | Underlines word under cursor
 
@@ -197,7 +198,6 @@ Name           | Description
 [Shougo/vinarise.vim] | Hex editor
 [kana/vim-niceblock] | Make blockwise Visual mode more useful
 [guns/xterm-color-table.vim] | Display 256 xterm colors with their RGB equivalents
-[thinca/vim-prettyprint] | Pretty-print vim variables
 [mbbill/undotree] | Ultimate undo history visualizer
 [metakirby5/codi.vim] | The interactive scratchpad for hackers
 [Shougo/vimproc.vim] | Interactive command execution
@@ -205,7 +205,6 @@ Name           | Description
 [brooth/far.vim] | Fast find and replace plugin
 [jreybert/vimagit] | Ease your git work-flow within Vim
 [easymotion/vim-easymotion] | Vim motions on speed
-[hecal3/vim-leader-guide] | Keymap-display inspired by emacs's guide-key
 [majutsushi/tagbar] | Displays tags in a window, ordered by scope
 [beloglazov/vim-online-thesaurus] | Look up words in an online thesaurus
 
@@ -224,7 +223,6 @@ Name           | Description
 [benekastah/neomake] | Asynchronous linting and make framework
 [goyo] | Distraction-free writing
 [limelight] | Hyperfocus-writing
-[junegunn/vim-peekaboo] | See the contents of the registers
 [itchyny/calendar.vim] | Calendar application
 [vimwiki/vimwiki] | Personal Wiki for Vim
 
@@ -280,7 +278,7 @@ Name           | Description
 
 [Shougo/dein.vim]: https://github.com/Shougo/dein.vim
 [rafi/awesome-colorschemes]: https://github.com/rafi/awesome-vim-colorschemes
-[rafi/vim-blocks]: https://github.com/rafi/vim-blocks
+[rafi/vim-badge]: https://github.com/rafi/vim-badge
 [itchyny/vim-gitbranch]: https://github.com/itchyny/vim-gitbranch
 [itchyny/vim-parenmatch]: https://github.com/itchyny/vim-parenmatch
 [thinca/vim-localrc]: https://github.com/thinca/vim-localrc
@@ -339,7 +337,6 @@ Name           | Description
 [Shougo/vinarise.vim]: https://github.com/Shougo/vinarise.vim
 [kana/vim-niceblock]: https://github.com/kana/vim-niceblock
 [guns/xterm-color-table.vim]: https://github.com/guns/xterm-color-table.vim
-[thinca/vim-prettyprint]: https://github.com/thinca/vim-prettyprint
 [mbbill/undotree]: https://github.com/mbbill/undotree
 [metakirby5/codi.vim]: https://github.com/metakirby5/codi.vim
 [Shougo/vimproc.vim]: https://github.com/Shougo/vimproc.vim
@@ -347,7 +344,6 @@ Name           | Description
 [brooth/far.vim]: https://github.com/brooth/far.vim
 [jreybert/vimagit]: https://github.com/jreybert/vimagit
 [easymotion/vim-easymotion]: https://github.com/easymotion/vim-easymotion
-[hecal3/vim-leader-guide]: https://github.com/hecal3/vim-leader-guide
 [majutsushi/tagbar]: https://github.com/majutsushi/tagbar
 [beloglazov/vim-online-thesaurus]: https://github.com/beloglazov/vim-online-thesaurus
 
@@ -385,8 +381,8 @@ Name           | Description
 [nixprime/cpsm]: https://github.com/nixprime/cpsm
 [chemzqm/unite-location]: https://github.com/chemzqm/unite-location
 [chemzqm/denite-git]: https://github.com/chemzqm/denite-git
-[rafi/vim-denite-z]: https://github.com/rafi/vim-denite-session
-[rafi/vim-denite-session]: https://github.com/rafi/vim-denite-z
+[rafi/vim-denite-z]: https://github.com/rafi/vim-denite-z
+[rafi/vim-denite-session]: https://github.com/rafi/vim-denite-session
 [rafi/vim-denite-mpc]: https://github.com/rafi/vim-denite-mpc
 
 [kana/vim-operator-user]: https://github.com/kana/vim-operator-user

@@ -9,6 +9,7 @@
 - repo: rafi/vim-badge
 - repo: thinca/vim-localrc
 - repo: christoomey/vim-tmux-navigator
+- repo: junegunn/vim-peekaboo
 - repo: tpope/vim-sleuth
 - repo: itchyny/vim-gitbranch
 - repo: itchyny/vim-parenmatch
@@ -125,7 +126,6 @@
 - { repo: guns/xterm-color-table.vim, on_cmd: XtermColorTable }
 - { repo: mbbill/undotree, on_cmd: UndotreeToggle }
 - { repo: metakirby5/codi.vim, on_cmd: Codi, if: empty($VIM_MINIMAL) }
-- { repo: thinca/vim-prettyprint, on_cmd: PP, on_func: PP }
 - { repo: Shougo/vimproc.vim, build: make, on_func: vimproc# }
 - { repo: reedes/vim-wordy, on_cmd: [ Wordy, NextWordy, PrevWordy ]}
 - { repo: brooth/far.vim, on_cmd: [ Far, Farp, F ] }
@@ -143,11 +143,6 @@
 - repo: chemzqm/vim-easygit
   on_cmd: [ Gcd, Glcd, Gcommit, Gblame, Gstatus, Gdiff, Gbrowse, Gstatus ]
   hook_source: let g:easygit_enable_command = 1
-
-- repo: hecal3/vim-leader-guide
-  if: empty($VIM_MINIMAL)
-  on_cmd: [ LeaderGuide, LeaderGuideVisual ]
-  on_map: { nv: <Plug>leaderguide- }
 
 - repo: majutsushi/tagbar
   if: empty($VIM_MINIMAL)
@@ -237,10 +232,6 @@
 - repo: junegunn/limelight.vim
   if: empty($VIM_MINIMAL)
   on_cmd: Limelight
-
-# - repo: junegunn/vim-peekaboo
-#   if: empty($VIM_MINIMAL)
-#   on_map: [[ nx, '"' ]]
 
 - repo: itchyny/calendar.vim
   if: empty($VIM_MINIMAL)

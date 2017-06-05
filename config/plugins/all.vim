@@ -230,13 +230,6 @@ if dein#tap('undotree')
 	nnoremap <Leader>gu :UndotreeToggle<CR>
 endif
 
-if dein#tap('vim-leader-guide')
-	nmap  <Leader>ll  <Plug>leaderguide-global
-	nmap  <Leader>lb  <Plug>leaderguide-buffer
-	let g:leaderGuide_submode_mappings =
-		\ { '<C-C>': 'win_close', '<C-F>': 'page_down', '<C-B>': 'page_up' }
-endif
-
 if dein#tap('vim-online-thesaurus')
 	nnoremap <silent> <Leader>K :<C-u>OnlineThesaurusCurrentWord<CR>
 endif
