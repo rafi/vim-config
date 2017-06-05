@@ -400,6 +400,11 @@ Name           | Description
 
 ## Custom Key-mappings
 
+Note that,
+
+* Leader key is set as <kbd>Space</kbd>
+* Local-leader is set as <kbd>;</kbd> and used for Denite & NERDTree
+
 Key   | Mode | Action
 ----- |:----:| ------------------
 `Space` | _All_ | **Leader**
@@ -432,12 +437,14 @@ Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `mj`/`mk` | Normal/Visual | Move lines down/up
 `gQ` | Normal | Disable EX-mode
 `cp` | Normal | Duplicate paragraph
+`cn`/`cN` | Normal/Visual | Change current word in a repeatable manner
 `s` | Visual | Replace within selected area
 `Ctrl`+`a` | Command | Navigation in command line
 `Ctrl`+`b` | Command | Move cursor backward in command line
 `Ctrl`+`f` | Command | Move cursor forward in command line
 `Ctrl`+`r` | Visual | Replace selection with step-by-step confirmation
 `,`+`Space` | Normal | Remove all spaces at EOL
+`<leader>`+`<leader>` | Normal | Enter visual line-mode
 `<leader>`+`a` | Normal | Align paragraph
 `<leader>`+`os` | Normal | Load last session
 `<leader>`+`se` | Normal | Save current workspace as last session
@@ -484,16 +491,19 @@ Key   | Mode | Action
 
 Key   | Mode | Action
 ----- |:----:| ------------------
-`q` | Normal | Quit window (and Vim if last window)
-`s`+`v` | Normal | Horizontal (:split)
+`Q` | Normal | Quit window (and Vim, if last window)
+`Tab` | Normal | Next window in tab
+`Shift`+`Tab` | Normal | Previous window in tab
+`Ctrl`+`Tab` | Normal | Next tab
+`Ctrl`+`Shift`+`Tab` | Normal | Previous tab
+`\`+`\` | Normal | Jump to last tab
+`s`+`v` | Normal | Horizontal split (:split)
 `s`+`g` | Normal | Vertical split (:vsplit)
 `s`+`t` | Normal | Open new tab (:tabnew)
 `s`+`o` | Normal | Close other windows (:only)
 `s`+`x` | Normal | Remove buffer, leave blank window
 `s`+`q` | Normal | Closes current buffer (:close)
 `s`+`Q` | Normal | Removes current buffer (:bdelete)
-`Tab` | Normal | Next window or tab
-`Shift`+`Tab` | Normal | Previous window or tab
 `<leader>`+`sv` | Normal | Split with previous buffer
 `<leader>`+`sg` | Normal | Vertical split with previous buffer
 

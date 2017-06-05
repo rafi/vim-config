@@ -33,6 +33,9 @@ nnoremap cN *``cgN
 vnoremap <expr> cn "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgn"
 vnoremap <expr> cN "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgN"
 
+nnoremap cp yap<S-}>p
+nnoremap <leader>a =ip
+
 " xnoremap p  "0p
 " nnoremap x "_x
 
@@ -140,8 +143,6 @@ cmap W!! w !sudo tee % >/dev/null
 
 " Toggle paste mode
 set pastetoggle=<F2>
-nnoremap cp yap<S-}>p
-nnoremap <leader>a =ip
 
 " I like to :quit with 'q', shrug.
 nnoremap <silent> q :<C-u>:quit<CR>
