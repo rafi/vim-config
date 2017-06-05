@@ -14,7 +14,9 @@ endif
 " ---------------------------------------------------------
 set showbreak=↪
 set fillchars=vert:│,fold:─
-set listchars=tab:\⋮\ ,extends:⟫,precedes:⟪,nbsp:␣,trail:·
+set listchars=tab:\▏\ ,extends:⟫,precedes:⟪,nbsp:␣,trail:·
+
+" icons:  ▏│ ¦ ╎ ┆ ⋮ ⦙ ┊ 
 " }}}
 
 " Tabline {{{
@@ -109,7 +111,7 @@ highlight User8 guifg=#ffb964 guibg=#30302c ctermfg=215 ctermbg=236
 " }}}
 
 let s:disable_statusline =
-	\ 'denite\|unite\|vimfiler\|tagbar\|nerdtree\|undotree\|gundo\|diff'
+	\ 'denite\|unite\|vimfiler\|tagbar\|nerdtree\|undotree\|gundo\|diff\|peekaboo\|sidemenu'
 
 " Toggle Statusline {{{
 augroup statusline
@@ -134,6 +136,7 @@ highlight! link pythonSpaceError  NONE
 highlight! link pythonIndentError NONE
 " highlight! link mkdLineBreak      NONE
 highlight! link ExtraWhitespace  SpellBad
+highlight! WarningMsg ctermfg=100 guifg=#CCC566
 " }}}
 
 " Plugin: NERDTree icons and highlights {{{
@@ -183,8 +186,8 @@ function! s:NERDTreeHighlight()
 		execute 'syntax match '.l:hiname.' #'.l:icon.'# containedin=NERDTreeFlags'
 	endfor
 
-	syntax match NERDTreeOpenBracket /\[/
-		\ contained containedin=NERDTreeFlags conceal
+	syntax match hideBracketsInNerdTree "\]" contained conceal containedin=NERDTreeFlags
+	syntax match hideBracketsInNerdTree "\[" contained conceal containedin=NERDTreeFlags
 endfunction
 
 augroup AddHighlighting
@@ -200,10 +203,10 @@ let g:tagbar_iconchars = ['▷', '◢']
 
 " Plugin: Neomake icons {{{
 " ---------------------------------------------------------
-let g:neomake_error_sign = {'text': '◤', 'texthl': 'ErrorMsg'}
-let g:neomake_warning_sign = {'text': '◸', 'texthl': 'WarningMsg'}
-let g:neomake_message_sign = {'text': 's', 'texthl': 'NeomakeMessageSign'}
-let g:neomake_info_sign = {'text': 'i', 'texthl': 'NeomakeInfoSign'}
+let g:neomake_error_sign = {'text': '!', 'texthl': 'ErrorMsg'}
+let g:neomake_warning_sign = {'text': '!', 'texthl': 'WarningMsg'}
+let g:neomake_message_sign = {'text': '⌂', 'texthl': 'NeomakeMessageSign'}
+let g:neomake_info_sign = {'text': '⍞', 'texthl': 'NeomakeInfoSign'}
 "}}}
 
 " Plugin: GitGutter icons {{{
