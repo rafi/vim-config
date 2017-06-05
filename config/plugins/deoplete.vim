@@ -100,18 +100,19 @@ call deoplete#custom#set('syntax',        'rank', 200)
 " Default matchers: ['matcher_length', 'matcher_fuzzy']
 
 call deoplete#custom#set('_', 'converters', [
-	\ 'converter_remove_paren',
 	\ 'converter_remove_overlap',
 	\ 'converter_truncate_abbr',
 	\ 'converter_truncate_menu',
 	\ 'converter_auto_delimiter',
 	\ ])
 
+	" \ 'converter_remove_paren',
+
 " }}}
 " Key-mappings and Events " {{{
 " ---
 
-autocmd MyAutoCmd CompleteDone * pclose!
+autocmd MyAutoCmd CompleteDone * silent! pclose!
 
 " Movement within 'ins-completion-menu'
 imap <expr><C-j>   pumvisible() ? "\<Down>" : "\<C-j>"
@@ -141,17 +142,17 @@ inoremap <silent><expr><CR> pumvisible() ?
 " 2. Otherwise, if within a snippet, jump to next input
 " 3. Otherwise, if preceding chars are whitespace, insert tab char
 " 4. Otherwise, start manual autocomplete
-imap <silent><expr><Tab> pumvisible() ? "\<C-n>"
+imap <silent><expr><Tab> pumvisible() ? "\<Down>"
 	\ : (neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)"
 	\ : (<SID>is_whitespace() ? "\<Tab>"
 	\ : deoplete#manual_complete()))
 
-smap <silent><expr><Tab> pumvisible() ? "\<C-n>"
+smap <silent><expr><Tab> pumvisible() ? "\<Down>"
 	\ : (neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)"
 	\ : (<SID>is_whitespace() ? "\<Tab>"
 	\ : deoplete#manual_complete()))
 
-inoremap <expr><S-Tab>  pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><S-Tab>  pumvisible() ? "\<Up>" : "\<C-h>"
 
 function! s:is_whitespace() "{{{
 	let col = col('.') - 1

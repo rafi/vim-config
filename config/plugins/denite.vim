@@ -11,15 +11,12 @@ call denite#custom#option('_', {
 	\ 'auto_highlight': 0,
 	\ })
 
-call denite#custom#option('list', {
-	\ 'mode': 'normal',
-	\ 'winheight': 12,
-	\ })
+call denite#custom#option('list', { 'winheight': 16 })
 
 call denite#custom#option('mpc', {
 	\ 'quit': 0,
 	\ 'mode': 'normal',
-	\ 'winheight': 12,
+	\ 'winheight': 16,
 	\ })
 
 " MATCHERS
