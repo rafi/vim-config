@@ -261,10 +261,10 @@ if dein#tap('sideways.vim')
 endif
 
 if dein#tap('splitjoin.vim')
-	let g:splitjoin_split_mapping = ''
 	let g:splitjoin_join_mapping = ''
-	nmap sj :SplitjoinSplit<CR>
-	nmap sk :SplitjoinJoin<CR>
+	let g:splitjoin_split_mapping = ''
+	nmap sj :SplitjoinJoin<CR>
+	nmap sk :SplitjoinSplit<CR>
 endif
 
 if dein#tap('linediff.vim')
