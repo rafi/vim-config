@@ -5,7 +5,7 @@
 " ---
 " let g:deoplete#auto_complete_delay = 50  " Default is 50
 " let g:deoplete#auto_refresh_delay = 500  " Default is 500
-let g:deoplete#enable_refresh_always = 0
+let g:deoplete#enable_refresh_always = 1
 let g:deoplete#enable_camel_case = 1
 let g:deoplete#max_abbr_width = 35
 let g:deoplete#max_menu_width = 20
@@ -13,9 +13,11 @@ let g:deoplete#skip_chars = ['(', ')', '<', '>']
 let g:deoplete#tag#cache_limit_size = 800000
 let g:deoplete#file#enable_buffer_path = 1
 
-let g:deoplete#sources#jedi#statement_length = 1
+let g:deoplete#sources#jedi#statement_length = 30
 let g:deoplete#sources#jedi#show_docstring = 1
 let g:deoplete#sources#jedi#short_types = 1
+
+call deoplete#custom#set('_', 'min_pattern_length', 2)
 
 " }}}
 " Limit Sources " {{{
@@ -35,8 +37,6 @@ let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
 " }}}
 " Omni functions and patterns " {{{
 " ---
-call deoplete#custom#set('_', 'min_pattern_length', 1)
-
 " let g:deoplete#keyword_patterns = {}
 " let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
 
@@ -100,13 +100,12 @@ call deoplete#custom#set('syntax',        'rank', 200)
 " Default matchers: ['matcher_length', 'matcher_fuzzy']
 
 call deoplete#custom#set('_', 'converters', [
+	\ 'converter_remove_paren',
 	\ 'converter_remove_overlap',
 	\ 'converter_truncate_abbr',
 	\ 'converter_truncate_menu',
 	\ 'converter_auto_delimiter',
 	\ ])
-
-	" \ 'converter_remove_paren',
 
 " }}}
 " Key-mappings and Events " {{{
@@ -133,7 +132,7 @@ inoremap <expr><C-l> deoplete#refresh()
 " <CR>: If popup menu visible, expand snippet or close popup with selection,
 "       Otherwise, check if within empty pair and use delimitMate.
 inoremap <silent><expr><CR> pumvisible() ?
-	\ (neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : deoplete#close_popup())
+	\ (neosnippet#expandable() ? neosnippet#mappings#expand_impl() : deoplete#close_popup())
 		\ : (delimitMate#WithinEmptyPair() ? "\<C-R>=delimitMate#ExpandReturn()\<CR>" : "\<CR>")
 
 " <Tab> completion:
