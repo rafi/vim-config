@@ -1,13 +1,27 @@
-
 " Vim Only: Xterm & Tmux
 "---------------------------------------------------------
-if has('nvim')
-	finish
-endif
-
 if exists('$TMUX')
 	set ttyfast
 	set ttymouse=sgr
+
+	" Set Vim-specific sequences for RGB colors
+	" Fixes 'termguicolors' usage in tmux
+	" :h xterm-true-color
+	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+	" Cursor shape inside tmux
+	" ---
+	" For rxvt-unicode:
+	" 1 or 0 -> blinking block
+	" 2 -> solid block
+	" 3 -> blinking underscore
+	" 4 -> solid underscore
+	" Recent versions of xterm (282 or above) also support
+	" 5 -> blinking vertical bar
+	" 6 -> solid vertical bar
+	let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>[3 q\<Esc>\\"
+	let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>[0 q\<Esc>\\"
 
 	" Assigns some xterm(1)-style keys to escape sequences passed by tmux
 	" when 'xterm-keys' is set to 'on'.  Inspired by an example given by
@@ -43,20 +57,6 @@ if exists('$TMUX')
 
 	execute "set t_kP=^[[5;*~"
 	execute "set t_kN=^[[6;*~"
-
-	" Cursor shape
-	" ------------
-	" For rxvt-unicode:
-	" 1 or 0 -> blinking block
-	" 2 -> solid block
-	" 3 -> blinking underscore
-	" 4 -> solid underscore
-	" Recent versions of xterm (282 or above) also support
-	" 5 -> blinking vertical bar
-	" 6 -> solid vertical bar
-	let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>[3 q\<Esc>\\"
-	let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>[0 q\<Esc>\\"
-
 else
 	set ttymouse=urxvt
 

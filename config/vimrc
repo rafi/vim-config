@@ -82,6 +82,8 @@ if has('vim_starting')
 	call s:source_file('init.vim')
 	if has('nvim')
 		call s:source_file('neovim.vim')
+	else
+		call s:source_file('terminal.vim')
 	endif
 endif
 
@@ -124,7 +126,6 @@ endif
 
 " Loading configuration modules
 call s:source_file('general.vim')
-call s:source_file('terminal.vim')
 call s:source_file('filetype.vim')
 call s:source_file('mappings.vim')
 call s:source_file('theme.vim')
