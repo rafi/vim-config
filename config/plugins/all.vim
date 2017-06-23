@@ -11,7 +11,7 @@ if dein#tap('denite.nvim')
 	xnoremap <silent><LocalLeader>v :<C-u>Denite register -buffer-name=register -default-action=replace<CR>
 	nnoremap <silent><LocalLeader>l :<C-u>Denite location_list -buffer-name=list<CR>
 	nnoremap <silent><LocalLeader>q :<C-u>Denite quickfix -buffer-name=list<CR>
-	nnoremap <silent><LocalLeader>n :<C-u>Denite dein -no-quit<CR>
+	nnoremap <silent><LocalLeader>n :<C-u>Denite dein<CR>
 	nnoremap <silent><LocalLeader>g :<C-u>Denite grep<CR>
 	nnoremap <silent><LocalLeader>j :<C-u>Denite jump change file_point<CR>
 	nnoremap <silent><LocalLeader>o :<C-u>Denite outline<CR>
@@ -47,7 +47,7 @@ if dein#tap('denite.nvim')
 endif
 
 if dein#tap('vim-denite-z')
-	command! -nargs=+ -complete=command Z
+	command! -nargs=+ -complete=file Z
 		\ call denite#start([{'name': 'z', 'args': [<q-args>], {'immediately': 1}}])
 endif
 
