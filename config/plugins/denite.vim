@@ -6,17 +6,17 @@
 call denite#custom#option('_', {
 	\ 'prompt': 'λ:',
 	\ 'empty': 0,
+	\ 'winheight': 16,
 	\ 'short_source_names': 1,
 	\ 'vertical_preview': 1,
-	\ 'auto_highlight': 0,
 	\ })
 
-call denite#custom#option('list', { 'winheight': 16 })
+call denite#custom#option('list', {})
 
 call denite#custom#option('mpc', {
 	\ 'quit': 0,
 	\ 'mode': 'normal',
-	\ 'winheight': 16,
+	\ 'winheight': 20,
 	\ })
 
 " MATCHERS

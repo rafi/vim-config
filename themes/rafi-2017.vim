@@ -190,7 +190,7 @@ function! s:NERDTreeHighlight()
 	syntax match hideBracketsInNerdTree "\[" contained conceal containedin=NERDTreeFlags
 endfunction
 
-augroup AddHighlighting
+augroup nerdtree-highlights
 	autocmd!
 	autocmd FileType nerdtree call s:NERDTreeHighlight()
 augroup END

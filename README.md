@@ -491,7 +491,7 @@ Key   | Mode | Action
 
 Key   | Mode | Action
 ----- |:----:| ------------------
-`Q` | Normal | Quit window (and Vim, if last window)
+`q` | Normal | Quit window (and Vim, if last window)
 `Tab` | Normal | Next window in tab
 `Shift`+`Tab` | Normal | Previous window in tab
 `Ctrl`+`Tab` | Normal | Next tab

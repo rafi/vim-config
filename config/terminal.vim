@@ -1,8 +1,7 @@
-" Vim Only: Xterm & Tmux
+" Vim Only Terminal Tweaks: Colors, cursor shape, and tmux
 "---------------------------------------------------------
 if exists('$TMUX')
 	set ttyfast
-	set ttymouse=sgr
 
 	" Set Vim-specific sequences for RGB colors
 	" Fixes 'termguicolors' usage in tmux
@@ -58,8 +57,6 @@ if exists('$TMUX')
 	execute "set t_kP=^[[5;*~"
 	execute "set t_kN=^[[6;*~"
 else
-	set ttymouse=urxvt
-
 	" Cursor shape outside of tmux
 	let &t_SI = "\<Esc>[3 q"
 	let &t_EI = "\<Esc>[0 q"
