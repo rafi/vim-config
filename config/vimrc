@@ -81,8 +81,10 @@ augroup END
 if has('vim_starting')
 	call s:source_file('init.vim')
 	if has('nvim')
+		" Neovim settings
 		call s:source_file('neovim.vim')
-	else
+	elseif ! has('gui_running') && ! has('win32') && ! has('win64')
+		" Linux terminal settings
 		call s:source_file('terminal.vim')
 	endif
 endif

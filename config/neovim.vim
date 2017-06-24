@@ -1,4 +1,4 @@
-" Write history on idle
+" Write history on idle, for sharing among different sessions
 autocmd MyAutoCmd CursorHold * if exists(':rshada') | rshada | wshada | endif
 
 " Search and use environments specifically made for Neovim.

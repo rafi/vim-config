@@ -423,7 +423,6 @@ Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `Ctrl`+`y` | Normal | Smart scroll up (3C-y/k)
 `Ctrl`+`q` | Normal | Remap to `Ctrl`+`w`
 `Ctrl`+`x` | Normal | Rotate window placement
-`F2` | _All_ | Toggle paste mode
 `!` | Normal | Shortcut for `:!`
 `}` | Normal | After paragraph motion go to first non-blank char (}^)
 `<` | Visual/Normal | Indent to left and re-select

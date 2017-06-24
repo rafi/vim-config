@@ -141,9 +141,6 @@ cmap W!! w !sudo tee % >/dev/null
 " Editor UI {{{
 " ---------
 
-" Toggle paste mode
-set pastetoggle=<F2>
-
 " I like to :quit with 'q', shrug.
 nnoremap <silent> q :<C-u>:quit<CR>
 nnoremap gQ <Nop>
