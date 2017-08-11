@@ -223,7 +223,7 @@ if dein#tap('vim-easygit')
 	nnoremap <silent> <leader>gb :Gblame<CR>
 	nnoremap <silent> <leader>gB :Gbrowse<CR>
 	nnoremap <silent> <leader>gS :Gstatus<CR>
-	nnoremap <silent> <leader>gp :Git push<CR>
+	nnoremap <silent> <leader>gp :Gpush<CR>
 endif
 
 if dein#tap('undotree')
