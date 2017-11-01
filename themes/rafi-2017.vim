@@ -209,6 +209,11 @@ let g:neomake_message_sign = {'text': '⌂', 'texthl': 'NeomakeMessageSign'}
 let g:neomake_info_sign = {'text': '⍞', 'texthl': 'NeomakeInfoSign'}
 "}}}
 
+" Plugin: vim-json {{{
+" ---------------------------------------------------------
+let g:vim_json_syntax_conceal = 0
+"}}}
+
 " Plugin: GitGutter icons {{{
 " ---------------------------------------------------------
 let g:gitgutter_sign_added = '▎'
@@ -224,6 +229,11 @@ highlight! GitGutterAdd ctermfg=22 guifg=#006000 ctermbg=NONE guibg=NONE
 highlight! GitGutterChange ctermfg=58 guifg=#5F6000 ctermbg=NONE guibg=NONE
 highlight! GitGutterDelete ctermfg=52 guifg=#600000 ctermbg=NONE guibg=NONE
 highlight! GitGutterChangeDelete ctermfg=52 guifg=#600000 ctermbg=NONE guibg=NONE
+" }}}
+
+" Plugin: terraform {{{
+" ---------------------------------------------------------
+let g:terraform_align=1
 " }}}
 
 " Plugin: denite {{{
@@ -250,7 +260,7 @@ highlight! BookmarkAnnotationSign  ctermfg=11 guifg=#EACF49
 
 " Plugin: vim-choosewin {{{
 " ---------------------------------------------------------
-let g:choosewin_label = 'SDFJKLZXCV'
+" let g:choosewin_label = 'SDFJKLZXCV'
 let g:choosewin_overlay_enable = 1
 let g:choosewin_statusline_replace = 1
 let g:choosewin_overlay_clear_multibyte = 0

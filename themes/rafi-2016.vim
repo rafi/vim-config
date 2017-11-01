@@ -18,6 +18,11 @@ set fillchars=vert:│,fold:─
 set listchars=tab:\⋮\ ,extends:⟫,precedes:⟪,nbsp:␣,trail:·
 " }}}
 
+" JSON quotes {{{
+" ---------------------------------------------------------
+let g:vim_json_syntax_conceal = 0
+"}}}
+
 " Tabline {{{
 " ---------------------------------------------------------
 " TabLineFill: Tab pages line, where there are no labels
@@ -231,7 +236,7 @@ let g:gitgutter_sign_modified_removed = '▋'
 " ---------------------------------------------------------
 let g:indent_guides_guide_size = 1
 let g:indent_guides_start_level = 1
-let g:indent_guides_auto_colors = 0
+let g:indent_guides_auto_colors = 1
 "}}}
 
 " Plugin: vim-gitgutter {{{
@@ -264,8 +269,10 @@ highlight link vimfilerMarkedFile  Type
 
 " Plugin: vim-indent-guides {{{
 " ---------------------------------------------------------
-highlight IndentGuidesOdd  guibg=#262626 ctermbg=235
-highlight IndentGuidesEven guibg=#303030 ctermbg=236
+"highlight IndentGuidesOdd  guibg=#202020 ctermbg=235
+"highlight IndentGuidesEven guibg=#303030 ctermbg=236
+"highlight IndentGuidesOdd  guibg=red   ctermbg=3
+"highlight IndentGuidesEven guibg=green ctermbg=4
 " }}}
 
 " Plugin: vim-operator-flashy {{{

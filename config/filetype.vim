@@ -50,8 +50,6 @@ augroup MyAutoCmd " {{{
 
 	autocmd FileType crontab setlocal nobackup nowritebackup
 
-	autocmd FileType docker-compose setlocal expandtab
-
 	autocmd FileType gitcommit setlocal spell
 
 	autocmd FileType gitcommit,qfreplace setlocal nofoldenable

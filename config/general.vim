@@ -37,7 +37,7 @@ set sessionoptions-=help
 set sessionoptions-=buffers
 set sessionoptions+=tabpages
 
-if has('clipboard')
+if ( has('nvim') || $DISPLAY !=? '') && has('clipboard')
 	set clipboard& clipboard+=unnamedplus
 endif
 
@@ -83,7 +83,7 @@ endif
 " Tabs and Indents {{{
 " ----------------
 set textwidth=80    " Text width maximum chars before wrapping
-set noexpandtab     " Don't expand tabs to spaces.
+set expandtab       " Expand tabs to spaces.
 set tabstop=2       " The number of spaces a tab is
 set softtabstop=2   " While performing editing operations
 set shiftwidth=2    " Number of spaces to use in auto(indent)

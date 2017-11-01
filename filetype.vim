@@ -1,4 +1,4 @@
-
+"
 " File-type Detection
 " ------------------------------------------------
 
@@ -10,13 +10,14 @@ augroup filetypedetect
 
 	autocmd BufNewFile,BufReadPost *.feature,*.story setf cucumber
 
-	autocmd BufNewFile,BufRead */inventory/*.{yml,yaml}    setf ansible
-	autocmd BufNewFile,BufRead */inventories/*.{yml,yaml}  setf ansible
-	autocmd BufNewFile,BufRead */playbooks/*/*.{yml,yaml}  setf ansible
+	autocmd BufNewFile,BufRead */inventory/*         setf ansible
+	autocmd BufNewFile,BufRead */playbooks/*/*.yml   setf ansible
 
 	autocmd BufNewFile,BufRead .tern-project         setf json
 
 	autocmd BufNewFile,BufRead Tmuxfile,tmux/config  setf tmux
+
+	autocmd BufNewFile,BufRead *.tf,*.tfvars,*.tfstate setf terraform
 
 "	autocmd BufNewFile,BufRead *.j2                  setf jinja
 

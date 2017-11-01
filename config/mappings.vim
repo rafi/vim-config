@@ -165,14 +165,16 @@ nmap <silent> <Leader>tw :setlocal wrap! breakindent!<CR>
 " Tabs
 nnoremap <silent> g0 :<C-u>tabfirst<CR>
 nnoremap <silent> g$ :<C-u>tablast<CR>
-nnoremap <silent> gr :<C-u>tabprevious<CR>
-nnoremap <silent> <A-j> :<C-U>tabnext<CR>
-nnoremap <silent> <A-k> :<C-U>tabprevious<CR>
-nnoremap <silent> <C-Tab> :<C-U>tabnext<CR>
-nnoremap <silent> <C-S-Tab> :<C-U>tabprevious<CR>
+"nnoremap <silent> gr :<C-u>tabprevious<CR>
+"nnoremap <silent> <A-j> :<C-U>tabnext<CR>
+"nnoremap <silent> <A-k> :<C-U>tabprevious<CR>
+nnoremap <silent> <Tab> :<C-U>tabnext<CR>
+nnoremap <silent> <S-Tab> :<C-U>tabprevious<CR>
 " Uses g:lasttab set on TabLeave in MyAutoCmd
-let g:lasttab = 1
-nmap <silent> \\ :execute 'tabn '.g:lasttab<CR>
+"let g:lasttab = 1
+"nmap <silent> \\ :execute 'tabn '.g:lasttab<CR>
+"nnoremap <silent> <S-Tab> :<C-u>tabprevious<CR>
+"nnoremap <silent> <Tab> :<C-u>tabnext<CR>
 
 
 " }}}
@@ -264,10 +266,10 @@ if has('mac')
 	" Open the macOS dictionary on current word
 	nmap <Leader>? :!open dict://<cword><CR><CR>
 
-	" Use Marked for real-time Markdown preview
-	if executable('/Applications/Marked 2.app/Contents/MacOS/Marked 2')
+	" Use MacDown for real-time Markdown preview
+	if executable('/usr/local/bin/macdown')
 		autocmd MyAutoCmd FileType markdown
-			\ nmap <buffer><Leader>P :silent !open -a Marked\ 2.app '%:p'<CR>
+			\ nmap <buffer><Leader>P :silent !open -a macdown '%:p'<CR>
 	endif
 
 	" Use Dash on Mac, for context help
@@ -318,6 +320,10 @@ nnoremap <silent> [Window]x  :<C-u>call <SID>BufferEmpty()<CR>
 " Split current buffer, go to previous window and previous buffer
 nnoremap <silent> [Window]sv :split<CR>:wincmd p<CR>:e#<CR>
 nnoremap <silent> [Window]sg :vsplit<CR>:wincmd p<CR>:e#<CR>
+
+" Move tabs left or right
+nnoremap <silent> <Leader>] :<C-u>tabm +1<CR>
+nnoremap <silent> <Leader>[ :<C-u>tabm -1<CR>
 
 function! s:BufferEmpty() " {{{
 	let l:current = bufnr('%')
