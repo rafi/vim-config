@@ -166,9 +166,8 @@ nmap <silent> <Leader>tw :setlocal wrap! breakindent!<CR>
 nnoremap <silent> g0 :<C-u>tabfirst<CR>
 nnoremap <silent> g$ :<C-u>tablast<CR>
 nnoremap <silent> gr :<C-u>tabprevious<CR>
-nnoremap <silent> gk :<C-U>tabnext<CR>
-nnoremap <silent> gj :<C-U>tabprevious<CR>
-
+nnoremap <silent> gl :<C-U>tabnext<CR>
+nnoremap <silent> gh :<C-U>tabprevious<CR>
 
 " }}}
 " Totally Custom {{{
