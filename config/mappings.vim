@@ -168,6 +168,9 @@ nnoremap <silent> g$ :<C-u>tablast<CR>
 nnoremap <silent> gr :<C-u>tabprevious<CR>
 nnoremap <silent> gl :<C-U>tabnext<CR>
 nnoremap <silent> gh :<C-U>tabprevious<CR>
+" Uses g:lasttab set on TabLeave in MyAutoCmd
+let g:lasttab = 1
+nmap <silent> \\ :execute 'tabn '.g:lasttab<CR>
 
 " }}}
 " Totally Custom {{{
