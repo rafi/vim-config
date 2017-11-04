@@ -100,7 +100,6 @@ Run `make update`
   - [mappings.vim](./config/mappings.vim) - Key-mappings
   - [theme.vim](./config/theme.vim) - Color-scheme and theme setup
   - [filetype.vim](./config/filetype.vim) - Language behavior
-  - [menus.vim](./config/menus.vim) - User menus for reference
   - [terminal.vim](./config/terminal.vim) - Terminal configuration
 - [ftplugin/](./ftplugin) - Language specific custom settings
 - [plugin/](./plugin) - Customized small plugins
@@ -219,6 +218,7 @@ Name           | Description
 [rhysd/accelerated-jk] | Up/down movement acceleration
 [haya14busa/vim-edgemotion] | Jump to the edge of block
 [t9md/vim-quickhl] | Quickly highlight words
+[rafi/vim-sidemenu] | Small side-menu useful for terminal users
 [Shougo/tabpagebuffer.vim] | Tabpage buffer interface
 [airblade/vim-gitgutter] | Show git changes at Vim gutter and un/stages hunks
 [nathanaelkane/vim-indent-guides] | Visually display indent levels in code
@@ -358,6 +358,7 @@ Name           | Description
 [rhysd/accelerated-jk]: https://github.com/rhysd/accelerated-jk
 [haya14busa/vim-edgemotion]: https://github.com/haya14busa/vim-edgemotion
 [t9md/vim-quickhl]: https://github.com/t9md/vim-quickhl
+[rafi/vim-sidemenu]: https://github.com/rafi/vim-sidemenu
 [Shougo/tabpagebuffer.vim]: https://github.com/Shougo/tabpagebuffer.vim
 [airblade/vim-gitgutter]: https://github.com/airblade/vim-gitgutter
 [nathanaelkane/vim-indent-guides]: https://github.com/nathanaelkane/vim-indent-guides

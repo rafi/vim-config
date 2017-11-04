@@ -129,6 +129,11 @@ if dein#tap('vim-quickhl')
 	xmap <Leader>, <Plug>(quickhl-manual-this)
 endif
 
+if dein#tap('vim-sidemenu')
+	nmap <Leader>l <Plug>(sidemenu)
+	xmap <Leader>l <Plug>(sidemenu-visual)
+endif
+
 if dein#tap('vim-indent-guides')
 	nmap <silent><Leader>ti :<C-u>IndentGuidesToggle<CR>
 endif
