@@ -204,6 +204,9 @@ Name           | Description
 [reedes/vim-wordy] | Uncover usage problems in your writing
 [brooth/far.vim] | Fast find and replace plugin
 [jreybert/vimagit] | Ease your git work-flow within Vim
+[tweekmonster/helpful.vim] | Display vim version numbers in docs
+[lambdalisue/gina.vim] | Asynchronously control git repositories
+[mzlogin/vim-markdown-toc] | Generate table of contents for Markdown files
 [easymotion/vim-easymotion] | Vim motions on speed
 [majutsushi/tagbar] | Displays tags in a window, ordered by scope
 [beloglazov/vim-online-thesaurus] | Look up words in an online thesaurus
@@ -214,6 +217,8 @@ Name           | Description
 -------------- | ----------------------
 [haya14busa/vim-asterisk] | Improved * motions
 [rhysd/accelerated-jk] | Up/down movement acceleration
+[haya14busa/vim-edgemotion] | Jump to the edge of block
+[t9md/vim-quickhl] | Quickly highlight words
 [Shougo/tabpagebuffer.vim] | Tabpage buffer interface
 [airblade/vim-gitgutter] | Show git changes at Vim gutter and un/stages hunks
 [nathanaelkane/vim-indent-guides] | Visually display indent levels in code
@@ -342,12 +347,17 @@ Name           | Description
 [reedes/vim-wordy]: https://github.com/reedes/vim-wordy
 [brooth/far.vim]: https://github.com/brooth/far.vim
 [jreybert/vimagit]: https://github.com/jreybert/vimagit
+[tweekmonster/helpful.vim]: https://github.com/tweekmonster/helpful.vim
+[lambdalisue/gina.vim]: https://github.com/lambdalisue/gina.vim
+[mzlogin/vim-markdown-toc]: https://github.com/mzlogin/vim-markdown-toc
 [easymotion/vim-easymotion]: https://github.com/easymotion/vim-easymotion
 [majutsushi/tagbar]: https://github.com/majutsushi/tagbar
 [beloglazov/vim-online-thesaurus]: https://github.com/beloglazov/vim-online-thesaurus
 
 [haya14busa/vim-asterisk]: https://github.com/haya14busa/vim-asterisk
 [rhysd/accelerated-jk]: https://github.com/rhysd/accelerated-jk
+[haya14busa/vim-edgemotion]: https://github.com/haya14busa/vim-edgemotion
+[t9md/vim-quickhl]: https://github.com/t9md/vim-quickhl
 [Shougo/tabpagebuffer.vim]: https://github.com/Shougo/tabpagebuffer.vim
 [airblade/vim-gitgutter]: https://github.com/airblade/vim-gitgutter
 [nathanaelkane/vim-indent-guides]: https://github.com/nathanaelkane/vim-indent-guides
@@ -434,7 +444,6 @@ Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `Q` | Normal | Start/stop macro recording
 `gQ` | Normal | Play macro 'q'
 `mj`/`mk` | Normal/Visual | Move lines down/up
-`gQ` | Normal | Disable EX-mode
 `cp` | Normal | Duplicate paragraph
 `cn`/`cN` | Normal/Visual | Change current word in a repeatable manner
 `s` | Visual | Replace within selected area
@@ -584,6 +593,19 @@ Key   | Mode | Action
 ----- |:----:| ------------------
 `<leader>`+`v` | Normal/visual | Toggle single-line comments
 `<leader>`+`V` | Normal/visual | Toggle comment block
+
+### Plugin: Edge Motion
+
+Key   | Mode | Action
+----- |:----:| ------------------
+`g`+`j` | Normal/Visual | Jump to edge downwards
+`g`+`k` | Normal/Visual | Jump to edge upwards
+
+### Plugin: QuickHL
+
+Key   | Mode | Action
+----- |:----:| ------------------
+`<leader>`+`,` | Normal/Visual | Toggle highlighted word
 
 ### Plugin: Expand-Region
 

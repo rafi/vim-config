@@ -117,6 +117,18 @@ if dein#tap('accelerated-jk')
 	nmap <silent>k <Plug>(accelerated_jk_gk)
 endif
 
+if dein#tap('vim-edgemotion')
+	map gj <Plug>(edgemotion-j)
+	map gk <Plug>(edgemotion-k)
+	xmap gj <Plug>(edgemotion-j)
+	xmap gk <Plug>(edgemotion-k)
+endif
+
+if dein#tap('vim-quickhl')
+	nmap <Leader>, <Plug>(quickhl-manual-this)
+	xmap <Leader>, <Plug>(quickhl-manual-this)
+endif
+
 if dein#tap('vim-indent-guides')
 	nmap <silent><Leader>ti :<C-u>IndentGuidesToggle<CR>
 endif
