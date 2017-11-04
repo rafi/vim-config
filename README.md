@@ -9,6 +9,7 @@ Best with Neovim or Vim 8 with +python3 extensions enabled.
 - Fast startup time
 - Robust, yet light-weight
 - Lazy-load 95% of plugins with [Shougo/dein.vim]
+- Custom side-menu (try it out! <kbd>Leader</kbd>+<kbd>l</kbd>)
 - Modular configuration
 - Denite (Unite's successor) centric work-flow
 - Extensive Deoplete and Neocomplete setup
@@ -684,6 +685,7 @@ Key   | Mode | Action
 Key   | Mode | Action
 ----- |:----:| ------------------
 `m`+`g` | Normal | Open Magit
+`<leader>`+`l` | Normal | Open sidemenu
 `<leader>`+`o` | Normal | Open tag-bar
 `<leader>`+`G` | Normal | Toggle distraction-free writing
 `<leader>`+`gu` | Normal | Open undo tree
