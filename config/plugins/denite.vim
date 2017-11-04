@@ -7,8 +7,10 @@ call denite#custom#option('_', {
 	\ 'prompt': 'λ:',
 	\ 'empty': 0,
 	\ 'winheight': 16,
-	\ 'short_source_names': 1,
+	\ 'source_names': 'short',
 	\ 'vertical_preview': 1,
+	\ 'auto-accel': 1,
+	\ 'auto-resume': 1,
 	\ })
 
 call denite#custom#option('list', {})
@@ -21,6 +23,7 @@ call denite#custom#option('mpc', {
 
 " MATCHERS
 " Default is 'matcher_fuzzy'
+call denite#custom#source('tag', 'matchers', ['matcher_substring'])
 if has('nvim') && &runtimepath =~# '\/cpsm'
 	call denite#custom#source(
 		\ 'buffer,file_mru,file_old,file_rec,grep,mpc,line',
@@ -52,7 +55,7 @@ if executable('ag')
 	call denite#custom#var('grep', 'separator', ['--'])
 	call denite#custom#var('grep', 'final_opts', [])
 	call denite#custom#var('grep', 'default_opts',
-		\ [ '--vimgrep', '--smart-case', '--hidden' ])
+		\ [ '--skip-vcs-ignores', '--vimgrep', '--smart-case', '--hidden' ])
 
 elseif executable('ack')
 	" Ack command
