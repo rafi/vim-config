@@ -101,12 +101,7 @@ set timeoutlen=750  " Time out on mappings
 set updatetime=1000 " Idle time to write swap and trigger CursorHold
 
 " Time out on key codes
-if has('nvim')
-	" https://github.com/neovim/neovim/issues/2017
-	set ttimeoutlen=-1
-else
-	set ttimeoutlen=10
-endif
+set ttimeoutlen=10
 
 " }}}
 " Searching {{{
