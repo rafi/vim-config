@@ -466,7 +466,7 @@ Key   | Mode | Action
 ----- |:----:| ------------------
 `<leader>`+`cd` | Normal | Switch to the directory of opened buffer (:lcd %:p:h)
 `<leader>`+`w` | Normal/visual | Write (:w)
-`<leader>`+`y` | Normal | Copy file-path to clipboard
+`<leader>`+`y` / `<leader>`+`Y` | Normal | Copy (relative / absolute) file-path to clipboard
 `Ctrl`+`s` | _All_ | Write (:w)
 `W!!` | Command | Write as root
 
