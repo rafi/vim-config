@@ -414,7 +414,6 @@
 - repo: Shougo/denite.nvim
   on_cmd: Denite
   hook_source: source $VIMPATH/config/plugins/denite.vim
-  hook_post_source: source $VIMPATH/config/menus.vim
 
 - { repo: chemzqm/unite-location, on_source: denite.nvim }
 - { repo: chemzqm/denite-git, on_source: denite.nvim }
