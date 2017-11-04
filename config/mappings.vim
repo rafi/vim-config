@@ -143,12 +143,11 @@ cmap W!! w !sudo tee % >/dev/null
 
 " I like to :quit with 'q', shrug.
 nnoremap <silent> q :<C-u>:quit<CR>
-nnoremap gQ <Nop>
+autocmd MyAutoCmd FileType man nnoremap <silent><buffer> q :<C-u>:quit<CR>
 
 " Macros
 nnoremap Q q
-nnoremap M @q
-vnoremap M :norm @q<CR>
+nnoremap gQ @q
 
 " Show highlight names under cursor
 nmap <silent> gh :echo 'hi<'.synIDattr(synID(line('.'), col('.'), 1), 'name')

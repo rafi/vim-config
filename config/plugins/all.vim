@@ -29,7 +29,7 @@ if dein#tap('denite.nvim')
 	" chemzqm/denite-git
 	nnoremap <silent> <Leader>gl :<C-u>Denite gitlog:all<CR>
 	nnoremap <silent> <Leader>gs :<C-u>Denite gitstatus<CR>
-	nnoremap <silent> <Leader>gc :<C-u>Denite gitchanged:<CR>
+	nnoremap <silent> <Leader>gc :<C-u>Denite gitbranch<CR>
 
 	" Open Denite with word under cursor or selection
 	nnoremap <silent> <Leader>gf :DeniteCursorWord file_rec<CR>

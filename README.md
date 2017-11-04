@@ -432,7 +432,7 @@ Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `gh` | Normal | Show highlight group that matches current cursor
 `gp` | Normal | Select last paste
 `Q` | Normal | Start/stop macro recording
-`M` | Normal/Visual | Play macro 'q'
+`gQ` | Normal | Play macro 'q'
 `mj`/`mk` | Normal/Visual | Move lines down/up
 `gQ` | Normal | Disable EX-mode
 `cp` | Normal | Duplicate paragraph
@@ -530,7 +530,7 @@ Key   | Mode | Action
 `;`+`*` | Normal | Match line
 `<leader>`+`gl` | Normal | Git log (all)
 `<leader>`+`gs` | Normal | Git status
-`<leader>`+`gc` | Normal | Git changed
+`<leader>`+`gc` | Normal | Git branches
 `<leader>`+`gf` | Normal | Grep word under cursor
 `<leader>`+`gg` | Normal/Visual | Grep word under cursor
 | **Within _Denite_ mode** |||
@@ -572,8 +572,8 @@ Key   | Mode | Action
 `Ctrl`+`j/k/f/b/d/u` | Insert | Movement in completion pop-up
 `Ctrl`+`<Return>` | Insert | Expand Emmet sequence
 `Ctrl`+`o` | Insert | Expand snippet
-`Ctrl`+`g` | Insert | Undo completion
-`Ctrl`+`l` | Insert | Refresh candidates
+`Ctrl`+`g` | Insert | Refresh candidates
+`Ctrl`+`l` | Insert | Complete common string
 `Ctrl`+`e` | Insert | Cancel selection and close pop-up
 `Ctrl`+`y` | Insert | Close pop-up
 

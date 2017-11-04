@@ -124,10 +124,11 @@ imap     <expr><C-d> pumvisible() ? "\<PageDown>" : "\<C-d>"
 imap     <expr><C-u> pumvisible() ? "\<PageUp>" : "\<C-u>"
 
 " Undo completion
-inoremap <expr><C-g> deoplete#undo_completion()
+" inoremap <expr><C-g> deoplete#undo_completion()
 
 " Redraw candidates
-inoremap <expr><C-l> deoplete#refresh()
+inoremap <expr><C-g> deoplete#refresh()
+inoremap <expr><C-l> deoplete#complete_common_string()
 
 " <CR>: If popup menu visible, expand snippet or close popup with selection,
 "       Otherwise, check if within empty pair and use delimitMate.
