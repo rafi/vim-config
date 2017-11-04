@@ -72,7 +72,7 @@ if dein#tap('nerdtree')
 	let g:NERDTreeMapToggleHidden = '.'
 
 	nnoremap <silent> <LocalLeader>e :<C-u>NERDTreeToggle<CR>
-	nnoremap <silent> <LocalLeader>a :<C-u>NERDTreeFind<CR>
+	nnoremap <silent> <LocalLeader>a :<C-u>NERDTreeTabsToggle<CR>
 endif
 
 if dein#tap('neosnippet.vim')
