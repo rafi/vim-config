@@ -522,6 +522,7 @@ Key   | Mode | Action
 `;`+`o` | Normal | Outline tags
 `;`+`s` | Normal | Sessions
 `;`+`t` | Normal | Tag under cursor
+`;`+`p` | Normal | Jump to previous position
 `;`+`h` | Normal | Help
 `;`+`v` | Normal/Visual | Register
 `;`+`z` | Normal | Z (jump around)

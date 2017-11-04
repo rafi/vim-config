@@ -19,6 +19,8 @@ if dein#tap('denite.nvim')
 	nnoremap <silent><expr> <LocalLeader>t &filetype == 'help' ? "g\<C-]>" :
 		\ ":\<C-u>DeniteCursorWord -buffer-name=tag
 		\  tag:include\<CR>"
+	nnoremap <silent><expr> <LocalLeader>p  &filetype == 'help' ?
+		\ ":\<C-u>pop\<CR>" : ":\<C-u>Denite -mode=normal jump\<CR>"
 	nnoremap <silent><LocalLeader>h :<C-u>Denite help<CR>
 	nnoremap <silent><LocalLeader>m :<C-u>Denite mpc -buffer-name=mpc<CR>
 	nnoremap <silent><LocalLeader>/ :<C-u>Denite line<CR>
@@ -214,6 +216,9 @@ endif
 
 if dein#tap('vimagit')
 	nnoremap <silent> mg :Magit<CR>
+
+	" autocmd MyAutoCmd FileType magit
+	" 	\ nnoremap <silent><buffer> <CR> za
 endif
 
 if dein#tap('vim-easygit')
