@@ -225,8 +225,8 @@ Name           | Description
 [MattesGroeger/vim-bookmarks] | Bookmarks, works independently from vim marks
 [rhysd/committia.vim] | Pleasant editing on Git commit messages
 [benekastah/neomake] | Asynchronous linting and make framework
-[goyo] | Distraction-free writing
-[limelight] | Hyperfocus-writing
+[junegunn/goyo] | Distraction-free writing
+[junegunn/limelight] | Hyperfocus-writing
 [itchyny/calendar.vim] | Calendar application
 [vimwiki/vimwiki] | Personal Wiki for Vim
 

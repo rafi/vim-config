@@ -10,6 +10,12 @@ if has('termguicolors')
 	set termguicolors
 endif
 
+if has('gui_running')
+	set background=dark
+	set lines=40
+	set columns=150
+endif
+
 function! s:theme_reload(name)
 	let theme_path = $VIMPATH.'/themes/'.a:name.'.vim'
 	if filereadable(theme_path)

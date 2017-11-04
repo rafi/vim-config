@@ -26,7 +26,7 @@ endfunction
 
 function! s:dein_check_yaml2json()
 	try
-		let result = system("yaml2json", "---\ntest: 1")
+		let result = system('yaml2json', "---\ntest: 1")
 		if v:shell_error != 0
 			return 0
 		endif
