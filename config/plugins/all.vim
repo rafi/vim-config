@@ -19,6 +19,8 @@ if dein#tap('denite.nvim')
 	nnoremap <silent><expr> <LocalLeader>t &filetype == 'help' ? "g\<C-]>" :
 		\ ":\<C-u>DeniteCursorWord -buffer-name=tag
 		\  tag:include\<CR>"
+	nnoremap <silent><expr> <LocalLeader>p  &filetype == 'help' ?
+		\ ":\<C-u>pop\<CR>" : ":\<C-u>Denite -mode=normal jump\<CR>"
 	nnoremap <silent><LocalLeader>h :<C-u>Denite help<CR>
 	nnoremap <silent><LocalLeader>m :<C-u>Denite mpc -buffer-name=mpc<CR>
 	nnoremap <silent><LocalLeader>/ :<C-u>Denite line<CR>
@@ -29,7 +31,7 @@ if dein#tap('denite.nvim')
 	" chemzqm/denite-git
 	nnoremap <silent> <Leader>gl :<C-u>Denite gitlog:all<CR>
 	nnoremap <silent> <Leader>gs :<C-u>Denite gitstatus<CR>
-	nnoremap <silent> <Leader>gc :<C-u>Denite gitchanged:<CR>
+	nnoremap <silent> <Leader>gc :<C-u>Denite gitbranch<CR>
 
 	" Open Denite with word under cursor or selection
 	nnoremap <silent> <Leader>gf :DeniteCursorWord file_rec<CR>
@@ -113,6 +115,23 @@ endif
 if dein#tap('accelerated-jk')
 	nmap <silent>j <Plug>(accelerated_jk_gj)
 	nmap <silent>k <Plug>(accelerated_jk_gk)
+endif
+
+if dein#tap('vim-edgemotion')
+	map gj <Plug>(edgemotion-j)
+	map gk <Plug>(edgemotion-k)
+	xmap gj <Plug>(edgemotion-j)
+	xmap gk <Plug>(edgemotion-k)
+endif
+
+if dein#tap('vim-quickhl')
+	nmap <Leader>, <Plug>(quickhl-manual-this)
+	xmap <Leader>, <Plug>(quickhl-manual-this)
+endif
+
+if dein#tap('vim-sidemenu')
+	nmap <Leader>l <Plug>(sidemenu)
+	xmap <Leader>l <Plug>(sidemenu-visual)
 endif
 
 if dein#tap('vim-indent-guides')
@@ -214,6 +233,9 @@ endif
 
 if dein#tap('vimagit')
 	nnoremap <silent> mg :Magit<CR>
+
+	" autocmd MyAutoCmd FileType magit
+	" 	\ nnoremap <silent><buffer> <CR> za
 endif
 
 if dein#tap('vim-easygit')

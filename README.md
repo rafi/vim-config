@@ -9,6 +9,7 @@ Best with Neovim or Vim 8 with +python3 extensions enabled.
 - Fast startup time
 - Robust, yet light-weight
 - Lazy-load 95% of plugins with [Shougo/dein.vim]
+- Custom side-menu (try it out! <kbd>Leader</kbd>+<kbd>l</kbd>)
 - Modular configuration
 - Denite (Unite's successor) centric work-flow
 - Extensive Deoplete and Neocomplete setup
@@ -100,7 +101,6 @@ Run `make update`
   - [mappings.vim](./config/mappings.vim) - Key-mappings
   - [theme.vim](./config/theme.vim) - Color-scheme and theme setup
   - [filetype.vim](./config/filetype.vim) - Language behavior
-  - [menus.vim](./config/menus.vim) - User menus for reference
   - [terminal.vim](./config/terminal.vim) - Terminal configuration
 - [ftplugin/](./ftplugin) - Language specific custom settings
 - [plugin/](./plugin) - Customized small plugins
@@ -204,6 +204,9 @@ Name           | Description
 [reedes/vim-wordy] | Uncover usage problems in your writing
 [brooth/far.vim] | Fast find and replace plugin
 [jreybert/vimagit] | Ease your git work-flow within Vim
+[tweekmonster/helpful.vim] | Display vim version numbers in docs
+[lambdalisue/gina.vim] | Asynchronously control git repositories
+[mzlogin/vim-markdown-toc] | Generate table of contents for Markdown files
 [easymotion/vim-easymotion] | Vim motions on speed
 [majutsushi/tagbar] | Displays tags in a window, ordered by scope
 [beloglazov/vim-online-thesaurus] | Look up words in an online thesaurus
@@ -214,14 +217,17 @@ Name           | Description
 -------------- | ----------------------
 [haya14busa/vim-asterisk] | Improved * motions
 [rhysd/accelerated-jk] | Up/down movement acceleration
+[haya14busa/vim-edgemotion] | Jump to the edge of block
+[t9md/vim-quickhl] | Quickly highlight words
+[rafi/vim-sidemenu] | Small side-menu useful for terminal users
 [Shougo/tabpagebuffer.vim] | Tabpage buffer interface
 [airblade/vim-gitgutter] | Show git changes at Vim gutter and un/stages hunks
 [nathanaelkane/vim-indent-guides] | Visually display indent levels in code
 [MattesGroeger/vim-bookmarks] | Bookmarks, works independently from vim marks
 [rhysd/committia.vim] | Pleasant editing on Git commit messages
 [benekastah/neomake] | Asynchronous linting and make framework
-[goyo] | Distraction-free writing
-[limelight] | Hyperfocus-writing
+[junegunn/goyo] | Distraction-free writing
+[junegunn/limelight] | Hyperfocus-writing
 [itchyny/calendar.vim] | Calendar application
 [vimwiki/vimwiki] | Personal Wiki for Vim
 
@@ -342,12 +348,18 @@ Name           | Description
 [reedes/vim-wordy]: https://github.com/reedes/vim-wordy
 [brooth/far.vim]: https://github.com/brooth/far.vim
 [jreybert/vimagit]: https://github.com/jreybert/vimagit
+[tweekmonster/helpful.vim]: https://github.com/tweekmonster/helpful.vim
+[lambdalisue/gina.vim]: https://github.com/lambdalisue/gina.vim
+[mzlogin/vim-markdown-toc]: https://github.com/mzlogin/vim-markdown-toc
 [easymotion/vim-easymotion]: https://github.com/easymotion/vim-easymotion
 [majutsushi/tagbar]: https://github.com/majutsushi/tagbar
 [beloglazov/vim-online-thesaurus]: https://github.com/beloglazov/vim-online-thesaurus
 
 [haya14busa/vim-asterisk]: https://github.com/haya14busa/vim-asterisk
 [rhysd/accelerated-jk]: https://github.com/rhysd/accelerated-jk
+[haya14busa/vim-edgemotion]: https://github.com/haya14busa/vim-edgemotion
+[t9md/vim-quickhl]: https://github.com/t9md/vim-quickhl
+[rafi/vim-sidemenu]: https://github.com/rafi/vim-sidemenu
 [Shougo/tabpagebuffer.vim]: https://github.com/Shougo/tabpagebuffer.vim
 [airblade/vim-gitgutter]: https://github.com/airblade/vim-gitgutter
 [nathanaelkane/vim-indent-guides]: https://github.com/nathanaelkane/vim-indent-guides
@@ -432,9 +444,8 @@ Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `gh` | Normal | Show highlight group that matches current cursor
 `gp` | Normal | Select last paste
 `Q` | Normal | Start/stop macro recording
-`M` | Normal/Visual | Play macro 'q'
+`gQ` | Normal | Play macro 'q'
 `mj`/`mk` | Normal/Visual | Move lines down/up
-`gQ` | Normal | Disable EX-mode
 `cp` | Normal | Duplicate paragraph
 `cn`/`cN` | Normal/Visual | Change current word in a repeatable manner
 `s` | Visual | Replace within selected area
@@ -457,7 +468,7 @@ Key   | Mode | Action
 ----- |:----:| ------------------
 `<leader>`+`cd` | Normal | Switch to the directory of opened buffer (:lcd %:p:h)
 `<leader>`+`w` | Normal/visual | Write (:w)
-`<leader>`+`y` | Normal | Copy file-path to clipboard
+`<leader>`+`y` / `<leader>`+`Y` | Normal | Copy (relative / absolute) file-path to clipboard
 `Ctrl`+`s` | _All_ | Write (:w)
 `W!!` | Command | Write as root
 
@@ -522,6 +533,7 @@ Key   | Mode | Action
 `;`+`o` | Normal | Outline tags
 `;`+`s` | Normal | Sessions
 `;`+`t` | Normal | Tag under cursor
+`;`+`p` | Normal | Jump to previous position
 `;`+`h` | Normal | Help
 `;`+`v` | Normal/Visual | Register
 `;`+`z` | Normal | Z (jump around)
@@ -530,7 +542,7 @@ Key   | Mode | Action
 `;`+`*` | Normal | Match line
 `<leader>`+`gl` | Normal | Git log (all)
 `<leader>`+`gs` | Normal | Git status
-`<leader>`+`gc` | Normal | Git changed
+`<leader>`+`gc` | Normal | Git branches
 `<leader>`+`gf` | Normal | Grep word under cursor
 `<leader>`+`gg` | Normal/Visual | Grep word under cursor
 | **Within _Denite_ mode** |||
@@ -572,8 +584,8 @@ Key   | Mode | Action
 `Ctrl`+`j/k/f/b/d/u` | Insert | Movement in completion pop-up
 `Ctrl`+`<Return>` | Insert | Expand Emmet sequence
 `Ctrl`+`o` | Insert | Expand snippet
-`Ctrl`+`g` | Insert | Undo completion
-`Ctrl`+`l` | Insert | Refresh candidates
+`Ctrl`+`g` | Insert | Refresh candidates
+`Ctrl`+`l` | Insert | Complete common string
 `Ctrl`+`e` | Insert | Cancel selection and close pop-up
 `Ctrl`+`y` | Insert | Close pop-up
 
@@ -583,6 +595,19 @@ Key   | Mode | Action
 ----- |:----:| ------------------
 `<leader>`+`v` | Normal/visual | Toggle single-line comments
 `<leader>`+`V` | Normal/visual | Toggle comment block
+
+### Plugin: Edge Motion
+
+Key   | Mode | Action
+----- |:----:| ------------------
+`g`+`j` | Normal/Visual | Jump to edge downwards
+`g`+`k` | Normal/Visual | Jump to edge upwards
+
+### Plugin: QuickHL
+
+Key   | Mode | Action
+----- |:----:| ------------------
+`<leader>`+`,` | Normal/Visual | Toggle highlighted word
 
 ### Plugin: Expand-Region
 
@@ -660,6 +685,7 @@ Key   | Mode | Action
 Key   | Mode | Action
 ----- |:----:| ------------------
 `m`+`g` | Normal | Open Magit
+`<leader>`+`l` | Normal | Open sidemenu
 `<leader>`+`o` | Normal | Open tag-bar
 `<leader>`+`G` | Normal | Toggle distraction-free writing
 `<leader>`+`gu` | Normal | Open undo tree

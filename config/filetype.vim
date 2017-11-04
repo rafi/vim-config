@@ -50,6 +50,8 @@ augroup MyAutoCmd " {{{
 
 	autocmd FileType crontab setlocal nobackup nowritebackup
 
+	autocmd FileType css setlocal equalprg=csstidy\ -\ --silent=true
+
 	autocmd FileType docker-compose setlocal expandtab
 
 	autocmd FileType gitcommit setlocal spell
@@ -61,18 +63,25 @@ augroup MyAutoCmd " {{{
 
 	autocmd FileType zsh setlocal foldenable foldmethod=marker
 
-	autocmd FileType html setlocal path+=./;/
+	autocmd FileType html
+		\ setlocal path+=./;/
+		\ | setlocal equalprg=tidy\ -i\ -q
+
+	autocmd FileType json setlocal equalprg=python\ -c\ json.tool
 
 	autocmd FileType markdown
-		\ setlocal spell expandtab autoindent
-			\ formatoptions=tcroqn2 comments=n:>
+		\ set expandtab
+		\ | setlocal spell autoindent formatoptions=tcroqn2 comments=n:>
 
 	autocmd FileType apache setlocal path+=./;/
 
 	autocmd FileType cam setlocal nonumber synmaxcol=10000
 
 	autocmd FileType go highlight default link goErr WarningMsg |
-				\ match goErr /\<err\>/
+		\ match goErr /\<err\>/
+
+	autocmd FileType xml
+		\ setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 
 augroup END " }}}
 

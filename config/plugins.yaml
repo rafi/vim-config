@@ -30,9 +30,11 @@
 - { repo: groenewege/vim-less, on_ft: less }
 - { repo: othree/csscomplete.vim, on_ft: css }
 
-- { repo: pearofducks/ansible-vim, on_ft: ansible }
 - { repo: mitsuhiko/vim-jinja, on_ft: [ htmljinja, jinja ]}
 - { repo: mustache/vim-mustache-handlebars, on_ft: html }
+
+- repo: pearofducks/ansible-vim
+  on_ft: [ ansible, ansible_hosts, ansible_template ]
 
 - repo: othree/html5.vim
   on_ft: html
@@ -143,6 +145,12 @@
 - { repo: reedes/vim-wordy, on_cmd: [ Wordy, NextWordy, PrevWordy ]}
 - { repo: brooth/far.vim, on_cmd: [ Far, Farp, F ] }
 - { repo: jreybert/vimagit, on_cmd: Magit }
+- { repo: tweekmonster/helpful.vim, on_cmd: HelpfulVersion }
+- { repo: lambdalisue/gina.vim, on_cmd: Gina }
+
+- repo: mzlogin/vim-markdown-toc
+  on_cmd: [ GenTocGFM, GenTocRedcarpet, GenTocGitLab, UpdateToc ]
+  hook_source: let g:vmt_auto_update_on_save = 0
 
 - repo: easymotion/vim-easymotion
   on_map: { n: <Plug> }
@@ -176,6 +184,9 @@
 # ---------
 - { repo: haya14busa/vim-asterisk, on_map: { nv: <Plug> }}
 - { repo: rhysd/accelerated-jk, on_map: { n: <Plug> }}
+- { repo: haya14busa/vim-edgemotion, on_map: { nv: <Plug> }}
+- { repo: t9md/vim-quickhl, on_map: { nv: <Plug> }}
+- { repo: rafi/vim-sidemenu, on_map: { nv: <Plug> }}
 
 - repo: airblade/vim-gitgutter
   on_path: .*
@@ -310,6 +321,11 @@
     let g:gutentags_generate_on_write = 1
     let g:gutentags_generate_on_missing = 0
     let g:gutentags_generate_on_new = 0
+    let g:gutentags_ctags_exclude_wildignore = 1
+    let g:gutentags_ctags_exclude = [
+      \ '*/wp-admin', '*/wp-content', '*/wp-includes',
+      \ '*/application/vendor', '*/vendor/ckeditor', '*/media/vendor'
+      \ ]
 
 - repo: mattn/emmet-vim
   if: empty($VIM_MINIMAL)
@@ -355,7 +371,8 @@
 
 # Only NeoVim ------------------------------
 - repo: zchee/deoplete-go
-  if: has('nvim') && empty($VIM_MINIMAL)
+  if: has('nvim') && ! empty($GOPATH) && empty($VIM_MINIMAL)
+  build: make
   on_ft: go
   on_i: 1
 
@@ -398,7 +415,6 @@
 - repo: Shougo/denite.nvim
   on_cmd: Denite
   hook_source: source $VIMPATH/config/plugins/denite.vim
-  hook_post_source: source $VIMPATH/config/menus.vim
 
 - { repo: chemzqm/unite-location, on_source: denite.nvim }
 - { repo: chemzqm/denite-git, on_source: denite.nvim }

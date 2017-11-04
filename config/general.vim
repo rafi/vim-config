@@ -52,6 +52,7 @@ if has('wildmenu')
 	set wildignore+=.git,.hg,.svn,.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
 	set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
 	set wildignore+=**/node_modules/**,**/bower_modules/**,*/.sass-cache/*
+	set wildignore+=application/vendor/**,**/vendor/ckeditor/**,media/vendor/**
 	set wildignore+=__pycache__,*.egg-info
 endif
 
@@ -74,7 +75,7 @@ if has('nvim')
 	"   @ - Maximum number of items in the input-line history to be
 	"   s - Maximum size of an item contents in KiB
 	"   h - Disable the effect of 'hlsearch' when loading the shada
-	set shada='300,<10,@50,s100,h
+	set shada='300,<50,@100,s10,h
 else
 	set viminfo='300,<10,@50,h,n$VARPATH/viminfo
 endif
@@ -100,12 +101,7 @@ set timeoutlen=750  " Time out on mappings
 set updatetime=1000 " Idle time to write swap and trigger CursorHold
 
 " Time out on key codes
-if has('nvim')
-	" https://github.com/neovim/neovim/issues/2017
-	set ttimeoutlen=-1
-else
-	set ttimeoutlen=10
-endif
+set ttimeoutlen=10
 
 " }}}
 " Searching {{{
