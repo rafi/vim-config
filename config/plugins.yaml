@@ -305,7 +305,7 @@
   if: empty($VIM_MINIMAL)
   on_event: InsertCharPre
   on_ft: snippet
-  hook_add: let g:neosnippet#data_directory = $VARPATH.'/snippets'
+  hook_add: let g:neosnippet#snippets_directory = $VARPATH.'/snippets'
   hook_source: |
     let g:neosnippet#enable_snipmate_compatibility = 1
     let g:neosnippet#enable_completed_snippet = 1
