@@ -8,19 +8,20 @@ endif
 
 augroup filetypedetect
 
-	autocmd BufNewFile,BufReadPost *.feature,*.story setf cucumber
+	autocmd BufNewFile,BufRead */inventory/*.{yml,yaml}    setfiletype ansible
+	autocmd BufNewFile,BufRead */inventories/*.{yml,yaml}  setfiletype ansible
+	autocmd BufNewFile,BufRead */playbooks/*.{yml,yaml}    setfiletype ansible
 
-	autocmd BufNewFile,BufRead */inventory/*.{yml,yaml}    setf ansible
-	autocmd BufNewFile,BufRead */inventories/*.{yml,yaml}  setf ansible
-	autocmd BufNewFile,BufRead */playbooks/*/*.{yml,yaml}  setf ansible
+	autocmd BufNewFile,BufRead .tern-project setfiletype json
+	autocmd BufNewFile,BufRead .jsbeautifyrc setfiletype json
+	autocmd BufNewFile,BufRead .eslintrc     setfiletype json
+	autocmd BufNewFile,BufRead .jscsrc       setfiletype json
 
-	autocmd BufNewFile,BufRead .tern-project         setf json
+	autocmd BufNewFile,BufReadPost *.{feature,story} setfiletype cucumber
+	autocmd BufNewFile,BufRead Jenkinsfile           setfiletype groovy
+	autocmd BufNewFile,BufRead Tmuxfile,tmux/config  setfiletype tmux
 
-	autocmd BufNewFile,BufRead Tmuxfile,tmux/config  setf tmux
-
-	autocmd BufNewFile,BufRead *.tf,*.tfvars,*.tfstate setf terraform
-
-"	autocmd BufNewFile,BufRead *.j2                  setf jinja
+  autocmd BufNewFile,BufRead *.tf,*.tfvars,*.tfstate setf terraform
 
 augroup END
 

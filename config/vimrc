@@ -24,8 +24,22 @@ function! s:dein_check_ruby() abort
 	return (v:shell_error == 0) ? 1 : 0
 endfunction
 
+function! s:dein_check_yaml2json()
+	try
+		let result = system('yaml2json', "---\ntest: 1")
+		if v:shell_error != 0
+			return 0
+		endif
+		let result = json_decode(result)
+		return result.test
+	catch
+	endtry
+	return 0
+endfunction
+
 function! s:dein_load_yaml(filename) abort
-	if executable('yaml2json') && exists('*json_decode')
+	if executable('yaml2json') && exists('*json_decode') &&
+				\ s:dein_check_yaml2json()
 		" Decode YAML using the CLI tool yaml2json
 		" See: https://github.com/koraa/large-yaml2json-json2yaml
 		let g:denite_plugins = json_decode(
