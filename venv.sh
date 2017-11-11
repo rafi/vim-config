@@ -11,8 +11,8 @@ hash virtualenv-3.5 2>/dev/null && vrenv3=virtualenv-3.5
 
 # Ensure python 2/3 virtual environments
 [ -d "$venv" ] || mkdir -p "$venv"
-[ -d "$venv/neovim2" ] || $vrenv2 "$venv/neovim2"
-[ -d "$venv/neovim3" ] || $vrenv3 "$venv/neovim3"
+[ -d "$venv/neovim2" ] || $vrenv2 "$venv/neovim2" 2>/dev/null || ln -s $(pyenv virtualenv-prefix neovim2) "$venv/neovim2"
+[ -d "$venv/neovim3" ] || $vrenv3 "$venv/neovim3" 2>/dev/null || ln -s $(pyenv virtualenv-prefix neovim3) "$venv/neovim3"
 
 # Install or upgrade dependencies
 echo 'PYTHON 2'
