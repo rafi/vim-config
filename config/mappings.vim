@@ -254,8 +254,9 @@ noremap  mk :m-2<CR>
 noremap  mj :m+<CR>
 
 " Last session management shortcuts
-nmap <Leader>se :<C-u>SessionSave last<CR>
-nmap <Leader>os :<C-u>execute 'source '.g:session_directory.'/last.vim'<CR>
+" nmap <Leader>se :<C-u>SessionSave last<CR>
+nmap <silent> <Leader>se :<C-u>execute 'SessionSave' fnamemodify(resolve(getcwd()), ':p:gs?/?_?')<CR>
+nmap <silent> <Leader>os :<C-u>execute 'source '.g:session_directory.'/'.fnamemodify(resolve(getcwd()), ':p:gs?/?_?').'.vim'<CR>
 
 if has('mac')
 	" Open the macOS dictionary on current word
