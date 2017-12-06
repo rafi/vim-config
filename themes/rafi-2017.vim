@@ -6,7 +6,7 @@
 " ---------------------------------------------------------
 if has('gui_running')
 	set guifont=PragmataPro:h16
-	set noantialias
+	" set noantialias
 endif
 " }}}
 
