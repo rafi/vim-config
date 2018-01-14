@@ -23,6 +23,30 @@ function! s:nerdtree_settings() abort
 	vertical resize 25
 endfunction
 
+" Close all open buffers on entering a window if the only
+" buffer that's left is the NERDTree buffer
+autocmd MyAutoCmd WinEnter * if exists('t:NERDTreeBufName') &&
+	\ bufwinnr(t:NERDTreeBufName) != -1 && winnr("$") == 1 | q | endif
+
+" if the current window is NERDTree, move focus to the next window
+autocmd MyAutoCmd TabLeave * call s:NERDTreeUnfocus()
+function! s:NERDTreeUnfocus()
+	if exists('t:NERDTreeBufName') && bufwinnr(t:NERDTreeBufName) == winnr()
+		let l:winNum = 1
+		while (l:winNum <= winnr('$'))
+			let l:buf = winbufnr(l:winNum)
+
+			if buflisted(l:buf) && getbufvar(l:buf, '&modifiable') == 1 &&
+					\ ! empty(getbufvar(l:buf, '&buftype'))
+				exec l:winNum.'wincmd w'
+				return
+			endif
+			let l:winNum = l:winNum + 1
+		endwhile
+		wincmd w
+	endif
+endfunction
+
 " Private helpers {{{
 function! s:SID()
 	if ! exists('s:sid')
