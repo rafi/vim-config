@@ -89,6 +89,11 @@ pip install --user pycodestyle pyflakes flake8 vim-vint proselint yamllint
 
 Run `make update`
 
+## User Custom Config
+
+If you want to add your own configuration, create the `config/local.vim` file
+and add your personal settings there. This file is ignored by `.gitignore`.
+
 ## Structure
 
 - [config/](./config) - Configuration
@@ -97,6 +102,7 @@ Run `make update`
   - [vimrc](./config/vimrc) - Initialization
   - [init.vim](./config/init.vim) - `runtimepath` initialization
   - [general.vim](./config/general.vim) - General configuration
+  - local.vim - Custom user settings
   - [neovim.vim](./config/neovim.vim) - Neovim specific setup
   - [mappings.vim](./config/mappings.vim) - Key-mappings
   - [theme.vim](./config/theme.vim) - Color-scheme and theme setup
