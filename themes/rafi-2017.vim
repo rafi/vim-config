@@ -6,7 +6,7 @@
 " ---------------------------------------------------------
 if has('gui_running')
 	set guifont=PragmataPro:h16
-	set noantialias
+	" set noantialias
 endif
 " }}}
 
@@ -67,13 +67,13 @@ let &tabline='%!Tabline()'
 " Statusline {{{
 let s:stl  = " %7*%{&paste ? '=' : ''}%*"         " Paste symbol
 let s:stl .= "%4*%{&readonly ? '' : '#'}%*"       " Modifide symbol
-let s:stl .= "%6*%{badge#mode('⚠', 'Z')}"         " Readonly symbol
+let s:stl .= "%6*%{badge#mode('⚠ ', 'Z')}"        " Read-only symbol
 let s:stl .= '%*%n'                               " Buffer number
 let s:stl .= "%6*%{badge#modified('+')}%0*"       " Write symbol
 let s:stl .= ' %1*%{badge#filename()}%*'          " Filename
 let s:stl .= ' %<'                                " Truncate here
 let s:stl .= '%( %{badge#branch()} %)'           " Git branch name
-let s:stl .= "%4*%(%{badge#trails('WS:%s')} %)"  " Whitespace
+let s:stl .= "%4*%(%{badge#trails('⤐ %s')} %)"  " Whitespace
 let s:stl .= '%(%{badge#syntax()} %)%*'           " syntax check
 let s:stl .= '%='                                 " Align to right
 let s:stl .= '%{badge#format()} %4*%*'           " File format
@@ -83,7 +83,7 @@ let s:stl .= '%3*%2* %l/%2c%4p%% '               " Line and column
 let s:stl .= '%{badge#indexing()}%*'              " Indexing tags indicator
 
 " Non-active Statusline {{{
-let s:stl_nc = " %{badge#mode('⚠', 'Z')}%n"    " Readonly & buffer
+let s:stl_nc = " %{badge#mode('⚠ ', 'Z')}%n"   " Readonly & buffer
 let s:stl_nc .= "%6*%{badge#modified('+')}%*"  " Write symbol
 let s:stl_nc .= ' %{badge#filename()}'         " Relative supername
 let s:stl_nc .= '%='                           " Align to right
@@ -204,10 +204,11 @@ let g:tagbar_iconchars = ['▷', '◢']
 " Plugin: Neomake icons {{{
 " ---------------------------------------------------------
 let g:neomake_error_sign = {'text': '!', 'texthl': 'ErrorMsg'}
-let g:neomake_warning_sign = {'text': '!', 'texthl': 'WarningMsg'}
+let g:neomake_warning_sign = {'text': '!', 'texthl': 'WarningSyntax'}
 let g:neomake_message_sign = {'text': '⌂', 'texthl': 'NeomakeMessageSign'}
 let g:neomake_info_sign = {'text': '⍞', 'texthl': 'NeomakeInfoSign'}
 "}}}
+highlight! WarningSyntax ctermfg=58 guifg=#7d7629
 
 " Plugin: GitGutter icons {{{
 " ---------------------------------------------------------

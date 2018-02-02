@@ -145,6 +145,11 @@ call s:source_file('general.vim')
 call s:source_file('filetype.vim')
 call s:source_file('mappings.vim')
 call s:source_file('theme.vim')
+
+" Load user custom local settings
+if filereadable(expand('$VIMPATH/config/local.vim'))
+	call s:source_file('local.vim')
+endif
 set secure
 
 " vim: set ts=2 sw=2 tw=80 noet :
