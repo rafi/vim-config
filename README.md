@@ -99,6 +99,7 @@ and add your personal settings there. This file is ignored by `.gitignore`.
 - [config/](./config) - Configuration
   - [plugins/](./config/plugins) - Plugin configurations
   - [plugins.yaml](./config/plugins.yaml) - _**Plugins!**_
+  - local.plugins.yaml - Custom user plugins
   - [vimrc](./config/vimrc) - Initialization
   - [init.vim](./config/init.vim) - `runtimepath` initialization
   - [general.vim](./config/general.vim) - General configuration
