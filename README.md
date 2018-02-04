@@ -30,7 +30,7 @@ we'll also symlink it for Vim:
 ```sh
 mkdir ~/.config
 git clone git://github.com/rafi/vim-config.git ~/.config/nvim
-ln -s ~/.vim ~/.config/nvim
+ln -s ~/.config/nvim ~/.vim
 ```
 
 - _Note:_ If your system sets `$XDG_CONFIG_HOME`,
@@ -89,14 +89,21 @@ pip install --user pycodestyle pyflakes flake8 vim-vint proselint yamllint
 
 Run `make update`
 
+## User Custom Config
+
+If you want to add your own configuration, create the `config/local.vim` file
+and add your personal settings there. This file is ignored by `.gitignore`.
+
 ## Structure
 
 - [config/](./config) - Configuration
   - [plugins/](./config/plugins) - Plugin configurations
   - [plugins.yaml](./config/plugins.yaml) - _**Plugins!**_
+  - local.plugins.yaml - Custom user plugins
   - [vimrc](./config/vimrc) - Initialization
   - [init.vim](./config/init.vim) - `runtimepath` initialization
   - [general.vim](./config/general.vim) - General configuration
+  - local.vim - Custom user settings
   - [neovim.vim](./config/neovim.vim) - Neovim specific setup
   - [mappings.vim](./config/mappings.vim) - Key-mappings
   - [theme.vim](./config/theme.vim) - Color-scheme and theme setup
@@ -271,7 +278,6 @@ Name           | Description
 [rhysd/vim-operator-surround] | Operator to enclose text objects
 [haya14busa/vim-operator-flashy] | Highlight yanked area
 [kana/vim-textobj-user] | Create your own text objects
-[bkad/CamelCaseMotion] | Provide CamelCase motion through words
 [terryma/vim-expand-region] | Visually select increasingly larger regions of text
 [AndrewRadev/sideways.vim] | Match function arguments
 [AndrewRadev/splitjoin.vim] | Transition code between multi-line and single-line
@@ -400,7 +406,6 @@ Name           | Description
 [rhysd/vim-operator-surround]: https://github.com/rhysd/vim-operator-surround
 [haya14busa/vim-operator-flashy]: https://github.com/haya14busa/vim-operator-flashy
 [kana/vim-textobj-user]: https://github.com/kana/vim-textobj-user
-[bkad/CamelCaseMotion]: https://github.com/bkad/CamelCaseMotion
 [terryma/vim-expand-region]: https://github.com/terryma/vim-expand-region
 [AndrewRadev/sideways.vim]: https://github.com/AndrewRadev/sideways.vim
 [AndrewRadev/splitjoin.vim]: https://github.com/AndrewRadev/splitjoin.vim
