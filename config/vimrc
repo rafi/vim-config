@@ -106,10 +106,14 @@ endif
 " Initialize dein.vim (package manager)
 let s:path = expand('$VARPATH/dein')
 let s:plugins_path = expand('$VIMPATH/config/plugins.yaml')
+let s:user_plugins_path = expand('$VIMPATH/config/local.plugins.yaml')
 if dein#load_state(s:path)
 	call dein#begin(s:path, [expand('<sfile>'), s:plugins_path])
 	try
 		call s:dein_load_yaml(s:plugins_path)
+		if filereadable(s:user_plugins_path)
+			call s:dein_load_yaml(s:user_plugins_path)
+		endif
 	catch /.*/
 		echoerr v:exception
 		echomsg 'Error loading config/plugins.yaml...'
@@ -145,6 +149,11 @@ call s:source_file('general.vim')
 call s:source_file('filetype.vim')
 call s:source_file('mappings.vim')
 call s:source_file('theme.vim')
+
+" Load user custom local settings
+if filereadable(expand('$VIMPATH/config/local.vim'))
+	call s:source_file('local.vim')
+endif
 set secure
 
 " vim: set ts=2 sw=2 tw=80 noet :

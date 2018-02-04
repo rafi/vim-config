@@ -105,8 +105,6 @@ nnoremap < <<_
 nnoremap <expr> gp '`['.strpart(getregtype(), 0, 1).'`]'
 
 " Navigation in command line
-cnoremap <C-j> <Left>
-cnoremap <C-k> <Right>
 cnoremap <C-h> <Home>
 cnoremap <C-l> <End>
 cnoremap <C-f> <Right>
@@ -253,8 +251,7 @@ vnoremap mj :m'>+<CR>gv=gv
 noremap  mk :m-2<CR>
 noremap  mj :m+<CR>
 
-" Last session management shortcuts
-" nmap <Leader>se :<C-u>SessionSave last<CR>
+" Session management shortcuts
 nmap <silent> <Leader>se :<C-u>execute 'SessionSave' fnamemodify(resolve(getcwd()), ':p:gs?/?_?')<CR>
 nmap <silent> <Leader>os :<C-u>execute 'source '.g:session_directory.'/'.fnamemodify(resolve(getcwd()), ':p:gs?/?_?').'.vim'<CR>
 
@@ -329,21 +326,33 @@ function! WipeHiddenBuffers()
 	endfor
 endfunction
 
-function! s:BufferEmpty() " {{{
+function! s:BufferEmpty()
 	let l:current = bufnr('%')
 	if ! getbufvar(l:current, '&modified')
 		enew
 		silent! execute 'bdelete '.l:current
 	endif
-endfunction " }}}
+endfunction
 
-function! s:SweepBuffers() " {{{
+function! s:SweepBuffers()
 	let bufs = range(1, bufnr('$'))
 	let hidden = filter(bufs, 'buflisted(v:val) && !bufloaded(v:val)')
 	if ! empty(hidden)
 		execute 'silent bdelete' join(hidden)
 	endif
-endfunction " }}}
-" }}}
+endfunction
 
-" vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :
+" OpenChangedFiles COMMAND
+" Open a split for each dirty file in git
+function! OpenChangedFiles()
+	only " Close all windows, unless they're modified
+	let status =
+		\ system('git status -s | grep "^ \?\(M\|A\|UU\)" | sed "s/^.\{3\}//"')
+	let filenames = split(status, "\n")
+	exec 'edit ' . filenames[0]
+	for filename in filenames[1:]
+		exec 'sp ' . filename
+	endfor
+endfunction
+
+" vim: set ts=2 sw=2 tw=80 noet :
