@@ -99,6 +99,7 @@ and add your personal settings there. This file is ignored by `.gitignore`.
 - [config/](./config) - Configuration
   - [plugins/](./config/plugins) - Plugin configurations
   - [plugins.yaml](./config/plugins.yaml) - _**Plugins!**_
+  - local.plugins.yaml - Custom user plugins
   - [vimrc](./config/vimrc) - Initialization
   - [init.vim](./config/init.vim) - `runtimepath` initialization
   - [general.vim](./config/general.vim) - General configuration
@@ -277,7 +278,6 @@ Name           | Description
 [rhysd/vim-operator-surround] | Operator to enclose text objects
 [haya14busa/vim-operator-flashy] | Highlight yanked area
 [kana/vim-textobj-user] | Create your own text objects
-[bkad/CamelCaseMotion] | Provide CamelCase motion through words
 [terryma/vim-expand-region] | Visually select increasingly larger regions of text
 [AndrewRadev/sideways.vim] | Match function arguments
 [AndrewRadev/splitjoin.vim] | Transition code between multi-line and single-line
@@ -406,7 +406,6 @@ Name           | Description
 [rhysd/vim-operator-surround]: https://github.com/rhysd/vim-operator-surround
 [haya14busa/vim-operator-flashy]: https://github.com/haya14busa/vim-operator-flashy
 [kana/vim-textobj-user]: https://github.com/kana/vim-textobj-user
-[bkad/CamelCaseMotion]: https://github.com/bkad/CamelCaseMotion
 [terryma/vim-expand-region]: https://github.com/terryma/vim-expand-region
 [AndrewRadev/sideways.vim]: https://github.com/AndrewRadev/sideways.vim
 [AndrewRadev/splitjoin.vim]: https://github.com/AndrewRadev/splitjoin.vim
