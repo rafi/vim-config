@@ -26,6 +26,11 @@ if ! isdirectory(expand($VARPATH))
 	call mkdir(expand('$VARPATH/backup'))
 endif
 
+" Ensure custom spelling directory
+if ! isdirectory(expand('$VIMPATH/spell'))
+	call mkdir(expand('$VIMPATH/spell'))
+endif
+
 " }}}
 " Load vault settings "{{{
 if filereadable(expand('$VIMPATH/.vault.vim'))
@@ -65,14 +70,9 @@ let g:loaded_gzip = 1
 let g:loaded_logiPat = 1
 let g:loaded_matchit = 1
 let g:loaded_matchparen = 1
-let g:loaded_netrw = 1
-let g:loaded_netrwPlugin = 1
-let g:loaded_netrwFileHandlers = 1
-let g:loaded_netrwSettings = 1
 let g:loaded_rrhelper = 1
 let g:loaded_ruby_provider = 1
 let g:loaded_shada_plugin = 1
-let g:loaded_spellfile_plugin  = 1
 let g:loaded_tar = 1
 let g:loaded_tarPlugin = 1
 let g:loaded_tutor_mode_plugin = 1
