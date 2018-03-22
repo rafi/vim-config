@@ -71,8 +71,11 @@ if dein#tap('nerdtree')
 	let g:NERDTreeMapCloseChildren = 'T'
 	let g:NERDTreeMapToggleHidden = '.'
 
-	nnoremap <silent> <LocalLeader>e :<C-u>NERDTreeToggle<CR>
-	nnoremap <silent> <LocalLeader>a :<C-u>NERDTreeTabsToggle<CR>
+	nnoremap <silent> <LocalLeader>E :<C-u>let NERDTreeWinPos=1<CR> :<C-u>NERDTreeToggle<CR>
+	nnoremap <silent> <LocalLeader>e :<C-u>let NERDTreeWinPos=0<CR> :<C-u>NERDTreeToggle<CR>
+	nnoremap <silent> <LocalLeader>A :<C-u>let NERDTreeWinPos=1<CR> :<C-u>NERDTreeTabsToggle<CR>
+	nnoremap <silent> <LocalLeader>a :<C-u>let NERDTreeWinPos=0<CR> :<C-u>NERDTreeTabsToggle<CR>
+
 endif
 
 if dein#tap('neosnippet.vim')
