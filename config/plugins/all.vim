@@ -73,8 +73,8 @@ if dein#tap('nerdtree')
 
 	nnoremap <silent> <LocalLeader>E :<C-u>let NERDTreeWinPos=1<CR> :<C-u>NERDTreeToggle<CR>
 	nnoremap <silent> <LocalLeader>e :<C-u>let NERDTreeWinPos=0<CR> :<C-u>NERDTreeToggle<CR>
-	nnoremap <silent> <LocalLeader>A :<C-u>let NERDTreeWinPos=1<CR> :<C-u>NERDTreeTabsToggle<CR>
-	nnoremap <silent> <LocalLeader>a :<C-u>let NERDTreeWinPos=0<CR> :<C-u>NERDTreeTabsToggle<CR>
+	nnoremap <silent> <LocalLeader>A :<C-u>let NERDTreeWinPos=1<CR> :<C-u>NERDTreeFind<CR>
+	nnoremap <silent> <LocalLeader>a :<C-u>let NERDTreeWinPos=0<CR> :<C-u>NERDTreeFind<CR>
 
 endif
 
