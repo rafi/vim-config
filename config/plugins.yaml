@@ -144,7 +144,7 @@
 - repo: ryanoasis/vim-devicons
   on_source: nerdtree
   hook_source: |
-    let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
+    let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
     set listchars=tab:\▏\ ,extends:⟫,precedes:⟪,trail:·
 
 - { repo: tiagofumo/vim-nerdtree-syntax-highlight, on_source: nerdtree }
