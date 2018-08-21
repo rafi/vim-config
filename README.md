@@ -181,7 +181,7 @@ Name           | Description
 [chrisbra/csv.vim] | Handling column separated data
 [tmux-plugins/vim-tmux] | vim plugin for tmux.conf
 [cespare/vim-toml] | Syntax for TOML
-[PotatoesMaster/i3-vim-syntax] | i3 window manager config syntax
+[mboughaba/i3config.vim] | i3 window manager config syntax
 [dag/vim-fish] | Fish shell edit support
 [ekalinin/Dockerfile.vim] | syntax and snippets for Dockerfile
 [jstrater/mpvim] | Macports portfile configuration files
@@ -327,7 +327,7 @@ Name           | Description
 [chrisbra/csv.vim]: https://github.com/chrisbra/csv.vim
 [tmux-plugins/vim-tmux]: https://github.com/tmux-plugins/vim-tmux
 [cespare/vim-toml]: https://github.com/cespare/vim-toml
-[PotatoesMaster/i3-vim-syntax]: https://github.com/PotatoesMaster/i3-vim-syntax
+[mboughaba/i3config.vim]: https://github.com/mboughaba/i3config.vim
 [dag/vim-fish]: https://github.com/dag/vim-fish
 [ekalinin/Dockerfile.vim]: https://github.com/ekalinin/Dockerfile.vim
 [jstrater/mpvim]: https://github.com/jstrater/mpvim

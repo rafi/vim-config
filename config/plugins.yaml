@@ -113,7 +113,7 @@
 - { repo: andreshazard/vim-logreview, on_ft: logreview }
 
 - { repo: cespare/vim-toml, on_ft: toml }
-- { repo: PotatoesMaster/i3-vim-syntax, on_ft: i3 }
+- { repo: mboughaba/i3config.vim, on_ft: i3config }
 - { repo: dag/vim-fish, on_ft: fish }
 - { repo: jstrater/mpvim, on_ft: portfile }
 - { repo: robbles/logstash.vim, on_ft: logstash }
