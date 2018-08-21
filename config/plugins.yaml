@@ -125,7 +125,6 @@
 # Commands
 # --------
 - repo: scrooloose/nerdtree
-  depends: nerdtree-git-plugin
   on_map: { n: <Plug> }
   hook_post_source: source $VIMPATH/config/plugins/nerdtree.vim
 
@@ -259,7 +258,7 @@
 - repo: vimwiki/vimwiki
   if: empty($VIM_MINIMAL)
   on_map: { n: <Plug> }
-  on_cmd: Vimwiki
+  on_cmd: [ VimwikiIndex, VimwikiUISelect ]
   hook_add: |
     let g:vimwiki_use_calendar = 1
     let g:vimwiki_hl_headers = 1
@@ -284,9 +283,10 @@
 - repo: Shougo/deoplete.nvim
   depends: context_filetype.vim
   if: has('nvim') && empty($VIM_MINIMAL)
-  on_i: 1
-  hook_add: let g:deoplete#enable_at_startup = 1
-  hook_source: source $VIMPATH/config/plugins/deoplete.vim
+  on_event: InsertEnter
+  hook_source: |
+    source $VIMPATH/config/plugins/deoplete.vim
+    call deoplete#enable()
 
 - repo: Shougo/neocomplete
   depends: context_filetype.vim
@@ -307,6 +307,7 @@
     let g:neosnippet#enable_snipmate_compatibility = 1
     let g:neosnippet#enable_completed_snippet = 1
     let g:neosnippet#expand_word_boundary = 1
+    autocmd MyAutoCmd CompleteDone * call neosnippet#complete_done()
     autocmd MyAutoCmd InsertLeave * NeoSnippetClearMarkers
 
 - repo: ludovicchabant/vim-gutentags
