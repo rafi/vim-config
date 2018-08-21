@@ -16,22 +16,21 @@ call denite#custom#option('_', {
 call denite#custom#option('list', {})
 
 call denite#custom#option('mpc', {
-	\ 'quit': 0,
 	\ 'mode': 'normal',
 	\ 'winheight': 20,
 	\ })
 
 " MATCHERS
-" Default is 'matcher_fuzzy'
-call denite#custom#source('tag', 'matchers', ['matcher_substring'])
+" Default is 'matcher/fuzzy'
+call denite#custom#source('tag', 'matchers', ['matcher/substring'])
 if has('nvim') && &runtimepath =~# '\/cpsm'
 	call denite#custom#source(
-		\ 'buffer,file_mru,file_old,file_rec,grep,mpc,line',
-		\ 'matchers', ['matcher_cpsm', 'matcher_fuzzy'])
+		\ 'buffer,file_mru,file_old,file/rec,grep,mpc,line',
+		\ 'matchers', ['matcher/cpsm', 'matcher/fuzzy'])
 endif
 
 " SORTERS
-" Default is 'sorter_rank'
+" Default is 'sorter/rank'
 call denite#custom#source('z', 'sorters', ['sorter_z'])
 
 " CONVERTERS
@@ -43,7 +42,7 @@ call denite#custom#source(
 " FIND and GREP COMMANDS
 if executable('ag')
 	" The Silver Searcher
-	call denite#custom#var('file_rec', 'command',
+	call denite#custom#var('file/rec', 'command',
 		\ ['ag', '-U', '--hidden', '--follow', '--nocolor', '--nogroup', '-g', ''])
 
 	" Setup ignore patterns in your .agignore file!
@@ -78,6 +77,8 @@ let insert_mode_mappings = [
 	\  ['<Up>', '<denite:assign_previous_text>', 'noremap'],
 	\  ['<Down>', '<denite:assign_next_text>', 'noremap'],
 	\  ['<C-Y>', '<denite:redraw>', 'noremap'],
+	\  ['<BS>', '<denite:smart_delete_char_before_caret>', 'noremap'],
+	\  ['<C-h>', '<denite:smart_delete_char_before_caret>', 'noremap'],
 	\ ]
 
 let normal_mode_mappings = [
