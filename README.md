@@ -153,7 +153,6 @@ Name           | Description
 [othree/html5.vim] | HTML5 omnicomplete and syntax
 [mustache/vim-mustache-handlebars] | Mustache and handlebars syntax
 [pearofducks/ansible-vim] | Improved YAML support for Ansible
-[mitsuhiko/vim-jinja] | Jinja support in vim
 [groenewege/vim-less] | Syntax for LESS
 [hail2u/vim-css3-syntax] | CSS3 syntax support to vim's built-in `syntax/css.vim`
 [othree/csscomplete.vim] | Updated built-in CSS complete with latest standards
@@ -300,7 +299,6 @@ Name           | Description
 [othree/html5.vim]: https://github.com/othree/html5.vim
 [mustache/vim-mustache-handlebars]: https://github.com/mustache/vim-mustache-handlebars
 [pearofducks/ansible-vim]: https://github.com/pearofducks/ansible-vim
-[mitsuhiko/vim-jinja]: https://github.com/mitsuhiko/vim-jinja
 [groenewege/vim-less]: https://github.com/groenewege/vim-less
 [hail2u/vim-css3-syntax]: https://github.com/hail2u/vim-css3-syntax
 [othree/csscomplete.vim]: https://github.com/othree/csscomplete.vim
