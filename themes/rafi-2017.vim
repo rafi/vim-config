@@ -26,9 +26,11 @@ hi TabLineFill ctermfg=234 ctermbg=236 guifg=#1C1C1C guibg=#303030 cterm=NONE gu
 " TabLine: Not-active tab page label
 hi TabLine     ctermfg=243 ctermbg=236 guifg=#767676 guibg=#303030 cterm=NONE gui=NONE
 " TabLineSel: Active tab page label
-hi TabLineSel  ctermfg=241 ctermbg=234 guifg=#626262 guibg=#1C1C1C cterm=NONE gui=NONE
+hi TabLineSel  ctermfg=241 ctermbg=234 guifg=#1a1a1a guibg=#f4aa47 cterm=NONE gui=NONE
+"hi TabLineSel  ctermfg=241 ctermbg=234 guifg=#626262 guibg=#1C1C1C cterm=NONE gui=NONE
 " Custom
-highlight TabLineSelShade  ctermfg=235 ctermbg=234 guifg=#262626 guibg=#1C1C1C
+highlight TabLineSelShade  ctermfg=235 ctermbg=234 guifg=#96452f guibg=#1C1C1C
+"highlight TabLineSelShade  ctermfg=235 ctermbg=234 guifg=#262626 guibg=#1C1C1C
 highlight TabLineAlt       ctermfg=252 ctermbg=238 guifg=#D0D0D0 guibg=#444444
 highlight TabLineAltShade  ctermfg=238 ctermbg=236 guifg=#444444 guibg=#303030
 
@@ -44,7 +46,7 @@ function! Tabline() abort "{{{
 		if i + 1 == nr
 			" Active tab
 			let s:tabline .=
-				\ '%#TabLineSelShade#░%#TabLineSel#'.
+				\ '%#TabLineSelShade#░%#TabLineSel# '.
 				\ '%'.(i+1).'T%{badge#label('.(i+1).', "▛", "N/A")} '.
 				\ '%#TabLineFill#▞ '
 		else
@@ -141,6 +143,7 @@ highlight! WarningMsg ctermfg=100 guifg=#CCC566
 
 " Plugin: NERDTree icons and highlights {{{
 " ---------------------------------------------------------
+"  Rafi Version
 let g:NERDTreeIndicatorMapCustom = {
 	\ 'Modified':  '·',
 	\ 'Staged':    '‧',
@@ -153,8 +156,23 @@ let g:NERDTreeIndicatorMapCustom = {
 	\ 'Unknown':   '⁇'
 	\ }
 
+" Default Version
+"let g:NERDTreeIndicatorMapCustom = {
+" \ "Modified"  : "✹",
+" \ "Staged"    : "✚",
+" \ "Untracked" : "✭",
+" \ "Renamed"   : "➜",
+" \ "Unmerged"  : "═",
+" \ "Deleted"   : "✖",
+" \ "Dirty"     : "✗",
+" \ "Clean"     : "✔︎",
+" \ 'Ignored'   : '☒',
+" \ "Unknown"   : "?"
+" \ }
+
 let g:NERDTreeDirArrowExpandable = '▷'
 let g:NERDTreeDirArrowCollapsible = '▼'
+let g:NERDTreeStatusline = ' NERDTree'
 
 highlight! NERDTreeOpenable ctermfg=132 guifg=#B05E87
 highlight! def link NERDTreeClosable NERDTreeOpenable
@@ -194,6 +212,12 @@ augroup nerdtree-highlights
 	autocmd!
 	autocmd FileType nerdtree call s:NERDTreeHighlight()
 augroup END
+
+augroup nerdtreehidetirslashes
+	autocmd!
+	autocmd FileType nerdtree syntax match NERDTreeDirSlash #/$# containedin=NERDTreeDir conceal contained
+augroup end
+
 "}}}
 
 " Plugin: Tagbar icons {{{

@@ -141,15 +141,17 @@
   on_map: { n: <Plug> }
   hook_post_source: source $VIMPATH/config/plugins/nerdtree.vim
 
-- repo: ryanoasis/vim-devicons
-  on_source: nerdtree
-  hook_source: |
-    let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
-    set listchars=tab:\▏\ ,extends:⟫,precedes:⟪,trail:·
-
 - { repo: tiagofumo/vim-nerdtree-syntax-highlight, on_source: nerdtree }
 - { repo: jistr/vim-nerdtree-tabs, on_source: nerdtree }
 - { repo: Xuyuanp/nerdtree-git-plugin, on_source: nerdtree }
+
+- repo: ryanoasis/vim-devicons
+  on_source: nerdtree
+  hook_source: |
+    let g:webdevicons_enable_denite = 1
+    let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+    let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
+    let g:WebDevIconsNerdTreeBeforeGlyphPadding = ''
 
 - { repo: tpope/vim-commentary, on_map: <Plug>Commentary }
 - { repo: t9md/vim-choosewin, on_map: { n: <Plug> }}
@@ -386,6 +388,10 @@
     let g:jedi#max_doc_height = 100
     let g:jedi#quickfix_window_height = 10
     let g:jedi#use_splits_not_buffers = 'right'
+
+- repo: lambdalisue/vim-pyenv
+  depends: jedi-vim
+  on_ft: python
 
 # Only NeoVim ------------------------------
 - repo: zchee/deoplete-go

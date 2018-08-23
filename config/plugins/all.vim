@@ -70,12 +70,18 @@ if dein#tap('nerdtree')
 	let g:NERDTreeMapOpenRecursively = 't'
 	let g:NERDTreeMapCloseChildren = 'T'
 	let g:NERDTreeMapToggleHidden = '.'
+	let g:NERDTreeMapJumpNextSibling = '<Nop>'
+	let g:NERDTreeMapJumpPrevSibling = '<Nop>'
 
 	nnoremap <silent> <LocalLeader>E :<C-u>let NERDTreeWinPos=1<CR> :<C-u>NERDTreeToggle<CR>
 	nnoremap <silent> <LocalLeader>e :<C-u>let NERDTreeWinPos=0<CR> :<C-u>NERDTreeToggle<CR>
 	nnoremap <silent> <LocalLeader>A :<C-u>let NERDTreeWinPos=1<CR> :<C-u>NERDTreeTabsToggle<CR>
 	nnoremap <silent> <LocalLeader>a :<C-u>let NERDTreeWinPos=0<CR> :<C-u>NERDTreeTabsToggle<CR>
 
+endif
+
+if dein#tap('nerdtree-tabs')
+	let g:nerdtree_tabs_synchronize_view = 0
 endif
 
 if dein#tap('neosnippet.vim')
