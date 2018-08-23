@@ -52,7 +52,7 @@ augroup MyAutoCmd " {{{
 
 	autocmd FileType css setlocal equalprg=csstidy\ -\ --silent=true
 
-	autocmd FileType docker-compose setlocal expandtab
+	autocmd FileType yaml.docker-compose setlocal expandtab
 
 	autocmd FileType gitcommit setlocal spell
 

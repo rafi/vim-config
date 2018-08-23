@@ -145,7 +145,7 @@ call NERDTreeAddKeyMap({
 	\ 'scope': 'Node' })
 
 function! s:find_in_path(node)
-	execute 'Denite file_rec:'.s:get_containing_dir(a:node)
+	execute 'Denite file/rec:'.s:get_containing_dir(a:node)
 endfunction
 
 function! s:grep_dir(node)
