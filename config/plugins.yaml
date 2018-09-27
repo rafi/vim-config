@@ -29,12 +29,8 @@
 - { repo: cakebaker/scss-syntax.vim, on_ft: [ scss, sass ]}
 - { repo: groenewege/vim-less, on_ft: less }
 - { repo: othree/csscomplete.vim, on_ft: css }
-
-- { repo: mitsuhiko/vim-jinja, on_ft: [ htmljinja, jinja ]}
 - { repo: mustache/vim-mustache-handlebars, on_ft: html }
-
-- repo: pearofducks/ansible-vim
-  on_ft: [ ansible, ansible_hosts, ansible_template ]
+- { repo: pearofducks/ansible-vim, on_ft: [ yaml.ansible, ansible_hosts ]}
 
 - repo: othree/html5.vim
   on_ft: html
@@ -112,12 +108,12 @@
 
 - { repo: chrisbra/csv.vim, on_ft: csv }
 - { repo: tpope/vim-git, on_ft: [ gitcommit, gitrebase, gitconfig ]}
-- { repo: ekalinin/Dockerfile.vim, on_ft: [ Dockerfile, docker-compose ]}
+- { repo: ekalinin/Dockerfile.vim, on_ft: [ Dockerfile, yaml.docker-compose ]}
 - { repo: tmux-plugins/vim-tmux, on_ft: tmux }
 - { repo: andreshazard/vim-logreview, on_ft: logreview }
 
 - { repo: cespare/vim-toml, on_ft: toml }
-- { repo: PotatoesMaster/i3-vim-syntax, on_ft: i3 }
+- { repo: mboughaba/i3config.vim, on_ft: i3config }
 - { repo: dag/vim-fish, on_ft: fish }
 - { repo: jstrater/mpvim, on_ft: portfile }
 - { repo: robbles/logstash.vim, on_ft: logstash }
@@ -129,7 +125,6 @@
 # Commands
 # --------
 - repo: scrooloose/nerdtree
-  depends: nerdtree-git-plugin
   on_map: { n: <Plug> }
   hook_post_source: source $VIMPATH/config/plugins/nerdtree.vim
 
@@ -232,7 +227,7 @@
   hook_source: source $VIMPATH/config/plugins/neomake.vim
   hook_add: |
     let g:lint_filetypes = [
-      \  'ansible', 'python', 'php', 'ruby', 'vim', 'go', 'sh',
+      \  'yaml.ansible', 'python', 'php', 'ruby', 'vim', 'go', 'sh',
       \  'javascript', 'jsx', 'javascript.jsx', 'json', 'css',
       \  'markdown', 'html', 'yaml'
       \ ]
@@ -263,7 +258,7 @@
 - repo: vimwiki/vimwiki
   if: empty($VIM_MINIMAL)
   on_map: { n: <Plug> }
-  on_cmd: Vimwiki
+  on_cmd: [ VimwikiIndex, VimwikiUISelect ]
   hook_add: |
     let g:vimwiki_use_calendar = 1
     let g:vimwiki_hl_headers = 1
@@ -288,9 +283,10 @@
 - repo: Shougo/deoplete.nvim
   depends: context_filetype.vim
   if: has('nvim') && empty($VIM_MINIMAL)
-  on_i: 1
-  hook_add: let g:deoplete#enable_at_startup = 1
-  hook_source: source $VIMPATH/config/plugins/deoplete.vim
+  on_event: InsertEnter
+  hook_source: |
+    source $VIMPATH/config/plugins/deoplete.vim
+    call deoplete#enable()
 
 - repo: Shougo/neocomplete
   depends: context_filetype.vim
@@ -311,6 +307,7 @@
     let g:neosnippet#enable_snipmate_compatibility = 1
     let g:neosnippet#enable_completed_snippet = 1
     let g:neosnippet#expand_word_boundary = 1
+    autocmd MyAutoCmd CompleteDone * call neosnippet#complete_done()
     autocmd MyAutoCmd InsertLeave * NeoSnippetClearMarkers
 
 - repo: ludovicchabant/vim-gutentags

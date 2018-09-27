@@ -8,9 +8,9 @@ endif
 
 augroup filetypedetect
 
-	autocmd BufNewFile,BufRead */inventory/*.{yml,yaml}    setfiletype ansible
-	autocmd BufNewFile,BufRead */inventories/*.{yml,yaml}  setfiletype ansible
-	autocmd BufNewFile,BufRead */playbooks/*.{yml,yaml}    setfiletype ansible
+	autocmd BufNewFile,BufRead */inventory/*.{yml,yaml}    setfiletype yaml.ansible
+	autocmd BufNewFile,BufRead */inventories/*.{yml,yaml}  setfiletype yaml.ansible
+	autocmd BufNewFile,BufRead */playbooks/*.{yml,yaml}    setfiletype yaml.ansible
 
 	autocmd BufNewFile,BufRead .tern-project setfiletype json
 	autocmd BufNewFile,BufRead .jsbeautifyrc setfiletype json
