@@ -21,7 +21,7 @@ augroup filetypedetect
 	autocmd BufNewFile,BufRead Jenkinsfile           setfiletype groovy
 	autocmd BufNewFile,BufRead Tmuxfile,tmux/config  setfiletype tmux
 
-	autocmd BufNewFile,BufReadPost *.mmd setfiletype markdown
+	"autocmd BufNewFile,BufReadPost *.mmd setfiletype markdown
 
 augroup END
 
