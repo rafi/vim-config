@@ -49,9 +49,6 @@ nnoremap <S-Return> zMza
 nmap <BS> %
 xmap <BS> %
 
-nmap <Tab>  <C-w>w
-nmap <S-Tab>  <C-w>W
-
 "}}}
 " Global niceties {{{
 " ---------------
@@ -88,18 +85,18 @@ noremap <expr> <C-y> (line("w0") <= 1         ? "k" : "3\<C-y>")
 
 " Window control
 nnoremap <C-q> <C-w>
-nnoremap <C-x> <C-w>x
+nnoremap <C-x> <C-w>x<C-w>w
 nnoremap <silent><C-w>z :vert resize<CR>:resize<CR>:normal! ze<CR>
 
 " Select blocks after indenting
 xnoremap < <gv
 xnoremap > >gv|
 
-" Use tab for indenting in visual mode
+" Use tab for indenting
 vnoremap <Tab> >gv|
 vnoremap <S-Tab> <gv
-nnoremap > >>_
-nnoremap < <<_
+nmap <Tab>   >>_
+nmap <S-Tab> <<_
 
 " Select last paste
 nnoremap <expr> gp '`['.strpart(getregtype(), 0, 1).'`]'

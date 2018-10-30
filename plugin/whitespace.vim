@@ -1,6 +1,6 @@
 
 " Whitespace utilities
-"---------------------------------------------------------
+" ---
 
 " Remove end of line white space
 command! -range=% WhitespaceErase call <SID>WhitespaceErase(<line1>,<line2>)
