@@ -348,7 +348,7 @@
 - { repo: Shougo/neosnippet-snippets, if: empty($VIM_MINIMAL) }
 - { repo: Shougo/context_filetype.vim, lazy: 1, if: empty($VIM_MINIMAL) }
 - { repo: Shougo/neco-vim, on_ft: vim, if: empty($VIM_MINIMAL) }
-- { repo: Shougo/neco-syntax, on_source: [ neocomplete.vim, deoplete.nvim ]}
+- { repo: Shougo/neco-syntax, depends: [ neocomplete.vim, deoplete.nvim ]}
 
 - repo: davidhalter/jedi-vim
   if: empty($VIM_MINIMAL)
@@ -393,6 +393,11 @@
   on_i: 1
   hook_add: let g:tmuxcomplete#trigger = ''
 
+- repo: fszymanski/deoplete-emoji
+  if: has('nvim') && empty($VIM_MINIMAL)
+  on_ft: [ markdown, gitcommit ]
+  on_event: InsertEnter
+
 - repo: ternjs/tern_for_vim
   build: npm install
   if: executable('npm') && empty($VIM_MINIMAL)
@@ -413,15 +418,20 @@
   on_cmd: Denite
   hook_source: source $VIMPATH/config/plugins/denite.vim
 
-- { repo: chemzqm/unite-location, on_source: denite.nvim }
-- { repo: chemzqm/denite-git, on_source: denite.nvim }
-- { repo: rafi/vim-denite-z, on_source: denite.nvim }
-- { repo: rafi/vim-denite-session, on_source: denite.nvim }
+# - repo: nixprime/cpsm
+#   build: 'sh -c "PY3=ON ./install.sh"'
 
-- repo: rafi/vim-denite-mpc
-  if: executable('mpc') && empty($VIM_MINIMAL)
-  on_source: denite.nvim
-  hook_source: call denite#custom#var('mpc', 'default_view', 'date')
+- { repo: Shougo/junkfile.vim, depends: denite.nvim }
+- { repo: chemzqm/unite-location, depends: denite.nvim }
+- { repo: chemzqm/denite-git, depends: denite.nvim }
+- { repo: rafi/vim-denite-z, depends: denite.nvim }
+- { repo: rafi/vim-denite-session, depends: denite.nvim }
+
+# - { repo: rafi/vim-denite-task, depends: denite.nvim }
+# - repo: rafi/vim-denite-mpc
+#   if: executable('mpc') && empty($VIM_MINIMAL)
+#   depends: denite.nvim
+#   hook_source: call denite#custom#var('mpc', 'default_view', 'date')
 
 # ==========================================
 # Operators
