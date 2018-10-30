@@ -234,7 +234,7 @@
     autocmd MyAutoCmd BufWritePost *
       \ if index(g:lint_filetypes, &filetype) > -1 && empty(&buftype)
       \|   Neomake
-      \| elseif &filetype =~ 'html'
+      \| elseif &filetype == 'html'
       \|   Neomake tidy
       \| endif
 
