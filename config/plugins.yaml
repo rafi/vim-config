@@ -326,7 +326,7 @@
 
 - repo: mattn/emmet-vim
   if: empty($VIM_MINIMAL)
-  on_i: 1
+  on_event: InsertEnter
   on_ft: [ html, css, jsx, javascript, javascript.jsx ]
   hook_source: |
     let g:use_emmet_complete_tag = 0
@@ -340,7 +340,7 @@
   hook_post_source: call echodoc#enable()
 
 - repo: Raimondi/delimitMate
-  on_i: 1
+  on_event: InsertEnter
   hook_source: |
     let g:delimitMate_expand_cr = 1
     let g:delimitMate_excluded_ft = 'html'
@@ -371,18 +371,18 @@
   if: has('nvim') && ! empty($GOPATH) && empty($VIM_MINIMAL)
   build: make
   on_ft: go
-  on_i: 1
+  on_event: InsertEnter
 
 - repo: zchee/deoplete-jedi
   if: has('nvim') && empty($VIM_MINIMAL)
   on_ft: python
-  on_i: 1
+  on_event: InsertEnter
   hook_source: autocmd MyAutoCmd FileType python setlocal omnifunc=
 
 - repo: carlitux/deoplete-ternjs
   build: npm install -g tern
   if: executable('npm') && has('nvim') && empty($VIM_MINIMAL)
-  on_i: 1
+  on_event: InsertEnter
   on_ft: [ javascript, jsx, javascript.jsx ]
   hook_source: |
     let g:tern_request_timeout = 1
@@ -390,7 +390,7 @@
 
 - repo: wellle/tmux-complete.vim
   if: has('nvim') && empty($VIM_MINIMAL)
-  on_i: 1
+  on_event: InsertEnter
   hook_add: let g:tmuxcomplete#trigger = ''
 
 - repo: fszymanski/deoplete-emoji
@@ -401,7 +401,7 @@
 - repo: ternjs/tern_for_vim
   build: npm install
   if: executable('npm') && empty($VIM_MINIMAL)
-  on_i: 1
+  on_event: InsertEnter
   on_ft: [ javascript, jsx, javascript.jsx ]
   hook_add: |
     let g:tern#command = ['tern']
