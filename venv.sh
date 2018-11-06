@@ -14,8 +14,14 @@ fi
 
 # Ensure python 2/3 virtual environments
 [ -d "$venv" ] || mkdir -p "$venv"
-[ -d "$venv/neovim2" ] || python2 -m virtualenv "$venv/neovim2"
-[ -d "$venv/neovim3" ] || python3 -m venv "$venv/neovim3"
+if hash pyenv 2>/dev/null && [ -d "$(pyenv root)/versions/neovim2" ] && [ -d "$(pyenv root)/versions/neovim3" ]; then
+	# pyenv environments are setup so use them
+	[ -d "$venv/neovim2" ] || ln -s "$(pyenv root)/versions/neovim2" "$venv/neovim2"
+	[ -d "$venv/neovim3" ] || ln -s "$(pyenv root)/versions/neovim3" "$venv/neovim3"
+else
+	[ -d "$venv/neovim2" ] || python2 -m virtualenv "$venv/neovim2"
+	[ -d "$venv/neovim3" ] || python3 -m venv "$venv/neovim3"
+fi
 
 # Install or upgrade dependencies
 echo ':: PYTHON 2'

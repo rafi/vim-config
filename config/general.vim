@@ -155,6 +155,7 @@ set list                " Show hidden characters
 
 set showtabline=2       " Always show the tabs line
 set winwidth=30         " Minimum width for active window
+set winminwidth=10      " Minimum width for inactive windows
 set winheight=1         " Minimum height for active window
 set pumheight=15        " Pop-up menu's line height
 set helpheight=12       " Minimum help window height
