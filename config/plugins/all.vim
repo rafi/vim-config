@@ -17,11 +17,8 @@ if dein#tap('denite.nvim')
 	nnoremap <silent><LocalLeader>u :<C-u>Denite junkfile:new junkfile<CR>
 	nnoremap <silent><LocalLeader>o :<C-u>Denite outline<CR>
 	nnoremap <silent><LocalLeader>s :<C-u>Denite session -buffer-name=list<CR>
-	nnoremap <silent><expr> <LocalLeader>t &filetype == 'help' ? "g\<C-]>" :
-		\ ":\<C-u>DeniteCursorWord -buffer-name=tag
-		\  tag:include\<CR>"
-	nnoremap <silent><expr> <LocalLeader>p  &filetype == 'help' ?
-		\ ":\<C-u>pop\<CR>" : ":\<C-u>Denite -mode=normal jump\<CR>"
+	nnoremap <silent><LocalLeader>t :<C-u>Denite -buffer-name=tag tag:include<CR>
+	nnoremap <silent><LocalLeader>p :<C-u>Denite -mode=normal jump<CR>
 	nnoremap <silent><LocalLeader>h :<C-u>Denite help<CR>
 	nnoremap <silent><LocalLeader>m :<C-u>Denite mpc -buffer-name=mpc<CR>
 	nnoremap <silent><LocalLeader>/ :<C-u>Denite line<CR>
@@ -35,6 +32,7 @@ if dein#tap('denite.nvim')
 	nnoremap <silent> <Leader>gc :<C-u>Denite gitbranch<CR>
 
 	" Open Denite with word under cursor or selection
+	nnoremap <silent> <Leader>gt :DeniteCursorWord -buffer-name=tag tag:include<CR>
 	nnoremap <silent> <Leader>gf :DeniteCursorWord file/rec<CR>
 	nnoremap <silent> <Leader>gg :DeniteCursorWord grep<CR>
 	vnoremap <silent> <Leader>gg

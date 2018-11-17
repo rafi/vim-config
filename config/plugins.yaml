@@ -93,11 +93,18 @@
 - repo: fatih/vim-go
   on_ft: go
   hook_source: |
-    let g:go_def_mapping_enabled = 0
-    let g:go_loaded_gosnippets = 1
-    let g:go_snippet_engine = 'neosnippet'
+    let g:go_highlight_array_whitespace_error = 0
+    let g:go_highlight_chan_whitespace_error = 0
+    let g:go_highlight_space_tab_error = 0
+    let g:go_highlight_trailing_whitespace_error = 0
+    let g:go_highlight_build_constraints = 1
     let g:go_highlight_extra_types = 1
+    let g:go_highlight_fields = 0
+    let g:go_highlight_format_strings = 1
+    let g:go_highlight_functions = 1
+    let g:go_highlight_generate_tags = 1
     let g:go_highlight_operators = 1
+    let g:go_highlight_string_spellcheck = 0
 
 - { repo: vim-python/python-syntax, on_ft: python }
 - { repo: Vimjas/vim-python-pep8-indent, on_ft: python }
@@ -253,7 +260,7 @@
     autocmd MyAutoCmd BufWritePost *
       \ if index(g:lint_filetypes, &filetype) > -1 && empty(&buftype)
       \|   Neomake
-      \| elseif &filetype =~ 'html'
+      \| elseif &filetype == 'html'
       \|   Neomake tidy
       \| endif
 
@@ -346,7 +353,7 @@
 
 - repo: mattn/emmet-vim
   if: empty($VIM_MINIMAL)
-  on_i: 1
+  on_event: InsertEnter
   on_ft: [ html, css, jsx, javascript, javascript.jsx ]
   hook_source: |
     let g:use_emmet_complete_tag = 0
@@ -360,7 +367,7 @@
   hook_post_source: call echodoc#enable()
 
 - repo: Raimondi/delimitMate
-  on_i: 1
+  on_event: InsertEnter
   hook_source: |
     let g:delimitMate_expand_cr = 1
     let g:delimitMate_excluded_ft = 'html'
@@ -368,7 +375,7 @@
 - { repo: Shougo/neosnippet-snippets, if: empty($VIM_MINIMAL) }
 - { repo: Shougo/context_filetype.vim, lazy: 1, if: empty($VIM_MINIMAL) }
 - { repo: Shougo/neco-vim, on_ft: vim, if: empty($VIM_MINIMAL) }
-- { repo: Shougo/neco-syntax, on_source: [ neocomplete.vim, deoplete.nvim ]}
+- { repo: Shougo/neco-syntax, depends: [ neocomplete.vim, deoplete.nvim ]}
 
 - repo: davidhalter/jedi-vim
   if: empty($VIM_MINIMAL)
@@ -395,18 +402,18 @@
   if: has('nvim') && ! empty($GOPATH) && empty($VIM_MINIMAL)
   build: make
   on_ft: go
-  on_i: 1
+  on_event: InsertEnter
 
 - repo: zchee/deoplete-jedi
   if: has('nvim') && empty($VIM_MINIMAL)
   on_ft: python
-  on_i: 1
+  on_event: InsertEnter
   hook_source: autocmd MyAutoCmd FileType python setlocal omnifunc=
 
 - repo: carlitux/deoplete-ternjs
   build: npm install -g tern
   if: executable('npm') && has('nvim') && empty($VIM_MINIMAL)
-  on_i: 1
+  on_event: InsertEnter
   on_ft: [ javascript, jsx, javascript.jsx ]
   hook_source: |
     let g:tern_request_timeout = 1
@@ -414,13 +421,18 @@
 
 - repo: wellle/tmux-complete.vim
   if: has('nvim') && empty($VIM_MINIMAL)
-  on_i: 1
+  on_event: InsertEnter
   hook_add: let g:tmuxcomplete#trigger = ''
+
+- repo: fszymanski/deoplete-emoji
+  if: has('nvim') && empty($VIM_MINIMAL)
+  on_ft: [ markdown, gitcommit ]
+  on_event: InsertEnter
 
 - repo: ternjs/tern_for_vim
   build: npm install
   if: executable('npm') && empty($VIM_MINIMAL)
-  on_i: 1
+  on_event: InsertEnter
   on_ft: [ javascript, jsx, javascript.jsx ]
   hook_add: |
     let g:tern#command = ['tern']
@@ -437,15 +449,20 @@
   on_cmd: Denite
   hook_source: source $VIMPATH/config/plugins/denite.vim
 
-- { repo: chemzqm/unite-location, on_source: denite.nvim }
-- { repo: chemzqm/denite-git, on_source: denite.nvim }
-- { repo: rafi/vim-denite-z, on_source: denite.nvim }
-- { repo: rafi/vim-denite-session, on_source: denite.nvim }
+# - repo: nixprime/cpsm
+#   build: 'sh -c "PY3=ON ./install.sh"'
 
-- repo: rafi/vim-denite-mpc
-  if: executable('mpc') && empty($VIM_MINIMAL)
-  on_source: denite.nvim
-  hook_source: call denite#custom#var('mpc', 'default_view', 'date')
+- { repo: Shougo/junkfile.vim, depends: denite.nvim }
+- { repo: chemzqm/unite-location, depends: denite.nvim }
+- { repo: chemzqm/denite-git, depends: denite.nvim }
+- { repo: rafi/vim-denite-z, depends: denite.nvim }
+- { repo: rafi/vim-denite-session, depends: denite.nvim }
+
+# - { repo: rafi/vim-denite-task, depends: denite.nvim }
+# - repo: rafi/vim-denite-mpc
+#   if: executable('mpc') && empty($VIM_MINIMAL)
+#   depends: denite.nvim
+#   hook_source: call denite#custom#var('mpc', 'default_view', 'date')
 
 # ==========================================
 # Operators

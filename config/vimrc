@@ -139,10 +139,10 @@ call s:source_file('plugins/all.vim')
 filetype plugin indent on
 syntax enable
 
-if ! has('vim_starting')
+" if ! has('vim_starting')
 	call dein#call_hook('source')
 	call dein#call_hook('post_source')
-endif
+" endif
 
 " Loading configuration modules
 call s:source_file('general.vim')
