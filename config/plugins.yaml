@@ -353,7 +353,7 @@
 - { repo: Shougo/neosnippet-snippets, lazy: 1 }
 - { repo: Shougo/context_filetype.vim, lazy: 1 }
 - { repo: Shougo/neco-vim, on_ft: vim }
-- { repo: Shougo/neco-syntax, lazy: 1, depends: deoplete.nvim }
+- { repo: Shougo/neco-syntax, on_source: deoplete.nvim }
 
 - repo: davidhalter/jedi-vim
   on_ft: python
@@ -421,17 +421,16 @@
 # - repo: nixprime/cpsm
 #   build: 'sh -c "PY3=ON ./install.sh"'
 
-- { repo: Shougo/junkfile.vim, lazy: 1, depends: denite.nvim }
-- { repo: chemzqm/unite-location, lazy: 1, depends: denite.nvim }
-- { repo: chemzqm/denite-git, lazy: 1, depends: denite.nvim }
-- { repo: rafi/vim-denite-z, lazy: 1, depends: denite.nvim }
-- { repo: rafi/vim-denite-session, lazy: 1, depends: denite.nvim }
+- { repo: Shougo/junkfile.vim, on_source: denite.nvim }
+- { repo: chemzqm/unite-location, on_source: denite.nvim }
+- { repo: chemzqm/denite-git, on_source: denite.nvim }
+- { repo: rafi/vim-denite-z, on_source: denite.nvim }
+- { repo: rafi/vim-denite-session, on_source: denite.nvim }
 
-# - { repo: rafi/vim-denite-task, lazy: 1, depends: denite.nvim }
+# - { repo: rafi/vim-denite-task, on_source: denite.nvim }
 # - repo: rafi/vim-denite-mpc
 #   if: executable('mpc')
-#   depends: denite.nvim
-#   lazy: 1
+#   on_source: denite.nvim
 #   hook_source: call denite#custom#var('mpc', 'default_view', 'date')
 
 # ==========================================
