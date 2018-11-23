@@ -56,7 +56,7 @@ or use Python:
 pip3 install --user --upgrade PyYAML
 ```
 
-**_3._** If you are a _first-time Neovim user_, you need the python-neovim
+**_3._** If you are a _first-time Neovim user_, you need the pynvim
 packages. Don't worry, run the script provided:
 
 ```sh
@@ -104,6 +104,9 @@ Run `make update`
 
 If you want to add your own configuration, create the `config/local.vim` file
 and add your personal settings there. This file is ignored by `.gitignore`.
+
+If you'd like to install plugins by yourself, create a
+`config/local.plugins.yaml` file and manage your own plugin collection.
 
 ## Structure
 
