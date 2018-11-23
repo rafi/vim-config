@@ -37,6 +37,21 @@ set sessionoptions-=help
 set sessionoptions-=buffers
 set sessionoptions+=tabpages
 
+if has('mac')
+	let g:clipboard = {
+		\   'name': 'macOS-clipboard',
+		\   'copy': {
+		\      '+': 'pbcopy',
+		\      '*': 'pbcopy',
+		\    },
+		\   'paste': {
+		\      '+': 'pbpaste',
+		\      '*': 'pbpaste',
+		\   },
+		\   'cache_enabled': 1,
+		\ }
+endif
+
 if has('clipboard')
 	set clipboard& clipboard+=unnamedplus
 endif
