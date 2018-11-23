@@ -138,6 +138,16 @@
 # ==========================================
 # Commands
 # --------
+# - repo: Shougo/defx.nvim
+#   on_map: Defx
+#   hook_source: source $VIMPATH/config/plugins/defx.vim
+
+# - repo: kristijanhusak/defx-git
+#   on_source: defx.nvim
+
+# - repo: kristijanhusak/defx-icons
+#   on_source: defx.nvim
+
 - repo: scrooloose/nerdtree
   on_map: { n: <Plug> }
   hook_post_source: source $VIMPATH/config/plugins/nerdtree.vim
