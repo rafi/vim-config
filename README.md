@@ -12,7 +12,7 @@ Best with Neovim or Vim 8 with +python3 extensions enabled.
 - Custom side-menu (try it out! <kbd>Leader</kbd>+<kbd>l</kbd>)
 - Modular configuration
 - Denite (Unite's successor) centric work-flow
-- Extensive Deoplete and Neocomplete setup
+- Extensive Deoplete setup (auto-completion)
 - Lightweight simple status/tabline
 - Easy customizable theme
 - Premium color-schemes
@@ -48,15 +48,7 @@ ln -s ~/.config/nvim ~/.vim
   use that instead of `~/.config` in the code above.
   Nvim follows the XDG base-directories convention.
 
-**_2._** Almost done! You'll need a YAML interpreter, if you have Ruby
-installed - you can skip this step. Otherwise, either install [yaml2json],
-or use Python:
-
-```sh
-pip3 install --user --upgrade PyYAML
-```
-
-**_3._** If you are a _first-time Neovim user_, you need the pynvim
+**_2._** If you are a _first-time Neovim user_, you need the pynvim
 packages. Don't worry, run the script provided:
 
 ```sh
@@ -64,9 +56,9 @@ cd ~/.config/nvim
 ./venv.sh
 ```
 
-**_4._** Run `make test` to test your nvim/vim version and compatibility.
+**_3._** Run `make test` to test your nvim/vim version and compatibility.
 
-**_5._** Run `make` to install all plugins.
+**_4._** Run `make` to install all plugins.
 
 Enjoy!
 
@@ -256,8 +248,7 @@ Name           | Description
 Name           | Description
 -------------- | ----------------------
 [Shougo/deoplete.nvim] | Neovim: Dark powered asynchronous completion framework
-[Shougo/neocomplete] | Next generation completion framework
-[Shougo/neosnippet.vim] | Contains neocomplete snippets source
+[Shougo/neosnippet.vim] | Snippets with integration to Deoplete
 [Raimondi/delimitMate] | Auto-completion for quotes, parens, brackets
 [ludovicchabant/vim-gutentags] | Manages your tag files
 [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet
@@ -391,7 +382,6 @@ Name           | Description
 [vimwiki/vimwiki]: https://github.com/vimwiki/vimwiki
 
 [Shougo/deoplete.nvim]: https://github.com/Shougo/deoplete.nvim
-[Shougo/neocomplete]: https://github.com/Shougo/neocomplete.vim
 [Shougo/neosnippet.vim]: https://github.com/Shougo/neosnippet.vim
 [Raimondi/delimitMate]: https://github.com/Raimondi/delimitMate
 [ludovicchabant/vim-gutentags]: https://github.com/ludovicchabant/vim-gutentags
@@ -590,7 +580,7 @@ Key   | Mode | Action
 `gf` | Normal | Search in selected directory for files
 `gr` | Normal | Grep in selected directory
 
-### Plugin: Deoplete / Emmet / Neocomplete
+### Plugin: Deoplete / Emmet
 
 Key   | Mode | Action
 ----- |:----:| ------------------
@@ -713,5 +703,5 @@ Key   | Mode | Action
 Big thanks to the dark knight [Shougo].
 
 [Shougo]: https://github.com/Shougo
-[lazy-loaded]: ./config/plugins.yaml#L21
+[lazy-loaded]: ./config/plugins.yaml#L28
 [yaml2json]: https://github.com/bronze1man/yaml2json
