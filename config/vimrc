@@ -10,9 +10,20 @@ if &compatible
 	set nocompatible
 endif
 
+" let $NVIM_PYTHON_LOG_FILE = '/tmp/nvim_log'
+" let $NVIM_PYTHON_LOG_LEVEL = 'DEBUG'
+
 " Set main configuration directory, and where cache is stored.
 let $VIMPATH = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
 let $VARPATH = expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : '~/.cache').'/vim')
+
+" Search and use environments specifically made for Neovim.
+if isdirectory($VARPATH.'/venv/neovim2')
+	let g:python_host_prog = $VARPATH.'/venv/neovim2/bin/python'
+endif
+if isdirectory($VARPATH.'/venv/neovim3')
+	let g:python3_host_prog = $VARPATH.'/venv/neovim3/bin/python'
+endif
 
 let g:dein#install_max_processes = 16
 let g:dein#install_progress_type = 'echo'
@@ -94,10 +105,7 @@ augroup END
 " Initialize base requirements
 if has('vim_starting')
 	call s:source_file('init.vim')
-	if has('nvim')
-		" Neovim settings
-		call s:source_file('neovim.vim')
-	elseif ! has('gui_running') && ! has('win32') && ! has('win64')
+	if ! has('nvim') && ! has('gui_running') && ! has('win32') && ! has('win64')
 		" Linux terminal settings
 		call s:source_file('terminal.vim')
 	endif

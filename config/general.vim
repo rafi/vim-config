@@ -76,6 +76,8 @@ if has('nvim')
 	"   s - Maximum size of an item contents in KiB
 	"   h - Disable the effect of 'hlsearch' when loading the shada
 	set shada='300,<50,@100,s10,h
+	" Write history on idle, for sharing among different sessions
+	autocmd MyAutoCmd CursorHold * if exists(':rshada') | rshada | wshada | endif
 else
 	set viminfo='300,<10,@50,h,n$VARPATH/viminfo
 endif
