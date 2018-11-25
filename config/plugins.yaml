@@ -11,6 +11,8 @@
 - repo: christoomey/vim-tmux-navigator
 - repo: junegunn/vim-peekaboo
 - repo: tpope/vim-sleuth
+- repo: lambdalisue/suda.vim
+- repo: sgur/vim-editorconfig
 - repo: itchyny/vim-gitbranch
 - repo: itchyny/vim-parenmatch
 - repo: itchyny/vim-cursorword
@@ -18,6 +20,10 @@
     autocmd MyAutoCmd FileType denite,qf,nerdtree let b:cursorword=0
     autocmd MyAutoCmd InsertEnter * let b:cursorword=0
     autocmd MyAutoCmd InsertLeave * let b:cursorword=1
+
+# Vim8 only:
+- { repo: roxma/vim-hug-neovim-rpc, if: ! has('nvim') }
+- { repo: roxma/nvim-yarp, if: ! has('nvim') }
 
 # Lazy Loading
 # ==========================================
@@ -73,6 +79,7 @@
 - { repo: othree/jspc.vim, on_ft: [ javascript, jsx, javascript.jsx ] }
 - { repo: MaxMEllon/vim-jsx-pretty, on_ft: [ javascript, jsx, javascript.jsx ]}
 - { repo: heavenshell/vim-jsdoc, on_ft: [ javascript, jsx, javascript.jsx ] }
+- { repo: jparise/vim-graphql, on_ft: [ javascript, jsx, javascript.jsx ] }
 - { repo: moll/vim-node, on_ft: [ javascript, jsx, javascript.jsx ] }
 - { repo: elzr/vim-json, on_ft: json }
 
@@ -131,6 +138,16 @@
 # ==========================================
 # Commands
 # --------
+# - repo: Shougo/defx.nvim
+#   on_map: Defx
+#   hook_source: source $VIMPATH/config/plugins/defx.vim
+
+# - repo: kristijanhusak/defx-git
+#   on_source: defx.nvim
+
+# - repo: kristijanhusak/defx-icons
+#   on_source: defx.nvim
+
 - repo: scrooloose/nerdtree
   on_map: { n: <Plug> }
   hook_post_source: source $VIMPATH/config/plugins/nerdtree.vim
@@ -142,7 +159,7 @@
 - { repo: kana/vim-niceblock, on_map: { x: <Plug> }}
 - { repo: guns/xterm-color-table.vim, on_cmd: XtermColorTable }
 - { repo: mbbill/undotree, on_cmd: UndotreeToggle }
-- { repo: metakirby5/codi.vim, on_cmd: Codi, if: empty($VIM_MINIMAL) }
+- { repo: metakirby5/codi.vim, on_cmd: Codi }
 - { repo: Shougo/vimproc.vim, build: make, on_func: vimproc# }
 - { repo: reedes/vim-wordy, on_cmd: [ Wordy, NextWordy, PrevWordy ]}
 - { repo: brooth/far.vim, on_cmd: [ Far, Farp, F ] }
@@ -168,7 +185,6 @@
   hook_source: let g:easygit_enable_command = 1
 
 - repo: majutsushi/tagbar
-  if: empty($VIM_MINIMAL)
   on_cmd: TagbarToggle
   hook_source: |
     let g:tagbar_width = 40
@@ -177,7 +193,6 @@
     endif
 
 - repo: beloglazov/vim-online-thesaurus
-  if: empty($VIM_MINIMAL)
   on_cmd: [ OnlineThesaurusCurrentWord, Thesaurus ]
   hook_source: let g:online_thesaurus_map_keys = 0
 
@@ -229,41 +244,37 @@
   hook_source: let g:committia_min_window_width = 70
 
 - repo: benekastah/neomake
-  if: has('nvim') && empty($VIM_MINIMAL)
-  on_cmd: Neomake
+  if: has('nvim')
+  on_cmd: [ Neomake, NeomakeFile, NeomakeEnable ]
   hook_source: source $VIMPATH/config/plugins/neomake.vim
   hook_add: |
-    let g:lint_filetypes = [
+    let g:lint_types = [
       \  'yaml.ansible', 'python', 'php', 'ruby', 'vim', 'go', 'sh',
       \  'javascript', 'jsx', 'javascript.jsx', 'json', 'css',
       \  'markdown', 'html', 'yaml'
       \ ]
     autocmd MyAutoCmd BufWritePost *
-      \ if index(g:lint_filetypes, &filetype) > -1 && empty(&buftype)
+      \  if expand('%:p') !~ $VIMPATH
+      \      && index(g:lint_types, &filetype) > -1
+      \      && empty(&buftype)
       \|   Neomake
-      \| elseif &filetype == 'html'
-      \|   Neomake tidy
       \| endif
 
 - repo: junegunn/goyo.vim
-  if: empty($VIM_MINIMAL)
   depends: limelight.vim
   on_cmd: Goyo
   hook_source: source $VIMPATH/config/plugins/goyo.vim
 
 - repo: junegunn/limelight.vim
-  if: empty($VIM_MINIMAL)
   on_cmd: Limelight
 
 - repo: itchyny/calendar.vim
-  if: empty($VIM_MINIMAL)
   on_cmd: Calendar
   hook_source: |
     let g:calendar_google_calendar = 1
     let g:calendar_google_task = 1
 
 - repo: vimwiki/vimwiki
-  if: empty($VIM_MINIMAL)
   on_map: { n: <Plug> }
   on_cmd: [ VimwikiIndex, VimwikiUISelect ]
   hook_add: |
@@ -289,24 +300,13 @@
 # ----------
 - repo: Shougo/deoplete.nvim
   depends: context_filetype.vim
-  if: has('nvim') && empty($VIM_MINIMAL)
   on_event: InsertEnter
   hook_source: |
     source $VIMPATH/config/plugins/deoplete.vim
     call deoplete#enable()
 
-- repo: Shougo/neocomplete
-  depends: context_filetype.vim
-  if: ! has('nvim') && has('lua') && empty($VIM_MINIMAL)
-  on_event: InsertEnter
-  hook_add: |
-    let g:neocomplete#data_directory = $VARPATH.'/complete'
-    let g:neocomplete#enable_at_startup = 1
-  hook_source: source $VIMPATH/config/plugins/neocomplete.vim
-
 - repo: Shougo/neosnippet.vim
   depends: [ neosnippet-snippets, context_filetype.vim ]
-  if: empty($VIM_MINIMAL)
   on_event: InsertCharPre
   on_ft: snippet
   hook_add: let g:neosnippet#data_directory = $VARPATH.'/snippets'
@@ -318,7 +318,7 @@
     autocmd MyAutoCmd InsertLeave * NeoSnippetClearMarkers
 
 - repo: ludovicchabant/vim-gutentags
-  if: executable('ctags') && empty($VIM_MINIMAL)
+  if: executable('ctags')
   on_path: .*
   hook_add: |
     let g:gutentags_cache_dir = $VARPATH.'/tags'
@@ -332,7 +332,6 @@
       \ ]
 
 - repo: mattn/emmet-vim
-  if: empty($VIM_MINIMAL)
   on_event: InsertEnter
   on_ft: [ html, css, jsx, javascript, javascript.jsx ]
   hook_source: |
@@ -342,7 +341,6 @@
     let g:user_emmet_mode = 'i'
 
 - repo: Shougo/echodoc.vim
-  if: empty($VIM_MINIMAL)
   on_event: CompleteDone
   hook_post_source: call echodoc#enable()
 
@@ -352,13 +350,12 @@
     let g:delimitMate_expand_cr = 1
     let g:delimitMate_excluded_ft = 'html'
 
-- { repo: Shougo/neosnippet-snippets, if: empty($VIM_MINIMAL) }
-- { repo: Shougo/context_filetype.vim, lazy: 1, if: empty($VIM_MINIMAL) }
-- { repo: Shougo/neco-vim, on_ft: vim, if: empty($VIM_MINIMAL) }
-- { repo: Shougo/neco-syntax, depends: [ neocomplete.vim, deoplete.nvim ]}
+- { repo: Shougo/neosnippet-snippets, lazy: 1 }
+- { repo: Shougo/context_filetype.vim, lazy: 1 }
+- { repo: Shougo/neco-vim, on_ft: vim }
+- { repo: Shougo/neco-syntax, on_source: deoplete.nvim }
 
 - repo: davidhalter/jedi-vim
-  if: empty($VIM_MINIMAL)
   on_ft: python
   hook_add: |
     let g:jedi#completions_enabled = 0
@@ -373,22 +370,20 @@
     let g:jedi#quickfix_window_height = 10
     let g:jedi#use_splits_not_buffers = 'right'
 
-# Only NeoVim ------------------------------
 - repo: zchee/deoplete-go
-  if: has('nvim') && ! empty($GOPATH) && empty($VIM_MINIMAL)
+  if: ! empty($GOPATH)
   build: make
   on_ft: go
   on_event: InsertEnter
 
 - repo: zchee/deoplete-jedi
-  if: has('nvim') && empty($VIM_MINIMAL)
   on_ft: python
   on_event: InsertEnter
   hook_source: autocmd MyAutoCmd FileType python setlocal omnifunc=
 
 - repo: carlitux/deoplete-ternjs
   build: npm install -g tern
-  if: executable('npm') && has('nvim') && empty($VIM_MINIMAL)
+  if: executable('npm')
   on_event: InsertEnter
   on_ft: [ javascript, jsx, javascript.jsx ]
   hook_source: |
@@ -396,18 +391,16 @@
     let g:tern_show_signature_in_pum = 0
 
 - repo: wellle/tmux-complete.vim
-  if: has('nvim') && empty($VIM_MINIMAL)
   on_event: InsertEnter
   hook_add: let g:tmuxcomplete#trigger = ''
 
 - repo: fszymanski/deoplete-emoji
-  if: has('nvim') && empty($VIM_MINIMAL)
   on_ft: [ markdown, gitcommit ]
   on_event: InsertEnter
 
 - repo: ternjs/tern_for_vim
   build: npm install
-  if: executable('npm') && empty($VIM_MINIMAL)
+  if: executable('npm')
   on_event: InsertEnter
   on_ft: [ javascript, jsx, javascript.jsx ]
   hook_add: |
@@ -428,16 +421,16 @@
 # - repo: nixprime/cpsm
 #   build: 'sh -c "PY3=ON ./install.sh"'
 
-- { repo: Shougo/junkfile.vim, depends: denite.nvim }
-- { repo: chemzqm/unite-location, depends: denite.nvim }
-- { repo: chemzqm/denite-git, depends: denite.nvim }
-- { repo: rafi/vim-denite-z, depends: denite.nvim }
-- { repo: rafi/vim-denite-session, depends: denite.nvim }
+- { repo: Shougo/junkfile.vim, on_source: denite.nvim }
+- { repo: chemzqm/unite-location, on_source: denite.nvim }
+- { repo: chemzqm/denite-git, on_source: denite.nvim }
+- { repo: rafi/vim-denite-z, on_source: denite.nvim }
+- { repo: rafi/vim-denite-session, on_source: denite.nvim }
 
-# - { repo: rafi/vim-denite-task, depends: denite.nvim }
+# - { repo: rafi/vim-denite-task, on_source: denite.nvim }
 # - repo: rafi/vim-denite-mpc
-#   if: executable('mpc') && empty($VIM_MINIMAL)
-#   depends: denite.nvim
+#   if: executable('mpc')
+#   on_source: denite.nvim
 #   hook_source: call denite#custom#var('mpc', 'default_view', 'date')
 
 # ==========================================
