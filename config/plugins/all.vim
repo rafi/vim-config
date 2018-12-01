@@ -60,6 +60,11 @@ if dein#tap('tagbar')
 	let g:tagbar_map_openfold = ['l', '+', 'zo']
 endif
 
+if dein#tap('defx.nvim')
+	nnoremap <silent> <Leader>f
+		\ :<C-u>Defx -resume -toggle -split=vertical -winwidth=25 -direction=topleft -columns=icons:git:filename:type -buffer-name=tab`tabpagenr()`<CR>
+endif
+
 if dein#tap('nerdtree')
 	let g:NERDTreeMapOpenSplit = 'sv'
 	let g:NERDTreeMapOpenVSplit = 'sg'
