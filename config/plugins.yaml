@@ -21,6 +21,13 @@
     autocmd MyAutoCmd InsertEnter * let b:cursorword=0
     autocmd MyAutoCmd InsertLeave * let b:cursorword=1
 
+#
+# Status line
+#
+- repo: liuchengxu/eleline.vim
+  hook_source: |
+    let g:eleline_powerline_fonts = 1
+
 # ==========================================
 # Coding Productivity
 # ------------
@@ -112,6 +119,12 @@
     let g:go_highlight_generate_tags = 1
     let g:go_highlight_operators = 1
     let g:go_highlight_string_spellcheck = 0
+
+- repo: elixir-lang/vim-elixir
+  on_ft: elixir
+
+- repo: slashmili/alchemist.vim
+  on_ft: elixir
 
 - { repo: vim-python/python-syntax, on_ft: python }
 - { repo: Vimjas/vim-python-pep8-indent, on_ft: python }
@@ -262,22 +275,39 @@
   on_path: COMMIT_EDITMSG
   hook_source: let g:committia_min_window_width = 70
 
-- repo: benekastah/neomake
-  if: has('nvim')
-  on_cmd: [ Neomake, NeomakeFile, NeomakeEnable ]
-  hook_source: source $VIMPATH/config/plugins/neomake.vim
-  hook_add: |
-    let g:lint_types = [
-      \  'yaml.ansible', 'python', 'php', 'ruby', 'vim', 'go', 'sh',
-      \  'javascript', 'jsx', 'javascript.jsx', 'json', 'css',
-      \  'markdown', 'html', 'yaml'
-      \ ]
-    autocmd MyAutoCmd BufWritePost *
-      \  if expand('%:p') !~ $VIMPATH
-      \      && index(g:lint_types, &filetype) > -1
-      \      && empty(&buftype)
-      \|   Neomake
-      \| endif
+- repo: w0rp/ale
+  hook_source: |
+    let g:ale_linters = { 'python': ['pylint', 'pycodestyle', 'pyflakes', 'flake8'] }
+    let g:ale_sign_error = '✘'
+    let g:ale_sign_warning = '﹅'
+    let g:ale_echo_msg_error_str = 'E'
+    let g:ale_echo_msg_warning_str = 'W'
+    let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+    let g:ale_python_flake8_executable  = '/Users/sergio/.local/bin/flake8'
+    let g:ale_python_flake8_use_global = 1
+    let g:ale_python_pycodestyle_executable = '/Users/sergio/.local/bin/pycodestyle'
+    let g:ale_python_pycodestyle_use_global = 1
+    let g:ale_python_pylint_executable = '/Users/sergio/.local/bin/pylint'
+    let g:ale_python_pylint_use_global = 1
+    let g:ale_python_pyflakes_executable = '/Users/sergio/.local/bin/pyflakes'
+    let g:ale_python_pyflakes_use_global = 1
+
+#- repo: benekastah/neomake
+#  if: has('nvim')
+#  on_cmd: [ Neomake, NeomakeFile, NeomakeEnable ]
+#  hook_source: source $VIMPATH/config/plugins/neomake.vim
+#  hook_add: |
+#    let g:lint_types = [
+#      \  'yaml.ansible', 'python', 'php', 'ruby', 'vim', 'go', 'sh',
+#      \  'javascript', 'jsx', 'javascript.jsx', 'json', 'css',
+#      \  'markdown', 'html', 'yaml'
+#      \ ]
+#    autocmd MyAutoCmd BufWritePost *
+#      \  if expand('%:p') !~ $VIMPATH
+#      \      && index(g:lint_types, &filetype) > -1
+#      \      && empty(&buftype)
+#      \|   Neomake
+#      \| endif
 
 - repo: junegunn/goyo.vim
   depends: limelight.vim
@@ -378,7 +408,7 @@
 - repo: davidhalter/jedi-vim
   on_ft: python
   hook_add: |
-    let g:jedi#completions_enabled = 0
+    let g:jedi#completions_enabled = 1
     let g:jedi#auto_vim_configuration = 0
     let g:jedi#smart_auto_mappings = 0
     let g:jedi#show_call_signatures = 1

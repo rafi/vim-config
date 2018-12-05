@@ -93,8 +93,8 @@ let s:stl_nc .= '%{&ft} '                      " File type
 " }}}
 
 " Highlights: Statusline {{{
-highlight StatusLine   ctermfg=236 ctermbg=248 guifg=#30302c guibg=#a8a897
-highlight StatusLineNC ctermfg=236 ctermbg=242 guifg=#30302c guibg=#666656
+"highlight StatusLine   ctermfg=236 ctermbg=248 guifg=#30302c guibg=#a8a897
+"highlight StatusLineNC ctermfg=236 ctermbg=242 guifg=#30302c guibg=#666656
 
 " Filepath color
 highlight User1 guifg=#D7D7BC guibg=#30302c ctermfg=251 ctermbg=236
@@ -116,17 +116,17 @@ let s:disable_statusline =
 	\ 'denite\|unite\|vimfiler\|tagbar\|nerdtree\|undotree\|gundo\|diff\|peekaboo\|sidemenu'
 
 " Toggle Statusline {{{
-augroup statusline
-	autocmd!
-	autocmd FileType,WinEnter,BufWinEnter,BufReadPost *
-		\ if &filetype !~? s:disable_statusline
-		\ | let &l:statusline = s:stl
-		\ | endif
-	autocmd WinLeave *
-		\ if &filetype !~? s:disable_statusline
-		\ | let &l:statusline = s:stl_nc
-		\ | endif
-augroup END "}}}
+"augroup statusline
+"	autocmd!
+"	autocmd FileType,WinEnter,BufWinEnter,BufReadPost *
+"		\ if &filetype !~? s:disable_statusline
+"		\ | let &l:statusline = s:stl
+"		\ | endif
+"	autocmd WinLeave *
+"		\ if &filetype !~? s:disable_statusline
+"		\ | let &l:statusline = s:stl_nc
+"		\ | endif
+"augroup END "}}}
 
 " }}}
 

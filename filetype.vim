@@ -25,6 +25,7 @@ augroup filetypedetect
 	autocmd BufNewFile,BufRead Tmuxfile,tmux/config  setfiletype tmux
 
   autocmd BufNewFile,BufRead *.tf,*.tfvars,*.tfstate setfiletype terraform
+  autocmd BufNewFile,BufRead *.ex, *.exs setfiletype elixir
 
 augroup END
 
