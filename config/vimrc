@@ -17,6 +17,14 @@ endif
 let $VIMPATH = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
 let $VARPATH = expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : '~/.cache').'/vim')
 
+" Constants
+let s:is_sudo = $SUDO_USER !=# '' && $USER !=# $SUDO_USER
+
+let g:dein#install_max_processes = 16
+let g:dein#install_progress_type = 'echo'
+let g:dein#enable_notification = 0
+let g:dein#install_log_filename = $VARPATH.'/dein.log'
+
 " Search and use environments specifically made for Neovim.
 if isdirectory($VARPATH.'/venv/neovim2')
 	let g:python_host_prog = $VARPATH.'/venv/neovim2/bin/python'
@@ -24,11 +32,6 @@ endif
 if isdirectory($VARPATH.'/venv/neovim3')
 	let g:python3_host_prog = $VARPATH.'/venv/neovim3/bin/python'
 endif
-
-let g:dein#install_max_processes = 16
-let g:dein#install_progress_type = 'echo'
-let g:dein#enable_notification = 0
-let g:dein#install_log_filename = $VARPATH.'/dein.log'
 
 function! s:dein_check_ruby() abort
 	call system("ruby -e 'require \"json\"; require \"yaml\"'")
@@ -133,7 +136,9 @@ if dein#load_state(s:path)
 		call dein#local(expand('$VIMPATH/dev'), {'frozen': 1, 'merged': 0})
 	endif
 	call dein#end()
-	call dein#save_state()
+	if ! s:is_sudo
+		call dein#save_state()
+	endif
 	if dein#check_install()
 		if ! has('nvim')
 			set nomore
@@ -157,6 +162,18 @@ call s:source_file('general.vim')
 call s:source_file('filetype.vim')
 call s:source_file('mappings.vim')
 call s:source_file('theme.vim')
+
+if s:is_sudo
+	set noswapfile
+	set nobackup
+	set nowritebackup
+	set noundofile
+	if has('nvim')
+		set shada="NONE"
+	else
+		set viminfo="NONE"
+	endif
+endif
 
 " Load user custom local settings
 if filereadable(expand('$VIMPATH/config/local.vim'))
