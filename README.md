@@ -453,8 +453,8 @@ Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `Q` | Normal | Start/stop macro recording
 `gQ` | Normal | Play macro 'q'
 `mj`/`mk` | Normal/Visual | Move lines down/up
-`cp` | Normal | Duplicate paragraph
-`cn`/`cN` | Normal/Visual | Change current word in a repeatable manner
+`<leader>`+`cp` | Normal | Duplicate paragraph
+`<leader>`+`cn`/`cN` | Normal/Visual | Change current word in a repeatable manner
 `s` | Visual | Replace within selected area
 `Ctrl`+`a` | Command | Navigation in command line
 `Ctrl`+`b` | Command | Move cursor backward in command line

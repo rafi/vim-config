@@ -91,8 +91,6 @@ if has('nvim')
 	"   s - Maximum size of an item contents in KiB
 	"   h - Disable the effect of 'hlsearch' when loading the shada
 	set shada='300,<50,@100,s10,h
-	" Write history on idle, for sharing among different sessions
-	autocmd MyAutoCmd CursorHold * if exists(':rshada') | rshada | wshada | endif
 else
 	set viminfo='300,<10,@50,h,n$VARPATH/viminfo
 endif
@@ -146,13 +144,17 @@ set splitbelow splitright       " Splits open bottom right
 set switchbuf=useopen,usetab    " Jump to the first open window in any tab
 set switchbuf+=vsplit           " Switch buffer behavior to vsplit
 set backspace=indent,eol,start  " Intuitive backspacing in insert mode
-set diffopt=filler,iwhite       " Diff mode: show fillers, ignore white
+set diffopt=filler,iwhite       " Diff mode: show fillers, ignore whitespace
 set showfulltag                 " Show tag and tidy search in completion
 set complete=.                  " No wins, buffs, tags, include scanning
 set completeopt=menuone         " Show menu even for one item
 set completeopt+=noselect       " Do not select a match in the menu
 if has('patch-7.4.775')
 	set completeopt+=noinsert
+endif
+
+if has('patch-8.1.0360')
+	set diffopt+=internal,algorithm:patience
 endif
 
 if exists('+inccommand')
@@ -166,7 +168,7 @@ set noshowmode          " Don't show mode in cmd window
 set shortmess=aoOTI     " Shorten messages and don't show intro
 set scrolloff=2         " Keep at least 2 lines above/below
 set sidescrolloff=5     " Keep at least 5 lines left/right
-set number              " Show line numbers
+set nonumber            " Don't show line numbers
 set noruler             " Disable default status ruler
 set list                " Show hidden characters
 

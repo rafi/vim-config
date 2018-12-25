@@ -41,11 +41,6 @@ augroup MyAutoCmd " {{{
 		\|   execute 'normal! g`"zvzz'
 		\| endif
 
-	" Disable paste and/or update diff when leaving insert mode
-	autocmd InsertLeave *
-			\ if &paste | setlocal nopaste mouse=a | echo 'nopaste' | endif |
-			\ if &l:diff | diffupdate | endif
-
 	autocmd TabLeave * let g:lasttab = tabpagenr()
 
 	autocmd FileType crontab setlocal nobackup nowritebackup
@@ -59,7 +54,9 @@ augroup MyAutoCmd " {{{
 	autocmd FileType gitcommit,qfreplace setlocal nofoldenable
 
 	" https://webpack.github.io/docs/webpack-dev-server.html#working-with-editors-ides-supporting-safe-write
-	autocmd FileType html,css,javascript,jsx,javascript.jsx setlocal backupcopy=yes
+	autocmd FileType css,javascript,jsx,javascript.jsx
+		\ setlocal backupcopy=yes
+		\| setlocal equalprg=jslint
 
 	autocmd FileType zsh setlocal foldenable foldmethod=marker
 
@@ -77,8 +74,8 @@ augroup MyAutoCmd " {{{
 
 	autocmd FileType cam setlocal nonumber synmaxcol=10000
 
-	autocmd FileType go highlight default link goErr WarningMsg |
-		\ match goErr /\<err\>/
+	" autocmd FileType go highlight default link goErr WarningMsg |
+	" 	\ match goErr /\<err\>/
 
 	autocmd FileType xml
 		\ setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
