@@ -254,6 +254,11 @@ if dein#tap('vim-easygit')
 	nnoremap <silent> <leader>gp :Gpush<CR>
 endif
 
+if dein#tap('vim-altr')
+	nmap gs  <Plug>(altr-forward)
+	nmap gS  <Plug>(altr-back)
+endif
+
 if dein#tap('undotree')
 	nnoremap <Leader>gu :UndotreeToggle<CR>
 endif

@@ -139,6 +139,29 @@ highlight! link ExtraWhitespace  SpellBad
 highlight! WarningMsg ctermfg=100 guifg=#CCC566
 " }}}
 
+
+" Plugin: Defx icons and highlights {{{
+" ---------------------------------------------------------
+let g:defx_git#indicators = {
+	\ 'Modified'  : 'M',
+	\ 'Staged'    : 'm',
+	\ 'Untracked' : '?',
+	\ 'Renamed'   : '≫',
+	\ 'Unmerged'  : 'u',
+	\ 'Ignored'   : 'i',
+	\ 'Deleted'   : '✖',
+	\ 'Unknown'   : '⁇'
+	\ }
+
+hi Defx_git_Untracked ctermfg=12 guifg=#81a2be
+hi Defx_git_Ignored   ctermfg=8  guifg=#404660
+hi Defx_git_Unknown   ctermfg=3  guifg=#f0c674
+hi Defx_git_Renamed   ctermfg=3  guifg=#de935f
+hi Defx_git_Modified  ctermfg=9  guifg=#cc6666
+hi Defx_git_Unmerged  ctermfg=14 guifg=#8abeb7
+hi Defx_git_Deleted   ctermfg=13 guifg=#b294bb
+hi Defx_git_Staged    ctermfg=10 guifg=#b5bd68
+
 " Plugin: NERDTree icons and highlights {{{
 " ---------------------------------------------------------
 let g:NERDTreeIndicatorMapCustom = {
@@ -205,10 +228,10 @@ let g:tagbar_iconchars = ['▷', '◢']
 
 " Plugin: Neomake icons {{{
 " ---------------------------------------------------------
-let g:neomake_error_sign = {'text': '!', 'texthl': 'ErrorMsg'}
-let g:neomake_warning_sign = {'text': '!', 'texthl': 'WarningSyntax'}
+let g:neomake_error_sign = {'text': '⚠', 'texthl': 'ErrorMsg'}
+let g:neomake_warning_sign = {'text': '⌁', 'texthl': 'WarningSyntax'}
 let g:neomake_message_sign = {'text': '⌂', 'texthl': 'NeomakeMessageSign'}
-let g:neomake_info_sign = {'text': '⍞', 'texthl': 'NeomakeInfoSign'}
+let g:neomake_info_sign = {'text': '⊹', 'texthl': 'NeomakeInfoSign'}
 "}}}
 highlight! WarningSyntax ctermfg=58 guifg=#7d7629
 

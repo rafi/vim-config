@@ -22,8 +22,8 @@
     autocmd MyAutoCmd InsertLeave * let b:cursorword=1
 
 # Vim8 only:
-- { repo: roxma/vim-hug-neovim-rpc, if: ! has('nvim') }
 - { repo: roxma/nvim-yarp, if: ! has('nvim') }
+- { repo: roxma/vim-hug-neovim-rpc, if: ! has('nvim'), depends: nvim-yarp }
 
 # Lazy Loading
 # ==========================================
@@ -126,6 +126,11 @@
 - { repo: tmux-plugins/vim-tmux, on_ft: tmux }
 - { repo: andreshazard/vim-logreview, on_ft: logreview }
 
+- repo: hashivim/vim-terraform
+  on_ft: terraform
+  on_cmd: [ Terraform, TerraformFmt ]
+  hook_source: let g:terraform_fmt_on_save = 1
+
 - { repo: cespare/vim-toml, on_ft: toml }
 - { repo: mboughaba/i3config.vim, on_ft: i3config }
 - { repo: dag/vim-fish, on_ft: fish }
@@ -138,15 +143,16 @@
 # ==========================================
 # Commands
 # --------
-# - repo: Shougo/defx.nvim
-#   on_map: Defx
-#   hook_source: source $VIMPATH/config/plugins/defx.vim
+- repo: Shougo/defx.nvim
+  on_cmd: Defx
+  hook_source: source $VIMPATH/config/plugins/defx.vim
 
-# - repo: kristijanhusak/defx-git
-#   on_source: defx.nvim
+- repo: kristijanhusak/defx-git
+  on_source: defx.nvim
+  hook_source: let g:defx_git#show_ignored = 1
 
-# - repo: kristijanhusak/defx-icons
-#   on_source: defx.nvim
+- repo: kristijanhusak/defx-icons
+  on_source: defx.nvim
 
 - repo: scrooloose/nerdtree
   on_map: { n: <Plug> }
@@ -166,6 +172,8 @@
 - { repo: jreybert/vimagit, on_cmd: Magit }
 - { repo: tweekmonster/helpful.vim, on_cmd: HelpfulVersion }
 - { repo: lambdalisue/gina.vim, on_cmd: Gina }
+- { repo: cocopon/colorswatch.vim, on_cmd: ColorSwatchGenerate }
+- { repo: kana/vim-altr, on_map: { n: <Plug> }}
 
 - repo: mzlogin/vim-markdown-toc
   on_cmd: [ GenTocGFM, GenTocRedcarpet, GenTocGitLab, UpdateToc ]
@@ -222,9 +230,9 @@
     let g:indent_guides_default_mapping = 0
     let g:indent_guides_guide_size = 1
     let g:indent_guides_indent_levels = 15
-    let g:custom_exclude = [ 'help', 'denite', 'codi' ]
+    let g:indent_exclude = [ 'help', 'denite', 'codi' ]
     autocmd MyAutoCmd BufEnter *
-      \ if ! empty(&l:filetype) && index(g:custom_exclude, &l:filetype) == -1
+      \ if ! empty(&l:filetype) && index(g:indent_exclude, &l:filetype) == -1
       \|   if g:indent_guides_autocmds_enabled == 0 && &l:expandtab
       \|     IndentGuidesEnable
       \|   elseif g:indent_guides_autocmds_enabled == 1 && ! &l:expandtab
@@ -259,6 +267,10 @@
       \      && empty(&buftype)
       \|   Neomake
       \| endif
+
+- repo: lambdalisue/vim-improve-diff
+  on_event: [ InsertLeave, BufWinLeave ]
+  on_cmd: DiffOrig
 
 - repo: junegunn/goyo.vim
   depends: limelight.vim
@@ -353,7 +365,7 @@
 - { repo: Shougo/neosnippet-snippets, lazy: 1 }
 - { repo: Shougo/context_filetype.vim, lazy: 1 }
 - { repo: Shougo/neco-vim, on_ft: vim }
-- { repo: Shougo/neco-syntax, on_source: deoplete.nvim }
+# - { repo: Shougo/neco-syntax, on_source: deoplete.nvim }
 
 - repo: davidhalter/jedi-vim
   on_ft: python
@@ -371,7 +383,6 @@
     let g:jedi#use_splits_not_buffers = 'right'
 
 - repo: zchee/deoplete-go
-  if: ! empty($GOPATH)
   build: make
   on_ft: go
   on_event: InsertEnter
@@ -396,6 +407,11 @@
 
 - repo: fszymanski/deoplete-emoji
   on_ft: [ markdown, gitcommit ]
+  on_event: InsertEnter
+
+- repo: juliosueiras/vim-terraform-completion
+  hook_add: let g:terraform_completion_keys = 1
+  on_ft: [ terraform ]
   on_event: InsertEnter
 
 - repo: ternjs/tern_for_vim
