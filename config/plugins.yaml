@@ -11,7 +11,6 @@
 - repo: christoomey/vim-tmux-navigator
 - repo: junegunn/vim-peekaboo
 - repo: tpope/vim-sleuth
-- repo: lambdalisue/suda.vim
 - repo: sgur/vim-editorconfig
 - repo: itchyny/vim-gitbranch
 - repo: itchyny/vim-parenmatch
@@ -77,11 +76,16 @@
     highlight! link jsFutureKeys PreProc
 
 - { repo: othree/jspc.vim, on_ft: [ javascript, jsx, javascript.jsx ] }
-- { repo: MaxMEllon/vim-jsx-pretty, on_ft: [ javascript, jsx, javascript.jsx ]}
+- { repo: posva/vim-vue, on_ft: [ vue ]}
 - { repo: heavenshell/vim-jsdoc, on_ft: [ javascript, jsx, javascript.jsx ] }
 - { repo: jparise/vim-graphql, on_ft: [ javascript, jsx, javascript.jsx ] }
 - { repo: moll/vim-node, on_ft: [ javascript, jsx, javascript.jsx ] }
 - { repo: elzr/vim-json, on_ft: json }
+
+- repo: MaxMEllon/vim-jsx-pretty
+  on_ft: [ javascript, jsx, javascript.jsx ]
+  depends: vim-javascript
+  hook_source: let g:vim_jsx_pretty_colorful_config = 1
 
 # pangloss/javascript vs. othree/yajs
 #- { repo: othree/yajs.vim, on_ft: [ javascript, jsx, javascript.jsx ]}
@@ -160,9 +164,7 @@
   hook_post_source: source $VIMPATH/config/plugins/nerdtree.vim
 
 - { repo: Xuyuanp/nerdtree-git-plugin, on_source: nerdtree }
-- { repo: tpope/vim-commentary, on_map: <Plug>Commentary }
 - { repo: t9md/vim-choosewin, on_map: { n: <Plug> }}
-- { repo: Shougo/vinarise.vim, on_cmd: Vinarise }
 - { repo: kana/vim-niceblock, on_map: { x: <Plug> }}
 - { repo: guns/xterm-color-table.vim, on_cmd: XtermColorTable }
 - { repo: mbbill/undotree, on_cmd: UndotreeToggle }
@@ -175,6 +177,27 @@
 - { repo: lambdalisue/gina.vim, on_cmd: Gina }
 - { repo: cocopon/colorswatch.vim, on_cmd: ColorSwatchGenerate }
 - { repo: kana/vim-altr, on_map: { n: <Plug> }}
+- { repo: lambdalisue/suda.vim, on_path: 'suda://' }
+
+- repo: tyru/open-browser.vim
+  on_map: { nxv: <Plug>(openbrowser }
+  on_cmd: [ OpenBrowser, OpenBrowserSearch, OpenBrowserSmartSearch ]
+
+- repo: tyru/open-browser-unicode.vim
+  depends: open-browser.vim
+  on_cmd: OpenBrowserUnicode
+
+- repo: tyru/open-browser-github.vim
+  depends: open-browser.vim
+  on_cmd: [ OpenGithubFile, OpenGithubIssue, OpenGithubProject ]
+
+- { repo: tyru/caw.vim, on_map: { nx: <Plug> }}
+
+# - { repo: tpope/vim-commentary, on_map: <Plug>Commentary }
+
+- repo: Shougo/vinarise.vim
+  on_cmd: Vinarise
+  hook_add: let g:vinarise_enable_auto_detect = 1
 
 - repo: mzlogin/vim-markdown-toc
   on_cmd: [ GenTocGFM, GenTocRedcarpet, GenTocGitLab, UpdateToc ]
@@ -247,6 +270,8 @@
     let g:bookmark_auto_save_file = $VARPATH.'/bookmarks'
     let g:bookmark_no_default_key_mappings = 1
     let g:bookmark_disable_ctrlp = 1
+
+- { repo: hotwatermorning/auto-git-diff, on_ft: gitrebase }
 
 - repo: rhysd/committia.vim
   on_path: COMMIT_EDITMSG
@@ -366,7 +391,8 @@
 - { repo: Shougo/neosnippet-snippets, lazy: 1 }
 - { repo: Shougo/context_filetype.vim, lazy: 1 }
 - { repo: Shougo/neco-vim, on_ft: vim }
-# - { repo: Shougo/neco-syntax, on_source: deoplete.nvim }
+- { repo: Shougo/neoinclude.vim, on_source: deoplete.nvim }
+- { repo: Shougo/neco-syntax, on_source: deoplete.nvim }
 
 - repo: davidhalter/jedi-vim
   on_ft: python
@@ -436,14 +462,20 @@
   trusted: 1
   hook_source: source $VIMPATH/config/plugins/denite.vim
 
-# - repo: nixprime/cpsm
-#   build: 'sh -c "PY3=ON ./install.sh"'
-
+- { repo: Shougo/neoyank.vim, on_event: TextYankPost, on_source: denite.nvim }
 - { repo: Shougo/junkfile.vim, on_source: denite.nvim }
 - { repo: chemzqm/unite-location, on_source: denite.nvim }
 - { repo: chemzqm/denite-git, on_source: denite.nvim }
 - { repo: rafi/vim-denite-z, on_source: denite.nvim }
 - { repo: rafi/vim-denite-session, on_source: denite.nvim }
+
+# - repo: nixprime/cpsm
+#   build: 'sh -c "PY3=ON ./install.sh"'
+
+# - repo: raghur/fruzzy
+#   on_source: denite.nvim
+#   hook_source: let g:fruzzy#sortonempty = 0
+#   hook_post_update: call fruzzy#install()
 
 # - { repo: rafi/vim-denite-task, on_source: denite.nvim }
 # - repo: rafi/vim-denite-mpc
