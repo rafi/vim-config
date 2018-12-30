@@ -22,9 +22,9 @@ if dein#tap('denite.nvim')
 	nnoremap <silent><LocalLeader>h :<C-u>Denite help<CR>
 	nnoremap <silent><LocalLeader>m :<C-u>Denite file/rec -buffer-name=memo -path=~/docs/books<CR>
 	" nnoremap <silent><LocalLeader>m :<C-u>Denite mpc -buffer-name=mpc<CR>
+	nnoremap <silent><LocalLeader>z :<C-u>Denite z -buffer-name=jump<CR>
 	nnoremap <silent><LocalLeader>/ :<C-u>Denite line -buffer-name=search -auto-highlight<CR>
 	nnoremap <silent><LocalLeader>* :<C-u>DeniteCursorWord line -buffer-name=search -auto-highlight -mode=normal<CR>
-	nnoremap <silent><LocalLeader>z :<C-u>Denite z -buffer-name=jump<CR>
 	nnoremap <silent><LocalLeader>; :<C-u>Denite command command_history<CR>
 
 	" chemzqm/denite-git

@@ -3,7 +3,7 @@
 " -----------
 
 " INTERFACE
-call denite#custom#option('_', {
+call denite#custom#option('default', {
 	\ 'prompt': 'λ:',
 	\ 'empty': 0,
 	\ 'winheight': 16,
@@ -14,18 +14,16 @@ call denite#custom#option('_', {
 	\ })
 
 call denite#custom#option('list', {})
-
-call denite#custom#option('mpc', {
-	\ 'mode': 'normal',
-	\ 'winheight': 20,
-	\ })
+call denite#custom#option('mpc', { 'mode': 'normal', 'winheight': 20 })
 
 " MATCHERS
 " Default is 'matcher/fuzzy'
 call denite#custom#source('tag', 'matchers', ['matcher/substring'])
+" call denite#custom#source('file/rec', 'matchers', ['matcher/fruzzy'])
+
 if has('nvim') && &runtimepath =~# '\/cpsm'
 	call denite#custom#source(
-		\ 'buffer,file_mru,file_old,file/rec,grep,mpc,line',
+		\ 'buffer,file_mru,file_old,file/rec,grep,mpc,line,neoyank',
 		\ 'matchers', ['matcher/cpsm', 'matcher/fuzzy'])
 endif
 
@@ -66,6 +64,17 @@ elseif executable('ack')
 	call denite#custom#var('grep', 'default_opts',
 			\ ['--ackrc', $HOME.'/.config/ackrc', '-H',
 			\ '--nopager', '--nocolor', '--nogroup', '--column'])
+
+elseif executable('rg')
+	" Ripgrep
+  call denite#custom#var('file/rec', 'command',
+        \ ['rg', '--files', '--glob', '!.git'])
+  call denite#custom#var('grep', 'command', ['rg', '--threads', '1'])
+  call denite#custom#var('grep', 'recursive_opts', [])
+  call denite#custom#var('grep', 'final_opts', [])
+  call denite#custom#var('grep', 'separator', ['--'])
+  call denite#custom#var('grep', 'default_opts',
+        \ ['-i', '--vimgrep', '--no-heading'])
 endif
 
 " KEY MAPPINGS

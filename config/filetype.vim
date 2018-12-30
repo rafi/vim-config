@@ -89,6 +89,10 @@ augroup END " }}}
 let g:PHP_removeCRwhenUnix = 0
 
 " }}}
+" Python {{{
+let g:python_highlight_all = 1
+
+" }}}
 " Vim {{{
 let g:vimsyntax_noerror = 1
 let g:vim_indent_cont = &shiftwidth
