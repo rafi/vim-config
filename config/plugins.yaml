@@ -48,16 +48,22 @@
 - repo: plasticboy/vim-markdown
   on_ft: markdown
   hook_add: |
-    let g:vim_markdown_override_foldtext = 0
-    let g:vim_markdown_initial_foldlevel = 999
-    let g:vim_markdown_new_list_item_indent = 2
-    let g:vim_markdown_frontmatter = 1
+    let g:vim_markdown_folding_level = 6
+    let g:vim_markdown_emphasis_multiline = 0
     let g:vim_markdown_conceal = 0
+    let g:vim_markdown_frontmatter = 1
+    let g:vim_markdown_new_list_item_indent = 2
+    let g:vim_markdown_edit_url_in = 'vsplit'
     let g:vim_markdown_fenced_languages = [
       \ 'c++=cpp',
       \ 'viml=vim',
       \ 'bash=sh',
-      \ 'ini=dosini'
+      \ 'ini=dosini',
+      \ 'js=javascript',
+      \ 'json=javascript',
+      \ 'docker=Dockerfile',
+      \ 'makefile=make',
+      \ 'py=python'
       \ ]
 
 - repo: rhysd/vim-gfm-syntax
@@ -153,7 +159,9 @@
 
 - repo: kristijanhusak/defx-git
   on_source: defx.nvim
-  hook_source: let g:defx_git#show_ignored = 1
+  hook_source: |
+   let g:defx_git#raw_mode = 1
+   let g:defx_git#show_ignored = 1
 
 - repo: kristijanhusak/defx-icons
   on_source: defx.nvim

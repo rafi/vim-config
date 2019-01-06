@@ -111,7 +111,7 @@ highlight User8 guifg=#ffb964 guibg=#30302c ctermfg=215 ctermbg=236
 " }}}
 
 let s:disable_statusline =
-	\ 'denite\|tagbar\|nerdtree\|undotree\|diff\|peekaboo\|sidemenu'
+	\ 'denite\|defx\|tagbar\|nerdtree\|undotree\|diff\|peekaboo\|sidemenu'
 
 " Toggle Statusline {{{
 augroup statusline

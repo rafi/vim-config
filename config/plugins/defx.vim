@@ -1,3 +1,16 @@
+call defx#custom#option('_', {
+	\ 'columns': 'icons:git:filename:type',
+	\ 'winwidth': 25,
+	\ 'split': 'vertical',
+	\ 'direction': 'topleft',
+	\ })
+
+call defx#custom#column('mark', {
+	\ 'directory_icon': '▾',
+	\ 'readonly_icon': '✗',
+	\ 'selected_icon': '✓',
+	\ })
+
 autocmd MyAutoCmd FileType defx call s:defx_my_settings()
 
 function! s:defx_my_settings() abort
@@ -11,7 +24,7 @@ function! s:defx_my_settings() abort
 	nnoremap <silent><buffer><expr> p
 	\ defx#do_action('paste')
 	nnoremap <silent><buffer><expr> l
-	\ defx#do_action('open')
+	\ defx#do_action('drop')
 	nnoremap <silent><buffer><expr> E
 	\ defx#do_action('open', 'vsplit')
 	nnoremap <silent><buffer><expr> P
@@ -19,7 +32,11 @@ function! s:defx_my_settings() abort
 	nnoremap <silent><buffer><expr> K
 	\ defx#do_action('new_directory')
 	nnoremap <silent><buffer><expr> N
-	\ defx#do_action('new_file')
+	\ defx#do_action('new_multiple_files')
+	nnoremap <silent><buffer><expr> C
+	\ defx#do_action('toggle_columns', 'mark:filename:type:size:time')
+	nnoremap <silent><buffer><expr> S
+	\ defx#do_action('toggle_sort', 'Time')
 	nnoremap <silent><buffer><expr> d
 	\ defx#do_action('remove_trash')
 	nnoremap <silent><buffer><expr> r

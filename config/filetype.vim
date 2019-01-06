@@ -124,9 +124,12 @@ let g:markdown_fenced_languages = [
 	\  'json=javascript',
 	\  'python',
 	\  'py=python',
+	\  'docker=Dockerfile',
+	\  'makefile=make',
 	\  'sh',
 	\  'sass',
 	\  'xml',
+	\  'yaml',
 	\  'vim'
 	\]
 
