@@ -54,6 +54,7 @@
     let g:vim_markdown_frontmatter = 1
     let g:vim_markdown_new_list_item_indent = 2
     let g:vim_markdown_edit_url_in = 'vsplit'
+    let g:vim_markdown_strikethrough = 1
     let g:vim_markdown_fenced_languages = [
       \ 'c++=cpp',
       \ 'viml=vim',
@@ -360,7 +361,7 @@
     let g:neosnippet#enable_snipmate_compatibility = 1
     let g:neosnippet#enable_completed_snippet = 1
     let g:neosnippet#expand_word_boundary = 1
-    autocmd MyAutoCmd CompleteDone * call neosnippet#complete_done()
+    let g:neosnippet#enable_complete_done = 1
     autocmd MyAutoCmd InsertLeave * NeoSnippetClearMarkers
 
 - repo: ludovicchabant/vim-gutentags
