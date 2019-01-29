@@ -7,19 +7,16 @@
 
 " General settings " {{{
 " ---
-let g:deoplete#auto_complete_delay = 5  " Default is 50
-let g:deoplete#auto_refresh_delay = 30  " Default is 500
 
-call deoplete#custom#option('refresh_always', v:false)
-call deoplete#custom#option('camel_case', v:false)
-call deoplete#custom#option('ignore_case', v:true)
-call deoplete#custom#option('smart_case', v:true)
-call deoplete#custom#option('on_insert_enter', v:true)
-call deoplete#custom#option('on_text_changed_i', v:true)
-call deoplete#custom#option('min_pattern_length', 1)
-call deoplete#custom#option('num_processes', 10)
-call deoplete#custom#option('max_list', 10000)
-call deoplete#custom#option('skip_chars', ['(', ')', '<', '>'])
+call deoplete#custom#option({
+	\ 'auto_refresh_delay': 10,
+	\ 'camel_case': v:true,
+	\ 'skip_multibyte': v:true,
+	\ 'prev_completion_mode': 'filter',
+	\ 'min_pattern_length': 1,
+	\ 'max_list': 10000,
+	\ 'skip_chars': ['(', ')', '<', '>'],
+	\ })
 
 let g:deoplete#sources#jedi#statement_length = 30
 let g:deoplete#sources#jedi#show_docstring = 1
@@ -40,12 +37,12 @@ let g:deoplete#sources#ternjs#docs = 1
 " Limit Sources " {{{
 " ---
 
-let g:deoplete#sources = get(g:, 'deoplete#sources', {})
+" let g:deoplete#sources = get(g:, 'deoplete#sources', {})
 " let g:deoplete#sources.go = ['vim-go']
 " let g:deoplete#sources.javascript = ['file', 'ternjs']
 " let g:deoplete#sources.jsx = ['file', 'ternjs']
 
-let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
+" let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
 " let g:deoplete#ignore_sources.html = ['syntax']
 " let g:deoplete#ignore_sources.python = ['syntax']
 " let g:deoplete#ignore_sources.php = ['omni']
@@ -119,7 +116,7 @@ call deoplete#custom#source('around',        'rank', 330)
 call deoplete#custom#source('buffer',        'rank', 320)
 call deoplete#custom#source('dictionary',    'rank', 310)
 call deoplete#custom#source('tmux-complete', 'rank', 300)
-call deoplete#custom#source('syntax',        'rank', 200)
+call deoplete#custom#source('syntax',        'rank', 50)
 
 " }}}
 " Matchers and Converters " {{{
@@ -128,9 +125,13 @@ call deoplete#custom#source('syntax',        'rank', 200)
 " Default sorters: ['sorter/rank']
 " Default matchers: ['matcher/length', 'matcher/fuzzy']
 
+call deoplete#custom#source('_', 'matchers',
+	\ ['matcher_fuzzy', 'matcher_length'])
+
 call deoplete#custom#source('_', 'converters', [
 	\ 'converter_remove_paren',
 	\ 'converter_remove_overlap',
+	\ 'matcher_length',
 	\ 'converter_truncate_abbr',
 	\ 'converter_truncate_menu',
 	\ 'converter_auto_delimiter',
@@ -158,7 +159,7 @@ imap     <expr><C-u> pumvisible() ? "\<PageUp>" : "\<C-u>"
 " Redraw candidates
 inoremap <expr><C-g> deoplete#refresh()
 inoremap <expr><C-e> deoplete#cancel_popup()
-inoremap <expr><C-t> deoplete#complete_common_string()
+inoremap <silent><expr><C-l> deoplete#complete_common_string()
 
 " <CR>: If popup menu visible, expand snippet or close popup with selection,
 "       Otherwise, check if within empty pair and use delimitMate.
@@ -184,7 +185,7 @@ inoremap <expr><S-Tab>  pumvisible() ? "\<Up>" : "\<C-h>"
 
 function! s:is_whitespace() "{{{
 	let col = col('.') - 1
-	return ! col || getline('.')[col - 1] =~? '\s'
+	return ! col || getline('.')[col - 1] =~ '\s'
 endfunction "}}}
 " }}}
 
