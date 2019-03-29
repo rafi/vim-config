@@ -135,6 +135,7 @@
 - { repo: tbastos/vim-lua, on_ft: lua }
 - { repo: osyo-manga/vim-monster, on_ft: ruby }
 - { repo: toyamarinyon/vim-swift, on_ft: swift }
+- { repo: rust-lang/rust.vim, on_ft: rust }
 - { repo: vim-jp/syntax-vim-ex, on_ft: vim }
 
 - { repo: chrisbra/csv.vim, on_ft: csv }
