@@ -32,6 +32,11 @@ Best with Neovim or Vim 8 with +python3 extensions enabled.
   pip2 install virtualenv
   pip3 install virtualenv
   ```
+  On Ubuntu you can use:
+  ```
+  apt-get install -y python3-venv
+  pip install virtualenv
+  ```
 
 ## Install
 
