@@ -492,8 +492,10 @@ Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `}` | Normal | After paragraph motion go to first non-blank char (}^)
 `<` | Visual/Normal | Indent to left and re-select
 `>` | Visual/Normal | Indent to right and re-select
-`Tab` | Visual/Normal | Indent to right and re-select
-`Shift`+`Tab` | Visual/Normal | Indent to left and re-select
+`Tab` | Visual | Indent to right and re-select
+`Shift`+`Tab` | Visual | Indent to left and re-select
+`>`+`>` | Normal | Indent to right and re-select
+`<`+`<` | Normal | Indent to left and re-select
 `gh` | Normal | Show highlight group that matches current cursor
 `gp` | Normal | Select last paste
 `Q` | Normal | Start/stop macro recording

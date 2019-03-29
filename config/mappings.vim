@@ -95,8 +95,8 @@ xnoremap > >gv|
 " Use tab for indenting
 vnoremap <Tab> >gv|
 vnoremap <S-Tab> <gv
-nmap <Tab>   >>_
-nmap <S-Tab> <<_
+nmap >>  >>_
+nmap <<  <<_
 
 " Select last paste
 nnoremap <expr> gp '`['.strpart(getregtype(), 0, 1).'`]'

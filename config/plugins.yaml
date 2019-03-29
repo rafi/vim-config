@@ -108,14 +108,20 @@
     let g:go_highlight_chan_whitespace_error = 0
     let g:go_highlight_space_tab_error = 0
     let g:go_highlight_trailing_whitespace_error = 0
+    let g:go_highlight_extra_types = 1
     let g:go_highlight_build_constraints = 1
     let g:go_highlight_extra_types = 1
-    let g:go_highlight_fields = 0
+    let g:go_highlight_fields = 1
     let g:go_highlight_format_strings = 1
     let g:go_highlight_functions = 1
+    let g:go_highlight_function_calls = 1
+    let g:go_highlight_function_parameters = 1
+    let g:go_highlight_types = 1
     let g:go_highlight_generate_tags = 1
     let g:go_highlight_operators = 1
     let g:go_highlight_string_spellcheck = 0
+    let g:go_highlight_variable_declarations = 0
+    let g:go_highlight_variable_assignments = 0
 
 - { repo: vim-python/python-syntax, on_ft: python }
 - { repo: Vimjas/vim-python-pep8-indent, on_ft: python }
@@ -418,12 +424,12 @@
     let g:jedi#quickfix_window_height = 10
     let g:jedi#use_splits_not_buffers = 'right'
 
-- repo: zchee/deoplete-go
+- repo: deoplete-plugins/deoplete-go
   build: make
   on_ft: go
   on_event: InsertEnter
 
-- repo: zchee/deoplete-jedi
+- repo: deoplete-plugins/deoplete-jedi
   on_ft: python
   on_event: InsertEnter
   hook_source: autocmd MyAutoCmd FileType python setlocal omnifunc=
