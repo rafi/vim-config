@@ -167,12 +167,12 @@
 
 - repo: kristijanhusak/defx-git
   on_source: defx.nvim
-  hook_source: |
-   let g:defx_git#raw_mode = 1
-   let g:defx_git#show_ignored = 1
 
 - repo: kristijanhusak/defx-icons
   on_source: defx.nvim
+  hook_source: |
+    let g:defx_icons_column_length = 2
+    let g:defx_icons_mark_icon = '✓'
 
 - repo: scrooloose/nerdtree
   on_map: { n: <Plug> }

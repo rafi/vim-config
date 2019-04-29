@@ -3,24 +3,22 @@
 " ----
 
 call defx#custom#option('_', {
-	\ 'columns': 'icons:git:filename:type',
+	\ 'columns': 'indent:git:icons:filename:type',
 	\ 'winwidth': 25,
 	\ 'split': 'vertical',
 	\ 'direction': 'topleft',
 	\ 'show_ignored_files': 1,
+	\ 'listed': 1,
 	\ })
 
-call defx#custom#column('filename', {
-	\ 'min_width': 5,
-	\ 'max_width': 25,
-	\ })
+" call defx#custom#column('filename', { 'min_width': 5, 'max_width': 25 })
 
-call defx#custom#column('mark', {
-	\ 'directory_icon': nr2char(0xe5ff),
-	\ 'readonly_icon': nr2char(0xe0a2),
-	\ 'root_icon': nr2char(0xe5fe),
-	\ 'selected_icon': '✓',
-	\ })
+function! s:defx_toggle_tree() abort
+	if defx#is_directory()
+		return defx#do_action('open_or_close_tree')
+	endif
+	return defx#do_action('multi', ['drop', 'quit'])
+endfunction
 
 " Close defx if it's the only buffer left in the window
 autocmd MyAutoCmd WinEnter * if &ft == 'defx' && winnr('$') == 1 | q | endif
@@ -31,10 +29,12 @@ autocmd MyAutoCmd TabLeave * if &ft == 'defx' | wincmd w | endif
 " Define mappings
 autocmd MyAutoCmd FileType defx do WinEnter | call s:defx_my_settings()
 function! s:defx_my_settings() abort
-	nnoremap <silent><buffer><expr> <CR>  defx#do_action('drop')
-	nnoremap <silent><buffer><expr> l     defx#do_action('drop')
-	nnoremap <silent><buffer><expr> sg    defx#do_action('open', 'vsplit')
-	nnoremap <silent><buffer><expr> sv    defx#do_action('open', 'split')
+	nnoremap <silent><buffer><expr> <CR>  <sid>defx_toggle_tree()
+	nnoremap <silent><buffer><expr> l     <sid>defx_toggle_tree()
+	nnoremap <silent><buffer><expr> h     defx#do_action('close_tree')
+	nnoremap <silent><buffer><expr> <BS>  defx#do_action('cd', ['..'])
+	nnoremap <silent><buffer><expr> sg    defx#do_action('multi', [['drop', 'vsplit'], 'quit'])
+	nnoremap <silent><buffer><expr> sv    defx#do_action('multi', [['drop', 'split'], 'quit'])
 	nnoremap <silent><buffer><expr> P     defx#do_action('open', 'pedit')
 	nnoremap <silent><buffer><expr> K     defx#do_action('new_directory')
 	nnoremap <silent><buffer><expr> N     defx#do_action('new_multiple_files')
@@ -43,7 +43,6 @@ function! s:defx_my_settings() abort
 	nnoremap <silent><buffer><expr> x     defx#do_action('execute_system')
 	nnoremap <silent><buffer><expr> .     defx#do_action('toggle_ignored_files')
 	nnoremap <silent><buffer><expr> yy    defx#do_action('yank_path')
-	nnoremap <silent><buffer><expr> h     defx#do_action('cd', ['..'])
 	nnoremap <silent><buffer><expr> ~     defx#do_action('cd')
 	nnoremap <silent><buffer><expr> q     defx#do_action('quit')
 
