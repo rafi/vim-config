@@ -3,7 +3,7 @@
 " ----
 
 call defx#custom#option('_', {
-	\ 'columns': 'indent:git:icons:filename:type',
+	\ 'columns': 'indent:git:icons:filename',
 	\ 'winwidth': 25,
 	\ 'split': 'vertical',
 	\ 'direction': 'topleft',
@@ -11,7 +11,7 @@ call defx#custom#option('_', {
 	\ 'listed': 1,
 	\ })
 
-" call defx#custom#column('filename', { 'min_width': 5, 'max_width': 25 })
+" call defx#custom#column('filename', { 'min_width': 5, 'max_width': 55 })
 
 function! s:defx_toggle_tree() abort
 	if defx#is_directory()
@@ -62,7 +62,7 @@ function! s:defx_my_settings() abort
 
 	nnoremap <silent><buffer><expr> S  defx#do_action('toggle_sort', 'Time')
 	nnoremap <silent><buffer><expr> C
-		\ defx#do_action('toggle_columns', 'mark:filename:type:size:time')
+		\ defx#do_action('toggle_columns', 'indent:mark:filename:type:size:time')
 
 	" Plugins
 	nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ?
