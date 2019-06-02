@@ -3,18 +3,27 @@
 " -----------
 
 " INTERFACE
-call denite#custom#option('default', {
-	\ 'prompt': 'λ:',
+call denite#custom#option('_', {
 	\ 'empty': 0,
-	\ 'winheight': 16,
-	\ 'source_names': 'short',
+	\ 'auto_accel': 1,
+	\ 'auto_resume': 1,
+	\ 'cursor_shape': 1,
+	\ 'cursor_wrap': 1,
+	\ 'statusline': 0,
+	\ 'start_filter': 1,
 	\ 'vertical_preview': 1,
-	\ 'auto-accel': 1,
-	\ 'auto-resume': 1,
+	\ 'highlight_window_background': 'CursorLine',
 	\ })
 
-call denite#custom#option('list', {})
-call denite#custom#option('mpc', { 'mode': 'normal', 'winheight': 20 })
+if has('nvim')
+	call denite#custom#option('_', { 'split': 'floating' })
+endif
+
+call denite#custom#option('search', { 'start_filter': 0, 'no_empty': 1 })
+call denite#custom#option('list', { 'start_filter': 0 })
+call denite#custom#option('jump', { 'start_filter': 0 })
+call denite#custom#option('git', { 'start_filter': 0 })
+call denite#custom#option('mpc', { 'winheight': 20 })
 
 " MATCHERS
 " Default is 'matcher/fuzzy'
@@ -78,35 +87,30 @@ elseif executable('rg')
 endif
 
 " KEY MAPPINGS
-let insert_mode_mappings = [
-	\  ['jj', '<denite:enter_mode:normal>', 'noremap'],
-	\  ['<Esc>', '<denite:enter_mode:normal>', 'noremap'],
-	\  ['<C-N>', '<denite:assign_next_matched_text>', 'noremap'],
-	\  ['<C-P>', '<denite:assign_previous_matched_text>', 'noremap'],
-	\  ['<Up>', '<denite:assign_previous_text>', 'noremap'],
-	\  ['<Down>', '<denite:assign_next_text>', 'noremap'],
-	\  ['<C-Y>', '<denite:redraw>', 'noremap'],
-	\  ['<BS>', '<denite:smart_delete_char_before_caret>', 'noremap'],
-	\  ['<C-h>', '<denite:smart_delete_char_before_caret>', 'noremap'],
-	\ ]
+autocmd FileType denite call s:denite_settings()
+function! s:denite_settings() abort
+	nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
+	nnoremap <silent><buffer><expr> d    denite#do_map('do_action', 'delete')
+	nnoremap <silent><buffer><expr> p    denite#do_map('do_action', 'preview')
+	nnoremap <silent><buffer><expr> st   denite#do_map('do_action', 'tabopen')
+	nnoremap <silent><buffer><expr> sg   denite#do_map('do_action', 'vsplit')
+	nnoremap <silent><buffer><expr> sv   denite#do_map('do_action', 'split')
+	nnoremap <silent><buffer><expr> '    denite#do_map('quick_move')
+	nnoremap <silent><buffer><expr> q    denite#do_map('quit')
+	nnoremap <silent><buffer><expr> r    denite#do_map('redraw')
+	nnoremap <silent><buffer><expr> i    denite#do_map('open_filter_buffer')
+	nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select').'j'
+endfunction
 
-let normal_mode_mappings = [
-	\   ["'", '<denite:toggle_select_down>', 'noremap'],
-	\   ['<C-n>', '<denite:jump_to_next_source>', 'noremap'],
-	\   ['<C-p>', '<denite:jump_to_previous_source>', 'noremap'],
-	\   ['gg', '<denite:move_to_first_line>', 'noremap'],
-	\   ['st', '<denite:do_action:tabopen>', 'noremap'],
-	\   ['sg', '<denite:do_action:vsplit>', 'noremap'],
-	\   ['sv', '<denite:do_action:split>', 'noremap'],
-	\   ['sc', '<denite:quit>', 'noremap'],
-	\   ['r', '<denite:redraw>', 'noremap'],
-	\ ]
-
-for m in insert_mode_mappings
-	call denite#custom#map('insert', m[0], m[1], m[2])
-endfor
-for m in normal_mode_mappings
-	call denite#custom#map('normal', m[0], m[1], m[2])
-endfor
+autocmd FileType denite-filter call s:denite_filter_settings()
+function! s:denite_filter_settings() abort
+	nnoremap <silent><buffer><expr> q      denite#do_map('quit')
+	inoremap <silent><buffer><expr> <C-c>  denite#do_map('quit')
+	nnoremap <silent><buffer><expr> <C-c>  denite#do_map('quit')
+	inoremap <silent><buffer>       kk     <Esc><C-w>p
+	nnoremap <silent><buffer>       kk     <C-w>p
+	inoremap <silent><buffer>       jj     <Esc><C-w>p
+	nnoremap <silent><buffer>       jj     <C-w>p
+endfunction
 
 " vim: set ts=2 sw=2 tw=80 noet :
