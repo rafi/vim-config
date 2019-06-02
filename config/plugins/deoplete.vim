@@ -12,11 +12,12 @@ call deoplete#custom#option({
 	\ 'auto_refresh_delay': 10,
 	\ 'camel_case': v:true,
 	\ 'skip_multibyte': v:true,
-	\ 'prev_completion_mode': 'filter',
+	\ 'prev_completion_mode': 'none',
 	\ 'min_pattern_length': 1,
 	\ 'max_list': 10000,
 	\ 'skip_chars': ['(', ')', '<', '>'],
 	\ })
+	"\ 'prev_completion_mode': 'filter',
 
 let g:deoplete#sources#jedi#statement_length = 30
 let g:deoplete#sources#jedi#show_docstring = 1
