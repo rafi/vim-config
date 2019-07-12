@@ -150,6 +150,7 @@ Name           | Description
 [thinca/vim-localrc] | Enable configuration file of each directory
 [christoomey/tmux-navigator] | Seamless navigation between tmux panes and vim splits
 [junegunn/vim-peekaboo] | See the contents of registers
+[romainl/vim-cool] | Simple plugin that makes hlsearch more useful
 [tpope/vim-sleuth] | Heuristically set buffer indent options
 [sgur/vim-editorconfig] | EditorConfig plugin written entirely in Vimscript
 [itchyny/vim-gitbranch] | Lightweight git branch detection
@@ -325,6 +326,7 @@ Name           | Description
 [thinca/vim-localrc]: https://github.com/thinca/vim-localrc
 [christoomey/tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator
 [junegunn/vim-peekaboo]: https://github.com/junegunn/vim-peekaboo
+[romainl/vim-cool]: https://github.com/romainl/vim-cool
 [tpope/vim-sleuth]: https://github.com/tpope/vim-sleuth
 [sgur/vim-editorconfig]: https://github.com/sgur/vim-editorconfig
 [itchyny/vim-gitbranch]: https://github.com/itchyny/vim-gitbranch

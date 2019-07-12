@@ -10,6 +10,8 @@
 - repo: thinca/vim-localrc
 - repo: christoomey/vim-tmux-navigator
 - repo: junegunn/vim-peekaboo
+- repo: romainl/vim-cool
+
 - repo: tpope/vim-sleuth
   hook_add: let g:sleuth_neighbor_limit = 5
 
