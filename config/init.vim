@@ -39,10 +39,20 @@ endif
 
 " }}}
 " Setup dein {{{
+let g:dein#auto_recache = 0
+let g:dein#install_max_processes = 16
+let g:dein#install_progress_type = 'echo'
+let g:dein#enable_notification = 0
+let g:dein#install_log_filename = $VARPATH.'/dein.log'
+
 if &runtimepath !~# '/dein.vim'
 	let s:dein_dir = expand('$VARPATH/dein').'/repos/github.com/Shougo/dein.vim'
 	if ! isdirectory(s:dein_dir)
 		execute '!git clone https://github.com/Shougo/dein.vim' s:dein_dir
+		if v:shell_error
+			echoerr 'dein installation has failed!'
+			finish
+		endif
 	endif
 
 	execute 'set runtimepath+='.substitute(
@@ -66,7 +76,6 @@ let g:loaded_matchit = 1
 let g:loaded_matchparen = 1
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
 let g:loaded_rrhelper = 1
-let g:loaded_ruby_provider = 1
 let g:loaded_shada_plugin = 1
 let g:loaded_tar = 1
 let g:loaded_tarPlugin = 1

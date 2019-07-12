@@ -11,6 +11,8 @@
 - repo: christoomey/vim-tmux-navigator
 - repo: junegunn/vim-peekaboo
 - repo: tpope/vim-sleuth
+  hook_add: let g:sleuth_neighbor_limit = 5
+
 - repo: sgur/vim-editorconfig
 - repo: itchyny/vim-gitbranch
 - repo: itchyny/vim-parenmatch
@@ -275,7 +277,7 @@
     let g:indent_guides_autocmds_enabled = 0
     let g:indent_guides_default_mapping = 0
     let g:indent_guides_guide_size = 1
-    let g:indent_guides_indent_levels = 15
+    let g:indent_guides_indent_levels = 25
     let g:indent_exclude = [ 'help', 'denite', 'codi' ]
     autocmd MyAutoCmd BufEnter *
       \ if ! empty(&l:filetype) && index(g:indent_exclude, &l:filetype) == -1
@@ -292,6 +294,7 @@
     let g:bookmark_auto_save_file = $VARPATH.'/bookmarks'
     let g:bookmark_no_default_key_mappings = 1
     let g:bookmark_disable_ctrlp = 1
+    let g:bookmark_location_list = 1
 
 - { repo: hotwatermorning/auto-git-diff, on_ft: gitrebase }
 
@@ -509,7 +512,7 @@
 # ==========================================
 # Operators
 # ---------
-- { repo: kana/vim-operator-user, lazy: 1 }
+- { repo: kana/vim-operator-user, on_func: operator#user#define }
 
 - repo: kana/vim-operator-replace
   depends: vim-operator-user
@@ -526,7 +529,7 @@
 # ==========================================
 # Text objects
 # ------------
-- { repo: kana/vim-textobj-user, on_func: textobj#user# }
+- { repo: kana/vim-textobj-user, on_func: textobj#user#plugin }
 - { repo: terryma/vim-expand-region, on_map: { x: <Plug> }}
 - { repo: AndrewRadev/sideways.vim, on_map: { ox: <Plug>Sideways }}
 - { repo: AndrewRadev/splitjoin.vim, on_map: { n: <Plug>Splitjoin }}

@@ -9,7 +9,7 @@ let b:did_ftplugin = 1
 let s:save_cpo = &cpoptions
 set cpoptions&vim
 
-let b:undo_ftplugin = 'setl fo< com< ofu<'
+let b:undo_ftplugin = 'setl fo< com< rnu< nu< bl<'
 
 setlocal winminheight=1 winheight=3
 setlocal nowrap
@@ -27,7 +27,6 @@ nnoremap <buffer> sg   <C-w><Enter><C-w>L
 nnoremap <buffer> st   <C-w><CR><C-w>T
 nnoremap <silent><buffer> p  :call <SID>preview_file()<CR>
 nnoremap <silent><buffer> q  :pclose!<CR>:quit<CR>
-nnoremap <buffer> o    <CR><C-w>p
 nnoremap <buffer> o    <CR><C-w>p
 
 let b:qf_isLoc = ! empty(getloclist(0))

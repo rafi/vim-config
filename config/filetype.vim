@@ -64,7 +64,7 @@ augroup MyAutoCmd " {{{
 		\ setlocal path+=./;/
 		\ | setlocal equalprg=tidy\ -i\ -q
 
-	autocmd FileType json setlocal equalprg=python\ -c\ json.tool
+	" autocmd FileType json setlocal equalprg=jsonlint
 
 	autocmd FileType markdown
 		\ set expandtab
@@ -133,6 +133,9 @@ let g:markdown_fenced_languages = [
 	\  'yaml',
 	\  'vim'
 	\]
+
+" Ruby
+let g:ruby_no_expensive = 1
 
 " }}}
 " Folding {{{

@@ -14,7 +14,7 @@ let g:neomake_ansible_enabled_makers = ['yamllint']
 let g:neomake_ansible_yamllint_maker = neomake#makers#ft#yaml#yamllint()
 
 " SHELL
-let g:neomake_shellcheck_args = ['-fgcc']
+let g:neomake_shellcheck_args = ['-xfgcc']
 
 " JAVASCRIPT / JSX
 function! s:set_javascript_exe()

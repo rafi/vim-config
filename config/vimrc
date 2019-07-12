@@ -20,11 +20,6 @@ let $VARPATH = expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : '~/.cache').'/vim')
 " Constants
 let s:is_sudo = $SUDO_USER !=# '' && $USER !=# $SUDO_USER
 
-let g:dein#install_max_processes = 16
-let g:dein#install_progress_type = 'echo'
-let g:dein#enable_notification = 0
-let g:dein#install_log_filename = $VARPATH.'/dein.log'
-
 " Search and use environments specifically made for Neovim.
 if isdirectory($VARPATH.'/venv/neovim2')
 	let g:python_host_prog = $VARPATH.'/venv/neovim2/bin/python'

@@ -473,7 +473,8 @@ Name           | Description
 Note that,
 
 * Leader key is set as <kbd>Space</kbd>
-* Local-leader is set as <kbd>;</kbd> and used for Denite & NERDTree
+* Local-leader is set as <kbd>;</kbd> and used for navigation and search mostly
+  (Denite and Defx)
 
 Key   | Mode | Action
 ----- |:----:| ------------------
