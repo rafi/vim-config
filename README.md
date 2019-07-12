@@ -190,23 +190,23 @@ Name           | Description
 [raimon49/requirements.txt.vim] | Python requirements file format
 [StanAngeloff/php.vim] | Up-to-date PHP syntax file (5.3 – 7.1 support)
 [shawncplus/phpcomplete.vim] | PHP completion
-[osyo-manga/vim-monster] | Ruby code completion
+[vim-ruby/vim-ruby] | Ruby configuration files
 [tbastos/vim-lua] | Improved Lua 5.3 syntax and indentation support
-[toyamarinyon/vim-swift] | Swift support
+[keith/swift.vim] | Swift support
 [vim-jp/syntax-vim-ex] | Improved Vim syntax highlighting
 [chrisbra/csv.vim] | Handling column separated data
 [tpope/vim-git] | Git runtime files
 [ekalinin/Dockerfile.vim] | syntax and snippets for Dockerfile
 [tmux-plugins/vim-tmux] | vim plugin for tmux.conf
-[andreshazard/vim-logreview] | Bueatify log viewing
+[MTDL9/vim-log-highlighting] | Syntax highlighting for generic log files
 [hashivim/vim-terraform] | Base Terraform integration
 [cespare/vim-toml] | Syntax for TOML
 [mboughaba/i3config.vim] | i3 window manager config syntax
 [dag/vim-fish] | Fish shell edit support
 [jstrater/mpvim] | Macports portfile configuration files
 [robbles/logstash.vim] | Highlights logstash configuration files
-[exu/pgsql.vim] | PostgreSQL syntax
-[othree/nginx-contrib-vim] | Fork official vim nginx
+[lifepillar/pgsql.vim] | PostgreSQL syntax and indent
+[chr4/nginx.vim] | Improved nginx syntax and indent
 [IN3D/vim-raml] | Syntax and language settings for RAML
 
 ### Commands
@@ -359,23 +359,23 @@ Name           | Description
 [raimon49/requirements.txt.vim]: https://github.com/raimon49/requirements.txt.vim
 [StanAngeloff/php.vim]: https://github.com/StanAngeloff/php.vim
 [shawncplus/phpcomplete.vim]: https://github.com/shawncplus/phpcomplete.vim
-[osyo-manga/vim-monster]: https://github.com/osyo-manga/vim-monster
+[vim-ruby/vim-ruby]: https://github.com/vim-ruby/vim-ruby
 [tbastos/vim-lua]: https://github.com/tbastos/vim-lua
-[toyamarinyon/vim-swift]: https://github.com/toyamarinyon/vim-swift
+[keith/swift.vim]: https://github.com/keith/swift.vim
 [vim-jp/syntax-vim-ex]: https://github.com/vim-jp/syntax-vim-ex
 [chrisbra/csv.vim]: https://github.com/chrisbra/csv.vim
 [tpope/vim-git]: https://github.com/tpope/vim-git
 [ekalinin/Dockerfile.vim]: https://github.com/ekalinin/Dockerfile.vim
 [tmux-plugins/vim-tmux]: https://github.com/tmux-plugins/vim-tmux
-[andreshazard/vim-logreview]: https://github.com/andreshazard/vim-logreview
+[MTDL9/vim-log-highlighting]: https://github.com/MTDL9/vim-log-highlighting
 [hashivim/vim-terraform]: https://github.com/hashivim/vim-terraform
 [cespare/vim-toml]: https://github.com/cespare/vim-toml
 [mboughaba/i3config.vim]: https://github.com/mboughaba/i3config.vim
 [dag/vim-fish]: https://github.com/dag/vim-fish
 [jstrater/mpvim]: https://github.com/jstrater/mpvim
 [robbles/logstash.vim]: https://github.com/robbles/logstash.vim
-[exu/pgsql.vim]: https://github.com/exu/pgsql.vim
-[othree/nginx-contrib-vim]: https://github.com/othree/nginx-contrib-vim
+[lifepillar/pgsql.vim]: https://github.com/lifepillar/pgsql.vim
+[chr4/nginx.vim]: https://github.com/chr4/nginx.vim
 [IN3D/vim-raml]: https://github.com/IN3D/vim-raml
 
 [Shougo/defx.nvim]: https://github.com/Shougo/defx.nvim
