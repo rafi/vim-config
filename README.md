@@ -130,7 +130,7 @@ If you'd like to install plugins by yourself, create a
 
 - Package management with caching enabled and lazy loading
 - Project-aware tabs and label
-- NERDTree as file-manager + Git status icons
+- Defx as file-manager + Git status icons
 - Go completion via vim-go and gocode
 - Javascript completion via Tern
 - Python Jedi completion, PEP8 convention
@@ -217,8 +217,7 @@ Name           | Description
 [Shougo/defx.nvim] | Dark powered file explorer implementation
 [kristijanhusak/defx-git] | Git status implementation for Defx
 [kristijanhusak/defx-icons] | Filetype icons for Defx
-[scrooloose/nerdtree] | Tree explorer plugin
-[Xuyuanp/nerdtree-git-plugin] | NERDTree plugin for showing git status
+[liuchengxu/vim-which-key] | Shows key-bindings in pop-up
 [t9md/vim-choosewin] | Choose window to use, like tmux's 'display-pane'
 [kana/vim-niceblock] | Make blockwise Visual mode more useful
 [guns/xterm-color-table.vim] | Display 256 xterm colors with their RGB equivalents
@@ -383,8 +382,7 @@ Name           | Description
 [Shougo/defx.nvim]: https://github.com/Shougo/defx.nvim
 [kristijanhusak/defx-git]: https://github.com/kristijanhusak/defx-git
 [kristijanhusak/defx-icons]: https://github.com/kristijanhusak/defx-icons
-[scrooloose/nerdtree]: https://github.com/scrooloose/nerdtree
-[Xuyuanp/nerdtree-git-plugin]: https://github.com/Xuyuanp/nerdtree-git-plugin
+[liuchengxu/vim-which-key]: https://github.com/liuchengxu/vim-which-key
 [t9md/vim-choosewin]: https://github.com/t9md/vim-choosewin
 [kana/vim-niceblock]: https://github.com/kana/vim-niceblock
 [guns/xterm-color-table.vim]: https://github.com/guns/xterm-color-table.vim
@@ -619,13 +617,13 @@ Key   | Mode | Action
 `sv` | Normal | Open in a split
 `'` | Normal | Toggle mark current candidate
 
-### Plugin: NERDTree
+### Plugin: Defx
 
 Key   | Mode | Action
 ----- |:----:| ------------------
 `;`+`e` | Normal | Toggle file explorer
 `;`+`a` | Normal | Toggle file explorer on current file
-| **Within _NERDTree_ buffers** |||
+| **Within _Defx_ buffers** |||
 `h/j/k/l` | Normal | Movement + collapse/expand + file open
 `w` | Normal | Toggle window size
 `N` | Normal | Create new file or directory

@@ -18,11 +18,9 @@
 - repo: sgur/vim-editorconfig
 - repo: itchyny/vim-gitbranch
 - repo: itchyny/vim-parenmatch
-- repo: itchyny/vim-cursorword
-  hook_add: |
-    autocmd MyAutoCmd FileType denite,qf,nerdtree let b:cursorword=0
-    autocmd MyAutoCmd InsertEnter * let b:cursorword=0
-    autocmd MyAutoCmd InsertLeave * let b:cursorword=1
+
+# GUI only:
+- { repo: equalsraf/neovim-gui-shim, if: has('gui_running') }
 
 # Vim8 only:
 - { repo: roxma/nvim-yarp, if: ! has('nvim') }
@@ -180,12 +178,8 @@
     let g:defx_icons_column_length = 2
     let g:defx_icons_mark_icon = '✓'
 
-- repo: scrooloose/nerdtree
-  on_map: { n: <Plug> }
-  trusted: 1
-  hook_post_source: source $VIMPATH/config/plugins/nerdtree.vim
-
-- { repo: Xuyuanp/nerdtree-git-plugin, on_source: nerdtree }
+- { repo: tyru/caw.vim, on_map: { nx: <Plug> }}
+- { repo: liuchengxu/vim-which-key, on_cmd: WhichKey }
 - { repo: t9md/vim-choosewin, on_map: { n: <Plug> }}
 - { repo: kana/vim-niceblock, on_map: { x: <Plug> }}
 - { repo: guns/xterm-color-table.vim, on_cmd: XtermColorTable }
@@ -215,10 +209,6 @@
 - repo: tyru/open-browser-github.vim
   depends: open-browser.vim
   on_cmd: [ OpenGithubFile, OpenGithubIssue, OpenGithubProject ]
-
-- { repo: tyru/caw.vim, on_map: { nx: <Plug> }}
-
-# - { repo: tpope/vim-commentary, on_map: <Plug>Commentary }
 
 - repo: Shougo/vinarise.vim
   on_cmd: Vinarise
@@ -261,6 +251,14 @@
 - { repo: haya14busa/vim-edgemotion, on_map: { nv: <Plug> }}  # TODO
 - { repo: t9md/vim-quickhl, on_map: { nv: <Plug> }}  # TODO
 - { repo: rafi/vim-sidemenu, on_map: { nv: <Plug> }}
+
+- repo: itchyny/vim-cursorword
+  on_path: .*
+  hook_add: |
+    autocmd MyAutoCmd FileType denite,qf,nerdtree,easygitblame let b:cursorword=0
+    autocmd MyAutoCmd WinEnter * if &diff | let b:cursorword=0 | endif
+    autocmd MyAutoCmd InsertEnter * let b:cursorword=0
+    autocmd MyAutoCmd InsertLeave * let b:cursorword=1
 
 - repo: airblade/vim-gitgutter
   on_path: .*
