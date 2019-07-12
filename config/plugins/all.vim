@@ -134,8 +134,8 @@ if dein#tap('vim-edgemotion')
 endif
 
 if dein#tap('vim-quickhl')
-	nmap <Leader>, <Plug>(quickhl-manual-this)
-	xmap <Leader>, <Plug>(quickhl-manual-this)
+	nmap mt <Plug>(quickhl-manual-this)
+	xmap mt <Plug>(quickhl-manual-this)
 endif
 
 if dein#tap('vim-sidemenu')
@@ -264,8 +264,8 @@ if dein#tap('vim-easygit')
 endif
 
 if dein#tap('vim-altr')
-	nmap gs  <Plug>(altr-forward)
-	nmap gS  <Plug>(altr-back)
+	nmap <leader>n  <Plug>(altr-forward)
+	nmap <leader>N  <Plug>(altr-back)
 endif
 
 if dein#tap('open-browser.vim')
@@ -315,10 +315,10 @@ if dein#tap('splitjoin.vim')
 endif
 
 if dein#tap('linediff.vim')
-	vnoremap ,df :Linediff<CR>
-	vnoremap ,da :LinediffAdd<CR>
-	nnoremap ,ds :<C-u>LinediffShow<CR>
-	nnoremap ,dr :<C-u>LinediffReset<CR>
+	vnoremap mdf :Linediff<CR>
+	vnoremap mda :LinediffAdd<CR>
+	nnoremap mds :<C-u>LinediffShow<CR>
+	nnoremap mdr :<C-u>LinediffReset<CR>
 endif
 
 if dein#tap('dsf.vim')

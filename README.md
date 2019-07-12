@@ -508,7 +508,7 @@ Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `mj`/`mk` | Normal/Visual | Move lines down/up
 `<leader>`+`cp` | Normal | Duplicate paragraph
 `<leader>`+`cn`/`cN` | Normal/Visual | Change current word in a repeatable manner
-`s` | Visual | Replace within selected area
+`sg` | Visual | Replace within selected area
 `Ctrl`+`a` | Command | Navigation in command line
 `Ctrl`+`b` | Command | Move cursor backward in command line
 `Ctrl`+`f` | Command | Move cursor forward in command line
@@ -670,7 +670,7 @@ Key   | Mode | Action
 
 Key   | Mode | Action
 ----- |:----:| ------------------
-`<leader>`+`,` | Normal/Visual | Toggle highlighted word
+`m`+`t` | Normal/Visual | Toggle highlighted word
 
 ### Plugin: Expand-Region
 
@@ -738,10 +738,10 @@ Key   | Mode | Action
 
 Key   | Mode | Action
 ----- |:----:| ------------------
-`,`+`df` | Visual | Mark lines and open diff if 2nd region
-`,`+`da` | Visual | Mark lines for diff
-`,`+`ds` | Normal | Shows the diff between all the marked areas
-`,`+`dr` | Normal | Removes the signs denoting the diff'ed regions
+`m`+`d`+`f` | Visual | Mark lines and open diff if 2nd region
+`m`+`d`+`a` | Visual | Mark lines for diff
+`m`+`d`+`s` | Normal | Shows the diff between all the marked areas
+`m`+`d`+`r` | Normal | Removes the signs denoting the diff'ed regions
 
 ### Misc Plugins
 
