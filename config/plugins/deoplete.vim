@@ -19,10 +19,12 @@ call deoplete#custom#option({
 	\ })
 	"\ 'prev_completion_mode': 'filter',
 
+" Deoplete Jedi (python) settings
 let g:deoplete#sources#jedi#statement_length = 30
 let g:deoplete#sources#jedi#show_docstring = 1
 let g:deoplete#sources#jedi#short_types = 1
 
+" Deoplete TernJS settings
 let g:deoplete#sources#ternjs#filetypes = [
 	\ 'jsx',
 	\ 'javascript.jsx',
@@ -43,6 +45,7 @@ let g:deoplete#sources#ternjs#docs = 1
 " let g:deoplete#sources.javascript = ['file', 'ternjs']
 " let g:deoplete#sources.jsx = ['file', 'ternjs']
 
+" call deoplete#custom#option('ignore_sources', {'_': ['around', 'buffer']})
 " let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
 " let g:deoplete#ignore_sources.html = ['syntax']
 " let g:deoplete#ignore_sources.python = ['syntax']
@@ -60,12 +63,13 @@ let g:deoplete#sources#ternjs#docs = 1
 " let g:deoplete#omni#functions.javascript =
 " 	\ [ 'tern#Complete', 'jspc#omni', 'javascriptcomplete#CompleteJS' ]
 
-let g:deoplete#omni_patterns = get(g:, 'deoplete#omni_patterns', {})
-call deoplete#custom#option('omni_patterns', {
-\ 'complete_method': 'omnifunc',
-\ 'terraform': '[^ *\t"{=$]\w*',
-\})
+" let g:deoplete#omni_patterns = get(g:, 'deoplete#omni_patterns', {})
 " let g:deoplete#omni_patterns.terraform = '[^ *\t"{=$]\w*'
+" call deoplete#custom#option('omni_patterns', {
+"\ 'complete_method': 'omnifunc',
+"\ 'terraform': '[^ *\t"{=$]\w*',
+"\})
+
 " let g:deoplete#omni_patterns.html = '<[^>]*'
 " let g:deoplete#omni_patterns.javascript = '[^. *\t]\.\w*'
 " let g:deoplete#omni_patterns.javascript = '[^. \t]\.\%\(\h\w*\)\?'
@@ -135,8 +139,10 @@ call deoplete#custom#source('_', 'converters', [
 	\ 'matcher_length',
 	\ 'converter_truncate_abbr',
 	\ 'converter_truncate_menu',
-	\ 'converter_auto_delimiter',
 	\ ])
+
+call deoplete#custom#source('denite', 'matchers',
+	\ ['matcher_full_fuzzy', 'matcher_length'])
 
 " }}}
 " Key-mappings and Events " {{{

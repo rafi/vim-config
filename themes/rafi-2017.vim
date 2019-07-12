@@ -73,7 +73,7 @@ let s:stl .= "%6*%{badge#modified('+')}%0*"       " Write symbol
 let s:stl .= ' %1*%{badge#filename()}%*'          " Filename
 let s:stl .= ' %<'                                " Truncate here
 let s:stl .= '%( %{badge#branch()} %)'           " Git branch name
-let s:stl .= "%4*%(%{badge#trails('⤐ %s')} %)"  " Whitespace
+let s:stl .= "%4*%(%{badge#trails('⤐ %s')} %)"   " Whitespace
 let s:stl .= '%(%{badge#syntax()} %)%*'           " syntax check
 let s:stl .= '%='                                 " Align to right
 let s:stl .= '%{badge#format()} %4*%*'           " File format
@@ -139,6 +139,9 @@ highlight! link ExtraWhitespace  SpellBad
 highlight! WarningMsg ctermfg=100 guifg=#CCC566
 " }}}
 
+highlight ParenMatch  ctermbg=236 guibg=#30302c
+highlight CursorWord0 ctermbg=236 guibg=#30302c
+highlight CursorWord1 ctermbg=236 guibg=#30302c
 
 " Plugin: Defx icons and highlights {{{
 " ---------------------------------------------------------
