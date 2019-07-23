@@ -7,8 +7,11 @@ call defx#custom#option('_', {
 	\ 'winwidth': 25,
 	\ 'split': 'vertical',
 	\ 'direction': 'topleft',
-	\ 'show_ignored_files': 1,
 	\ 'listed': 1,
+	\ 'show_ignored_files': 0,
+	\ 'ignored_files':
+	\     '.mypy_cache,.pytest_cache,.git,.hg,.svn,.stversions'
+	\   . ',__pycache__,.sass-cache,*.egg-info,.DS_Store,*.pyc'
 	\ })
 
 " call defx#custom#column('filename', { 'min_width': 5, 'max_width': 55 })
@@ -29,6 +32,9 @@ autocmd MyAutoCmd TabLeave * if &ft == 'defx' | wincmd w | endif
 " Define mappings
 autocmd MyAutoCmd FileType defx do WinEnter | call s:defx_my_settings()
 function! s:defx_my_settings() abort
+	" TODO
+	setlocal signcolumn=no
+	nnoremap <silent><buffer><expr> se    defx#do_action('save_session')
 	nnoremap <silent><buffer><expr> <CR>  <sid>defx_toggle_tree()
 	nnoremap <silent><buffer><expr> l     <sid>defx_toggle_tree()
 	nnoremap <silent><buffer><expr> h     defx#do_action('close_tree')

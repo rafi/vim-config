@@ -11,6 +11,7 @@ if has('termguicolors')
 endif
 
 if has('gui_running')
+	set guioptions=Mc
 	set background=dark
 	set lines=40
 	set columns=150

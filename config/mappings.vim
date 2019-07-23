@@ -159,7 +159,7 @@ nmap <silent> <Leader>tw :setlocal wrap! breakindent!<CR>
 " Tabs
 nnoremap <silent> g0 :<C-u>tabfirst<CR>
 nnoremap <silent> g$ :<C-u>tablast<CR>
-nnoremap <silent> gr :<C-u>tabprevious<CR>
+nnoremap <silent> g5 :<C-u>tabprevious<CR>
 nnoremap <silent> <A-j> :<C-U>tabnext<CR>
 nnoremap <silent> <A-k> :<C-U>tabprevious<CR>
 nnoremap <silent> <C-Tab> :<C-U>tabnext<CR>
@@ -167,7 +167,6 @@ nnoremap <silent> <C-S-Tab> :<C-U>tabprevious<CR>
 " Uses g:lasttab set on TabLeave in MyAutoCmd
 let g:lasttab = 1
 nmap <silent> \\ :execute 'tabn '.g:lasttab<CR>
-
 
 " }}}
 " Totally Custom {{{
@@ -252,8 +251,8 @@ noremap  mk :m-2<CR>
 noremap  mj :m+<CR>
 
 " Session management shortcuts
-nmap <silent> <Leader>se :<C-u>execute 'SessionSave' fnamemodify(resolve(getcwd()), ':p:gs?/?_?')<CR>
-nmap <silent> <Leader>os :<C-u>execute 'source '.g:session_directory.'/'.fnamemodify(resolve(getcwd()), ':p:gs?/?_?').'.vim'<CR>
+nmap <silent> <Leader>se :<C-u>SessionSave<CR>
+nmap <silent> <Leader>os :<C-u>SessionLoad<CR>
 
 if has('mac')
 	" Open the macOS dictionary on current word

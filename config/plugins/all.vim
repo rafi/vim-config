@@ -149,7 +149,7 @@ endif
 
 if dein#tap('vim-bookmarks')
 	nmap ma :<C-u>cgetexpr bm#location_list()<CR>
-		\ :<C-u>Denite quickfix -buffer-name=list<CR>
+		\ :<C-u>Denite quickfix -no-start-filter<CR>
 	nmap mn <Plug>BookmarkNext
 	nmap mp <Plug>BookmarkPrev
 	nmap mm <Plug>BookmarkToggle

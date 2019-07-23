@@ -6,7 +6,7 @@
 call denite#custom#option('_', {
 	\ 'empty': 0,
 	\ 'auto_resume': 1,
-	\ 'statusline': 1,
+	\ 'statusline': 0,
 	\ 'start_filter': 1,
 	\ 'vertical_preview': 1,
 	\ 'prompt': '❯',
@@ -94,6 +94,7 @@ endif
 autocmd MyAutoCmd FileType denite call s:denite_settings()
 function! s:denite_settings() abort
 	" highlight! link CursorLine Visual
+	setlocal signcolumn=no
 	nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
 	nnoremap <silent><buffer><expr> i    denite#do_map('open_filter_buffer')
 	nnoremap <silent><buffer><expr> /    denite#do_map('open_filter_buffer')
@@ -113,6 +114,8 @@ endfunction
 
 autocmd MyAutoCmd FileType denite-filter call s:denite_filter_settings()
 function! s:denite_filter_settings() abort
+	setlocal nocursorline
+
 	nnoremap <silent><buffer><expr> <Esc>  denite#do_map('quit')
 	" inoremap <silent><buffer><expr> <Esc>  denite#do_map('quit')
 	nnoremap <silent><buffer><expr> q      denite#do_map('quit')

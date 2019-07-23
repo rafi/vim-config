@@ -7,6 +7,7 @@ set modeline                 " automatically setting options from modelines
 set report=0                 " Don't report on line changes
 set errorbells               " Trigger bell on error
 set visualbell               " Use visual bell instead of beeping
+set signcolumn=yes           " Always show signs column
 set hidden                   " hide buffers when abandoned instead of unload
 set fileformats=unix,dos,mac " Use Unix as the standard file type
 set magic                    " For regular expressions turn magic on
@@ -95,6 +96,22 @@ else
 	set viminfo='300,<10,@50,h,n$VARPATH/viminfo
 endif
 
+" If sudo, disable vim swap/backup/undo/shada/viminfo writing
+if $SUDO_USER !=# '' && $USER !=# $SUDO_USER
+		\ && $HOME !=# expand('~'.$USER)
+		\ && $HOME ==# expand('~'.$SUDO_USER)
+
+	set noswapfile
+	set nobackup
+	set nowritebackup
+	set noundofile
+	if has('nvim')
+		set shada="NONE"
+	else
+		set viminfo="NONE"
+	endif
+endif
+
 " }}}
 " Tabs and Indents {{{
 " ----------------
@@ -113,7 +130,7 @@ set shiftround      " Round indent to multiple of 'shiftwidth'
 " ------
 set timeout ttimeout
 set timeoutlen=750  " Time out on mappings
-set updatetime=400 " Idle time to write swap and trigger CursorHold
+set updatetime=400  " Idle time to write swap and trigger CursorHold
 " set updatetime=1000 " Idle time to write swap and trigger CursorHold
 
 " Time out on key codes
@@ -177,7 +194,7 @@ set showtabline=2       " Always show the tabs line
 set winwidth=30         " Minimum width for active window
 set winminwidth=10      " Minimum width for inactive windows
 set winheight=4         " Minimum height for active window
-set winminheight=2      " Minimum height for inactive window
+set winminheight=1      " Minimum height for inactive window
 set pumheight=15        " Pop-up menu's line height
 set helpheight=12       " Minimum help window height
 set previewheight=12    " Completion preview height
@@ -185,7 +202,7 @@ set previewheight=12    " Completion preview height
 set noshowcmd           " Don't show command in status line
 set cmdheight=2         " Height of the command line
 set cmdwinheight=5      " Command-line lines
-set noequalalways       " Don't resize windows on split or close
+set equalalways         " Resize windows on split or close
 set laststatus=2        " Always show a status line
 set colorcolumn=80      " Highlight the 80th character limit
 set display=lastline
@@ -214,53 +231,12 @@ if exists('&winblend')
 	set winblend=20
 endif
 
-" }}}
-" Folds {{{
-" -----
-
-" FastFold
-" Credits: https://github.com/Shougo/shougo-s-github
-autocmd MyAutoCmd TextChangedI,TextChanged *
-	\ if &l:foldenable && &l:foldmethod !=# 'manual' |
-	\   let b:foldmethod_save = &l:foldmethod |
-	\   let &l:foldmethod = 'manual' |
-	\ endif
-
-autocmd MyAutoCmd BufWritePost *
-	\ if &l:foldmethod ==# 'manual' && exists('b:foldmethod_save') |
-	\   let &l:foldmethod = b:foldmethod_save |
-	\   execute 'normal! zx' |
-	\ endif
-
 if has('folding')
 	set foldenable
 	set foldmethod=syntax
 	set foldlevelstart=99
 	set foldtext=FoldText()
 endif
-
-" Improved Vim fold-text
-" See: http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/
-function! FoldText()
-	" Get first non-blank line
-	let fs = v:foldstart
-	while getline(fs) =~? '^\s*$' | let fs = nextnonblank(fs + 1)
-	endwhile
-	if fs > v:foldend
-		let line = getline(v:foldstart)
-	else
-		let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
-	endif
-
-	let w = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
-	let foldSize = 1 + v:foldend - v:foldstart
-	let foldSizeStr = ' ' . foldSize . ' lines '
-	let foldLevelStr = repeat('+--', v:foldlevel)
-	let lineCount = line('$')
-	let foldPercentage = printf('[%.1f', (foldSize*1.0)/lineCount*100) . '%] '
-	let expansionString = repeat('.', w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
-	return line . expansionString . foldSizeStr . foldPercentage . foldLevelStr
-endfunction
 
 " }}}
 

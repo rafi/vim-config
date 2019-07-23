@@ -53,8 +53,8 @@ ln -s ~/.config/nvim ~/.vim
   use that instead of `~/.config` in the code above.
   Nvim follows the XDG base-directories convention.
 
-**_2._** If you are a _first-time Neovim user_, you need the pynvim
-packages. Don't worry, run the script provided:
+**_2._** If you are a _first-time Neovim user_, you need the `pynvim`
+package. Don't worry, run the script provided:
 
 ```sh
 cd ~/.config/nvim
@@ -64,6 +64,8 @@ cd ~/.config/nvim
 **_3._** Run `make test` to test your nvim/vim version and compatibility.
 
 **_4._** Run `make` to install all plugins.
+
+**_5._** If you are experiencing problems, try running `nvim -c checkhealth`
 
 Enjoy!
 
@@ -545,7 +547,7 @@ Key   | Mode | Action
 `<leader>`+`tw` | Normal | Toggle wrap (:setlocal wrap! breakindent!)
 `g0` | Normal | Go to first tab (:tabfirst)
 `g$` | Normal | Go to last tab (:tablast)
-`gr` | Normal | Go to previous tab (:tabprevious)
+`g5` | Normal | Go to previous tab (:tabprevious)
 `Ctrl`+`j` | Normal | Move to split below (\<C-w>j)
 `Ctrl`+`k` | Normal | Move to upper split (\<C-w>k)
 `Ctrl`+`h` | Normal | Move to left split (\<C-w>h)

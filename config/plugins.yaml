@@ -36,7 +36,7 @@
 - { repo: cakebaker/scss-syntax.vim, on_ft: [ scss, sass ]}
 - { repo: groenewege/vim-less, on_ft: less }
 - { repo: othree/csscomplete.vim, on_ft: css }
-- { repo: iloginow/vim-stylus, on_ft: stylus } # or wavded/vim-stylus ?
+- { repo: iloginow/vim-stylus, on_ft: stylus }  # or wavded/vim-stylus ?
 - { repo: mustache/vim-mustache-handlebars, on_ft: html }
 
 - repo: othree/html5.vim
@@ -131,11 +131,11 @@
 # Python related
 - { repo: vim-python/python-syntax, on_ft: python }
 - { repo: Vimjas/vim-python-pep8-indent, on_ft: python }
-- { repo: vim-scripts/python_match.vim, on_ft: python } # ?
-- { repo: tmhedberg/SimpylFold, on_ft: python } # ?
+- { repo: vim-scripts/python_match.vim, on_ft: python }  # ?
+- { repo: tmhedberg/SimpylFold, on_ft: python }  # ?
 - { repo: raimon49/requirements.txt.vim, on_ft: requirements }
 
-  # Misc
+# Misc
 - { repo: pearofducks/ansible-vim, on_ft: [ yaml.ansible, ansible_hosts ]}
 - { repo: StanAngeloff/php.vim, on_ft: php }
 - { repo: tbastos/vim-lua, on_ft: lua }
@@ -212,7 +212,7 @@
 
 - repo: Shougo/vinarise.vim
   on_cmd: Vinarise
-  hook_add: let g:vinarise_enable_auto_detect = 1  # FIXME
+  hook_add: let g:vinarise_enable_auto_detect = 1  # FIXME: Doesn't detect
 
 - repo: mzlogin/vim-markdown-toc
   on_cmd: [ GenTocGFM, GenTocRedcarpet, GenTocGitLab, UpdateToc ]
@@ -248,14 +248,14 @@
 # ---------
 - { repo: haya14busa/vim-asterisk, on_map: { nv: <Plug> }}
 - { repo: rhysd/accelerated-jk, on_map: { n: <Plug> }, if: $SUDO_USER == '' }
-- { repo: haya14busa/vim-edgemotion, on_map: { nv: <Plug> }}  # TODO
-- { repo: t9md/vim-quickhl, on_map: { nv: <Plug> }}  # TODO
+- { repo: haya14busa/vim-edgemotion, on_map: { nv: <Plug> }}
+- { repo: t9md/vim-quickhl, on_map: { nv: <Plug> }}
 - { repo: rafi/vim-sidemenu, on_map: { nv: <Plug> }}
 
 - repo: itchyny/vim-cursorword
   on_path: .*
   hook_add: |
-    autocmd MyAutoCmd FileType denite,qf,nerdtree,easygitblame let b:cursorword=0
+    autocmd MyAutoCmd FileType denite,qf,easygitblame let b:cursorword=0
     autocmd MyAutoCmd WinEnter * if &diff | let b:cursorword=0 | endif
     autocmd MyAutoCmd InsertEnter * let b:cursorword=0
     autocmd MyAutoCmd InsertLeave * let b:cursorword=1

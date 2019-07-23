@@ -37,6 +37,12 @@ else
 endif
 
 function! s:preview_file()
+	silent! wincmd P
+	if &previewwindow
+		bdelete!
+		return
+	endif
+
 	let winwidth = &columns
 	let cur_list = b:qf_isLoc == 1 ? getloclist('.') : getqflist()
 	let cur_line = getline(line('.'))

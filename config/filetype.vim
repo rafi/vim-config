@@ -17,7 +17,7 @@ augroup MyAutoCmd " {{{
 	autocmd SwapExists * nested let v:swapchoice = 'o'
 
 	" Check if file changed when its window is focus, more eager than 'autoread'
-	autocmd WinEnter,FocusGained * checktime
+	autocmd FocusGained * checktime
 
 	autocmd Syntax * if 5000 < line('$') | syntax sync minlines=200 | endif
 
@@ -37,7 +37,8 @@ augroup MyAutoCmd " {{{
 	" When editing a file, always jump to the last known cursor position.
 	" Don't do it when the position is invalid or when inside an event handler
 	autocmd BufReadPost *
-		\ if &ft !~ '^git\c' && ! &diff && line("'\"") > 0 && line("'\"") <= line("$")
+		\ if &ft !~ '^gitcommit'
+		\      && ! &diff && line("'\"") > 0 && line("'\"") <= line("$")
 		\|   execute 'normal! g`"zvzz'
 		\| endif
 
@@ -67,7 +68,7 @@ augroup MyAutoCmd " {{{
 	" autocmd FileType json setlocal equalprg=jsonlint
 
 	autocmd FileType markdown
-		\ set expandtab
+		\ setlocal expandtab
 		\ | setlocal autoindent formatoptions=tcroqn2 comments=n:>
 		\ | setlocal spell conceallevel=0
 
@@ -133,8 +134,9 @@ let g:markdown_fenced_languages = [
 	\  'yaml',
 	\  'vim'
 	\]
+" }}}
 
-" Ruby
+" Ruby {{{
 let g:ruby_no_expensive = 1
 
 " }}}
