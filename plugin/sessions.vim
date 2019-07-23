@@ -2,7 +2,7 @@
 " Session Management
 " ---
 
-let g:session_directory = $VARPATH.'/session'
+let g:session_directory = get(g:, 'session_directory', $DATA_PATH.'/session')
 
 " Save and persist session
 command! -nargs=? -complete=customlist,<SID>session_list SessionSave

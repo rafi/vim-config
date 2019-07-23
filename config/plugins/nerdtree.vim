@@ -10,7 +10,7 @@ let g:NERDTreeRespectWildIgnore = 0
 let g:NERDTreeAutoDeleteBuffer = 0
 let g:NERDTreeQuitOnOpen = 1
 let g:NERDTreeHijackNetrw = 1
-let g:NERDTreeBookmarksFile = $VARPATH.'/treemarks'
+let g:NERDTreeBookmarksFile = g:etc#cache_path . '/treemarks'
 let NERDTreeIgnore = [
 	\ '\.git$', '\.hg$', '\.svn$', '\.stversions$', '\.pyc$', '\.svn$',
 	\ '\.DS_Store$', '\.sass-cache$', '__pycache__$', '\.egg-info$', '\.cache$'

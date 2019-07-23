@@ -76,11 +76,11 @@ endif
 " Vim Directories {{{
 " ---------------
 set undofile swapfile nobackup
-set directory=$VARPATH/swap//,$VARPATH,~/tmp,/var/tmp,/tmp
-set undodir=$VARPATH/undo//,$VARPATH,~/tmp,/var/tmp,/tmp
-set backupdir=$VARPATH/backup/,$VARPATH,~/tmp,/var/tmp,/tmp
-set viewdir=$VARPATH/view/
-set nospell spellfile=$VIMPATH/spell/en.utf-8.add
+set directory=$DATA_PATH/swap//,$DATA_PATH,~/tmp,/var/tmp,/tmp
+set undodir=$DATA_PATH/undo//,$DATA_PATH,~/tmp,/var/tmp,/tmp
+set backupdir=$DATA_PATH/backup/,$DATA_PATH,~/tmp,/var/tmp,/tmp
+set viewdir=$DATA_PATH/view/
+set nospell spellfile=$VIM_PATH/spell/en.utf-8.add
 
 " History saving
 set history=1000
@@ -93,7 +93,7 @@ if has('nvim')
 	"   h - Disable the effect of 'hlsearch' when loading the shada
 	set shada='300,<50,@100,s10,h
 else
-	set viminfo='300,<10,@50,h,n$VARPATH/viminfo
+	set viminfo='300,<10,@50,h,n$DATA_PATH/viminfo
 endif
 
 " If sudo, disable vim swap/backup/undo/shada/viminfo writing

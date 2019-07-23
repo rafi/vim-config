@@ -167,7 +167,7 @@
 # --------
 - repo: Shougo/defx.nvim
   on_cmd: Defx
-  hook_source: source $VIMPATH/config/plugins/defx.vim
+  hook_source: source $VIM_PATH/config/plugins/defx.vim
 
 - repo: kristijanhusak/defx-git
   on_source: defx.nvim
@@ -291,7 +291,7 @@
 - repo: MattesGroeger/vim-bookmarks
   on_path: .*
   hook_source: |
-    let g:bookmark_auto_save_file = $VARPATH.'/bookmarks'
+    let g:bookmark_auto_save_file = g:etc#cache_path . '/bookmarks'
     let g:bookmark_no_default_key_mappings = 1
     let g:bookmark_disable_ctrlp = 1
     let g:bookmark_location_list = 1
@@ -303,21 +303,9 @@
   hook_source: let g:committia_min_window_width = 70
 
 - repo: benekastah/neomake
-  if: has('nvim')
+  on_event: BufWritePre
   on_cmd: [ Neomake, NeomakeFile, NeomakeEnable ]
-  hook_source: source $VIMPATH/config/plugins/neomake.vim
-  hook_add: |
-    let g:lint_types = [
-      \  'yaml.ansible', 'python', 'php', 'ruby', 'vim', 'go', 'sh',
-      \  'javascript', 'jsx', 'javascript.jsx', 'json', 'css',
-      \  'markdown', 'html', 'yaml'
-      \ ]
-    autocmd MyAutoCmd BufWritePost *
-      \  if expand('%:p') !~ $VIMPATH
-      \      && index(g:lint_types, &filetype) > -1
-      \      && empty(&buftype)
-      \|   Neomake
-      \| endif
+  hook_source: source $VIM_PATH/config/plugins/neomake.vim
 
 - repo: lambdalisue/vim-improve-diff
   on_event: [ InsertLeave, BufWinLeave ]
@@ -326,7 +314,7 @@
 - repo: junegunn/goyo.vim
   depends: limelight.vim
   on_cmd: Goyo
-  hook_source: source $VIMPATH/config/plugins/goyo.vim
+  hook_source: source $VIM_PATH/config/plugins/goyo.vim
 
 - repo: junegunn/limelight.vim
   on_cmd: Limelight
@@ -384,7 +372,7 @@
   if: executable('ctags')
   on_path: .*
   hook_add: |
-    let g:gutentags_cache_dir = $VARPATH.'/tags'
+    let g:gutentags_cache_dir = g:etc#cache_path . '/tags'
     let g:gutentags_generate_on_write = 1
     let g:gutentags_generate_on_missing = 0
     let g:gutentags_generate_on_new = 0
@@ -485,7 +473,7 @@
 - repo: Shougo/denite.nvim
   on_cmd: Denite
   trusted: 1
-  hook_source: source $VIMPATH/config/plugins/denite.vim
+  hook_source: source $VIM_PATH/config/plugins/denite.vim
 
 - { repo: Shougo/neoyank.vim, on_event: TextYankPost, on_source: denite.nvim }
 - { repo: Shougo/junkfile.vim, on_source: denite.nvim }

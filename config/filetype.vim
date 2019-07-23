@@ -3,8 +3,8 @@
 "-------------------------------------------------
 
 " Reload vim config automatically {{{
-execute 'autocmd MyAutoCmd BufWritePost '.$VIMPATH.'/config/*,vimrc nested'
-	\ .' source $MYVIMRC | redraw | silent doautocmd ColorScheme'
+execute 'autocmd MyAutoCmd BufWritePost '.g:etc#vim_path.'/config/* nested'
+	\ .' source $MYVIMRC | redraw'
 " }}}
 
 augroup MyAutoCmd " {{{

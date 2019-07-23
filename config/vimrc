@@ -9,93 +9,22 @@ if &compatible
 endif
 
 " Set main configuration directory, and where cache is stored.
-let $VIMPATH = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
-let $VARPATH = expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : '~/.cache').'/vim')
+let $VIM_PATH = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
 
-" Constants
-let s:is_sudo = $SUDO_USER !=# '' && $USER !=# $SUDO_USER
+" Regular Vim doesn't add custom configuration directories, if you use one
+if &runtimepath !~# $VIM_PATH
+	set runtimepath^=$VIM_PATH
+endif
+
+let $DATA_PATH = g:etc#cache_path
 
 " Search and use environments specifically made for Neovim.
-if isdirectory($VARPATH.'/venv/neovim2')
-	let g:python_host_prog = $VARPATH.'/venv/neovim2/bin/python'
+if isdirectory(g:etc#cache_path.'/venv/neovim2')
+	let g:python_host_prog = g:etc#cache_path.'/venv/neovim2/bin/python'
 endif
-if isdirectory($VARPATH.'/venv/neovim3')
-	let g:python3_host_prog = $VARPATH.'/venv/neovim3/bin/python'
+if isdirectory(g:etc#cache_path.'/venv/neovim3')
+	let g:python3_host_prog = g:etc#cache_path.'/venv/neovim3/bin/python'
 endif
-
-if has('pythonx')
-	if has('python3')
-		set pyxversion=3
-	elseif has('python')
-		set pyxversion=2
-	endif
-endif
-
-function! s:dein_check_ruby() abort
-	call system("ruby -e 'require \"json\"; require \"yaml\"'")
-	return (v:shell_error == 0) ? 1 : 0
-endfunction
-
-function! s:dein_check_yaml2json()
-	try
-		let result = system('yaml2json', "---\ntest: 1")
-		if v:shell_error != 0
-			return 0
-		endif
-		let result = json_decode(result)
-		return result.test
-	catch
-	endtry
-	return 0
-endfunction
-
-function! s:dein_load_yaml(filename) abort
-	if executable('yaml2json') && exists('*json_decode') &&
-				\ s:dein_check_yaml2json()
-		" Decode YAML using the CLI tool yaml2json
-		" See: https://github.com/koraa/large-yaml2json-json2yaml
-		let g:denite_plugins = json_decode(
-					\ system('yaml2json', readfile(a:filename)))
-	elseif executable('ruby') && exists('*json_decode') && s:dein_check_ruby()
-		let g:denite_plugins = json_decode(
-					\ system("ruby -e 'require \"json\"; require \"yaml\"; ".
-									\ "print JSON.generate YAML.load \$stdin.read'",
-									\ readfile(a:filename)))
-	else
-		" Fallback to use python3 and PyYAML
-	python3 << endpython
-import vim, yaml
-with open(vim.eval('a:filename'), 'r') as f:
-	vim.vars['denite_plugins'] = yaml.safe_load(f.read())
-endpython
-	endif
-
-	for plugin in g:denite_plugins
-		call dein#add(plugin['repo'], extend(plugin, {}, 'keep'))
-	endfor
-	unlet g:denite_plugins
-endfunction
-
-function! s:source_file(path, ...) abort
-	let use_global = get(a:000, 0, ! has('vim_starting'))
-	let abspath = resolve(expand($VIMPATH.'/config/'.a:path))
-	if ! use_global
-		execute 'source' fnameescape(abspath)
-		return
-	endif
-
-	let content = map(readfile(abspath),
-		\ "substitute(v:val, '^\\W*\\zsset\\ze\\W', 'setglobal', '')")
-	let tempfile = tempname()
-	try
-		call writefile(content, tempfile)
-		execute printf('source %s', fnameescape(tempfile))
-	finally
-		if filereadable(tempfile)
-			call delete(tempfile)
-		endif
-	endtry
-endfunction
 
 " Set augroup
 augroup MyAutoCmd
@@ -148,78 +77,42 @@ if has('vim_starting')
 		endif
 	endif
 
+	" Ensure data directories
+	call etc#util#ensure_directory([
+		\   g:etc#cache_path . '/undo',
+		\   g:etc#cache_path . '/backup',
+		\   g:etc#cache_path . '/session',
+		\   g:etc#vim_path . '/spell'
+		\ ])
+
 	" Linux terminal settings
 	if ! has('nvim') && ! has('gui_running') && ! has('win32') && ! has('win64')
-		" Linux terminal settings
-		call s:source_file('terminal.vim')
+		call etc#util#source_file('config/terminal.vim')
 	endif
 endif
 
-" Initialize dein.vim (package manager)
-let s:path = expand('$VARPATH/dein')
-let s:plugins_path = expand('$VIMPATH/config/plugins.yaml')
-let s:user_plugins_path = expand('$VIMPATH/config/local.plugins.yaml')
-if dein#load_state(s:path)
-	call dein#begin(s:path, [expand('<sfile>'), s:plugins_path])
-	try
-		call s:dein_load_yaml(s:plugins_path)
-		if filereadable(s:user_plugins_path)
-			call s:dein_load_yaml(s:user_plugins_path)
-		endif
-	catch /.*/
-		echoerr v:exception
-		echomsg 'Error loading config/plugins.yaml...'
-		echomsg 'Caught: ' v:exception
-		echoerr 'Please run: pip3 install --user PyYAML'
-	endtry
-
-	if isdirectory(expand('$VIMPATH/dev'))
-		call dein#local(expand('$VIMPATH/dev'), {'frozen': 1, 'merged': 0})
-	endif
-	call dein#end()
-	if ! s:is_sudo
-		call dein#save_state()
-	endif
-	if dein#check_install()
-		if ! has('nvim')
-			set nomore
-		endif
-		call dein#install()
-	endif
+if filereadable(g:etc#vim_path.'/.vault.vim')
+	call etc#util#source_file('.vault.vim')
 endif
 
-call s:source_file('plugins/all.vim')
-
-filetype plugin indent on
-syntax enable
-
-" if ! has('vim_starting')
-	call dein#call_hook('source')
-	call dein#call_hook('post_source')
-" endif
-
-" Loading configuration modules
-call s:source_file('general.vim')
-call s:source_file('filetype.vim')
-call s:source_file('mappings.vim')
-call s:source_file('theme.vim')
-
-if s:is_sudo
-	set noswapfile
-	set nobackup
-	set nowritebackup
-	set noundofile
-	if has('nvim')
-		set shada="NONE"
-	else
-		set viminfo="NONE"
-	endif
-endif
+" let g:etc#package_manager = 'none'
+call etc#manager#init()
+call etc#util#source_file('config/plugins/all.vim')
+call etc#util#source_file('config/filetype.vim')
+call etc#util#source_file('config/general.vim')
+call etc#util#source_file('config/mappings.vim')
+call etc#util#source_file('config/theme.vim')
 
 " Load user custom local settings
-if filereadable(expand('$VIMPATH/config/local.vim'))
-	call s:source_file('local.vim')
+if filereadable(g:etc#vim_path.'/config/local.vim')
+	call etc#util#source_file('config/local.vim')
 endif
+
+" Trigger colorscheme events when vimrc is reloaded within vim
+if ! has('vim_starting')
+	doautocmd ColorScheme
+endif
+
 set secure
 
 " vim: set ts=2 sw=2 tw=80 noet :
