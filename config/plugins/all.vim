@@ -183,28 +183,28 @@ endif
 
 if dein#tap('jedi-vim')
 	let g:jedi#completions_command = ''
-	let g:jedi#documentation_command = 'K'
 	let g:jedi#goto_command = '<C-]>'
-	let g:jedi#goto_assignments_command = '<leader>g'
-	let g:jedi#rename_command = '<Leader>r'
-	let g:jedi#usages_command = '<Leader>n'
+	let g:jedi#goto_assignments_command = 'gy'
+	let g:jedi#documentation_command = 'K'
+	let g:jedi#usages_command = 'gr'
+	let g:jedi#rename_command = '<Leader>R'
 endif
 
 if dein#tap('tern_for_vim')
 	autocmd user_events FileType javascript,jsx,javascript.jsx
 		\  nnoremap <silent><buffer> K          :<C-u>TernDoc<CR>
 		\| nnoremap <silent><buffer> <C-]>      :<C-u>TernDefSplit<CR>
-		\| nnoremap <silent><buffer> <leader>g  :<C-u>TernType<CR>
-		\| nnoremap <silent><buffer> <leader>n  :<C-u>TernRefs<CR>
-		\| nnoremap <silent><buffer> <leader>r  :<C-u>TernRename<CR>
+		\| nnoremap <silent><buffer> gy         :<C-u>TernType<CR>
+		\| nnoremap <silent><buffer> gr         :<C-u>TernRefs<CR>
+		\| nnoremap <silent><buffer> <leader>R  :<C-u>TernRename<CR>
 endif
 
 if dein#tap('vim-gitgutter')
-	nmap <Leader>hj <Plug>GitGutterNextHunk
-	nmap <Leader>hk <Plug>GitGutterPrevHunk
-	nmap <Leader>hs <Plug>GitGutterStageHunk
-	nmap <Leader>hr <Plug>GitGutterUndoHunk
-	nmap <Leader>hp <Plug>GitGutterPreviewHunk
+	nmap ]g <Plug>GitGutterNextHunk
+	nmap [g <Plug>GitGutterPrevHunk
+	nmap gS <Plug>GitGutterStageHunk
+	nmap <Leader>gr <Plug>GitGutterUndoHunk
+	nmap gs <Plug>GitGutterPreviewHunk
 endif
 
 if dein#tap('vim-go')

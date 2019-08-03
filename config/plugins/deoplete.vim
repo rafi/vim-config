@@ -39,52 +39,24 @@ let g:deoplete#sources#ternjs#docs = 1
 " Limit Sources " {{{
 " ---
 
-" let g:deoplete#sources = get(g:, 'deoplete#sources', {})
-" let g:deoplete#sources.go = ['vim-go']
-" let g:deoplete#sources.javascript = ['file', 'ternjs']
-" let g:deoplete#sources.jsx = ['file', 'ternjs']
-
-" call deoplete#custom#option('ignore_sources', {'_': ['around', 'buffer']})
-" let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
-" let g:deoplete#ignore_sources.html = ['syntax']
-" let g:deoplete#ignore_sources.python = ['syntax']
-" let g:deoplete#ignore_sources.php = ['omni']
-
-" call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])
-
 " }}}
 " Omni functions and patterns " {{{
 " ---
-" let g:deoplete#omni#functions = get(g:, 'deoplete#omni#functions', {})
-" let g:deoplete#omni#functions.css = 'csscomplete#CompleteCSS'
-" let g:deoplete#omni#functions.html = 'htmlcomplete#CompleteTags'
-" let g:deoplete#omni#functions.markdown = 'htmlcomplete#CompleteTags'
-" let g:deoplete#omni#functions.javascript =
-" 	\ [ 'tern#Complete', 'jspc#omni', 'javascriptcomplete#CompleteJS' ]
+if ! exists('g:context_filetype#same_filetypes')
+	let g:context_filetype#filetypes = {}
+endif
 
-" let g:deoplete#omni_patterns = get(g:, 'deoplete#omni_patterns', {})
-" let g:deoplete#omni_patterns.terraform = '[^ *\t"{=$]\w*'
-" call deoplete#custom#option('omni_patterns', {
-"\ 'complete_method': 'omnifunc',
-"\ 'terraform': '[^ *\t"{=$]\w*',
-"\})
+let g:context_filetype#filetypes.svelte = [
+	\   { 'filetype': 'css', 'start': '<style>', 'end': '</style>' },
+	\ ]
 
-" let g:deoplete#omni_patterns.html = '<[^>]*'
-" let g:deoplete#omni_patterns.javascript = '[^. *\t]\.\w*'
-" let g:deoplete#omni_patterns.javascript = '[^. \t]\.\%\(\h\w*\)\?'
-" let g:deoplete#omni_patterns.php =
-" 	\ '\w+|[^. \t]->\w*|\w+::\w*'
-	" \ '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+call deoplete#custom#var('omni', 'functions', {
+	\   'css': [ 'csscomplete#CompleteCSS' ]
+	\ })
 
-" let g:deoplete#omni#input_patterns = get(g:, 'deoplete#omni#input_patterns', {})
-" let g:deoplete#omni#input_patterns.xml = '<[^>]*'
-" let g:deoplete#omni#input_patterns.md = '<[^>]*'
-" let g:deoplete#omni#input_patterns.css  = '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]'
-" let g:deoplete#omni#input_patterns.scss = '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]'
-" let g:deoplete#omni#input_patterns.sass = '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]'
-" let g:deoplete#omni#input_patterns.javascript = '[^. *\t]\.\w*'
-" let g:deoplete#omni#input_patterns.python = ''
-" let g:deoplete#omni#input_patterns.php = '\w+|[^. \t]->\w*|\w+::\w*'
+call deoplete#custom#option('omni_patterns', {
+	\ 'go': '[^. *\t]\.\w*',
+	\})
 
 " }}}
 " Ranking and Marks " {{{

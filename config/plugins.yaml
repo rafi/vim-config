@@ -414,11 +414,12 @@
   on_event: CompleteDone
   hook_post_source: call echodoc#enable()
 
-- repo: Raimondi/delimitMate
+- repo: ncm2/float-preview.nvim
+  if: has('nvim')
   on_event: InsertEnter
-  hook_source: |
-    let g:delimitMate_expand_cr = 1
-    let g:delimitMate_excluded_ft = 'html'
+  hook_add: |
+    let g:float_preview#docked = 0
+    let g:float_preview#max_width = 80
 
 - { repo: Shougo/neosnippet-snippets, on_event: InsertEnter }
 - { repo: Shougo/context_filetype.vim, on_event: InsertEnter }
@@ -431,8 +432,7 @@
   hook_add: |
     let g:jedi#completions_enabled = 0
     let g:jedi#auto_vim_configuration = 0
-    let g:jedi#smart_auto_mappings = 0
-    let g:jedi#show_call_signatures = 1
+    let g:jedi#show_call_signatures = 0
   hook_source: |
     let g:jedi#use_tag_stack = 0
     let g:jedi#popup_select_first = 0

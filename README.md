@@ -272,6 +272,7 @@ Name           | Description
 [ludovicchabant/vim-gutentags] | Manages your tag files
 [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet
 [Shougo/echodoc.vim] | Print objects' documentation in echo area
+[ncm2/float-preview.nvim] | Pretty completion preview with neovim's floating win
 [Raimondi/delimitMate] | Auto-completion for quotes, parens, brackets
 [Shougo/neosnippet-snippets] | Standard snippets repository for neosnippet
 [Shougo/context_filetype.vim] | Context filetype library for Vim script
@@ -426,6 +427,7 @@ Name           | Description
 [ludovicchabant/vim-gutentags]: https://github.com/ludovicchabant/vim-gutentags
 [mattn/emmet-vim]: https://github.com/mattn/emmet-vim
 [Shougo/echodoc.vim]: https://github.com/Shougo/echodoc.vim
+[ncm2/float-preview.nvim]: https://github.com/ncm2/float-preview.nvim
 [Raimondi/delimitMate]: https://github.com/Raimondi/delimitMate
 [Shougo/neosnippet-snippets]: https://github.com/Shougo/neosnippet-snippets
 [Shougo/context_filetype.vim]: https://github.com/Shougo/context_filetype.vim
@@ -512,7 +514,6 @@ Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `Ctrl`+`r` | Visual | Replace selection with step-by-step confirmation
 `,`+`Space` | Normal | Remove all spaces at EOL
 `<leader>`+`<leader>` | Normal | Enter visual line-mode
-`<leader>`+`a` | Normal | Align paragraph
 `<leader>`+`os` | Normal | Load last session
 `<leader>`+`se` | Normal | Save current workspace as last session
 `<leader>`+`d` | Normal/Visual | Duplicate line or selection
@@ -548,8 +549,8 @@ Key   | Mode | Action
 `Ctrl`+`l` | Normal | Move to right split (\<C-w>l)
 `*` | Visual | Search selection forwards
 `#` | Visual | Search selection backwards
-`<leader>`+`j` | Normal | Next on location list
-`<leader>`+`k` | Normal | Previous on location list
+`]`+`c`/`q` | Normal | Next on location/quickfix list
+`]`+`c`/`q` | Normal | Previous on location/quickfix list
 `<leader>`+`b` | Normal | Toggle colorscheme background dark/light
 `s`+`-` | Normal | Lower colorscheme contrast (Support solarized8)
 `s`+`=` | Normal | Raise colorscheme contrast (Support solarized8)
