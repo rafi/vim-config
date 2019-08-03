@@ -622,6 +622,8 @@ Key   | Mode | Action
 `;`+`a` | Normal | Toggle file explorer on current file
 | **Within _Defx_ buffers** |||
 `h/j/k/l` | Normal | Movement + collapse/expand + file open
+`]`+`g` | Normal | Next dirty git item
+`]`+`g` | Normal | Previous dirty git item
 `w` | Normal | Toggle window size
 `N` | Normal | Create new file or directory
 `yy` | Normal | Yank selected item to clipboard
@@ -629,10 +631,11 @@ Key   | Mode | Action
 `sv` | Normal | Open file in a horizontal split
 `sg` | Normal | Open file in a vertical split
 `&` | Normal | Jump to project root
-`gh` | Normal | Jump to user's home directory
-`gd` | Normal | Open split diff on selected file
-`gf` | Normal | Search in selected directory for files
+`gx` | Normal | Execute associated system application
+`gd` | Normal | Open git diff on selected file
+`gl` | Normal | Open terminal file explorer
 `gr` | Normal | Grep in selected directory
+`gf` | Normal | Search in selected directory for files
 
 ### Plugin: Deoplete / Emmet
 
