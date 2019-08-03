@@ -501,13 +501,13 @@
 - { repo: rafi/vim-denite-z, on_source: denite.nvim }
 - { repo: rafi/vim-denite-session, on_source: denite.nvim }
 
+- repo: raghur/fruzzy
+  on_source: denite.nvim
+  hook_source: let g:fruzzy#sortonempty = 0
+  hook_post_update: call fruzzy#install()
+
 # - repo: nixprime/cpsm
 #   build: 'sh -c "PY3=ON ./install.sh"'
-
-# - repo: raghur/fruzzy
-#   on_source: denite.nvim
-#   hook_source: let g:fruzzy#sortonempty = 0
-#   hook_post_update: call fruzzy#install()
 
 # - { repo: rafi/vim-denite-task, on_source: denite.nvim }
 

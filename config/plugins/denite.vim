@@ -30,8 +30,8 @@ endif
 
 " MATCHERS
 " Default is 'matcher/fuzzy'
-call denite#custom#source('tag', 'matchers', ['matcher/substring'])
-" call denite#custom#source('file/rec', 'matchers', ['matcher/fruzzy'])
+" call denite#custom#source('tag', 'matchers', ['matcher/substring'])
+call denite#custom#source('file/rec,grep', 'matchers', ['matcher/fruzzy'])
 
 if has('nvim') && &runtimepath =~# '\/cpsm'
 	call denite#custom#source(
@@ -41,7 +41,8 @@ endif
 
 " SORTERS
 " Default is 'sorter/rank'
-call denite#custom#source('file/rec,grep', 'sorters', ['sorter/sublime'])
+" call denite#custom#source('file/rec,grep', 'sorters', ['sorter/sublime'])
+call denite#custom#source('file/rec,grep', 'sorters', ['sorter/fruzzy'])
 call denite#custom#source('z', 'sorters', ['sorter_z'])
 
 " CONVERTERS

@@ -293,7 +293,7 @@ Name           | Description
 Name           | Description
 -------------- | ----------------------
 [Shougo/denite.nvim] | Dark powered asynchronous unite all interfaces
-[nixprime/cpsm] | File matcher, specialized for paths
+[raghur/fruzzy] | Freaky fast fuzzy finder
 [Shougo/neoyank.vim] | Denite plugin for yank history
 [Shougo/junkfile.vim] | Denite plugin for temporary files
 [chemzqm/unite-location] | Denite location & quickfix lists
@@ -444,7 +444,7 @@ Name           | Description
 [ternjs/tern_for_vim]: https://github.com/ternjs/tern_for_vim
 
 [Shougo/denite.nvim]: https://github.com/Shougo/denite.nvim
-[nixprime/cpsm]: https://github.com/nixprime/cpsm
+[raghur/fruzzy]: https://github.com/raghur/fruzzy
 [Shougo/neoyank.vim]: https://github.com/Shougo/neoyank.vim
 [Shougo/junkfile.vim]: https://github.com/Shougo/junkfile.vim
 [chemzqm/unite-location]: https://github.com/chemzqm/unite-location
