@@ -238,7 +238,6 @@ Name           | Description
 [tyru/caw.vim] | Robust comment plugin with operator support
 [Shougo/vinarise.vim] | Hex editor
 [mzlogin/vim-markdown-toc] | Generate table of contents for Markdown files
-[easymotion/vim-easymotion] | Vim motions on speed
 [chemzqm/vim-easygit] | Git wrapper focus on simplity and usability
 [majutsushi/tagbar] | Displays tags in a window, ordered by scope
 [liuchengxu/vista.vim] | Viewer & Finder for LSP symbols and tags in Vim
@@ -479,7 +478,7 @@ Key   | Mode | Action
 `;` | _All_ | **Local Leader**
 Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
 `Backspace` | Normal | Match bracket (%)
-`K` | Normal | Open Zeal or Dash on some file types (except Python+Vim script)
+`gK` | Normal | Open Zeal or Dash on some file types
 `Y` | Normal | Yank to the end of line (y$)
 `<Return>` | Normal | Toggle fold (za)
 `S`+`<Return>` | Normal | Focus the current fold by closing all others (zMza)
@@ -676,21 +675,6 @@ Key   | Mode | Action
 ----- |:----:| ------------------
 `v` | Visual/select | Expand selection
 `V` | Visual/select | Reduce selection
-
-### Plugin: Easymotion
-
-Key   | Mode | Action
------ |:----:| ------------------
-`s`+`s` | Normal | Jump to two characters from input
-`s`+`d` | Normal | Jump to a character from input
-`s`+`f` | Normal | Jump over-windows
-`s`+`h` | Normal | Jump backwards in-line
-`s`+`l` | Normal | Jump forwards in-line
-`s`+`j` | Normal | Jump downwards
-`s`+`k` | Normal | Jump upwards
-`s`+`/` | Normal/operator | Jump to free-search
-`s`+`n` | Normal | Smart next occurrence
-`s`+`p` | Normal | Smart previous occurrence
 
 ### Plugin: ChooseWin
 
