@@ -10,6 +10,7 @@ Best with Neovim or Vim8 with +python3 extensions enabled.
 - Robust, yet light-weight
 - Lazy-load 95% of plugins with [Shougo/dein.vim]
 - Custom side-menu (try it out! <kbd>Leader</kbd>+<kbd>l</kbd>)
+- Custom context-menu (try it! <kbd>;<kbd>+<kbd>c</kbd>)
 - Modular configuration
 - Denite (Unite's successor) centric work-flow
 - Extensive Deoplete setup (auto-completion)
@@ -479,6 +480,7 @@ Key   | Mode | Action
 `Space` | _All_ | **Leader**
 `;` | _All_ | **Local Leader**
 Arrows | Normal | Resize splits (* Enable `g:elite_mode` in `.vault.vim`)
+`;`+`c` | Normal | Open context-menu
 `Backspace` | Normal | Match bracket (%)
 `gK` | Normal | Open Zeal or Dash on some file types
 `Y` | Normal | Yank to the end of line (y$)

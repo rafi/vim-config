@@ -247,6 +247,11 @@ vnoremap mj :m'>+<CR>gv=gv
 noremap  mk :m-2<CR>
 noremap  mj :m+<CR>
 
+" Context-aware action-menu, neovim only (see plugin/actionmenu.vim)
+if has('nvim')
+	nmap <silent> <LocalLeader>c :<C-u>ActionMenu<CR>
+endif
+
 " Session management shortcuts (see plugin/sessions.vim)
 nmap <silent> <Leader>se :<C-u>SessionSave<CR>
 nmap <silent> <Leader>os :<C-u>SessionLoad<CR>
@@ -256,8 +261,10 @@ if has('mac')
 	nmap <Leader>? :!open dict://<cword><CR><CR>
 
 	" Use Marked for real-time Markdown preview
+	"
 	if executable('/Applications/Marked 2.app/Contents/MacOS/Marked 2')
-		nmap <buffer><Leader>P :silent !open -a Marked\ 2.app '%:p'<CR>
+		autocmd user_events FileType markdown
+			\ nmap <buffer><Leader>P :silent !open -a Marked\ 2.app '%:p'<CR>
 	endif
 endif
 
