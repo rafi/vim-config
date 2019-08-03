@@ -364,6 +364,12 @@
 # ==========================================
 # Completion
 # ----------
+
+#- repo: neoclide/coc.nvim
+#  merge: 0
+#  rev: release
+#  hook_source: source $VIM_PATH/config/plugins/coc.vim
+
 - repo: Shougo/deoplete.nvim
   depends: context_filetype.vim
   on_event: InsertEnter
