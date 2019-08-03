@@ -1,6 +1,6 @@
-
-" General Settings
+" Neo/vim Settings
 "---------------------------------------------------------
+
 " General {{{
 set mouse=nv                 " Disable mouse in command-line mode
 set modeline                 " automatically setting options from modelines
@@ -85,12 +85,6 @@ set nospell spellfile=$VIM_PATH/spell/en.utf-8.add
 " History saving
 set history=1000
 if has('nvim')
-	"  ShaDa/viminfo:
-	"   ' - Maximum number of previously edited files marks
-	"   < - Maximum number of lines saved for each register
-	"   @ - Maximum number of items in the input-line history to be
-	"   s - Maximum size of an item contents in KiB
-	"   h - Disable the effect of 'hlsearch' when loading the shada
 	set shada='300,<50,@100,s10,h
 else
 	set viminfo='300,<10,@50,h,n$DATA_PATH/viminfo
@@ -111,6 +105,20 @@ if $SUDO_USER !=# '' && $USER !=# $SUDO_USER
 		set viminfo="NONE"
 	endif
 endif
+
+" Secure sensitive information, disable backup files in temp directories
+if exists('&backupskip')
+	set backupskip+=/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*,/private/var/*
+	set backupskip+=.vault.vim
+endif
+
+" Disable swap/undo/viminfo/shada files in temp directories or shm
+augroup user_secure
+	autocmd!
+	silent! autocmd BufNewFile,BufReadPre
+		\ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*,/private/var/*,.vault.vim
+		\ setlocal noswapfile noundofile nobackup nowritebackup viminfo= shada=
+augroup END
 
 " }}}
 " Tabs and Indents {{{
@@ -229,13 +237,6 @@ endif
 
 if exists('&winblend')
 	set winblend=20
-endif
-
-if has('folding')
-	set foldenable
-	set foldmethod=syntax
-	set foldlevelstart=99
-	set foldtext=FoldText()
 endif
 
 " }}}

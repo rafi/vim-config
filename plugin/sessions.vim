@@ -1,7 +1,24 @@
-
 " Session Management
 " ---
+"
+" Behaviors:
+" - Save active session when quitting vim completely
+"
+" Commands:
+" - SessionSave [name]: Create and activate new session for project
+" - SessionLoad [name]: Create and activate new session for project
+"
+" Options:
+" - g:session_directory defaults to DATA_PATH/session (see g:etc#cache_path)
+"
+" If [name] is empty, the current working-directory is used.
 
+if exists('g:loaded_sessionsplugin')
+	finish
+endif
+let g:loaded_sessionsplugin = 1
+
+" Options
 let g:session_directory = get(g:, 'session_directory', $DATA_PATH.'/session')
 
 " Save and persist session
@@ -13,7 +30,7 @@ command! -nargs=? -complete=customlist,<SID>session_list SessionLoad
 	\ call s:session_load(<q-args>)
 
 " Save session on quit if one is loaded
-augroup SessionAutoSave
+augroup plugin_sessions
 	autocmd!
 	" If session is loaded, write session file on quit
 	autocmd VimLeavePre *

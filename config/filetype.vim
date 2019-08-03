@@ -55,22 +55,23 @@ augroup MyAutoCmd " {{{
 	autocmd FileType gitcommit,qfreplace setlocal nofoldenable
 
 	" https://webpack.github.io/docs/webpack-dev-server.html#working-with-editors-ides-supporting-safe-write
-	autocmd FileType css,javascript,jsx,javascript.jsx
-		\ setlocal backupcopy=yes
-		\| setlocal equalprg=jslint
+	autocmd FileType css,javascript,jsx,javascript.jsx setlocal backupcopy=yes
+
+	autocmd FileType php
+		\ setlocal matchpairs-=<:> iskeyword+=\\ path+=/usr/local/share/pear
+"		\ | setlocal formatoptions=qroct " Correct indent after opening a phpdocblock
+
+	autocmd FileType python
+		\ setlocal foldmethod=indent expandtab smarttab nosmartindent
+		\ | setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=80
 
 	autocmd FileType zsh setlocal foldenable foldmethod=marker
 
-	autocmd FileType html
-		\ setlocal path+=./;/
-		\ | setlocal equalprg=tidy\ -i\ -q
-
-	" autocmd FileType json setlocal equalprg=jsonlint
+	autocmd FileType html setlocal path+=./;/
 
 	autocmd FileType markdown
-		\ setlocal expandtab
+		\ setlocal expandtab spell conceallevel=0
 		\ | setlocal autoindent formatoptions=tcroqn2 comments=n:>
-		\ | setlocal spell conceallevel=0
 
 	autocmd FileType apache setlocal path+=./;/
 
@@ -78,9 +79,6 @@ augroup MyAutoCmd " {{{
 
 	" autocmd FileType go highlight default link goErr WarningMsg |
 	" 	\ match goErr /\<err\>/
-
-	autocmd FileType xml
-		\ setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 
 augroup END " }}}
 
@@ -118,24 +116,6 @@ let g:SimpleJsIndenter_BriefMode = 1
 let g:SimpleJsIndenter_CaseIndentLevel = -1
 
 " }}}
-" Markdown {{{
-let g:markdown_fenced_languages = [
-	\  'css',
-	\  'javascript',
-	\  'js=javascript',
-	\  'json=javascript',
-	\  'python',
-	\  'py=python',
-	\  'docker=Dockerfile',
-	\  'makefile=make',
-	\  'sh',
-	\  'sass',
-	\  'xml',
-	\  'yaml',
-	\  'vim'
-	\]
-" }}}
-
 " Ruby {{{
 let g:ruby_no_expensive = 1
 

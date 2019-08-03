@@ -1,9 +1,18 @@
-" Nicer Folds
+" Nice Fold
 " ---
+"
+" Behaviors:
+" - Improve folds performance after modification
+" - Set a nice pattern for collapsed folds
+
+if exists('g:loaded_nicefold')
+	finish
+endif
+let g:loaded_nicefold = 1
 
 " Fast fold
 " Credits: https://github.com/Shougo/shougo-s-github
-augroup FastFold
+augroup plugin_fastfold
 	autocmd!
 	autocmd TextChangedI,TextChanged *
 		\  if &l:foldenable && &l:foldmethod !=# 'manual'
