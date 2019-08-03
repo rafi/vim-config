@@ -259,21 +259,6 @@ if has('mac')
 	if executable('/Applications/Marked 2.app/Contents/MacOS/Marked 2')
 		nmap <buffer><Leader>P :silent !open -a Marked\ 2.app '%:p'<CR>
 	endif
-
-	" Use Dash on Mac, for context help
-	if executable('/Applications/Dash.app/Contents/MacOS/Dash')
-		autocmd MyAutoCmd FileType yaml.ansible,php,css,less,html,markdown
-			\ nmap <silent><buffer> K :!open -g dash://"<C-R>=split(&ft, '\.')[0]<CR>:<cword>"&<CR><CR>
-		autocmd MyAutoCmd FileType javascript,javascript.jsx,sql,ruby,conf,sh
-			\ nmap <silent><buffer> K :!open -g dash://"<cword>"&<CR><CR>
-	endif
-
-" Use Zeal on Linux for context help
-elseif executable('zeal')
-	autocmd MyAutoCmd FileType yaml.ansible,php,css,less,html,markdown
-		\ nmap <silent><buffer> K :!zeal --query "<C-R>=split(&ft, '\.')[0]<CR>:<cword>"&<CR><CR>
-	autocmd MyAutoCmd FileType javascript,javascript.jsx,sql,ruby,conf,sh
-		\ nmap <silent><buffer> K :!zeal --query "<cword>"&<CR><CR>
 endif
 
 " }}}
