@@ -25,6 +25,11 @@ if has('vim_starting')
 	scriptencoding utf-8
 endif
 
+" Enables 24-bit RGB color in the TUI
+if has('termguicolors')
+	set termguicolors
+endif
+
 " What to save for views:
 set viewoptions-=options
 set viewoptions+=slash,unix
@@ -219,6 +224,11 @@ if has('folding')
 	set foldmethod=syntax
 	set foldlevelstart=99
 endif
+
+set showbreak=↪
+set listchars=tab:\▏\ ,extends:⟫,precedes:⟪,nbsp:␣,trail:·
+"set fillchars=vert:▉,fold:─
+" icons:  ▏│ ¦ ╎ ┆ ⋮ ⦙ ┊ 
 
 if has('patch-7.4.314')
 	" Do not display completion messages

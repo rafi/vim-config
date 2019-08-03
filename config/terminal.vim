@@ -1,5 +1,8 @@
 " Vim Only Terminal Tweaks: Colors, cursor shape, and tmux
-"---------------------------------------------------------
+" ---
+
+" Enable 256 color terminal
+set t_Co=256
 
 " Paste
 " Credits: https://github.com/Shougo/shougo-s-github

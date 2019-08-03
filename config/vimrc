@@ -101,7 +101,8 @@ call etc#util#source_file('config/plugins/all.vim')
 call etc#util#source_file('config/general.vim')
 call etc#util#source_file('config/filetype.vim')
 call etc#util#source_file('config/mappings.vim')
-call etc#util#source_file('config/theme.vim')
+
+call theme#init()
 
 " Load user custom local settings
 if filereadable(g:etc#vim_path.'/config/local.vim')
