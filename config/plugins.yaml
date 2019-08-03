@@ -9,15 +9,11 @@
 - repo: rafi/vim-badge
 - repo: thinca/vim-localrc
 - repo: christoomey/vim-tmux-navigator
-- repo: junegunn/vim-peekaboo
-- repo: romainl/vim-cool
-
-- repo: tpope/vim-sleuth
-  hook_add: let g:sleuth_neighbor_limit = 5
-
-- repo: sgur/vim-editorconfig
 - repo: itchyny/vim-gitbranch
 - repo: itchyny/vim-parenmatch
+- repo: romainl/vim-cool
+- repo: sgur/vim-editorconfig
+- { repo: tpope/vim-sleuth, hook_add: let g:sleuth_neighbor_limit = 5 }
 
 # GUI only:
 - { repo: equalsraf/neovim-gui-shim, if: has('gui_running') }
@@ -169,23 +165,15 @@
   on_cmd: Defx
   hook_source: source $VIM_PATH/config/plugins/defx.vim
 
-- repo: kristijanhusak/defx-git
-  on_source: defx.nvim
-
-- repo: kristijanhusak/defx-icons
-  on_source: defx.nvim
-  hook_source: |
-    let g:defx_icons_column_length = 2
-    let g:defx_icons_mark_icon = '✓'
+- { repo: kristijanhusak/defx-git, on_source: defx.nvim }
+- { repo: kristijanhusak/defx-icons, on_source: defx.nvim }
 
 - { repo: tyru/caw.vim, on_map: { nx: <Plug> }}
 - { repo: liuchengxu/vim-which-key, on_cmd: WhichKey }
-- { repo: t9md/vim-choosewin, on_map: { n: <Plug> }}
 - { repo: kana/vim-niceblock, on_map: { x: <Plug> }}
 - { repo: guns/xterm-color-table.vim, on_cmd: XtermColorTable }
 - { repo: mbbill/undotree, on_cmd: UndotreeToggle }
 - { repo: metakirby5/codi.vim, on_cmd: Codi }
-- { repo: Shougo/vimproc.vim, build: make, on_func: vimproc# }
 - { repo: reedes/vim-wordy, on_cmd: [ Wordy, NextWordy, PrevWordy ]}
 - { repo: brooth/far.vim, on_cmd: [ Far, Farp, F ] }
 - { repo: jreybert/vimagit, on_cmd: Magit }
@@ -193,6 +181,16 @@
 - { repo: lambdalisue/gina.vim, on_cmd: Gina }
 - { repo: cocopon/colorswatch.vim, on_cmd: ColorSwatchGenerate }
 - { repo: kana/vim-altr, on_map: { n: <Plug> }}
+- { repo: Shougo/vinarise.vim, on_cmd: Vinarise }
+
+- repo: t9md/vim-choosewin
+  on_map: { n: <Plug> }
+  hook_add: |
+    let g:choosewin_label = 'SDFJKLZXCV'
+    let g:choosewin_overlay_enable = 1
+    let g:choosewin_statusline_replace = 1
+    let g:choosewin_overlay_clear_multibyte = 0
+    let g:choosewin_blink_on_land = 0
 
 - repo: lambdalisue/suda.vim
   on_event: BufRead
@@ -210,10 +208,6 @@
   depends: open-browser.vim
   on_cmd: [ OpenGithubFile, OpenGithubIssue, OpenGithubProject ]
 
-- repo: Shougo/vinarise.vim
-  on_cmd: Vinarise
-  hook_add: let g:vinarise_enable_auto_detect = 1  # FIXME: Doesn't detect
-
 - repo: mzlogin/vim-markdown-toc
   on_cmd: [ GenTocGFM, GenTocRedcarpet, GenTocGitLab, UpdateToc ]
   hook_source: let g:vmt_auto_update_on_save = 0
@@ -228,7 +222,7 @@
     let g:EasyMotion_use_smartsign_us = 1
 
 - repo: chemzqm/vim-easygit
-  on_cmd: [Gcd, Glcd, Gcommit, Gblame, Gstatus, Gdiff, Gbrowse, Gstatus, Gpush]
+  on_cmd: [Gadd, Gcd, Glcd, Gcommit, Gblame, Gdiff, GdiffThis, Gstatus]
   hook_source: let g:easygit_enable_command = 1
 
 - repo: majutsushi/tagbar
@@ -238,6 +232,12 @@
     if executable('jsctags')
       let g:tagbar_type_javascript = { 'ctagsbin': 'jsctags' }
     endif
+
+- repo: liuchengxu/vista.vim
+  on_cmd: Vista
+  hook_source: |
+    let g:vista#renderer#enable_icon = 1
+    let g:vista_echo_cursor_strategy = 'scroll'
 
 - repo: beloglazov/vim-online-thesaurus  # FIXME
   on_cmd: [ OnlineThesaurusCurrentWord, Thesaurus ]
@@ -312,13 +312,12 @@
   hook_source: let g:committia_min_window_width = 70
 
 - repo: benekastah/neomake
-  on_event: BufWritePre
-  on_cmd: [ Neomake, NeomakeFile, NeomakeEnable ]
-  hook_source: source $VIM_PATH/config/plugins/neomake.vim
-
-- repo: lambdalisue/vim-improve-diff
-  on_event: [ InsertLeave, BufWinLeave ]
-  on_cmd: DiffOrig
+  on_path: .*
+  on_event: [ BufWritePre ]
+  on_cmd: [ Neomake, NeomakeFile, NeomakeEnable, NeomakeToggle, NeomakeInfo ]
+  hook_source: |
+    source $VIM_PATH/config/plugins/neomake.vim
+    call neomake#configure#automake('nrw')
 
 - repo: junegunn/goyo.vim
   depends: limelight.vim
@@ -362,43 +361,41 @@
   depends: context_filetype.vim
   on_event: InsertEnter
   hook_source: |
-    source $VIMPATH/config/plugins/deoplete.vim
+    source $VIM_PATH/config/plugins/deoplete.vim
     call deoplete#enable()
+
+- repo: deoplete-plugins/deoplete-go
+  build: make
+  on_ft: go
+  on_event: InsertEnter
+
+- repo: deoplete-plugins/deoplete-jedi
+  on_ft: python
+  on_event: InsertEnter
+  hook_source: autocmd user_events FileType python setlocal omnifunc=
+
+- repo: carlitux/deoplete-ternjs
+  build: npm install -g tern
+  if: executable('npm')
+  on_event: InsertEnter
+  on_ft: [ javascript, jsx ]
+  hook_source: autocmd user_events FileType javascript setlocal omnifunc=
+
+- repo: fszymanski/deoplete-emoji
+  on_ft: [ markdown, gitcommit ]
+  on_event: InsertEnter
 
 - repo: Shougo/neosnippet.vim
   depends: [ neosnippet-snippets, context_filetype.vim ]
   on_event: InsertCharPre
   on_ft: snippet
-  hook_add: let g:neosnippet#data_directory = $VARPATH.'/snippets'
+  hook_add: let g:neosnippet#data_directory = g:etc#cache_path . '/snippets'
   hook_source: |
     let g:neosnippet#enable_snipmate_compatibility = 1
     let g:neosnippet#enable_completed_snippet = 1
     let g:neosnippet#expand_word_boundary = 1
     let g:neosnippet#enable_complete_done = 1
-    autocmd MyAutoCmd InsertLeave * NeoSnippetClearMarkers
-
-- repo: ludovicchabant/vim-gutentags
-  if: executable('ctags')
-  on_path: .*
-  hook_add: |
-    let g:gutentags_cache_dir = g:etc#cache_path . '/tags'
-    let g:gutentags_generate_on_write = 1
-    let g:gutentags_generate_on_missing = 0
-    let g:gutentags_generate_on_new = 0
-    let g:gutentags_ctags_exclude_wildignore = 1
-    let g:gutentags_ctags_exclude = [
-      \ '*/wp-admin', '*/wp-content', '*/wp-includes',
-      \ '*/application/vendor', '*/vendor/ckeditor', '*/media/vendor'
-      \ ]
-
-- repo: mattn/emmet-vim
-  on_event: InsertEnter
-  on_ft: [ html, css, jsx, javascript, javascript.jsx ]
-  hook_source: |
-    let g:use_emmet_complete_tag = 0
-    let g:user_emmet_install_global = 0
-    let g:user_emmet_install_command = 0
-    let g:user_emmet_mode = 'i'
+    autocmd user_events InsertLeave * NeoSnippetClearMarkers
 
 - repo: Shougo/echodoc.vim
   on_event: CompleteDone
@@ -410,8 +407,8 @@
     let g:delimitMate_expand_cr = 1
     let g:delimitMate_excluded_ft = 'html'
 
-- { repo: Shougo/neosnippet-snippets, lazy: 1 }
-- { repo: Shougo/context_filetype.vim, lazy: 1 }
+- { repo: Shougo/neosnippet-snippets, on_event: InsertEnter }
+- { repo: Shougo/context_filetype.vim, on_event: InsertEnter }
 - { repo: Shougo/neco-vim, on_ft: vim }
 - { repo: Shougo/neoinclude.vim, on_source: deoplete.nvim }
 - { repo: Shougo/neco-syntax, on_source: deoplete.nvim }
@@ -431,38 +428,6 @@
     let g:jedi#quickfix_window_height = 10
     let g:jedi#use_splits_not_buffers = 'right'
 
-- repo: deoplete-plugins/deoplete-go
-  build: make
-  on_ft: go
-  on_event: InsertEnter
-
-- repo: deoplete-plugins/deoplete-jedi
-  on_ft: python
-  on_event: InsertEnter
-  hook_source: autocmd MyAutoCmd FileType python setlocal omnifunc=
-
-- repo: carlitux/deoplete-ternjs
-  build: npm install -g tern
-  if: executable('npm')
-  on_event: InsertEnter
-  on_ft: [ javascript, jsx, javascript.jsx ]
-  hook_source: |
-    let g:tern_request_timeout = 1
-    let g:tern_show_signature_in_pum = 0
-
-- repo: wellle/tmux-complete.vim
-  on_event: InsertEnter
-  hook_add: let g:tmuxcomplete#trigger = ''
-
-- repo: fszymanski/deoplete-emoji
-  on_ft: [ markdown, gitcommit ]
-  on_event: InsertEnter
-
-- repo: juliosueiras/vim-terraform-completion
-  hook_add: let g:terraform_completion_keys = 1
-  on_ft: [ terraform ]
-  on_event: InsertEnter
-
 - repo: ternjs/tern_for_vim
   build: npm install
   if: executable('npm')
@@ -473,8 +438,40 @@
     let g:tern#arguments = ['--persistent']
     let g:tern_request_timeout = 1
     let g:tern_show_signature_in_pum = 0
-  hook_post_source: |
-    autocmd MyAutoCmd FileType javascript setlocal omnifunc=tern#Complete
+    let g:tern_set_omni_function = 0
+
+- repo: mattn/emmet-vim
+  on_event: InsertEnter
+  on_ft: [ html, css, jsx, javascript ]
+  hook_source: |
+    let g:user_emmet_complete_tag = 0
+    let g:user_emmet_install_global = 0
+    let g:user_emmet_install_command = 0
+    let g:user_emmet_mode = 'i'
+
+- repo: ludovicchabant/vim-gutentags
+  if: executable('ctags')
+  on_path: .*
+  hook_add: |
+    let g:gutentags_cache_dir = g:etc#cache_path . '/tags'
+    let g:gutentags_generate_on_write = 1
+    let g:gutentags_generate_on_missing = 0
+    let g:gutentags_generate_on_new = 0
+    let g:gutentags_ctags_exclude_wildignore = 1
+    let g:gutentags_ctags_exclude = [
+      \ '*/wp-admin', '*/wp-content', '*/wp-includes',
+      \ '*/application/vendor', '*/vendor/ckeditor', '*/media/vendor'
+      \ ]
+
+- repo: Raimondi/delimitMate
+  on_event: InsertEnter
+  hook_source: |
+    let g:delimitMate_expand_cr = 1
+    let g:delimitMate_excluded_ft = 'html'
+
+- repo: wellle/tmux-complete.vim
+  on_event: InsertEnter
+  hook_add: let g:tmuxcomplete#trigger = ''
 
 # ==========================================
 # Denite
@@ -484,7 +481,7 @@
   trusted: 1
   hook_source: source $VIM_PATH/config/plugins/denite.vim
 
-- { repo: Shougo/neoyank.vim, on_event: TextYankPost, on_source: denite.nvim }
+- { repo: Shougo/neoyank.vim, on_source: denite.nvim, on_event: TextYankPost }
 - { repo: Shougo/junkfile.vim, on_source: denite.nvim }
 - { repo: chemzqm/unite-location, on_source: denite.nvim }
 - { repo: chemzqm/denite-git, on_source: denite.nvim }

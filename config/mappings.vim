@@ -247,7 +247,7 @@ vnoremap mj :m'>+<CR>gv=gv
 noremap  mk :m-2<CR>
 noremap  mj :m+<CR>
 
-" Session management shortcuts
+" Session management shortcuts (see plugin/sessions.vim)
 nmap <silent> <Leader>se :<C-u>SessionSave<CR>
 nmap <silent> <Leader>os :<C-u>SessionLoad<CR>
 

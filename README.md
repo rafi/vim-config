@@ -2,7 +2,7 @@
 
 Lean mean Neo/vim machine, 30-45ms startup time.
 
-Best with Neovim or Vim 8 with +python3 extensions enabled.
+Best with Neovim or Vim8 with +python3 extensions enabled.
 
 ## Features
 
@@ -151,7 +151,6 @@ Name           | Description
 [rafi/vim-badge] | Bite-size badges for the tab & status lines
 [thinca/vim-localrc] | Enable configuration file of each directory
 [christoomey/tmux-navigator] | Seamless navigation between tmux panes and vim splits
-[junegunn/vim-peekaboo] | See the contents of registers
 [romainl/vim-cool] | Simple plugin that makes hlsearch more useful
 [tpope/vim-sleuth] | Heuristically set buffer indent options
 [sgur/vim-editorconfig] | EditorConfig plugin written entirely in Vimscript
@@ -225,7 +224,6 @@ Name           | Description
 [guns/xterm-color-table.vim] | Display 256 xterm colors with their RGB equivalents
 [mbbill/undotree] | Ultimate undo history visualizer
 [metakirby5/codi.vim] | The interactive scratchpad for hackers
-[Shougo/vimproc.vim] | Interactive command execution
 [reedes/vim-wordy] | Uncover usage problems in your writing
 [brooth/far.vim] | Fast find and replace plugin
 [jreybert/vimagit] | Ease your git work-flow within Vim
@@ -243,6 +241,7 @@ Name           | Description
 [easymotion/vim-easymotion] | Vim motions on speed
 [chemzqm/vim-easygit] | Git wrapper focus on simplity and usability
 [majutsushi/tagbar] | Displays tags in a window, ordered by scope
+[liuchengxu/vista.vim] | Viewer & Finder for LSP symbols and tags in Vim
 [beloglazov/vim-online-thesaurus] | Look up words in an online thesaurus
 
 ### Interface
@@ -260,7 +259,6 @@ Name           | Description
 [hotwatermorning/auto-git-diff] | Display Git diff for interactive rebase
 [rhysd/committia.vim] | Pleasant editing on Git commit messages
 [benekastah/neomake] | Asynchronous linting and make framework
-[lambdalisue/vim-improve-diff] | Improve diff experience
 [junegunn/goyo] | Distraction-free writing
 [junegunn/limelight] | Hyperfocus-writing
 [itchyny/calendar.vim] | Calendar application
@@ -326,7 +324,6 @@ Name           | Description
 [rafi/vim-badge]: https://github.com/rafi/vim-badge
 [thinca/vim-localrc]: https://github.com/thinca/vim-localrc
 [christoomey/tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator
-[junegunn/vim-peekaboo]: https://github.com/junegunn/vim-peekaboo
 [romainl/vim-cool]: https://github.com/romainl/vim-cool
 [tpope/vim-sleuth]: https://github.com/tpope/vim-sleuth
 [sgur/vim-editorconfig]: https://github.com/sgur/vim-editorconfig
@@ -390,7 +387,6 @@ Name           | Description
 [guns/xterm-color-table.vim]: https://github.com/guns/xterm-color-table.vim
 [mbbill/undotree]: https://github.com/mbbill/undotree
 [metakirby5/codi.vim]: https://github.com/metakirby5/codi.vim
-[Shougo/vimproc.vim]: https://github.com/Shougo/vimproc.vim
 [reedes/vim-wordy]: https://github.com/reedes/vim-wordy
 [brooth/far.vim]: https://github.com/brooth/far.vim
 [jreybert/vimagit]: https://github.com/jreybert/vimagit
@@ -405,9 +401,9 @@ Name           | Description
 [tyru/caw.vim]: https://github.com/tyru/caw.vim
 [Shougo/vinarise.vim]: https://github.com/Shougo/vinarise.vim
 [mzlogin/vim-markdown-toc]: https://github.com/mzlogin/vim-markdown-toc
-[easymotion/vim-easymotion]: https://github.com/easymotion/vim-easymotion
 [chemzqm/vim-easygit]: https://github.com/chemzqm/vim-easygit
 [majutsushi/tagbar]: https://github.com/majutsushi/tagbar
+[liuchengxu/vista.vim]: https://github.com/liuchengxu/vista.vim
 [beloglazov/vim-online-thesaurus]: https://github.com/beloglazov/vim-online-thesaurus
 
 [haya14busa/vim-asterisk]: https://github.com/haya14busa/vim-asterisk
@@ -421,7 +417,6 @@ Name           | Description
 [hotwatermorning/auto-git-diff]: https://github.com/hotwatermorning/auto-git-diff
 [rhysd/committia.vim]: https://github.com/rhysd/committia.vim
 [benekastah/neomake]: https://github.com/neomake/neomake
-[lambdalisue/vim-improve-diff]: https://github.com/lambdalisue/vim-improve-diff
 [junegunn/goyo]: https://github.com/junegunn/goyo.vim
 [junegunn/limelight]: https://github.com/junegunn/limelight.vim
 [itchyny/calendar.vim]: https://github.com/itchyny/calendar.vim
@@ -731,11 +726,11 @@ Key   | Mode | Action
 
 Key   | Mode | Action
 ----- |:----:| ------------------
-`<leader>`+`hj` | Normal | Jump to next hunk
-`<leader>`+`hk` | Normal | Jump to previous hunk
-`<leader>`+`hs` | Normal | Stage hunk
-`<leader>`+`hr` | Normal | Revert hunk
-`<leader>`+`hp` | Normal | Preview hunk
+`]`+`g` | Normal | Jump to next hunk
+`]`+`g` | Normal | Jump to previous hunk
+`g`+`S` | Normal | Stage hunk
+`<leader>`+`gr` | Normal | Revert hunk
+`g`+`s` | Normal | Preview hunk
 
 ### Plugin: Linediff
 
@@ -763,5 +758,5 @@ Key   | Mode | Action
 Big thanks to the dark knight [Shougo].
 
 [Shougo]: https://github.com/Shougo
-[lazy-loaded]: ./config/plugins.yaml#L28
+[lazy-loaded]: ./config/plugins.yaml#L25
 [yaml2json]: https://github.com/bronze1man/yaml2json
