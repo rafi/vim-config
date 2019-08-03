@@ -33,7 +33,7 @@
 - { repo: groenewege/vim-less, on_ft: less }
 - { repo: othree/csscomplete.vim, on_ft: css }
 - { repo: iloginow/vim-stylus, on_ft: stylus }  # or wavded/vim-stylus ?
-- { repo: mustache/vim-mustache-handlebars, on_ft: html }
+- { repo: mustache/vim-mustache-handlebars, on_ft: [html, mustache, handlebars]}
 
 - repo: othree/html5.vim
   on_ft: html
@@ -76,29 +76,28 @@
 
 # Javascript related
 - repo: pangloss/vim-javascript
-  on_ft: [ javascript, jsx, javascript.jsx ]
+  on_ft: [ javascript, jsx ]
   hook_source: |
     let g:javascript_plugin_jsdoc = 1
     let g:javascript_plugin_flow = 1
     highlight! link jsFutureKeys PreProc
 
-- { repo: othree/jspc.vim, on_ft: [ javascript, jsx, javascript.jsx ] }
-- { repo: posva/vim-vue, on_ft: vue }
-- { repo: heavenshell/vim-jsdoc, on_ft: [ javascript, jsx, javascript.jsx ] }
-- { repo: jparise/vim-graphql, on_ft: [ javascript, jsx, javascript.jsx ] }
-- { repo: moll/vim-node, on_ft: [ javascript, jsx, javascript.jsx ] }
-- { repo: elzr/vim-json, on_ft: json }
-
 - repo: MaxMEllon/vim-jsx-pretty
-  on_ft: [ javascript, jsx, javascript.jsx ]
+  on_ft: [ javascript, jsx ]
   depends: vim-javascript
   hook_source: let g:vim_jsx_pretty_colorful_config = 1
 
+- { repo: heavenshell/vim-jsdoc, on_ft: [ javascript, jsx ] }
+- { repo: jparise/vim-graphql, on_ft: [ javascript, jsx ] }
+- { repo: moll/vim-node, on_ft: [ javascript, jsx ] }
+- { repo: elzr/vim-json, on_ft: json }
+- { repo: posva/vim-vue, on_ft: vue }
+
 # pangloss/javascript vs. othree/yajs
-#- { repo: othree/yajs.vim, on_ft: [ javascript, jsx, javascript.jsx ]}
-#- { repo: gavocanov/vim-js-indent, on_ft: [ javascript, jsx, javascript.jsx ]}
+#- { repo: othree/yajs.vim, on_ft: [ javascript, jsx ]}
+#- { repo: gavocanov/vim-js-indent, on_ft: [ javascript, jsx ]}
 #- repo: mxw/vim-jsx
-#  on_ft: [ javascript, jsx, javascript.jsx ]
+#  on_ft: [ javascript, jsx ]
 #  hook_source: let g:jsx_ext_required = 0
 
 # Golang related
@@ -132,7 +131,6 @@
 - { repo: raimon49/requirements.txt.vim, on_ft: requirements }
 
 # Misc
-- { repo: pearofducks/ansible-vim, on_ft: [ yaml.ansible, ansible_hosts ]}
 - { repo: StanAngeloff/php.vim, on_ft: php }
 - { repo: tbastos/vim-lua, on_ft: lua }
 - { repo: vim-ruby/vim-ruby, on_ft: ruby }
@@ -141,7 +139,7 @@
 - { repo: vim-jp/syntax-vim-ex, on_ft: vim }
 - { repo: chrisbra/csv.vim, on_ft: csv }
 - { repo: tpope/vim-git, on_ft: [ gitcommit, gitrebase, gitconfig ]}
-- { repo: ekalinin/Dockerfile.vim, on_ft: [ Dockerfile, yaml.docker-compose ]}
+- { repo: ekalinin/Dockerfile.vim, on_ft: [ Dockerfile, docker-compose ]}
 - { repo: tmux-plugins/vim-tmux, on_ft: tmux }
 - { repo: MTDL9/vim-log-highlighting, on_ft: log }
 - { repo: cespare/vim-toml, on_ft: toml }
@@ -152,6 +150,19 @@
 - { repo: lifepillar/pgsql.vim, on_ft: pgsql }
 - { repo: chr4/nginx.vim, on_ft: nginx }
 - { repo: IN3D/vim-raml, on_ft: raml }
+
+- repo: pearofducks/ansible-vim
+  on_ft: [ ansible, ansible_hosts, jinja2 ]
+  hook_add: |
+    let g:ansible_extra_keywords_highlight = 1
+    let g:ansible_template_syntaxes = {
+      \   '*.json.j2': 'json',
+      \   '*.(ba)?sh.j2': 'sh',
+      \   '*.ya?ml.j2': 'yaml',
+      \   '*.xml.j2': 'xml',
+      \   '*.conf.j2': 'conf',
+      \   '*.ini.j2': 'ini'
+      \ }
 
 - repo: hashivim/vim-terraform
   on_ft: terraform
@@ -423,7 +434,7 @@
   build: npm install
   if: executable('npm')
   on_event: InsertEnter
-  on_ft: [ javascript, jsx, javascript.jsx ]
+  on_ft: [ javascript, jsx ]
   hook_add: |
     let g:tern#command = ['tern']
     let g:tern#arguments = ['--persistent']
