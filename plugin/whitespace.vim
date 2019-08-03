@@ -7,7 +7,7 @@ command! -range=% WhitespaceErase call <SID>WhitespaceErase(<line1>,<line2>)
 
 " Whitespace events
 if v:version >= 702
-	augroup WhitespaceMatch
+	augroup plugin_whitespace
 		autocmd!
 		autocmd InsertEnter * call <SID>ToggleWhitespace('i')
 		autocmd InsertLeave * call <SID>ToggleWhitespace('n')
@@ -26,7 +26,7 @@ function! s:ToggleWhitespace(mode)
 			call matchdelete(w:whitespace_match_id)
 			call matchadd('ExtraWhitespace', l:pattern, 10, w:whitespace_match_id)
 		else
-			highlight! link ExtraWhitespace  SpellBad
+			highlight! link ExtraWhitespace SpellBad
 			let w:whitespace_match_id = matchadd('ExtraWhitespace', l:pattern)
 		endif
 	endif

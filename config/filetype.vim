@@ -1,13 +1,11 @@
-
 " File Types
-"-------------------------------------------------
+" ---
 
-" Reload vim config automatically {{{
-execute 'autocmd MyAutoCmd BufWritePost '.g:etc#vim_path.'/config/* nested'
-	\ .' source $MYVIMRC | redraw'
-" }}}
+augroup user_plugin_filetype " {{{
+	autocmd!
 
-augroup MyAutoCmd " {{{
+	" Reload vim config automatically
+	autocmd BufWritePost $VIM_PATH/config/* nested source $MYVIMRC | redraw
 
 	" Highlight current line only on focused window
 	autocmd WinEnter,InsertLeave * set cursorline
@@ -19,7 +17,7 @@ augroup MyAutoCmd " {{{
 	" Check if file changed when its window is focus, more eager than 'autoread'
 	autocmd FocusGained * checktime
 
-	autocmd Syntax * if 5000 < line('$') | syntax sync minlines=200 | endif
+	autocmd Syntax * if line('$') > 5000 | syntax sync minlines=200 | endif
 
 	" Update filetype on save if empty
 	autocmd BufWritePost * nested

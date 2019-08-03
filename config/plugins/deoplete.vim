@@ -1,4 +1,4 @@
-" deoplete for nvim
+" deoplete
 " ---
 
 " call deoplete#custom#option('profile', v:true)
@@ -7,7 +7,6 @@
 
 " General settings " {{{
 " ---
-
 call deoplete#custom#option({
 	\ 'auto_refresh_delay': 10,
 	\ 'camel_case': v:true,
@@ -27,9 +26,9 @@ let g:deoplete#sources#jedi#short_types = 1
 " Deoplete TernJS settings
 let g:deoplete#sources#ternjs#filetypes = [
 	\ 'jsx',
+	\ 'javascript',
 	\ 'javascript.jsx',
 	\ 'vue',
-	\ 'javascript'
 	\ ]
 
 let g:deoplete#sources#ternjs#timeout = 3
@@ -147,8 +146,10 @@ call deoplete#custom#source('denite', 'matchers',
 " }}}
 " Key-mappings and Events " {{{
 " ---
-
-autocmd MyAutoCmd CompleteDone * silent! pclose!
+augroup user_plugin_deoplete
+	autocmd!
+	autocmd CompleteDone * silent! pclose!
+augroup END
 
 " Movement within 'ins-completion-menu'
 imap <expr><C-j>   pumvisible() ? "\<Down>" : "\<C-j>"

@@ -93,7 +93,7 @@ if dein#tap('neosnippet.vim')
 endif
 
 if dein#tap('emmet-vim')
-	autocmd MyAutoCmd FileType html,css,jsx,javascript,javascript.jsx
+	autocmd user_events FileType html,css,jsx,javascript,javascript.jsx
 		\ EmmetInstall
 		\ | imap <buffer> <C-Return> <Plug>(emmet-expand-abbr)
 endif
@@ -157,7 +157,7 @@ if dein#tap('vim-bookmarks')
 endif
 
 if dein#tap('auto-git-diff')
-	autocmd MyAutoCmd FileType gitrebase
+	autocmd user_events FileType gitrebase
 		\  nmap <buffer><CR>  <Plug>(auto_git_diff_scroll_manual_update)
 		\| nmap <buffer><C-n> <Plug>(auto_git_diff_scroll_down_page)
 		\| nmap <buffer><C-p> <Plug>(auto_git_diff_scroll_up_page)
@@ -205,7 +205,7 @@ if dein#tap('jedi-vim')
 endif
 
 if dein#tap('tern_for_vim')
-	autocmd MyAutoCmd FileType javascript,jsx,javascript.jsx
+	autocmd user_events FileType javascript,jsx,javascript.jsx
 		\  nnoremap <silent><buffer> K          :<C-u>TernDoc<CR>
 		\| nnoremap <silent><buffer> <C-]>      :<C-u>TernDefSplit<CR>
 		\| nnoremap <silent><buffer> <leader>g  :<C-u>TernType<CR>
@@ -222,7 +222,7 @@ if dein#tap('vim-gitgutter')
 endif
 
 if dein#tap('vim-go')
-	autocmd MyAutoCmd FileType go
+	autocmd user_events FileType go
 		\   nmap <C-]> <Plug>(go-def)
 		\ | nmap <Leader>god  <Plug>(go-describe)
 		\ | nmap <Leader>goc  <Plug>(go-callees)
@@ -236,7 +236,7 @@ if dein#tap('vim-go')
 endif
 
 if dein#tap('phpcomplete-extended')
-	autocmd MyAutoCmd FileType php
+	autocmd user_events FileType php
 		\   nmap <silent> <unique> K <Plug>(phpcomplete-extended-doc)
 		\ | nmap <silent> <unique> <C-]> <Plug>(phpcomplete-extended-goto)
 		\ | nmap <silent> <unique> <Leader>a <Plug>(phpcomplete-extended-add-use)
@@ -341,7 +341,7 @@ if dein#tap('caw.vim')
 			xmap <buffer> gcc <Plug>(caw:hatpos:toggle)
 		endif
 	endfunction
-	autocmd MyAutoCmd FileType * call InitCaw()
+	autocmd user_events FileType * call InitCaw()
 	call InitCaw()
 endif
 

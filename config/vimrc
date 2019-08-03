@@ -29,9 +29,8 @@ if isdirectory(g:etc#cache_path.'/venv/neovim3')
 endif
 
 " Set augroup
-augroup MyAutoCmd
+augroup user_events
 	autocmd!
-	autocmd CursorHold *? syntax sync minlines=300
 augroup END
 
 " Disable vim distribution plugins

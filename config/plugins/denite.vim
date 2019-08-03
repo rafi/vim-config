@@ -91,10 +91,15 @@ elseif executable('rg')
 endif
 
 " KEY MAPPINGS
-autocmd MyAutoCmd FileType denite call s:denite_settings()
+augroup user_plugin_denite
+	autocmd!
+	autocmd FileType denite call s:denite_settings()
+	autocmd FileType denite-filter call s:denite_filter_settings()
+augroup END
+
 function! s:denite_settings() abort
-	" highlight! link CursorLine Visual
 	setlocal signcolumn=no
+	let b:coc_enabled = 0
 	nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
 	nnoremap <silent><buffer><expr> i    denite#do_map('open_filter_buffer')
 	nnoremap <silent><buffer><expr> /    denite#do_map('open_filter_buffer')
@@ -112,9 +117,9 @@ function! s:denite_settings() abort
 	nnoremap <silent><buffer><expr><nowait> <Space> denite#do_map('toggle_select').'j'
 endfunction
 
-autocmd MyAutoCmd FileType denite-filter call s:denite_filter_settings()
 function! s:denite_filter_settings() abort
-	setlocal nocursorline
+	setlocal nocursorline signcolumn=no
+	call deoplete#custom#buffer_option('auto_complete', v:false)
 
 	nnoremap <silent><buffer><expr> <Esc>  denite#do_map('quit')
 	" inoremap <silent><buffer><expr> <Esc>  denite#do_map('quit')
