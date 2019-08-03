@@ -35,16 +35,12 @@ augroup user_plugin_filetype " {{{
 	" When editing a file, always jump to the last known cursor position.
 	" Don't do it when the position is invalid or when inside an event handler
 	autocmd BufReadPost *
-		\ if &ft !~ '^gitcommit'
-		\      && ! &diff && line("'\"") > 0 && line("'\"") <= line("$")
+		\ if &ft !~# 'commit' && ! &diff &&
+		\      line("'\"") >= 1 && line("'\"") <= line("$")
 		\|   execute 'normal! g`"zvzz'
 		\| endif
 
-	autocmd TabLeave * let g:lasttab = tabpagenr()
-
 	autocmd FileType crontab setlocal nobackup nowritebackup
-
-	autocmd FileType css setlocal equalprg=csstidy\ -\ --silent=true
 
 	autocmd FileType yaml.docker-compose setlocal expandtab
 

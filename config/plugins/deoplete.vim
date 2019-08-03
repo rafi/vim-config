@@ -130,14 +130,13 @@ call deoplete#custom#source('syntax',        'rank', 50)
 " Default matchers: ['matcher/length', 'matcher/fuzzy']
 
 call deoplete#custom#source('_', 'matchers',
-	\ ['matcher_fuzzy', 'matcher_length'])
+	\ [ 'matcher_fuzzy', 'matcher_length' ])
 
 call deoplete#custom#source('_', 'converters', [
-	\ 'converter_remove_paren',
-	\ 'converter_remove_overlap',
-	\ 'matcher_length',
-	\ 'converter_truncate_abbr',
-	\ 'converter_truncate_menu',
+	\   'converter_remove_paren',
+	\   'converter_remove_overlap',
+	\   'converter_truncate_abbr',
+	\   'converter_truncate_menu',
 	\ ])
 
 call deoplete#custom#source('denite', 'matchers',

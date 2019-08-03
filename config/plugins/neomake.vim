@@ -1,9 +1,6 @@
 
 " Neomake
 " ---------
-let g:neomake_open_list = 0
-let g:neomake_verbose = 1
-
 if ! empty(g:python3_host_prog)
 	let g:neomake_python_python_exe = g:python3_host_prog
 endif

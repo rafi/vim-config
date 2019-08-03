@@ -17,7 +17,7 @@ setlocal iskeyword+=:
 setlocal iskeyword+=#
 setlocal iskeyword+=-
 
-wincmd L
+wincmd K
 
 " Jump to links with enter
 nmap <buffer> <CR> <C-]>

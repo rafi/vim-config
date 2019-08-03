@@ -139,10 +139,7 @@ set shiftround      " Round indent to multiple of 'shiftwidth'
 set timeout ttimeout
 set timeoutlen=750  " Time out on mappings
 set updatetime=400  " Idle time to write swap and trigger CursorHold
-" set updatetime=1000 " Idle time to write swap and trigger CursorHold
-
-" Time out on key codes
-set ttimeoutlen=10
+set ttimeoutlen=10  " Time out on key codes
 
 " }}}
 " Searching {{{
@@ -151,12 +148,17 @@ set ignorecase      " Search ignoring case
 set smartcase       " Keep case when searching with *
 set infercase       " Adjust case in insert completion mode
 set incsearch       " Incremental search
-set hlsearch        " Highlight search results
 set wrapscan        " Searches wrap around the end of the file
 set showmatch       " Jump to matching bracket
 set matchpairs+=<:> " Add HTML brackets to pair matching
 set matchtime=1     " Tenths of a second to show the matching paren
 set cpoptions-=m    " showmatch will wait 0.5s or until a char is typed
+set showfulltag     " Show tag and tidy search in completion
+"set complete=.      " No wins, buffs, tags, include scanning
+
+if exists('+inccommand')
+	set inccommand=nosplit
+endif
 
 " }}}
 " Behavior {{{
@@ -171,24 +173,21 @@ set switchbuf=useopen,usetab    " Jump to the first open window in any tab
 set switchbuf+=vsplit           " Switch buffer behavior to vsplit
 set backspace=indent,eol,start  " Intuitive backspacing in insert mode
 set diffopt=filler,iwhite       " Diff mode: show fillers, ignore whitespace
-set showfulltag                 " Show tag and tidy search in completion
-set complete=.                  " No wins, buffs, tags, include scanning
-set completeopt=menuone         " Show menu even for one item
+set completeopt=menuone         " Always show menu and preview
 set completeopt+=noselect       " Do not select a match in the menu
+
 if has('patch-7.4.775')
+	" Do not insert any text for a match until the user selects from menu
 	set completeopt+=noinsert
 endif
 
 if has('patch-8.1.0360')
 	set diffopt+=internal,algorithm:patience
-endif
-
-if exists('+inccommand')
-	set inccommand=nosplit
+	" set diffopt=indent-heuristic,algorithm:patience
 endif
 
 " }}}
-" Editor UI Appearance {{{
+" Editor UI {{{
 " --------------------
 set noshowmode          " Don't show mode in cmd window
 set shortmess=aoOTI     " Shorten messages and don't show intro
@@ -207,7 +206,7 @@ set pumheight=15        " Pop-up menu's line height
 set helpheight=12       " Minimum help window height
 set previewheight=12    " Completion preview height
 
-set noshowcmd           " Don't show command in status line
+set showcmd             " Show command in status line
 set cmdheight=2         " Height of the command line
 set cmdwinheight=5      " Command-line lines
 set equalalways         " Resize windows on split or close
@@ -218,24 +217,27 @@ set display=lastline
 " Do not display completion messages
 " Patch: https://groups.google.com/forum/#!topic/vim_dev/WeBBjkXE8H8
 if has('patch-7.4.314')
+	" Do not display completion messages
 	set shortmess+=c
 endif
 
-" Do not display message when editing files
 if has('patch-7.4.1570')
+	" Do not display message when editing files
 	set shortmess+=F
 endif
 
-" For snippet_complete marker
 if has('conceal') && v:version >= 703
+	" For snippet_complete marker
 	set conceallevel=2 concealcursor=niv
 endif
 
 if exists('&pumblend')
+	" pseudo-transparency for completion menu
 	set pumblend=20
 endif
 
 if exists('&winblend')
+	" pseudo-transparency for floating window
 	set winblend=20
 endif
 

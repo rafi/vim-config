@@ -12,7 +12,7 @@ if dein#tap('denite.nvim')
 	nnoremap <silent><LocalLeader>l :<C-u>Denite location_list -buffer-name=list<CR>
 	nnoremap <silent><LocalLeader>q :<C-u>Denite quickfix -buffer-name=list<CR>
 	nnoremap <silent><LocalLeader>n :<C-u>Denite dein<CR>
-	nnoremap <silent><LocalLeader>g :<C-u>Denite grep -buffer-name=search<CR>
+	nnoremap <silent><LocalLeader>g :<C-u>Denite grep -no-start-filter<CR>
 	nnoremap <silent><LocalLeader>j :<C-u>Denite jump change file/point -buffer-name=jump<CR>
 	nnoremap <silent><LocalLeader>u :<C-u>Denite junkfile:new junkfile<CR>
 	nnoremap <silent><LocalLeader>o :<C-u>Denite outline<CR>
@@ -28,9 +28,9 @@ if dein#tap('denite.nvim')
 	nnoremap <silent><LocalLeader>; :<C-u>Denite command command_history<CR>
 
 	" chemzqm/denite-git
-	nnoremap <silent> <Leader>gl :<C-u>Denite gitlog:all -buffer-name=git<CR>
-	nnoremap <silent> <Leader>gs :<C-u>Denite gitstatus -buffer-name=git<CR>
-	nnoremap <silent> <Leader>gc :<C-u>Denite gitbranch -buffer-name=git<CR>
+	nnoremap <silent> <Leader>gl :<C-u>Denite gitlog:all -no-start-filter<CR>
+	nnoremap <silent> <Leader>gs :<C-u>Denite gitstatus -no-start-filter<CR>
+	nnoremap <silent> <Leader>gc :<C-u>Denite gitbranch -no-start-filter<CR>
 
 	" Open Denite with word under cursor or selection
 	nnoremap <silent> <Leader>gt :DeniteCursorWord tag:include -buffer-name=tag -immediately<CR>
@@ -43,22 +43,9 @@ if dein#tap('denite.nvim')
 	function! s:get_selection(cmdtype)
 		let temp = @s
 		normal! gv"sy
-		let @/ = substitute(escape(@s, '\'.a:cmdtype), '\n', '\\n', 'g')
+		let @/ = substitute(escape(@s, '\' . a:cmdtype), '\n', '\\n', 'g')
 		let @s = temp
-	endfunction "}}}
-endif
-
-if dein#tap('vim-denite-z')
-	command! -nargs=+ -complete=file Z
-		\ call denite#start([{'name': 'z', 'args': [<q-args>], {'immediately': 1}}])
-endif
-
-if dein#tap('tagbar')
-	nnoremap <silent> <Leader>o   :<C-u>TagbarOpenAutoClose<CR>
-
-	" Also use h/l to open/close folds
-	let g:tagbar_map_closefold = ['h', '-', 'zc']
-	let g:tagbar_map_openfold = ['l', '+', 'zo']
+	endfunction
 endif
 
 if dein#tap('defx.nvim')
@@ -68,20 +55,19 @@ if dein#tap('defx.nvim')
 		\ :<C-u>Defx -resume -buffer-name=tab`tabpagenr()` -search=`expand('%:p')`<CR>
 endif
 
-if dein#tap('nerdtree')
-	let g:NERDTreeMapOpenSplit = 'sv'
-	let g:NERDTreeMapOpenVSplit = 'sg'
-	let g:NERDTreeMapOpenInTab = 'st'
-	let g:NERDTreeMapOpenInTabSilent = 'sT'
-	let g:NERDTreeMapUpdirKeepOpen = '<BS>'
-	let g:NERDTreeMapOpenRecursively = 't'
-	let g:NERDTreeMapCloseChildren = 'T'
-	let g:NERDTreeMapToggleHidden = '.'
+if dein#tap('vim-denite-z')
+	command! -nargs=+ -complete=file Z
+		\ call denite#start([{'name': 'z', 'args': [<q-args>], {'immediately': 1}}])
+endif
 
-	nnoremap <silent> <Leader>e :<C-u>let NERDTreeWinPos=0 \| NERDTreeToggle<CR>
-	" nnoremap <silent> <LocalLeader>a :<C-u>let NERDTreeWinPos=0 \| NERDTreeFind<CR>
-	" nnoremap <silent> <LocalLeader>E :<C-u>let NERDTreeWinPos=1 \| NERDTreeToggle<CR>
-	" nnoremap <silent> <LocalLeader>A :<C-u>let NERDTreeWinPos=1 \| NERDTreeFind<CR>
+if dein#tap('tagbar')
+	" Also use h/l to open/close folds
+	let g:tagbar_map_closefold = ['h', '-', 'zc']
+	let g:tagbar_map_openfold = ['l', '+', 'zo']
+endif
+
+if dein#tap('vista.vim')
+	nnoremap <silent> <Leader>o :<C-u>Vista<CR>
 endif
 
 if dein#tap('neosnippet.vim')

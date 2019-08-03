@@ -137,7 +137,6 @@ cmap W!! w !sudo tee % >/dev/null
 
 " I like to :quit with 'q', shrug.
 nnoremap <silent> q :<C-u>:quit<CR>
-autocmd MyAutoCmd FileType man nnoremap <silent><buffer> q :<C-u>:quit<CR>
 
 " Macros
 nnoremap Q q
@@ -163,9 +162,6 @@ nnoremap <silent> <A-j> :<C-U>tabnext<CR>
 nnoremap <silent> <A-k> :<C-U>tabprevious<CR>
 nnoremap <silent> <C-Tab> :<C-U>tabnext<CR>
 nnoremap <silent> <C-S-Tab> :<C-U>tabprevious<CR>
-" Uses g:lasttab set on TabLeave in MyAutoCmd
-let g:lasttab = 1
-nmap <silent> \\ :execute 'tabn '.g:lasttab<CR>
 
 " }}}
 " Totally Custom {{{
@@ -227,9 +223,11 @@ function! s:toggle_contrast(delta)
 	endif
 endfunction
 
-" Location list movement
-nmap <Leader>j :lnext<CR>
-nmap <Leader>k :lprev<CR>
+" Location/quickfix list movement
+nmap ]c :lnext<CR>
+nmap [c :lprev<CR>
+nmap ]q :cnext<CR>
+nmap [q :cprev<CR>
 
 " Duplicate lines
 nnoremap <Leader>d m`YP``
@@ -259,8 +257,7 @@ if has('mac')
 
 	" Use Marked for real-time Markdown preview
 	if executable('/Applications/Marked 2.app/Contents/MacOS/Marked 2')
-		autocmd MyAutoCmd FileType markdown
-			\ nmap <buffer><Leader>P :silent !open -a Marked\ 2.app '%:p'<CR>
+		nmap <buffer><Leader>P :silent !open -a Marked\ 2.app '%:p'<CR>
 	endif
 
 	" Use Dash on Mac, for context help
@@ -332,17 +329,18 @@ function! s:SweepBuffers()
 	endif
 endfunction
 
-" OpenChangedFiles COMMAND
 " Open a split for each dirty file in git
 function! OpenChangedFiles()
-	only " Close all windows, unless they're modified
+	silent only " Close all windows, unless they're modified
 	let status =
 		\ system('git status -s | grep "^ \?\(M\|A\|UU\)" | sed "s/^.\{3\}//"')
 	let filenames = split(status, "\n")
-	exec 'edit ' . filenames[0]
-	for filename in filenames[1:]
-		exec 'sp ' . filename
-	endfor
+	if ! empty(filenames)
+		exec 'edit ' . filenames[0]
+		for filename in filenames[1:]
+			exec 'sp ' . filename
+		endfor
+	endif
 endfunction
 
 " vim: set ts=2 sw=2 tw=80 noet :

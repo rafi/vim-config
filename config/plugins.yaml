@@ -254,11 +254,14 @@
 
 - repo: itchyny/vim-cursorword
   on_path: .*
-  hook_add: |
-    autocmd MyAutoCmd FileType denite,qf,easygitblame let b:cursorword=0
-    autocmd MyAutoCmd WinEnter * if &diff | let b:cursorword=0 | endif
-    autocmd MyAutoCmd InsertEnter * let b:cursorword=0
-    autocmd MyAutoCmd InsertLeave * let b:cursorword=1
+  hook_source: |
+    augroup user_plugin_cursorword
+      autocmd!
+      autocmd FileType denite,qf,easygitblame let b:cursorword=0
+      autocmd WinEnter * if &diff | let b:cursorword=0 | endif
+      autocmd InsertEnter * let b:cursorword=0
+      autocmd InsertLeave * let b:cursorword=1
+    augroup END
 
 - repo: airblade/vim-gitgutter
   on_path: .*
@@ -279,7 +282,9 @@
     let g:indent_guides_guide_size = 1
     let g:indent_guides_indent_levels = 25
     let g:indent_exclude = [ 'help', 'denite', 'codi' ]
-    autocmd MyAutoCmd BufEnter *
+    augroup user_plugin_indentguides
+      autocmd!
+      autocmd BufEnter *
       \ if ! empty(&l:filetype) && index(g:indent_exclude, &l:filetype) == -1
       \|   if g:indent_guides_autocmds_enabled == 0 && &l:expandtab
       \|     IndentGuidesEnable
@@ -287,6 +292,10 @@
       \|     IndentGuidesDisable
       \|   endif
       \| endif
+    augroup END
+    if ! has('vim_starting')
+      doautocmd <nomodeline> user_plugin_indentguides BufEnter
+    endif
 
 - repo: MattesGroeger/vim-bookmarks
   on_path: .*

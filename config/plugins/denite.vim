@@ -23,10 +23,10 @@ if has('nvim')
 	call denite#custom#option('_', { 'split': 'floating' })
 endif
 
-call denite#custom#option('search', { 'start_filter': 0, 'no_empty': 1 })
-call denite#custom#option('list', { 'start_filter': 0 })
-call denite#custom#option('jump', { 'start_filter': 0 })
-call denite#custom#option('git', { 'start_filter': 0 })
+" call denite#custom#option('search', { 'start_filter': 0, 'no_empty': 1 })
+" call denite#custom#option('list', { 'start_filter': 0 })
+" call denite#custom#option('jump', { 'start_filter': 0 })
+" call denite#custom#option('gitview', { 'start_filter': 0 })
 
 " MATCHERS
 " Default is 'matcher/fuzzy'

@@ -16,7 +16,6 @@ augroup filetypedetect
 	autocmd BufNewFile,BufRead */.kube/config       setfiletype yaml
 	autocmd BufNewFile,BufRead *.postman_collection setfiletype json
 	autocmd BufNewFile,BufRead .tern-{project,port} setfiletype json
-	autocmd BufNewFile,BufRead *.lock               setfiletype json
 	autocmd BufNewFile,BufRead *.js.map             setfiletype json
 	autocmd BufNewFile,BufRead .jsbeautifyrc        setfiletype json
 	autocmd BufNewFile,BufRead .eslintrc            setfiletype json
@@ -25,8 +24,6 @@ augroup filetypedetect
 	autocmd BufNewFile,BufRead .watchmanconfig      setfiletype json
 	autocmd BufNewFile,BufRead .buckconfig          setfiletype toml
 	autocmd BufNewFile,BufRead .flowconfig          setfiletype ini
-
-	autocmd BufNewFile,BufRead *.{feature,story}    setfiletype cucumber
 	autocmd BufNewFile,BufRead Jenkinsfile          setfiletype groovy
 	autocmd BufNewFile,BufRead Tmuxfile,tmux/config setfiletype tmux
 	autocmd BufNewFile,BufRead Brewfile             setfiletype ruby
