@@ -10,7 +10,7 @@ Best with Neovim or Vim8 with +python3 extensions enabled.
 - Robust, yet light-weight
 - Lazy-load 95% of plugins with [Shougo/dein.vim]
 - Custom side-menu (try it out! <kbd>Leader</kbd>+<kbd>l</kbd>)
-- Custom context-menu (try it! <kbd>;<kbd>+<kbd>c</kbd>)
+- Custom context-menu (try it! <kbd>;</kbd>+<kbd>c</kbd>)
 - Modular configuration
 - Denite (Unite's successor) centric work-flow
 - Extensive Deoplete setup (auto-completion)
