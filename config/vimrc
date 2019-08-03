@@ -5,10 +5,12 @@
 " ---
 
 if &compatible
+	" vint: -ProhibitSetNoCompatible
 	set nocompatible
+	" vint: +ProhibitSetNoCompatible
 endif
 
-" Set main configuration directory, and where cache is stored.
+" Set main configuration directory as parent directory
 let $VIM_PATH = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
 
 " Regular Vim doesn't add custom configuration directories, if you use one
@@ -95,11 +97,10 @@ if filereadable(g:etc#vim_path.'/.vault.vim')
 	call etc#util#source_file('.vault.vim')
 endif
 
-" let g:etc#package_manager = 'none'
-call etc#manager#init()
+call etc#init()
 call etc#util#source_file('config/plugins/all.vim')
-call etc#util#source_file('config/filetype.vim')
 call etc#util#source_file('config/general.vim')
+call etc#util#source_file('config/filetype.vim')
 call etc#util#source_file('config/mappings.vim')
 call etc#util#source_file('config/theme.vim')
 
