@@ -8,8 +8,8 @@ augroup user_plugin_filetype " {{{
 	autocmd BufWritePost $VIM_PATH/config/* nested source $MYVIMRC | redraw
 
 	" Highlight current line only on focused window
-	autocmd WinEnter,InsertLeave * set cursorline
-	autocmd WinLeave,InsertEnter * set nocursorline
+	autocmd WinEnter,InsertLeave * if &ft !~# 'denite' | set cursorline | endif
+	autocmd WinLeave,InsertEnter * if &ft !~# 'denite' | set nocursorline | endif
 
 	" Automatically set read-only for files being edited elsewhere
 	autocmd SwapExists * nested let v:swapchoice = 'o'

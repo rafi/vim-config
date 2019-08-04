@@ -12,7 +12,6 @@ call denite#custom#option('_', {
 	\ 'prompt': '❯',
 	\ 'highlight_prompt': 'Function',
 	\ 'highlight_window_background': 'CursorColumn',
-	\ 'highlight_filter_background': 'CursorLine',
 	\ 'winwidth': &columns,
 	\ 'winheight': &lines / 3,
 	\ 'wincol': 0,
@@ -99,8 +98,11 @@ augroup user_plugin_denite
 augroup END
 
 function! s:denite_settings() abort
-	setlocal signcolumn=no
+	setlocal signcolumn=no cursorline
 	let b:coc_enabled = 0
+	" highlight! CursorLine ctermbg=234 guibg=#1c1c1c
+	highlight! link CursorLine Visual
+
 	nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
 	nnoremap <silent><buffer><expr> i    denite#do_map('open_filter_buffer')
 	nnoremap <silent><buffer><expr> /    denite#do_map('open_filter_buffer')
@@ -119,7 +121,7 @@ function! s:denite_settings() abort
 endfunction
 
 function! s:denite_filter_settings() abort
-	setlocal nocursorline signcolumn=no
+	setlocal signcolumn=no nocursorline
 	call deoplete#custom#buffer_option('auto_complete', v:false)
 
 	nnoremap <silent><buffer><expr> <Esc>  denite#do_map('quit')
