@@ -3,35 +3,32 @@
 " Forked from: https://github.com/kizza/actionmenu.nvim
 
 " Style the buffer every time
-setlocal signcolumn=no
-setlocal sidescrolloff=0 scrolloff=0
-setlocal listchars= showbreak= nowrap
-setlocal completeopt+=menuone
-setlocal completeopt+=noinsert
+setlocal sidescrolloff=0 scrolloff=0 nowrap
+setlocal signcolumn=no listchars= showbreak=
 
-" Only load once
+" Only load ftplugin once
 if get(s:, 'loaded')
-	" subsequent times, just open pum
+	" Subsequent times, just open pum
 	call actionmenu#open_pum()
 	finish
 endif
 let s:loaded = 1
 
-" Defaults
+" Current menu selection
 let s:selected_item = 0
 
-function! actionmenu#clear_conflicting_autocmds()
-	silent! autocmd! deoplete CompleteDone
-	silent! autocmd! neosnippet CompleteDone
-endfunction
+" Trigger InsertEnter only the first time menu loads.
+" This is to allow any lazy-loading insert mode plugins beforehand.
+doautocmd <nomodeline> InsertEnter
 
 function! actionmenu#open_pum()
 	call feedkeys("i\<C-x>\<C-u>")
-	call actionmenu#clear_conflicting_autocmds()
+	" call deoplete#custom#buffer_option('auto_complete', v:false)
+	silent! autocmd! deoplete *
+	silent! autocmd! neosnippet *
 endfunction
 
 function! actionmenu#select_item()
-	call actionmenu#clear_conflicting_autocmds()
 	if pumvisible()
 		call feedkeys("\<C-y>")
 		if ! empty(v:completed_item)
@@ -58,7 +55,7 @@ function! actionmenu#on_insert_leave()
 	call actionmenu#callback(l:index, l:data)
 endfunction
 
-function! actionmenu#pum_item_to_action_item(item, index) abort
+function! actionmenu#pum_parse_item(item, index) abort
 	if type(a:item) == type('')
 		return { 'word': a:item, 'user_data': a:index }
 	else
@@ -66,20 +63,30 @@ function! actionmenu#pum_item_to_action_item(item, index) abort
 	endif
 endfunction
 
-" Mappings
+" Menu mappings
 mapclear <buffer>
-inoremap <buffer> <expr> <CR> actionmenu#select_item()
+inoremap <silent><buffer><expr> <CR> actionmenu#select_item()
 imap <buffer> <C-y> <CR>
 imap <buffer> <C-e> <esc>
-inoremap <buffer> <Up> <C-p>
+
+" Navigate in menu
+inoremap <buffer> <Up>   <C-p>
 inoremap <buffer> <Down> <C-n>
-inoremap <buffer> k <C-p>
-inoremap <buffer> j <C-n>
+inoremap <buffer> k      <C-p>
+inoremap <buffer> j      <C-n>
+imap     <buffer> <C-k>  <Up>
+imap     <buffer> <C-j>  <Down>
+
+" Scroll pages in menu
+inoremap <buffer> <C-b>  <PageUp>
+inoremap <buffer> <C-f>  <PageDown>
+imap     <buffer> <C-u>  <PageUp>
+imap     <buffer> <C-d>  <PageDown>
 
 " Events
 augroup actionmenu
 	autocmd!
-	autocmd InsertLeave <buffer> :call actionmenu#on_insert_leave()
+	autocmd InsertLeave <buffer> call actionmenu#on_insert_leave()
 augroup END
 
 " Pum completion function
@@ -88,18 +95,14 @@ function! actionmenu#complete_func(findstart, base)
 		return 1
 	else
 		return map(copy(g:actionmenu#items), {
-			\ index, item ->
-			\   actionmenu#pum_item_to_action_item(item, index)
-			\ }
-			\)
+			\ index, item -> actionmenu#pum_parse_item(item, index) })
 	endif
 endfunction
 
 " Set the pum completion function
 setlocal completefunc=actionmenu#complete_func
-
-doautocmd InsertEnter
-call deoplete#custom#buffer_option('auto_complete', v:false)
+setlocal completeopt+=menuone
+setlocal completeopt+=noinsert
 
 " Open the pum immediately
 call actionmenu#open_pum()

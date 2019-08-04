@@ -86,7 +86,7 @@ function! actionmenu#close() abort
 	if g:actionmenu#win
 		execute('close')
 		let g:actionmenu#win = 0
-		doautocmd BufWinEnter
+		doautocmd <nomodeline> BufWinEnter
 	endif
 endfunction
 
