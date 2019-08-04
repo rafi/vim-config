@@ -5,6 +5,7 @@
 " Style the buffer every time
 setlocal sidescrolloff=0 scrolloff=0 nowrap
 setlocal signcolumn=no listchars= showbreak=
+let b:cursorword = 0
 
 " Only load ftplugin once
 if get(s:, 'loaded')
@@ -23,26 +24,24 @@ doautocmd <nomodeline> InsertEnter
 
 function! actionmenu#open_pum()
 	call feedkeys("i\<C-x>\<C-u>")
-	" call deoplete#custom#buffer_option('auto_complete', v:false)
 	silent! autocmd! deoplete *
 	silent! autocmd! neosnippet *
 endfunction
 
 function! actionmenu#select_item()
 	if pumvisible()
-		call feedkeys("\<C-y>")
 		if ! empty(v:completed_item)
 			let s:selected_item = copy(v:completed_item)
 		endif
+		" Close pum and leave insert
+		return "\<C-y>\<Esc>"
 	endif
-	call actionmenu#close_pum()
-endfunction
-
-function! actionmenu#close_pum()
-	call feedkeys("\<esc>")
+	" Leave insert mode
+	return "\<Esc>"
 endfunction
 
 function! actionmenu#on_insert_leave()
+	call actionmenu#close()
 	let l:index = -1
 	if type(s:selected_item) == type({})
 		let l:index = s:selected_item['user_data']
@@ -50,8 +49,10 @@ function! actionmenu#on_insert_leave()
 	if l:index ==# ''
 		let l:index = -1
 	endif
-	let s:selected_item = 0
 	let l:data = l:index > -1 ? g:actionmenu#items[l:index] : {}
+	let s:selected_item = 0
+	let g:actionmenu#items = []
+	let g:actionmenu#selected = [l:index, l:data]
 	call actionmenu#callback(l:index, l:data)
 endfunction
 
@@ -67,15 +68,17 @@ endfunction
 mapclear <buffer>
 inoremap <silent><buffer><expr> <CR> actionmenu#select_item()
 imap <buffer> <C-y> <CR>
-imap <buffer> <C-e> <esc>
+imap <buffer> <C-e> <Esc>
 
 " Navigate in menu
-inoremap <buffer> <Up>   <C-p>
-inoremap <buffer> <Down> <C-n>
-inoremap <buffer> k      <C-p>
-inoremap <buffer> j      <C-n>
-imap     <buffer> <C-k>  <Up>
-imap     <buffer> <C-j>  <Down>
+inoremap <buffer> <Up>    <C-p>
+inoremap <buffer> <Down>  <C-n>
+inoremap <buffer> k       <C-p>
+inoremap <buffer> j       <C-n>
+imap     <buffer> <C-k>   <C-p>
+imap     <buffer> <C-j>   <C-n>
+inoremap <buffer> <S-Tab> <C-p>
+imap     <buffer> <Tab>   <C-n>
 
 " Scroll pages in menu
 inoremap <buffer> <C-b>  <PageUp>

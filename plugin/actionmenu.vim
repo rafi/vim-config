@@ -14,17 +14,14 @@ command! -nargs=0 ActionMenu call s:actionmenu()
 
 function! s:actionmenu()
 	let l:cword = expand('<cword>')
-	call actionmenu#open(s:build_menu(l:cword), function('<SID>apply_action'))
+	call actionmenu#open(s:build_menu(l:cword), function('s:apply_action'))
 endfunction
 
-function! s:apply_action(index, item)
-	if type(a:item) == type('')
-		echoerr 'Invalid selection:' a:item
-		return
-	elseif a:index < 0 || empty(a:item) || empty(get(a:item, 'user_data'))
-		return
+function! s:apply_action(timer_id)
+	let [l:index, l:item] = g:actionmenu#selected
+	if ! empty(get(l:item, 'user_data'))
+		execute l:item['user_data']
 	endif
-	execute a:item['user_data']
 endfunction
 
 function! s:build_menu(cword)
@@ -43,7 +40,7 @@ function! s:build_menu(cword)
 		endif
 
 		let l:items = extend(l:items, [
-			\ { 'word': 'Select all', 'user_data': 'normal ggVG' },
+			\ { 'word': 'Select all', 'user_data': 'normal! ggVG' },
 			\ { 'word': '-------' },
 			\ ])
 

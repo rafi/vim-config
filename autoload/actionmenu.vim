@@ -8,10 +8,11 @@ endif
 
 let s:loaded = 1
 let s:buffer = 0
-let g:actionmenu#win = 0
+let s:window = 0
 let g:actionmenu#items = []
+let g:actionmenu#selected = []
 
-function! actionmenu#icon() abort
+function! actionmenu#icon_default() abort
 	let l:icon = get(g:, 'actionmenu#icon', '')
 	if empty(l:icon)
 		" Current character and its foreground
@@ -24,46 +25,45 @@ function! actionmenu#icon() abort
 endfunction
 
 function! actionmenu#open(items, callback, ...) abort
+	let g:actionmenu#items = a:items
+	let g:actionmenu#selected = []
+	let s:callback = a:callback
 	let l:opts = get(a:, 1, 0)
 
-	" Create the buffer
-	if ! s:buffer
-		let s:buffer = nvim_create_buf(0, 1)
-		call nvim_buf_set_option(s:buffer, 'syntax', 'OFF')
-	endif
+	" Close the old window if opened
+	call actionmenu#close()
 
 	" Prepare the menu
 	if type(l:opts['icon']) == type({})
 		let l:icon = l:opts['icon']
 	else
-		let l:icon = actionmenu#icon()
+		let l:icon = actionmenu#icon_default()
+	endif
+	if ! s:buffer
+		let s:buffer = nvim_create_buf(0, 1)
+		call nvim_buf_set_option(s:buffer, 'syntax', 'OFF')
 	endif
 	call nvim_buf_set_lines(s:buffer, 0, -1, v:true, [ l:icon['character'] ])
-	let g:ActionMenuCallback = a:callback
-	let g:actionmenu#items = a:items
-
-	" Close the old window if opened
-	call actionmenu#close()
 
 	" Open the window
-	let l:winhl = 'Normal:Pmenu,NormalNC:Pmenu'
 	let l:opts = {
+		\ 'relative': 'cursor',
+		\ 'style': 'minimal',
 		\ 'focusable': v:false,
 		\ 'width': 1,
 		\ 'height': 1,
-		\ 'relative': 'cursor',
 		\ 'row': 0,
 		\ 'col': 0
 		\}
 
-	let g:actionmenu#win = nvim_open_win(s:buffer, 1, l:opts)
-	call nvim_win_set_option(g:actionmenu#win, 'foldenable', v:false)
-	call nvim_win_set_option(g:actionmenu#win, 'wrap', v:true)
-	call nvim_win_set_option(g:actionmenu#win, 'statusline', '')
-	call nvim_win_set_option(g:actionmenu#win, 'number', v:false)
-	call nvim_win_set_option(g:actionmenu#win, 'relativenumber', v:false)
-	call nvim_win_set_option(g:actionmenu#win, 'cursorline', v:false)
-	call nvim_win_set_option(g:actionmenu#win, 'winhl', l:winhl)
+	let s:window = nvim_open_win(s:buffer, 1, l:opts)
+	call nvim_win_set_option(s:window, 'foldenable', v:false)
+	call nvim_win_set_option(s:window, 'wrap', v:true)
+	call nvim_win_set_option(s:window, 'statusline', '')
+	call nvim_win_set_option(s:window, 'number', v:false)
+	call nvim_win_set_option(s:window, 'relativenumber', v:false)
+	call nvim_win_set_option(s:window, 'cursorline', v:false)
+	call nvim_win_set_option(s:window, 'winhl', 'Normal:Pmenu,NormalNC:Pmenu')
 
 	" Setup the window
 	setlocal filetype=actionmenu
@@ -74,19 +74,21 @@ function! actionmenu#open(items, callback, ...) abort
 endfunction
 
 function! actionmenu#callback(index, item) abort
-	call actionmenu#close()
-	if type(g:ActionMenuCallback) == type('')
-		execute('call ' . g:ActionMenuCallback . '(a:index, a:item)')
-	else
-		call g:ActionMenuCallback(a:index, a:item)
+	doautocmd <nomodeline> BufWinEnter
+	if empty(s:callback)
+		return
 	endif
+	if a:index >= 0 && ! empty(a:item) && type(a:item) != type('')
+		call timer_start(1, s:callback)
+	endif
+	unlet s:callback
 endfunction
 
 function! actionmenu#close() abort
-	if g:actionmenu#win
-		execute('close')
-		let g:actionmenu#win = 0
-		doautocmd <nomodeline> BufWinEnter
+	if s:window
+		call nvim_win_close(s:window, v:false)
+		" execute('close')
+		let s:window = 0
 	endif
 endfunction
 
