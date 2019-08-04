@@ -225,10 +225,11 @@ if has('folding')
 	set foldlevelstart=99
 endif
 
+" UI Symbols
+" icons:  ▏│ ¦ ╎ ┆ ⋮ ⦙ ┊ 
 set showbreak=↪
 set listchars=tab:\▏\ ,extends:⟫,precedes:⟪,nbsp:␣,trail:·
 "set fillchars=vert:▉,fold:─
-" icons:  ▏│ ¦ ╎ ┆ ⋮ ⦙ ┊ 
 
 if has('patch-7.4.314')
 	" Do not display completion messages

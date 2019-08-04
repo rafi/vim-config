@@ -279,7 +279,6 @@
 
 - repo: nathanaelkane/vim-indent-guides
   on_cmd: [ IndentGuidesEnable, IndentGuidesDisable, IndentGuidesToggle ]
-  # TODO
   hook_post_source: |
     call indent_guides#init_script_vars()
     call indent_guides#highlight_colors()
