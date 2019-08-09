@@ -13,7 +13,8 @@
 - repo: thinca/vim-localrc
 - repo: romainl/vim-cool
 - repo: sgur/vim-editorconfig
-- { repo: tpope/vim-sleuth, hook_add: let g:sleuth_neighbor_limit = 5 }
+- repo: tpope/vim-sleuth
+  hook_add: let g:sleuth_neighbor_limit = 5
 
 # GUI only:
 - { repo: equalsraf/neovim-gui-shim, if: has('gui_running') }

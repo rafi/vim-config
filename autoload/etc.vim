@@ -45,11 +45,11 @@ endfunction
 
 function! etc#_parse_config_files(config_paths) abort
 	try
+		let l:merged = []
 		for l:cfg_file in a:config_paths
-			if filereadable(l:cfg_file)
-				return etc#util#load_config(l:cfg_file)
-			endif
+			let l:merged = extend(l:merged, etc#util#load_config(l:cfg_file))
 		endfor
+		return l:merged
 	catch /.*/
 		echoerr v:exception
 		echomsg 'Error parsing user configuration file(s).'

@@ -75,7 +75,7 @@ function! s:build_menu(cword)
 		" Word operations
 		let l:items = extend(l:items, [
 			\ { 'word': 'Find symbol…', 'user_data': 'DeniteCursorWord tag:include -no-start-filter' },
-			\ { 'word': 'Paste from…', 'user_data': 'Denite register -default-action=replace -no-start-filter' },
+			\ { 'word': 'Paste from…', 'user_data': 'Denite neoyank -default-action=replace -no-start-filter' },
 			\ { 'word': 'Grep…', 'user_data': 'DeniteCursorWord grep -no-start-filter' },
 			\ { 'word': '-------' },
 			\ ])

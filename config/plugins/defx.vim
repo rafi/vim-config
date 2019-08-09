@@ -39,10 +39,11 @@ let g:defx_icons_mark_icon = '✓'
 augroup user_plugin_defx
 	autocmd!
 
-	autocmd DirChanged * call s:defx_refresh_cwd(v:event)
+	" FIXME
+	" autocmd DirChanged * call s:defx_refresh_cwd(v:event)
 
 	" Delete defx if it's the only buffer left in the window
-	autocmd WinEnter * if &filetype == 'defx' && winnr('$') == 1 | bd | endif
+	autocmd WinEnter * if &filetype == 'defx' && winnr('$') == 1 | q | endif
 
 	" Move focus to the next window if current buffer is defx
 	autocmd TabLeave * if &filetype == 'defx' | wincmd w | endif
