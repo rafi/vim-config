@@ -151,7 +151,6 @@ Name           | Description
 -------------- | ----------------------
 [Shougo/dein.vim] | Dark powered Vim/Neovim plugin manager
 [rafi/awesome-colorschemes] | Awesome color-schemes
-[rafi/vim-badge] | Bite-size badges for the tab & status lines
 [thinca/vim-localrc] | Enable configuration file of each directory
 [christoomey/tmux-navigator] | Seamless navigation between tmux panes and vim splits
 [romainl/vim-cool] | Simple plugin that makes hlsearch more useful
@@ -323,7 +322,6 @@ Name           | Description
 
 [Shougo/dein.vim]: https://github.com/Shougo/dein.vim
 [rafi/awesome-colorschemes]: https://github.com/rafi/awesome-vim-colorschemes
-[rafi/vim-badge]: https://github.com/rafi/vim-badge
 [thinca/vim-localrc]: https://github.com/thinca/vim-localrc
 [christoomey/tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator
 [romainl/vim-cool]: https://github.com/romainl/vim-cool

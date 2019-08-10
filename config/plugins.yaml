@@ -6,7 +6,6 @@
 # -------
 - repo: Shougo/dein.vim
 - repo: rafi/awesome-vim-colorschemes
-- repo: rafi/vim-badge
 - repo: christoomey/vim-tmux-navigator
 - repo: itchyny/vim-gitbranch
 - repo: itchyny/vim-parenmatch
