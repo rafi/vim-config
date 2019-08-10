@@ -60,12 +60,6 @@ if dein#tap('vim-denite-z')
 		\ call denite#start([{'name': 'z', 'args': [<q-args>], {'immediately': 1}}])
 endif
 
-if dein#tap('tagbar')
-	" Also use h/l to open/close folds
-	let g:tagbar_map_closefold = ['h', '-', 'zc']
-	let g:tagbar_map_openfold = ['l', '+', 'zo']
-endif
-
 if dein#tap('vista.vim')
 	nnoremap <silent> <Leader>o :<C-u>Vista<CR>
 endif

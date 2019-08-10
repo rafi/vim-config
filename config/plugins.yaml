@@ -226,15 +226,7 @@
 
 - repo: chemzqm/vim-easygit
   on_cmd: [Gadd, Gcd, Glcd, Gcommit, Gblame, Gdiff, GdiffThis, Gstatus]
-  hook_source: let g:easygit_enable_command = 1
-
-- repo: majutsushi/tagbar
-  on_cmd: TagbarToggle
-  hook_source: |
-    let g:tagbar_width = 40
-    if executable('jsctags')
-      let g:tagbar_type_javascript = { 'ctagsbin': 'jsctags' }
-    endif
+  hook_add: let g:easygit_enable_command = 1
 
 - repo: liuchengxu/vista.vim
   on_cmd: Vista

@@ -242,7 +242,6 @@ Name           | Description
 [Shougo/vinarise.vim] | Hex editor
 [mzlogin/vim-markdown-toc] | Generate table of contents for Markdown files
 [chemzqm/vim-easygit] | Git wrapper focus on simplity and usability
-[majutsushi/tagbar] | Displays tags in a window, ordered by scope
 [liuchengxu/vista.vim] | Viewer & Finder for LSP symbols and tags in Vim
 [beloglazov/vim-online-thesaurus] | Look up words in an online thesaurus
 
@@ -405,7 +404,6 @@ Name           | Description
 [Shougo/vinarise.vim]: https://github.com/Shougo/vinarise.vim
 [mzlogin/vim-markdown-toc]: https://github.com/mzlogin/vim-markdown-toc
 [chemzqm/vim-easygit]: https://github.com/chemzqm/vim-easygit
-[majutsushi/tagbar]: https://github.com/majutsushi/tagbar
 [liuchengxu/vista.vim]: https://github.com/liuchengxu/vista.vim
 [beloglazov/vim-online-thesaurus]: https://github.com/beloglazov/vim-online-thesaurus
 
