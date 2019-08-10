@@ -46,11 +46,7 @@ function! theme#init() abort
 	if ! exists('g:colors_name')
 		set background=dark
 		let l:scheme = filereadable(l:cache) ? readfile(l:cache)[0] : l:default
-		try
-			execute 'colorscheme' l:scheme
-		catch /.*/
-			echomsg 'Error loading colorscheme "' . l:scheme . '"'
-		endtry
+		silent! execute 'colorscheme' l:scheme
 	endif
 endfunction
 

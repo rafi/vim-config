@@ -66,9 +66,6 @@ cnoreabbrev bD bd
 " Start new line from any cursor position
 inoremap <S-Return> <C-o>o
 
-" Quick substitute within selected area
-xnoremap sg :s//g<Left><Left>
-
 nnoremap zl z5l
 nnoremap zh z5h
 
@@ -94,8 +91,8 @@ xnoremap > >gv|
 " Use tab for indenting
 xnoremap <Tab> >gv|
 xnoremap <S-Tab> <gv
-nmap >>  >>_
-nmap <<  <<_
+" nmap >>  >>_
+" nmap <<  <<_
 
 " Select last paste
 nnoremap <expr> gp '`['.strpart(getregtype(), 0, 1).'`]'
@@ -117,7 +114,7 @@ cnoremap <Down> <C-n>
 " File operations {{{
 " ---------------
 
-" When pressing <leader>cd switch to the directory of the open buffer
+" Switch to the directory of the opened buffer
 map <Leader>cd :lcd %:p:h<CR>:pwd<CR>
 
 " Fast saving
@@ -126,10 +123,6 @@ vnoremap <silent><Leader>w <Esc>:write<CR>
 nnoremap <silent><C-s> :<C-u>write<CR>
 vnoremap <silent><C-s> :<C-u>write<CR>
 cnoremap <silent><C-s> <C-u>write<CR>
-
-" Save a file with sudo
-" http://forrst.com/posts/Use_w_to_sudo_write_a_file_with_Vim-uAN
-cmap W!! w !sudo tee % >/dev/null
 
 " }}}
 " Editor UI {{{
@@ -142,7 +135,7 @@ nnoremap <silent> q :<C-u>:quit<CR>
 nnoremap Q q
 nnoremap gQ @q
 
-" Show highlight names under cursor
+" Show vim syntax highlight groups for character under cursor
 nmap <silent> gh :echo 'hi<'.synIDattr(synID(line('.'), col('.'), 1), 'name')
 	\.'> trans<'.synIDattr(synID(line('.'), col('.'), 0), 'name').'> lo<'
 	\.synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name').'>'<CR>
@@ -168,10 +161,13 @@ nnoremap <silent> <C-S-Tab> :<C-U>tabprevious<CR>
 " --------------
 
 " Remove spaces at the end of lines
-nnoremap <silent> ,<Space> :<C-u>silent! keeppatterns %substitute/\s\+$//e<CR>
+nnoremap <silent> <Leader>cw :<C-u>silent! keeppatterns %substitute/\s\+$//e<CR>
 
 " C-r: Easier search and replace
 xnoremap <C-r> :<C-u>call <SID>get_selection('/')<CR>:%s/\V<C-R>=@/<CR>//gc<Left><Left><Left>
+
+" Quick substitute within selected area
+xnoremap sg :s//gc<Left><Left><Left>
 
 " Returns visually selected text
 function! s:get_selection(cmdtype) "{{{
@@ -181,10 +177,83 @@ function! s:get_selection(cmdtype) "{{{
 	let @s = temp
 endfunction "}}}
 
+" Location/quickfix list movement
+nmap ]c :lnext<CR>
+nmap [c :lprev<CR>
+nmap ]q :cnext<CR>
+nmap [q :cprev<CR>
+
+" Duplicate lines
+nnoremap <Leader>d m`YP``
+vnoremap <Leader>d YPgv
+
+" Source line and selection in vim
+vnoremap <Leader>S y:execute @@<CR>:echo 'Sourced selection.'<CR>
+nnoremap <Leader>S ^vg_y:execute @@<CR>:echo 'Sourced line.'<CR>
+
+" Yank buffer's absolute path to clipboard
+nnoremap <Leader>y :let @+=expand("%")<CR>:echo 'Yanked relative path'<CR>
+nnoremap <Leader>Y :let @+=expand("%:p")<CR>:echo 'Yanked absolute path'<CR>
+
+" Drag current line/s vertically and auto-indent
+vnoremap mk :m-2<CR>gv=gv
+vnoremap mj :m'>+<CR>gv=gv
+noremap  mk :m-2<CR>
+noremap  mj :m+<CR>
+
+" Context-aware action-menu, neovim only (see plugin/actionmenu.vim)
+if has('nvim')
+	nmap <silent> <LocalLeader>c :<C-u>ActionMenu<CR>
+endif
+
+" Session management shortcuts (see plugin/sessions.vim)
+nmap <silent> <Leader>se :<C-u>SessionSave<CR>
+nmap <silent> <Leader>os :<C-u>SessionLoad<CR>
+
+if has('mac')
+	" Open the macOS dictionary on current word
+	nmap <Leader>? :!open dict://<cword><CR><CR>
+
+	" Use Marked for real-time Markdown preview
+	"
+	if executable('/Applications/Marked 2.app/Contents/MacOS/Marked 2')
+		autocmd user_events FileType markdown
+			\ nmap <buffer><Leader>P :silent !open -a Marked\ 2.app '%:p'<CR>
+	endif
+endif
+
+" }}}
+" Append modeline to EOF {{{
+nnoremap <silent> <Leader>ml :call <SID>append_modeline()<CR>
+
+" Append modeline after last line in buffer
+" See: http://vim.wikia.com/wiki/Modeline_magic
+function! s:append_modeline() "{{{
+	let l:modeline = printf(' vim: set ts=%d sw=%d tw=%d %set :',
+				\ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
+	let l:modeline = substitute(&commentstring, '%s', l:modeline, '')
+	call append(line('$'), l:modeline)
+endfunction "}}}
+
+" }}}
+" Windows and buffers {{{
+
+nnoremap <silent> [Window]v  :<C-u>split<CR>
+nnoremap <silent> [Window]g  :<C-u>vsplit<CR>
+nnoremap <silent> [Window]t  :tabnew<CR>
+nnoremap <silent> [Window]o  :<C-u>only<CR>
+nnoremap <silent> [Window]b  :b#<CR>
+nnoremap <silent> [Window]c  :close<CR>
+nnoremap <silent> [Window]x  :<C-u>call <SID>window_empty_buffer()<CR>
+
+" Split current buffer, go to previous window and previous buffer
+nnoremap <silent> [Window]sv :split<CR>:wincmd p<CR>:e#<CR>
+nnoremap <silent> [Window]sg :vsplit<CR>:wincmd p<CR>:e#<CR>
+
 " Background dark/light toggle and contrasts
-nnoremap <silent><Leader>b :<C-u>call <SID>toggle_background()<CR>
-nmap <silent> s- :<c-u>call <SID>toggle_contrast(-v:count1)<cr>
-nmap <silent> s= :<c-u>call <SID>toggle_contrast(+v:count1)<cr>
+nmap <silent> [Window]h :<C-u>call <SID>toggle_background()<CR>
+nmap <silent> [Window]- :<c-u>call <SID>toggle_contrast(-v:count1)<cr>
+nmap <silent> [Window]= :<c-u>call <SID>toggle_contrast(+v:count1)<cr>
 
 function! s:toggle_background()
 	if ! exists('g:colors_name')
@@ -223,116 +292,13 @@ function! s:toggle_contrast(delta)
 	endif
 endfunction
 
-" Location/quickfix list movement
-nmap ]c :lnext<CR>
-nmap [c :lprev<CR>
-nmap ]q :cnext<CR>
-nmap [q :cprev<CR>
-
-" Duplicate lines
-nnoremap <Leader>d m`YP``
-vnoremap <Leader>d YPgv
-
-" Source line and selection in vim
-vnoremap <Leader>S y:execute @@<CR>:echo 'Sourced selection.'<CR>
-nnoremap <Leader>S ^vg_y:execute @@<CR>:echo 'Sourced line.'<CR>
-
-" Yank buffer's absolute path to X11 clipboard
-nnoremap <Leader>y :let @+=expand("%")<CR>:echo 'Relative path copied to clipboard.'<CR>
-nnoremap <Leader>Y :let @+=expand("%:p")<CR>:echo 'Absolute path copied to clipboard.'<CR>
-
-" Drag current line/s vertically and auto-indent
-vnoremap mk :m-2<CR>gv=gv
-vnoremap mj :m'>+<CR>gv=gv
-noremap  mk :m-2<CR>
-noremap  mj :m+<CR>
-
-" Context-aware action-menu, neovim only (see plugin/actionmenu.vim)
-if has('nvim')
-	nmap <silent> <LocalLeader>c :<C-u>ActionMenu<CR>
-endif
-
-" Session management shortcuts (see plugin/sessions.vim)
-nmap <silent> <Leader>se :<C-u>SessionSave<CR>
-nmap <silent> <Leader>os :<C-u>SessionLoad<CR>
-
-if has('mac')
-	" Open the macOS dictionary on current word
-	nmap <Leader>? :!open dict://<cword><CR><CR>
-
-	" Use Marked for real-time Markdown preview
-	"
-	if executable('/Applications/Marked 2.app/Contents/MacOS/Marked 2')
-		autocmd user_events FileType markdown
-			\ nmap <buffer><Leader>P :silent !open -a Marked\ 2.app '%:p'<CR>
-	endif
-endif
-
-" }}}
-
-" Append modeline to EOF {{{
-nnoremap <silent> <Leader>ml :call <SID>append_modeline()<CR>
-
-" Append modeline after last line in buffer
-" See: http://vim.wikia.com/wiki/Modeline_magic
-function! s:append_modeline() "{{{
-	let l:modeline = printf(' vim: set ts=%d sw=%d tw=%d %set :',
-				\ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
-	let l:modeline = substitute(&commentstring, '%s', l:modeline, '')
-	call append(line('$'), l:modeline)
-endfunction "}}}
-" }}}
-
-" s: Windows and buffers {{{
-
-nnoremap <silent> [Window]v  :<C-u>split<CR>
-nnoremap <silent> [Window]g  :<C-u>vsplit<CR>
-nnoremap <silent> [Window]t  :tabnew<CR>
-nnoremap <silent> [Window]o  :<C-u>only<CR>
-nnoremap <silent> [Window]b  :b#<CR>
-nnoremap <silent> [Window]c  :close<CR>
-nnoremap <silent> [Window]x  :<C-u>call <SID>BufferEmpty()<CR>
-
-" Split current buffer, go to previous window and previous buffer
-nnoremap <silent> [Window]sv :split<CR>:wincmd p<CR>:e#<CR>
-nnoremap <silent> [Window]sg :vsplit<CR>:wincmd p<CR>:e#<CR>
-
-function! WipeHiddenBuffers()
-	let tpbl=[]
-	call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
-	for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
-		silent execute 'bwipeout' buf
-	endfor
-endfunction
-
-function! s:BufferEmpty()
+function! s:window_empty_buffer()
 	let l:current = bufnr('%')
 	if ! getbufvar(l:current, '&modified')
 		enew
 		silent! execute 'bdelete '.l:current
 	endif
 endfunction
+" }}}
 
-function! s:SweepBuffers()
-	let bufs = range(1, bufnr('$'))
-	let hidden = filter(bufs, 'buflisted(v:val) && !bufloaded(v:val)')
-	if ! empty(hidden)
-		execute 'silent bdelete' join(hidden)
-	endif
-endfunction
-
-" Open a split for each dirty file in git
-function! OpenChangedFiles()
-	silent only " Close all windows, unless they're modified
-	let status =
-		\ system('git status -s | grep "^ \?\(M\|A\|UU\)" | sed "s/^.\{3\}//"')
-	let filenames = split(status, "\n")
-	if ! empty(filenames)
-		exec 'edit ' . filenames[0]
-		for filename in filenames[1:]
-			exec 'sp ' . filename
-		endfor
-	endif
-endfunction
-
-" vim: set ts=2 sw=2 tw=80 noet :
+" vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :

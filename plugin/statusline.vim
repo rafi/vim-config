@@ -27,7 +27,7 @@ let s:stl_nc .= '%{&ft} '                      " File type
 " }}}
 
 let s:disable_statusline =
-	\ 'denite\|defx\|vista\|tagbar\|undotree\|diff\|peekaboo\|sidemenu'
+	\ 'denite\|vista\|tagbar\|undotree\|diff\|peekaboo\|sidemenu'
 
 function! s:setstatus()
 	if &filetype =~? 'defx'
@@ -52,9 +52,10 @@ augroup user_statusline
 	autocmd WinLeave * call s:setstatusinactive()
 	autocmd BufNewFile,ShellCmdPost,BufWritePost * call s:setstatus()
 	autocmd FileChangedShellPost,ColorScheme * call s:setstatus()
-	autocmd FileReadPre,ShellCmdPost,FileWritePost * call s:setstatus()
+	" autocmd FileReadPre,ShellCmdPost,FileWritePost * call s:setstatus()
 	autocmd User CocStatusChange,CocGitStatusChange call s:setstatus()
 	autocmd User CocDiagnosticChange call s:setstatus()
+	autocmd User GutentagsUpdating call s:setstatus()
 augroup END
 
 " }}}

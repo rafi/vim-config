@@ -13,7 +13,7 @@ endif
 " Set main configuration directory as parent directory
 let $VIM_PATH = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
 
-" Regular Vim doesn't add custom configuration directories, if you use one
+" When using VIMINIT trick for exotic MYVIMRC locations, add path now.
 if &runtimepath !~# $VIM_PATH
 	set runtimepath^=$VIM_PATH
 endif
@@ -86,22 +86,26 @@ if has('vim_starting')
 		\   g:etc#vim_path . '/spell'
 		\ ])
 
-	" Linux terminal settings
+	" Vim only, Linux terminal settings
 	if ! has('nvim') && ! has('gui_running') && ! has('win32') && ! has('win64')
 		call etc#util#source_file('config/terminal.vim')
 	endif
 endif
 
+" Load user scripts with confidential information
+" or pre-settings like g:elite_mode
 if filereadable(g:etc#vim_path.'/.vault.vim')
 	call etc#util#source_file('.vault.vim')
 endif
 
+" Initialize plugin-manager and load main config files
 call etc#init()
 call etc#util#source_file('config/plugins/all.vim')
 call etc#util#source_file('config/general.vim')
 call etc#util#source_file('config/filetype.vim')
 call etc#util#source_file('config/mappings.vim')
 
+" Initialize user favorite colorscheme
 call theme#init()
 
 " Load user custom local settings

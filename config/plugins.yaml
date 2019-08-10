@@ -271,7 +271,6 @@
   on_path: .*
   hook_source: |
     let g:gitgutter_map_keys = 0
-    let g:gitgutter_sh = $SHELL
     let g:gitgutter_sign_added = '▎'
     let g:gitgutter_sign_modified = '▎'
     let g:gitgutter_sign_removed = '▏'
@@ -468,10 +467,13 @@
   hook_add: |
     let g:gutentags_cache_dir = g:etc#cache_path . '/tags'
     let g:gutentags_generate_on_write = 1
-    let g:gutentags_generate_on_missing = 0
+    let g:gutentags_generate_on_missing = 1
     let g:gutentags_generate_on_new = 0
+    let g:gutentags_exclude_project_root = [ '/usr/local' ]
+    let g:gutentags_exclude_filetypes = [ 'defx', 'denite', 'vista' ]
     let g:gutentags_ctags_exclude_wildignore = 1
     let g:gutentags_ctags_exclude = [
+      \ '.idea', '.cache', '.tox', '.bundle', 'build', 'dist',
       \ '*/wp-admin', '*/wp-content', '*/wp-includes',
       \ '*/application/vendor', '*/vendor/ckeditor', '*/media/vendor'
       \ ]
