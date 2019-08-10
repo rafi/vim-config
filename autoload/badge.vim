@@ -1,4 +1,3 @@
-
 " vim-badge - Bite-size badges for tab & status lines
 " Maintainer: Rafael Bodill <justrafi at gmail dot com>
 " Version:    0.2
@@ -29,7 +28,7 @@ let g:badge_quiet_filetypes =
 " }}}
 
 " Clear cache on save {{{
-augroup statusline-cache
+augroup statusline_cache
 	autocmd!
 	autocmd BufWritePre *
 		\ unlet! b:badge_cache_trails b:badge_cache_syntax b:badge_cache_filename
@@ -67,7 +66,7 @@ function! badge#label(n, ...) abort "{{{
 		let filepath = join(parts, '/')
 
 		" Prepend the project name
-		let label = pre.filepath
+		let label = pre . filepath
 	endif
 	return label
 endfunction
@@ -242,14 +241,18 @@ function! badge#session(...) abort "{{{
 endfunction
 " }}}
 
-function! badge#indexing() abort "{{{
+function! badge#indexing() abort
+	let l:out = ''
 	if exists('*gutentags#statusline')
-		return gutentags#statusline('[*]')
-	elseif exists('g:SessionLoad') && g:SessionLoad == 1
-		return '[s]'
+		let l:out .= gutentags#statusline('[', ']')
 	endif
-	return ''
+	if exists('*coc#status')
+		let l:out .= coc#status()
+	endif
+	if exists('g:SessionLoad') && g:SessionLoad == 1
+		let l:out .= '[s]'
+	endif
+	return l:out
 endfunction
-" }}}
 
 " vim: set ts=2 sw=2 tw=80 noet :
