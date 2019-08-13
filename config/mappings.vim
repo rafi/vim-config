@@ -1,8 +1,8 @@
 " Key-mappings
-" ---
+" ===
 
 " Non-standard {{{
-" ------------
+" ---
 
 " Window-control prefix
 nnoremap  [Window]   <Nop>
@@ -196,10 +196,10 @@ nnoremap <Leader>y :let @+=expand("%")<CR>:echo 'Yanked relative path'<CR>
 nnoremap <Leader>Y :let @+=expand("%:p")<CR>:echo 'Yanked absolute path'<CR>
 
 " Drag current line/s vertically and auto-indent
-vnoremap mk :m-2<CR>gv=gv
-vnoremap mj :m'>+<CR>gv=gv
-noremap  mk :m-2<CR>
-noremap  mj :m+<CR>
+vnoremap <Leader>k :m-2<CR>gv=gv
+vnoremap <Leader>j :m'>+<CR>gv=gv
+noremap  <Leader>k :m-2<CR>
+noremap  <Leader>j :m+<CR>
 
 " Context-aware action-menu, neovim only (see plugin/actionmenu.vim)
 if has('nvim')

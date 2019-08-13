@@ -3,7 +3,7 @@
 " Version:    0.2
 "-------------------------------------------------
 
-" Configuration {{{
+" Configuration
 
 " Limit display of directories in path
 let g:badge_label_max_dirs =
@@ -24,18 +24,20 @@ let g:badge_filename_max_dir_chars =
 " Less verbosity on specific filetypes (regexp)
 let g:badge_quiet_filetypes =
 	\ get(g:, 'badge_quiet_filetypes',
-	\ 'qf\|help\|denite\|unite\|vimfiler\|gundo\|diff\|fugitive\|gitv\|magit')
-" }}}
+	\ 'qf\|help\|denite\|vimfiler\|gundo\|diff\|fugitive\|gitv')
 
-" Clear cache on save {{{
+let g:badge_loading =
+	\ get(g:, 'badge_loading',
+	\ ['⠃', '⠁', '⠉', '⠈', '⠐', '⠠', '⢠', '⣠', '⠄', '⠂'])
+
+" Clear cache on save
 augroup statusline_cache
 	autocmd!
-	autocmd BufWritePre *
+	autocmd BufWritePre,WinEnter,BufReadPost *
 		\ unlet! b:badge_cache_trails b:badge_cache_syntax b:badge_cache_filename
 augroup END
-" }}}
 
-function! badge#label(n, ...) abort "{{{
+function! badge#label(n, ...) abort
 	" Returns a specific tab's label
 	" Parameters:
 	"   n: Tab number
@@ -71,8 +73,7 @@ function! badge#label(n, ...) abort "{{{
 	return label
 endfunction
 
-" }}}
-function! badge#project() abort "{{{
+function! badge#project() abort
 	" Try to guess the project's name
 
 	let dir = badge#root()
@@ -90,7 +91,11 @@ function! badge#filename() abort " {{{
 	endif
 
 	" VimFiler status string
-	if &filetype ==# 'vimfiler'
+	if &filetype ==# 'defx'
+		let b:badge_cache_filename = b:defx['context']['buffer_name']
+	elseif &filetype ==# 'magit'
+		let b:badge_cache_filename = magit#git#top_dir()
+	elseif &filetype ==# 'vimfiler'
 		let b:badge_cache_filename = vimfiler#get_status_string()
 	" Empty if owned by certain plugins
 	elseif &filetype =~? g:badge_quiet_filetypes
@@ -117,8 +122,7 @@ function! badge#filename() abort " {{{
 	return b:badge_cache_filename
 endfunction
 
-" }}}
-function! badge#root() abort "{{{
+function! badge#root() abort
 	" Find the root directory by searching for the version-control dir
 
 	let dir = getbufvar('%', 'project_dir')
@@ -140,8 +144,7 @@ function! badge#root() abort "{{{
 	return dir
 endfunction
 
-" }}}
-function! badge#branch() abort " {{{
+function! badge#branch() abort
 	" Returns git branch name, using different plugins.
 
 	if &filetype !~? g:badge_quiet_filetypes
@@ -156,8 +159,7 @@ function! badge#branch() abort " {{{
 	return ''
 endfunction
 
-" }}}
-function! badge#syntax() abort " {{{
+function! badge#syntax() abort
 	" Returns syntax warnings from several plugins (Neomake and syntastic)
 
 	if &filetype =~? g:badge_quiet_filetypes
@@ -176,8 +178,7 @@ function! badge#syntax() abort " {{{
 	return b:badge_cache_syntax
 endfunction
 
-" }}}
-function! badge#trails(...) abort " {{{
+function! badge#trails(...) abort
 	" Detect trailing whitespace and cache result per buffer
 	" Parameters:
 	"   Whitespace warning message, use %s for line number, default: WS:%s
@@ -195,8 +196,7 @@ function! badge#trails(...) abort " {{{
 	return b:badge_cache_trails
 endfunction
 
-" }}}
-function! badge#modified(...) abort " {{{
+function! badge#modified(...) abort
 	" Make sure we ignore &modified when choosewin is active
 	" Parameters:
 	"   Modified symbol, default: +
@@ -206,8 +206,7 @@ function! badge#modified(...) abort " {{{
 	return &modified && ! choosewin ? label : ''
 endfunction
 
-" }}}
-function! badge#mode(...) abort " {{{
+function! badge#mode(...) abort
 	" Returns file's mode: read-only and/or zoomed
 	" Parameters:
 	"   Read-only symbol, default: R
@@ -224,27 +223,33 @@ function! badge#mode(...) abort " {{{
 	return s:modes
 endfunction
 
-" }}}
-function! badge#format() abort " {{{
+function! badge#format() abort
 	" Returns file format
 
 	return &filetype =~? g:badge_quiet_filetypes ? '' : &fileformat
 endfunction
 
-" }}}
-function! badge#session(...) abort "{{{
+function! badge#session(...) abort
 	" Returns an indicator for active session
 	" Parameters:
 	"   Active session symbol, default: [S]
 
 	return empty(v:this_session) ? '' : a:0 == 1 ? a:1 : '[S]'
 endfunction
-" }}}
 
 function! badge#indexing() abort
 	let l:out = ''
+
 	if exists('*gutentags#statusline')
-		let l:out .= gutentags#statusline('[', ']')
+		let l:tags = gutentags#statusline('[', ']')
+		if ! empty(l:tags)
+			if exists('*reltime')
+				let s:wait = split(reltimestr(reltime()), '\.')[1] / 100000
+			else
+				let s:wait = get(s:, 'wait', 9) == 9 ? 0 : s:wait + 1
+			endif
+			let l:out .= get(g:badge_loading, s:wait, '') . ' ' . l:tags
+		endif
 	endif
 	if exists('*coc#status')
 		let l:out .= coc#status()

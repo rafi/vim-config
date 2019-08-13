@@ -2,7 +2,7 @@
 " Maintainer: Rafael Bodill
 
 " Runtime and Plugins
-" ---
+" ===
 
 if &compatible
 	" vint: -ProhibitSetNoCompatible
