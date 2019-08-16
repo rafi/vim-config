@@ -1,12 +1,11 @@
-
 " File-type Detection
-" ------------------------------------------------
+" ===
 
 if exists('did_load_filetypes')
 	finish
 endif
 
-augroup filetypedetect
+augroup filetypedetect "{{{
 
 	autocmd BufNewFile,BufRead */playbooks/*.{yml,yaml} setfiletype yaml.ansible
 	autocmd BufNewFile,BufRead */inventory/*            setfiletype ansible_hosts
@@ -29,5 +28,6 @@ augroup filetypedetect
 	autocmd BufNewFile,BufRead Brewfile             setfiletype ruby
 
 augroup END
+" }}}
 
-" vim: set ts=2 sw=2 tw=80 noet :
+" vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :

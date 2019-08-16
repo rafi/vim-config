@@ -136,7 +136,7 @@ imap     <expr><C-u> pumvisible() ? "\<PageUp>" : "\<C-u>"
 " inoremap <expr><C-g> deoplete#undo_completion()
 
 " Redraw candidates
-inoremap <expr><C-g> deoplete#refresh()
+inoremap <expr><C-g> deoplete#manual_complete()
 inoremap <expr><C-e> deoplete#cancel_popup()
 inoremap <silent><expr><C-l> deoplete#complete_common_string()
 

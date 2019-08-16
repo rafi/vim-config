@@ -271,8 +271,10 @@ if dein#tap('vim-expand-region')
 endif
 
 if dein#tap('sideways.vim')
-	nnoremap <silent> m" :SidewaysJumpLeft<CR>
-	nnoremap <silent> m' :SidewaysJumpRight<CR>
+	nnoremap <silent> >, :SidewaysLeft<CR>
+	nnoremap <silent> <, :SidewaysRight<CR>
+	nnoremap <silent> [, :SidewaysJumpLeft<CR>
+	nnoremap <silent> ], :SidewaysJumpRight<CR>
 	omap <silent> a, <Plug>SidewaysArgumentTextobjA
 	xmap <silent> a, <Plug>SidewaysArgumentTextobjA
 	omap <silent> i, <Plug>SidewaysArgumentTextobjI

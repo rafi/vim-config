@@ -165,6 +165,14 @@ if exists('+inccommand')
 	set inccommand=nosplit
 endif
 
+if executable('rg')
+	set grepformat=%f:%l:%m
+	let &grepprg = 'rg --vimgrep' . (&smartcase ? ' --smart-case' : '')
+elseif executable('ag')
+	set grepformat=%f:%l:%m
+	let &grepprg = 'ag --vimgrep' . (&smartcase ? ' --smart-case' : '')
+endif
+
 " }}}
 " Behavior {{{
 " --------
@@ -178,7 +186,7 @@ set switchbuf=useopen,usetab    " Jump to the first open window in any tab
 set switchbuf+=vsplit           " Switch buffer behavior to vsplit
 set backspace=indent,eol,start  " Intuitive backspacing in insert mode
 set diffopt=filler,iwhite       " Diff mode: show fillers, ignore whitespace
-set completeopt=menuone         " Always show menu and preview
+set completeopt=menuone         " Always show menu, even for one item
 set completeopt+=noselect       " Do not select a match in the menu
 
 if has('patch-7.4.775')

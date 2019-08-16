@@ -9,6 +9,7 @@ call defx#custom#option('_', {
 	\ 'direction': 'topleft',
 	\ 'listed': 1,
 	\ 'show_ignored_files': 0,
+	\ 'root_marker': '↯ ',
 	\ 'ignored_files':
 	\     '.mypy_cache,.pytest_cache,.git,.hg,.svn,.stversions'
 	\   . ',__pycache__,.sass-cache,*.egg-info,.DS_Store,*.pyc'

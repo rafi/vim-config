@@ -1,5 +1,5 @@
 " File Types
-" ---
+" ===
 
 augroup user_plugin_filetype " {{{
 	autocmd!
@@ -13,6 +13,12 @@ augroup user_plugin_filetype " {{{
 
 	" Automatically set read-only for files being edited elsewhere
 	autocmd SwapExists * nested let v:swapchoice = 'o'
+
+	" Equalize window dimensions when resizing vim window
+	autocmd VimResized * tabdo wincmd =
+
+	" Force write shada on leaving nvim
+	autocmd VimLeave * if has('nvim') | wshada! | else | wviminfo! | endif
 
 	" Check if file changed when its window is focus, more eager than 'autoread'
 	autocmd FocusGained * checktime

@@ -4,7 +4,7 @@
 " Behaviors:
 " - Map `gK` for selected filetypes
 
-if exists('g:loaded_devhelp')
+if exists('g:loaded_devhelp') && g:loaded_devhelp
 	finish
 endif
 let g:loaded_devhelp = 1
@@ -30,4 +30,5 @@ function! s:show_help(...)
 	elseif executable('zeal')
 		execute '!zeal --query "' . l:expr . '"'
 	endif
+	redraw!
 endfunction

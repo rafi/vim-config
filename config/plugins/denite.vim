@@ -10,13 +10,15 @@ call denite#custom#option('_', {
 	\ 'start_filter': 1,
 	\ 'vertical_preview': 1,
 	\ 'prompt': '❯',
-	\ 'highlight_prompt': 'Function',
 	\ 'highlight_window_background': 'CursorColumn',
 	\ 'winwidth': &columns,
 	\ 'winheight': &lines / 3,
 	\ 'wincol': 0,
 	\ 'winrow': (&lines - 3) - (&lines / 3),
 	\ })
+
+	"\ 'highlight_prompt': 'Function',
+	"\ 'highlight_filter_background': 'CursorLine',
 
 if has('nvim')
 	call denite#custom#option('_', { 'split': 'floating' })
@@ -30,18 +32,12 @@ endif
 " MATCHERS
 " Default is 'matcher/fuzzy'
 " call denite#custom#source('tag', 'matchers', ['matcher/substring'])
-call denite#custom#source('file/rec,grep', 'matchers', ['matcher/fruzzy'])
-
-if has('nvim') && &runtimepath =~# '\/cpsm'
-	call denite#custom#source(
-		\ 'buffer,file_mru,file_old,file/rec,grep,mpc,line,neoyank',
-		\ 'matchers', ['matcher/cpsm', 'matcher/fuzzy'])
-endif
+call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
 
 " SORTERS
 " Default is 'sorter/rank'
 " call denite#custom#source('file/rec,grep', 'sorters', ['sorter/sublime'])
-call denite#custom#source('file/rec,grep', 'sorters', ['sorter/fruzzy'])
+" call denite#custom#source('_', 'sorters', ['sorter/fruzzy'])
 call denite#custom#source('z', 'sorters', ['sorter_z'])
 
 " CONVERTERS
@@ -93,7 +89,15 @@ endif
 " KEY MAPPINGS
 augroup user_plugin_denite
 	autocmd!
+
+	autocmd VimResized * call denite#custom#option('_', {
+		\   'winwidth': &columns,
+		\   'winheight': &lines / 3,
+		\   'winrow': (&lines - 3) - (&lines / 3),
+		\ })
+
 	autocmd FileType denite call s:denite_settings()
+
 	autocmd FileType denite-filter call s:denite_filter_settings()
 augroup END
 

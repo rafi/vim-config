@@ -1,9 +1,9 @@
 
 " hybrid custom
-" =========================
+" ===
 
 " gVim Appearance {{{
-" ---------------------------------------------------------
+" ---
 if has('gui_running')
 	set guifont=PragmataPro:h16
 	set guioptions=Mc
@@ -12,7 +12,7 @@ endif
 " }}}
 
 " Tabline {{{
-" ---------------------------------------------------------
+" ---
 " TabLineFill: Tab pages line, where there are no labels
 hi TabLineFill ctermfg=234 ctermbg=236 guifg=#1C1C1C guibg=#303030 cterm=NONE gui=NONE
 " TabLine: Not-active tab page label
@@ -46,7 +46,8 @@ highlight User8 guifg=#ffb964 guibg=#30302c ctermfg=215 ctermbg=236
 " }}}
 
 " Highlights: General GUI {{{
-" ---------------------------------------------------------
+" ---
+highlight! link jsFutureKeys PreProc
 " highlight! Error  term=NONE cterm=NONE
 " highlight! link WarningMsg  Comment
 " highlight! link pythonSpaceError  NONE
@@ -59,7 +60,7 @@ highlight User8 guifg=#ffb964 guibg=#30302c ctermfg=215 ctermbg=236
 " }}}
 
 " Plugin: Defx icons and highlights {{{
-" ---------------------------------------------------------
+" ---
 highlight Defx_filename_3_Modified  ctermfg=1  guifg=#D370A3
 highlight Defx_filename_3_Staged    ctermfg=10 guifg=#A3D572
 highlight Defx_filename_3_Ignored   ctermfg=8  guifg=#404660
@@ -68,9 +69,10 @@ highlight def link Defx_filename_3_Unknown Comment
 highlight def link Defx_filename_3_Renamed Title
 highlight def link Defx_filename_3_Unmerged Label
 " highlight Defx_git_Deleted   ctermfg=13 guifg=#b294bb
+" }}}
 
 " Plugin: Neomake icons {{{
-" ---------------------------------------------------------
+" ---
 let g:neomake_error_sign = {'text': '⚠', 'texthl': 'ErrorMsg'}
 let g:neomake_warning_sign = {'text': '⌁', 'texthl': 'WarningSyntax'}
 let g:neomake_message_sign = {'text': '⌂', 'texthl': 'NeomakeMessageSign'}
@@ -87,7 +89,7 @@ highlight! GitGutterChangeDelete ctermfg=52 guifg=#600000 ctermbg=NONE guibg=NON
 " }}}
 
 " Plugin: denite {{{
-" ---------------------------------------------------------
+" ---
 highlight! clear WildMenu
 highlight! link WildMenu CursorLine
 highlight! link deniteSelectedLine Type
@@ -98,17 +100,17 @@ highlight! link deniteSource_QuickfixPosition qfLineNr
 " }}}
 
 " Plugin: vim-operator-flashy {{{
-" ---------------------------------------------------------
+" ---
 highlight! link Flashy DiffText
 " }}}
 
 " Plugin: vim-bookmarks {{{
-highlight! BookmarkSign            ctermfg=12 guifg=#4EA9D7
-highlight! BookmarkAnnotationSign  ctermfg=11 guifg=#EACF49
+highlight! BookmarkSign            ctermfg=12 guifg=#4EA9D7 ctermbg=234 guibg=#1c1c1c
+highlight! BookmarkAnnotationSign  ctermfg=11 guifg=#EACF49 ctermbg=234 guibg=#1c1c1c
 " }}}
 
 " Plugin: vim-choosewin {{{
-" ---------------------------------------------------------
+" ---
 let g:choosewin_color_label = {
 	\ 'cterm': [ 236, 2 ], 'gui': [ '#555555', '#000000' ] }
 let g:choosewin_color_label_current = {
