@@ -6,72 +6,46 @@
 " Configuration
 
 " Limit display of directories in path
-let g:badge_label_max_dirs =
-	\ get(g:, 'badge_label_max_dirs', 1)
+let g:badge_tab_filename_max_dirs =
+	\ get(g:, 'badge_tab_filename_max_dirs', 1)
 
 " Limit display of characters in each directory in path
-let g:badge_label_max_dir_chars =
-	\ get(g:, 'badge_label_max_dir_chars', 8)
+let g:badge_tab_dir_max_chars =
+	\ get(g:, 'badge_tab_dir_max_chars', 8)
 
 " Maximum number of directories in filepath
-let g:badge_filename_max_dirs =
-	\ get(g:, 'badge_filename_max_dirs', 3)
+let g:badge_status_filename_max_dirs =
+	\ get(g:, 'badge_status_filename_max_dirs', 3)
 
 " Maximum number of characters in each directory
-let g:badge_filename_max_dir_chars =
-	\ get(g:, 'badge_filename_max_dir_chars', 5)
+let g:badge_status_dir_max_chars =
+	\ get(g:, 'badge_status_dir_max_chars', 5)
 
 " Less verbosity on specific filetypes (regexp)
-let g:badge_quiet_filetypes =
-	\ get(g:, 'badge_quiet_filetypes',
-	\ 'qf\|help\|denite\|vimfiler\|gundo\|diff\|fugitive\|gitv')
+let g:badge_filetype_blacklist =
+	\ get(g:, 'badge_filetype_blacklist',
+	\ 'qf\|help\|vimfiler\|gundo\|diff\|fugitive\|gitv')
 
-let g:badge_loading =
-	\ get(g:, 'badge_loading',
+let g:badge_numeric_charset =
+	\ get(g:, 'badge_numeric_charset',
+	\ ['⁰','¹','²','³','⁴','⁵','⁶','⁷','⁸','⁹'])
+	"\ ['₀','₁','₂','₃','₄','₅','₆','₇','₈','₉'])
+
+let g:badge_loading_charset =
+	\ get(g:, 'badge_loading_charset',
 	\ ['⠃', '⠁', '⠉', '⠈', '⠐', '⠠', '⢠', '⣠', '⠄', '⠂'])
+
+let g:badge_nofile = get(g:, 'badge_nofile', 'N/A')
+
+let g:badge_project_separator = get(g:, 'badge_project_separator', '')
 
 " Clear cache on save
 augroup statusline_cache
 	autocmd!
 	autocmd BufWritePre,WinEnter,BufReadPost *
-		\ unlet! b:badge_cache_trails b:badge_cache_syntax b:badge_cache_filename
+		\ unlet! b:badge_cache_trails b:badge_cache_syntax
+			\ b:badge_cache_filename b:badge_cache_tab
 augroup END
-
-function! badge#label(n, ...) abort
-	" Returns a specific tab's label
-	" Parameters:
-	"   n: Tab number
-	"   Project separator symbol, default: |
-	"   Empty buffer name, default: [No Name]
-
-	let buflist = tabpagebuflist(a:n)
-	let winnr = tabpagewinnr(a:n)
-	let filepath = bufname(buflist[winnr - 1])
-	if len(filepath) == 0
-		let label = a:0 > 1 ? a:2 : '[No Name]'
-	else
-		let pre = ''
-		let project_dir = gettabvar(a:n, 'project_dir')
-		if strridx(filepath, project_dir) == 0
-			let filepath = strpart(filepath, len(project_dir))
-			let pre .= gettabvar(a:n, 'project_name').(a:0 > 0 ? a:1 : '|')
-		endif
-
-		" Shorten dir names
-		let short = substitute(filepath,
-			\ "[^/]\\{".g:badge_label_max_dir_chars."}\\zs[^/]\*\\ze/", '', 'g')
-		" Decrease dir count
-		let parts = split(short, '/')
-		if len(parts) > g:badge_label_max_dirs
-			let parts = parts[-g:badge_label_max_dirs-1 : ]
-		endif
-		let filepath = join(parts, '/')
-
-		" Prepend the project name
-		let label = pre . filepath
-	endif
-	return label
-endfunction
 
 function! badge#project() abort
 	" Try to guess the project's name
@@ -80,46 +54,121 @@ function! badge#project() abort
 	return fnamemodify(dir ? dir : getcwd(), ':t')
 endfunction
 
-" }}}
-function! badge#filename() abort " {{{
+function! badge#gitstatus(...) abort
+	" Display git status indicators
+
+	let l:icons = ['₊', '∗', '₋']  " added, modified, removed
+	let l:out = ''
+	" if &filetype ==# 'magit'
+	"	let l:map = {}
+	"	for l:file in magit#git#get_status()
+	"		let l:map[l:file['unstaged']] = get(l:map, l:file['unstaged'], 0) + 1
+	"	endfor
+	"	for l:status in l:map
+	"		let l:out = values(l:map)
+	"	endfor
+	" else
+		if exists('*gitgutter#hunk#summary')
+			let l:summary = gitgutter#hunk#summary(bufnr('%'))
+			for l:idx in range(0, len(l:summary) - 1)
+				if l:summary[l:idx] > 0
+					let l:out .= ' ' . l:icons[l:idx] . l:summary[l:idx]
+				endif
+			endfor
+		endif
+	" endif
+	return trim(l:out)
+endfunction
+
+function! badge#filename(...) abort
 	" Provides relative path with limited characters in each directory name, and
 	" limits number of total directories. Caches the result for current buffer.
+	" Parameters:
+	"   1: Buffer number, ignored if tab number supplied
+	"   2: Tab number
+	"   3: Enable to append total window count in tab
+	"   4: Include project directory if different from current
+
+	" Compute buffer name
+	if a:0 > 1
+		let l:buflist = tabpagebuflist(a:2)
+		let l:bufnr = l:buflist[tabpagewinnr(a:2) - 1]
+	elseif a:0 == 1
+		let l:bufnr = a:1
+	elseif a:0 == 0
+		let l:bufnr = '%'
+	endif
 
 	" Use buffer's cached filepath
-	if exists('b:badge_cache_filename') && len(b:badge_cache_filename) > 0
-		return b:badge_cache_filename
+	let l:cache_var_name = 'badge_cache_' . (a:0 > 1 ? 'tab' : 'filename')
+	let l:fn = getbufvar(l:bufnr, l:cache_var_name, '')
+	if len(l:fn) > 0
+		return l:fn
 	endif
 
-	" VimFiler status string
-	if &filetype ==# 'defx'
-		let b:badge_cache_filename = b:defx['context']['buffer_name']
-	elseif &filetype ==# 'magit'
-		let b:badge_cache_filename = magit#git#top_dir()
-	elseif &filetype ==# 'vimfiler'
-		let b:badge_cache_filename = vimfiler#get_status_string()
-	" Empty if owned by certain plugins
-	elseif &filetype =~? g:badge_quiet_filetypes
-		let b:badge_cache_filename = ''
-	" Placeholder for empty buffer
-	elseif expand('%:t') ==? ''
-		let b:badge_cache_filename = 'N/A'
-	" Regular file
+	let l:bufname = bufname(l:bufnr)
+	let l:filetype = getbufvar(l:bufnr, '&filetype')
+
+	if l:filetype =~? g:badge_filetype_blacklist
+		" Empty if owned by certain plugins
+		let l:fn = ''
+	elseif l:filetype ==# 'defx'
+		let l:defx = getbufvar(l:bufnr, 'defx')
+		let l:fn = get(get(l:defx, 'context', {}), 'buffer_name')
+		unlet! l:defx
+	elseif l:filetype ==# 'magit'
+		let l:fn = magit#git#top_dir()
+	elseif l:filetype ==# 'vimfiler'
+		let l:fn = vimfiler#get_status_string()
+	elseif empty(l:bufname)
+		" Placeholder for empty buffer
+		let l:fn = g:badge_nofile
 	else
+		" let l:icons = defx_icons#get()
 		" Shorten dir names
-		let short = substitute(expand('%'), "[^/]\\{".g:badge_filename_max_dir_chars."}\\zs[^/]\*\\ze/", '', 'g')
+		let l:max = a:0 > 1 ?
+			\ g:badge_tab_dir_max_chars : g:badge_status_dir_max_chars
+		let short = substitute(l:bufname,
+			\ "[^/]\\{" . l:max . "}\\zs[^/]\*\\ze/", '', 'g')
+
 		" Decrease dir count
+		let l:max = a:0 > 1 ?
+			\ g:badge_tab_filename_max_dirs : g:badge_status_filename_max_dirs
 		let parts = split(short, '/')
-		if len(parts) > g:badge_filename_max_dirs
-			let parts = parts[-g:badge_filename_max_dirs-1 : ]
+		if len(parts) > l:max
+			let parts = parts[-l:max-1 : ]
 		endif
-		let b:badge_cache_filename = join(parts, '/')
+		let l:fn = join(parts, '/')
 	endif
 
-	if exists('b:fugitive_type') && b:fugitive_type ==# 'blob'
-		let b:badge_cache_filename .= ' (blob)'
+	" Append fugitive blob type
+	let l:fugitive = getbufvar(l:bufnr, 'fugitive_type')
+	if l:fugitive ==# 'blob'
+		let l:fn .= ' (blob)'
 	endif
 
-	return b:badge_cache_filename
+	" Append window count, for tabs
+	if a:0 > 2 && a:3
+		let l:win_count = tabpagewinnr(a:2, '$')
+		if l:win_count > 1
+			let l:fn .= s:numtr(l:win_count, g:badge_numeric_charset)
+		endif
+	endif
+
+	" Prepend project dir, for tabs
+	if a:0 > 3 && a:4
+		" g:badge_project_separator
+		" let project_dir = getbufvar(a:n, 'project_dir')
+		" if strridx(filepath, project_dir) == 0
+		"	let filepath = strpart(filepath, len(project_dir))
+		"	let project .= fnamemodify(project_dir, ':t') . (a:0 > 0 ? a:1 : '|')
+		"	let l:fn = project . l:fn
+		"	endif
+	endif
+
+	" Cache and return the final result
+	call setbufvar(l:bufnr, l:cache_var_name, l:fn)
+	return l:fn
 endfunction
 
 function! badge#root() abort
@@ -147,7 +196,7 @@ endfunction
 function! badge#branch() abort
 	" Returns git branch name, using different plugins.
 
-	if &filetype !~? g:badge_quiet_filetypes
+	if &filetype !~? g:badge_filetype_blacklist
 		if exists('*gitbranch#name')
 			return gitbranch#name()
 		elseif exists('*vcs#info')
@@ -162,7 +211,7 @@ endfunction
 function! badge#syntax() abort
 	" Returns syntax warnings from several plugins (Neomake and syntastic)
 
-	if &filetype =~? g:badge_quiet_filetypes
+	if &filetype =~? g:badge_filetype_blacklist
 		return ''
 	endif
 
@@ -213,7 +262,7 @@ function! badge#mode(...) abort
 	"   Zoomed buffer symbol, default: Z
 
 	let s:modes = ''
-	if &filetype !~? g:badge_quiet_filetypes && &readonly
+	if &filetype !~? g:badge_filetype_blacklist && &readonly
 		let s:modes .= a:0 > 0 ? a:1 : 'R'
 	endif
 	if exists('t:zoomed') && bufnr('%') == t:zoomed.nr
@@ -226,7 +275,7 @@ endfunction
 function! badge#format() abort
 	" Returns file format
 
-	return &filetype =~? g:badge_quiet_filetypes ? '' : &fileformat
+	return &filetype =~? g:badge_filetype_blacklist ? '' : &fileformat
 endfunction
 
 function! badge#session(...) abort
@@ -248,7 +297,7 @@ function! badge#indexing() abort
 			else
 				let s:wait = get(s:, 'wait', 9) == 9 ? 0 : s:wait + 1
 			endif
-			let l:out .= get(g:badge_loading, s:wait, '') . ' ' . l:tags
+			let l:out .= get(g:badge_loading_charset, s:wait, '') . ' ' . l:tags
 		endif
 	endif
 	if exists('*coc#status')
@@ -258,6 +307,14 @@ function! badge#indexing() abort
 		let l:out .= '[s]'
 	endif
 	return l:out
+endfunction
+
+function! s:numtr(number, charset) abort
+	let l:result = ''
+	for l:char in split(a:number, '\zs')
+		let l:result .= a:charset[l:char]
+	endfor
+	return l:result
 endfunction
 
 " vim: set ts=2 sw=2 tw=80 noet :
