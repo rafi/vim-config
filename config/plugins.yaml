@@ -404,7 +404,7 @@
   hook_post_source: call echodoc#enable()
 
 - repo: ncm2/float-preview.nvim
-  if: has('nvim')
+  if: has('nvim') && exists('#CompleteChanged')
   on_event: InsertEnter
   hook_add: |
     let g:float_preview#docked = 0
