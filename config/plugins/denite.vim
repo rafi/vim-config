@@ -4,35 +4,27 @@
 
 " INTERFACE
 call denite#custom#option('_', {
-	\ 'empty': 0,
 	\ 'auto_resume': 1,
-	\ 'statusline': 0,
 	\ 'start_filter': 1,
+	\ 'statusline': 1,
+	\ 'smartcase': 1,
 	\ 'vertical_preview': 1,
+	\ 'direction': 'dynamicbottom',
 	\ 'prompt': '❯',
-	\ 'highlight_window_background': 'CursorColumn',
 	\ 'winwidth': &columns,
 	\ 'winheight': &lines / 3,
 	\ 'wincol': 0,
 	\ 'winrow': (&lines - 3) - (&lines / 3),
 	\ })
 
-	"\ 'highlight_prompt': 'Function',
-	"\ 'highlight_filter_background': 'CursorLine',
-
 if has('nvim')
-	call denite#custom#option('_', { 'split': 'floating' })
+	call denite#custom#option('_', { 'split': 'floating', 'statusline': 0 })
 endif
-
-" call denite#custom#option('search', { 'start_filter': 0, 'no_empty': 1 })
-" call denite#custom#option('list', { 'start_filter': 0 })
-" call denite#custom#option('jump', { 'start_filter': 0 })
-" call denite#custom#option('gitview', { 'start_filter': 0 })
 
 " MATCHERS
 " Default is 'matcher/fuzzy'
 " call denite#custom#source('tag', 'matchers', ['matcher/substring'])
-call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
+" call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
 
 " SORTERS
 " Default is 'sorter/rank'
@@ -63,17 +55,6 @@ if executable('ag')
 	call denite#custom#var('grep', 'default_opts',
 		\ [ '--skip-vcs-ignores', '--vimgrep', '--smart-case', '--hidden' ])
 
-elseif executable('ack')
-	" Ack command
-	call denite#custom#var('grep', 'command', ['ack'])
-	call denite#custom#var('grep', 'recursive_opts', [])
-	call denite#custom#var('grep', 'pattern_opt', ['--match'])
-	call denite#custom#var('grep', 'separator', ['--'])
-	call denite#custom#var('grep', 'final_opts', [])
-	call denite#custom#var('grep', 'default_opts',
-			\ ['--ackrc', $HOME.'/.config/ackrc', '-H',
-			\ '--nopager', '--nocolor', '--nogroup', '--column'])
-
 elseif executable('rg')
 	" Ripgrep
 	call denite#custom#var('file/rec', 'command',
@@ -84,28 +65,35 @@ elseif executable('rg')
 	call denite#custom#var('grep', 'separator', ['--'])
 	call denite#custom#var('grep', 'default_opts',
 		\ ['-i', '--vimgrep', '--no-heading'])
+
+elseif executable('ack')
+	" Ack command
+	call denite#custom#var('grep', 'command', ['ack'])
+	call denite#custom#var('grep', 'recursive_opts', [])
+	call denite#custom#var('grep', 'pattern_opt', ['--match'])
+	call denite#custom#var('grep', 'separator', ['--'])
+	call denite#custom#var('grep', 'final_opts', [])
+	call denite#custom#var('grep', 'default_opts',
+			\ ['--ackrc', $HOME.'/.config/ackrc', '-H',
+			\ '--nopager', '--nocolor', '--nogroup', '--column'])
 endif
 
 " KEY MAPPINGS
 augroup user_plugin_denite
 	autocmd!
 
+	autocmd FileType denite call s:denite_settings()
+	autocmd FileType denite-filter call s:denite_filter_settings()
+
 	autocmd VimResized * call denite#custom#option('_', {
 		\   'winwidth': &columns,
 		\   'winheight': &lines / 3,
 		\   'winrow': (&lines - 3) - (&lines / 3),
 		\ })
-
-	autocmd FileType denite call s:denite_settings()
-
-	autocmd FileType denite-filter call s:denite_filter_settings()
 augroup END
 
 function! s:denite_settings() abort
 	setlocal signcolumn=no cursorline
-	let b:coc_enabled = 0
-	" highlight! CursorLine ctermbg=234 guibg=#1c1c1c
-	highlight! link CursorLine Visual
 
 	nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
 	nnoremap <silent><buffer><expr> i    denite#do_map('open_filter_buffer')
@@ -125,7 +113,7 @@ function! s:denite_settings() abort
 endfunction
 
 function! s:denite_filter_settings() abort
-	setlocal signcolumn=no nocursorline
+	setlocal signcolumn=yes nocursorline nonumber norelativenumber
 	call deoplete#custom#buffer_option('auto_complete', v:false)
 
 	nnoremap <silent><buffer><expr> <Esc>  denite#do_map('quit')
