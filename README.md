@@ -111,6 +111,12 @@ and add your personal settings there. This file is ignored by `.gitignore`.
 If you'd like to install plugins by yourself, create a
 `config/local.plugins.yaml` file and manage your own plugin collection.
 
+If you want to disable some of the plugins I use, you can overwrite them, e.g.:
+
+```yaml
+- { repo: benekastah/neomake, if: 0 }
+```
+
 ## Structure
 
 - [config/](./config) - Configuration
