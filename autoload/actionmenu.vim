@@ -48,7 +48,6 @@ function! actionmenu#open(items, callback, ...) abort
 	" Open the window
 	let l:opts = {
 		\ 'relative': 'cursor',
-		\ 'style': 'minimal',
 		\ 'focusable': v:false,
 		\ 'width': 1,
 		\ 'height': 1,
