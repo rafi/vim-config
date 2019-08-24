@@ -4,6 +4,55 @@ Lean mean Neo/vim machine, 30-45ms startup time.
 
 Best with Neovim or Vim8 with +python3 extensions enabled.
 
+<details>
+  <summary>
+    <strong>Table of Contents</strong>
+    <small><i>(🔎 Click to expand)</i></small>
+  </summary>
+
+<!-- vim-markdown-toc GFM -->
+
+* [Features](#features)
+* [Screenshot](#screenshot)
+* [Pre-requisites](#pre-requisites)
+* [Install](#install)
+  * [Recommended Fonts](#recommended-fonts)
+  * [Recommended Linters](#recommended-linters)
+  * [Recommended Tools](#recommended-tools)
+* [Upgrade](#upgrade)
+* [User Custom Config](#user-custom-config)
+* [Structure](#structure)
+* [Plugin Highlights](#plugin-highlights)
+* [Plugins Included](#plugins-included)
+  * [Non Lazy-Loaded Plugins](#non-lazy-loaded-plugins)
+  * [Lazy-Loaded Plugins](#lazy-loaded-plugins)
+    * [Language](#language)
+    * [Commands](#commands)
+    * [Interface](#interface)
+    * [Completion](#completion)
+    * [Denite](#denite)
+    * [Operators & Text Objects](#operators--text-objects)
+* [Custom Key-mappings](#custom-key-mappings)
+  * [General](#general)
+  * [File Operations](#file-operations)
+  * [Editor UI](#editor-ui)
+  * [Window Management](#window-management)
+  * [Plugin: Denite](#plugin-denite)
+  * [Plugin: Defx](#plugin-defx)
+  * [Plugin: Deoplete and Emmet](#plugin-deoplete-and-emmet)
+  * [Plugin: Caw (comments)](#plugin-caw-comments)
+  * [Plugin: Edge Motion](#plugin-edge-motion)
+  * [Plugin: Signature](#plugin-signature)
+  * [Plugin: Easygit](#plugin-easygit)
+  * [Plugin: GitGutter](#plugin-gitgutter)
+  * [Plugin: Linediff](#plugin-linediff)
+  * [Misc Plugins](#misc-plugins)
+* [Credits & Contribution](#credits--contribution)
+
+</details>
+
+<!-- vim-markdown-toc -->
+
 ## Features
 
 - Fast startup time
@@ -11,13 +60,13 @@ Best with Neovim or Vim8 with +python3 extensions enabled.
 - Lazy-load 95% of plugins with [Shougo/dein.vim]
 - Custom side-menu (try it out! <kbd>Leader</kbd>+<kbd>l</kbd>)
 - Custom context-menu (try it! <kbd>;</kbd>+<kbd>c</kbd>)
-- Modular configuration
-- Denite (Unite's successor) centric work-flow
+- Modular configuration (see [structure](#structure))
+- Denite centric work-flow (lists)
 - Extensive Deoplete setup (auto-completion)
-- Lightweight simple status/tabline
+- Light-weight but informative status/tabline
 - Easy customizable theme
 - Premium color-schemes
-- Central location for tags
+- Central location for tags and sessions
 
 ## Screenshot
 
@@ -120,10 +169,9 @@ Run `make update`
 ## User Custom Config
 
 If you want to add your own configuration, create the `config/local.vim` file
-and add your personal settings there. This file is ignored by `.gitignore`.
-
-If you'd like to install plugins by yourself, create a
-`config/local.plugins.yaml` file and manage your own plugin collection.
+and add your personal settings there. If you'd like to install plugins by
+yourself, create a `config/local.plugins.yaml` file and manage your own plugin
+collection.
 
 If you want to disable some of the plugins I use, you can overwrite them, e.g.:
 
