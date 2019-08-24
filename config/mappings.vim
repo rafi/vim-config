@@ -206,6 +206,10 @@ if has('nvim')
 	nmap <silent> <LocalLeader>c :<C-u>ActionMenu<CR>
 endif
 
+" Whitespace jump (see plugin/whitespace.vim)
+nnoremap ]w :<C-u>WhitespaceNext<CR>
+nnoremap [w :<C-u>WhitespacePrev<CR>
+
 " Session management shortcuts (see plugin/sessions.vim)
 nmap <silent> <Leader>se :<C-u>SessionSave<CR>
 nmap <silent> <Leader>os :<C-u>SessionLoad<CR>
