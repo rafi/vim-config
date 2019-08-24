@@ -64,6 +64,8 @@ highlight! link jsFutureKeys PreProc
 highlight Defx_filename_3_Modified  ctermfg=1  guifg=#D370A3
 highlight Defx_filename_3_Staged    ctermfg=10 guifg=#A3D572
 highlight Defx_filename_3_Ignored   ctermfg=8  guifg=#404660
+highlight link Defx_filename_3_root_marker Comment
+
 highlight def link Defx_filename_3_Untracked Comment
 highlight def link Defx_filename_3_Unknown Comment
 highlight def link Defx_filename_3_Renamed Title

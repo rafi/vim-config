@@ -42,10 +42,16 @@ let g:badge_project_separator = get(g:, 'badge_project_separator', '')
 " Clear cache on save
 augroup statusline_cache
 	autocmd!
-	autocmd BufWritePre,WinEnter,BufReadPost *
-		\ unlet! b:badge_cache_trails b:badge_cache_syntax
-			\ b:badge_cache_filename b:badge_cache_tab
+	autocmd BufWritePre,WinEnter,BufReadPost * call badge#clear_cache()
+	autocmd User NeomakeJobFinished call badge#clear_cache()
+	autocmd User CocDiagnosticChange call badge#clear_cache()
+	autocmd User CocStatusChange call badge#clear_cache()
 augroup END
+
+function! badge#clear_cache() abort
+	unlet! b:badge_cache_trails b:badge_cache_syntax
+		\ b:badge_cache_filename b:badge_cache_tab
+endfunction
 
 function! badge#project() abort
 	" Try to guess the project's name
@@ -109,16 +115,16 @@ function! badge#filename(...) abort
 	let l:bufname = bufname(l:bufnr)
 	let l:filetype = getbufvar(l:bufnr, '&filetype')
 
-	if l:filetype =~? g:badge_filetype_blacklist
+	if a:0 < 2 && l:filetype =~? g:badge_filetype_blacklist
 		" Empty if owned by certain plugins
 		let l:fn = ''
-	elseif l:filetype ==# 'defx'
+	elseif a:0 < 2 && l:filetype ==# 'defx'
 		let l:defx = getbufvar(l:bufnr, 'defx')
 		let l:fn = get(get(l:defx, 'context', {}), 'buffer_name')
 		unlet! l:defx
-	elseif l:filetype ==# 'magit'
+	elseif a:0 < 2 && l:filetype ==# 'magit'
 		let l:fn = magit#git#top_dir()
-	elseif l:filetype ==# 'vimfiler'
+	elseif a:0 < 2 && l:filetype ==# 'vimfiler'
 		let l:fn = vimfiler#get_status_string()
 	elseif empty(l:bufname)
 		" Placeholder for empty buffer
@@ -215,13 +221,28 @@ function! badge#syntax() abort
 		return ''
 	endif
 
+	let l:errors = 0
+	let l:warnings = 0
 	if ! exists('b:badge_cache_syntax') || empty(b:badge_cache_syntax)
 		let b:badge_cache_syntax = ''
 		if exists('*neomake#Make')
-			let b:badge_cache_syntax = neomake#statusline#LoclistStatus()
+			let l:counts = neomake#statusline#get_counts(bufnr('%'))
+			let l:errors = get(l:counts, 'E', '')
+			let l:warnings = get(l:counts, 'W', '')
+		elseif exists('g:loaded_ale')
+			let l:counts = ale#statusline#Count(bufnr('%'))
+			let l:errors = l:counts.error + l:counts.style_error
+			let l:warnings = l:counts.total - l:errors
 		elseif exists('*SyntasticStatuslineFlag')
 			let b:badge_cache_syntax = SyntasticStatuslineFlag()
 		endif
+		if l:errors > 0
+			let b:badge_cache_syntax .= printf(' %d ', l:errors)
+		endif
+		if l:warnings > 0
+			let b:badge_cache_syntax .= printf(' %d ', l:warnings)
+		endif
+		let b:badge_cache_syntax = substitute(b:badge_cache_syntax, '\s*$', '', '')
 	endif
 
 	return b:badge_cache_syntax

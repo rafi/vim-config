@@ -9,7 +9,7 @@ call defx#custom#option('_', {
 	\ 'direction': 'topleft',
 	\ 'listed': 1,
 	\ 'show_ignored_files': 0,
-	\ 'root_marker': '↯ ',
+	\ 'root_marker': '≡ ',
 	\ 'ignored_files':
 	\     '.mypy_cache,.pytest_cache,.git,.hg,.svn,.stversions'
 	\   . ',__pycache__,.sass-cache,*.egg-info,.DS_Store,*.pyc'
@@ -121,6 +121,7 @@ function! s:defx_mappings() abort
 	nnoremap <silent><buffer><expr> <CR>  <SID>defx_toggle_tree()
 	nnoremap <silent><buffer><expr> l     <SID>defx_toggle_tree()
 	nnoremap <silent><buffer><expr> h     defx#do_action('close_tree')
+	nnoremap <silent><buffer><expr> t     defx#do_action('open_tree_recursive')
 	nnoremap <silent><buffer><expr> <BS>  defx#async_action('cd', ['..'])
 	nnoremap <silent><buffer><expr> st    defx#do_action('multi', [['drop', 'tabnew'], 'quit'])
 	nnoremap <silent><buffer><expr> sg    defx#do_action('multi', [['drop', 'vsplit'], 'quit'])
