@@ -50,13 +50,15 @@
 - repo: plasticboy/vim-markdown
   on_ft: markdown
   hook_add: |
-    let g:vim_markdown_folding_level = 6
-    let g:vim_markdown_emphasis_multiline = 0
-    let g:vim_markdown_conceal = 0
+    let g:vim_markdown_folding_level = 1
+    let g:vim_markdown_folding_style_pythonic = 1
     let g:vim_markdown_frontmatter = 1
-    let g:vim_markdown_new_list_item_indent = 2
-    let g:vim_markdown_edit_url_in = 'vsplit'
+    let g:vim_markdown_auto_insert_bullets = 1
+    let g:vim_markdown_new_list_item_indent = 0
+    let g:vim_markdown_conceal_code_blocks = 0
+    let g:vim_markdown_conceal = 0
     let g:vim_markdown_strikethrough = 1
+    let g:vim_markdown_edit_url_in = 'vsplit'
     let g:vim_markdown_fenced_languages = [
       \ 'c++=cpp',
       \ 'viml=vim',
@@ -167,7 +169,7 @@
       \ }
 
 - repo: hashivim/vim-terraform
-  on_ft: terraform
+  on_ft: [ terraform, hcl ]
   on_cmd: [ Terraform, TerraformFmt ]
   hook_add: let g:terraform_fmt_on_save = 1
 
@@ -179,9 +181,20 @@
   hook_source: source $VIM_PATH/config/plugins/defx.vim
 
 - { repo: kristijanhusak/defx-git, on_source: defx.nvim }
-- { repo: kristijanhusak/defx-icons, on_source: defx.nvim }
 
-- { repo: tyru/caw.vim, on_map: { nx: <Plug> }}
+- repo: kristijanhusak/defx-icons
+  on_source: defx.nvim
+  on_func: defx_icons#get
+
+- repo: tyru/caw.vim
+  on_map: { nx: <Plug> }
+  hook_add: |
+    let g:caw_hatpos_sp = ''
+    let g:caw_zeropos_sp = ''
+    let g:caw_wrap_sp_left = ''
+    let g:caw_wrap_sp_right = ''
+    let g:caw_jump_sp = ''
+
 - { repo: liuchengxu/vim-which-key, on_cmd: WhichKey }
 - { repo: kana/vim-niceblock, on_map: { x: <Plug> }}
 - { repo: guns/xterm-color-table.vim, on_cmd: XtermColorTable }
@@ -406,8 +419,9 @@
   hook_source: |
     let g:neosnippet#enable_snipmate_compatibility = 1
     let g:neosnippet#enable_completed_snippet = 1
-    let g:neosnippet#expand_word_boundary = 1
     let g:neosnippet#enable_complete_done = 1
+    let g:neosnippet#expand_word_boundary = 1
+    let g:neosnippet#enable_auto_clear_markers = 1
     autocmd user_events InsertLeave * NeoSnippetClearMarkers
 
 - repo: Shougo/echodoc.vim
@@ -421,8 +435,8 @@
     let g:float_preview#docked = 0
     let g:float_preview#max_width = 80
 
-- { repo: Shougo/neosnippet-snippets, on_event: InsertEnter }
-- { repo: Shougo/context_filetype.vim, on_event: InsertEnter }
+- { repo: Shougo/neosnippet-snippets, on_source: neosnippet.vim }
+- { repo: Shougo/context_filetype.vim, lazy: 1 }
 - { repo: Shougo/neco-vim, on_ft: vim }
 - { repo: Shougo/neoinclude.vim, on_source: deoplete.nvim }
 - { repo: Shougo/neco-syntax, on_source: deoplete.nvim }

@@ -11,6 +11,7 @@ augroup filetypedetect "{{{
 	autocmd BufNewFile,BufRead */inventory/*            setfiletype ansible_hosts
 	autocmd BufNewFile,BufRead */templates/*.{yaml,tpl} setfiletype yaml.gotexttmpl
 
+	autocmd BufNewFile,BufRead *.hcl                setfiletype terraform
 	autocmd BufNewFile,BufRead yarn.lock            setfiletype yaml
 	autocmd BufNewFile,BufRead */.kube/config       setfiletype yaml
 	autocmd BufNewFile,BufRead *.postman_collection setfiletype json

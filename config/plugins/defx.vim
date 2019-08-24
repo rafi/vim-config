@@ -33,6 +33,7 @@ call defx#custom#column('git', {
 " defx-icons plugin
 let g:defx_icons_column_length = 2
 let g:defx_icons_mark_icon = '✓'
+let g:defx_icons_parent_icon = ''
 
 " Events
 " ---
