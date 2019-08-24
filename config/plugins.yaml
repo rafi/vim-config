@@ -269,6 +269,23 @@
     let g:gitgutter_sign_removed = '▏'
     let g:gitgutter_sign_removed_first_line = '▔'
     let g:gitgutter_sign_modified_removed = '▋'
+    let g:gitgutter_sign_allow_clobber = 0
+    let g:gitgutter_sign_priority = 0
+    let g:gitgutter_override_sign_column_highlight = 0
+
+- repo: kshenoy/vim-signature
+  depends: vim-gitgutter
+  on_path: .*
+  hook_add: |
+    let g:SignatureForceRemoveGlobal = 0
+    let g:SignatureUnconditionallyRecycleMarks = 1
+    let g:SignatureErrorIfNoAvailableMarks = 0
+    let g:SignaturePurgeConfirmation = 0
+    let g:SignatureMarkTextHLDynamic = 1
+    let g:SignatureMarkerTextHLDynamic = 1
+    let g:SignatureIncludeMarks = 'abcdefgABCDEFG'
+    let g:SignatureIncludeMarkers = repeat('⚐', 10)
+    autocmd user_events User GitGutter call signature#sign#Refresh()
 
 - repo: nathanaelkane/vim-indent-guides
   on_cmd: [ IndentGuidesEnable, IndentGuidesDisable, IndentGuidesToggle ]
@@ -296,15 +313,6 @@
     if ! has('vim_starting')
       doautocmd <nomodeline> user_plugin_indentguides BufEnter
     endif
-
-- repo: MattesGroeger/vim-bookmarks
-  on_path: .*
-  hook_source: |
-    let g:bookmark_auto_save_file = g:etc#cache_path . '/bookmarks'
-    let g:bookmark_no_default_key_mappings = 1
-    let g:bookmark_disable_ctrlp = 1
-    let g:bookmark_location_list = 1
-    let g:bookmark_sign = '⚐'
 
 - repo: rhysd/committia.vim
   on_path: COMMIT_EDITMSG

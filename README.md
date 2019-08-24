@@ -273,7 +273,7 @@ Name           | Description
 [rafi/vim-sidemenu] | Small side-menu useful for terminal users
 [airblade/vim-gitgutter] | Show git changes at Vim gutter and un/stages hunks
 [nathanaelkane/vim-indent-guides] | Visually display indent levels in code
-[MattesGroeger/vim-bookmarks] | Bookmarks, works independently from vim marks
+[kshenoy/vim-signature] | Display and toggle marks
 [hotwatermorning/auto-git-diff] | Display Git diff for interactive rebase
 [rhysd/committia.vim] | Pleasant editing on Git commit messages
 [benekastah/neomake] | Asynchronous linting and make framework
@@ -430,7 +430,7 @@ Name           | Description
 [rafi/vim-sidemenu]: https://github.com/rafi/vim-sidemenu
 [airblade/vim-gitgutter]: https://github.com/airblade/vim-gitgutter
 [nathanaelkane/vim-indent-guides]: https://github.com/nathanaelkane/vim-indent-guides
-[MattesGroeger/vim-bookmarks]: https://github.com/MattesGroeger/vim-bookmarks
+[kshenoy/vim-signature]: https://github.com/kshenoy/vim-signature
 [hotwatermorning/auto-git-diff]: https://github.com/hotwatermorning/auto-git-diff
 [rhysd/committia.vim]: https://github.com/rhysd/committia.vim
 [benekastah/neomake]: https://github.com/neomake/neomake
@@ -685,15 +685,18 @@ Key   | Mode | Action
 `g`+`j` | Normal/Visual | Jump to edge downwards
 `g`+`k` | Normal/Visual | Jump to edge upwards
 
-### Plugin: Bookmarks
+### Plugin: Signature
 
 Key   | Mode | Action
 ----- |:----:| ------------------
-`m`+`a` | Normal | Show list of all bookmarks
-`m`+`m` | Normal | Toggle bookmark in current line
-`m`+`n` | Normal | Jump to next bookmark
-`m`+`p` | Normal | Jump to previous bookmark
-`m`+`i` | Normal | Annotate bookmark
+`m`+`/`/`?` | Normal | Show list of buffer marks/markers
+`m`+`m` | Normal | Toggle mark on current line
+`m`+`,` | Normal | Place next mark
+`m`+`-` | Normal | Purge all marks on current line
+`m`+`n` | Normal | Jump to next mark
+`m`+`p` | Normal | Jump to previous mark
+`m`+`j` | Normal | Jump to next marker
+`m`+`k` | Normal | Jump to previous marker
 
 ### Plugin: Easygit
 

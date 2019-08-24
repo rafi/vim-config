@@ -67,8 +67,6 @@ if has('vim_starting')
 	xnoremap ,        <Nop>
 	nnoremap ;        <Nop>
 	xnoremap ;        <Nop>
-	nnoremap m        <Nop>
-	xnoremap m        <Nop>
 
 	if ! has('nvim') && has('pythonx')
 		if has('python3')
