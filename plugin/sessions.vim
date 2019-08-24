@@ -5,13 +5,13 @@
 " - Save active session when quitting vim completely
 "
 " Commands:
-" - SessionSave [name]: Create and activate new session for project
-" - SessionLoad [name]: Create and activate new session for project
+" - SessionSave [name]: Create and activate new session
+" - SessionLoad [name]: Clear buffers and load selected session
+"
+" If [name] is empty, the current working-directory is used.
 "
 " Options:
 " - g:session_directory defaults to DATA_PATH/session (see g:etc#cache_path)
-"
-" If [name] is empty, the current working-directory is used.
 
 if exists('g:loaded_sessionsplugin')
 	finish
