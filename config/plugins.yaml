@@ -6,12 +6,15 @@
 # -------
 - repo: Shougo/dein.vim
 - repo: rafi/awesome-vim-colorschemes
-- repo: christoomey/vim-tmux-navigator
 - repo: itchyny/vim-gitbranch
 - repo: itchyny/vim-parenmatch
 - repo: thinca/vim-localrc
 - repo: romainl/vim-cool
 - repo: sgur/vim-editorconfig
+
+- repo: christoomey/vim-tmux-navigator
+  if: "! (has('win32') || has('win64'))"
+
 - repo: tpope/vim-sleuth
   hook_add: let g:sleuth_neighbor_limit = 5
 
@@ -19,8 +22,8 @@
 - { repo: equalsraf/neovim-gui-shim, if: has('gui_running') }
 
 # Vim8 only:
-- { repo: roxma/nvim-yarp, if: ! has('nvim') }
-- { repo: roxma/vim-hug-neovim-rpc, if: ! has('nvim'), depends: nvim-yarp }
+- { repo: roxma/nvim-yarp, if: "! has('nvim')", depends: vim-hug-neovim-rpc }
+- { repo: roxma/vim-hug-neovim-rpc, if: "! has('nvim')" }
 
 # Lazy Loading
 # ==========================================
@@ -475,6 +478,7 @@
     let g:delimitMate_excluded_ft = 'html'
 
 - repo: wellle/tmux-complete.vim
+  if: "! (has('win32') || has('win64'))"
   on_event: InsertEnter
   hook_add: let g:tmuxcomplete#trigger = ''
 

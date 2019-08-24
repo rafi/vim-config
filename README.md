@@ -26,17 +26,14 @@ Best with Neovim or Vim8 with +python3 extensions enabled.
 ## Pre-requisites
 
 * Python 3 (`brew install python`)
-* Python 2 (`brew install python@2`)
 * Neovim (Optional, `brew install neovim`)
-* virtualenv for both python3 and python2:
+* virtualenv for python3:
   ```
-  pip2 install virtualenv
   pip3 install virtualenv
   ```
   On Ubuntu you can use:
   ```
   apt-get install -y python3-venv
-  pip install virtualenv
   ```
 
 ## Install
@@ -72,6 +69,23 @@ Otherwise, or additionally, if you use Vim, you can run
 **_5._** If you are experiencing problems, try running `nvim -c checkhealth`
 
 Enjoy!
+
+### Recommended Fonts
+
+- [Pragmata Pro] (€19 – €1,990): My preferred font
+- Any of the [Nerd Fonts]
+
+On macOS with Homebrew, choose one of the [Nerd Fonts],
+for example, to install the [Hack](https://sourcefoundry.org/hack/) font:
+
+```bash
+brew tap homebrew/cask-fonts
+brew search nerd-font
+brew cask install font-hack-nerd-font
+```
+
+[Pragmata Pro]: https://www.fsd.it/shop/fonts/pragmatapro/
+[Nerd Fonts]: https://www.nerdfonts.com
 
 ### Recommended Linters
 
@@ -145,9 +159,7 @@ If you want to disable some of the plugins I use, you can overwrite them, e.g.:
 - Go completion via vim-go and gocode
 - Javascript completion via Tern
 - Python Jedi completion, PEP8 convention
-- Languages: PHP, Ansible, css3, csv, json, less, markdown, mustache
-- Helpers: Undo tree, bookmarks, git, tmux navigation,
-    hex editor, sessions, and much more.
+- Languages: PHP, Ansible, css3, csv, json, less, markdown, mustache, and more
 
 _Note_ that 95% of the plugins are **[lazy-loaded]**.
 

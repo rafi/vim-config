@@ -25,12 +25,12 @@ uninstall:
 test:
 ifeq ('$(vim)','nvim')
 	$(info Testing NVIM...)
-	$(if $(findstring NVIM,$(vim_version)),\
+	$(if $(findstring v0.4,$(vim_version)),\
 		$(info OK),\
 		$(error   .. MISSING! Is Neovim available in PATH?))
 else
-	$(info Testing VIM 7.4...)
-	$(if $(findstring 7.4,$(vim_version)),\
+	$(info Testing VIM 8...)
+	$(if $(findstring 8.,$(vim_version)),\
 		$(info OK),\
 		$(error   .. MISSING! Install newer $nvim version))
 
