@@ -186,15 +186,7 @@
   on_source: defx.nvim
   on_func: defx_icons#get
 
-- repo: tyru/caw.vim
-  on_map: { nx: <Plug> }
-  hook_add: |
-    let g:caw_hatpos_sp = ''
-    let g:caw_zeropos_sp = ''
-    let g:caw_wrap_sp_left = ''
-    let g:caw_wrap_sp_right = ''
-    let g:caw_jump_sp = ''
-
+- { repo: tyru/caw.vim, on_map: { nx: <Plug> }}
 - { repo: liuchengxu/vim-which-key, on_cmd: WhichKey }
 - { repo: kana/vim-niceblock, on_map: { x: <Plug> }}
 - { repo: guns/xterm-color-table.vim, on_cmd: XtermColorTable }
