@@ -5,7 +5,8 @@ augroup user_plugin_filetype " {{{
 	autocmd!
 
 	" Reload vim config automatically
-	autocmd BufWritePost $VIM_PATH/config/* nested source $MYVIMRC | redraw
+	autocmd BufWritePost $VIM_PATH/{*.vim,*.yaml,vimrc} nested
+		\ source $MYVIMRC | redraw
 
 	" Highlight current line only on focused window
 	autocmd WinEnter,InsertLeave * if &ft !~# 'denite' | set cursorline | endif
