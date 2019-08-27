@@ -532,9 +532,13 @@
   depends: vim-operator-user
   on_map: { vnx: <Plug> }
 
-- repo: rhysd/vim-operator-surround
-  depends: [ vim-operator-user, vim-textobj-multiblock ]
-  on_map: { vnx: <Plug> }
+- repo: machakann/vim-sandwich
+  depends: vim-operator-user
+  on_map: { vonx: <Plug>(operator-sandwich- }
+  hook_add: |
+    let g:sandwich_no_default_key_mappings = 1
+    let g:operator_sandwich_no_default_key_mappings = 1
+    let g:textobj_sandwich_no_default_key_mappings = 1
 
 - repo: haya14busa/vim-operator-flashy
   depends: vim-operator-user

@@ -377,7 +377,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | -------------- | ----------------------
 | [kana/vim-operator-user] | Define your own custom operators
 | [kana/vim-operator-replace] | Operator to replace text with register content
-| [rhysd/vim-operator-surround] | Operator to enclose text objects
+| [machakann/vim-sandwich] | Search, select, and edit sandwich text objects
 | [haya14busa/vim-operator-flashy] | Highlight yanked area
 | [kana/vim-textobj-user] | Create your own text objects
 | [terryma/vim-expand-region] | Visually select increasingly larger regions of text
@@ -522,7 +522,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 
 [kana/vim-operator-user]: https://github.com/kana/vim-operator-user
 [kana/vim-operator-replace]: https://github.com/kana/vim-operator-replace
-[rhysd/vim-operator-surround]: https://github.com/rhysd/vim-operator-surround
+[machakann/vim-sandwich]: https://github.com/machakann/vim-sandwich
 [haya14busa/vim-operator-flashy]: https://github.com/haya14busa/vim-operator-flashy
 [kana/vim-textobj-user]: https://github.com/kana/vim-textobj-user
 [terryma/vim-expand-region]: https://github.com/terryma/vim-expand-region
