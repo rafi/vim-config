@@ -310,7 +310,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [mzlogin/vim-markdown-toc] | Generate table of contents for Markdown files
 | [chemzqm/vim-easygit] | Git wrapper focus on simplity and usability
 | [liuchengxu/vista.vim] | Viewer & Finder for LSP symbols and tags in Vim
-| [beloglazov/vim-online-thesaurus] | Look up words in an online thesaurus
+| [Ron89/thesaurus_query.vim] | Multi-language thesaurus query and replacement
 
 #### Interface
 
@@ -471,7 +471,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [mzlogin/vim-markdown-toc]: https://github.com/mzlogin/vim-markdown-toc
 [chemzqm/vim-easygit]: https://github.com/chemzqm/vim-easygit
 [liuchengxu/vista.vim]: https://github.com/liuchengxu/vista.vim
-[beloglazov/vim-online-thesaurus]: https://github.com/beloglazov/vim-online-thesaurus
+[Ron89/thesaurus_query.vim]: https://github.com/Ron89/thesaurus_query.vim
 
 [haya14busa/vim-asterisk]: https://github.com/haya14busa/vim-asterisk
 [rhysd/accelerated-jk]: https://github.com/rhysd/accelerated-jk
@@ -541,6 +541,7 @@ Note that,
 * Local-leader is set as <kbd>;</kbd> and used for navigation and search mostly
   (Denite and Defx)
 
+### General
 
 | Key   | Mode | Action
 | ----- |:----:| ------------------
@@ -802,5 +803,5 @@ Note that,
 Big thanks to the dark knight [Shougo].
 
 [Shougo]: https://github.com/Shougo
-[lazy-loaded]: ./config/plugins.yaml#L25
+[lazy-loaded]: ./config/plugins.yaml#L28
 [yaml2json]: https://github.com/bronze1man/yaml2json

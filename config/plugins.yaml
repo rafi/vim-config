@@ -1,6 +1,7 @@
 ---
 # PLUGINS
-# ==========================================
+# ===
+# See config/plugins/all.vim for plugin mappings
 
 # Startup
 # -------
@@ -31,12 +32,12 @@
 # Languages
 # ---------
 - { repo: hail2u/vim-css3-syntax, on_ft: css }
-- { repo: ap/vim-css-color, on_ft: [ css, scss, sass ] }
 - { repo: cakebaker/scss-syntax.vim, on_ft: [ scss, sass ]}
 - { repo: groenewege/vim-less, on_ft: less }
 - { repo: othree/csscomplete.vim, on_ft: css }
 - { repo: iloginow/vim-stylus, on_ft: stylus }  # or wavded/vim-stylus ?
 - { repo: mustache/vim-mustache-handlebars, on_ft: [html, mustache, handlebars]}
+- { repo: digitaltoad/vim-pug, on_ft: [ pug, jade ]}
 
 - repo: othree/html5.vim
   on_ft: html
@@ -169,7 +170,7 @@
       \ }
 
 - repo: hashivim/vim-terraform
-  on_ft: [ terraform, hcl ]
+  on_ft: terraform
   on_cmd: [ Terraform, TerraformFmt ]
   hook_add: let g:terraform_fmt_on_save = 1
 
@@ -181,14 +182,11 @@
   hook_source: source $VIM_PATH/config/plugins/defx.vim
 
 - { repo: kristijanhusak/defx-git, on_source: defx.nvim }
+- { repo: kristijanhusak/defx-icons, on_source: defx.nvim }
 
-- repo: kristijanhusak/defx-icons
-  on_source: defx.nvim
-  on_func: defx_icons#get
 
 - { repo: tyru/caw.vim, on_map: { nx: <Plug> }}
 - { repo: liuchengxu/vim-which-key, on_cmd: WhichKey }
-- { repo: kana/vim-niceblock, on_map: { x: <Plug> }}
 - { repo: guns/xterm-color-table.vim, on_cmd: XtermColorTable }
 - { repo: mbbill/undotree, on_cmd: UndotreeToggle }
 - { repo: metakirby5/codi.vim, on_cmd: Codi }
@@ -200,6 +198,10 @@
 - { repo: cocopon/colorswatch.vim, on_cmd: ColorSwatchGenerate }
 - { repo: kana/vim-altr, on_map: { n: <Plug> }}
 - { repo: Shougo/vinarise.vim, on_cmd: Vinarise }
+
+- repo: kana/vim-niceblock
+  on_map: { x: <Plug> }
+  hook_add: let g:niceblock_no_default_key_mappings = 0
 
 - repo: t9md/vim-choosewin
   on_map: { n: <Plug> }
@@ -240,9 +242,14 @@
     let g:vista#renderer#enable_icon = 1
     let g:vista_echo_cursor_strategy = 'scroll'
 
-- repo: beloglazov/vim-online-thesaurus  # FIXME
-  on_cmd: [ OnlineThesaurusCurrentWord, Thesaurus ]
-  hook_add: let g:online_thesaurus_map_keys = 0
+- repo: Ron89/thesaurus_query.vim
+  on_cmd:
+    - ThesaurusQueryReplaceCurrentWord
+    - ThesaurusQueryLookupCurrentWord
+    - Thesaurus
+  hook_add: |
+    let g:tq_map_keys = 0
+    let g:tq_use_vim_autocomplete = 0
 
 # ==========================================
 # Interface
@@ -254,15 +261,20 @@
 - { repo: hotwatermorning/auto-git-diff, on_ft: gitrebase }
 - { repo: rafi/vim-sidemenu, on_map: { nv: <Plug> }}
 
+- repo: RRethy/vim-hexokinase
+  on_ft: [ css, scss, sass, stylus, vim ]
+  hook_add: |
+    let g:Hexokinase_ftAutoload = [ 'css', 'scss', 'sass', 'stylus', 'vim' ]
+
 - repo: itchyny/vim-cursorword
   on_path: .*
   hook_source: |
     augroup user_plugin_cursorword
       autocmd!
-      autocmd FileType denite,qf,easygitblame let b:cursorword=0
-      autocmd WinEnter * if &diff | let b:cursorword=0 | endif
-      autocmd InsertEnter * let b:cursorword=0
-      autocmd InsertLeave * let b:cursorword=1
+      autocmd FileType denite,qf,easygitblame let b:cursorword = 0
+      autocmd WinEnter * if &diff | let b:cursorword = 0 | endif
+      autocmd InsertEnter * let b:cursorword = 0
+      autocmd InsertLeave * let b:cursorword = 1
     augroup END
 
 - repo: airblade/vim-gitgutter
@@ -325,7 +337,6 @@
 
 - repo: benekastah/neomake
   on_path: .*
-  on_event: [ BufWritePre ]
   on_cmd: [ Neomake, NeomakeFile, NeomakeEnable, NeomakeToggle, NeomakeInfo ]
   hook_source: |
     source $VIM_PATH/config/plugins/neomake.vim
@@ -508,13 +519,8 @@
 - { repo: Shougo/junkfile.vim, on_source: denite.nvim }
 - { repo: chemzqm/unite-location, on_source: denite.nvim }
 - { repo: chemzqm/denite-git, on_source: denite.nvim }
-- { repo: rafi/vim-denite-z, on_source: denite.nvim }
 - { repo: rafi/vim-denite-session, on_source: denite.nvim }
-
-#- repo: raghur/fruzzy
-#  on_source: denite.nvim
-#  hook_post_update: call fruzzy#install()
-#  hook_source: let g:fruzzy#sortonempty = 0
+- { repo: rafi/vim-denite-z, on_source: denite.nvim }
 
 # - { repo: rafi/vim-denite-task, on_source: denite.nvim }
 

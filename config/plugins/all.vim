@@ -107,8 +107,9 @@ if dein#tap('vim-operator-flashy')
 endif
 
 if dein#tap('vim-niceblock')
-	xmap I  <Plug>(niceblock-I)
-	xmap A  <Plug>(niceblock-A)
+	silent! xmap I  <Plug>(niceblock-I)
+	silent! xmap gI <Plug>(niceblock-gI)
+	silent! xmap A  <Plug>(niceblock-A)
 endif
 
 if dein#tap('accelerated-jk')
@@ -278,8 +279,8 @@ if dein#tap('undotree')
 	nnoremap <Leader>gu :UndotreeToggle<CR>
 endif
 
-if dein#tap('vim-online-thesaurus')
-	nnoremap <silent> <Leader>K :<C-u>OnlineThesaurusCurrentWord<CR>
+if dein#tap('thesaurus_query.vim')
+	nnoremap <silent> <Leader>K :<C-u>ThesaurusQueryReplaceCurrentWord<CR>
 endif
 
 if dein#tap('vim-asterisk')

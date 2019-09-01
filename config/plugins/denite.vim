@@ -24,12 +24,10 @@ endif
 " MATCHERS
 " Default is 'matcher/fuzzy'
 " call denite#custom#source('tag', 'matchers', ['matcher/substring'])
-" call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
 
 " SORTERS
 " Default is 'sorter/rank'
 " call denite#custom#source('file/rec,grep', 'sorters', ['sorter/sublime'])
-" call denite#custom#source('_', 'sorters', ['sorter/fruzzy'])
 call denite#custom#source('z', 'sorters', ['sorter_z'])
 
 " CONVERTERS
