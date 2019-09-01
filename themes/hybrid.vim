@@ -11,6 +11,23 @@ if has('gui_running')
 endif
 " }}}
 
+let g:terminal_color_0 = '#2a2a2a'
+let g:terminal_color_1 = '#d370a3'
+let g:terminal_color_2 = '#6d9e3f'
+let g:terminal_color_3 = '#b58858'
+let g:terminal_color_4 = '#6095c5'
+let g:terminal_color_5 = '#ac7bde'
+let g:terminal_color_6 = '#3ba275'
+let g:terminal_color_7 = '#ffffff'
+let g:terminal_color_8 = '#686868'
+let g:terminal_color_9 = '#ffa7da'
+let g:terminal_color_10 = '#a3d572'
+let g:terminal_color_11 = '#efbd8b'
+let g:terminal_color_12 = '#98cbfe'
+let g:terminal_color_13 = '#e5b0ff'
+let g:terminal_color_14 = '#75daa9'
+let g:terminal_color_15 = '#cfcfcf'
+
 " Tabline {{{
 " ---
 " TabLineFill: Tab pages line, where there are no labels
