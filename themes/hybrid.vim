@@ -53,10 +53,10 @@ highlight! link jsFutureKeys PreProc
 " highlight! link pythonSpaceError  NONE
 " highlight! link pythonIndentError NONE
 " highlight! link mkdLineBreak      NONE
-" highlight! WarningMsg ctermfg=100 guifg=#CCC566
-" highlight! ParenMatch  ctermbg=236 guibg=#30302c
-" highlight! CursorWord0 ctermbg=236 guibg=#30302c
-" highlight! CursorWord1 ctermbg=236 guibg=#30302c
+highlight! WarningMsg ctermfg=100 guifg=#CCC566
+highlight! MatchParen ctermfg=NONE guifg=NONE ctermbg=236 guibg=#2d3c42
+highlight! ParenMatch  ctermfg=NONE guifg=NONE ctermbg=236 guibg=#494d2a
+highlight! CursorWord0 ctermfg=NONE guifg=NONE ctermbg=236 guibg=#2b2a22
 " }}}
 
 " Plugin: Defx icons and highlights {{{
