@@ -11,6 +11,7 @@ call denite#custom#option('_', {
 	\ 'vertical_preview': 1,
 	\ 'direction': 'dynamicbottom',
 	\ 'prompt': '❯',
+	\ 'max_dynamic_update_candidates': 50000,
 	\ 'winwidth': &columns,
 	\ 'winheight': &lines / 3,
 	\ 'wincol': 0,

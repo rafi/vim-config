@@ -5,8 +5,8 @@
 if dein#tap('denite.nvim')
 	nnoremap <silent><LocalLeader>r :<C-u>Denite -resume -refresh -no-start-filter<CR>
 	nnoremap <silent><LocalLeader>f :<C-u>Denite file/rec<CR>
-	nnoremap <silent><LocalLeader>b :<C-u>Denite buffer file/old -default-action=switch<CR>
-	nnoremap <silent><LocalLeader>d :<C-u>Denite directory_rec -default-action=cd<CR>
+	nnoremap <silent><LocalLeader>b :<C-u>Denite buffer file_mru -default-action=switch<CR>
+	nnoremap <silent><LocalLeader>d :<C-u>Denite directory_rec directory_mru -default-action=cd<CR>
 	nnoremap <silent><LocalLeader>v :<C-u>Denite neoyank -buffer-name=register<CR>
 	xnoremap <silent><LocalLeader>v :<C-u>Denite neoyank -buffer-name=register -default-action=replace<CR>
 	nnoremap <silent><LocalLeader>l :<C-u>Denite location_list -buffer-name=list<CR>
@@ -301,8 +301,8 @@ if dein#tap('vim-expand-region')
 endif
 
 if dein#tap('sideways.vim')
-	nnoremap <silent> >, :SidewaysLeft<CR>
-	nnoremap <silent> <, :SidewaysRight<CR>
+	nnoremap <silent> <, :SidewaysLeft<CR>
+	nnoremap <silent> >, :SidewaysRight<CR>
 	nnoremap <silent> [, :SidewaysJumpLeft<CR>
 	nnoremap <silent> ], :SidewaysJumpRight<CR>
 	omap <silent> a, <Plug>SidewaysArgumentTextobjA

@@ -264,7 +264,7 @@
 - repo: RRethy/vim-hexokinase
   on_ft: [ css, scss, sass, stylus, vim ]
   hook_add: |
-    let g:Hexokinase_ftAutoload = [ 'css', 'scss', 'sass', 'stylus', 'vim' ]
+    let g:Hexokinase_ftAutoload = [ 'css', 'scss', 'sass', 'stylus' ]
 
 - repo: itchyny/vim-cursorword
   on_path: .*
@@ -488,7 +488,7 @@
     let g:gutentags_generate_on_missing = 1
     let g:gutentags_generate_on_new = 0
     let g:gutentags_exclude_project_root = [ '/usr/local' ]
-    let g:gutentags_exclude_filetypes = [ 'defx', 'denite', 'vista' ]
+    let g:gutentags_exclude_filetypes = [ 'defx', 'denite', 'vista', 'magit' ]
     let g:gutentags_ctags_exclude_wildignore = 1
     let g:gutentags_ctags_exclude = [
       \ '.idea', '.cache', '.tox', '.bundle', 'build', 'dist',
@@ -515,19 +515,19 @@
   trusted: 1
   hook_source: source $VIM_PATH/config/plugins/denite.vim
 
+- repo: Shougo/neomru.vim
+  on_source: denite.nvim
+  hook_add: |
+    let g:neomru#directory_mru_path = g:etc#cache_path . '/mru/dir'
+    let g:neomru#file_mru_path = g:etc#cache_path . '/mru/file'
+    let g:unite_source_file_mru_limit = 5000
+
 - { repo: Shougo/neoyank.vim, on_source: denite.nvim, on_event: TextYankPost }
 - { repo: Shougo/junkfile.vim, on_source: denite.nvim }
 - { repo: chemzqm/unite-location, on_source: denite.nvim }
 - { repo: chemzqm/denite-git, on_source: denite.nvim }
 - { repo: rafi/vim-denite-session, on_source: denite.nvim }
 - { repo: rafi/vim-denite-z, on_source: denite.nvim }
-
-# - { repo: rafi/vim-denite-task, on_source: denite.nvim }
-
-# - repo: rafi/vim-denite-mpc
-#   if: executable('mpc')
-#   on_source: denite.nvim
-#   hook_source: call denite#custom#var('mpc', 'default_view', 'date')
 
 # ==========================================
 # Operators
