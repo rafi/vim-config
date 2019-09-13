@@ -19,22 +19,24 @@ let s:vim_path =
 	\   ! empty($MYVIMRC) ? fnamemodify(expand($MYVIMRC), ':h') :
 	\   ! empty($VIMCONFIG) ? expand($VIMCONFIG) :
 	\   ! empty($VIM_PATH) ? expand($VIM_PATH) :
-	\   expand('$HOME/.vim')
+	\   fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
 	\ )
 
 let s:cache_path =
 	\ expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : '~/.cache') . '/vim')
 
 let s:config_paths = get(g:, 'etc_config_paths', [
-	\ 'config/plugins.yaml',
-	\ 'config/local.plugins.yaml',
-	\ 'usr/vimrc.yaml',
-	\ 'usr/vimrc.json',
-	\ 'vimrc.yaml',
-	\ 'vimrc.json',
+	\ s:vim_path . '/config/plugins.yaml',
+	\ s:vim_path . '/config/local.plugins.yaml',
+	\ s:vim_path . '/usr/vimrc.yaml',
+	\ s:vim_path . '/usr/vimrc.json',
+	\ s:vim_path . '/vimrc.yaml',
+	\ s:vim_path . '/vimrc.json',
 	\ ])
 
-function! s:use_dein(config_paths)
+call filter(s:config_paths, 'filereadable(v:val)')
+
+function! s:use_dein()
 	" Use dein as a plugin manager
 	let g:dein#auto_recache = 1
 	let g:dein#install_max_processes = 16
@@ -61,21 +63,21 @@ function! s:use_dein(config_paths)
 
 	" Initialize dein.vim (package manager)
 	if dein#load_state(l:cache_path)
-		let l:rc = s:parse_config_files(a:config_paths)
+		let l:rc = s:parse_config_files()
 		if empty(l:rc)
 			call s:error('Empty plugin list')
 			return
 		endif
 
 		" Start propagating file paths and plugin presets
-		call dein#begin(l:cache_path, extend([expand('<sfile>')], a:config_paths))
+		call dein#begin(l:cache_path, extend([expand('<sfile>')], s:config_paths))
 		for plugin in l:rc
 			call dein#add(plugin['repo'], extend(plugin, {}, 'keep'))
 		endfor
 
 		" Add any local ./dev plugins
-		if isdirectory(s:vim_path.'/dev')
-			call dein#local(s:vim_path.'/dev', {'frozen': 1, 'merged': 0})
+		if isdirectory(s:vim_path . '/dev')
+			call dein#local(s:vim_path . '/dev', { 'frozen': 1, 'merged': 0 })
 		endif
 		call dein#end()
 
@@ -105,7 +107,7 @@ function! s:use_dein(config_paths)
 	endif
 endfunction
 
-function! s:use_plug(config_paths) abort
+function! s:use_plug() abort
 	" vim-plug package-manager initialization
 	let l:cache_root = s:cache_path . '/plug'
 	let l:cache_init = l:cache_root . '/init.vimplug'
@@ -129,7 +131,7 @@ function! s:use_plug(config_paths) abort
 			\ fnamemodify(l:cache_init, ':p') , '/$', '', '')
 	endif
 
-	let l:rc = s:parse_config_files(a:config_paths)
+	let l:rc = s:parse_config_files()
 	if empty(l:rc)
 		call s:error('Empty plugin list')
 		return
@@ -142,16 +144,16 @@ function! s:use_plug(config_paths) abort
 	call plug#end()
 endfunction
 
-function! s:parse_config_files(config_paths)
+function! s:parse_config_files()
 	let l:merged = []
 	try
 		" Merge all lists of plugins together
-		for l:cfg_file in a:config_paths
+		for l:cfg_file in s:config_paths
 			let l:merged = extend(l:merged, s:load_config(l:cfg_file))
 		endfor
 	catch /.*/
 		call s:error(
-			\ 'Unable to read configuration files at ' . string(a:config_paths))
+			\ 'Unable to read configuration files at ' . string(s:config_paths))
 		echoerr v:exception
 		echomsg 'Error parsing user configuration file(s).'
 		echoerr 'Please run: pip3 install --user PyYAML'
@@ -160,7 +162,7 @@ function! s:parse_config_files(config_paths)
 
 	" If there's more than one config file source,
 	" de-duplicate plugins by repo key.
-	if len(a:config_paths) > 1
+	if len(s:config_paths) > 1
 		call s:dedupe_plugins(l:merged)
 	endif
 	return l:merged
@@ -189,13 +191,13 @@ endfunction
 
 function! s:error(msg)
 	for l:mes in s:str2list(a:msg)
-		echohl WarningMsg | echomsg '[vim-etc] ' . l:mes | echohl None
+		echohl WarningMsg | echomsg '[config/init] ' . l:mes | echohl None
 	endfor
 endfunction
 
 function! s:debug(msg)
 	for l:mes in s:str2list(a:msg)
-		echohl WarningMsg | echomsg '[vim-etc] ' . l:mes | echohl None
+		echohl WarningMsg | echomsg '[config/init] ' . l:mes | echohl None
 	endfor
 endfunction
 
@@ -303,12 +305,7 @@ if empty(s:package_manager) || s:package_manager ==# 'none'
 	finish
 endif
 
-let s:real_config_paths = map(
-	\   copy(s:config_paths),
-	\   's:vim_path ."/". v:val'
-	\ )
-call filter(s:real_config_paths, 'filereadable(v:val)')
-
-call s:use_{s:package_manager}(s:real_config_paths)
+" Start the selected package manager
+call s:use_{s:package_manager}()
 
 " vim: set ts=2 sw=2 tw=80 noet :

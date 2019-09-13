@@ -7,15 +7,11 @@ default: install
 
 install:
 	@mkdir -vp "$(XDG_CACHE_HOME)/vim/"{backup,session,swap,tags,undo}; \
-	$(vim) --cmd 'set t_ti= t_te= nomore' -N -U NONE -i NONE \
-	-c "try | call dein#update() | call dein#recache_runtimepath() | finally | :messages | call confirm('Press any key to quit') | qall! | endtry"
-	./venv.sh
+	$(vim) -N -u config/init.vim -c "set nomore | try | call dein#update() | finally | messages | qall! | endtry" -V1 -es
 
 update:
 	@git pull --ff --ff-only; \
-	$(vim) --cmd 'set t_ti= t_te= nomore' -N -U NONE -i NONE \
-	-c "try | call dein#clear_state() | call dein#update() | call dein#recache_runtimepath() | finally | :messages | call confirm('Press any key to quit') | qall! | endtry"
-	./venv.sh
+	$(vim) -N -u config/init.vim -c "set nomore | try | call dein#clear_state() | call dein#update() | finally | messages | qall! | endtry" -V1 -es
 
 upgrade: update
 
