@@ -1,7 +1,7 @@
-" Rafi's Tabline
+" Tabline
 " ===
 
-function! Tabline() abort
+function! Tabline()
 	" Active project name
 	let s:tabline =
 		\ '%#TabLineAlt# %{"  " . badge#project()} %#TabLineAltShade#'

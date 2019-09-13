@@ -11,7 +11,7 @@
 " If [name] is empty, the current working-directory is used.
 "
 " Options:
-" - g:session_directory defaults to DATA_PATH/session (see g:etc#cache_path)
+" - g:session_directory defaults to DATA_PATH/session (see config/vimrc)
 
 if exists('g:loaded_sessionsplugin')
 	finish
@@ -19,7 +19,7 @@ endif
 let g:loaded_sessionsplugin = 1
 
 " Options
-let g:session_directory = get(g:, 'session_directory', $DATA_PATH.'/session')
+let g:session_directory = get(g:, 'session_directory', $DATA_PATH . '/session')
 
 " Save and persist session
 command! -nargs=? -complete=customlist,<SID>session_list SessionSave
@@ -39,7 +39,7 @@ augroup plugin_sessions
 		\ | endif
 augroup END
 
-function! s:session_save(name) abort
+function! s:session_save(name)
 	if ! isdirectory(g:session_directory)
 		call mkdir(g:session_directory, 'p')
 	endif
@@ -53,7 +53,7 @@ function! s:session_save(name) abort
 	echohl None
 endfunction
 
-function! s:session_load(name) abort
+function! s:session_load(name)
 	let file_name = empty(a:name) ? s:project_name() : a:name
 	let file_path = g:session_directory.'/'.file_name.'.vim'
 

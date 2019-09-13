@@ -21,7 +21,7 @@ augroup plugin_unixhelp
 		\ :<C-u>call <SID>open_man(&filetype, expand('<cword>'))<CR>
 augroup END
 
-function! s:open_man(ft, search_word) abort
+function! s:open_man(ft, search_word)
 	let l:mapping = {
 		\   'gitconfig': 'git-config',
 		\ }
@@ -45,7 +45,7 @@ function! s:open_man(ft, search_word) abort
 endfunction
 
 " Open file-explorer split with tmux
-function! s:man_tmux(str, word) abort
+function! s:man_tmux(str, word)
 	if empty('$TMUX')
 		return
 	endif
@@ -53,7 +53,7 @@ function! s:man_tmux(str, word) abort
 	silent execute '!tmux split-window -p 30 '.shellescape(l:cmd, 1)
 endfunction
 
-function! s:man_preview(str, word) abort
+function! s:man_preview(str, word)
 	silent! wincmd P
 	if ! &previewwindow
 		noautocmd execute 'bo' &previewheight 'new'

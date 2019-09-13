@@ -12,26 +12,12 @@ endif
 
 " Set main configuration directory as parent directory
 let $VIM_PATH = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
+let $DATA_PATH = expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : '~/.cache').'/vim')
 
 " When using VIMINIT trick for exotic MYVIMRC locations, add path now.
 if &runtimepath !~# $VIM_PATH
-	set runtimepath^=$VIM_PATH
+  set runtimepath^=$VIM_PATH
 endif
-
-let $DATA_PATH = g:etc#cache_path
-
-" Search and use environments specifically made for Neovim.
-if isdirectory(g:etc#cache_path.'/venv/neovim2')
-	let g:python_host_prog = g:etc#cache_path.'/venv/neovim2/bin/python'
-endif
-if isdirectory(g:etc#cache_path.'/venv/neovim3')
-	let g:python3_host_prog = g:etc#cache_path.'/venv/neovim3/bin/python'
-endif
-
-" Set augroup
-augroup user_events
-	autocmd!
-augroup END
 
 " Disable vim distribution plugins
 let g:loaded_getscript = 1
@@ -52,9 +38,30 @@ let g:loaded_vimballPlugin = 1
 let g:loaded_zip = 1
 let g:loaded_zipPlugin = 1
 
-" Initialize base requirements
+function! s:source_file(path, ...)
+	" Source user configuration files with set/global sensitivity
+	let use_global = get(a:000, 0, ! has('vim_starting'))
+	let abspath = resolve($VIM_PATH . '/' . a:path)
+	if ! use_global
+		execute 'source' fnameescape(abspath)
+		return
+	endif
+
+	let tempfile = tempname()
+	let content = map(readfile(abspath),
+		\ "substitute(v:val, '^\\W*\\zsset\\ze\\W', 'setglobal', '')")
+	try
+		call writefile(content, tempfile)
+		execute printf('source %s', fnameescape(tempfile))
+	finally
+		if filereadable(tempfile)
+			call delete(tempfile)
+		endif
+	endtry
+endfunction
+
+" Initialize startup settings
 if has('vim_starting')
-	" Global Mappings "{{{
 	" Use spacebar as leader and ; as secondary-leader
 	" Required before loading plugins!
 	let g:mapleader="\<Space>"
@@ -68,6 +75,23 @@ if has('vim_starting')
 	nnoremap ;        <Nop>
 	xnoremap ;        <Nop>
 
+	" Ensure data directories
+	for s:path in [ $DATA_PATH . '/undo', $DATA_PATH . '/backup',
+			\ $DATA_PATH . '/session', $VIM_PATH . '/spell' ]
+		if ! isdirectory(s:path)
+			call mkdir(s:path, 'p')
+		endif
+	endfor
+
+	" Search and use environments specifically made for Neovim.
+	if has('nvim') && isdirectory($DATA_PATH . '/venv/neovim2')
+		let g:python_host_prog = $DATA_PATH . '/venv/neovim2/bin/python'
+	endif
+
+	if has('nvim') && isdirectory($DATA_PATH . '/venv/neovim3')
+		let g:python3_host_prog = $DATA_PATH . '/venv/neovim3/bin/python'
+	endif
+
 	if ! has('nvim') && has('pythonx')
 		if has('python3')
 			set pyxversion=3
@@ -76,44 +100,31 @@ if has('vim_starting')
 		endif
 	endif
 
-	" Ensure data directories
-	call etc#util#ensure_directory([
-		\   g:etc#cache_path . '/undo',
-		\   g:etc#cache_path . '/backup',
-		\   g:etc#cache_path . '/session',
-		\   g:etc#vim_path . '/spell'
-		\ ])
-
 	" Vim only, Linux terminal settings
 	if ! has('nvim') && ! has('gui_running') && ! has('win32') && ! has('win64')
-		call etc#util#source_file('config/terminal.vim')
+		call s:source_file('config/terminal.vim')
 	endif
 endif
 
 " Load user scripts with confidential information
 " or pre-settings like g:elite_mode
-if filereadable(g:etc#vim_path.'/.vault.vim')
-	call etc#util#source_file('.vault.vim')
+if filereadable($VIM_PATH . '/.vault.vim')
+	call s:source_file('.vault.vim')
 endif
 
 " Initialize plugin-manager and load main config files
-call etc#init()
-call etc#util#source_file('config/plugins/all.vim')
-call etc#util#source_file('config/general.vim')
-call etc#util#source_file('config/filetype.vim')
-call etc#util#source_file('config/mappings.vim')
+call s:source_file('config/init.vim')
+call s:source_file('config/plugins/all.vim')
 
-" Initialize user favorite colorscheme
-call theme#init()
+" Initialize all my configurations
+call s:source_file('config/general.vim')
+call s:source_file('config/filetype.vim')
+call s:source_file('config/mappings.vim')
+call s:source_file('config/theme.vim')
 
 " Load user custom local settings
-if filereadable(g:etc#vim_path.'/config/local.vim')
-	call etc#util#source_file('config/local.vim')
-endif
-
-" Trigger colorscheme events when vimrc is reloaded within vim
-if ! has('vim_starting')
-	doautocmd ColorScheme
+if filereadable($VIM_PATH . '/config/local.vim')
+	call s:source_file('config/local.vim')
 endif
 
 set secure

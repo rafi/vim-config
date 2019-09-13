@@ -17,7 +17,7 @@ augroup plugin_filesystem
 	autocmd BufWritePre * call s:mkdir(expand('<afile>:p:h'), v:cmdbang)
 augroup END
 
-function! s:mkdir(dir, force) abort
+function! s:mkdir(dir, force)
 	" Credits: https://github.com/Shougo/shougo-s-github
 	if ! isdirectory(a:dir) && empty(&l:buftype) &&
 			\ (a:force || input(printf('"%s" does not exist. Create? [y/N]',

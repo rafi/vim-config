@@ -418,7 +418,7 @@
   depends: [ neosnippet-snippets, context_filetype.vim ]
   on_event: InsertCharPre
   on_ft: snippet
-  hook_add: let g:neosnippet#data_directory = g:etc#cache_path . '/snippets'
+  hook_add: let g:neosnippet#data_directory = $DATA_PATH . '/snippets'
   hook_source: |
     let g:neosnippet#enable_snipmate_compatibility = 1
     let g:neosnippet#enable_completed_snippet = 1
@@ -483,7 +483,7 @@
   if: executable('ctags')
   on_path: .*
   hook_add: |
-    let g:gutentags_cache_dir = g:etc#cache_path . '/tags'
+    let g:gutentags_cache_dir = $DATA_PATH . '/tags'
     let g:gutentags_generate_on_write = 1
     let g:gutentags_generate_on_missing = 1
     let g:gutentags_generate_on_new = 0
@@ -518,8 +518,8 @@
 - repo: Shougo/neomru.vim
   on_source: denite.nvim
   hook_add: |
-    let g:neomru#directory_mru_path = g:etc#cache_path . '/mru/dir'
-    let g:neomru#file_mru_path = g:etc#cache_path . '/mru/file'
+    let g:neomru#directory_mru_path = $DATA_PATH . '/mru/dir'
+    let g:neomru#file_mru_path = $DATA_PATH . '/mru/file'
     let g:unite_source_file_mru_limit = 5000
 
 - { repo: Shougo/neoyank.vim, on_source: denite.nvim, on_event: TextYankPost }

@@ -75,8 +75,8 @@ Best with Neovim or Vim8 with +python3 extensions enabled.
 ## Pre-requisites
 
 * Python 3 (`brew install python`)
-* Neovim (Optional, `brew install neovim`)
-* virtualenv for python3:
+* Neovim or Vim (`brew install neovim` or `brew install vim`)
+* Virtualenv tool for Python 3:
   ```bash
   pip3 install virtualenv
   ```
@@ -157,6 +157,7 @@ pip install --user pycodestyle pyflakes flake8 vim-vint proselint yamllint
 ### Recommended Tools
 
 - ag (The Silver Searcher): [ggreer/the_silver_searcher](https://github.com/ggreer/the_silver_searcher)
+  - and/or ripgrep: [BurntSushi/ripgrep](https://github.com/BurntSushi/ripgrep)
 - z (jump around): [rupa/z](https://github.com/rupa/z)
 - Universal ctags: [ctags.io](https://ctags.io/)
 - Fuzzy file finders: [fzf](https://github.com/junegunn/fzf), [fzy](https://github.com/jhawthorn/fzy), or [peco](https://github.com/peco/peco)
@@ -169,7 +170,7 @@ Run `make update`
 ## User Custom Config
 
 If you want to add your own configuration, create the `config/local.vim` file
-and add your personal settings there. If you'd like to install plugins by
+and add your personal vimscript there. If you'd like to install plugins by
 yourself, create a `config/local.plugins.yaml` file and manage your own plugin
 collection.
 
