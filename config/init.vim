@@ -5,13 +5,16 @@
 "
 " Plugin-manager agnostic initialization and user configuration parsing
 
-" Set augroup
+" Set custom augroup
 augroup user_events
 	autocmd!
 augroup END
 
 " Initializes options
 let s:package_manager = get(g:, 'etc_package_manager', 'dein')
+if empty(s:package_manager) || s:package_manager ==# 'none'
+	finish
+endif
 
 let s:vim_path =
 	\ get(g:, 'etc_vim_path',
@@ -34,6 +37,7 @@ let s:config_paths = get(g:, 'etc_config_paths', [
 	\ s:vim_path . '/vimrc.json',
 	\ ])
 
+" Filter non-existent directories
 call filter(s:config_paths, 'filereadable(v:val)')
 
 function! s:use_dein()
@@ -301,11 +305,6 @@ function! s:test_python_yaml()
 endfunction
 
 " Initializes chosen package manager
-if empty(s:package_manager) || s:package_manager ==# 'none'
-	finish
-endif
-
-" Start the selected package manager
 call s:use_{s:package_manager}()
 
 " vim: set ts=2 sw=2 tw=80 noet :

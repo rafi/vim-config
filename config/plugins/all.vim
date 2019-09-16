@@ -222,12 +222,12 @@ if dein#tap('tern_for_vim')
 endif
 
 if dein#tap('vim-gitgutter')
-	nmap ]g <Plug>GitGutterNextHunk
-	nmap [g <Plug>GitGutterPrevHunk
-	nmap gS <Plug>GitGutterStageHunk
-	xmap gS <Plug>GitGutterStageHunk
-	nmap <Leader>gr <Plug>GitGutterUndoHunk
-	nmap gs <Plug>GitGutterPreviewHunk
+	nmap ]g <Plug>(GitGutterNextHunk)
+	nmap [g <Plug>(GitGutterPrevHunk)
+	nmap gS <Plug>(GitGutterStageHunk)
+	xmap gS <Plug>(GitGutterStageHunk)
+	nmap <Leader>gr <Plug>(GitGutterUndoHunk)
+	nmap gs <Plug>(GitGutterPreviewHunk)
 endif
 
 if dein#tap('vim-go')
