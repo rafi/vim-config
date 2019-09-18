@@ -1,6 +1,5 @@
 " vim-badge - Bite-size badges for tab & status lines
 " Maintainer: Rafael Bodill <justrafi at gmail dot com>
-" Version:    0.2
 "-------------------------------------------------
 
 " Configuration

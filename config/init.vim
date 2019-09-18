@@ -16,7 +16,27 @@ if empty(s:package_manager) || s:package_manager ==# 'none'
 	finish
 endif
 
-let s:vim_path =
+" Disable vim distribution plugins
+let g:loaded_getscript = 1
+let g:loaded_getscriptPlugin = 1
+let g:loaded_gzip = 1
+let g:loaded_logiPat = 1
+let g:loaded_matchit = 1
+let g:loaded_matchparen = 1
+let g:netrw_nogx = 1 " disable netrw's gx mapping.
+let g:loaded_rrhelper = 1  " ?
+let g:loaded_shada_plugin = 1  " ?
+let g:loaded_tar = 1
+let g:loaded_tarPlugin = 1
+let g:loaded_tutor_mode_plugin = 1
+let g:loaded_2html_plugin = 1
+let g:loaded_vimball = 1
+let g:loaded_vimballPlugin = 1
+let g:loaded_zip = 1
+let g:loaded_zipPlugin = 1
+
+" Set main configuration directory as parent directory
+let $VIM_PATH =
 	\ get(g:, 'etc_vim_path',
 	\   exists('*stdpath') ? stdpath('config') :
 	\   ! empty($MYVIMRC) ? fnamemodify(expand($MYVIMRC), ':h') :
@@ -25,44 +45,90 @@ let s:vim_path =
 	\   fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
 	\ )
 
-let s:cache_path =
+" Set data/cache directory as $XDG_CACHE_HOME/vim
+let $DATA_PATH =
 	\ expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : '~/.cache') . '/vim')
 
+" Collection of user plugin list config file-paths
 let s:config_paths = get(g:, 'etc_config_paths', [
-	\ s:vim_path . '/config/plugins.yaml',
-	\ s:vim_path . '/config/local.plugins.yaml',
-	\ s:vim_path . '/usr/vimrc.yaml',
-	\ s:vim_path . '/usr/vimrc.json',
-	\ s:vim_path . '/vimrc.yaml',
-	\ s:vim_path . '/vimrc.json',
+	\ $VIM_PATH . '/config/plugins.yaml',
+	\ $VIM_PATH . '/config/local.plugins.yaml',
+	\ $VIM_PATH . '/usr/vimrc.yaml',
+	\ $VIM_PATH . '/usr/vimrc.json',
+	\ $VIM_PATH . '/vimrc.yaml',
+	\ $VIM_PATH . '/vimrc.json',
 	\ ])
 
-" Filter non-existent directories
+" Filter non-existent config paths
 call filter(s:config_paths, 'filereadable(v:val)')
 
-function! s:use_dein()
-	" Use dein as a plugin manager
-	let g:dein#auto_recache = 1
-	let g:dein#install_max_processes = 16
-	let g:dein#install_progress_type = 'echo'
-	let g:dein#enable_notification = 0
-	let g:dein#install_log_filename = s:cache_path . '/dein.log'
-
-	" Add dein to vim's runtimepath
-	let l:cache_path = s:cache_path . '/dein'
-	if &runtimepath !~# '/dein.vim'
-		let s:dein_dir = l:cache_path . '/repos/github.com/Shougo/dein.vim'
-		" Clone dein if first-time setup
-		if ! isdirectory(s:dein_dir)
-			execute '!git clone https://github.com/Shougo/dein.vim' s:dein_dir
-			if v:shell_error
-				call s:error('dein installation has failed!')
-				finish
-			endif
+function! s:main()
+	if has('vim_starting')
+		" When using VIMINIT trick for exotic MYVIMRC locations, add path now.
+		if &runtimepath !~# $VIM_PATH
+			set runtimepath^=$VIM_PATH
 		endif
 
-		execute 'set runtimepath+='.substitute(
-			\ fnamemodify(s:dein_dir, ':p') , '/$', '', '')
+		" Ensure data directories
+		for s:path in [
+				\ $DATA_PATH,
+				\ $DATA_PATH . '/undo',
+				\ $DATA_PATH . '/backup',
+				\ $DATA_PATH . '/session',
+				\ $VIM_PATH . '/spell' ]
+			if ! isdirectory(s:path)
+				call mkdir(s:path, 'p')
+			endif
+		endfor
+
+		" Search and use environments specifically made for Neovim.
+		if has('nvim') && isdirectory($DATA_PATH . '/venv/neovim2')
+			let g:python_host_prog = $DATA_PATH . '/venv/neovim2/bin/python'
+		endif
+
+		if has('nvim') && isdirectory($DATA_PATH . '/venv/neovim3')
+			let g:python3_host_prog = $DATA_PATH . '/venv/neovim3/bin/python'
+		endif
+
+		if ! has('nvim') && has('pythonx')
+			if has('python3')
+				set pyxversion=3
+			elseif has('python')
+				set pyxversion=2
+			endif
+		endif
+	endif
+
+	" Initializes chosen package manager
+	call s:use_{s:package_manager}()
+endfunction
+
+function! s:use_dein()
+	let l:cache_path = $DATA_PATH . '/dein'
+
+	if has('vim_starting')
+		" Use dein as a plugin manager
+		let g:dein#auto_recache = 1
+		let g:dein#install_max_processes = 16
+		let g:dein#install_progress_type = 'echo'
+		let g:dein#enable_notification = 0
+		let g:dein#install_log_filename = $DATA_PATH . '/dein.log'
+
+		" Add dein to vim's runtimepath
+		if &runtimepath !~# '/dein.vim'
+			let s:dein_dir = l:cache_path . '/repos/github.com/Shougo/dein.vim'
+			" Clone dein if first-time setup
+			if ! isdirectory(s:dein_dir)
+				execute '!git clone https://github.com/Shougo/dein.vim' s:dein_dir
+				if v:shell_error
+					call s:error('dein installation has failed! is git installed?')
+					finish
+				endif
+			endif
+
+			execute 'set runtimepath+='.substitute(
+				\ fnamemodify(s:dein_dir, ':p') , '/$', '', '')
+		endif
 	endif
 
 	" Initialize dein.vim (package manager)
@@ -80,8 +146,8 @@ function! s:use_dein()
 		endfor
 
 		" Add any local ./dev plugins
-		if isdirectory(s:vim_path . '/dev')
-			call dein#local(s:vim_path . '/dev', { 'frozen': 1, 'merged': 0 })
+		if isdirectory($VIM_PATH . '/dev')
+			call dein#local($VIM_PATH . '/dev', { 'frozen': 1, 'merged': 0 })
 		endif
 		call dein#end()
 
@@ -113,7 +179,7 @@ endfunction
 
 function! s:use_plug() abort
 	" vim-plug package-manager initialization
-	let l:cache_root = s:cache_path . '/plug'
+	let l:cache_root = $DATA_PATH . '/plug'
 	let l:cache_init = l:cache_root . '/init.vimplug'
 	let l:cache_repos = l:cache_root . '/repos'
 
@@ -304,7 +370,6 @@ function! s:test_python_yaml()
 	return (v:shell_error == 0) ? 1 : 0
 endfunction
 
-" Initializes chosen package manager
-call s:use_{s:package_manager}()
+call s:main()
 
 " vim: set ts=2 sw=2 tw=80 noet :

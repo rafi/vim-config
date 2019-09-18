@@ -7,11 +7,11 @@ default: install
 
 install:
 	@mkdir -vp "$(XDG_CACHE_HOME)/vim/"{backup,session,swap,tags,undo}; \
-	$(vim) -N -u config/init.vim -c "set nomore | try | call dein#update() | finally | messages | qall! | endtry" -V1 -es
+	$(vim) -V1 -es -i NONE -N -u config/init.vim -c "set nomore | try | call dein#update() | finally | qall! | endtry"
 
 update:
 	@git pull --ff --ff-only; \
-	$(vim) -N -u config/init.vim -c "set nomore | try | call dein#clear_state() | call dein#update() | finally | messages | qall! | endtry" -V1 -es
+	$(vim) -V1 -es -i NONE -N -u config/init.vim -c "set nomore | try | call dein#clear_state() | call dein#update() | finally | qall! | endtry"
 
 upgrade: update
 
