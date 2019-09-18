@@ -10,12 +10,13 @@ if &compatible
 	" vint: +ProhibitSetNoCompatible
 endif
 
+" Set main configuration directory as parent directory
+let $VIM_PATH = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
+
 function! s:source_file(path, ...)
 	" Source user configuration files with set/global sensitivity
 	let use_global = get(a:000, 0, ! has('vim_starting'))
-	let vim_path = empty($VIM_PATH) ?
-		\ fnamemodify(resolve(expand('<sfile>:p')), ':h') : $VIM_PATH
-	let abspath = resolve(vim_path . '/' . a:path)
+	let abspath = resolve($VIM_PATH . '/' . a:path)
 	if ! use_global
 		execute 'source' fnameescape(abspath)
 		return
