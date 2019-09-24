@@ -24,8 +24,6 @@ doautocmd <nomodeline> InsertEnter
 
 function! actionmenu#open_pum()
 	call feedkeys("i\<C-x>\<C-u>")
-	silent! autocmd! deoplete *
-	silent! autocmd! neosnippet *
 endfunction
 
 function! actionmenu#select_item()
@@ -66,6 +64,7 @@ endfunction
 
 " Menu mappings
 mapclear <buffer>
+imapclear <buffer>
 inoremap <silent><buffer><expr> <CR> actionmenu#select_item()
 imap <buffer> <C-y> <CR>
 imap <buffer> <C-e> <Esc>
