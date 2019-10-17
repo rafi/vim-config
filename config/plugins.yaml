@@ -67,6 +67,8 @@
       \ 'ini=dosini',
       \ 'js=javascript',
       \ 'json=javascript',
+      \ 'jsx=javascriptreact',
+      \ 'tsx=typescriptreact',
       \ 'docker=Dockerfile',
       \ 'makefile=make',
       \ 'py=python'
@@ -82,27 +84,30 @@
 
 # Javascript related
 - repo: pangloss/vim-javascript
-  on_ft: [ javascript, jsx ]
+  on_ft: [ javascript, javascriptreact ]
   hook_add: |
     let g:javascript_plugin_jsdoc = 1
     let g:javascript_plugin_flow = 1
 
+- repo: HerringtonDarkholme/yats.vim
+  on_ft: [ typescript, typescriptreact ]
+
 - repo: MaxMEllon/vim-jsx-pretty
-  on_ft: [ javascript, jsx ]
+  on_ft: [ javascript, javascriptreact, typescriptreact ]
   depends: vim-javascript
   hook_add: let g:vim_jsx_pretty_colorful_config = 1
 
-- { repo: heavenshell/vim-jsdoc, on_ft: [ javascript, jsx ] }
-- { repo: jparise/vim-graphql, on_ft: [ javascript, jsx ] }
-- { repo: moll/vim-node, on_ft: [ javascript, jsx ] }
+- { repo: heavenshell/vim-jsdoc, on_ft: [ javascript, javascriptreact ] }
+- { repo: jparise/vim-graphql, on_ft: [ javascript, javascriptreact ] }
+- { repo: moll/vim-node, on_ft: [ javascript, javascriptreact ] }
 - { repo: elzr/vim-json, on_ft: json }
 - { repo: posva/vim-vue, on_ft: vue }
 
 # pangloss/javascript vs. othree/yajs
-#- { repo: othree/yajs.vim, on_ft: [ javascript, jsx ]}
-#- { repo: gavocanov/vim-js-indent, on_ft: [ javascript, jsx ]}
+#- { repo: othree/yajs.vim, on_ft: [ javascript, javascriptreact ]}
+#- { repo: gavocanov/vim-js-indent, on_ft: [ javascript, javascriptreact ]}
 #- repo: mxw/vim-jsx
-#  on_ft: [ javascript, jsx ]
+#  on_ft: [ javascript, javascriptreact ]
 #  hook_add: let g:jsx_ext_required = 0
 
 # Golang related
@@ -210,7 +215,7 @@
     let g:choosewin_overlay_enable = 1
     let g:choosewin_statusline_replace = 1
     let g:choosewin_overlay_clear_multibyte = 0
-    let g:choosewin_blink_on_land = 0
+    let g:choosewin_blink_on_land = 1
 
 - repo: lambdalisue/suda.vim
   on_event: BufRead
@@ -408,7 +413,7 @@
   build: npm install -g tern
   if: executable('npm')
   on_event: InsertEnter
-  on_ft: [ javascript, jsx ]
+  on_ft: [ javascript, javascriptreact ]
   hook_source: autocmd user_events FileType javascript setlocal omnifunc=
 
 - repo: fszymanski/deoplete-emoji
@@ -463,7 +468,7 @@
   build: npm install
   if: executable('npm')
   on_event: InsertEnter
-  on_ft: [ javascript, jsx ]
+  on_ft: [ javascript, javascriptreact ]
   hook_add: |
     let g:tern#command = ['tern']
     let g:tern#arguments = ['--persistent']
@@ -473,7 +478,7 @@
 
 - repo: mattn/emmet-vim
   on_event: InsertEnter
-  on_ft: [ html, css, jsx, javascript ]
+  on_ft: [ html, css, javascript, javascriptreact ]
   hook_source: |
     let g:user_emmet_complete_tag = 0
     let g:user_emmet_install_global = 0

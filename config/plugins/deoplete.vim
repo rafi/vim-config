@@ -104,9 +104,12 @@ call deoplete#custom#source('syntax',        'rank', 50)
 call deoplete#custom#source('_', 'matchers',
 	\ [ 'matcher_fuzzy', 'matcher_length' ])
 
+call deoplete#custom#source('denite', 'matchers',
+	\ ['matcher_full_fuzzy', 'matcher_length'])
+
 call deoplete#custom#source('_', 'converters', [
-	\   'converter_remove_paren',
 	\   'converter_remove_overlap',
+	\   'matcher_length',
 	\   'converter_truncate_abbr',
 	\   'converter_truncate_menu',
 	\ ])
@@ -126,17 +129,15 @@ augroup END
 imap <expr><C-j>   pumvisible() ? "\<Down>" : "\<C-j>"
 imap <expr><C-k>   pumvisible() ? "\<Up>" : "\<C-k>"
 
-" Scroll pages in menu
+" Scroll pages in completion-menu
 inoremap <expr><C-f> pumvisible() ? "\<PageDown>" : "\<Right>"
 inoremap <expr><C-b> pumvisible() ? "\<PageUp>" : "\<Left>"
 imap     <expr><C-d> pumvisible() ? "\<PageDown>" : "\<C-d>"
 imap     <expr><C-u> pumvisible() ? "\<PageUp>" : "\<C-u>"
 
-" Undo completion
-" inoremap <expr><C-g> deoplete#undo_completion()
-
 " Redraw candidates
-inoremap <expr><C-g> deoplete#manual_complete()
+inoremap <expr><C-g> deoplete#undo_completion()
+" inoremap <expr><C-g> deoplete#manual_complete()
 inoremap <expr><C-e> deoplete#cancel_popup()
 inoremap <silent><expr><C-l> deoplete#complete_common_string()
 

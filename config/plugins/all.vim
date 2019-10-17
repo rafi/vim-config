@@ -72,7 +72,7 @@ if dein#tap('neosnippet.vim')
 endif
 
 if dein#tap('emmet-vim')
-	autocmd user_events FileType html,css,jsx,javascript,javascript.jsx
+	autocmd user_events FileType html,css,javascript,javascriptreact
 		\ EmmetInstall
 		\ | imap <buffer> <C-Return> <Plug>(emmet-expand-abbr)
 endif
@@ -213,7 +213,7 @@ if dein#tap('jedi-vim')
 endif
 
 if dein#tap('tern_for_vim')
-	autocmd user_events FileType javascript,jsx,javascript.jsx
+	autocmd user_events FileType javascript,javascriptreact
 		\  nnoremap <silent><buffer> K          :<C-u>TernDoc<CR>
 		\| nnoremap <silent><buffer> <C-]>      :<C-u>TernDefSplit<CR>
 		\| nnoremap <silent><buffer> gy         :<C-u>TernType<CR>

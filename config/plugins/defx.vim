@@ -163,7 +163,7 @@ function! s:defx_mappings() abort
 		\ defx#do_action('toggle_columns', 'indent:mark:filename:type:size:time')
 
 	" Tools
-	nnoremap <silent><buffer><expr> w   defx#async_action('call', '<SID>toggle_width')
+	nnoremap <silent><buffer><expr> w   defx#do_action('call', '<SID>toggle_width')
 	nnoremap <silent><buffer><expr> gx  defx#async_action('execute_system')
 	nnoremap <silent><buffer><expr> gd  defx#async_action('multi', ['drop', ['call', '<SID>git_diff']])
 	nnoremap <silent><buffer><expr> gr  defx#do_action('call', '<SID>grep')

@@ -194,7 +194,7 @@ if has('patch-7.4.775')
 	set completeopt+=noinsert
 endif
 
-if has('patch-8.1.0360')
+if has('patch-8.1.0360') || has('nvim-0.4')
 	set diffopt+=internal,algorithm:patience
 	" set diffopt=indent-heuristic,algorithm:patience
 endif
