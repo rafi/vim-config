@@ -2,7 +2,12 @@
 
 Lean mean Neo/vim machine, 30-45ms startup time.
 
-Best with Neovim or Vim8 with +python3 extensions enabled.
+Best with Neovim or Vim8 with +python3 extension enabled.
+
+I encourage you to fork this repo and create your own experience. Learn how to
+tweak and change Neo/vim to the way _you_ like it. This is my cultivation of
+years of tweaking, use it as a git remote and stay in-touch with upstream for
+reference or cherry-picking.
 
 <details>
   <summary>
@@ -97,21 +102,19 @@ ln -s ~/.config/nvim ~/.vim
 ```
 
 - _Note:_ If your system sets `$XDG_CONFIG_HOME`,
-  use that instead of `~/.config` in the code above.
-  Neovim follows the XDG base-directories convention.
+  use that instead of `~/.config` in the commands above.
+  Neovim follows the XDG base-directories convention, Vim doesn't.
 
-**_2._** If you are a _first-time **Neovim** user_, you need the `pynvim`
-package. Don't worry, run the script provided:
 
-```sh
-cd ~/.config/nvim
-./venv.sh
-```
 
-Otherwise, or additionally, if you use Vim, you can run
-`pip3 install --user pynvim`
+**_2._** Install the Python 3 `pynvim` library. This is also needed for Vim
+if you want to use Denite and Defx.
 
-**_3._** Run `make test` to test your nvim/vim version and compatibility.
+> Neovim: `cd ~/.config/nvim && ./venvs.sh` or `pip3 install --user pynvim`
+
+> Vim8: `pip3 install --user pynvim`
+
+**_3._** Run `make test` to test your nvim/vim version and capabilities.
 
 **_4._** Run `make` to install all plugins.
 
@@ -156,16 +159,28 @@ pip install --user pycodestyle pyflakes flake8 vim-vint proselint yamllint
 
 ### Recommended Tools
 
-- ag (The Silver Searcher): [ggreer/the_silver_searcher](https://github.com/ggreer/the_silver_searcher)
-  - and/or ripgrep: [BurntSushi/ripgrep](https://github.com/BurntSushi/ripgrep)
-- z (jump around): [rupa/z](https://github.com/rupa/z)
-- Universal ctags: [ctags.io](https://ctags.io/)
-- Fuzzy file finders: [fzf](https://github.com/junegunn/fzf), [fzy](https://github.com/jhawthorn/fzy), or [peco](https://github.com/peco/peco)
-- Tern: `npm -g install tern`
+- **ag** [ggreer/the_silver_searcher](https://github.com/ggreer/the_silver_searcher)
+  (macOS: `brew install the_silver_searcher`)
+  - and/or **ripgrep**: [BurntSushi/ripgrep](https://github.com/BurntSushi/ripgrep)
+- Jump around with **z**: [rupa/z](https://github.com/rupa/z)
+  (macOS: `brew install z`)
+- **[Universal ctags](https://ctags.io/)** for syntax tokenization
+- Fuzzy file finders:
+  **[fzf](https://github.com/junegunn/fzf)**,
+  **[fzy](https://github.com/jhawthorn/fzy)**, or
+  **[peco](https://github.com/peco/peco)**
+  (macOS: `brew install fzf`)
+- **Tern** for Javascript completion (`npm -g install tern`)
 
 ## Upgrade
 
-Run `make update`
+```bash
+cd <your installation path>
+make update
+```
+
+This will run `git pull -ff --ff-only` and update all plugins using
+[Shougo/dein.vim] package-manager.
 
 ## User Custom Config
 
@@ -213,6 +228,9 @@ If you want to disable some of the plugins I use, you can overwrite them, e.g.:
 _Note_ that 95% of the plugins are **[lazy-loaded]**.
 
 ## Plugins Included
+
+<details open>
+  <summary><strong>List</strong> <small><i>(🔎 Click to expand)</i></small></summary>
 
 ### Non Lazy-Loaded Plugins
 
@@ -534,6 +552,8 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [osyo-manga/vim-textobj-multiblock]: https://github.com/osyo-manga/vim-textobj-multiblock
 [kana/vim-textobj-function]: https://github.com/kana/vim-textobj-function
 
+</details>
+
 ## Custom Key-mappings
 
 Note that,
@@ -541,6 +561,12 @@ Note that,
 * Leader key is set as <kbd>Space</kbd>
 * Local-leader is set as <kbd>;</kbd> and used for navigation and search mostly
   (Denite and Defx)
+
+<details open>
+  <summary>
+    <strong>Key-mappings</strong>
+    <small><i>(🔎 Click to expand)</i></small>
+  </summary>
 
 ### General
 
@@ -798,6 +824,8 @@ Note that,
 | `<leader>`+`gu` | Normal | Open undo-tree
 | `<leader>`+`W` | Normal | VimWiki
 | `<leader>`+`K` | Normal | Thesaurus
+
+</details>
 
 ## Credits & Contribution
 
