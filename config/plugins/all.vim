@@ -69,6 +69,8 @@ if dein#tap('neosnippet.vim')
 		\ ? "\<Plug>(neosnippet_expand_or_jump)" : "\<ESC>o"
 	smap <silent>L     <Plug>(neosnippet_jump_or_expand)
 	xmap <silent>L     <Plug>(neosnippet_expand_target)
+	" inoremap <silent><ESC>  <ESC>:NeoSnippetClearMarkers<CR>
+	snoremap <silent><ESC>  <ESC>:NeoSnippetClearMarkers<CR>
 endif
 
 if dein#tap('emmet-vim')

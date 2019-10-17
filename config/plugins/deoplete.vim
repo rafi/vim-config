@@ -125,6 +125,9 @@ augroup user_plugin_deoplete
 	autocmd CompleteDone * silent! pclose!
 augroup END
 
+" Close popup first, if Escape is pressed
+" imap <expr><Esc> pumvisible() ? deoplete#close_popup() : "\<Esc>"
+
 " Movement within 'ins-completion-menu'
 imap <expr><C-j>   pumvisible() ? "\<Down>" : "\<C-j>"
 imap <expr><C-k>   pumvisible() ? "\<Up>" : "\<C-k>"
@@ -141,7 +144,7 @@ inoremap <expr><C-g> deoplete#undo_completion()
 inoremap <expr><C-e> deoplete#cancel_popup()
 inoremap <silent><expr><C-l> deoplete#complete_common_string()
 
-" <CR>: If popup menu visible, expand snippet or close popup with selection,
+" <CR>: If popup menu visible, close popup with selection.
 "       Otherwise, check if within empty pair and use delimitMate.
 inoremap <silent><expr><CR> pumvisible() ? deoplete#close_popup()
 	\ : (delimitMate#WithinEmptyPair() ? "\<C-R>=delimitMate#ExpandReturn()\<CR>" : "\<CR>")
@@ -151,21 +154,25 @@ inoremap <silent><expr><CR> pumvisible() ? deoplete#close_popup()
 " 2. Otherwise, if within a snippet, jump to next input
 " 3. Otherwise, if preceding chars are whitespace, insert tab char
 " 4. Otherwise, start manual autocomplete
-imap <silent><expr><Tab> pumvisible() ? "\<Down>"
-	\ : (neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)"
+imap <silent><expr><Tab>
+	\ neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)"
+	\ : (<SID>is_whitespace() ? "\<Tab>"
+	\ : (pumvisible() ? "\<Down>"
+	\ : deoplete#manual_complete()))
+
+smap <silent><expr><Tab>
+	\ neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)"
+	\ : (pumvisible() ? "\<Down>"
 	\ : (<SID>is_whitespace() ? "\<Tab>"
 	\ : deoplete#manual_complete()))
 
-smap <silent><expr><Tab> pumvisible() ? "\<Down>"
-	\ : (neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)"
-	\ : (<SID>is_whitespace() ? "\<Tab>"
-	\ : deoplete#manual_complete()))
-
-inoremap <expr><S-Tab>  pumvisible() ? "\<Up>" : "\<C-h>"
+inoremap <expr><S-Tab>
+	\ <SID>is_whitespace() ? "\<C-h>"
+	\ : pumvisible() ? "\<Up>" : "\<C-h>"
 
 function! s:is_whitespace() "{{{
 	let col = col('.') - 1
-	return ! col || getline('.')[col - 1] =~ '\s'
+	return ! col || getline('.')[col - 1] =~# '\s'
 endfunction "}}}
 " }}}
 
