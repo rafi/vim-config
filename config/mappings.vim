@@ -42,7 +42,7 @@ nnoremap <leader>a =ip
 nnoremap <CR> za
 
 " Focus the current fold by closing all others
-nnoremap <S-Return> zMza
+nnoremap <S-Return> zMzvzt
 
 " Use backspace key for matchit.vim
 nmap <BS> %
