@@ -33,7 +33,6 @@ vnoremap <expr> <leader>cn "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgn"
 vnoremap <expr> <leader>cN "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgN"
 
 nnoremap <leader>cp yap<S-}>p
-nnoremap <leader>a =ip
 
 " xnoremap p  "0p
 " nnoremap x "_x

@@ -820,7 +820,8 @@ Note that,
 | `-` | Normal | Choose a window to edit (choosewin)
 | `<leader>`+`-` | Normal | Switch editing window with selected (choosewin)
 | `<leader>`+`l` | Normal | Open sidemenu
-| `<leader>`+`o` | Normal | Open tag-bar (:Vista)
+| `<leader>`+`o` | Normal | Open structure window (:Vista)
+| `<leader>`+`a` | Normal | Show nearby tag in structure window (:Vista show)
 | `<leader>`+`G` | Normal | Toggle distraction-free writing (goyo)
 | `<leader>`+`gu` | Normal | Open undo-tree
 | `<leader>`+`W` | Normal | VimWiki
