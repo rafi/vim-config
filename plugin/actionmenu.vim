@@ -1,6 +1,7 @@
 " actionmenu
 " ---
 " Context-aware menu at your cursor
+" Forked from: https://github.com/kizza/actionmenu.nvim
 
 if exists('g:loaded_actionmenu') || ! has('nvim')
 	finish
@@ -8,7 +9,7 @@ endif
 let g:loaded_actionmenu = 1
 
 " Default icon for the actionmenu (see nerdfonts.com)
-let g:actionmenu#icon = { 'character': '', 'foreground': 'yellow' }
+let g:actionmenu_icon = { 'character': '', 'foreground': 'yellow' }
 
 command! -nargs=0 ActionMenu call s:actionmenu()
 

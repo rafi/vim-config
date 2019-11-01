@@ -1,5 +1,6 @@
 " actionmenu
 " ---
+" Context-aware menu at your cursor
 " Forked from: https://github.com/kizza/actionmenu.nvim
 
 if get(s:, 'loaded')
@@ -12,39 +13,39 @@ let s:window = 0
 let g:actionmenu#items = []
 let g:actionmenu#selected = []
 
-function! actionmenu#icon_default() abort
-	let l:icon = get(g:, 'actionmenu#icon', '')
-	if empty(l:icon)
-		" Current character and its foreground
-		let l:icon = {
-			\ 'character': strcharpart(strpart(getline('.'), col('.') - 1), 0, 1),
-			\ 'foreground': synIDattr(synID(line('.'), col('.'), 1), 'fg')
-			\ }
-	endif
-	return l:icon
-endfunction
-
 function! actionmenu#open(items, callback, ...) abort
-	let g:actionmenu#items = a:items
-	let g:actionmenu#selected = []
-	let s:callback = a:callback
+	" Open the context-menu with a:items and a:callback for selected item
+	" action. In-order to change the icon settings, you can provide a third
+	" dictionary:
+	"
+	"  { "icon": { "character": "?", "foreground" }
+
+	if empty(a:items)
+		return
+	endif
+
+	" Prepare the icon
 	let l:opts = get(a:, 1, 0)
-
-	" Close the old window if opened
-	call actionmenu#close()
-
-	" Prepare the menu
 	if type(l:opts['icon']) == type({})
 		let l:icon = l:opts['icon']
 	else
-		let l:icon = actionmenu#icon_default()
+		let l:icon = s:icon_default()
 	endif
+
+	" Create the buffer
 	if ! s:buffer
 		let s:buffer = nvim_create_buf(0, 1)
 		call nvim_buf_set_option(s:buffer, 'syntax', 'OFF')
 	endif
 	call nvim_buf_set_option(s:buffer, 'modifiable', v:true)
 	call nvim_buf_set_lines(s:buffer, 0, -1, v:true, [ l:icon['character'] ])
+
+	let g:actionmenu#items = a:items
+	let g:actionmenu#selected = []
+	let s:callback = a:callback
+
+	" Close the old window if opened
+	call actionmenu#close()
 
 	" Open the window
 	let l:opts = {
@@ -73,6 +74,36 @@ function! actionmenu#open(items, callback, ...) abort
 	endif
 endfunction
 
+function! s:icon_default() abort
+	let l:icon = get(g:, 'actionmenu_icon', '')
+	if empty(l:icon)
+		" Current character and its foreground
+		let l:icon = {
+			\ 'character': strcharpart(strpart(getline('.'), col('.') - 1), 0, 1),
+			\ 'foreground': synIDattr(synID(line('.'), col('.'), 1), 'fg')
+			\ }
+	endif
+	return l:icon
+endfunction
+
+" Pum completion function
+function! actionmenu#complete_func(findstart, base) abort
+	if a:findstart
+		return 1
+	else
+		return map(copy(g:actionmenu#items), {
+			\ index, item -> s:pum_parse_item(item, index) })
+	endif
+endfunction
+
+function! s:pum_parse_item(item, index) abort
+	if type(a:item) == type('')
+		return { 'word': a:item, 'user_data': a:index }
+	else
+		return { 'word': a:item['word'], 'user_data': a:index }
+	endif
+endfunction
+
 function! actionmenu#callback(index, item) abort
 	doautocmd <nomodeline> BufWinEnter
 	if empty(s:callback)
@@ -88,6 +119,7 @@ function! actionmenu#close() abort
 	if s:window
 		call nvim_win_close(s:window, v:false)
 		" execute('close')
+		" call feedkeys("\<C-w>\<C-c>")
 		let s:window = 0
 	endif
 endfunction
