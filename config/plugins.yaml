@@ -192,7 +192,6 @@
 
 - { repo: tyru/caw.vim, on_map: { nx: <Plug> }}
 - { repo: liuchengxu/vim-which-key, on_cmd: WhichKey }
-- { repo: guns/xterm-color-table.vim, on_cmd: XtermColorTable }
 - { repo: mbbill/undotree, on_cmd: UndotreeToggle }
 - { repo: metakirby5/codi.vim, on_cmd: Codi }
 - { repo: reedes/vim-wordy, on_cmd: [ Wordy, NextWordy, PrevWordy ]}
@@ -200,9 +199,10 @@
 - { repo: jreybert/vimagit, on_cmd: Magit }
 - { repo: tweekmonster/helpful.vim, on_cmd: HelpfulVersion }
 - { repo: lambdalisue/gina.vim, on_cmd: Gina }
-- { repo: cocopon/colorswatch.vim, on_cmd: ColorSwatchGenerate }
 - { repo: kana/vim-altr, on_map: { n: <Plug> }}
 - { repo: Shougo/vinarise.vim, on_cmd: Vinarise }
+- { repo: guns/xterm-color-table.vim, on_cmd: XtermColorTable }
+- { repo: cocopon/colorswatch.vim, on_cmd: ColorSwatchGenerate }
 
 - repo: kana/vim-niceblock
   on_map: { x: <Plug> }
@@ -254,11 +254,6 @@
 - { repo: hotwatermorning/auto-git-diff, on_ft: gitrebase }
 - { repo: rafi/vim-sidemenu, on_map: { nv: <Plug> }}
 
-- repo: RRethy/vim-hexokinase
-  on_ft: [ css, scss, sass, stylus, vim ]
-  hook_add: |
-    let g:Hexokinase_ftAutoload = [ 'css', 'scss', 'sass', 'stylus' ]
-
 - repo: itchyny/vim-cursorword
   on_path: .*
   hook_source: |
@@ -269,6 +264,11 @@
       autocmd InsertEnter * let b:cursorword = 0
       autocmd InsertLeave * let b:cursorword = 1
     augroup END
+
+- repo: norcalli/nvim-colorizer.lua
+  if: has('nvim') && has('nvim-0.4.0')
+  on_path: .*
+  hook_source: luafile $VIM_PATH/config/plugins/colorizer.lua
 
 - repo: airblade/vim-gitgutter
   on_path: .*
@@ -424,13 +424,6 @@
   on_event: CompleteDone
   hook_post_source: call echodoc#enable()
 
-- repo: ncm2/float-preview.nvim
-  if: has('nvim') && exists('##CompleteChanged')
-  on_event: InsertEnter
-  hook_add: |
-    let g:float_preview#docked = 0
-    let g:float_preview#max_width = 80
-
 - { repo: Shougo/neosnippet-snippets, on_source: neosnippet.vim }
 - { repo: Shougo/context_filetype.vim, lazy: 1 }
 - { repo: Shougo/neco-vim, on_ft: vim }
@@ -463,6 +456,11 @@
     let g:tern_show_signature_in_pum = 0
     let g:tern_set_omni_function = 0
 
+- repo: wellle/tmux-complete.vim
+  if: "! (has('win32') || has('win64'))"
+  on_event: InsertEnter
+  hook_add: let g:tmuxcomplete#trigger = ''
+
 - repo: mattn/emmet-vim
   on_event: InsertEnter
   on_ft: [ html, css, javascript, javascriptreact ]
@@ -494,11 +492,6 @@
   hook_source: |
     let g:delimitMate_expand_cr = 1
     let g:delimitMate_excluded_ft = 'html'
-
-- repo: wellle/tmux-complete.vim
-  if: "! (has('win32') || has('win64'))"
-  on_event: InsertEnter
-  hook_add: let g:tmuxcomplete#trigger = ''
 
 # ==========================================
 # Denite

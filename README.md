@@ -263,7 +263,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [hail2u/vim-css3-syntax] | CSS3 syntax support to vim's built-in `syntax/css.vim`
 | [othree/csscomplete.vim] | Updated built-in CSS complete with latest standards
 | [cakebaker/scss-syntax.vim] | Syntax file for scss (Sassy CSS)
-| [ap/vim-css-color] | Preview colors in source-code while editing
 | [plasticboy/vim-markdown] | Markdown syntax highlighting
 | [rhysd/vim-gfm-syntax] | GitHub Flavored Markdown syntax highlight extension
 | [pangloss/vim-javascript] | Enhanced Javascript syntax
@@ -339,6 +338,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [t9md/vim-quickhl] | Quickly highlight words
 | [rafi/vim-sidemenu] | Small side-menu useful for terminal users
 | [airblade/vim-gitgutter] | Show git changes at Vim gutter and un/stages hunks
+| [norcalli/nvim-colorizer.lua] | The fastest Neovim colorizer
 | [nathanaelkane/vim-indent-guides] | Visually display indent levels in code
 | [kshenoy/vim-signature] | Display and toggle marks
 | [hotwatermorning/auto-git-diff] | Display Git diff for interactive rebase
@@ -358,7 +358,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [ludovicchabant/vim-gutentags] | Manages your tag files
 | [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet
 | [Shougo/echodoc.vim] | Print objects' documentation in echo area
-| [ncm2/float-preview.nvim] | Pretty completion preview with neovim's floating win
 | [Raimondi/delimitMate] | Auto-completion for quotes, parens, brackets
 | [Shougo/neosnippet-snippets] | Standard snippets repository for neosnippet
 | [Shougo/context_filetype.vim] | Context filetype library for Vim script
@@ -425,7 +424,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [hail2u/vim-css3-syntax]: https://github.com/hail2u/vim-css3-syntax
 [othree/csscomplete.vim]: https://github.com/othree/csscomplete.vim
 [cakebaker/scss-syntax.vim]: https://github.com/cakebaker/scss-syntax.vim
-[ap/vim-css-color]: https://github.com/ap/vim-css-color
 [plasticboy/vim-markdown]: https://github.com/plasticboy/vim-markdown
 [rhysd/vim-gfm-syntax]: https://github.com/rhysd/vim-gfm-syntax
 [pangloss/vim-javascript]: https://github.com/pangloss/vim-javascript
@@ -493,6 +491,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [t9md/vim-quickhl]: https://github.com/t9md/vim-quickhl
 [rafi/vim-sidemenu]: https://github.com/rafi/vim-sidemenu
 [airblade/vim-gitgutter]: https://github.com/airblade/vim-gitgutter
+[norcalli/nvim-colorizer.lua]: https://github.com/norcalli/nvim-colorizer.lua
 [nathanaelkane/vim-indent-guides]: https://github.com/nathanaelkane/vim-indent-guides
 [kshenoy/vim-signature]: https://github.com/kshenoy/vim-signature
 [hotwatermorning/auto-git-diff]: https://github.com/hotwatermorning/auto-git-diff
@@ -508,7 +507,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [ludovicchabant/vim-gutentags]: https://github.com/ludovicchabant/vim-gutentags
 [mattn/emmet-vim]: https://github.com/mattn/emmet-vim
 [Shougo/echodoc.vim]: https://github.com/Shougo/echodoc.vim
-[ncm2/float-preview.nvim]: https://github.com/ncm2/float-preview.nvim
 [Raimondi/delimitMate]: https://github.com/Raimondi/delimitMate
 [Shougo/neosnippet-snippets]: https://github.com/Shougo/neosnippet-snippets
 [Shougo/context_filetype.vim]: https://github.com/Shougo/context_filetype.vim
