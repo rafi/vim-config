@@ -61,7 +61,7 @@ if dein#tap('vim-denite-z')
 endif
 
 if dein#tap('vista.vim')
-	nnoremap <silent> <Leader>o :<C-u>Vista<CR>
+	nnoremap <silent> <Leader>t :<C-u>Vista<CR>
 	nnoremap <silent> <Leader>a :<C-u>Vista show<CR>
 endif
 

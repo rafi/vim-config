@@ -69,6 +69,7 @@ reference or cherry-picking.
 * [Shougo/denite.nvim] centric work-flow (lists)
 * Extensive [Shougo/deoplete.nvim] setup (auto-completion)
 * Structure view with [liuchengxu/vista.vim]
+* Open SCM detailed URL in OS browser
 * Light-weight but informative status/tabline
 * Easy customizable theme
 * Premium color-schemes
@@ -321,9 +322,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [cocopon/colorswatch.vim] | Generate a beautiful color swatch for the current buffer
 | [kana/vim-altr] | Switch to the alternate file without interaction
 | [lambdalisue/suda.vim] | An alternative sudo.vim for Vim and Neovim
-| [tyru/open-browser.vim] | Open URI with your favorite browser
-| [tyru/open-browser-unicode.vim] | Open info page about character on current cursor
-| [tyru/open-browser-github.vim] | Open GitHub URL of current file
 | [tyru/caw.vim] | Robust comment plugin with operator support
 | [Shougo/vinarise.vim] | Hex editor
 | [mzlogin/vim-markdown-toc] | Generate table of contents for Markdown files
@@ -482,9 +480,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [cocopon/colorswatch.vim]: https://github.com/cocopon/colorswatch.vim
 [kana/vim-altr]: https://github.com/kana/vim-altr
 [lambdalisue/suda.vim]: https://github.com/lambdalisue/suda.vim
-[tyru/open-browser.vim]: https://github.com/tyru/open-browser.vim
-[tyru/open-browser-unicode.vim]: https://github.com/tyru/open-browser-unicode.vim
-[tyru/open-browser-github.vim]: https://github.com/tyru/open-browser-github.vim
 [tyru/caw.vim]: https://github.com/tyru/caw.vim
 [Shougo/vinarise.vim]: https://github.com/Shougo/vinarise.vim
 [mzlogin/vim-markdown-toc]: https://github.com/mzlogin/vim-markdown-toc
@@ -820,7 +815,8 @@ Note that,
 | `-` | Normal | Choose a window to edit (choosewin)
 | `<leader>`+`-` | Normal | Switch editing window with selected (choosewin)
 | `<leader>`+`l` | Normal | Open sidemenu
-| `<leader>`+`o` | Normal | Open structure window (:Vista)
+| `<leader>`+`o` | Normal/Visual | Open SCM detailed URL in browser (:OpenSCM)
+| `<leader>`+`t` | Normal | Open structure window (:Vista)
 | `<leader>`+`a` | Normal | Show nearby tag in structure window (:Vista show)
 | `<leader>`+`G` | Normal | Toggle distraction-free writing (goyo)
 | `<leader>`+`gu` | Normal | Open undo-tree

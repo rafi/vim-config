@@ -213,6 +213,9 @@ nnoremap [w :<C-u>WhitespacePrev<CR>
 nmap <silent> <Leader>se :<C-u>SessionSave<CR>
 nmap <silent> <Leader>os :<C-u>SessionLoad<CR>
 
+nmap <silent> <Leader>o :<C-u>OpenSCM<CR>
+vmap <silent> <Leader>o :OpenSCM<CR>
+
 if has('mac')
 	" Open the macOS dictionary on current word
 	nmap <Leader>? :!open dict://<cword><CR><CR>

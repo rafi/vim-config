@@ -221,18 +221,6 @@
   on_event: BufRead
   hook_add: let g:suda_smart_edit = 1
 
-- repo: tyru/open-browser.vim
-  on_map: { nxv: <Plug>(openbrowser }
-  on_cmd: [ OpenBrowser, OpenBrowserSearch, OpenBrowserSmartSearch ]
-
-- repo: tyru/open-browser-unicode.vim
-  depends: open-browser.vim
-  on_cmd: OpenBrowserUnicode
-
-- repo: tyru/open-browser-github.vim
-  depends: open-browser.vim
-  on_cmd: [ OpenGithubFile, OpenGithubIssue, OpenGithubProject ]
-
 - repo: mzlogin/vim-markdown-toc
   on_cmd: [ GenTocGFM, GenTocRedcarpet, GenTocGitLab, UpdateToc ]
   hook_add: let g:vmt_auto_update_on_save = 0
