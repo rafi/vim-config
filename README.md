@@ -79,18 +79,10 @@ reference or cherry-picking.
 
 ![Vim screenshot](http://rafi.io/static/img/project/vim-config/features.png)
 
-## Pre-requisites
+## Prerequisites
 
 * Python 3 (`brew install python`)
 * Neovim or Vim (`brew install neovim` and/or `brew install vim`)
-* Virtualenv tool for Python 3:
-  ```bash
-  pip3 install virtualenv
-  ```
-  On Ubuntu you can use:
-  ```bash
-  apt-get install -y python3-venv
-  ```
 
 ## Install
 

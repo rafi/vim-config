@@ -1,13 +1,17 @@
--- Attach to certain Filetypes, add special configuration for `html`
--- Use `background` for everything else.
+-- nvim-colorizer
+-- ===
+-- See https://github.com/norcalli/nvim-colorizer.lua
+
 require 'colorizer'.setup {
-  'css';
-  'scss';
-  'sass';
-  'stylus';
-  'vim';
+  css = { rgb_fn = true; };
+  scss = { rgb_fn = true; };
+  sass = { rgb_fn = true; };
+  stylus = { rgb_fn = true; };
+  vim = { names = false; };
   'javascript';
   'javascriptreact';
+  'typescript';
+  'typescriptreact';
   html = {
     mode = 'foreground';
   }

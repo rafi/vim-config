@@ -58,25 +58,26 @@ endfunction
 " Menu mappings
 mapclear <buffer>
 imapclear <buffer>
-inoremap <silent><buffer><expr> <CR> <SID>select_item()
-imap <buffer> <C-y> <CR>
-imap <buffer> <C-e> <Esc>
+
+inoremap <silent><nowait><buffer><expr> <CR> <SID>select_item()
+imap     <nowait><buffer> <C-y> <CR>
+imap     <nowait><buffer> <C-e> <Esc>
 
 " Navigate in menu
-inoremap <buffer> <Up>    <C-p>
-inoremap <buffer> <Down>  <C-n>
-inoremap <buffer> k       <C-p>
-inoremap <buffer> j       <C-n>
-imap     <buffer> <C-k>   <C-p>
-imap     <buffer> <C-j>   <C-n>
-inoremap <buffer> <S-Tab> <C-p>
-imap     <buffer> <Tab>   <C-n>
+inoremap <nowait><buffer> <Up>    <C-p>
+inoremap <nowait><buffer> <Down>  <C-n>
+inoremap <nowait><buffer> k       <C-p>
+inoremap <nowait><buffer> j       <C-n>
+imap     <nowait><buffer> <C-k>   <C-p>
+imap     <nowait><buffer> <C-j>   <C-n>
+inoremap <nowait><buffer> <S-Tab> <C-p>
+imap     <nowait><buffer> <Tab>   <C-n>
 
 " Scroll pages in menu
-inoremap <buffer> <C-b>  <PageUp>
-inoremap <buffer> <C-f>  <PageDown>
-imap     <buffer> <C-u>  <PageUp>
-imap     <buffer> <C-d>  <PageDown>
+inoremap <nowait><buffer> <C-b>  <PageUp>
+inoremap <nowait><buffer> <C-f>  <PageDown>
+imap     <nowait><buffer> <C-u>  <PageUp>
+imap     <nowait><buffer> <C-d>  <PageDown>
 
 " Events
 augroup actionmenu
