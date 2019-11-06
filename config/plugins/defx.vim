@@ -29,11 +29,13 @@ call defx#custom#column('git', {
 	\ })
 
 call defx#custom#column('mark', { 'readonly_icon': '✗', 'selected_icon': '✓' })
-" call defx#custom#column('filename', { 'min_width': 20, 'max_width': -95 })
 
 " defx-icons plugin
 let g:defx_icons_column_length = 2
 let g:defx_icons_mark_icon = ''
+
+" Internal use
+let s:original_width = get(get(defx#custom#_get().option, '_'), 'winwidth')
 
 " Events
 " ---
@@ -41,19 +43,19 @@ let g:defx_icons_mark_icon = ''
 augroup user_plugin_defx
 	autocmd!
 
-	" FIXME
-	" autocmd DirChanged * call s:defx_refresh_cwd(v:event)
-
 	" Delete defx if it's the only buffer left in the window
-	autocmd WinEnter * if &filetype == 'defx' && winnr('$') == 1 | q | endif
+	autocmd WinEnter * if &filetype == 'defx' && winnr('$') == 1 | bdel | endif
 
 	" Move focus to the next window if current buffer is defx
 	autocmd TabLeave * if &filetype == 'defx' | wincmd w | endif
 
-	autocmd TabClosed * call s:defx_close_tab(expand('<afile>'))
+	autocmd TabClosed * call <SID>defx_close_tab(expand('<afile>'))
+
+	" Automatically refresh opened Defx windows when changing working-directory
+	" autocmd DirChanged * call <SID>defx_handle_dirchanged(v:event)
 
 	" Define defx window mappings
-	autocmd FileType defx call s:defx_mappings()
+	autocmd FileType defx call <SID>defx_mappings()
 
 augroup END
 
@@ -62,13 +64,8 @@ augroup END
 
 function! s:defx_close_tab(tabnr)
 	" When a tab is closed, find and delete any associated defx buffers
-	for l:nr in range(1, bufnr('$'))
-		let l:defx = getbufvar(l:nr, 'defx')
-		if empty(l:defx)
-			continue
-		endif
-		let l:context = get(l:defx, 'context', {})
-		if get(l:context, 'buffer_name', '') ==# 'tab' . a:tabnr
+	for l:nr in tabpagebuflist()
+		if getbufvar(l:nr, '&filetype') ==# 'defx'
 			silent! execute 'bdelete '.l:nr
 			break
 		endif
@@ -83,24 +80,27 @@ function! s:defx_toggle_tree() abort
 	return defx#do_action('multi', ['drop', 'quit'])
 endfunction
 
-function! s:defx_refresh_cwd(event)
-	" Automatically refresh opened Defx windows when changing working-directory
+function! s:defx_handle_dirchanged(event)
+	" Refresh opened Defx windows when changing working-directory
 	let l:cwd = get(a:event, 'cwd', '')
 	let l:scope = get(a:event, 'scope', '')   " global, tab, window
-	let l:is_opened = bufwinnr('defx') > -1
-	if ! l:is_opened || empty(l:cwd) || empty(l:scope)
+	if empty(l:cwd) || empty(l:scope)
 		return
 	endif
 
-	" Abort if Defx is already on the cwd triggered (new files trigger this)
-	let l:paths = get(getbufvar('defx', 'defx', {}), 'paths', [])
-	if index(l:paths, l:cwd) >= 0
-		return
-	endif
-
-	let l:tab = tabpagenr()
-	call execute(printf('Defx -buffer-name=tab%s %s', l:tab, l:cwd))
-	wincmd p
+	" Find tab-page's defx window
+	for l:nr in tabpagebuflist()
+		if getbufvar(l:nr, '&filetype') ==# 'defx'
+			let l:winnr = bufwinnr(l:nr)
+			if l:winnr > -1
+				" Change defx's window directory location
+				execute l:winnr 'wincmd w'
+				call defx#call_action('cd', [l:cwd])
+				wincmd p
+				break
+			endif
+		endif
+	endfor
 endfunction
 
 function! s:jump_dirty(dir) abort
@@ -199,14 +199,12 @@ endfunction
 function! s:toggle_width(context) abort
 	" Toggle between defx window width and longest line
 	let l:max = 0
-	let l:original = a:context['winwidth']
 	for l:line in range(1, line('$'))
 		let l:len = len(getline(l:line))
-		if l:len > l:max
-			let l:max = l:len
-		endif
+		let l:max = max([l:len, l:max])
 	endfor
-	execute 'vertical resize ' . (l:max == winwidth('.') ? l:original : l:max)
+	let l:new = l:max == winwidth(0) ? s:original_width : l:max
+	call defx#call_action('resize', l:new)
 endfunction
 
 function! s:explorer(context) abort
