@@ -147,7 +147,8 @@ inoremap <silent><expr><C-l> deoplete#complete_common_string()
 " <CR>: If popup menu visible, close popup with selection.
 "       Otherwise, check if within empty pair and use delimitMate.
 inoremap <silent><expr><CR> pumvisible() ? deoplete#close_popup()
-	\ : (delimitMate#WithinEmptyPair() ? "\<C-R>=delimitMate#ExpandReturn()\<CR>" : "\<CR>")
+	\ : (dein#tap('delimitMate') && delimitMate#WithinEmptyPair() ?
+	\   "\<C-R>=delimitMate#ExpandReturn()\<CR>" : "\<CR>")
 
 " <Tab> completion:
 " 1. If popup menu is visible, select and insert next item
