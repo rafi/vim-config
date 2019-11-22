@@ -704,17 +704,27 @@ Note that,
 | `;`+`e` | Normal | Open file explorer (toggle)
 | `;`+`a` | Normal | Open file explorer and select current file
 | **Within _Defx_ window** ||
-| `h/j/k/l` | Normal | Movement, collapse/expand, open
-| `]`+`g` | Normal | Next dirty git item
-| `]`+`g` | Normal | Previous dirty git item
-| `w` | Normal | Toggle window size
-| `N` | Normal | Create new file or directory
-| `yy` | Normal | Yank selected item to clipboard
+| `h` | Normal | Collapse directory tree
+| `j` / `k` | Normal | Move up and down the tree
+| `<Return>` / `l` | Normal | Toggle collapse/expand directory or open file
+| `<Space>` | Normal | Select current file or directory
+| `*` | Normal | Invert selection (select all)
+| `<Backspace>` | Normal | Move into the parent directory
+| `&` / `\` | Normal | Move to project root
+| `~` | Normal | Move to user home directory
 | `st` | Normal | Open file in new tab
 | `sv` | Normal | Open file in a horizontal split
 | `sg` | Normal | Open file in a vertical split
-| `&` | Normal | Jump to project root
-| `gx` | Normal | Execute associated system application
+| `N` | Normal | Create new directories and/or files
+| `K` | Normal | Create new directory
+| `c`/`m`/`p` | Normal | Copy, move, and paste
+| `r` | Normal | Rename file or directory
+| `d` | Normal | Delete selected files and directories
+| `y` | Normal | Yank selected item to clipboard
+| `w` | Normal | Toggle window size
+| `]`+`g` | Normal | Next dirty git item
+| `[`+`g` | Normal | Previous dirty git item
+| `x` / `gx` | Normal | Execute associated system application
 | `gd` | Normal | Open git diff on selected file
 | `gl` | Normal | Open terminal file explorer
 | `gr` | Normal | Grep in selected directory
