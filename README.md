@@ -757,11 +757,15 @@ Note that,
 | `m`+`/`/`?` | Normal | Show list of buffer marks/markers
 | `m`+`m` | Normal | Toggle mark on current line
 | `m`+`,` | Normal | Place next mark
-| `m`+`-` | Normal | Purge all marks on current line
+| `m`+`[a-z]` | Normal | Place specific mark (Won't work for: `m`, `n`, `p`)
+| `d`+`m`+`[a-z]` | Normal | Remove specific mark (Won't work for: `m`, `n`, `p`)
 | `m`+`n` | Normal | Jump to next mark
 | `m`+`p` | Normal | Jump to previous mark
-| `m`+`j` | Normal | Jump to next marker
-| `m`+`k` | Normal | Jump to previous marker
+| `]`+`=` | Normal | Jump to next marker
+| `[`+`=` | Normal | Jump to previous marker
+| `m`+`-` | Normal | Purge all on current line
+| `m`+`<Space>` | Normal | Purge marks
+| `m`+`<Backspace>` | Normal | Purge markers
 
 ### Plugin: Easygit
 
@@ -790,19 +794,19 @@ Note that,
 
 | Key   | Mode | Action
 | ----- |:----:| ------------------
-| `m`+`d`+`f` | Visual | Mark lines and open diff if 2nd region
-| `m`+`d`+`a` | Visual | Mark lines for diff
-| `m`+`d`+`s` | Normal | Shows the diff between all the marked areas
-| `m`+`d`+`r` | Normal | Removes the signs denoting the diff regions
+| `<leader>`+`mda` | Visual | Sequentially mark region for diff
+| `<leader>`+`mdf` | Visual | Mark region for diff and compare if more than one
+| `<leader>`+`mds` | Normal | Shows the comparison for all marked regions
+| `<leader>`+`mdr` | Normal | Removes the signs denoting the diff regions
 
 ### Misc Plugins
 
 | Key   | Mode | Action
 | ----- |:----:| ------------------
 | `v` / `V` | Visual/select | Expand/reduce selection (expand-region)
-| `m`+`g` | Normal | Open Magit
-| `m`+`t` | Normal/Visual | Toggle highlighted word (quickhl)
 | `-` | Normal | Choose a window to edit (choosewin)
+| `<leader>`+`mg` | Normal | Open Magit
+| `<leader>`+`mt` | Normal/Visual | Toggle highlighted word (quickhl)
 | `<leader>`+`-` | Normal | Switch editing window with selected (choosewin)
 | `<leader>`+`l` | Normal | Open sidemenu
 | `<leader>`+`o` | Normal/Visual | Open SCM detailed URL in browser (:OpenSCM)

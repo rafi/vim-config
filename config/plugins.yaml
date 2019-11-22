@@ -189,7 +189,6 @@
 - { repo: kristijanhusak/defx-git, on_source: defx.nvim }
 - { repo: kristijanhusak/defx-icons, on_source: defx.nvim }
 
-
 - { repo: tyru/caw.vim, on_map: { nx: <Plug> }}
 - { repo: liuchengxu/vim-which-key, on_cmd: WhichKey }
 - { repo: mbbill/undotree, on_cmd: UndotreeToggle }
@@ -294,7 +293,6 @@
     let g:SignaturePurgeConfirmation = 0
     let g:SignatureMarkTextHLDynamic = 1
     let g:SignatureMarkerTextHLDynamic = 1
-    let g:SignatureIncludeMarks = 'abcdefgABCDEFG'
     let g:SignatureIncludeMarkers = repeat('⚐', 10)
     autocmd user_events User GitGutter call signature#sign#Refresh()
 

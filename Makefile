@@ -9,9 +9,13 @@ install:
 	@mkdir -vp "$(XDG_CACHE_HOME)/vim/"{backup,session,swap,tags,undo}; \
 	$(vim) -V1 -es -i NONE -N -u config/init.vim -c "try | call dein#update() | finally | echomsg '' | qall! | endtry"
 
-update:
-	@git pull --ff --ff-only; \
+update-repo:
+	@git pull --ff --ff-only
+
+update-plugins:
 	$(vim) -V1 -es -i NONE -N -u config/init.vim -c "try | call dein#clear_state() | call dein#update() | finally | qall! | endtry"
+
+update: update-repo update-plugins
 
 upgrade: update
 
@@ -37,5 +41,4 @@ else
 endif
 	@echo All tests passed, hooray!
 
-
-.PHONY: install update upgrade uninstall test
+.PHONY: install update-repo update-plugins update upgrade uninstall test

@@ -36,7 +36,7 @@ augroup user_plugin_filetype " {{{
 	" Reload Vim script automatically if setlocal autoread
 	autocmd BufWritePost,FileWritePost *.vim nested
 		\ if &l:autoread > 0 | source <afile> |
-		\   echo 'source '.bufname('%') |
+		\   echo 'source ' . bufname('%') |
 		\ endif
 
 	" When editing a file, always jump to the last known cursor position.

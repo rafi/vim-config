@@ -30,18 +30,9 @@ if has('termguicolors')
 	set termguicolors
 endif
 
-" What to save for views:
-set viewoptions-=options
-set viewoptions+=slash,unix
-
-" What to save in sessions:
-set sessionoptions-=blank
-set sessionoptions-=options
-set sessionoptions-=globals
-set sessionoptions-=folds
-set sessionoptions-=help
-set sessionoptions-=buffers
-set sessionoptions+=tabpages
+" What to save for views and sessions:
+set viewoptions=folds,cursor,curdir,slash,unix
+set sessionoptions=curdir,help,tabpages,winsize
 
 if has('mac')
 	let g:clipboard = {
