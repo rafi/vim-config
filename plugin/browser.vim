@@ -131,7 +131,7 @@ function! s:build_github_url(url, ref, path, line_range)
 	return l:url
 endfunction
 
-function! s:parse_common_remotes(remote)
+function! s:normalize_remote_url(remote)
 	let l:pats = [
 		\ [ '\v(\w+:\/\/)(.+\@)*([a-z0-9.]+)(\:[0-9]+)?\/*(.*)', 'https://\3/\5' ],
 		\ [ '\v([a-z0-9.]+\@)*([a-z0-9.]+)\:(.*)', 'https://\2/\3' ]
@@ -149,7 +149,7 @@ function! s:parse_git_url(path)
 	" Git: Parse remote URL
 	let l:remote = system(s:git_exec . ' -C ' . a:path . ' ls-remote --get-url')
 	let l:remote = trim(l:remote)
-	let l:url = s:parse_common_remotes(l:remote)
+	let l:url = s:normalize_remote_url(l:remote)
 	if empty(l:url)
 		echohl WarningMsg
 		echomsg 'Unable to identify a valid remote url' l:remote

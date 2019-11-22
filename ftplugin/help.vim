@@ -17,7 +17,11 @@ setlocal iskeyword+=:
 setlocal iskeyword+=#
 setlocal iskeyword+=-
 
-wincmd K
+if winnr('$') > 2
+	wincmd K
+else
+	wincmd L
+endif
 
 " Jump to links with enter
 nmap <buffer> <CR> <C-]>
