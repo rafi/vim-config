@@ -236,6 +236,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [romainl/vim-cool] | Simple plugin that makes hlsearch more useful
 | [tpope/vim-sleuth] | Heuristically set buffer indent options
 | [sgur/vim-editorconfig] | EditorConfig plugin written entirely in Vimscript
+| [neovim/nvim-lsp] | Common configurations for Neovim Language Servers
 | [itchyny/vim-gitbranch] | Lightweight git branch detection
 | [itchyny/vim-parenmatch] | Efficient alternative to the standard matchparen plugin
 | [itchyny/cursorword] | Underlines word under cursor
@@ -318,6 +319,8 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [mzlogin/vim-markdown-toc] | Generate table of contents for Markdown files
 | [chemzqm/vim-easygit] | Git wrapper focus on simplity and usability
 | [liuchengxu/vista.vim] | Viewer & Finder for LSP symbols and tags in Vim
+| [junegunn/fzf] | Powerful command-line fuzzy finder
+| [junegunn/fzf.vim] | Fzf integration
 | [Ron89/thesaurus_query.vim] | Multi-language thesaurus query and replacement
 
 #### Interface
@@ -356,10 +359,12 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [Shougo/neco-vim] | Deoplete source for Vimscript
 | [Shougo/neoinclude.vim] | Include completion framework for Deoplete
 | [Shougo/neco-syntax] | Syntax source for Deoplete
-| [davidhalter/jedi-vim] | Python jedi autocompletion library
-| [zchee/deoplete-go] | deoplete.nvim source for Go
-| [zchee/deoplete-jedi] | deoplete.nvim source for Python
-| [carlitux/deoplete-ternjs] | deoplete.nvim source for javascript
+| [Shougo/deoplete-lsp] | LSP Completion source for deoplete
+| [davidhalter/jedi-vim] | Python Jedi autocompletion library
+| [deoplete-plugins/deoplete-go] | Deoplete source for Go
+| [deoplete-plugins/deoplete-jedi] | Deoplete source for Python
+| [deoplete-plugins/deoplete-tag] | Deoplete source for tag
+| [carlitux/deoplete-ternjs] | Deoplete source for Javascript
 | [wellle/tmux-complete.vim] | Completion of words in adjacent tmux panes
 | [fszymanski/deoplete-emoji] | Deoplete source for emoji codes
 | [juliosueiras/vim-terraform-completion] | Autocompletion and linter for Terraform
@@ -403,6 +408,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [romainl/vim-cool]: https://github.com/romainl/vim-cool
 [tpope/vim-sleuth]: https://github.com/tpope/vim-sleuth
 [sgur/vim-editorconfig]: https://github.com/sgur/vim-editorconfig
+[neovim/nvim-lsp]: https://github.com/neovim/nvim-lsp
 [itchyny/vim-gitbranch]: https://github.com/itchyny/vim-gitbranch
 [itchyny/vim-parenmatch]: https://github.com/itchyny/vim-parenmatch
 [itchyny/cursorword]: https://github.com/itchyny/vim-cursorword
@@ -475,6 +481,8 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [mzlogin/vim-markdown-toc]: https://github.com/mzlogin/vim-markdown-toc
 [chemzqm/vim-easygit]: https://github.com/chemzqm/vim-easygit
 [liuchengxu/vista.vim]: https://github.com/liuchengxu/vista.vim
+[junegunn/fzf]: https://github.com/junegunn/fzf
+[junegunn/fzf.vim]: https://github.com/junegunn/fzf.vim
 [Ron89/thesaurus_query.vim]: https://github.com/Ron89/thesaurus_query.vim
 
 [haya14busa/vim-asterisk]: https://github.com/haya14busa/vim-asterisk
@@ -505,9 +513,11 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [Shougo/neco-vim]: https://github.com/Shougo/neco-vim
 [Shougo/neoinclude.vim]: https://github.com/Shougo/neoinclude.vim
 [Shougo/neco-syntax]: https://github.com/Shougo/neco-syntax
+[Shougo/deoplete-lsp]: https://github.com/Shougo/deoplete-lsp
 [davidhalter/jedi-vim]: https://github.com/davidhalter/jedi-vim
-[zchee/deoplete-go]: https://github.com/zchee/deoplete-go
-[zchee/deoplete-jedi]: https://github.com/zchee/deoplete-jedi
+[deoplete-plugins/deoplete-go]: https://github.com/deoplete-plugins/deoplete-go
+[deoplete-plugins/deoplete-jedi]: https://github.com/deoplete-plugins/deoplete-jedi
+[deoplete-plugins/deoplete-tag]: https://github.com/deoplete-plugins/deoplete-tag
 [carlitux/deoplete-ternjs]: https://github.com/carlitux/deoplete-ternjs
 [wellle/tmux-complete.vim]: https://github.com/wellle/tmux-complete.vim
 [fszymanski/deoplete-emoji]: https://github.com/fszymanski/deoplete-emoji

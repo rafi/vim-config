@@ -12,6 +12,7 @@
 - repo: thinca/vim-localrc
 - repo: romainl/vim-cool
 - repo: sgur/vim-editorconfig
+- { repo: neovim/nvim-lsp, if: has('nvim') }
 
 - repo: christoomey/vim-tmux-navigator
   if: "! (has('win32') || has('win64'))"
@@ -114,6 +115,7 @@
 - repo: fatih/vim-go
   on_ft: [ go, gomod ]
   hook_add: |
+    let g:go_doc_popup_window = 1
     let g:go_highlight_array_whitespace_error = 0
     let g:go_highlight_chan_whitespace_error = 0
     let g:go_highlight_space_tab_error = 0
@@ -233,6 +235,13 @@
   hook_add: |
     let g:vista#renderer#enable_icon = 1
     let g:vista_echo_cursor_strategy = 'scroll'
+
+- repo: /usr/local/opt/fzf
+  if: isdirectory('/usr/local/opt/fzf')
+  merge: 0
+  on_cmd: FZF
+
+- { repo: junegunn/fzf.vim, depends: fzf, merge: 0, on_source: vista.vim }
 
 - repo: Ron89/thesaurus_query.vim
   on_cmd:
@@ -364,7 +373,7 @@
     \     'path': '~/docs/wiki/',
     \     'syntax': 'markdown',
     \     'ext': '.md' },
-    \   { 'path': '~/docs/blog/',
+    \   { 'path': '~/docs/books/',
     \     'syntax': 'markdown',
     \     'ext': '.md' }
     \ ]
@@ -401,6 +410,9 @@
   on_event: InsertEnter
   on_ft: [ javascript, javascriptreact ]
   hook_source: autocmd user_events FileType javascript setlocal omnifunc=
+
+- { repo: Shougo/deoplete-lsp, on_event: InsertEnter }
+- { repo: deoplete-plugins/deoplete-tag, on_event: InsertEnter }
 
 - repo: fszymanski/deoplete-emoji
   on_ft: [ markdown, gitcommit ]

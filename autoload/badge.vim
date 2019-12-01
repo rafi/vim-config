@@ -10,7 +10,7 @@ let g:badge_tab_filename_max_dirs =
 
 " Limit display of characters in each directory in path
 let g:badge_tab_dir_max_chars =
-	\ get(g:, 'badge_tab_dir_max_chars', 8)
+	\ get(g:, 'badge_tab_dir_max_chars', 5)
 
 " Maximum number of directories in filepath
 let g:badge_status_filename_max_dirs =
