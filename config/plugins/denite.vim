@@ -1,4 +1,3 @@
-
 " :h denite.txt
 " ---
 " Problems? https://github.com/Shougo/denite.nvim/issues
@@ -13,7 +12,6 @@ call denite#custom#option('_', {
 	\ 'vertical_preview': 1,
 	\ 'max_dynamic_update_candidates': 50000,
 	\ })
-	"\ 'direction': 'dynamicbottom',
 
 if has('nvim')
 	call denite#custom#option('_', { 'split': 'floating', 'statusline': 0 })
@@ -51,7 +49,7 @@ call s:denite_resize(get(g:, 'denite_position', 'top'))
 
 " SORTERS
 " Default is 'sorter/rank'
-" call denite#custom#source('file/rec,grep', 'sorters', ['sorter/sublime'])
+" call denite#custom#source('_', 'sorters', ['sorter/sublime'])
 call denite#custom#source('z', 'sorters', ['sorter_z'])
 
 " CONVERTERS
@@ -100,7 +98,7 @@ elseif executable('ack')
 			\ '--nopager', '--nocolor', '--nogroup', '--column'])
 endif
 
-" KEY MAPPINGS
+" EVENTS
 augroup user_plugin_denite
 	autocmd!
 
@@ -111,8 +109,10 @@ augroup user_plugin_denite
 augroup END
 
 function! s:denite_settings() abort
+	" Window options
 	setlocal signcolumn=no cursorline
 
+	" Key mappings
 	nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
 	nnoremap <silent><buffer><expr> i    denite#do_map('open_filter_buffer')
 	nnoremap <silent><buffer><expr> /    denite#do_map('open_filter_buffer')
@@ -131,9 +131,11 @@ function! s:denite_settings() abort
 endfunction
 
 function! s:denite_filter_settings() abort
+	" Window options
 	setlocal signcolumn=yes nocursorline nonumber norelativenumber
 	call deoplete#custom#buffer_option('auto_complete', v:false)
 
+	" Key mappings
 	nnoremap <silent><buffer><expr> <Esc>  denite#do_map('quit')
 	" inoremap <silent><buffer><expr> <Esc>  denite#do_map('quit')
 	nnoremap <silent><buffer><expr> q      denite#do_map('quit')

@@ -1,5 +1,6 @@
-" deoplete
+" :h deoplete
 " ---
+" Problems? https://github.com/Shougo/deoplete.nvim/issues
 
 " For debugging:
 " call deoplete#custom#option('profile', v:true)
@@ -16,9 +17,6 @@ call deoplete#custom#option({
 	\ 'skip_multibyte': v:true,
 	\ 'skip_chars': ['(', ')', '<', '>'],
 	\ })
-	"\ 'auto_refresh_delay': 10,
-	"\ 'auto_complete_delay': 200,
-	"\ 'prev_completion_mode': 'length',
 
 " Deoplete Jedi (python) settings
 let g:deoplete#sources#jedi#statement_length = 30

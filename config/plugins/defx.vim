@@ -1,6 +1,6 @@
-" Defx settings
+" :h defx
 " ---
-" See https://github.com/shougo/defx.nvim
+" Problems? https://github.com/Shougo/defx.nvim/issues
 
 call defx#custom#option('_', {
 	\ 'winwidth': 25,
@@ -49,10 +49,11 @@ augroup user_plugin_defx
 	" Move focus to the next window if current buffer is defx
 	autocmd TabLeave * if &filetype == 'defx' | wincmd w | endif
 
+	" Clean Defx window once a tab-page is closed
 	" autocmd TabClosed * call <SID>defx_close_tab(expand('<afile>'))
 
 	" Automatically refresh opened Defx windows when changing working-directory
-	autocmd DirChanged * call <SID>defx_handle_dirchanged(v:event)
+	" autocmd DirChanged * call <SID>defx_handle_dirchanged(v:event)
 
 	" Define defx window mappings
 	autocmd FileType defx call <SID>defx_mappings()
