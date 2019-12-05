@@ -12,7 +12,7 @@
 - repo: thinca/vim-localrc
 - repo: romainl/vim-cool
 - repo: sgur/vim-editorconfig
-- { repo: neovim/nvim-lsp, if: has('nvim') }
+- { repo: neovim/nvim-lsp, if: has('nvim-0.5.0') }
 
 - repo: christoomey/vim-tmux-navigator
   if: "! (has('win32') || has('win64'))"
@@ -411,7 +411,7 @@
   on_ft: [ javascript, javascriptreact ]
   hook_source: autocmd user_events FileType javascript setlocal omnifunc=
 
-- { repo: Shougo/deoplete-lsp, on_event: InsertEnter }
+- { repo: Shougo/deoplete-lsp, on_event: InsertEnter, if: has('nvim-0.5.0') }
 - { repo: deoplete-plugins/deoplete-tag, on_event: InsertEnter }
 
 - repo: fszymanski/deoplete-emoji
