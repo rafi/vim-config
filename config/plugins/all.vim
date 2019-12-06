@@ -9,23 +9,23 @@ if dein#tap('denite.nvim')
 	nnoremap <silent><LocalLeader>d :<C-u>Denite directory_rec directory_mru -default-action=cd<CR>
 	nnoremap <silent><LocalLeader>v :<C-u>Denite neoyank -buffer-name=register<CR>
 	xnoremap <silent><LocalLeader>v :<C-u>Denite neoyank -buffer-name=register -default-action=replace<CR>
-	nnoremap <silent><LocalLeader>l :<C-u>Denite location_list -buffer-name=list<CR>
-	nnoremap <silent><LocalLeader>q :<C-u>Denite quickfix -buffer-name=list<CR>
+	nnoremap <silent><LocalLeader>l :<C-u>Denite location_list -buffer-name=list -no-start-filter<CR>
+	nnoremap <silent><LocalLeader>q :<C-u>Denite quickfix -buffer-name=list -no-start-filter<CR>
 	nnoremap <silent><LocalLeader>n :<C-u>Denite dein<CR>
 	nnoremap <silent><LocalLeader>g :<C-u>Denite grep -no-start-filter<CR>
-	nnoremap <silent><LocalLeader>j :<C-u>Denite jump change file/point -buffer-name=jump<CR>
-	nnoremap <silent><LocalLeader>u :<C-u>Denite junkfile:new junkfile<CR>
+	nnoremap <silent><LocalLeader>j :<C-u>Denite jump change file/point<CR>
+	nnoremap <silent><LocalLeader>u :<C-u>Denite junkfile:new junkfile -buffer-name=list<CR>
 	nnoremap <silent><LocalLeader>o :<C-u>Denite outline<CR>
 	nnoremap <silent><LocalLeader>s :<C-u>Denite session -buffer-name=list<CR>
-	nnoremap <silent><LocalLeader>t :<C-u>Denite -buffer-name=tag tag:include<CR>
-	nnoremap <silent><LocalLeader>p :<C-u>Denite jump -buffer-name=jump<CR>
+	nnoremap <silent><LocalLeader>t :<C-u>Denite tag<CR>
+	nnoremap <silent><LocalLeader>p :<C-u>Denite jump<CR>
 	nnoremap <silent><LocalLeader>h :<C-u>Denite help<CR>
 	nnoremap <silent><LocalLeader>m :<C-u>Denite file/rec -buffer-name=memo -path=~/docs/books<CR>
 	" nnoremap <silent><LocalLeader>m :<C-u>Denite mpc -buffer-name=mpc<CR>
-	nnoremap <silent><LocalLeader>z :<C-u>Denite z<CR>
-	nnoremap <silent><LocalLeader>/ :<C-u>Denite line -start-filter<CR>
-	nnoremap <silent><LocalLeader>* :<C-u>DeniteCursorWord line<CR>
+	nnoremap <silent><LocalLeader>z :<C-u>Denite z -buffer-name=list<CR>
 	nnoremap <silent><LocalLeader>; :<C-u>Denite command command_history<CR>
+	nnoremap <silent><LocalLeader>/ :<C-u>Denite line<CR>
+	nnoremap <silent><LocalLeader>* :<C-u>DeniteCursorWord line<CR>
 
 	" chemzqm/denite-git
 	nnoremap <silent> <Leader>gl :<C-u>Denite gitlog:all -no-start-filter<CR>

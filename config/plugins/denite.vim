@@ -21,17 +21,17 @@ endif
 function! s:denite_resize(position)
 	if a:position ==# 'top'
 		call denite#custom#option('_', {
-			\ 'winwidth': &columns,
+			\ 'winwidth': (&columns / 2) - 1,
 			\ 'winheight': &lines / 3,
 			\ 'wincol': 0,
 			\ 'winrow': 1,
 			\ })
 	elseif a:position ==# 'bottom'
 		call denite#custom#option('_', {
-			\ 'winwidth': &columns,
+			\ 'winwidth': (&columns / 2) - 1,
 			\ 'winheight': &lines / 3,
 			\ 'wincol': 0,
-			\ 'winrow': (&lines - 3) - (&lines / 3),
+			\ 'winrow': ((&lines - 3) - (&lines / 3)) - 1,
 			\ })
 	elseif a:position ==# 'center'
 		" This is denite's default
@@ -106,6 +106,14 @@ augroup user_plugin_denite
 	autocmd FileType denite-filter call s:denite_filter_settings()
 
 	autocmd VimResized * call s:denite_resize(get(g:, 'denite_position', 'top'))
+
+	autocmd WinEnter * if &filetype =~# '^denite'
+		\ |   highlight! link CursorLine WildMenu
+		\ | endif
+
+	autocmd WinLeave * if &filetype ==# 'denite'
+		\ |   highlight! link CursorLine NONE
+		\ | endif
 augroup END
 
 function! s:denite_settings() abort
