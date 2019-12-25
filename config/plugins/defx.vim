@@ -150,7 +150,7 @@ function! s:defx_mappings() abort
 	nnoremap <silent><buffer><expr><nowait> m  defx#do_action('move')
 	nnoremap <silent><buffer><expr><nowait> p  defx#do_action('paste')
 	nnoremap <silent><buffer><expr><nowait> r  defx#do_action('rename')
-	nnoremap <silent><buffer><expr><nowait> d  defx#do_action('remove_trash')
+	nnoremap <silent><buffer><expr> dd defx#do_action('remove_trash')
 	nnoremap <silent><buffer><expr> K  defx#do_action('new_directory')
 	nnoremap <silent><buffer><expr> N  defx#do_action('new_multiple_files')
 

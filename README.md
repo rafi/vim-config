@@ -577,7 +577,7 @@ Note that,
 | `<Return>` | Normal | Toggle fold (za)
 | `S`+`<Return>` | Normal | Focus the current fold by closing all others (zMzvzt)
 | `S`+`<Return>` | Insert | Start new line from any cursor position (<C-o>o)
-| `hjkl` | Normal | Smart cursor movements (g/hjkl)
+| `hjkl` | Normal/Visual | Cursor moves through display-lines (g/hjkl)
 | `Ctrl`+`f` | Normal | Smart page forward (C-f/C-d)
 | `Ctrl`+`b` | Normal | Smart page backwards (C-b/C-u)
 | `Ctrl`+`e` | Normal | Smart scroll down (3C-e/j)
@@ -603,7 +603,7 @@ Note that,
 | `Ctrl`+`r` | Visual | Replace selection with step-by-step confirmation
 | `<leader>`+`cw` | Normal | Remove all spaces at EOL
 | `<leader>`+`<leader>` | Normal | Enter visual line-mode
-| `<leader>`+`os` | Normal | Load workspace session
+| `<leader>`+`sl` | Normal | Load workspace session
 | `<leader>`+`se` | Normal | Save current workspace session
 | `<leader>`+`d` | Normal/Visual | Duplicate line or selection
 | `<leader>`+`S` | Normal/Visual | Source selection
@@ -629,8 +629,8 @@ Note that,
 | `<leader>`+`tl` | Normal | Toggle hidden characters (:setlocal nolist!)
 | `<leader>`+`th` | Normal | Toggle highlighted search (:set hlsearch!)
 | `<leader>`+`tw` | Normal | Toggle wrap (:setlocal wrap! breakindent!)
-| `g0` | Normal | Go to first tab (:tabfirst)
-| `g$` | Normal | Go to last tab (:tablast)
+| `g1` | Normal | Go to first tab (:tabfirst)
+| `g9` | Normal | Go to last tab (:tablast)
 | `g5` | Normal | Go to previous tab (:tabprevious)
 | `Ctrl`+`j` | Normal | Move to split below
 | `Ctrl`+`k` | Normal | Move to upper split
@@ -729,7 +729,7 @@ Note that,
 | `K` | Normal | Create new directory
 | `c`/`m`/`p` | Normal | Copy, move, and paste
 | `r` | Normal | Rename file or directory
-| `d` | Normal | Delete selected files and directories
+| `dd` | Normal | Delete selected files and directories
 | `y` | Normal | Yank selected item to clipboard
 | `w` | Normal | Toggle window size
 | `]`+`g` | Normal | Next dirty git item

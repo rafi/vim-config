@@ -32,8 +32,10 @@ nnoremap <leader>cN *``cgN
 vnoremap <expr> <leader>cn "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgn"
 vnoremap <expr> <leader>cN "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgN"
 
+" Duplicate paragraph
 nnoremap <leader>cp yap<S-}>p
 
+" Cut & paste without pushing to register
 " xnoremap p  "0p
 " nnoremap x "_x
 
@@ -42,6 +44,14 @@ nnoremap <CR> za
 
 " Focus the current fold by closing all others
 nnoremap <S-Return> zMzvzt
+
+" Start new line from any cursor position in insert-mode
+inoremap <S-Return> <C-o>o
+
+" The plugin rhysd/accelerated-jk moves through display-lines in normal mode,
+" these mappings will move through display-lines in visual mode too.
+vnoremap j gj
+vnoremap k gk
 
 " Use backspace key for matchit.vim
 nmap <BS> %
@@ -62,19 +72,16 @@ cnoreabbrev Qa qa
 cnoreabbrev Bd bd
 cnoreabbrev bD bd
 
-" Start new line from any cursor position
-inoremap <S-Return> <C-o>o
-
 nnoremap zl z5l
 nnoremap zh z5h
 
 " Improve scroll, credits: https://github.com/Shougo
-nnoremap <expr> zz (winline() == (winheight(0)+1) / 2) ?
-	\ 'zt' : (winline() == 1) ? 'zb' : 'zz'
 noremap <expr> <C-f> max([winheight(0) - 2, 1])
 	\ ."\<C-d>".(line('w$') >= line('$') ? "L" : "M")
 noremap <expr> <C-b> max([winheight(0) - 2, 1])
 	\ ."\<C-u>".(line('w0') <= 1 ? "H" : "M")
+nnoremap <expr> zz (winline() == (winheight(0)+1) / 2) ?
+	\ 'zt' : (winline() == 1) ? 'zb' : 'zz'
 noremap <expr> <C-e> (line("w$") >= line('$') ? "j" : "3\<C-e>")
 noremap <expr> <C-y> (line("w0") <= 1         ? "k" : "3\<C-y>")
 
@@ -83,18 +90,15 @@ nnoremap <C-q> <C-w>
 nnoremap <C-x> <C-w>x<C-w>w
 nnoremap <silent><C-w>z :vert resize<CR>:resize<CR>:normal! ze<CR>
 
-" Select blocks after indenting
+" Select blocks after indenting in visual/select mode
 xnoremap < <gv
 xnoremap > >gv|
 
-" Use tab for indenting
+" Use tab for indenting in visual/select mode
 xnoremap <Tab> >gv|
 xnoremap <S-Tab> <gv
 " nmap >>  >>_
 " nmap <<  <<_
-
-" Select last paste
-nnoremap <expr> gp '`['.strpart(getregtype(), 0, 1).'`]'
 
 " Navigation in command line
 cnoremap <C-h> <Home>
@@ -113,10 +117,10 @@ cnoremap <Down> <C-n>
 " File operations {{{
 " ---------------
 
-" Switch to the directory of the opened buffer
+" Switch to the directory of the opened buffer in current window
 map <Leader>cd :lcd %:p:h<CR>:pwd<CR>
 
-" Fast saving
+" Fast saving from all modes
 nnoremap <silent><Leader>w :write<CR>
 vnoremap <silent><Leader>w <Esc>:write<CR>
 nnoremap <silent><C-s> :<C-u>write<CR>
@@ -128,7 +132,7 @@ cnoremap <silent><C-s> <C-u>write<CR>
 " ---------
 
 " I like to :quit with 'q', shrug.
-nnoremap <silent> q :<C-u>:quit<CR>
+nnoremap <silent> q :<C-u>quit<CR>
 
 " Macros
 nnoremap Q q
@@ -139,7 +143,7 @@ nmap <silent> gh :echo 'hi<'.synIDattr(synID(line('.'), col('.'), 1), 'name')
 	\.'> trans<'.synIDattr(synID(line('.'), col('.'), 0), 'name').'> lo<'
 	\.synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name').'>'<CR>
 
-" Toggle editor visuals
+" Toggle editor's visual effects
 nmap <silent> <Leader>ts :setlocal spell!<cr>
 nmap <silent> <Leader>tn :setlocal nonumber!<CR>
 nmap <silent> <Leader>tl :setlocal nolist!<CR>
@@ -147,9 +151,9 @@ nmap <silent> <Leader>th :nohlsearch<CR>
 nmap <silent> <Leader>tw :setlocal wrap! breakindent!<CR>
 
 " Tabs
-nnoremap <silent> g0 :<C-u>tabfirst<CR>
-nnoremap <silent> g$ :<C-u>tablast<CR>
+nnoremap <silent> g1 :<C-u>tabfirst<CR>
 nnoremap <silent> g5 :<C-u>tabprevious<CR>
+nnoremap <silent> g9 :<C-u>tablast<CR>
 nnoremap <silent> <A-j> :<C-U>tabnext<CR>
 nnoremap <silent> <A-k> :<C-U>tabprevious<CR>
 nnoremap <silent> <C-Tab> :<C-U>tabnext<CR>
@@ -162,7 +166,7 @@ nnoremap <silent> <C-S-Tab> :<C-U>tabprevious<CR>
 " Remove spaces at the end of lines
 nnoremap <silent> <Leader>cw :<C-u>silent! keeppatterns %substitute/\s\+$//e<CR>
 
-" C-r: Easier search and replace
+" C-r: Easier search and replace visual/select mode
 xnoremap <C-r> :<C-u>call <SID>get_selection('/')<CR>:%s/\V<C-R>=@/<CR>//gc<Left><Left><Left>
 
 " Quick substitute within selected area
@@ -182,6 +186,9 @@ nmap [c :lprev<CR>
 nmap ]q :cnext<CR>
 nmap [q :cprev<CR>
 
+" Select last paste
+nnoremap <expr> gp '`['.strpart(getregtype(), 0, 1).'`]'
+
 " Duplicate lines
 nnoremap <Leader>d m`YP``
 vnoremap <Leader>d YPgv
@@ -191,14 +198,14 @@ vnoremap <Leader>S y:execute @@<CR>:echo 'Sourced selection.'<CR>
 nnoremap <Leader>S ^vg_y:execute @@<CR>:echo 'Sourced line.'<CR>
 
 " Yank buffer's absolute path to clipboard
-nnoremap <Leader>y :let @+=expand("%")<CR>:echo 'Yanked relative path'<CR>
+nnoremap <Leader>y :let @+=expand("%:~:.")<CR>:echo 'Yanked relative path'<CR>
 nnoremap <Leader>Y :let @+=expand("%:p")<CR>:echo 'Yanked absolute path'<CR>
 
 " Drag current line/s vertically and auto-indent
-vnoremap <Leader>k :m-2<CR>gv=gv
+nnoremap <Leader>k :m-2<CR>
+nnoremap <Leader>j :m+<CR>
+vnoremap <Leader>k :m'<-2<CR>gv=gv
 vnoremap <Leader>j :m'>+<CR>gv=gv
-noremap  <Leader>k :m-2<CR>
-noremap  <Leader>j :m+<CR>
 
 " Context-aware action-menu, neovim only (see plugin/actionmenu.vim)
 if has('nvim')
@@ -211,7 +218,7 @@ nnoremap [w :<C-u>WhitespacePrev<CR>
 
 " Session management shortcuts (see plugin/sessions.vim)
 nmap <silent> <Leader>se :<C-u>SessionSave<CR>
-nmap <silent> <Leader>os :<C-u>SessionLoad<CR>
+nmap <silent> <Leader>sl :<C-u>SessionLoad<CR>
 
 nmap <silent> <Leader>o :<C-u>OpenSCM<CR>
 vmap <silent> <Leader>o :OpenSCM<CR>
