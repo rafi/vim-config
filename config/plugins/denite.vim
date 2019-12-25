@@ -21,7 +21,7 @@ endif
 function! s:denite_resize(position)
 	if a:position ==# 'top'
 		call denite#custom#option('_', {
-			\ 'winwidth': (&columns / 2) - 1,
+			\ 'winwidth': (&columns - (&columns / 3)) - 1,
 			\ 'winheight': &lines / 3,
 			\ 'wincol': 0,
 			\ 'winrow': 1,

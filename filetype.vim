@@ -24,7 +24,7 @@ augroup filetypedetect "{{{
 	autocmd BufNewFile,BufRead .watchmanconfig      setfiletype json
 	autocmd BufNewFile,BufRead .buckconfig          setfiletype toml
 	autocmd BufNewFile,BufRead .flowconfig          setfiletype ini
-	autocmd BufNewFile,BufRead Jenkinsfile          setfiletype groovy
+	autocmd BufNewFile,BufRead Jenkinsfile*         setfiletype groovy
 	autocmd BufNewFile,BufRead Tmuxfile,tmux/config setfiletype tmux
 	autocmd BufNewFile,BufRead Brewfile             setfiletype ruby
 

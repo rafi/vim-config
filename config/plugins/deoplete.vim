@@ -49,7 +49,7 @@ call deoplete#custom#var('omni', 'functions', {
 	\ })
 
 call deoplete#custom#option('omni_patterns', {
-	\ 'go': '[^. *\t]\.\w*',
+	\  'go': '[^. *\t]\.\w*',
 	\})
 
 " }}}
@@ -157,16 +157,17 @@ function s:smart_carriage_return()
 	return "\<CR>"
 endfunction
 
-" <Tab> completion:
-" 1. If popup menu is visible, select and insert next item
-" 2. Otherwise, if within a snippet, jump to next input
-" 3. Otherwise, if preceding chars are whitespace, insert tab char
-" 4. Otherwise, open completion pop-up
+" Open and scroll through completion-menu with <Tab> and <C-Space>
 imap <silent><expr><Tab>     <SID>smart_complete()
 smap <silent><expr><Tab>     <SID>smart_complete()
 imap <silent><expr><C-Space> <SID>smart_complete()
 smap <silent><expr><C-Space> <SID>smart_complete()
 
+" Smart completion:
+" 1. If popup menu is visible, select next item
+" 2. Otherwise, if within a snippet, jump to next placeholder
+" 3. Otherwise, if preceding chars are whitespace, insert tab char
+" 4. Otherwise, open completion pop-up
 function! s:smart_complete()
 	return pumvisible() ? "\<Down>"
 		\ : (neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)"

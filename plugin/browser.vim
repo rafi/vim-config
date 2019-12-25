@@ -18,7 +18,7 @@ let s:hg_exec = get(g:, 'hg_exec', 'hg')
 
 function! s:open_scm(line1, line2, ...)
 	" Open SCM repository with fine detail: Branch, file, line
-	let l:path = expand(empty(a:1) ? '%' : a:1)
+	let l:path = expand(empty(a:1) ? '%:~:.' : a:1)
 	let l:dir = isdirectory(l:path) ? l:path : fnamemodify(l:path, ':h')
 	let l:scm_name = s:detect_scm(l:dir)
 	if empty(l:scm_name)

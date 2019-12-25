@@ -13,7 +13,6 @@ call defx#custom#option('_', {
 	\     '.mypy_cache,.pytest_cache,.git,.hg,.svn,.stversions'
 	\   . ',__pycache__,.sass-cache,*.egg-info,.DS_Store,*.pyc'
 	\ })
-	"\ 'listed': 1,
 
 call defx#custom#column('git', {
 	\   'indicators': {
