@@ -1,16 +1,17 @@
 
 " Neomake
 " ---------
-if ! empty(g:python3_host_prog)
-	let g:neomake_python_python_exe = g:python3_host_prog
-endif
 
+" Visual settings
 let g:neomake_virtualtext_current_error = 0
 
-" YAML / ANSIBLE
+" YAML / ANSIBLE / HELM
 let g:neomake_yaml_enabled_makers = ['yamllint']
 let g:neomake_ansible_enabled_makers = ['yamllint']
 let g:neomake_ansible_yamllint_maker = neomake#makers#ft#yaml#yamllint()
+
+" let g:neomake_python_enabled_makers = ['pycodestyle', 'pydocstyle']
+let g:neomake_python_pycodestyle_exe = 'pycodestyle'
 
 " augroup user_plugin_neomake
 " 	autocmd!
