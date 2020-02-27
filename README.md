@@ -2,7 +2,7 @@
 
 Lean mean Neo/vim machine, 30-45ms startup time.
 
-Best with [Neovim] or [Vim8] and <small style="background-color: #eee">python3</small> enabled.
+Best with [Neovim] or [Vim8] and `python3` enabled.
 
 > I encourage you to fork this repo and create your own experience.
 > Learn how to tweak and change Neo/vim to the way YOU like it.
