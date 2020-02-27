@@ -7,19 +7,19 @@ set t_Co=256
 " Paste
 " Credits: https://github.com/Shougo/shougo-s-github
 " ---
-let &t_ti .= "\e[?2004h"
-let &t_te .= "\e[?2004l"
-let &pastetoggle = "\e[201~"
-
-function! s:XTermPasteBegin(ret) abort
-	setlocal paste
-	return a:ret
-endfunction
-
-noremap  <special> <expr> <Esc>[200~ <SID>XTermPasteBegin('0i')
-inoremap <special> <expr> <Esc>[200~ <SID>XTermPasteBegin('')
-cnoremap <special> <Esc>[200~ <nop>
-cnoremap <special> <Esc>[201~ <nop>
+" let &t_ti .= "\e[?2004h"
+" let &t_te .= "\e[?2004l"
+" let &pastetoggle = "\e[201~"
+"
+" function! s:XTermPasteBegin(ret) abort
+" 	setlocal paste
+" 	return a:ret
+" endfunction
+"
+" noremap  <special> <expr> <Esc>[200~ <SID>XTermPasteBegin('0i')
+" inoremap <special> <expr> <Esc>[200~ <SID>XTermPasteBegin('')
+" cnoremap <special> <Esc>[200~ <nop>
+" cnoremap <special> <Esc>[201~ <nop>
 
 " Mouse settings
 " ---
