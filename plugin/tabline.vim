@@ -1,5 +1,5 @@
 " Tabline
-" ===
+" ---
 
 function! Tabline()
 	" Active project name
@@ -34,3 +34,5 @@ function! Tabline()
 endfunction
 
 let &tabline='%!Tabline()'
+
+" vim: set ts=2 sw=2 tw=80 noet :
