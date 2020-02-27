@@ -4,15 +4,10 @@ Lean mean Neo/vim machine, 30-45ms startup time.
 
 Best with [Neovim] or [Vim8] and <small style="background-color: #eee">python3</small> enabled.
 
-<blockquote>
-<span style="float: left; font-size: 2.8em; line-height: 1em; margin: 0 0.3em">
-<i style="font-family: Courier, 'Courier New', Georgia, serif">I</i></span>
-<span>
-  encourage you to fork this repo and create your own experience.
-  Learn how to tweak and change Neo/vim to the way YOU like it.
-  This is my cultivation of years of tweaking, use it as a git remote
-  and stay in-touch with upstream for reference or cherry-picking.</span>
-</blockquote>
+> I encourage you to fork this repo and create your own experience.
+> Learn how to tweak and change Neo/vim to the way YOU like it.
+> This is my cultivation of years of tweaking, use it as a git remote
+> and stay in-touch with upstream for reference or cherry-picking.
 
 <details>
   <summary>
