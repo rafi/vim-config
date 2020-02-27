@@ -86,16 +86,21 @@ function! s:main()
 			endif
 		endfor
 
-		" Search and use environments specifically made for Neovim.
-		if has('nvim') && isdirectory($DATA_PATH . '/venv/neovim2')
-			let g:python_host_prog = $DATA_PATH . '/venv/neovim2/bin/python'
-		endif
+		" Python interpreter settings
+		if has('nvim')
+			" Try using pyenv virtualenv called 'neovim'
+			if ! empty($PYENV_ROOT)
+				let l:virtualenv = $PYENV_ROOT . '/versions/neovim/bin/python'
+			endif
+			if empty(l:virtualenv) || ! filereadable(l:virtualenv)
+				" Fallback to old virtualenv location
+				let l:virtualenv = $DATA_PATH . '/venv/neovim3/bin/python'
+			endif
+			if filereadable(l:virtualenv)
+				let g:python3_host_prog = l:virtualenv
+			endif
 
-		if has('nvim') && isdirectory($DATA_PATH . '/venv/neovim3')
-			let g:python3_host_prog = $DATA_PATH . '/venv/neovim3/bin/python'
-		endif
-
-		if ! has('nvim') && has('pythonx')
+		elseif has('pythonx')
 			if has('python3')
 				set pyxversion=3
 			elseif has('python')
@@ -114,10 +119,7 @@ function! s:use_dein()
 	if has('vim_starting')
 		" Use dein as a plugin manager
 		let g:dein#auto_recache = 1
-		let g:dein#install_max_processes = 16
-		let g:dein#install_progress_type = 'echo'
-		let g:dein#enable_notification = 0
-		let g:dein#install_log_filename = $DATA_PATH . '/dein.log'
+		let g:dein#install_max_processes = 12
 
 		" Add dein to vim's runtimepath
 		if &runtimepath !~# '/dein.vim'
@@ -175,11 +177,11 @@ function! s:use_dein()
 	" Only enable syntax when vim is starting
 	if has('vim_starting')
 		syntax enable
-	else
-		" Trigger source events, only when vimrc is refreshing
-		call dein#call_hook('source')
-		call dein#call_hook('post_source')
 	endif
+
+	" Trigger source event hooks
+	call dein#call_hook('source')
+	call dein#call_hook('post_source')
 endfunction
 
 function! s:use_plug() abort
@@ -337,7 +339,7 @@ function! s:find_yaml2json_method()
 		elseif executable('yq')
 			return 'yq'
 		" Or, try ruby. Which is installed on every macOS by default
-		" and has ruby built-in.
+		" and has yaml built-in.
 		elseif executable('ruby') && s:test_ruby_yaml()
 			return 'ruby'
 		" Or, fallback to use python3 and PyYAML
