@@ -57,21 +57,28 @@ augroup user_plugin_defx
 	" Define defx window mappings
 	autocmd FileType defx call <SID>defx_mappings()
 
+	" autocmd WinEnter * if &filetype ==# 'defx'
+	"	\ |   silent! highlight! link CursorLine TabLineSel
+	"	\ | endif
+	"
+	" autocmd WinLeave * if &filetype ==# 'defx'
+	"	\ |   silent! highlight! link CursorLine NONE
+	"	\ | endif
+
 augroup END
 
 " Internal functions
 " ---
 
-" Deprecated after disabling defx's (buf)listed
-" function! s:defx_close_tab(tabnr)
-" 	" When a tab is closed, find and delete any associated defx buffers
-" 	for l:nr in tabpagebuflist()
-" 		if getbufvar(l:nr, '&filetype') ==# 'defx'
-" 			silent! execute 'bdelete '.l:nr
-" 			break
-" 		endif
-" 	endfor
-" endfunction
+function! s:defx_close_tab(tabnr)
+	" When a tab is closed, find and delete any associated defx buffers
+	for l:nr in tabpagebuflist()
+		if getbufvar(l:nr, '&filetype') ==# 'defx'
+			silent! execute 'bdelete '.l:nr
+			break
+		endif
+	endfor
+endfunction
 
 function! s:defx_toggle_tree() abort
 	" Open current file, or toggle directory expand/collapse
