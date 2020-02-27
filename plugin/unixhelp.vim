@@ -17,7 +17,7 @@ let g:unixhelp_open_with_tmux = get(g:, 'unixhelp_open_with_tmux', 0)
 
 augroup plugin_unixhelp
 	autocmd!
-	autocmd FileType gitconfig,tmux,sh nnoremap <silent><buffer> K
+	autocmd FileType gitconfig,tmux nnoremap <silent><buffer> K
 		\ :<C-u>call <SID>open_man(&filetype, expand('<cword>'))<CR>
 augroup END
 

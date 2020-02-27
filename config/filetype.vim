@@ -9,8 +9,10 @@ augroup user_plugin_filetype " {{{
 		\ source $MYVIMRC | redraw
 
 	" Highlight current line only on focused window
-	autocmd WinEnter,InsertLeave * if &ft !~# 'denite' | set cursorline | endif
-	autocmd WinLeave,InsertEnter * if &ft !~# 'denite' | set nocursorline | endif
+	autocmd WinEnter,InsertLeave * if &ft !~# '^\(denite\|clap_\)' |
+		\ set cursorline | endif
+	autocmd WinLeave,InsertEnter * if &ft !~# '^\(denite\|clap_\)' |
+		\ set nocursorline | endif
 
 	" Automatically set read-only for files being edited elsewhere
 	autocmd SwapExists * nested let v:swapchoice = 'o'
@@ -60,13 +62,10 @@ augroup user_plugin_filetype " {{{
 
 	autocmd FileType php
 		\ setlocal matchpairs-=<:> iskeyword+=\\ path+=/usr/local/share/pear
-"		\ | setlocal formatoptions=qroct " Correct indent after opening a phpdocblock
 
 	autocmd FileType python
-		\ setlocal foldmethod=indent expandtab smarttab nosmartindent
+		\ setlocal expandtab smarttab nosmartindent
 		\ | setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=80
-
-	autocmd FileType zsh setlocal foldenable foldmethod=marker
 
 	autocmd FileType html setlocal path+=./;/
 
@@ -75,11 +74,6 @@ augroup user_plugin_filetype " {{{
 		\ | setlocal autoindent formatoptions=tcroqn2 comments=n:>
 
 	autocmd FileType apache setlocal path+=./;/
-
-	autocmd FileType cam setlocal nonumber synmaxcol=10000
-
-	" autocmd FileType go highlight default link goErr WarningMsg |
-	" 	\ match goErr /\<err\>/
 
 augroup END " }}}
 
@@ -92,6 +86,12 @@ let g:PHP_removeCRwhenUnix = 0
 " }}}
 " Python {{{
 let g:python_highlight_all = 1
+" let g:python_highlight_builtins = 1
+" let g:python_highlight_exceptions = 1
+" let g:python_highlight_string_format = 1
+" let g:python_highlight_doctests = 1
+" let g:python_highlight_class_vars = 1
+" let g:python_highlight_operators = 1
 
 " }}}
 " Vim {{{

@@ -8,6 +8,7 @@ require 'colorizer'.setup {
   sass = { rgb_fn = true; };
   stylus = { rgb_fn = true; };
   vim = { names = false; };
+  tmux = { names = false; };
   'javascript';
   'javascriptreact';
   'typescript';
