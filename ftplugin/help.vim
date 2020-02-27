@@ -12,16 +12,20 @@ set cpoptions&vim
 let b:undo_ftplugin = 'setlocal spell<'
 setlocal nospell
 
+setlocal nolist
 setlocal nohidden
 setlocal iskeyword+=:
 setlocal iskeyword+=#
 setlocal iskeyword+=-
 
-if winnr('$') > 2
+if winnr('$') > 2 + (bufname('defx') ==# '' ? 0 : 1)
 	wincmd K
 else
 	wincmd L
 endif
+
+" Exit help window with 'q'
+nnoremap <silent><buffer> q :quit<CR>
 
 " Jump to links with enter
 nmap <buffer> <CR> <C-]>
@@ -36,10 +40,10 @@ nmap <buffer> o /'[a-z]\{2,\}'<CR>
 nmap <buffer> O ?'[a-z]\{2,\}'<CR>
 
 " Skip to next subject link
-nmap <buffer><nowait> s /\|\S\+\|<CR>l
+nmap <buffer><nowait> f /\|\S\+\|<CR>l
 
 " Skip to previous subject link
-nmap <buffer> S h?\|\S\+\|<CR>l
+nmap <buffer> F h?\|\S\+\|<CR>l
 
 " Skip to next tag (subject anchor)
 nmap <buffer> t /\*\S\+\*<CR>l
