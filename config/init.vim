@@ -89,6 +89,7 @@ function! s:main()
 		" Python interpreter settings
 		if has('nvim')
 			" Try using pyenv virtualenv called 'neovim'
+			let l:virtualenv = ''
 			if ! empty($PYENV_ROOT)
 				let l:virtualenv = $PYENV_ROOT . '/versions/neovim/bin/python'
 			endif
