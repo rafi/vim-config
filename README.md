@@ -158,7 +158,7 @@ brew cask install font-fira-code
 * macOS with Homebrew:
 
 ```sh
-brew install shellcheck vint jsonlint yamllint tflint ansible-lint
+brew install shellcheck jsonlint yamllint tflint ansible-lint
 brew install tidy-html5 proselint write-good
 ```
 
@@ -172,7 +172,7 @@ yarn global add markdownlint-cli raml-cop
 * Python based linters:
 
 ```sh
-pip3 install --user pycodestyle pyflakes flake8
+pip3 install --user vim-vint pycodestyle pyflakes flake8
 ```
 
 ### Recommended Tools

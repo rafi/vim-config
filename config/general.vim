@@ -157,10 +157,10 @@ endif
 " Timing {{{
 " ------
 set timeout ttimeout
-set timeoutlen=500  " Time out on mappings
-set ttimeoutlen=10  " Time out on key codes
-set updatetime=200  " Idle time to write swap and trigger CursorHold
-set redrawtime=900  " Time in milliseconds for stopping display redraw
+set timeoutlen=500   " Time out on mappings
+set ttimeoutlen=10   " Time out on key codes
+set updatetime=200   " Idle time to write swap and trigger CursorHold
+set redrawtime=1500  " Time in milliseconds for stopping display redraw
 
 " }}}
 " Searching {{{
