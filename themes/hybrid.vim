@@ -202,15 +202,11 @@ highlight! SignatureMarkerText  ctermfg=12 guifg=#4EA9D7 ctermbg=234 guibg=#1c1c
 " Plugin: vim-choosewin {{{
 " ---
 let g:choosewin_color_label = {
-	\ 'cterm': [ 236, 2 ], 'gui': [ '#555555', '#000000' ] }
+	\ 'cterm': [  75, 233 ], 'gui': [ '#7f99cd', '#000000' ] }
 let g:choosewin_color_label_current = {
-	\ 'cterm': [ 234, 220 ], 'gui': [ '#333333', '#000000' ] }
+	\ 'cterm': [ 228, 233 ], 'gui': [ '#D7D17C', '#000000' ] }
 let g:choosewin_color_other = {
-	\ 'cterm': [ 235, 235 ], 'gui': [ '#333333' ] }
-let g:choosewin_color_overlay = {
-	\ 'cterm': [ 2, 10 ], 'gui': [ '#88A2A4' ] }
-let g:choosewin_color_overlay_current = {
-	\ 'cterm': [ 72, 64 ], 'gui': [ '#7BB292' ] }
+	\ 'cterm': [ 235, 235 ], 'gui': [ '#232323', '#000000' ] }
 " }}}
 
 " vim: set foldmethod=marker ts=2 sw=0 tw=80 noet :

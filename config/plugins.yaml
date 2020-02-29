@@ -244,11 +244,9 @@
 - repo: t9md/vim-choosewin
   on_map: { n: <Plug> }
   hook_add: |
-    let g:choosewin_label = 'SDFJKLZXCV'
-    let g:choosewin_overlay_enable = 0
-    let g:choosewin_statusline_replace = 1
-    let g:choosewin_overlay_clear_multibyte = 0
-    let g:choosewin_blink_on_land = 1
+    let g:choosewin_label = 'ADFGHJKLUIOPQWERT'
+    let g:choosewin_label_align = 'right'
+    let g:choosewin_label_padding = 5
 
 - repo: lambdalisue/suda.vim
   on_event: BufRead
