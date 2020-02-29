@@ -18,11 +18,11 @@ if dein#tap('vim-clap')
 
 	" nnoremap <silent><Leader>gl :<C-u>Clap! commits<CR>
 	" nnoremap <silent><Leader>gt :<C-u>Clap! tags ++query=<cword><CR>
-	" xnoremap <silent><Leader>gt :<C-u>Clap! tags ++query=<C-R>=<SID>get_visual_selection()<CR><CR>
+	" xnoremap <silent><Leader>gt :<C-u>Clap! tags ++query=@visual<CR><CR>
 	" nnoremap <silent><Leader>gf :<C-u>Clap! files ++query=<cword><CR>
-	" xnoremap <silent><Leader>gf :<C-u>Clap! files ++query=<C-R>=<SID>get_visual_selection()<CR><CR>
+	" xnoremap <silent><Leader>gf :<C-u>Clap! files ++query=@visual<CR><CR>
 	" nnoremap <silent><Leader>gg :<C-u>Clap! grep ++query=<cword><CR>
-	" xnoremap <silent><Leader>gg :<C-u>Clap! grep ++query=<C-R>=<SID>get_visual_selection()<CR><CR>
+	" xnoremap <silent><Leader>gg :<C-u>Clap! grep ++query=@visual<CR><CR>
 
 	autocmd user_events FileType clap_input call s:clap_mappings()
 
@@ -41,20 +41,6 @@ if dein#tap('vim-clap')
 		nnoremap <silent> <buffer> <Esc> :call clap#handler#exit()<CR>
 		inoremap <silent> <buffer> <Esc> <C-R>=clap#navigation#linewise('down')<CR><C-R>=clap#navigation#linewise('up')<CR><Esc>
 		inoremap <silent> <buffer> jj    <C-R>=clap#navigation#linewise('down')<CR><C-R>=clap#navigation#linewise('up')<CR><Esc>
-	endfunction
-
-	function! s:get_visual_selection()
-		" Why is this not a built-in Vim script function?!
-		" Credits: https://stackoverflow.com/a/6271254/351947
-		let [line_start, column_start] = getpos("'<")[1:2]
-		let [line_end, column_end] = getpos("'>")[1:2]
-		let lines = getline(line_start, line_end)
-		if len(lines) == 0
-				return ''
-		endif
-		let lines[-1] = lines[-1][: column_end - (&selection ==# 'inclusive' ? 1 : 2)]
-		let lines[0] = lines[0][column_start - 1:]
-		return join(lines, "\n")
 	endfunction
 endif
 
