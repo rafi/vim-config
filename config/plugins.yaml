@@ -219,7 +219,7 @@
 - { repo: liuchengxu/vim-which-key, on_cmd: WhichKey }
 - { repo: mbbill/undotree, on_cmd: UndotreeToggle }
 - { repo: reedes/vim-wordy, on_cmd: [ Wordy, NextWordy, PrevWordy ]}
-# - { repo: brooth/far.vim, on_cmd: [ Far, Farp, F ] }
+- { repo: brooth/far.vim, on_cmd: [ Far, Farp, F ] }
 - { repo: jreybert/vimagit, on_cmd: Magit }
 - { repo: tweekmonster/helpful.vim, on_cmd: HelpfulVersion }
 - { repo: lambdalisue/gina.vim, on_cmd: Gina }
@@ -564,10 +564,7 @@
     let g:float_preview#docked = 0
     let g:float_preview#max_width = 80
     function! s:float_preview()
-      call nvim_win_set_option(g:float_preview#win, 'number', v:false)
       call nvim_win_set_option(g:float_preview#win, 'signcolumn', 'no')
-      call nvim_win_set_option(g:float_preview#win, 'colorcolumn', '')
-      call nvim_win_set_option(g:float_preview#win, 'listchars', '')
     endfunction
     autocmd user_events User FloatPreviewWinOpen call <SID>float_preview()
 
