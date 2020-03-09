@@ -16,6 +16,11 @@ if empty(s:package_manager) || s:package_manager ==# 'none'
 	finish
 endif
 
+" Enables 24-bit RGB color in the terminal
+if has('termguicolors') && $COLORTERM =~# 'truecolor\|24bit'
+	set termguicolors
+endif
+
 " Disable vim distribution plugins
 
 " let g:loaded_gzip = 1

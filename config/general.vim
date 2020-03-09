@@ -24,11 +24,6 @@ endif
 if has('vim_starting')
 	set encoding=utf-8
 	scriptencoding utf-8
-
-	" Enables 24-bit RGB color in the TUI
-	if has('termguicolors') && $COLORTERM =~# 'truecolor\|24bit'
-		set termguicolors
-	endif
 endif
 
 " What to save for views and sessions:
