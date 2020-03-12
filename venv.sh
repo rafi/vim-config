@@ -30,7 +30,7 @@ main() {
 	# Declare a base path for virtual environment
 	local __venv="${XDG_CACHE_HOME:-$HOME/.cache}/vim/venv"
 
-	mkdir -p "${XDG_CACHE_HOME:-$HOME/.cache/vim}"
+	mkdir -p "${XDG_CACHE_HOME:-$HOME/.cache}/vim"
 
 	if _try_pyenv || _try_python; then
 		"${__venv}/bin/pip" install -U pynvim PyYAML Send2Trash
