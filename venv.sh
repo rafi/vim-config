@@ -9,12 +9,12 @@ _try_pyenv() {
 			if [ -d "${src}" ]; then
 				echo "===> pyenv virtualenv found '${name}'"
 				ln -fs "${src}" "${__venv}"
+				return 0
 			fi
 		done
-	else
-		echo ":: pyenv not found"
-		return 1
 	fi
+	echo ":: pyenv not found"
+	return 1
 }
 
 _try_python() {
