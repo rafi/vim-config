@@ -1,25 +1,32 @@
 #!/usr/bin/env bash
 
 _try_pyenv() {
-	local pyenv='' name='' src=''
+	local name='' src=''
 	if hash pyenv 2>/dev/null; then
-		pyenv="$(pyenv root)"
-		for name in "neovim" "neovim3" "nvim"; do
-			src="${pyenv}/versions/${name}"
+		echo '===> pyenv found, searching virtualenvs…'
+		for name in 'neovim' 'neovim3' 'nvim'; do
+			src="$(pyenv prefix "${name}" 2>/dev/null)"
 			if [ -d "${src}" ]; then
 				echo "===> pyenv virtualenv found '${name}'"
+				# Symlink virtualenv for easy access
 				ln -fs "${src}" "${__venv}"
 				return 0
 			fi
 		done
+		echo "===> skipping pyenv. manual virtualenv isn't found"
+		echo
+		echo "Press Ctrl+C and use pyenv to create one yourself (name it 'neovim')"
+		echo "and run ${0} again. Or press Enter to continue and try 'python3'."
+		read -r
+	else
+		echo '===> pyenv not found, skipping'
 	fi
-	echo ":: pyenv not found"
 	return 1
 }
 
 _try_python() {
 	if ! hash python3 2>/dev/null; then
-		echo ':: python3 not found, consider installing pyenv.'
+		echo '===> python3 not found, skipping'
 		return 1
 	fi
 	echo "===> python3 found"
@@ -27,16 +34,24 @@ _try_python() {
 }
 
 main() {
-	# Declare a base path for virtual environment
-	local __venv="${XDG_CACHE_HOME:-$HOME/.cache}/vim/venv"
+	# Concat a base path for vim cache and virtual environment
+	local __cache="${XDG_CACHE_HOME:-$HOME/.cache}/vim"
+	local __venv="${__cache}/venv"
+	mkdir -p "${__cache}"
 
-	mkdir -p "${XDG_CACHE_HOME:-$HOME/.cache}/vim"
-
-	if _try_pyenv || _try_python; then
+	if [ -d "${__venv}/neovim3" ]; then
+		echo -n '===> ERROR: Python 2 has ended its life, only one virtualenv is '
+		echo 'created now.'
+		echo "Delete '${__venv}' (or backup!) first, and then run ${0} again."
+	elif _try_pyenv || _try_python; then
+		# Install Python 3 requirements
 		"${__venv}/bin/pip" install -U pynvim PyYAML Send2Trash
-		echo
+		echo '===> success'
 	else
-		echo '===> ERROR: pyenv and python3 missing.'
+		echo '===> ERROR: unable to setup python3 virtualenv.'
+		echo -e '\nConsider using pyenv with its virtualenv plugin:'
+		echo '- https://github.com/pyenv/pyenv'
+		echo '- https://github.com/pyenv/pyenv-virtualenv'
 	fi
 }
 
