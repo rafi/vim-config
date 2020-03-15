@@ -39,20 +39,20 @@ Best with [Neovim] or [Vim8] and `python3` enabled.
     * [Denite](#denite)
     * [Operators & Text Objects](#operators--text-objects)
 * [Custom Key-mappings](#custom-key-mappings)
-  * [General](#general)
+  * [Navigation](#navigation)
   * [File Operations](#file-operations)
+  * [Edit](#edit)
+  * [Search & Replace](#search--replace)
+  * [Clipboard](#clipboard)
+  * [Command & History](#command--history)
   * [Editor UI](#editor-ui)
+  * [Custom Tools & Plugins](#custom-tools--plugins)
   * [Window Management](#window-management)
+  * [Git Version Control](#git-version-control)
   * [Plugin: Denite](#plugin-denite)
   * [Plugin: Defx](#plugin-defx)
   * [Plugin: Asyncomplete and Emmet](#plugin-asyncomplete-and-emmet)
-  * [Plugin: Caw (comments)](#plugin-caw-comments)
-  * [Plugin: Edge Motion](#plugin-edge-motion)
   * [Plugin: Signature](#plugin-signature)
-  * [Plugin: Easygit](#plugin-easygit)
-  * [Plugin: GitGutter](#plugin-gitgutter)
-  * [Plugin: Linediff](#plugin-linediff)
-  * [Misc Plugins](#misc-plugins)
 * [Credits & Contribution](#credits--contribution)
 
 <!-- vim-markdown-toc -->
@@ -668,7 +668,7 @@ Note that,
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
 | <kbd>!</kbd> | 𝐍 | Shortcut for shell command | `:!`
-| <kbd>g!</kbd> | 𝐍 | Read vim command into buffer | `:put=execute('')`
+| <kbd>g!</kbd> | 𝐍 | Read vim command into buffer | `:put=execute('⌴')`
 | <kbd>Ctrl</kbd>+<kbd>n</kbd> / <kbd>p</kbd> | 𝐂 | Switch history search pairs | <kbd>↓</kbd> / <kbd>↑</kbd>
 | <kbd>↓</kbd> / <kbd>↑</kbd> | 𝐂 | Switch history search pairs | `Ctrl` `n`/`p`
 
