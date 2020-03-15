@@ -160,12 +160,13 @@ set redrawtime=1500  " Time in milliseconds for stopping display redraw
 " }}}
 " Searching {{{
 " ---------
-set ignorecase      " Search ignoring case
-set smartcase       " Keep case when searching with *
-set infercase       " Adjust case in insert completion mode
-set incsearch       " Incremental search
-set wrapscan        " Searches wrap around the end of the file
-set complete=.,w,b  " C-n completion: Scan buffers and windows
+set ignorecase    " Search ignoring case
+set smartcase     " Keep case when searching with *
+set infercase     " Adjust case in insert completion mode
+set incsearch     " Incremental search
+set wrapscan      " Searches wrap around the end of the file
+
+set complete=.,w,b,k  " C-n completion: Scan buffers, windows and dictionary
 
 if exists('+inccommand')
 	set inccommand=nosplit
@@ -191,7 +192,7 @@ set splitbelow splitright       " Splits open bottom right
 set switchbuf=useopen,vsplit    " Jump to the first open window
 set backspace=indent,eol,start  " Intuitive backspacing in insert mode
 set diffopt=filler,iwhite       " Diff mode: show fillers, ignore whitespace
-set completeopt=menuone         " Always show menu, even for one item
+set completeopt=menu,menuone    " Always show menu, even for one item
 set completeopt+=noselect       " Do not select a match in the menu
 
 if exists('+completepopup')
