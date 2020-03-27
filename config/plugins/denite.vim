@@ -72,43 +72,50 @@ call denite#custom#source(
 	\ 'converters', ['converter_relative_word'])
 
 " FIND and GREP COMMANDS
+" ---
+" The Silver Searcher (ag)
 if executable('ag')
-	" The Silver Searcher
 	call denite#custom#var('file/rec', 'command',
-		\ ['ag', '-U', '--hidden', '--follow', '--nocolor', '--nogroup', '-g', ''])
+		\ ['ag', '--hidden', '--follow', '--nocolor', '--nogroup', '-g', ''])
 
-	" Setup ignore patterns in your .agignore file!
+	" Setup ignore patterns in your .agignore file! Skipping VCS ignores.
 	" https://github.com/ggreer/the_silver_searcher/wiki/Advanced-Usage
+	call denite#custom#var('grep', {
+		\ 'command': ['ag'],
+		\ 'default_opts': ['--vimgrep', '-i', '--hidden'],
+		\ 'recursive_opts': [],
+		\ 'pattern_opt': [],
+		\ 'final_opts': [],
+		\ 'separator': ['--'],
+		\ })
 
-	call denite#custom#var('grep', 'command', ['ag'])
-	call denite#custom#var('grep', 'recursive_opts', [])
-	call denite#custom#var('grep', 'pattern_opt', [])
-	call denite#custom#var('grep', 'separator', ['--'])
-	call denite#custom#var('grep', 'final_opts', [])
-	call denite#custom#var('grep', 'default_opts',
-		\ [ '--skip-vcs-ignores', '--vimgrep', '--smart-case', '--hidden' ])
-
+" Ripgrep
 elseif executable('rg')
-	" Ripgrep
 	call denite#custom#var('file/rec', 'command',
 		\ ['rg', '--files', '--glob', '!.git'])
-	call denite#custom#var('grep', 'command', ['rg', '--threads', '1'])
-	call denite#custom#var('grep', 'recursive_opts', [])
-	call denite#custom#var('grep', 'final_opts', [])
-	call denite#custom#var('grep', 'separator', ['--'])
-	call denite#custom#var('grep', 'default_opts',
-		\ ['-i', '--vimgrep', '--no-heading'])
 
+	call denite#custom#var('grep', {
+		\ 'command': ['rg'],
+		\ 'default_opts': ['-i', '--vimgrep', '--no-heading'],
+		\ 'recursive_opts': [],
+		\ 'pattern_opt': ['--regexp'],
+		\ 'final_opts': [],
+		\ 'separator': ['--'],
+		\ })
+
+" Ack command
 elseif executable('ack')
-	" Ack command
-	call denite#custom#var('grep', 'command', ['ack'])
-	call denite#custom#var('grep', 'recursive_opts', [])
-	call denite#custom#var('grep', 'pattern_opt', ['--match'])
-	call denite#custom#var('grep', 'separator', ['--'])
-	call denite#custom#var('grep', 'final_opts', [])
-	call denite#custom#var('grep', 'default_opts',
-			\ ['--ackrc', $HOME.'/.config/ackrc', '-H',
-			\ '--nopager', '--nocolor', '--nogroup', '--column'])
+	call denite#custom#var('grep', {
+		\ 'command': ['ack'],
+		\ 'default_opts': [
+		\   '--ackrc', $HOME.'/.config/ackrc', '-H', '-i',
+		\   '--nopager', '--nocolor', '--nogroup', '--column',
+		\ ],
+		\ 'recursive_opts': [],
+		\ 'pattern_opt': ['--match'],
+		\ 'separator': ['--'],
+		\ 'final_opts': [],
+		\ })
 endif
 
 " Denite EVENTS
