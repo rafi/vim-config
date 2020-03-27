@@ -17,8 +17,10 @@ if empty(s:package_manager) || s:package_manager ==# 'none'
 endif
 
 " Enables 24-bit RGB color in the terminal
-if has('termguicolors') && $COLORTERM =~# 'truecolor\|24bit'
-	set termguicolors
+if has('termguicolors')
+	if empty($COLORTERM) || $COLORTERM =~# 'truecolor\|24bit'
+		set termguicolors
+	endif
 endif
 
 " Disable vim distribution plugins

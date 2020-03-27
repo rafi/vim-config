@@ -738,7 +738,7 @@ Note that,
 | <kbd>so</kbd> | 𝐍 | Close other windows | `:only`
 | <kbd>sb</kbd> | 𝐍 | Previous buffer | `:b#`
 | <kbd>sc</kbd> | 𝐍 | Close current buffer | `:close`
-| <kbd>sx</kbd> | 𝐍 | Delete buffer, leave blank window | `:bdelete`
+| <kbd>sx</kbd> | 𝐍 | Delete buffer, leave blank window | `:enew │ bdelete`
 | <kbd>ssv</kbd> | 𝐍 | Split with previous buffer | `:split │ wincmd p │ e#`
 | <kbd>ssg</kbd> | 𝐍 | Vertical split with previous buffer | `:vsplit │ wincmd p │ e#`
 | <kbd>sh</kbd> | 𝐍 | Toggle colorscheme background=dark/light | `:set background` …
@@ -878,7 +878,7 @@ Note that,
 
 ## Credits & Contribution
 
-Big thanks to the dark knight [Shougo].
+Big thanks to the dark knight [Shougo](https://github.com/Shougo).
 
 [config/mappings.vim]: ./config/mappings.vim
 [plugin/whitespace.vim]: ./plugin/whitespace.vim
@@ -889,6 +889,4 @@ Big thanks to the dark knight [Shougo].
 [Marked 2]: https://marked2app.com
 [Neovim]: https://github.com/neovim/neovim
 [Vim8]: https://github.com/vim/vim
-[Shougo]: https://github.com/Shougo
 [lazy-loaded]: ./config/plugins.yaml#L47
-[yaml2json]: https://github.com/bronze1man/yaml2json

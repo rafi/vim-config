@@ -9,7 +9,7 @@ _try_pyenv() {
 			if [ -d "${src}" ]; then
 				echo "===> pyenv virtualenv found '${name}'"
 				# Symlink virtualenv for easy access
-				ln -fs "${src}" "${__venv}"
+				ln -fhs "${src}" "${__venv}"
 				return 0
 			fi
 		done
