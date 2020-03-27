@@ -5,16 +5,16 @@ if dein#tap('vim-clap')
 	" nnoremap <silent><LocalLeader>f :<C-u>Clap! files<CR>
 	" nnoremap <silent><LocalLeader>b :<C-u>Clap! buffers<CR>
 	" nnoremap <silent><LocalLeader>g :<C-u>Clap! grep<CR>
-	nnoremap <silent><LocalLeader>j :<C-u>Clap! jumps<CR>
-	nnoremap <silent><LocalLeader>h :<C-u>Clap! help_tags<CR>
-	nnoremap <silent><LocalLeader>t :<C-u>Clap! tags<CR>
-	nnoremap <silent><LocalLeader>l :<C-u>Clap! loclist<CR>
-	nnoremap <silent><LocalLeader>q :<C-u>Clap! quickfix<CR>
-	nnoremap <silent><LocalLeader>m :<C-u>Clap! files ~/docs/books<CR>
-	nnoremap <silent><LocalLeader>y :<C-u>Clap! yanks<CR>
-	nnoremap <silent><LocalLeader>/ :<C-u>Clap! lines<CR>
-	nnoremap <silent><LocalLeader>* :<C-u>Clap! lines ++query=<cword><CR>
-	nnoremap <silent><LocalLeader>; :<C-u>Clap! command_history<CR>
+	" nnoremap <silent><LocalLeader>j :<C-u>Clap! jumps<CR>
+	" nnoremap <silent><LocalLeader>h :<C-u>Clap! help_tags<CR>
+	" nnoremap <silent><LocalLeader>t :<C-u>Clap! tags<CR>
+	" nnoremap <silent><LocalLeader>l :<C-u>Clap! loclist<CR>
+	" nnoremap <silent><LocalLeader>q :<C-u>Clap! quickfix<CR>
+	" nnoremap <silent><LocalLeader>m :<C-u>Clap! files ~/docs/books<CR>
+	" nnoremap <silent><LocalLeader>y :<C-u>Clap! yanks<CR>
+	" nnoremap <silent><LocalLeader>/ :<C-u>Clap! lines<CR>
+	" nnoremap <silent><LocalLeader>* :<C-u>Clap! lines ++query=<cword><CR>
+	" nnoremap <silent><LocalLeader>; :<C-u>Clap! command_history<CR>
 
 	" nnoremap <silent><Leader>gl :<C-u>Clap! commits<CR>
 	" nnoremap <silent><Leader>gt :<C-u>Clap! tags ++query=<cword><CR>
@@ -52,21 +52,25 @@ if dein#tap('denite.nvim')
 	nnoremap <silent><LocalLeader>d :<C-u>Denite directory_rec directory_mru -default-action=cd<CR>
 	nnoremap <silent><LocalLeader>v :<C-u>Denite neoyank -buffer-name=register<CR>
 	xnoremap <silent><LocalLeader>v :<C-u>Denite neoyank -buffer-name=register -default-action=replace<CR>
-	" nnoremap <silent><LocalLeader>l :<C-u>Denite location_list -buffer-name=list -no-start-filter<CR>
-	" nnoremap <silent><LocalLeader>q :<C-u>Denite quickfix -buffer-name=list -no-start-filter<CR>
+	nnoremap <silent><LocalLeader>l :<C-u>Denite location_list -buffer-name=list -no-start-filter<CR>
+	nnoremap <silent><LocalLeader>q :<C-u>Denite quickfix -buffer-name=list -no-start-filter<CR>
 	nnoremap <silent><LocalLeader>n :<C-u>Denite dein<CR>
-	" nnoremap <silent><LocalLeader>j :<C-u>Denite jump change file/point -no-start-filter<CR>
+	nnoremap <silent><LocalLeader>j :<C-u>Denite jump change file/point -no-start-filter<CR>
 	nnoremap <silent><LocalLeader>u :<C-u>Denite junkfile:new junkfile -buffer-name=list<CR>
 	nnoremap <silent><LocalLeader>o :<C-u>Denite outline -no-start-filter<CR>
 	nnoremap <silent><LocalLeader>s :<C-u>Denite session -buffer-name=list<CR>
-	" nnoremap <silent><LocalLeader>t :<C-u>Denite tag<CR>
-	" nnoremap <silent><LocalLeader>p :<C-u>Denite jump<CR>
-	" nnoremap <silent><LocalLeader>h :<C-u>Denite help<CR>
-	" nnoremap <silent><LocalLeader>m :<C-u>Denite file/rec -buffer-name=memo -path=~/docs/books<CR>
+	nnoremap <silent><LocalLeader>t :<C-u>Denite tag<CR>
+	nnoremap <silent><LocalLeader>p :<C-u>Denite jump<CR>
+	nnoremap <silent><LocalLeader>h :<C-u>Denite help<CR>
+	nnoremap <silent><LocalLeader>m :<C-u>Denite file/rec -buffer-name=memo -path=~/docs/books<CR>
 	nnoremap <silent><LocalLeader>z :<C-u>Denite z -buffer-name=list<CR>
-	" nnoremap <silent><LocalLeader>; :<C-u>Denite command_history command<CR>
-	" nnoremap <silent><LocalLeader>/ :<C-u>Denite line<CR>
-	" nnoremap <silent><LocalLeader>* :<C-u>DeniteCursorWord line -no-start-filter<CR>
+	nnoremap <silent><LocalLeader>; :<C-u>Denite command_history command<CR>
+	nnoremap <silent><expr><LocalLeader>/ wordcount().chars > 10000 ?
+		\ ":\<C-u>Denite -search line/external\<CR>"
+		\ : ":\<C-u>Denite -search line\<CR>"
+	nnoremap <silent><expr><LocalLeader>* wordcount().chars > 10000 ?
+		\ ":\<C-u>DeniteCursorWord -no-start-filter -search line/external\<CR>"
+		\ : ":\<C-u>DeniteCursorWord -no-start-filter -search line\<CR>"
 
 	" chemzqm/denite-git
 	nnoremap <silent> <Leader>gl :<C-u>Denite gitlog:all -no-start-filter<CR>
