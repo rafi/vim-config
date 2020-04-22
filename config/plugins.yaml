@@ -370,7 +370,7 @@
     autocmd user_events User GitGutter call signature#sign#Refresh()
 
 - repo: nathanaelkane/vim-indent-guides
-  on_event: VimEnter
+  on_event: FileType
   hook_post_source: IndentGuidesEnable
   hook_add: |
     let g:indent_guides_default_mapping = 0
