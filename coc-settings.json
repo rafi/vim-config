@@ -1,0 +1,7 @@
+{
+	"diagnostic.displayByAle": true,
+//	"suggest.autoTrigger": "none",
+//	"suggest.floatEnable": false,
+//	"diagnostic.messageTarget": "echo", // Disable redundant popups for linter if using macvim. displayByAle disables this too
+//	"signature.target": "echo", // Disable if using  asyncomplete to show signatures.
+}
