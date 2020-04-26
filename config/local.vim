@@ -80,7 +80,7 @@ let g:ale_fix_on_save = 1
 " This binding is preferred over the one below it as it preserves formatting on multi-line pastes
 inoremap <C-Insert> <Esc>p`]a
 " inoremap <C-Insert> <C-r>*
-nnoremap <C-Insert> P
+nnoremap <C-Insert> p
 vnoremap <C-Insert> "0p
 " Remap Copy Key Mapping to yank
 vnoremap <M-[>2;5+ y
