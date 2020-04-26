@@ -26,4 +26,4 @@
 # servers for vim-lsp
 
 # Disable ale since we are using CoC for linting
-# - { repo: dense-analysis/ale, if: 0 }
+- { repo: dense-analysis/ale, if: 0 }

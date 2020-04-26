@@ -1,3 +1,5 @@
+" Overrides
+" ===
 function! s:source_file(path, ...)
 	" Source user configuration files with set/global sensitivity
 	let use_global = get(a:000, 0, ! has('vim_starting'))
@@ -58,3 +60,30 @@ nmap <D-S-}> :tabn<cr>
 " 24 bit color support
 execute "set t_8f=\e[38;2;%lu;%lu;%lum"
 execute "set t_8b=\e[48;2;%lu;%lu;%lum"
+
+" Save linted code
+" let b:ale_fixers = {
+" \   'php': [
+" \       'prettier',
+" \       {buffer, lines -> filter(lines, 'v:val !=~ ''^\s*//''')},
+" \   ],
+" \}
+let g:ale_fix_on_save = 1
+
+" MacNeoVim {{{
+" ----------
+" Alacritty will send <C-r>* and <C-e>c for paste and copy respecitively
+" Remap vim 'paste from register *' command to 'p' in normal mode
+
+" Remap Paste Key Mappings
+" ----------
+" This binding is preferred over the one below it as it preserves formatting on multi-line pastes
+" inoremap <C-Insert> <Esc>p`]a
+" inoremap <C-Insert> <C-r>*
+" nnoremap <C-Insert> P
+" vnoremap <C-Insert> "0p
+" Remap Copy Key Mapping to yank
+vnoremap <M-[>2;5+ y
+
+" }}}
+" vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :

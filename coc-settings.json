@@ -1,5 +1,6 @@
 {
-	"diagnostic.displayByAle": true,
+	"diagnostic.displayByAle": false, // ALE does not support hover popups in neovim yet
+	"coc.preferences.formatOnSaveFiletypes": ["javascript", "typescript", "json", "css", "markdown"],
 //	"suggest.autoTrigger": "none",
 //	"suggest.floatEnable": false,
 //	"diagnostic.messageTarget": "echo", // Disable redundant popups for linter if using macvim. displayByAle disables this too
