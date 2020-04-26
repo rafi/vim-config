@@ -1,3 +1,4 @@
+" vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :
 " Overrides
 " ===
 function! s:source_file(path, ...)
@@ -84,9 +85,8 @@ cnoremap <C-Insert> <C-r>*
 " Normal mode paste
 nnoremap <C-Insert> p
 " Visual mode paste (without yanking replaced text)
-vnoremap <C-Insert> "0p
+vnoremap <C-Insert> "+p
 " Remap Copy Key Mapping to yank
 vnoremap <M-[>2;5+ y
 
 " }}}
-" vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :

@@ -49,6 +49,7 @@
 
 # Languages
 # ---------
+- { repo: sheerun/vim-polyglot }
 - { repo: hail2u/vim-css3-syntax, on_ft: css }
 - { repo: othree/csscomplete.vim, on_ft: css }
 - { repo: cakebaker/scss-syntax.vim, on_ft: [ scss, sass ]}
@@ -109,17 +110,17 @@
     let g:javascript_plugin_jsdoc = 1
     let g:javascript_plugin_flow = 1
 
-- repo: HerringtonDarkholme/yats.vim
-  on_ft: [ typescript, typescriptreact ]
+# - repo: HerringtonDarkholme/yats.vim
+#   on_ft: [ typescript, typescriptreact ]
 
-- repo: MaxMEllon/vim-jsx-pretty
-  on_ft: [ javascript, javascriptreact, typescriptreact ]
-  depends: vim-javascript
-  hook_add: let g:vim_jsx_pretty_colorful_config = 1
+# - repo: MaxMEllon/vim-jsx-pretty
+#   on_ft: [ javascript, javascriptreact, typescriptreact ]
+#   depends: vim-javascript
+#   hook_add: let g:vim_jsx_pretty_colorful_config = 1
 
 - { repo: heavenshell/vim-jsdoc, on_ft: [ javascript, javascriptreact ] }
-- { repo: jparise/vim-graphql, on_ft: [ javascript, javascriptreact ] }
-- { repo: moll/vim-node, on_ft: [ javascript, javascriptreact ] }
+- { repo: jparise/vim-graphql, on_ft: [ javascript, javascriptreact, graphql, typescript, typescriptreact ] }
+- { repo: moll/vim-node, on_ft: [ javascript, javascriptreact, typescript, typescriptreact ] }
 - { repo: kchmck/vim-coffee-script, on_ft: [ coffee, litcoffee ] }
 - { repo: elzr/vim-json, on_ft: json }
 - { repo: posva/vim-vue, on_ft: vue }
