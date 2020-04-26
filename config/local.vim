@@ -79,14 +79,17 @@ let g:ale_fix_on_save = 1
 " Remap Paste Key Mappings
 " ----------
 " Insert mode paste
+
 inoremap <C-Insert> <Esc>p`]a
 " Command mode paste
 cnoremap <C-Insert> <C-r>*
 " Normal mode paste
 nnoremap <C-Insert> p
 " Visual mode paste (without yanking replaced text)
-vnoremap <C-Insert> "+p
-" Remap Copy Key Mapping to yank
+vnoremap <C-Insert> "_c<C-r>+<Esc>
+" Remap copy to work in neovim
 vnoremap <M-[>2;5+ y
+" Remap copy to work in vim8
+vnoremap [2;5+ y
 
 " }}}
