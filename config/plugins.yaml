@@ -217,7 +217,9 @@
 - { repo: kristijanhusak/defx-icons, on_source: defx.nvim }
 
 - { repo: tyru/caw.vim, on_map: { nx: <Plug> }}
-- { repo: liuchengxu/vim-which-key, on_cmd: WhichKey }
+- repo: liuchengxu/vim-which-key
+  on_cmd: WhichKey
+
 - { repo: mbbill/undotree, on_cmd: UndotreeToggle }
 - { repo: reedes/vim-wordy, on_cmd: [ Wordy, NextWordy, PrevWordy ]}
 - { repo: brooth/far.vim, on_cmd: [ Far, Farp, F ] }

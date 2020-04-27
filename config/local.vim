@@ -45,7 +45,7 @@ let g:vista_executive_for = {'typescript': 'coc'}
 " 	if executable('typescript-language-server')
 " 		lua require'nvim_lsp'.tsserver.setup{}
 " 		au Filetype typescript setl omnifunc=v:lua.vim.lsp.omnifunc
-" 		cal asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
+" 		call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
 "					\   'name': 'omni-typescript',
 "					\   'whitelist': ['typescript'],
 "					\   'completor': function('asyncomplete#sources#omni#completor'),
@@ -78,8 +78,8 @@ let g:ale_fix_on_save = 1
 
 " Remap Paste Key Mappings
 " ----------
-" Insert mode paste
 
+" Insert mode paste
 inoremap <C-Insert> <Esc>p`]a
 " Command mode paste
 cnoremap <C-Insert> <C-r>*
@@ -91,5 +91,22 @@ vnoremap <C-Insert> "_c<C-r>+<Esc>
 vnoremap <M-[>2;5+ y
 " Remap copy to work in vim8
 vnoremap [2;5+ y
+" Select all
+noremap <C-S-Insert> <Esc>ggVG
 
+" }}}
+"
+" WhichKey {{{
+" ----------
+" Define prefix dictionary
+autocmd! User vim-which-key call which_key#register('<Space>', "g:which_key_map")
+let g:which_key_map =  {}
+nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
+vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
+nnoremap <localleader> :<c-u>WhichKey  ';'<CR>
+vnoremap <localleader> :<c-u>WhichKeyVisual  ';'<CR>
+" Hide status line when whichkey is open
+autocmd! FileType which_key
+autocmd  FileType which_key set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 " }}}
