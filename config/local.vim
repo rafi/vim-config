@@ -75,7 +75,7 @@ let g:ale_fix_on_save = 1
 
 " }}}
 
-" MacNeoVim {{{
+" GeoVim {{{
 " ----------
 " command! Vb normal! <C-v>
 " Remap Paste Key Mappings
