@@ -66,7 +66,7 @@ function send_new_file() {
     if [[ "$pid_name" != 'nvim' && "$pid_name" != 'vim' && "$pid_name" != 'vi'\
       && "$window_name" != 'nvim' && "$window_name" != 'vim' && "$window_name" != 'vi' ]]; then
       # Open vim first
-      send_keys "" "exec $app_to_launc$vim_session" Enter
+      send_keys "" "exec $app_to_launch$vim_session" Enter
       tmux "${send_keys_r[@]}"
     fi
 
