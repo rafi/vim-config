@@ -29,8 +29,7 @@ function get_project_name() {
 }
 function launchAppTmux() {
   local app="$1"
-  local vim_session="$2"
-  local args="${@:3}"
+  local args="${@:2}"
 
   if [[ -f "$HOME/.tmux/resurrect/last" && $autorestore == 1 ]]; then
     # Restore TMUX session
@@ -52,7 +51,7 @@ function launchApp() {
 
 function send_new_file() {
   # Send new file to active instance
-  local target=($(tmux run-shell "tmux list-panes -s -F '##{session_name}:##{window_index}.##{pane_index} ##{pane_pid} ##{pane_current_path}' | grep -e `pwd`$"))
+  local target=($(tmux run-shell "tmux list-panes -s -F '##{session_name}:##{window_index}.##{pane_index} ##{pane_pid} ##{window_name} ##{pane_current_path}' | grep -e `pwd`$"))
   # @TODO: Iterate list of panes and check if pwd is child directory
 
   # Check if above command received an error
@@ -62,10 +61,12 @@ function send_new_file() {
     tmux select-window -t "${target[0]}"
     local pid="${target[1]}"
     local pid_name=$(ps -p "$pid" -o comm=)
+    local window_name="${target[2]}"
 
-    if [[ "$pid_name" != 'nvim' && "$pid_name" != 'vim' && "$pid_name" != 'vi' ]]; then
+    if [[ "$pid_name" != 'nvim' && "$pid_name" != 'vim' && "$pid_name" != 'vi'\
+      && "$window_name" != 'nvim' && "$window_name" != 'vim' && "$window_name" != 'vi' ]]; then
       # Open vim first
-      send_keys "" "exec $app_to_launch -S" Enter
+      send_keys "" "exec $app_to_launc$vim_session" Enter
       tmux "${send_keys_r[@]}"
     fi
 
@@ -94,21 +95,21 @@ function send_new_file() {
   fi
 }
 
+vim_session=""
 function mvim() {
-  if [[ $use_tmux == 1 ]]; then
-    local vimsession=""
-    if [[ $use_custom_sessions == 0 ]]; then
-      if [ -f "Session.vim" ]; then
-        vimsession=" -S Session.vim"
-      elif [ -f ".vim.session" ]; then
-        vimsession=" -S .vim.session"
-      fi
+  if [[ $use_custom_sessions == 0 ]]; then
+    if [ -f "Session.vim" ]; then
+      vim_session=" -S Session.vim"
+    elif [ -f ".vim.session" ]; then
+      vim_session=" -S .vim.session"
     fi
+  fi
+  if [[ $use_tmux == 1 ]]; then
 
     tmux has-session -t "$session" 2>/dev/null
     if [ $? != 0 ]; then
       # TMUX not running. Create new session.
-      launchAppTmux "$app_to_launch" "$vimsession" "$@"
+      launchAppTmux "$app_to_launch" "$@"
     else
       # Open existing session
       if pgrep "${terminal_app}"; then
@@ -121,7 +122,7 @@ function mvim() {
       send_new_file $@
     fi
   else
-    launchApp "TERM=alacritty $app_to_launch ${vimsession[@]} $@"
+    launchApp "TERM=alacritty $app_to_launch$vim_session $@"
   fi
 }
 
