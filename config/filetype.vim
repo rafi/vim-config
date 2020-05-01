@@ -57,8 +57,8 @@ augroup user_plugin_filetype " {{{
 
 	autocmd FileType gitcommit,qfreplace setlocal nofoldenable
 
-	" https://webpack.github.io/docs/webpack-dev-server.html#working-with-editors-ides-supporting-safe-write
-	autocmd FileType css,javascript,javascriptreact setlocal backupcopy=yes
+	" https://webpack.js.org/guides/development/#adjusting-your-text-editor
+	autocmd FileType css,javascript,javascriptreact,typescript,typescriptreact setlocal backupcopy=yes
 
 	autocmd FileType php
 		\ setlocal matchpairs-=<:> iskeyword+=\\ path+=/usr/local/share/pear

@@ -70,30 +70,45 @@ execute "set t_8b=\e[48;2;%lu;%lu;%lum"
 " \   ],
 " \}
 let g:ale_fix_on_save = 1
+" MacNeoVim {{{
+" ----------
+
+" }}}
 
 " MacNeoVim {{{
 " ----------
-" Alacritty will send <C-r>* and <C-e>c for paste and copy respecitively
-" Remap vim 'paste from register *' command to 'p' in normal mode
-
+" command! Vb normal! <C-v>
 " Remap Paste Key Mappings
 " ----------
-
 " Insert mode paste
-inoremap <C-Insert> <Esc>p`]a
+inoremap <C-Insert> <C-r>*
 " Command mode paste
 cnoremap <C-Insert> <C-r>*
 " Normal mode paste
-nnoremap <C-Insert> p
+nnoremap <C-Insert> P
 " Visual mode paste (without yanking replaced text)
 vnoremap <C-Insert> "_c<C-r>+<Esc>
+" Remap Copy Key Mappings
+" ----------
 " Remap copy to work in neovim
-vnoremap <M-[>2;5+ y
+vmap <M-[>2;5+ y
 " Remap copy to work in vim8
-vnoremap [2;5+ y
+vmap [2;5+ y
 " Select all
 noremap <C-S-Insert> <Esc>ggVG
-
+" Remap Indent
+" ----------
+vmap <M-]> >gv|
+vmap <M-[> <gv
+nmap <M-]> <Esc>v><Esc>
+nmap <M-[> <Esc>v<<Esc>
+imap <M-]> <C-t>
+imap <M-[> <C-d>
+" Remap Comment (Requires caw.vim plugin)
+" ----------
+vmap <M-'> gcc
+nmap <M-'> gcc
+imap <M-'> <Esc>gcci
 " }}}
 "
 " WhichKey {{{
