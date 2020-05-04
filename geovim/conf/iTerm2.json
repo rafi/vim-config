@@ -577,7 +577,8 @@
   "HotKey Characters Ignoring Modifiers" : "",
   "Bound Hosts" : [
     "&nvim",
-    "&Vim"
+    "&Vim",
+    "&tmux"
   ],
   "Non Ascii Font" : "Monaco 12",
   "Ansi 13 Color" : {
