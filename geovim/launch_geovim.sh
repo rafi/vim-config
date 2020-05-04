@@ -47,7 +47,7 @@ function open_gui() {
     if [[ -n "$command" ]]; then
       command="-e ${@:1}"
     fi
-    open $app_args -a /Applications/Alacritty.app --args --working-directory="`pwd`" $command
+    open $app_args -a /Applications/Alacritty.app --args --working-directory="`pwd`" --config-file="$GEOVIM_PATH/conf/alacritty.yml" $command
   fi
 }
 
