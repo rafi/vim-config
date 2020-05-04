@@ -27,9 +27,9 @@ function open_gui() {
       # GEOVIM=1 nohup kitty -d="`pwd`" --instance-group="$session" --listen-on=unix:/tmp/geovim --session "$GEOVIM_PATH/kitty_geovim.init" &
     # fi
     if [[ $use_tmux == 1 ]]; then
-      open $app_args -a /Applications/kitty.app --args -d="`pwd`" -1 --instance-group="$session" --listen-on=unix:/tmp/geovim --session "$GEOVIM_PATH/kitty_geovim.init" --conf "$GEOVIM_PATH/conf/kitty.conf"
+      open $app_args -a /Applications/kitty.app --args -d="`pwd`" -1 --instance-group="$session" --listen-on=unix:/tmp/geovim --session "$GEOVIM_PATH/kitty_geovim.init"
     else
-      GEOVIM=1 open $app_args -a /Applications/kitty.app --args -d="`pwd`" -1 --instance-group="$session" --listen-on=unix:/tmp/geovim --conf "$GEOVIM_PATH/conf/kitty.conf"
+      GEOVIM=1 open $app_args -a /Applications/kitty.app --args -d="`pwd`" -1 --instance-group="$session" --listen-on=unix:/tmp/geovim
     fi
   else
     if [[ -n "$command" ]]; then

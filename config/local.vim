@@ -109,6 +109,10 @@ imap <M-[> <C-d>
 vmap <M-'> gcc
 nmap <M-'> gcc
 imap <M-'> <Esc>gcci
+" Remap quit all to Alt+q (requires Alt to send escape from terminal)
+"
+map <M-q> qa
+map <M-S-q> qa!
 " }}}
 "
 " WhichKey {{{

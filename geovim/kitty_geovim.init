@@ -1,0 +1,2 @@
+title GeoVim
+launch env TERM=xterm-256color tmux attach -t geovim
