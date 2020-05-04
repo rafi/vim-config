@@ -1,1 +1,0 @@
-exec nvim -S

@@ -3,7 +3,7 @@ session="geovim"
 # terminal_app="alacritty" # Process name for the terminal GUI
 terminal_app="kitty" # Process name for the terminal GUI
 app_to_launch="nvim"
-use_tmux=0
+use_tmux=1
 autorestore=1 # Whether or not TMUX sessions are auto-restored on launch
 use_custom_sessions=0 # 1 - use Obsess plugin or 0 - load sessions manually
 
@@ -20,16 +20,28 @@ fi
 
 function open_gui() {
   local app_args=$1
+  # if [[ "$1" == '--front' ]]; then
+  #   local bring_to_front=1
+  #   local app_args=
+  # fi
   local command=${@:1}
   if [[ $terminal_app == "kitty" ]]; then
     # Use this to launch kitty if not using macOS
-    # if [[ -n "$@" ]]; then
-      # GEOVIM=1 nohup kitty -d="`pwd`" --instance-group="$session" --listen-on=unix:/tmp/geovim --session "$GEOVIM_PATH/kitty_geovim.init" &
-    # fi
     if [[ $use_tmux == 1 ]]; then
-      open $app_args -a /Applications/kitty.app --args -d="`pwd`" -1 --instance-group="$session" --listen-on=unix:/tmp/geovim --session "$GEOVIM_PATH/kitty_geovim.init"
+      if [[ -z "$@" ]]; then
+        # Bring window to front if called with no args
+        kitty @ --to unix:/tmp/geovim focus-window
+      else
+        if [[ "$TERM" == "xterm-kitty" ]]; then
+          GEOVIM=1 nohup kitty -d="`pwd`" -1 --instance-group="$session" --listen-on=unix:/tmp/geovim --config "$GEOVIM_PATH/conf/kitty.conf" $command &
+        else
+          # If terminal is not kitty, we need to use this workaround to launch
+          GEOVIM=1 nohup kitty -d="`pwd`" -1 --instance-group="$session" --listen-on=unix:/tmp/geovim --config "$GEOVIM_PATH/conf/kitty.conf" --session "$GEOVIM_PATH/kitty_geovim.init" &
+          # open $app_args -a /Applications/kitty.app --args -d="`pwd`" -1 --instance-group="$session" --listen-on=unix:/tmp/geovim --config "$GEOVIM_PATH/conf/kitty.conf" --session "$GEOVIM_PATH/kitty_geovim.init"
+        fi
+      fi
     else
-      GEOVIM=1 open $app_args -a /Applications/kitty.app --args -d="`pwd`" -1 --instance-group="$session" --listen-on=unix:/tmp/geovim
+      open $app_args -a /Applications/kitty.app --args -d="`pwd`" -1 --instance-group="$session" --listen-on=unix:/tmp/geovim --config "$GEOVIM_PATH/conf/kitty.conf" $command
     fi
   else
     if [[ -n "$command" ]]; then
@@ -167,18 +179,22 @@ function mvim() {
       # TMUX not running. Create new session.
       launchAppTmux "$app_to_launch" "$vim_args"
     else
-      echo $terminal_app;
       # Open existing session
       if pgrep "${terminal_app}"; then
         if [[ -n "$win_group" ]]; then
           launchAppTmux "" "$vim_args"
         else
           # Bring GUI to forefront
-          open_gui
+          if [[ "$terminal_app" != "kitty" ]] || [ -S /tmp/geovim ]; then
+            open_gui
+          else
+            # Geovim is not actually open
+            open_gui "" tmux attach -t "$session"
+          fi
         fi
       else
         # GUI is not running, but TMUX is. Re-attach.
-        open_gui "" tmux attach -s "$session"
+        open_gui "" tmux attach -t "$session"
       fi
       send_new_file $vim_args
     fi
