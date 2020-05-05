@@ -528,9 +528,10 @@ key_bindings:
   - { key: W,        mods: Command, chars: "\x1b:q\x0d" }
   # Send Ctrl+A Meta+W (Meta is sent as ^[) to TMUX, which issues further Vim
   # commands, and send <Esc> :qa <Return> in case TMUX isn't running
-  - { key: Q,      mods: Command,         chars: "\x01\x1bW\x1b:q\x0d" }
+  - { key: Q,      mods: Command,         chars: "\x01\x1bW\x1bq" }
+  - { key: Q,      mods: Command|Shift,         chars: "\x01\x11\x1b[qa!" }
   # Quits Alacritty (will leave TMUX running)
-  - { key: Q,   mods: Shift|Command,         action: Quit }
+  # - { key: Q,   mods: Shift|Command,         action: Quit }
   # Sends Ctrl+A Ctrl+L which is mapped to clear lines in TMUX
   - { key: K,      mods: Command,         chars: "\x01\x0c" }
   - { key: Return,   mods: Command,           action: ToggleFullscreen }
