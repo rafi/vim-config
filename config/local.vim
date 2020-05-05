@@ -109,12 +109,12 @@ vmap <M-'> gcc
 nmap <M-'> gcc
 imap <M-'> <Esc>gcci
 " Remap quit all to Alt+q (requires Alt to send escape)
-"
+" ----------
 noremap <M-q> <Esc>:qa<Enter>
 noremap <M-[>qa! <Esc>:qa!<Enter>
 noremap ^[[qa! <Esc>:qa!<Enter>
 " Remap save
-"
+" ----------
 inoremap <C-s> <Esc>:w<Enter>i
 vnoremap <C-s> <Esc>:w<Enter>v
 nnoremap <C-s> <Esc>:w<Enter>

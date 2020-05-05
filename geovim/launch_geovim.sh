@@ -2,15 +2,15 @@
 session="geovim"
 # terminal_app="alacritty" # Process name for the terminal GUI
 terminal_app="kitty" # Process name for the terminal GUI
-if [[ -n "$GEOVIM_TERM" ]]; then
+if [[ -n "${GEOVIM_TERM+set}" ]]; then
   terminal_app="$GEOVIM_TERM"
 fi
 app_to_launch="nvim"
-if [[ -n "$GEOVIM_EDITOR" ]]; then
+if [[ -n "${GEOVIM_EDITOR+set}" ]]; then
   app_to_launch="$GEOVIM_EDITOR"
 fi
 use_tmux=1
-if [[ -n "$GEOVIM_TMUX" ]]; then
+if [[ -n "${GEOVIM_TMUX+set}" ]]; then
   use_tmux="$GEOVIM_TMUX"
 fi
 autorestore=1 # Whether or not TMUX sessions are auto-restored on launch
@@ -28,16 +28,15 @@ if [[ $use_tmux == 0 && $terminal_app == "kitty" ]]; then
 fi
 
 function open_gui() {
-  local app_args=$1
   # if [[ "$1" == '--front' ]]; then
   #   local bring_to_front=1
   #   local app_args=
   # fi
-  local command=${@:1}
+  local command="$@"
   if [[ $terminal_app == "kitty" ]]; then
     # Use this to launch kitty if not using macOS
     if [[ $use_tmux == 1 ]]; then
-      if [[ -z "$@" ]]; then
+      if [[ -z "$command" ]]; then
         # Bring window to front if called with no args
         kitty @ --to unix:/tmp/geovim focus-window
       else
@@ -50,13 +49,14 @@ function open_gui() {
         fi
       fi
     else
-      open $app_args -a /Applications/kitty.app --args -d="`pwd`" -1 --instance-group="$session" --listen-on=unix:/tmp/geovim --config "$GEOVIM_PATH/conf/kitty.conf" $command
+      GEOVIM=1 nohup kitty -d="`pwd`" -1 --instance-group="$session" --listen-on=unix:/tmp/geovim --config "$GEOVIM_PATH/conf/kitty.conf" "$command" &
     fi
   else
-    if [[ -n "$command" ]]; then
-      command="-e ${@:1}"
+    if [[ -z "$command" ]]; then
+      echo 'Alacritty is already open. Check the window.'
+    else
+      GEOVIM=1 nohup alacritty --working-directory="`pwd`" --config-file="$GEOVIM_PATH/conf/alacritty.yml" -e sh -c "$command" &
     fi
-    open $app_args -a /Applications/Alacritty.app --args --working-directory="`pwd`" --config-file="$GEOVIM_PATH/conf/alacritty.yml" $command
   fi
 }
 
@@ -110,15 +110,15 @@ function launchAppTmux() {
   #   # If app is empty, assume we are forcing a new window of the current app
   #   open_gui "" tmux attach -t "$session"
   # else
-  open_gui "" tmux attach -t "$session"
+  open_gui tmux attach -t "$session"
   # fi
 }
 
 function launchApp() {
   if [[ $terminal_app == "kitty" ]]; then
-    open_gui -n sh -c "$1"
+    open_gui "$1"
   else
-    open_gui -n sh -c "TERM=alacritty $1"
+    open_gui "TERM=alacritty $1"
   fi
 }
 
@@ -198,12 +198,12 @@ function mvim() {
             open_gui
           else
             # Geovim is not actually open
-            open_gui "" tmux attach -t "$session"
+            open_gui tmux attach -t "$session"
           fi
         fi
       else
         # GUI is not running, but TMUX is. Re-attach.
-        open_gui "" tmux attach -t "$session"
+        open_gui tmux attach -t "$session"
       fi
       send_new_file $vim_args
     fi
