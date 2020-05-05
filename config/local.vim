@@ -118,6 +118,11 @@ noremap ^[[qa! <Esc>:qa!<Enter>
 inoremap <C-s> <Esc>:w<Enter>i
 vnoremap <C-s> <Esc>:w<Enter>v
 nnoremap <C-s> <Esc>:w<Enter>
+" Make Shift+Click work to extend visual selection
+" ----------
+nnoremap <silent> v :let b:v_mode='v'<CR>mVv
+nnoremap <silent> V :let b:v_mode='V'<CR>mVV
+vnoremap <expr> <S-LeftMouse> '<Esc><LeftMouse>mN`V'.b:v_mode.'`N'
 " }}}
 "
 " WhichKey {{{
