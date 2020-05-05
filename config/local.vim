@@ -77,7 +77,6 @@ let g:ale_fix_on_save = 1
 
 " GeoVim {{{
 " ----------
-" command! Vb normal! <C-v>
 " Remap Paste Key Mappings
 " ----------
 " Insert mode paste
@@ -109,10 +108,16 @@ imap <M-[> <C-d>
 vmap <M-'> gcc
 nmap <M-'> gcc
 imap <M-'> <Esc>gcci
-" Remap quit all to Alt+q (requires Alt to send escape from terminal)
+" Remap quit all to Alt+q (requires Alt to send escape)
 "
-map <M-q> qa
-map <M-S-q> qa!
+noremap <M-q> <Esc>:qa<Enter>
+noremap <M-[>qa! <Esc>:qa!<Enter>
+noremap ^[[qa! <Esc>:qa!<Enter>
+" Remap save
+"
+inoremap <C-s> <Esc>:w<Enter>i
+vnoremap <C-s> <Esc>:w<Enter>v
+nnoremap <C-s> <Esc>:w<Enter>
 " }}}
 "
 " WhichKey {{{

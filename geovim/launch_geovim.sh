@@ -2,8 +2,17 @@
 session="geovim"
 # terminal_app="alacritty" # Process name for the terminal GUI
 terminal_app="kitty" # Process name for the terminal GUI
+if [[ -n "$GEOVIM_TERM" ]]; then
+  terminal_app="$GEOVIM_TERM"
+fi
 app_to_launch="nvim"
+if [[ -n "$GEOVIM_EDITOR" ]]; then
+  app_to_launch="$GEOVIM_EDITOR"
+fi
 use_tmux=1
+if [[ -n "$GEOVIM_TMUX" ]]; then
+  use_tmux="$GEOVIM_TMUX"
+fi
 autorestore=1 # Whether or not TMUX sessions are auto-restored on launch
 use_custom_sessions=0 # 1 - use Obsess plugin or 0 - load sessions manually
 
@@ -144,13 +153,13 @@ function send_new_file() {
       # Open file
       send_keys "" "${edit_file_cmd[@]}"
     fi
+  fi
 
-    if [[ ! -n "$1" ]]; then
-      if [[ $use_custom_sessions == 0 ]]; then
-        # Start Vim session tracking if we did not open a specific file and no
-        # session exists
-        send_keys "" Escape ":if !ObsessionStatus() | Obsess | endif" Enter
-      fi
+  if [[ ! -n "$1" ]]; then
+    if [[ $use_custom_sessions == 0 ]]; then
+      # Start Vim session tracking if we did not open a specific file and no
+      # session exists
+      send_keys "" Escape ":if ObsessionStatus() != '[S]' && ObsessionStatus() != '[$]' | Obsess | endif" Enter
     fi
   fi
 }
