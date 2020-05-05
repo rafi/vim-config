@@ -122,9 +122,15 @@ if dein#tap('vista.vim')
 endif
 
 if dein#tap('emmet-vim')
-	autocmd user_events FileType html,css,javascript,javascriptreact
-		\ EmmetInstall
-		\ | imap <buffer> <C-Return> <Plug>(emmet-expand-abbr)
+	if has('gui')
+		autocmd user_events FileType html,css,javascript,javascriptreact
+			\ EmmetInstall
+			\ | imap <buffer> <C-Return> <Plug>(emmet-expand-abbr)
+	else
+		autocmd user_events FileType html,css,javascript,javascriptreact
+			\ EmmetInstall
+			\ | imap <buffer> C<Return> <Plug>(emmet-expand-abbr)
+	endif
 endif
 
 if dein#tap('vim-gitgutter')

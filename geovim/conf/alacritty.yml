@@ -511,7 +511,7 @@ key_bindings:
   - { key: LBracket,        mods: Command, chars: "\x1b[" }
   - { key: RBracket,        mods: Command, chars: "\x1b]" }
   # Mapped to Ctrl+S which saves in Vim
-  - { key: S,        mods: Command, chars: "\x13" }
+  - { key: S,        mods: Command, chars: "\x1b:w\x0d" }
   # Sends <C-S-Insert> for Select All
   - { key: A,        mods: Command, chars: "\x1b[2;6~" }
   # Sends <C-Insert> for Paste, and Copy is sent as a custom escape
@@ -538,6 +538,13 @@ key_bindings:
   # Keep these to allow Copy+Paste in non-Vim areas (TMUX commands, terminal)
   - { key: V,        mods: Control|Shift, action: Paste }
   - { key: C,        mods: Control|Shift, action: Copy }
+  # Bonus key mappings follow this pattern in Vim bindings
+  #		<C-S-Enter> becomes C-S<Enter>
+  # This is due to terminals not being able to distinguish between certain Modifer+Key combos
+  # --------
+  - { key: Enter,        mods: Control, chars: "C\x0d" }
+  - { key: Enter,        mods: Shift, chars: "S\x0d" }
+  - { key: Enter,        mods: Control|Shift, chars: "C-S\x0d" }
   # (Windows, Linux, and BSD only)
   # - { key: V,        mods: Command, action: Paste }
   # - { key: C,        mods: Command, action: Copy }

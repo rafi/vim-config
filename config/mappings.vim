@@ -30,6 +30,7 @@ nnoremap <CR> za
 
 " Focus the current fold by closing all others
 nnoremap <S-Return> zMzvzt
+nnoremap S<Return> zMzvzt
 
 " The plugin rhysd/accelerated-jk moves through display-lines in normal mode,
 " these mappings will move through display-lines in visual mode too.
@@ -98,6 +99,8 @@ nnoremap gQ @q
 
 " Start new line from any cursor position in insert-mode
 inoremap <S-Return> <C-o>o
+" Terminals send C-m for S-Return
+inoremap S<Return> <C-o>o
 
 " Deletes selection and start insert mode
 " vnoremap <BS> "_xi
