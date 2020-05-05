@@ -86,7 +86,8 @@ cnoremap <C-Insert> <C-r>*
 " Normal mode paste
 nnoremap <C-Insert> P
 " Visual mode paste (without yanking replaced text)
-vnoremap <C-Insert> "_c<C-r>+<Esc>
+" vnoremap <C-Insert> "_c<C-r>+<Esc>
+vnoremap <C-Insert> "_cP
 " Remap Copy Key Mappings
 " ----------
 " Remap copy to work in neovim
