@@ -87,7 +87,7 @@ cnoremap <C-Insert> <C-r>*
 nnoremap <C-Insert> P
 " Visual mode paste (without yanking replaced text)
 " vnoremap <C-Insert> "_c<C-r>+<Esc>
-vnoremap <C-Insert> "_cP
+vnoremap <C-Insert> "_dP
 " Remap Copy Key Mappings
 " ----------
 " Remap copy to work in neovim
@@ -139,4 +139,14 @@ vnoremap <localleader> :<c-u>WhichKeyVisual  ';'<CR>
 autocmd! FileType which_key
 autocmd  FileType which_key set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+" }}}
+"
+
+" Coc Overrides {{{
+" ----------
+" Open refs in preview window
+" nnoremap gdv :<C-u>pedit %<Bar>wincmd P<Bar>>norm! <Plug>(coc-definition)<Bar>wincmd p<CR>
+nmap <silent> gdh :sp<CR><Plug>(coc-definition)
+nmap <silent> gdv :vsp<CR><Plug>(coc-definition)
+nmap <silent> gdt :vsp<CR><Plug>(coc-definition)<C-W>T
 " }}}

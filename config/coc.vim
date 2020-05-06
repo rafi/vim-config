@@ -19,6 +19,49 @@ set shortmess+=c
 " diagnostics appear/become resolved.
 set signcolumn=yes
 
+" Don't load the defx-git plugin file, not needed
+let b:defx_git_loaded = 1
+
+" Use <Tab> for trigger completion and navigate to the next complete item
+let g:coc_snippet_next = '<tab>'
+inoremap <silent><expr> <Tab>
+	\ pumvisible() ? "\<C-n>" :
+	\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+	\ <SID>check_back_space() ? "\<Tab>" :
+	\ coc#refresh()
+
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() :
+	\ delimitMate#WithinEmptyPair() ? "\<C-R>=delimitMate#ExpandReturn()\<CR>" :
+	\"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! s:check_back_space() abort
+	let col = col('.') - 1
+	return ! col || getline('.')[col - 1] =~? '\s'
+endfunction
+
+augroup user_plugin_coc
+	autocmd!
+	autocmd CompleteDone * if pumvisible() == 0 | pclose | endif
+augroup END
+
+" use <c-space>for trigger completion
+inoremap <silent><expr> <C-space> coc#refresh()
+
+" Movement within 'ins-completion-menu'
+imap <expr><C-j>   pumvisible() ? "\<Down>" : "\<C-j>"
+imap <expr><C-k>   pumvisible() ? "\<Up>" : "\<C-k>"
+
+" Scroll pages in menu
+inoremap <expr><C-f> pumvisible() ? "\<PageDown>" : "\<Right>"
+inoremap <expr><C-b> pumvisible() ? "\<PageUp>" : "\<Left>"
+imap     <expr><C-d> pumvisible() ? "\<PageDown>" : "\<C-d>"
+imap     <expr><C-u> pumvisible() ? "\<PageUp>" : "\<C-u>"
+
+" Use `[c` and `]c` to navigate diagnostics
+nmap <silent> [
+
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
@@ -45,8 +88,14 @@ else
 endif
 
 " Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" nmap <silent> [g <Plug>(coc-diagnostic-prev)
+" nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap gs <Plug>(coc-git-chunkinfo)
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" show commit contains current position
+nmap gC <Plug>(coc-git-commit)
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
