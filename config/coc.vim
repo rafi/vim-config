@@ -59,9 +59,6 @@ inoremap <expr><C-b> pumvisible() ? "\<PageUp>" : "\<Left>"
 imap     <expr><C-d> pumvisible() ? "\<PageDown>" : "\<C-d>"
 imap     <expr><C-u> pumvisible() ? "\<PageUp>" : "\<C-u>"
 
-" Use `[c` and `]c` to navigate diagnostics
-nmap <silent> [
-
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
@@ -87,7 +84,7 @@ else
   imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
 
-" Use `[g` and `]g` to navigate diagnostics
+" Use `[c` and `]c` to navigate diagnostics
 " nmap <silent> [g <Plug>(coc-diagnostic-prev)
 " nmap <silent> ]g <Plug>(coc-diagnostic-next)
 nmap gs <Plug>(coc-git-chunkinfo)
