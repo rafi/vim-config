@@ -70,10 +70,6 @@ execute "set t_8b=\e[48;2;%lu;%lu;%lum"
 " \   ],
 " \}
 let g:ale_fix_on_save = 1
-" MacNeoVim {{{
-" ----------
-
-" }}}
 
 " GeoVim {{{
 " ----------
