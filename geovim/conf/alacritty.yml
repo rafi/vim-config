@@ -98,6 +98,9 @@ font:
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
     #family: monospace
+  # Nerd Fonts patch fonts to include icon glyphs. Install a nerd font and put
+  # the name here to use
+  # family: Hack Nerd Font Mono
 
     # The `style` can be specified to pick a specific face.
     #style: Regular
