@@ -41,21 +41,21 @@ function open_gui() {
         kitty @ --to unix:/tmp/geovim focus-window
       else
         if [[ "$TERM" == "xterm-kitty" ]]; then
-          GEOVIM=1 nohup kitty -d="`pwd`" -1 --instance-group="$session" --listen-on=unix:/tmp/geovim --config "$GEOVIM_PATH/conf/kitty.conf" $command >/dev/null 2>&1
+          GEOVIM=1 nohup kitty -d="`pwd`" -1 --instance-group="$session" --listen-on=unix:/tmp/geovim --config "$GEOVIM_PATH/conf/kitty.conf" $command >/dev/null 2>&1 &
         else
           # If terminal is not kitty, we need to use this workaround to launch
-          GEOVIM=1 nohup kitty -d="`pwd`" -1 --instance-group="$session" --listen-on=unix:/tmp/geovim --config "$GEOVIM_PATH/conf/kitty.conf" --session "$GEOVIM_PATH/kitty_geovim.init" >/dev/null 2>&1
+          GEOVIM=1 nohup kitty -d="`pwd`" -1 --instance-group="$session" --listen-on=unix:/tmp/geovim --config "$GEOVIM_PATH/conf/kitty.conf" --session "$GEOVIM_PATH/kitty_geovim.init" >/dev/null 2>&1 &
           # open $app_args -a /Applications/kitty.app --args -d="`pwd`" -1 --instance-group="$session" --listen-on=unix:/tmp/geovim --config "$GEOVIM_PATH/conf/kitty.conf" --session "$GEOVIM_PATH/kitty_geovim.init"
         fi
       fi
     else
-      GEOVIM=1 nohup kitty -d="`pwd`" -1 --instance-group="$session" --listen-on=unix:/tmp/geovim --config "$GEOVIM_PATH/conf/kitty.conf" "$command" >/dev/null 2>&1
+      GEOVIM=1 nohup kitty -d="`pwd`" -1 --instance-group="$session" --listen-on=unix:/tmp/geovim --config "$GEOVIM_PATH/conf/kitty.conf" "$command" >/dev/null 2>&1 &
     fi
   else
     if [[ -z "$command" ]]; then
       echo 'Alacritty is already open. Check the window.'
     else
-      GEOVIM=1 nohup alacritty --working-directory="`pwd`" --config-file="$GEOVIM_PATH/conf/alacritty.yml" -e sh -c "$command" >/dev/null 2>&1
+      GEOVIM=1 nohup alacritty --working-directory="`pwd`" --config-file="$GEOVIM_PATH/conf/alacritty.yml" -e sh -c "$command" >/dev/null 2>&1 &
     fi
   fi
 }
