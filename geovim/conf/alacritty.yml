@@ -545,9 +545,9 @@ key_bindings:
   #		<C-S-Enter> becomes C-S<Enter>
   # This is due to terminals not being able to distinguish between certain Modifer+Key combos
   # --------
-  - { key: Enter,        mods: Control, chars: "C\x0d" }
-  - { key: Enter,        mods: Shift, chars: "S\x0d" }
-  - { key: Enter,        mods: Control|Shift, chars: "C-S\x0d" }
+  - { key: Return,        mods: Control, chars: "C\x0d" }
+  - { key: Return,        mods: Shift, chars: "S\x0d" }
+  - { key: Return,        mods: Control|Shift, chars: "C-S\x0d" }
   # (Windows, Linux, and BSD only)
   # - { key: V,        mods: Command, action: Paste }
   # - { key: C,        mods: Command, action: Copy }

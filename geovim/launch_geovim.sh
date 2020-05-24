@@ -33,9 +33,9 @@ function open_gui() {
   #   local app_args=
   # fi
   local command="$@"
-  if [[ $terminal_app == "kitty" ]]; then
+  if [[ "$terminal_app" == "kitty" ]]; then
     # Use this to launch kitty if not using macOS
-    if [[ $use_tmux == 1 ]]; then
+    if [[ "$use_tmux" == 1 ]]; then
       if [[ -z "$command" ]]; then
         # Bring window to front if called with no args
         kitty @ --to unix:/tmp/geovim focus-window

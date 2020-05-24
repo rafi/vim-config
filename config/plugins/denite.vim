@@ -124,6 +124,10 @@ augroup user_plugin_denite
 
 	autocmd FileType denite call s:denite_settings()
 	autocmd FileType denite-filter call s:denite_filter_settings()
+	autocmd FileType denite-filter call s:denite_filter_my_settings()
+    function! s:denite_filter_my_settings() abort
+      inoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
+    endfunction
 	autocmd User denite-preview call s:denite_preview()
 
 	autocmd VimResized * call s:denite_resize(g:denite_position)

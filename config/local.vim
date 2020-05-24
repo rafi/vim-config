@@ -146,3 +146,8 @@ nmap <silent> gdh :sp<CR><Plug>(coc-definition)
 nmap <silent> gdv :vsp<CR><Plug>(coc-definition)
 nmap <silent> gdt :vsp<CR><Plug>(coc-definition)<C-W>T
 " }}}
+
+" Doge Doc Generator {{{
+" ----------
+let g:doge_mapping = '<Leader>D'
+" }}}
