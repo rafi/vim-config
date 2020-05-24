@@ -49,7 +49,7 @@ function open_gui() {
         fi
       fi
     else
-      GEOVIM=1 nohup kitty -d="`pwd`" -1 --instance-group="$session" --listen-on=unix:/tmp/geovim --config "$GEOVIM_PATH/conf/kitty.conf" "$command" >/dev/null 2>&1 &
+      GEOVIM=1 nohup kitty -d="`pwd`" -1 --instance-group="$session" --listen-on=unix:/tmp/geovim --config "$GEOVIM_PATH/conf/kitty.conf" $command >/dev/null 2>&1 &
     fi
   else
     if [[ -z "$command" ]]; then
