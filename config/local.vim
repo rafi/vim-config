@@ -151,3 +151,16 @@ nmap <silent> gdt :vsp<CR><Plug>(coc-definition)<C-W>T
 " ----------
 let g:doge_mapping = '<Leader>D'
 " }}}
+
+" Vim Alternate File Loading {{{
+" ----------
+if dein#tap('vim-altr')
+	let g:altr_rules = ['%/%.ts', '%/__tests__/%.unit.test.ts', '%/__tests__/%.int.test.ts']
+endif
+" }}}
+
+" Hygen {{{
+" ----------
+command MakeUnit !{yarn hygen unit-test-generator new %}
+command MakeInt !{yarn hygen int-test-generator new %}
+" }}}

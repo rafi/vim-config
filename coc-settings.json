@@ -6,8 +6,8 @@
 //	"suggest.autoTrigger": "none",
 //	"suggest.floatEnable": false,
 	"coc.preferences.hoverTarget": "float",
-	"diagnostic.enableMessage": "jump",
+	"diagnostic.enableMessage": "always",
   "diagnostic.messageTarget": "float", // Disable redundant popups for linter if using macvim. displayByAle disables this too
-	"diagnostic.virtualText": true,
+	"diagnostic.virtualText": false,
 //	"signature.target": "echo", // Disable if using  asyncomplete to show signatures.
 }

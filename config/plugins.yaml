@@ -226,7 +226,12 @@
 - { repo: jreybert/vimagit, on_cmd: Magit }
 - { repo: tweekmonster/helpful.vim, on_cmd: HelpfulVersion }
 - { repo: lambdalisue/gina.vim, on_cmd: Gina }
-- { repo: kana/vim-altr, on_map: { n: <Plug> }}
+- repo: kana/vim-altr
+  on_map: { n: <Plug> }
+  hook_post_source: |
+    if exists("g:altr_rules")
+      call call('altr#define', g:altr_rules)
+    endif
 - { repo: Shougo/vinarise.vim, on_cmd: Vinarise }
 - { repo: guns/xterm-color-table.vim, on_cmd: XtermColorTable }
 - { repo: cocopon/colorswatch.vim, on_cmd: ColorSwatchGenerate }
