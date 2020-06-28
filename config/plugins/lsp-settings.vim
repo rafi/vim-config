@@ -9,14 +9,14 @@ function! s:on_lsp_buffer_enabled() abort
 		\ foldtext=lsp#ui#vim#folding#foldtext()
 
 	nmap <silent><buffer> K      <Plug>(lsp-hover)
-	nmap <silent><buffer> <C-]>  <Plug>(lsp-definition)
-	nmap <silent><buffer> g<C-]> <Plug>(lsp-peek-definition)
-	nmap <silent><buffer> gd     <Plug>(lsp-peek-declaration)
-	nmap <silent><buffer> gi     <Plug>(lsp-peek-implementation)
-	nmap <silent><buffer> gy     <Plug>(lsp-peek-type-definition)
-	nmap <silent><buffer> gY     <Plug>(lsp-type-hierarchy)
-	nmap <silent><buffer> ,s     <Plug>(lsp-signature-help)
-	nmap <silent><buffer> gr     <Plug>(lsp-references)
+	nmap <silent><buffer> gdf   :tab LspDefinition<CR>
+	nmap <silent><buffer> pdf   <Plug>(lsp-peek-definition)
+	nmap <silent><buffer> pdc   <Plug>(lsp-peek-declaration)
+	nmap <silent><buffer> pdi    <Plug>(lsp-peek-implementation)
+	nmap <silent><buffer> ptd    <Plug>(lsp-peek-type-definition)
+	nmap <silent><buffer> pth    <Plug>(lsp-type-hierarchy)
+	nmap <silent><buffer> psh    <Plug>(lsp-signature-help)
+	nmap <silent><buffer> grf    <Plug>(lsp-references)
 	nmap         <buffer> <F2>   <Plug>(lsp-rename)
 endfunction
 

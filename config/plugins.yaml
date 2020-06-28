@@ -545,6 +545,8 @@
     let g:ale_sign_error = '✖'
     let g:ale_sign_warning = 'ⁱ'
     let g:ale_maximum_file_size = 500000
+    let g:ale_linters = {'go': ['gopls', 'govet', 'golint', 'gofmt', 'gotype']}
+    let g:ale_go_golangci_lint_package=1
 
 - repo: mattn/emmet-vim
   on_event: InsertEnter

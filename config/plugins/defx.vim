@@ -93,7 +93,7 @@ function! s:defx_mappings() abort
 	nnoremap <silent><buffer><expr> l     <SID>defx_toggle_tree()
 	nnoremap <silent><buffer><expr> h     defx#do_action('close_tree')
 	nnoremap <silent><buffer><expr> t     defx#do_action('open_tree_recursive')
-	nnoremap <silent><buffer><expr> st    defx#do_action('multi', [['drop', 'tabnew'], 'quit'])
+	nnoremap <silent><buffer><expr> st    defx#do_action('multi', ['quit', ['drop', 'tabnew']])
 	nnoremap <silent><buffer><expr> sg    defx#do_action('multi', [['drop', 'vsplit'], 'quit'])
 	nnoremap <silent><buffer><expr> sv    defx#do_action('multi', [['drop', 'split'], 'quit'])
 	nnoremap <silent><buffer><expr> P     defx#do_action('open', 'pedit')
@@ -105,7 +105,7 @@ function! s:defx_mappings() abort
 	" Defx's buffer management
 	nnoremap <silent><buffer><expr> q      defx#do_action('quit')
 	nnoremap <silent><buffer><expr> se     defx#do_action('save_session')
-	nnoremap <silent><buffer><expr> <C-r>  defx#do_action('redraw')
+	nnoremap <silent><buffer><expr> R  defx#do_action('redraw')
 	nnoremap <silent><buffer><expr> <C-g>  defx#do_action('print')
 
 	" File/dir management
