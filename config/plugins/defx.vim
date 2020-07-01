@@ -79,7 +79,7 @@ endfunction
 function! s:defx_toggle_tree() abort
 	" Open current file, or toggle directory expand/collapse
 	if defx#is_directory()
-		return defx#do_action('open_or_close_tree')
+		return defx#do_action('open_tree', ['nested', 'toggle'])
 	endif
 	return defx#do_action('multi', ['drop', 'quit'])
 endfunction
@@ -92,7 +92,7 @@ function! s:defx_mappings() abort
 	nnoremap <silent><buffer><expr> e     <SID>defx_toggle_tree()
 	nnoremap <silent><buffer><expr> l     <SID>defx_toggle_tree()
 	nnoremap <silent><buffer><expr> h     defx#do_action('close_tree')
-	nnoremap <silent><buffer><expr> t     defx#do_action('open_tree_recursive')
+	nnoremap <silent><buffer><expr> t     defx#do_action('open_tree', 'recursive')
 	nnoremap <silent><buffer><expr> st    defx#do_action('multi', [['drop', 'tabnew'], 'quit'])
 	nnoremap <silent><buffer><expr> sg    defx#do_action('multi', [['drop', 'vsplit'], 'quit'])
 	nnoremap <silent><buffer><expr> sv    defx#do_action('multi', [['drop', 'split'], 'quit'])

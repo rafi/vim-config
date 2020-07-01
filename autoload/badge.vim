@@ -42,7 +42,7 @@ let g:badge_project_separator = get(g:, 'badge_project_separator', '')
 augroup statusline_cache
 	autocmd!
 	autocmd BufWritePre,FileChangedShellPost * unlet! b:badge_cache_trails
-	autocmd BufReadPost,BufFilePost,BufNewFile *
+	autocmd BufReadPost,BufFilePost,BufNewFile,BufWritePost *
 		\ unlet! b:badge_cache_filename b:badge_cache_tab
 augroup END
 
