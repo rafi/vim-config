@@ -138,6 +138,9 @@ nnoremap <Leader>cp yap<S-}>p
 " Remove spaces at the end of lines
 nnoremap <Leader>cw :<C-u>silent! keeppatterns %substitute/\s\+$//e<CR>
 
+nnoremap <C-S-N> :Denite file/rec<CR>
+nnoremap <C-S-M> :Denite grep -no-start-filter<CR>
+
 " }}}
 " Search & Replace {{{
 " ----------------
