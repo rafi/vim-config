@@ -65,6 +65,12 @@
     let g:html5_microdata_attributes_complete = 0
     let g:html5_aria_attributes_complete = 0
 
+- repo: turbio/bracey.vim
+  on_ft: html
+  hook_add: |
+    let g:bracey_auto_start_browser = 0
+    let g:bracey_server_port = 54321
+
 # Markdown related
 - repo: plasticboy/vim-markdown
   on_ft: markdown

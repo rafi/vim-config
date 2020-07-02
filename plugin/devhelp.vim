@@ -30,7 +30,8 @@ function! s:show_help(word, ...)
 	if executable('/Applications/Dash.app/Contents/MacOS/Dash')
 		execute '!open -g dash://' . l:expr
 	elseif executable('zeal')
-		execute '!zeal --query "' . l:expr . '"'
+		"execute '!zeal "' . l:expr . '"'
+		execute '!zeal "' . word . '"'
 	endif
 	redraw!
 endfunction
