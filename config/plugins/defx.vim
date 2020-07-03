@@ -79,7 +79,7 @@ endfunction
 function! s:defx_toggle_tree() abort
 	" Open current file, or toggle directory expand/collapse
 	if defx#is_directory()
-		return defx#do_action('open_or_close_tree')
+		return defx#do_action('open_tree', ['nested', 'toggle'])
 	endif
 	return defx#do_action('multi', ['drop', 'quit'])
 endfunction

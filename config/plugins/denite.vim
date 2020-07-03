@@ -10,7 +10,6 @@ endif
 " Denite general settings
 call denite#custom#option('_', {
 	\ 'prompt': '❯',
-	\ 'auto_resume': 1,
 	\ 'start_filter': 1,
 	\ 'statusline': 1,
 	\ 'smartcase': 1,
@@ -73,24 +72,8 @@ call denite#custom#source(
 
 " FIND and GREP COMMANDS
 " ---
-" The Silver Searcher (ag)
-if executable('ag')
-	call denite#custom#var('file/rec', 'command',
-		\ ['ag', '--hidden', '--follow', '--nocolor', '--nogroup', '-g', ''])
-
-	" Setup ignore patterns in your .agignore file! Skipping VCS ignores.
-	" https://github.com/ggreer/the_silver_searcher/wiki/Advanced-Usage
-	call denite#custom#var('grep', {
-		\ 'command': ['ag'],
-		\ 'default_opts': ['--vimgrep', '-i', '--hidden'],
-		\ 'recursive_opts': [],
-		\ 'pattern_opt': [],
-		\ 'final_opts': [],
-		\ 'separator': ['--'],
-		\ })
-
 " Ripgrep
-elseif executable('rg')
+if executable('rg')
 	call denite#custom#var('file/rec', 'command',
 		\ ['rg', '--files', '--glob', '!.git'])
 
@@ -99,8 +82,20 @@ elseif executable('rg')
 		\ 'default_opts': ['-i', '--vimgrep', '--no-heading'],
 		\ 'recursive_opts': [],
 		\ 'pattern_opt': ['--regexp'],
-		\ 'final_opts': [],
-		\ 'separator': ['--'],
+		\ })
+
+" The Silver Searcher (ag)
+elseif executable('ag')
+	call denite#custom#var('file/rec', 'command',
+		\ ['ag', '--hidden', '--follow', '--nocolor', '--nogroup', '-g', ''])
+
+	" Setup ignore patterns in your .agignore file!
+	" https://github.com/ggreer/the_silver_searcher/wiki/Advanced-Usage
+	call denite#custom#var('grep', {
+		\ 'command': ['ag'],
+		\ 'default_opts': ['--vimgrep', '-i', '--hidden'],
+		\ 'recursive_opts': [],
+		\ 'pattern_opt': [],
 		\ })
 
 " Ack command
@@ -113,8 +108,6 @@ elseif executable('ack')
 		\ ],
 		\ 'recursive_opts': [],
 		\ 'pattern_opt': ['--match'],
-		\ 'separator': ['--'],
-		\ 'final_opts': [],
 		\ })
 endif
 
@@ -196,10 +189,15 @@ function! s:denite_filter_settings() abort
 	imap <silent><buffer> <Esc>       <Plug>(denite_filter_quit)
 	nmap <silent><buffer> <C-c>       <Plug>(denite_filter_quit)
 	imap <silent><buffer> <C-c>       <Plug>(denite_filter_quit)
-	inoremap <silent><buffer> <Tab>
-		\ <Esc><C-w>p:call cursor(line('.')+1,0)<CR><C-w>pA
-	inoremap <silent><buffer> <S-Tab>
-		\ <Esc><C-w>p:call cursor(line('.')-1,0)<CR><C-w>pA
+
+	inoremap <silent><buffer> <Tab> <Esc>
+		\ :call denite#move_to_parent()<CR>
+		\ :call cursor(line('.')+1,0)<CR>
+		\ :call denite#move_to_filter()<CR>A
+	inoremap <silent><buffer> <S-Tab> <Esc>
+		\ :call denite#move_to_parent()<CR>
+		\ :call cursor(line('.')-1,0)<CR>
+		\ :call denite#move_to_filter()<CR>A
 endfunction
 
 " vim: set ts=2 sw=2 tw=80 noet :
