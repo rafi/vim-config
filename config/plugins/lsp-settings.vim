@@ -25,5 +25,5 @@ augroup lsp_user_plugin
 
 	autocmd User lsp_buffer_enabled call <SID>on_lsp_buffer_enabled()
 
-	autocmd CompleteDone * if pumvisible() == 0 | pclose | endif
+	"autocmd CompleteDone * if pumvisible() == 0 | pclose | endif
 augroup END
