@@ -173,11 +173,11 @@ if exists('+inccommand')
 endif
 
 if executable('rg')
-	set grepformat=%f:%l:%m
-	let &grepprg = 'rg --vimgrep' . (&smartcase ? ' --smart-case' : '')
+	set grepformat=%f:%l:%c:%m
+	let &grepprg = 'rg --vimgrep' . (&smartcase ? ' --smart-case' : '') . ' --'
 elseif executable('ag')
-	set grepformat=%f:%l:%m
-	let &grepprg = 'ag --vimgrep' . (&smartcase ? ' --smart-case' : '')
+	set grepformat=%f:%l:%c:%m
+	let &grepprg = 'ag --vimgrep' . (&smartcase ? ' --smart-case' : '') . ' --'
 endif
 
 " }}}
