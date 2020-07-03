@@ -37,6 +37,11 @@
     highlight! link ClapMatches Function
     highlight! link ClapNoMatchesFound WarningMsg
 
+# ==========================================
+# Coding Productivity
+# ------------
+- repo: wakatime/vim-wakatime
+
 # GUI only:
 - { repo: equalsraf/neovim-gui-shim, if: has('gui_running') }
 
