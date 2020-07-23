@@ -134,6 +134,7 @@ augroup END
 if has('nvim')
 	augroup user_secure
 		silent! autocmd BufNewFile,BufReadPre
+			\ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*,/private/var/*,.vault.vim
 			\ setlocal shada=
 	augroup END
 endif
