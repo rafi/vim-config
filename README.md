@@ -275,6 +275,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [pangloss/vim-javascript] | Enhanced Javascript syntax
 | [HerringtonDarkholme/yats.vim] | Advanced TypeScript Syntax Highlighting
 | [MaxMEllon/vim-jsx-pretty] | React JSX syntax pretty highlighting
+| [leafOfTree/vim-svelte-plugin] | Syntax and indent plugin for Svelte
 | [heavenshell/vim-jsdoc] | Generate JSDoc to your JavaScript code
 | [jparise/vim-graphql] | GraphQL file detection, syntax highlighting, and indentation
 | [moll/vim-node] | Superb development with Node.js
@@ -321,7 +322,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [liuchengxu/vim-which-key] | Shows key-bindings in pop-up
 | [mbbill/undotree] | Ultimate undo history visualizer
 | [reedes/vim-wordy] | Uncover usage problems in your writing
-| [brooth/far.vim] | Fast find and replace plugin
 | [jreybert/vimagit] | Ease your git work-flow within Vim
 | [tweekmonster/helpful.vim] | Display vim version numbers in docs
 | [lambdalisue/gina.vim] | Asynchronously control git repositories
@@ -330,6 +330,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [guns/xterm-color-table.vim] | Display 256 xterm colors with their RGB equivalents
 | [cocopon/colorswatch.vim] | Generate a beautiful color swatch for the current buffer
 | [dstein64/vim-startuptime] | Visually profile Vim's startup time
+| [brooth/far.vim] | Fast find and replace plugin
 | [jaawerth/nrun.vim] | "which" and "exec" functions targeted at local node project bin
 | [Vigemus/iron.nvim] | Interactive REPL over Neovim
 | [kana/vim-niceblock] | Make blockwise Visual mode more useful
@@ -355,7 +356,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [machakann/vim-highlightedyank] | Make the yanked region apparent
 | [wellle/context.vim] | Show context of current visible code hierarchy
 | [itchyny/cursorword] | Underlines word under cursor
-| [norcalli/nvim-colorizer.lua] | The fastest Neovim colorizer
 | [airblade/vim-gitgutter] | Show git changes at Vim gutter and un/stages hunks
 | [kshenoy/vim-signature] | Display and toggle marks
 | [nathanaelkane/vim-indent-guides] | Visually display indent levels in code
@@ -363,7 +363,9 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [junegunn/goyo] | Distraction-free writing
 | [junegunn/limelight] | Hyperfocus-writing
 | [itchyny/calendar.vim] | Calendar application
+| [deris/vim-shot-f] | Highlight characters to move directly with f/t/F/T
 | [vimwiki/vimwiki] | Personal Wiki for Vim
+| [norcalli/nvim-colorizer.lua] | The fastest Neovim colorizer
 
 #### Completion & Code-Analysis
 
@@ -376,6 +378,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [mattn/vim-lsp-settings] | Auto LSP configurations for vim-lsp
 | [Shougo/neco-vim] | Completion source for Vimscript
 | [prabirshrestha/asyncomplete-necovim.vim] | Provides syntax autocomplete via neco-vim
+| [prabirshrestha/asyncomplete-buffer.vim] | Provides buffer autocomplete
 | [prabirshrestha/asyncomplete-tags.vim] | Provides tag autocomplete via vim tagfiles
 | [prabirshrestha/asyncomplete-file.vim] | Provides file autocomplete
 | [wellle/tmux-complete.vim] | Completion of words in adjacent tmux panes
@@ -442,6 +445,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [pangloss/vim-javascript]: https://github.com/pangloss/vim-javascript
 [HerringtonDarkholme/yats.vim]: https://github.com/HerringtonDarkholme/yats.vim
 [MaxMEllon/vim-jsx-pretty]: https://github.com/MaxMEllon/vim-jsx-pretty
+[leafOfTree/vim-svelte-plugin]: https://github.com/leafOfTree/vim-svelte-plugin
 [heavenshell/vim-jsdoc]: https://github.com/heavenshell/vim-jsdoc
 [jparise/vim-graphql]: https://github.com/jparise/vim-graphql
 [moll/vim-node]: https://github.com/moll/vim-node
@@ -484,7 +488,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [liuchengxu/vim-which-key]: https://github.com/liuchengxu/vim-which-key
 [mbbill/undotree]: https://github.com/mbbill/undotree
 [reedes/vim-wordy]: https://github.com/reedes/vim-wordy
-[brooth/far.vim]: https://github.com/brooth/far.vim
 [jreybert/vimagit]: https://github.com/jreybert/vimagit
 [tweekmonster/helpful.vim]: https://github.com/tweekmonster/helpful.vim
 [lambdalisue/gina.vim]: https://github.com/lambdalisue/gina.vim
@@ -493,6 +496,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [guns/xterm-color-table.vim]: https://github.com/guns/xterm-color-table.vim
 [cocopon/colorswatch.vim]: https://github.com/cocopon/colorswatch.vim
 [dstein64/vim-startuptime]: https://github.com/dstein64/vim-startuptime
+[brooth/far.vim]: https://github.com/brooth/far.vim
 [jaawerth/nrun.vim]: https://github.com/jaawerth/nrun.vim
 [Vigemus/iron.nvim]: https://github.com/Vigemus/iron.nvim
 [kana/vim-niceblock]: https://github.com/kana/vim-niceblock
@@ -514,7 +518,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [machakann/vim-highlightedyank]: https://github.com/machakann/vim-highlightedyank
 [wellle/context.vim]: https://github.com/wellle/context.vim
 [itchyny/cursorword]: https://github.com/itchyny/vim-cursorword
-[norcalli/nvim-colorizer.lua]: https://github.com/norcalli/nvim-colorizer.lua
 [airblade/vim-gitgutter]: https://github.com/airblade/vim-gitgutter
 [kshenoy/vim-signature]: https://github.com/kshenoy/vim-signature
 [nathanaelkane/vim-indent-guides]: https://github.com/nathanaelkane/vim-indent-guides
@@ -522,7 +525,9 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [junegunn/goyo]: https://github.com/junegunn/goyo.vim
 [junegunn/limelight]: https://github.com/junegunn/limelight.vim
 [itchyny/calendar.vim]: https://github.com/itchyny/calendar.vim
+[deris/vim-shot-f]: https://github.com/deris/vim-shot-f
 [vimwiki/vimwiki]: https://github.com/vimwiki/vimwiki
+[norcalli/nvim-colorizer.lua]: https://github.com/norcalli/nvim-colorizer.lua
 
 [prabirshrestha/async.vim]: https://github.com/prabirshrestha/async.vim
 [prabirshrestha/asyncomplete.vim]: https://github.com/prabirshrestha/asyncomplete.vim
@@ -531,6 +536,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [mattn/vim-lsp-settings]: https://github.com/mattn/vim-lsp-settings
 [Shougo/neco-vim]: https://github.com/Shougo/neco-vim
 [prabirshrestha/asyncomplete-necovim.vim]: https://github.com/prabirshrestha/asyncomplete-necovim.vim
+[prabirshrestha/asyncomplete-buffer.vim]: https://github.com/prabirshrestha/asyncomplete-buffer.vim
 [prabirshrestha/asyncomplete-tags.vim]: https://github.com/prabirshrestha/asyncomplete-tags.vim
 [prabirshrestha/asyncomplete-file.vim]: https://github.com/prabirshrestha/asyncomplete-file.vim
 [wellle/tmux-complete.vim]: https://github.com/wellle/tmux-complete.vim
