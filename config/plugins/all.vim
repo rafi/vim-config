@@ -62,7 +62,7 @@ if dein#tap('denite.nvim')
 	nnoremap <silent><LocalLeader>t :<C-u>Denite tag<CR>
 	nnoremap <silent><LocalLeader>p :<C-u>Denite jump<CR>
 	nnoremap <silent><LocalLeader>h :<C-u>Denite help<CR>
-	nnoremap <silent><LocalLeader>m :<C-u>Denite file/rec -buffer-name=memo -path=~/docs/books<CR>
+	nnoremap <silent><LocalLeader>m :<C-u>Denite file/rec -buffer-name=memo -path=~/docs/blog<CR>
 	nnoremap <silent><LocalLeader>z :<C-u>Denite z -buffer-name=list<CR>
 	nnoremap <silent><LocalLeader>; :<C-u>Denite command_history command<CR>
 	nnoremap <silent><expr><LocalLeader>/ wordcount().chars > 10000 ?
@@ -94,10 +94,13 @@ if dein#tap('denite.nvim')
 endif
 
 if dein#tap('vim-lsp')
-	" Close preview window with Escape key
-	autocmd user_events User lsp_float_opened nmap <buffer> <silent> <Esc>
-		\ <Plug>(lsp-preview-close)
-	autocmd user_events User lsp_float_closed nunmap <buffer> <Esc>
+	" Close preview window with Escape or q
+	augroup user_events
+		autocmd User lsp_float_opened
+			\ nmap <buffer> <silent> <Esc> <Plug>(lsp-preview-close)
+			\ nmap <buffer> <silent> q     <Plug>(lsp-preview-close)
+		autocmd User lsp_float_closed nunmap <buffer> <Esc>
+	augroup END
 endif
 
 if dein#tap('defx.nvim')
@@ -122,7 +125,7 @@ if dein#tap('vista.vim')
 endif
 
 if dein#tap('emmet-vim')
-	autocmd user_events FileType html,css,javascript,javascriptreact
+	autocmd user_events FileType html,css,javascript,javascriptreact,svelte
 		\ EmmetInstall
 		\ | imap <buffer> <C-Return> <Plug>(emmet-expand-abbr)
 endif
@@ -139,20 +142,6 @@ endif
 if dein#tap('context.vim')
 	nmap <silent><Leader>tc :<C-u>ContextEnableWindow<CR>
 	nmap <silent><Leader>tp :<C-u>ContextPeek<CR>
-endif
-
-if dein#tap('vim-go')
-	autocmd user_events FileType go
-		\   nmap <C-]> <Plug>(go-def)
-		\ | nmap <Leader>god  <Plug>(go-describe)
-		\ | nmap <Leader>goc  <Plug>(go-callees)
-		\ | nmap <Leader>goC  <Plug>(go-callers)
-		\ | nmap <Leader>goi  <Plug>(go-info)
-		\ | nmap <Leader>gom  <Plug>(go-implements)
-		\ | nmap <Leader>gos  <Plug>(go-callstack)
-		\ | nmap <Leader>goe  <Plug>(go-referrers)
-		\ | nmap <Leader>gor  <Plug>(go-run)
-		\ | nmap <Leader>gov  <Plug>(go-vet)
 endif
 
 if dein#tap('iron.nvim')
@@ -278,6 +267,23 @@ endif
 
 if dein#tap('goyo.vim')
 	nnoremap <Leader>G :Goyo<CR>
+endif
+
+if dein#tap('vim-shot-f')
+	nmap f  <Plug>(shot-f-f)
+	nmap F  <Plug>(shot-f-F)
+	nmap t  <Plug>(shot-f-t)
+	nmap T  <Plug>(shot-f-T)
+	xmap f  <Plug>(shot-f-f)
+	xmap F  <Plug>(shot-f-F)
+	xmap t  <Plug>(shot-f-t)
+	xmap T  <Plug>(shot-f-T)
+	omap f  <Plug>(shot-f-f)
+	omap F  <Plug>(shot-f-F)
+	omap t  <Plug>(shot-f-t)
+	omap T  <Plug>(shot-f-T)
+	" highlight default ShotFGraph ctermfg=red ctermbg=NONE cterm=bold guifg=red guibg=NONE gui=bold
+	" highlight default ShotFBlank ctermfg=NONE ctermbg=red cterm=bold guifg=NONE guibg=red gui=bold
 endif
 
 if dein#tap('vimwiki')

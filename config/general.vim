@@ -54,21 +54,13 @@ endif
 " --------
 if has('wildmenu')
 	if ! has('nvim')
-		set wildmode=list:longest
+		set nowildmenu
+		set wildmode=list:longest,full
 	endif
-
-	" if has('nvim')
-	" 	set wildoptions=pum
-	" else
-	" 	set nowildmenu
-	" 	set wildmode=list:longest,full
-	" 	set wildoptions=tagfile
-	" endif
 	set wildignorecase
 	set wildignore+=.git,.hg,.svn,.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
 	set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
 	set wildignore+=**/node_modules/**,**/bower_modules/**,*/.sass-cache/*
-	set wildignore+=application/vendor/**,**/vendor/ckeditor/**,media/vendor/**
 	set wildignore+=__pycache__,*.egg-info,.pytest_cache,.mypy_cache/**
 	set wildcharm=<C-z>  " substitue for 'wildchar' (<Tab>) in macros
 endif
@@ -123,12 +115,14 @@ if exists('&backupskip')
 	set backupskip+=.vault.vim
 endif
 
-" Disable swap/undo/viminfo/shada files in temp directories or shm
+" Disable swap/undo/viminfo files in temp directories or shm
 augroup user_secure
 	autocmd!
 	silent! autocmd BufNewFile,BufReadPre
 		\ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*,/private/var/*,.vault.vim
-		\ setlocal noswapfile noundofile nobackup nowritebackup viminfo= shada=
+		\ setlocal noswapfile noundofile
+		\ | set nobackup nowritebackup
+		\ | if has('nvim') | set shada= | else | set viminfo= | endif
 augroup END
 
 " }}}
@@ -210,6 +204,11 @@ if has('patch-8.1.0360') || has('nvim-0.4')
 	" set diffopt=indent-heuristic,algorithm:patience
 endif
 
+" Use the new Neovim :h jumplist-stack
+if has('nvim-0.5')
+	set jumpoptions=stack
+endif
+
 " }}}
 " Editor UI {{{
 " --------------------
@@ -245,9 +244,9 @@ if has('folding') && has('vim_starting')
 endif
 
 if has('nvim-0.4')
-	set signcolumn=yes:1
+	set signcolumn=auto:1
 else
-	set signcolumn=yes           " Always show signs column
+	set signcolumn=auto          " Always show signs column
 endif
 
 " UI Symbols

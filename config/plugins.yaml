@@ -28,7 +28,7 @@
   merged: 0
   hook_add: |
     let g:clap_cache_directory = $DATA_PATH . '/clap'
-    let g:clap_theme = 'material_design_dark'
+    let g:clap_theme = 'atom_dark'
     let g:clap_layout = { 'relative': 'editor' }
     let g:clap_enable_icon = 1
     let g:clap_search_box_border_style = 'curve'
@@ -117,6 +117,7 @@
   depends: vim-javascript
   hook_add: let g:vim_jsx_pretty_colorful_config = 1
 
+- { repo: leafOfTree/vim-svelte-plugin, depends: yats.vim, on_ft: svelte }
 - { repo: heavenshell/vim-jsdoc, on_ft: [ javascript, javascriptreact ] }
 - { repo: jparise/vim-graphql, on_ft: [ javascript, javascriptreact ] }
 - { repo: moll/vim-node, on_ft: [ javascript, javascriptreact ] }
@@ -133,7 +134,7 @@
 
 # Golang related
 - repo: fatih/vim-go
-  if: has('nvim-0.3.2') || has('patch-8.0.1453')
+  if: has('nvim-0.4.0') || has('patch-8.0.1453')
   on_ft: [ go, gomod ]
   hook_add: |
     let g:go_gopls_enabled = 0
@@ -219,7 +220,6 @@
 - { repo: liuchengxu/vim-which-key, on_cmd: WhichKey }
 - { repo: mbbill/undotree, on_cmd: UndotreeToggle }
 - { repo: reedes/vim-wordy, on_cmd: [ Wordy, NextWordy, PrevWordy ]}
-- { repo: brooth/far.vim, on_cmd: [ Far, Farp, F ] }
 - { repo: jreybert/vimagit, on_cmd: Magit }
 - { repo: tweekmonster/helpful.vim, on_cmd: HelpfulVersion }
 - { repo: lambdalisue/gina.vim, on_cmd: Gina }
@@ -228,6 +228,17 @@
 - { repo: guns/xterm-color-table.vim, on_cmd: XtermColorTable }
 - { repo: cocopon/colorswatch.vim, on_cmd: ColorSwatchGenerate }
 - { repo: dstein64/vim-startuptime, on_cmd: StartupTime }
+
+- repo: brooth/far.vim
+  on_cmd: [ Far, Farp, F ]
+  hook_source: |-
+    if executable('rg')
+      let g:far#source = 'rg'
+    elseif executable('ag')
+      let g:far#source = 'ag'
+    elseif executable('ack')
+      let g:far#source = 'ack'
+    endif
 
 - repo: Vigemus/iron.nvim
   if: has('nvim')
@@ -327,8 +338,8 @@
 #   on_event: [ FileType, WinEnter, InsertLeave ]
 
 - repo: itchyny/vim-cursorword
-  on_event: FileType
-  hook_source: |
+  on_event: VimEnter
+  hook_source: |-
     augroup user_plugin_cursorword
       autocmd!
       autocmd FileType defx,denite,qf let b:cursorword = 0
@@ -336,11 +347,6 @@
       autocmd InsertEnter * let b:cursorword = 0
       autocmd InsertLeave * let b:cursorword = 1
     augroup END
-
-- repo: norcalli/nvim-colorizer.lua
-  if: has('nvim-0.4')
-  on_event: FileType
-  hook_source: luafile $VIM_PATH/config/plugins/colorizer.lua
 
 - repo: airblade/vim-gitgutter
   on_event: FileType
@@ -401,6 +407,10 @@
     let g:calendar_google_calendar = 1
     let g:calendar_google_task = 1
 
+- repo: deris/vim-shot-f
+  on_map: { nxo: <Plug> }
+  hook_add: let g:shot_f_no_default_key_mappings = 1
+
 - repo: vimwiki/vimwiki
   on_map: { n: <Plug> }
   on_cmd: [ VimwikiIndex, VimwikiUISelect ]
@@ -421,6 +431,11 @@
     \     'syntax': 'markdown',
     \     'ext': '.md' }
     \ ]
+
+- repo: norcalli/nvim-colorizer.lua
+  if: has('nvim-0.4')
+  on_event: FileType
+  hook_source: luafile $VIM_PATH/config/plugins/colorizer.lua
 
 # ==========================================
 # Completion and code analysis
@@ -446,6 +461,12 @@
 - repo: mattn/vim-lsp-settings
   depends: vim-lsp
   merged: 0
+  hook_add: |
+    let g:lsp_settings = {
+    \   'yaml-language-server': {
+    \     'allowlist': ['yaml', 'yaml.ansible', 'helm'],
+    \   }
+    \ }
 
 - repo: Shougo/neco-vim
   on_ft: vim
@@ -459,6 +480,20 @@
       \ 'name': 'necovim',
       \ 'allowlist': ['vim'],
       \ 'completor': function('asyncomplete#sources#necovim#completor'),
+      \ }))
+
+- repo: prabirshrestha/asyncomplete-buffer.vim
+  depends: asyncomplete.vim
+  hook_source: |
+    autocmd User asyncomplete_setup call asyncomplete#register_source(
+      \ asyncomplete#sources#buffer#get_source_options({
+      \ 'name': 'buffer',
+      \ 'allowlist': ['*'],
+      \ 'blocklist': ['go', 'denite-filter', 'clap_input'],
+      \ 'completor': function('asyncomplete#sources#buffer#completor'),
+      \ 'config': {
+      \    'max_buffer_size': 4000000,
+      \  },
       \ }))
 
 - repo: prabirshrestha/asyncomplete-tags.vim
@@ -548,7 +583,7 @@
 
 - repo: mattn/emmet-vim
   on_event: InsertEnter
-  on_ft: [ html, css, javascript, javascriptreact ]
+  on_ft: [ html, css, javascript, javascriptreact, svelte ]
   hook_source: |
     let g:user_emmet_complete_tag = 0
     let g:user_emmet_install_global = 0
@@ -571,8 +606,8 @@
   on_event: [ BufReadPost, BufWritePost ]
   hook_add: |
     let g:gutentags_cache_dir = $DATA_PATH . '/tags'
-    let g:gutentags_generate_on_write = 1
-    let g:gutentags_generate_on_missing = 1
+    let g:gutentags_generate_on_write = 0
+    let g:gutentags_generate_on_missing = 0
     let g:gutentags_generate_on_new = 0
     let g:gutentags_exclude_project_root = [ '/usr/local' ]
     let g:gutentags_exclude_filetypes = [ 'defx', 'denite', 'vista', 'magit' ]
