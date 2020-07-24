@@ -60,8 +60,13 @@ cnoremap <C-b> <Left>
 " Scroll {{{
 " ------
 
+" Scroll step sideways
 nnoremap zl z4l
 nnoremap zh z4h
+
+" Resize tab windows after top/bottom window movement
+nnoremap <C-w>K <C-w>K<C-w>=
+nnoremap <C-w>J <C-w>J<C-w>=
 
 " Improve scroll, credits: https://github.com/Shougo
 " noremap <expr> <C-f> max([winheight(0) - 2, 1])
@@ -115,8 +120,8 @@ nmap >>  >>_
 nmap <<  <<_
 
 " Drag current line/s vertically and auto-indent
-nnoremap <Leader>k :m-2<CR>
-nnoremap <Leader>j :m+<CR>
+nnoremap <Leader>k :m-2<CR>==
+nnoremap <Leader>j :m+<CR>==
 vnoremap <Leader>k :m'<-2<CR>gv=gv
 vnoremap <Leader>j :m'>+<CR>gv=gv
 
@@ -146,6 +151,9 @@ nnoremap <Leader>cw :<C-u>silent! keeppatterns %substitute/\s\+$//e<CR>
 nmap <BS> %
 xmap <BS> %
 
+" Repeat latest f, t, F or T
+nnoremap \ ;
+
 " Select last paste
 nnoremap <expr> gp '`['.strpart(getregtype(), 0, 1).'`]'
 
@@ -154,8 +162,8 @@ nnoremap <expr> gp '`['.strpart(getregtype(), 0, 1).'`]'
 " work.
 cnoremap <expr> <Tab>
 	\ getcmdtype() == '/' \|\| getcmdtype() == '?' ? '<CR>/<C-r>/' : '<C-z>'
-cnoremap <expr> <S-Tab>
-	\ getcmdtype() == '/' \|\| getcmdtype() == '?' ? '<CR>?<C-r>/' : '<S-Tab>'
+" cnoremap <expr> <S-Tab>
+"	\ getcmdtype() == '/' \|\| getcmdtype() == '?' ? '<CR>?<C-r>/' : '<S-Tab>'
 
 " Quick substitute within selected area
 xnoremap sg :s//gc<Left><Left><Left>
