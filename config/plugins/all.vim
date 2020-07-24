@@ -94,10 +94,13 @@ if dein#tap('denite.nvim')
 endif
 
 if dein#tap('vim-lsp')
-	" Close preview window with Escape key
-	autocmd user_events User lsp_float_opened nmap <buffer> <silent> <Esc>
-		\ <Plug>(lsp-preview-close)
-	autocmd user_events User lsp_float_closed nunmap <buffer> <Esc>
+	" Close preview window with Escape or q
+	augroup user_events
+		autocmd User lsp_float_opened
+			\ nmap <buffer> <silent> <Esc> <Plug>(lsp-preview-close)
+			\ nmap <buffer> <silent> q     <Plug>(lsp-preview-close)
+		autocmd User lsp_float_closed nunmap <buffer> <Esc>
+	augroup END
 endif
 
 if dein#tap('defx.nvim')

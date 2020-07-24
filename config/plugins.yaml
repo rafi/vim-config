@@ -461,6 +461,12 @@
 - repo: mattn/vim-lsp-settings
   depends: vim-lsp
   merged: 0
+  hook_add: |
+    let g:lsp_settings = {
+    \   'yaml-language-server': {
+    \     'allowlist': ['yaml', 'yaml.ansible', 'helm'],
+    \   }
+    \ }
 
 - repo: Shougo/neco-vim
   on_ft: vim
