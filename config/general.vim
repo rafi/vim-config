@@ -115,12 +115,14 @@ if exists('&backupskip')
 	set backupskip+=.vault.vim
 endif
 
-" Disable swap/undo/viminfo/shada files in temp directories or shm
+" Disable swap/undo/viminfo files in temp directories or shm
 augroup user_secure
 	autocmd!
 	silent! autocmd BufNewFile,BufReadPre
 		\ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*,/private/var/*,.vault.vim
-		\ setlocal noswapfile noundofile nobackup nowritebackup viminfo= shada=
+		\ setlocal noswapfile noundofile
+		\ | set nobackup nowritebackup
+		\ | if has('nvim') | set shada= | else | set viminfo= | endif
 augroup END
 
 " }}}
