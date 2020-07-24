@@ -7,6 +7,7 @@ require 'colorizer'.setup {
   scss = { rgb_fn = true; };
   sass = { rgb_fn = true; };
   stylus = { rgb_fn = true; };
+  svelte = { rgb_fn = true; };
   vim = { names = false; };
   tmux = { names = false; };
   'javascript';

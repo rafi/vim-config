@@ -28,7 +28,7 @@
   merged: 0
   hook_add: |
     let g:clap_cache_directory = $DATA_PATH . '/clap'
-    let g:clap_theme = 'material_design_dark'
+    let g:clap_theme = 'atom_dark'
     let g:clap_layout = { 'relative': 'editor' }
     let g:clap_enable_icon = 1
     let g:clap_search_box_border_style = 'curve'
@@ -134,7 +134,7 @@
 
 # Golang related
 - repo: fatih/vim-go
-  if: has('nvim-0.3.2') || has('patch-8.0.1453')
+  if: has('nvim-0.4.0') || has('patch-8.0.1453')
   on_ft: [ go, gomod ]
   hook_add: |
     let g:go_gopls_enabled = 0
@@ -338,8 +338,8 @@
 #   on_event: [ FileType, WinEnter, InsertLeave ]
 
 - repo: itchyny/vim-cursorword
-  on_event: FileType
-  hook_source: |
+  on_event: VimEnter
+  hook_source: |-
     augroup user_plugin_cursorword
       autocmd!
       autocmd FileType defx,denite,qf let b:cursorword = 0
@@ -577,7 +577,7 @@
 
 - repo: mattn/emmet-vim
   on_event: InsertEnter
-  on_ft: [ html, css, javascript, javascriptreact ]
+  on_ft: [ html, css, javascript, javascriptreact, svelte ]
   hook_source: |
     let g:user_emmet_complete_tag = 0
     let g:user_emmet_install_global = 0
@@ -600,8 +600,8 @@
   on_event: [ BufReadPost, BufWritePost ]
   hook_add: |
     let g:gutentags_cache_dir = $DATA_PATH . '/tags'
-    let g:gutentags_generate_on_write = 1
-    let g:gutentags_generate_on_missing = 1
+    let g:gutentags_generate_on_write = 0
+    let g:gutentags_generate_on_missing = 0
     let g:gutentags_generate_on_new = 0
     let g:gutentags_exclude_project_root = [ '/usr/local' ]
     let g:gutentags_exclude_filetypes = [ 'defx', 'denite', 'vista', 'magit' ]
