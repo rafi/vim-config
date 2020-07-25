@@ -96,7 +96,7 @@ function! s:defx_mappings() abort
 	nnoremap <silent><buffer><expr> st    defx#do_action('multi', [['drop', 'tabnew'], 'quit'])
 	nnoremap <silent><buffer><expr> sg    defx#do_action('multi', [['drop', 'vsplit'], 'quit'])
 	nnoremap <silent><buffer><expr> sv    defx#do_action('multi', [['drop', 'split'], 'quit'])
-	nnoremap <silent><buffer><expr> P     defx#do_action('open', 'pedit')
+	nnoremap <silent><buffer><expr> P     defx#do_action('preview')
 	nnoremap <silent><buffer><expr> y     defx#do_action('yank_path')
 	nnoremap <silent><buffer><expr> x     defx#do_action('execute_system')
 	nnoremap <silent><buffer><expr> gx    defx#do_action('execute_system')
@@ -142,7 +142,7 @@ function! s:defx_mappings() abort
 
 	" Tools
 	nnoremap <silent><buffer><expr> w   defx#do_action('call', '<SID>toggle_width')
-	nnoremap <silent><buffer><expr> gd  defx#async_action('multi', ['drop', ['call', '<SID>git_diff']])
+	nnoremap <silent><buffer><expr> gd  defx#async_action('multi', ['drop', 'quit', ['call', '<SID>git_diff']])
 	nnoremap <silent><buffer><expr> gr  defx#do_action('call', '<SID>grep')
 	nnoremap <silent><buffer><expr> gf  defx#do_action('call', '<SID>find_files')
 	if exists('$TMUX')
@@ -154,7 +154,7 @@ endfunction
 " ---
 
 function! s:git_diff(context) abort
-	execute 'GdiffThis'
+	Gdiffsplit
 endfunction
 
 function! s:find_files(context) abort
