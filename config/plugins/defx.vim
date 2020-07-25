@@ -9,7 +9,7 @@ call defx#custom#option('_', {
 	\ 'direction': 'topleft',
 	\ 'show_ignored_files': 0,
 	\ 'columns': 'indent:git:icons:filename',
-	\ 'root_marker': ' ',
+	\ 'root_marker': '',
 	\ 'ignored_files':
 	\     '.mypy_cache,.pytest_cache,.git,.hg,.svn,.stversions'
 	\   . ',__pycache__,.sass-cache,*.egg-info,.DS_Store,*.pyc'
@@ -29,6 +29,7 @@ call defx#custom#column('git', {
 	\ })
 
 call defx#custom#column('mark', { 'readonly_icon': '', 'selected_icon': '' })
+call defx#custom#column('filename', { 'root_marker_highlight': 'Comment' })
 
 " defx-icons plugin
 let g:defx_icons_column_length = 2
@@ -177,8 +178,8 @@ function! s:toggle_width(context) abort
 	" Toggle between defx window width and longest line
 	let l:max = 0
 	for l:line in range(1, line('$'))
-		let l:len = len(getline(l:line))
-		let l:max = max([l:len, l:max])
+		let l:len = strdisplaywidth(substitute(getline(l:line), '\s\+$', '', ''))
+		let l:max = max([l:len + 1, l:max])
 	endfor
 	let l:new = l:max == winwidth(0) ? s:original_width : l:max
 	call defx#call_action('resize', l:new)
