@@ -133,19 +133,19 @@ highlight! CurrentWordTwins ctermbg=235 guibg=#252A3D cterm=NONE gui=NONE
 " highlight! link mkdLineBreak      NONE
 " }}}
 
-" Plugin: Defx icons and highlights {{{
+" Plugin: Defx and plugins {{{
 " ---
-highlight! defxSelected             ctermbg=97 guibg=#36202b
-highlight Defx_filename_3_Modified  ctermfg=1  guifg=#D370A3
-highlight Defx_filename_3_Staged    ctermfg=10 guifg=#A3D572
-highlight Defx_filename_3_Ignored   ctermfg=8  guifg=#404660
-highlight link Defx_filename_3_root_marker Comment
+highlight def link Defx_filename_directory  Directory
 
-highlight def link Defx_filename_3_Untracked Comment
-highlight def link Defx_filename_3_Unknown Comment
-highlight def link Defx_filename_3_Renamed Title
-highlight def link Defx_filename_3_Unmerged Label
-" highlight Defx_git_Deleted   ctermfg=13 guifg=#b294bb
+highlight! Defx_git_Modified  ctermfg=1   guifg=#D370A3
+highlight! Defx_git_Staged    ctermfg=10  guifg=#A3D572
+highlight! Defx_git_Deleted   ctermfg=167 guifg=#fb4934
+highlight def link Defx_git_Renamed   Title
+highlight def link Defx_git_Unmerged  Label
+highlight def link Defx_git_Untracked Comment
+highlight def link Defx_git_Ignored   Comment
+highlight def link Defx_git_Unknown   Comment
+
 " }}}
 
 " Plugin: Ale {{{

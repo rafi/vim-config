@@ -86,7 +86,7 @@ function! s:build_menu(cword)
 	let l:items = extend(l:items, [
 		\ { 'word': 'Lint', 'user_data': 'Neomake' },
 		\ { 'word': 'Bookmark', 'user_data': 'BookmarkToggle' },
-		\ { 'word': 'Git diff', 'user_data': 'GdiffThis' },
+		\ { 'word': 'Git diff', 'user_data': 'Gdiffsplit' },
 		\ { 'word': 'Unsaved diff', 'user_data': 'DiffOrig' },
 		\ { 'word': 'Open in browser', 'user_data': 'OpenSCM' },
 		\ ])

@@ -5,19 +5,21 @@ XDG_CACHE_HOME ?= $(HOME)/.cache
 
 default: install
 
-install:
-	@mkdir -vp "$(XDG_CACHE_HOME)/vim/"{backup,session,swap,tags,undo}; \
-	$(vim) -V1 -es -i NONE -N -u config/init.vim -c "try | call dein#update() | finally | echomsg '' | qall! | endtry"
-
-update-repo:
-	@git pull --ff --ff-only
-
-update-plugins:
-	$(vim) -V1 -es -i NONE -N -u config/init.vim -c "try | call dein#clear_state() | call dein#update() | finally | qall! | endtry"
+install: create-dirs update-plugins
 
 update: update-repo update-plugins
 
 upgrade: update
+
+create-dirs:
+	@mkdir -vp "$(XDG_CACHE_HOME)/vim/"{backup,session,swap,tags,undo}
+
+update-repo:
+	git pull --ff --ff-only
+
+update-plugins:
+	$(vim) -V1 -es -i NONE -N --noplugin -u config/init.vim \
+		-c "try | call dein#clear_state() | call dein#update() | finally | messages | qall! | endtry"
 
 uninstall:
 	rm -rf "$(XDG_CACHE_HOME)/vim"
@@ -41,4 +43,4 @@ else
 endif
 	@echo All tests passed, hooray!
 
-.PHONY: install update-repo update-plugins update upgrade uninstall test
+.PHONY: install create-dirs update-repo update-plugins uninstall test
