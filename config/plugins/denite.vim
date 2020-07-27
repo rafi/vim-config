@@ -10,26 +10,26 @@ endif
 " Denite general settings
 call denite#custom#option('_', {
 	\ 'prompt': '❯',
-	\ 'start_filter': 1,
-	\ 'statusline': 1,
-	\ 'smartcase': 1,
-	\ 'vertical_preview': 1,
+	\ 'start_filter': v:true,
+	\ 'smartcase': v:true,
+	\ 'vertical_preview': v:true,
+	\ 'source_names': 'short',
 	\ 'max_dynamic_update_candidates': 50000,
 	\ })
+
+" Use Neovim's floating window
+if has('nvim-0.4')
+	call denite#custom#option('_', {
+		\ 'highlight_filter_background': 'NormalFloat',
+		\ 'split': 'floating',
+		\ 'filter_split_direction': 'floating',
+		\ 'floating_preview': v:true,
+		\ })
+endif
 
 " Interactive grep search
 call denite#custom#var('grep', 'min_interactive_pattern', 2)
 call denite#custom#source('grep', 'args', ['', '', '!'])
-
-" Use Neovim's floating window
-if has('nvim')
-	call denite#custom#option('_', {
-		\ 'statusline': 0,
-		\ 'split': 'floating',
-		\ 'floating_preview': 1,
-		\ 'filter_split_direction': 'floating',
-		\ })
-endif
 
 " Allow customizable window positions: top, bottom, center (default)
 function! s:denite_resize(position)
@@ -59,6 +59,16 @@ call s:denite_resize(g:denite_position)
 " MATCHERS
 " Default is 'matcher/fuzzy'
 call denite#custom#source('tag', 'matchers', ['matcher/substring'])
+call denite#custom#source('file/old', 'matchers', [
+	\ 'matcher/project_files', 'matcher/ignore_globs' ])
+
+" Use vim-clap's rust binary, called maple
+if dein#tap('vim-clap')
+	call denite#custom#filter('matcher/clap', 'clap_path',
+		\ dein#get('vim-clap')['path'])
+
+	call denite#custom#source('file/rec', 'matchers', [ 'matcher/clap' ])
+endif
 
 " SORTERS
 " Default is 'sorter/rank'
@@ -67,7 +77,7 @@ call denite#custom#source('z', 'sorters', ['sorter_z'])
 " CONVERTERS
 " Default is none
 call denite#custom#source(
-	\ 'buffer,file_mru,file_old',
+	\ 'buffer,file_mru,file/old',
 	\ 'converters', ['converter_relative_word'])
 
 " FIND and GREP COMMANDS
@@ -75,7 +85,7 @@ call denite#custom#source(
 " Ripgrep
 if executable('rg')
 	call denite#custom#var('file/rec', 'command',
-		\ ['rg', '--files', '--glob', '!.git'])
+		\ ['rg', '--files', '--glob', '!.git', '--color', 'never'])
 
 	call denite#custom#var('grep', {
 		\ 'command': ['rg'],
