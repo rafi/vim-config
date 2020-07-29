@@ -1,49 +1,6 @@
 " Plugin Keyboard-Mappings
 " ---
 
-if dein#tap('vim-clap')
-	" nnoremap <silent><LocalLeader>f :<C-u>Clap! files<CR>
-	" nnoremap <silent><LocalLeader>b :<C-u>Clap! buffers<CR>
-	" nnoremap <silent><LocalLeader>g :<C-u>Clap! grep<CR>
-	" nnoremap <silent><LocalLeader>j :<C-u>Clap! jumps<CR>
-	" nnoremap <silent><LocalLeader>h :<C-u>Clap! help_tags<CR>
-	" nnoremap <silent><LocalLeader>t :<C-u>Clap! tags<CR>
-	" nnoremap <silent><LocalLeader>l :<C-u>Clap! loclist<CR>
-	" nnoremap <silent><LocalLeader>q :<C-u>Clap! quickfix<CR>
-	" nnoremap <silent><LocalLeader>m :<C-u>Clap! files ~/docs/books<CR>
-	" nnoremap <silent><LocalLeader>y :<C-u>Clap! yanks<CR>
-	" nnoremap <silent><LocalLeader>/ :<C-u>Clap! lines<CR>
-	" nnoremap <silent><LocalLeader>* :<C-u>Clap! lines ++query=<cword><CR>
-	" nnoremap <silent><LocalLeader>; :<C-u>Clap! command_history<CR>
-
-	" nnoremap <silent><Leader>gl :<C-u>Clap! commits<CR>
-	" nnoremap <silent><Leader>gt :<C-u>Clap! tags ++query=<cword><CR>
-	" xnoremap <silent><Leader>gt :<C-u>Clap! tags ++query=@visual<CR><CR>
-	" nnoremap <silent><Leader>gf :<C-u>Clap! files ++query=<cword><CR>
-	" xnoremap <silent><Leader>gf :<C-u>Clap! files ++query=@visual<CR><CR>
-	" nnoremap <silent><Leader>gg :<C-u>Clap! grep ++query=<cword><CR>
-	" xnoremap <silent><Leader>gg :<C-u>Clap! grep ++query=@visual<CR><CR>
-
-	autocmd user_events FileType clap_input call s:clap_mappings()
-
-	function! s:clap_mappings()
-		nnoremap <silent> <buffer> <nowait>' :call clap#handler#tab_action()<CR>
-		inoremap <silent> <buffer> <Tab>   <C-R>=clap#navigation#linewise('down')<CR>
-		inoremap <silent> <buffer> <S-Tab> <C-R>=clap#navigation#linewise('up')<CR>
-		nnoremap <silent> <buffer> <C-f> :<c-u>call clap#navigation#scroll('down')<CR>
-		nnoremap <silent> <buffer> <C-b> :<c-u>call clap#navigation#scroll('up')<CR>
-
-		nnoremap <silent> <buffer> sg  :<c-u>call clap#handler#try_open('ctrl-v')<CR>
-		nnoremap <silent> <buffer> sv  :<c-u>call clap#handler#try_open('ctrl-x')<CR>
-		nnoremap <silent> <buffer> st  :<c-u>call clap#handler#try_open('ctrl-t')<CR>
-
-		nnoremap <silent> <buffer> q     :<c-u>call clap#handler#exit()<CR>
-		nnoremap <silent> <buffer> <Esc> :call clap#handler#exit()<CR>
-		inoremap <silent> <buffer> <Esc> <C-R>=clap#navigation#linewise('down')<CR><C-R>=clap#navigation#linewise('up')<CR><Esc>
-		inoremap <silent> <buffer> jj    <C-R>=clap#navigation#linewise('down')<CR><C-R>=clap#navigation#linewise('up')<CR><Esc>
-	endfunction
-endif
-
 if dein#tap('denite.nvim')
 	nnoremap <silent><LocalLeader>r :<C-u>Denite -resume -refresh -no-start-filter<CR>
 	nnoremap <silent><LocalLeader>f :<C-u>Denite file/rec<CR>
@@ -86,6 +43,49 @@ if dein#tap('denite.nvim')
 		normal! gv"sy
 		let @/ = substitute(escape(@s, '\' . a:cmdtype), '\n', '\\n', 'g')
 		let @s = temp
+	endfunction
+endif
+
+if dein#tap('vim-clap')
+	" nnoremap <silent><LocalLeader>f :<C-u>Clap! files<CR>
+	" nnoremap <silent><LocalLeader>b :<C-u>Clap! buffers<CR>
+	" nnoremap <silent><LocalLeader>g :<C-u>Clap! grep<CR>
+	" nnoremap <silent><LocalLeader>j :<C-u>Clap! jumps<CR>
+	" nnoremap <silent><LocalLeader>h :<C-u>Clap! help_tags<CR>
+	" nnoremap <silent><LocalLeader>t :<C-u>Clap! tags<CR>
+	" nnoremap <silent><LocalLeader>l :<C-u>Clap! loclist<CR>
+	" nnoremap <silent><LocalLeader>q :<C-u>Clap! quickfix<CR>
+	" nnoremap <silent><LocalLeader>m :<C-u>Clap! files ~/docs/books<CR>
+	" nnoremap <silent><LocalLeader>y :<C-u>Clap! yanks<CR>
+	" nnoremap <silent><LocalLeader>/ :<C-u>Clap! lines<CR>
+	" nnoremap <silent><LocalLeader>* :<C-u>Clap! lines ++query=<cword><CR>
+	" nnoremap <silent><LocalLeader>; :<C-u>Clap! command_history<CR>
+
+	" nnoremap <silent><Leader>gl :<C-u>Clap! commits<CR>
+	" nnoremap <silent><Leader>gt :<C-u>Clap! tags ++query=<cword><CR>
+	" xnoremap <silent><Leader>gt :<C-u>Clap! tags ++query=@visual<CR><CR>
+	" nnoremap <silent><Leader>gf :<C-u>Clap! files ++query=<cword><CR>
+	" xnoremap <silent><Leader>gf :<C-u>Clap! files ++query=@visual<CR><CR>
+	" nnoremap <silent><Leader>gg :<C-u>Clap! grep ++query=<cword><CR>
+	" xnoremap <silent><Leader>gg :<C-u>Clap! grep ++query=@visual<CR><CR>
+
+	autocmd user_events FileType clap_input call s:clap_mappings()
+
+	function! s:clap_mappings()
+		nnoremap <silent> <buffer> <nowait>' :call clap#handler#tab_action()<CR>
+		inoremap <silent> <buffer> <Tab>   <C-R>=clap#navigation#linewise('down')<CR>
+		inoremap <silent> <buffer> <S-Tab> <C-R>=clap#navigation#linewise('up')<CR>
+		nnoremap <silent> <buffer> <C-f> :<c-u>call clap#navigation#scroll('down')<CR>
+		nnoremap <silent> <buffer> <C-b> :<c-u>call clap#navigation#scroll('up')<CR>
+
+		nnoremap <silent> <buffer> sg  :<c-u>call clap#handler#try_open('ctrl-v')<CR>
+		nnoremap <silent> <buffer> sv  :<c-u>call clap#handler#try_open('ctrl-x')<CR>
+		nnoremap <silent> <buffer> st  :<c-u>call clap#handler#try_open('ctrl-t')<CR>
+
+		nnoremap <silent> <buffer> q     :<c-u>call clap#handler#exit()<CR>
+		nnoremap <silent> <buffer> <Esc> :call clap#handler#exit()<CR>
+		inoremap <silent> <buffer> <Esc> <C-R>=clap#navigation#linewise('down')<CR><C-R>=clap#navigation#linewise('up')<CR><Esc>
+		inoremap <silent> <buffer> jj    <C-R>=clap#navigation#linewise('down')<CR><C-R>=clap#navigation#linewise('up')<CR><Esc>
 	endfunction
 endif
 

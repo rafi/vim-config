@@ -24,19 +24,6 @@
 - repo: tpope/vim-sleuth
   hook_add: let g:sleuth_neighbor_limit = 5
 
-- repo: liuchengxu/vim-clap
-  merged: 0
-  hook_add: |
-    let g:clap_cache_directory = $DATA_PATH . '/clap'
-    let g:clap_theme = 'atom_dark'
-    let g:clap_layout = { 'relative': 'editor' }
-    let g:clap_enable_icon = 1
-    let g:clap_search_box_border_style = 'curve'
-    let g:clap_provider_grep_enable_icon = 1
-    let g:clap_prompt_format = '%spinner%%forerunner_status% %provider_id%: '
-    highlight! link ClapMatches Function
-    highlight! link ClapNoMatchesFound WarningMsg
-
 # GUI only:
 - { repo: equalsraf/neovim-gui-shim, if: has('gui_running') }
 
