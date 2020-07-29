@@ -394,13 +394,6 @@ if dein#tap('caw.vim')
 	call InitCaw()
 endif
 
-if dein#tap('vim-textobj-multiblock')
-	omap <silent> ab <Plug>(textobj-multiblock-a)
-	omap <silent> ib <Plug>(textobj-multiblock-i)
-	xmap <silent> ab <Plug>(textobj-multiblock-a)
-	xmap <silent> ib <Plug>(textobj-multiblock-i)
-endif
-
 if dein#tap('vim-textobj-function')
 	omap <silent> af <Plug>(textobj-function-a)
 	omap <silent> if <Plug>(textobj-function-i)

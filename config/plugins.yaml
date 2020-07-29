@@ -678,10 +678,6 @@
   on_map: { n: <Plug>Dsf }
   hook_add: let g:dsf_no_mappings = 1
 
-- repo: osyo-manga/vim-textobj-multiblock
-  on_map: { ox: <Plug> }
-  hook_add: let g:textobj_multiblock_no_default_key_mappings = 1
-
 - repo: kana/vim-textobj-function
   on_map: { ox: <Plug> }
   hook_add: let g:textobj_function_no_default_key_mappings = 1

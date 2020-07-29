@@ -416,7 +416,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [AndrewRadev/splitjoin.vim] | Transition code between multi-line and single-line
 | [AndrewRadev/linediff.vim] | Perform diffs on blocks of code
 | [AndrewRadev/dsf.vim] | Delete surrounding function call
-| [osyo-manga/vim-textobj-multiblock] | Handle bracket objects
 | [kana/vim-textobj-function] | Text objects for functions
 
 [Shougo/dein.vim]: https://github.com/Shougo/dein.vim
@@ -565,7 +564,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [AndrewRadev/splitjoin.vim]: https://github.com/AndrewRadev/splitjoin.vim
 [AndrewRadev/linediff.vim]: https://github.com/AndrewRadev/linediff.vim
 [AndrewRadev/dsf.vim]: https://github.com/AndrewRadev/dsf.vim
-[osyo-manga/vim-textobj-multiblock]: https://github.com/osyo-manga/vim-textobj-multiblock
 [kana/vim-textobj-function]: https://github.com/kana/vim-textobj-function
 
 </details>
