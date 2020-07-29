@@ -28,6 +28,14 @@ augroup user_plugin_filetype " {{{
 
 	autocmd Syntax * if line('$') > 5000 | syntax sync minlines=200 | endif
 
+	" Neovim terminal settings
+	if has('nvim')
+		autocmd TermOpen * setlocal modifiable
+		autocmd TermClose * buffer #
+		" autocmd TextYankPost *
+		"	\ silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=150}
+	endif
+
 	" Update filetype on save if empty
 	autocmd BufWritePost * nested
 		\ if &l:filetype ==# '' || exists('b:ftdetect')

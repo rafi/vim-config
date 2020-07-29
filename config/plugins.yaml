@@ -219,7 +219,7 @@
 - { repo: tyru/caw.vim, on_map: { nx: <Plug> }}
 - { repo: liuchengxu/vim-which-key, on_cmd: WhichKey }
 - { repo: mbbill/undotree, on_cmd: UndotreeToggle }
-- { repo: reedes/vim-wordy, on_cmd: [ Wordy, NextWordy, PrevWordy ]}
+- { repo: reedes/vim-wordy, on_cmd: [ Wordy, NoWordy, NextWordy ]}
 - { repo: jreybert/vimagit, on_cmd: Magit }
 - { repo: tweekmonster/helpful.vim, on_cmd: HelpfulVersion }
 - { repo: lambdalisue/gina.vim, on_cmd: Gina }
@@ -338,7 +338,7 @@
 #   on_event: [ FileType, WinEnter, InsertLeave ]
 
 - repo: itchyny/vim-cursorword
-  on_event: VimEnter
+  on_event: FileType
   hook_source: |-
     augroup user_plugin_cursorword
       autocmd!
@@ -356,6 +356,7 @@
     let g:gitgutter_sign_modified = '▎'
     let g:gitgutter_sign_removed = '▍'
     let g:gitgutter_sign_removed_first_line = '▘'
+    let g:gitgutter_sign_removed_above_and_below = '_¯'
     let g:gitgutter_sign_modified_removed = '▍'
     let g:gitgutter_preview_win_floating = 1
     let g:gitgutter_sign_allow_clobber = 0
@@ -378,7 +379,7 @@
 - repo: nathanaelkane/vim-indent-guides
   on_event: FileType
   hook_post_source: IndentGuidesEnable
-  hook_add: |
+  hook_add: |-
     let g:indent_guides_default_mapping = 0
     let g:indent_guides_tab_guides = 0
     let g:indent_guides_color_change_percent = 3
@@ -390,7 +391,7 @@
       \ ]
 
 - repo: rhysd/committia.vim
-  on_path: [ COMMIT_EDITMSG, MERGE_MSG ]
+  on_event: BufReadPost
   hook_source: let g:committia_min_window_width = 70
 
 - repo: junegunn/goyo.vim
@@ -464,7 +465,7 @@
   hook_add: |
     let g:lsp_settings = {
     \   'yaml-language-server': {
-    \     'allowlist': ['yaml', 'yaml.ansible', 'helm'],
+    \     'allowlist': ['yaml', 'yaml.ansible'],
     \   }
     \ }
 
@@ -643,7 +644,7 @@
 
 - repo: Shougo/neomru.vim
   on_source: denite.nvim
-  hook_add: |
+  hook_add: |-
     let g:neomru#directory_mru_path = $DATA_PATH . '/mru/dir'
     let g:neomru#file_mru_path = $DATA_PATH . '/mru/file'
     let g:unite_source_file_mru_limit = 5000
@@ -656,7 +657,7 @@
 
 - repo: rafi/vim-denite-z
   on_source: denite.nvim
-  hook_source: |
+  hook_source: |-
     command! -nargs=+ -complete=file Z call denite#start(
       \ [{'name': 'z', 'args': [<q-args>], {'immediately': 1}}])
 
@@ -665,8 +666,7 @@
 # ---------
 - repo: kana/vim-operator-user  # only autoload functions, lazy by nature
 
-- repo: kana/vim-operator-replace
-  on_map: { vnx: <Plug> }
+- { repo: kana/vim-operator-replace, on_map: { vnx: <Plug> }}
 
 - repo: machakann/vim-sandwich
   on_map: { vonx: <Plug>(operator-sandwich- }

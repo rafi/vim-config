@@ -95,8 +95,8 @@ augroup END
 
 " If sudo, disable vim swap/backup/undo/shada/viminfo writing
 if $SUDO_USER !=# '' && $USER !=# $SUDO_USER
-		\ && $HOME !=# expand('~'.$USER)
-		\ && $HOME ==# expand('~'.$SUDO_USER)
+		\ && $HOME !=# expand('~'.$USER, 1)
+		\ && $HOME ==# expand('~'.$SUDO_USER, 1)
 
 	set noswapfile
 	set nobackup
@@ -149,7 +149,7 @@ set timeout ttimeout
 set timeoutlen=500   " Time out on mappings
 set ttimeoutlen=10   " Time out on key codes
 set updatetime=200   " Idle time to write swap and trigger CursorHold
-set redrawtime=1500  " Time in milliseconds for stopping display redraw
+set redrawtime=2000  " Time in milliseconds for stopping display redraw
 
 " }}}
 " Searching {{{
@@ -224,7 +224,7 @@ set showtabline=2       " Always show the tabs line
 set winwidth=30         " Minimum width for active window
 set winminwidth=10      " Minimum width for inactive windows
 " set winheight=4         " Minimum height for active window
-set winminheight=1      " Minimum height for inactive window
+" set winminheight=4      " Minimum height for inactive window
 set pumheight=15        " Pop-up menu's line height
 set helpheight=12       " Minimum help window height
 set previewheight=12    " Completion preview height

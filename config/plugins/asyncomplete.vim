@@ -3,8 +3,8 @@
 " Problems? https://github.com/prabirshrestha/asyncomplete.vim/issues
 
 " Debugging:
-" let g:asyncomplete_log_file = expand('~/asyncomplete.log')
-" let g:lsp_log_file = expand('~/vim-lsp.log')
+" let g:asyncomplete_log_file = expand('~/asyncomplete.log', 1)
+" let g:lsp_log_file = expand('~/vim-lsp.log', 1)
 
 " Smart completion-menu selection behavior:
 " 1) Insert new-line if nothing selected

@@ -94,13 +94,10 @@ if dein#tap('denite.nvim')
 endif
 
 if dein#tap('vim-lsp')
-	" Close preview window with Escape or q
-	augroup user_events
-		autocmd User lsp_float_opened
-			\ nmap <buffer> <silent> <Esc> <Plug>(lsp-preview-close)
-			\ nmap <buffer> <silent> q     <Plug>(lsp-preview-close)
-		autocmd User lsp_float_closed nunmap <buffer> <Esc>
-	augroup END
+	" Close preview window with Escape
+	autocmd User lsp_float_opened
+		\ nmap <buffer> <silent> <Esc> <Plug>(lsp-preview-close)
+	autocmd User lsp_float_closed nunmap <buffer> <Esc>
 endif
 
 if dein#tap('defx.nvim')
@@ -250,12 +247,14 @@ endif
 if dein#tap('committia.vim')
 	let g:committia_hooks = {}
 	function! g:committia_hooks.edit_open(info)
+		setlocal winminheight=1 winheight=10
+		resize 10
 		imap <buffer><C-d> <Plug>(committia-scroll-diff-down-half)
 		imap <buffer><C-u> <Plug>(committia-scroll-diff-up-half)
-
-		setlocal winminheight=1 winheight=1
-		resize 10
-		startinsert
+		imap <buffer><C-f> <Plug>(committia-scroll-diff-down-page)
+		imap <buffer><C-b> <Plug>(committia-scroll-diff-up-page)
+		imap <buffer><C-j> <Plug>(committia-scroll-diff-down)
+		imap <buffer><C-k> <Plug>(committia-scroll-diff-up)
 	endfunction
 endif
 

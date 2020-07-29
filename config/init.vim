@@ -51,15 +51,15 @@ let g:loaded_netrwFileHandlers = 1
 let $VIM_PATH =
 	\ get(g:, 'etc_vim_path',
 	\   exists('*stdpath') ? stdpath('config') :
-	\   ! empty($MYVIMRC) ? fnamemodify(expand($MYVIMRC), ':h') :
-	\   ! empty($VIMCONFIG) ? expand($VIMCONFIG) :
-	\   ! empty($VIM_PATH) ? expand($VIM_PATH) :
+	\   ! empty($MYVIMRC) ? fnamemodify(expand($MYVIMRC, 1), ':h') :
+	\   ! empty($VIMCONFIG) ? expand($VIMCONFIG, 1) :
+	\   ! empty($VIM_PATH) ? expand($VIM_PATH, 1) :
 	\   fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
 	\ )
 
 " Set data/cache directory as $XDG_CACHE_HOME/vim
 let $DATA_PATH =
-	\ expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : '~/.cache') . '/vim')
+	\ expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : '~/.cache') . '/vim', 1)
 
 " Collection of user plugin list config file-paths
 let s:config_paths = get(g:, 'etc_config_paths', [
