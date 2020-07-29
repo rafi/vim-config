@@ -337,7 +337,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [t9md/vim-choosewin] | Choose window to use, like tmux's 'display-pane'
 | [lambdalisue/suda.vim] | An alternative sudo.vim for Vim and Neovim
 | [mzlogin/vim-markdown-toc] | Generate table of contents for Markdown files
-| [chemzqm/vim-easygit] | Git wrapper focus on simplity and usability
 | [liuchengxu/vista.vim] | Viewer & Finder for LSP symbols and tags in Vim
 | [junegunn/fzf] | Powerful command-line fuzzy finder
 | [junegunn/fzf.vim] | Fzf integration
@@ -399,7 +398,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [Shougo/neoyank.vim] | Denite plugin for yank history
 | [Shougo/junkfile.vim] | Denite plugin for temporary files
 | [chemzqm/unite-location] | Denite location & quickfix lists
-| [chemzqm/denite-git] | gitlog, gitstatus and gitchanged sources
 | [rafi/vim-denite-session] | Browse and open sessions
 | [rafi/vim-denite-z] | Filter and browse Z (jump around) data file
 
@@ -501,7 +499,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [t9md/vim-choosewin]: https://github.com/t9md/vim-choosewin
 [lambdalisue/suda.vim]: https://github.com/lambdalisue/suda.vim
 [mzlogin/vim-markdown-toc]: https://github.com/mzlogin/vim-markdown-toc
-[chemzqm/vim-easygit]: https://github.com/chemzqm/vim-easygit
 [liuchengxu/vista.vim]: https://github.com/liuchengxu/vista.vim
 [junegunn/fzf]: https://github.com/junegunn/fzf
 [junegunn/fzf.vim]: https://github.com/junegunn/fzf.vim
@@ -551,7 +548,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [Shougo/neoyank.vim]: https://github.com/Shougo/neoyank.vim
 [Shougo/junkfile.vim]: https://github.com/Shougo/junkfile.vim
 [chemzqm/unite-location]: https://github.com/chemzqm/unite-location
-[chemzqm/denite-git]: https://github.com/chemzqm/denite-git
 [rafi/vim-denite-session]: https://github.com/rafi/vim-denite-session
 [rafi/vim-denite-z]: https://github.com/rafi/vim-denite-z
 
@@ -754,12 +750,15 @@ Note that,
 | <kbd>gs</kbd> | 𝐍 | Preview hunk | <small>[airblade/vim-gitgutter]</small>
 | <kbd>gS</kbd> | 𝐍 𝐕 𝐒 | Stage hunk | <small>[airblade/vim-gitgutter]</small>
 | <kbd>Space</kbd>+<kbd>gr</kbd> | 𝐍 | Revert hunk | <small>[airblade/vim-gitgutter]</small>
-| <kbd>Space</kbd>+<kbd>ga</kbd> | 𝐍 | Git add current file | <small>[chemzqm/vim-easygit]</small>
-| <kbd>Space</kbd>+<kbd>gd</kbd> | 𝐍 | Git diff | <small>[chemzqm/vim-easygit]</small>
-| <kbd>Space</kbd>+<kbd>gc</kbd> | 𝐍 | Git commit | <small>[chemzqm/vim-easygit]</small>
-| <kbd>Space</kbd>+<kbd>gb</kbd> | 𝐍 | Git blame | <small>[chemzqm/vim-easygit]</small>
-| <kbd>Space</kbd>+<kbd>gF</kbd> | 𝐍 | Git fetch | <small>[chemzqm/vim-easygit]</small>
-| <kbd>Space</kbd>+<kbd>gp</kbd> | 𝐍 | Git push | <small>[chemzqm/vim-easygit]</small>
+| <kbd>Space</kbd>+<kbd>ga</kbd> | 𝐍 | Git add current file | <small>[lambdalisue/gina.vim]</small>
+| <kbd>Space</kbd>+<kbd>gd</kbd> | 𝐍 | Git diff | <small>[lambdalisue/gina.vim]</small>
+| <kbd>Space</kbd>+<kbd>gc</kbd> | 𝐍 | Git branches | <small>[lambdalisue/gina.vim]</small>
+| <kbd>Space</kbd>+<kbd>gc</kbd> | 𝐍 | Git commit | <small>[lambdalisue/gina.vim]</small>
+| <kbd>Space</kbd>+<kbd>gb</kbd> | 𝐍 | Git blame | <small>[lambdalisue/gina.vim]</small>
+| <kbd>Space</kbd>+<kbd>gs</kbd> | 𝐍 | Git status -s | <small>[lambdalisue/gina.vim]</small>
+| <kbd>Space</kbd>+<kbd>gl</kbd> | 𝐍 | Git log --all | <small>[lambdalisue/gina.vim]</small>
+| <kbd>Space</kbd>+<kbd>gF</kbd> | 𝐍 | Git fetch | <small>[lambdalisue/gina.vim]</small>
+| <kbd>Space</kbd>+<kbd>gp</kbd> | 𝐍 | Git push | <small>[lambdalisue/gina.vim]</small>
 
 ### Plugin: Denite
 
@@ -787,9 +786,6 @@ Note that,
 | <kbd>;;</kbd> | 𝐍 | Command history
 | <kbd>;/</kbd> | 𝐍 | Buffer lines
 | <kbd>;*</kbd> | 𝐍 | Search word under cursor with lines
-| <kbd>Space</kbd>+<kbd>gl</kbd> | 𝐍 | Git log (all)
-| <kbd>Space</kbd>+<kbd>gs</kbd> | 𝐍 | Git status
-| <kbd>Space</kbd>+<kbd>gc</kbd> | 𝐍 | Git branches
 | <kbd>Space</kbd>+<kbd>gt</kbd> | 𝐍 | Find tags matching word under cursor
 | <kbd>Space</kbd>+<kbd>gf</kbd> | 𝐍 | Find files matching word under cursor
 | <kbd>Space</kbd>+<kbd>gg</kbd> | 𝐍 𝐕 | Grep word under cursor

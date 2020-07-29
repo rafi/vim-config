@@ -222,12 +222,15 @@
 - { repo: reedes/vim-wordy, on_cmd: [ Wordy, NoWordy, NextWordy ]}
 - { repo: jreybert/vimagit, on_cmd: Magit }
 - { repo: tweekmonster/helpful.vim, on_cmd: HelpfulVersion }
-- { repo: lambdalisue/gina.vim, on_cmd: Gina }
 - { repo: kana/vim-altr, on_map: { n: <Plug> }}
 - { repo: Shougo/vinarise.vim, on_cmd: Vinarise }
 - { repo: guns/xterm-color-table.vim, on_cmd: XtermColorTable }
 - { repo: cocopon/colorswatch.vim, on_cmd: ColorSwatchGenerate }
 - { repo: dstein64/vim-startuptime, on_cmd: StartupTime }
+
+- repo: lambdalisue/gina.vim
+  on_cmd: Gina
+  hook_source: source $VIM_PATH/config/plugins/gina.vim
 
 - repo: brooth/far.vim
   on_cmd: [ Far, Farp, F ]
@@ -266,18 +269,6 @@
 - repo: mzlogin/vim-markdown-toc
   on_cmd: [ GenTocGFM, GenTocRedcarpet, GenTocGitLab, UpdateToc ]
   hook_add: let g:vmt_auto_update_on_save = 0
-
-- repo: tpope/vim-fugitive
-  on_cmd: [ G, Git, Gfetch, Gpush, Glog, Gclog, Gdiffsplit ]
-  hook_source:
-    augroup user_fugitive_plugin
-      autocmd!
-      autocmd FileType fugitiveblame normal A
-    augroup END
-
-- repo: junegunn/gv.vim
-  depends: vim-fugitive
-  on_cmd: GV
 
 - repo: liuchengxu/vista.vim
   on_cmd: Vista
@@ -387,7 +378,8 @@
     let g:indent_guides_exclude_filetypes = [
       \ 'help', 'denite', 'denite-filter', 'startify',
       \ 'vista', 'vista_kind', 'tagbar', 'nerdtree',
-      \ 'lsp-hover', 'clap_input'
+      \ 'lsp-hover', 'clap_input', 'any-jump',
+      \ 'gina-status', 'gina-commit', 'gina-log'
       \ ]
 
 - repo: rhysd/committia.vim
@@ -642,7 +634,6 @@
 - { repo: Shougo/neoyank.vim, on_source: denite.nvim, on_event: TextYankPost }
 - { repo: Shougo/junkfile.vim, on_source: denite.nvim }
 - { repo: chemzqm/unite-location, on_source: denite.nvim }
-- { repo: chemzqm/denite-git, on_source: denite.nvim }
 - { repo: rafi/vim-denite-session, on_source: denite.nvim }
 
 - repo: rafi/vim-denite-z

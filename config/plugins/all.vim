@@ -73,11 +73,6 @@ if dein#tap('denite.nvim')
 		\ ":\<C-u>DeniteCursorWord -no-start-filter -search line/external\<CR>"
 		\ : ":\<C-u>DeniteCursorWord -no-start-filter -search line\<CR>"
 
-	" chemzqm/denite-git
-	nnoremap <silent> <Leader>gl :<C-u>Denite gitlog:all -no-start-filter<CR>
-	nnoremap <silent> <Leader>gs :<C-u>Denite gitstatus -no-start-filter<CR>
-	nnoremap <silent> <Leader>gc :<C-u>Denite gitbranch -no-start-filter<CR>
-
 	" Open Denite with word under cursor or selection
 	nnoremap <silent> <Leader>gt :DeniteCursorWord tag:include -no-start-filter -immediately<CR>
 	nnoremap <silent> <Leader>gf :DeniteCursorWord file/rec -no-start-filter<CR>
@@ -294,19 +289,15 @@ if dein#tap('vimagit')
 	nnoremap <silent> <Leader>mg :Magit<CR>
 endif
 
-if dein#tap('vim-fugitive')
-	nnoremap <silent> <leader>ga :Git add %:p<CR>
-	nnoremap <silent> <leader>gd :Gdiffsplit<CR>
-	nnoremap <silent> <leader>gc :Git commit<CR>
-	nnoremap <silent> <leader>gb :Git blame<CR>
-	nnoremap <silent> <leader>gF :Gfetch<CR>
-	nnoremap <silent> <leader>gS :Git<CR>
-	nnoremap <silent> <leader>gp :Gpush<CR>
-endif
-
-if dein#tap('gv.vim')
-	nmap <Leader>gv :GV! --all<cr>
-	vmap <Leader>gv :GV! --all<cr>
+if dein#tap('gina.vim')
+	nnoremap <silent> <leader>ga :Gina add %:p<CR>
+	nnoremap <silent> <leader>gd :Gina compare<CR>
+	nnoremap <silent> <leader>gc :Gina commit<CR>
+	nnoremap <silent> <leader>gb :Gina blame --width=40<CR>
+	nnoremap <silent> <leader>gs :Gina status -s<CR>
+	nnoremap <silent> <leader>gl :Gina log --graph --all<CR>
+	nnoremap <silent> <leader>gF :Gina! fetch<CR>
+	nnoremap <silent> <leader>gp :Gina! push<CR>
 endif
 
 if dein#tap('vim-altr')
