@@ -48,7 +48,8 @@ if dein#tap('denite.nvim')
 	nnoremap <silent><LocalLeader>r :<C-u>Denite -resume -refresh -no-start-filter<CR>
 	nnoremap <silent><LocalLeader>f :<C-u>Denite file/rec<CR>
 	nnoremap <silent><LocalLeader>g :<C-u>Denite grep -start-filter<CR>
-	nnoremap <silent><LocalLeader>b :<C-u>Denite buffer file_mru -default-action=switch<CR>
+	nnoremap <silent><LocalLeader>b :<C-u>Denite buffer -default-action=switch<CR>
+	nnoremap <silent><LocalLeader>i :<C-u>Denite file/old file_mru<CR>
 	nnoremap <silent><LocalLeader>d :<C-u>Denite directory_rec directory_mru -default-action=cd<CR>
 	nnoremap <silent><LocalLeader>v :<C-u>Denite neoyank -buffer-name=register<CR>
 	xnoremap <silent><LocalLeader>v :<C-u>Denite neoyank -buffer-name=register -default-action=replace<CR>

@@ -768,7 +768,8 @@ Note that,
 | <kbd>;r</kbd> | 𝐍 | Resumes last Denite window
 | <kbd>;f</kbd> | 𝐍 | File search
 | <kbd>;g</kbd> | 𝐍 | Grep search
-| <kbd>;b</kbd> | 𝐍 | Buffers and MRU
+| <kbd>;b</kbd> | 𝐍 | Buffers
+| <kbd>;i</kbd> | 𝐍 | Old files and MRU
 | <kbd>;d</kbd> | 𝐍 | Directories and MRU
 | <kbd>;v</kbd> | 𝐍 𝐕 | Yank history
 | <kbd>;l</kbd> | 𝐍 | Location list
