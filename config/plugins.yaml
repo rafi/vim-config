@@ -454,8 +454,10 @@
 
 - repo: prabirshrestha/vim-lsp
   depends: asyncomplete-lsp.vim
-  hook_add: |
-    let g:lsp_diagnostics_enabled = 0
+  hook_add: |-
+    let g:lsp_diagnostics_enabled = 1
+    let g:lsp_diagnostics_echo_cursor = 1
+    let g:lsp_diagnostics_echo_delay = 200
     let g:lsp_virtual_text_enabled = 0
   hook_source: source $VIM_PATH/config/plugins/lsp-settings.vim
 
@@ -569,18 +571,6 @@
   on_event: FileType
   if: has('python3')
   merged: 0
-
-- repo: dense-analysis/ale
-  on_event: FileType
-  hook_add: |
-    let g:ale_disable_lsp = 0
-    let g:ale_echo_delay = 100
-    let g:ale_lint_delay = 1000
-    let g:ale_echo_msg_format = '%linter%: %code: %%s [%severity%]'
-    let g:ale_history_enabled = 0
-    let g:ale_sign_error = '✖'
-    let g:ale_sign_warning = 'ⁱ'
-    let g:ale_maximum_file_size = 500000
 
 - repo: mattn/emmet-vim
   on_event: InsertEnter

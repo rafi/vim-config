@@ -202,7 +202,7 @@ collection.
 If you want to disable some of the plugins I use, you can overwrite them, e.g.:
 
 ```yaml
-- { repo: dense-analysis/ale, if: 0 }
+- { repo: prabirshrestha/asyncomplete.vim, if: 0 }
 ```
 
 ## Structure
@@ -385,7 +385,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [prabirshrestha/asyncomplete-ultisnips.vim] | Provides UltiSnips autocomplete
 | [SirVer/ultisnips] | Ultimate snippet solution
 | [honza/vim-snippets] | Community-maintained snippets for programming languages
-| [dense-analysis/ale] | Check syntax asynchronously and fix files with LSP support
 | [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet
 | [ncm2/float-preview.nvim] | Less annoying completion preview window
 | [ludovicchabant/vim-gutentags] | Manages your tag files
@@ -543,7 +542,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [prabirshrestha/asyncomplete-ultisnips.vim]: https://github.com/prabirshrestha/asyncomplete-ultisnips.vim
 [SirVer/ultisnips]: https://github.com/SirVer/ultisnips
 [honza/vim-snippets]: https://github.com/honza/vim-snippets
-[dense-analysis/ale]: https://github.com/dense-analysis/ale
 [mattn/emmet-vim]: https://github.com/mattn/emmet-vim
 [ncm2/float-preview.nvim]: https://github.com/ncm2/float-preview.nvim
 [ludovicchabant/vim-gutentags]: https://github.com/ludovicchabant/vim-gutentags

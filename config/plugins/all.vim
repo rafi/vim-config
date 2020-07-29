@@ -111,11 +111,6 @@ if dein#tap('delimitMate')
 	imap <buffer><expr> <C-Tab> delimitMate#JumpAny()
 endif
 
-if dein#tap('ale')
-	nmap <silent> [c <Plug>(ale_previous)
-	nmap <silent> ]c <Plug>(ale_next)
-endif
-
 if dein#tap('vista.vim')
 	nnoremap <silent> <Leader>b :<C-u>Vista<CR>
 	nnoremap <silent> <Leader>a :<C-u>Vista show<CR>
