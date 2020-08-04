@@ -305,6 +305,15 @@
   on_event: TextYankPost
   hook_source: let g:highlightedyank_highlight_duration = 200
 
+- repo: romainl/vim-qf
+  on_ft: qf
+  on_event: QuickFixCmdPost
+  on_map: { n: <Plug> }
+  hook_add: |-
+    let g:qf_auto_open_quickfix = 0
+    let g:qf_auto_open_loclist = 0
+    let g:qf_mapping_ack_style = 1
+
 - repo: wellle/context.vim
   on_cmd: [ ContextToggle, ContextToggleWindow, ContextPeek ]
 
