@@ -85,11 +85,11 @@ call denite#custom#source(
 " Ripgrep
 if executable('rg')
 	call denite#custom#var('file/rec', 'command',
-		\ ['rg', '--files', '--glob', '!.git', '--color', 'never'])
+		\ ['rg', '--hidden', '--files', '--glob', '!.git', '--color', 'never'])
 
 	call denite#custom#var('grep', {
 		\ 'command': ['rg'],
-		\ 'default_opts': ['-i', '--vimgrep', '--no-heading'],
+		\ 'default_opts': ['--hidden', '-i', '--vimgrep', '--no-heading'],
 		\ 'recursive_opts': [],
 		\ 'pattern_opt': ['--regexp'],
 		\ })
