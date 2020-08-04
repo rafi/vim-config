@@ -46,7 +46,7 @@
 
 - repo: othree/html5.vim
   on_ft: html
-  hook_add: |
+  hook_add: |-
     let g:html5_event_handler_attributes_complete = 0
     let g:html5_rdfa_attributes_complete = 0
     let g:html5_microdata_attributes_complete = 0
@@ -55,7 +55,7 @@
 # Markdown related
 - repo: plasticboy/vim-markdown
   on_ft: markdown
-  hook_add: |
+  hook_add: |-
     let g:vim_markdown_frontmatter = 1
     let g:vim_markdown_strikethrough = 1
     let g:vim_markdown_folding_level = 6
@@ -84,7 +84,7 @@
 - repo: rhysd/vim-gfm-syntax
   depends: vim-markdown
   on_ft: markdown
-  hook_add: |
+  hook_add: |-
     let g:gfm_syntax_enable_always = 0
     let g:gfm_syntax_highlight_emoji = 0
     let g:gfm_syntax_enable_filetypes = ['markdown']
@@ -92,7 +92,7 @@
 # Javascript related
 - repo: pangloss/vim-javascript
   on_ft: [ javascript, javascriptreact ]
-  hook_add: |
+  hook_add: |-
     let g:javascript_plugin_jsdoc = 1
     let g:javascript_plugin_flow = 1
 
@@ -123,7 +123,7 @@
 - repo: fatih/vim-go
   if: has('nvim-0.4.0') || has('patch-8.0.1453')
   on_ft: [ go, gomod ]
-  hook_add: |
+  hook_add: |-
     let g:go_gopls_enabled = 0
     let g:go_code_completion_enabled = 0
     let g:go_doc_keywordprg_enabled = 0
@@ -135,7 +135,6 @@
     let g:go_highlight_trailing_whitespace_error = 0
     let g:go_highlight_extra_types = 1
     let g:go_highlight_build_constraints = 1
-    let g:go_highlight_extra_types = 1
     let g:go_highlight_fields = 1
     let g:go_highlight_format_strings = 1
     let g:go_highlight_functions = 1
@@ -178,7 +177,7 @@
 
 - repo: pearofducks/ansible-vim
   on_ft: [ ansible, ansible_hosts, jinja2 ]
-  hook_add: |
+  hook_add: |-
     let g:ansible_extra_keywords_highlight = 1
     let g:ansible_template_syntaxes = {
       \   '*.json.j2': 'json',
@@ -244,7 +243,7 @@
 
 - repo: t9md/vim-choosewin
   on_map: { n: <Plug> }
-  hook_add: |
+  hook_add: |-
     let g:choosewin_label = 'ADFGHJKLUIOPQWERT'
     let g:choosewin_label_align = 'right'
     let g:choosewin_label_padding = 5
@@ -259,7 +258,7 @@
 
 - repo: liuchengxu/vista.vim
   on_cmd: Vista
-  hook_add: |
+  hook_add: |-
     let g:vista#renderer#enable_icon = 1
     let g:vista_echo_cursor_strategy = 'scroll'
     let g:vista_vimwiki_executive = 'markdown'
@@ -273,7 +272,7 @@
   merged: 0
   on_cmd: FZF
   type__depth: 1
-  hook_source: |
+  hook_source: |-
     let g:fzf_layout = { 'down': '~25%' }
 
 - repo: junegunn/fzf.vim
@@ -287,7 +286,7 @@
     - Thesaurus
     - ThesaurusQueryReplaceCurrentWord
     - ThesaurusQueryLookupCurrentWord
-  hook_add: |
+  hook_add: |-
     let g:tq_map_keys = 0
     let g:tq_use_vim_autocomplete = 0
 
@@ -337,7 +336,7 @@
 
 - repo: airblade/vim-gitgutter
   on_event: FileType
-  hook_add: |
+  hook_add: |-
     let g:gitgutter_map_keys = 0
     let g:gitgutter_sign_added = '▎'
     let g:gitgutter_sign_modified = '▎'
@@ -353,7 +352,7 @@
 - repo: kshenoy/vim-signature
   depends: vim-gitgutter
   on_event: FileType
-  hook_add: |
+  hook_add: |-
     let g:SignatureForceRemoveGlobal = 0
     let g:SignatureUnconditionallyRecycleMarks = 1
     let g:SignatureErrorIfNoAvailableMarks = 0
@@ -392,7 +391,7 @@
 
 - repo: itchyny/calendar.vim
   on_cmd: Calendar
-  hook_source: |
+  hook_source: |-
     let g:calendar_google_calendar = 1
     let g:calendar_google_task = 1
 
@@ -403,12 +402,12 @@
 - repo: vimwiki/vimwiki
   on_map: { n: <Plug> }
   on_cmd: [ VimwikiIndex, VimwikiUISelect ]
-  hook_add: |
+  hook_add: |-
     let g:vimwiki_use_calendar = 1
     let g:vimwiki_hl_headers = 1
     let g:vimwiki_hl_cb_checked = 1
     let g:vimwiki_autowriteall = 0
-  hook_source: |
+  hook_source: |-
     let g:vimwiki_list = [
     \   { 'diary_header': 'Diary',
     \     'diary_link_fmt': '%Y-%m/%d',
@@ -452,8 +451,9 @@
 - repo: mattn/vim-lsp-settings
   depends: vim-lsp
   merged: 0
-  hook_add: |
+  hook_add: |-
     let g:lsp_settings = {
+    \   'efm-langserver': {'disabled': 1},
     \   'yaml-language-server': {
     \     'allowlist': ['yaml', 'yaml.ansible'],
     \   }
@@ -465,7 +465,7 @@
 
 - repo: prabirshrestha/asyncomplete-necovim.vim
   depends: asyncomplete.vim
-  hook_source: |
+  hook_source: |-
     autocmd User asyncomplete_setup call asyncomplete#register_source(
       \ asyncomplete#sources#necovim#get_source_options({
       \ 'name': 'necovim',
@@ -475,7 +475,7 @@
 
 - repo: prabirshrestha/asyncomplete-buffer.vim
   depends: asyncomplete.vim
-  hook_source: |
+  hook_source: |-
     autocmd User asyncomplete_setup call asyncomplete#register_source(
       \ asyncomplete#sources#buffer#get_source_options({
       \ 'name': 'buffer',
@@ -490,7 +490,7 @@
 - repo: prabirshrestha/asyncomplete-tags.vim
   if: executable('ctags')
   depends: asyncomplete.vim
-  hook_source: |
+  hook_source: |-
     autocmd User asyncomplete_setup call asyncomplete#register_source(
       \ asyncomplete#sources#tags#get_source_options({
       \ 'name': 'tags',
@@ -502,7 +502,7 @@
 
 - repo: prabirshrestha/asyncomplete-file.vim
   depends: asyncomplete.vim
-  hook_source: |
+  hook_source: |-
     autocmd User asyncomplete_setup call asyncomplete#register_source(
       \ asyncomplete#sources#file#get_source_options({
       \ 'name': 'file',
@@ -515,7 +515,7 @@
 - repo: wellle/tmux-complete.vim
   if: "! (has('win32') || has('win64'))"
   depends: asyncomplete.vim
-  hook_add: |
+  hook_add: |-
     let g:tmuxcomplete#trigger = ''
     let g:tmuxcomplete#asyncomplete_source_options = {
       \ 'name': 'tmux',
@@ -535,7 +535,7 @@
 - repo: prabirshrestha/asyncomplete-ultisnips.vim
   depends: asyncomplete.vim
   if: has('python3')
-  hook_source: |
+  hook_source: |-
     autocmd User asyncomplete_setup call asyncomplete#register_source(
       \ asyncomplete#sources#ultisnips#get_source_options({
       \ 'name': 'snip',
@@ -548,7 +548,7 @@
 - repo: SirVer/ultisnips
   if: has('python3')
   on_event: FileType
-  hook_add: |
+  hook_add: |-
     let g:UltiSnipsExpandTrigger = '<C-l>'
     let g:UltiSnipsListSnippets = ''
     let g:UltiSnipsJumpForwardTrigger = '<C-f>'
@@ -563,7 +563,7 @@
 - repo: mattn/emmet-vim
   on_event: InsertEnter
   on_ft: [ html, css, javascript, javascriptreact, svelte ]
-  hook_source: |
+  hook_source: |-
     let g:user_emmet_complete_tag = 0
     let g:user_emmet_install_global = 0
     let g:user_emmet_install_command = 0
@@ -572,7 +572,7 @@
 - repo: ncm2/float-preview.nvim
   if: has('nvim-0.4')
   on_event: InsertEnter
-  hook_source: |
+  hook_source: |-
     let g:float_preview#docked = 0
     let g:float_preview#max_width = 80
     function! s:float_preview()
@@ -583,7 +583,7 @@
 - repo: ludovicchabant/vim-gutentags
   if: executable('ctags')
   on_event: [ BufReadPost, BufWritePost ]
-  hook_add: |
+  hook_add: |-
     let g:gutentags_cache_dir = $DATA_PATH . '/tags'
     let g:gutentags_generate_on_write = 0
     let g:gutentags_generate_on_missing = 0
@@ -598,7 +598,7 @@
 
 - repo: Raimondi/delimitMate
   on_event: FileType
-  hook_source: |
+  hook_source: |-
     let g:delimitMate_expand_cr = 0
     let g:delimitMate_expand_space = 1
     let g:delimitMate_smart_quotes = 1
@@ -606,10 +606,10 @@
     let g:delimitMate_excluded_ft = 'mail,txt'
     augroup user_plugin_delimitMate
       au!
+      au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
       au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
       au FileType tex let b:delimitMate_quotes = ""
       au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
-      au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
     augroup END
 
 # ==========================================
@@ -647,7 +647,7 @@
 
 - repo: machakann/vim-sandwich
   on_map: { vonx: <Plug>(operator-sandwich- }
-  hook_add: |
+  hook_add: |-
     let g:sandwich_no_default_key_mappings = 1
     let g:operator_sandwich_no_default_key_mappings = 1
     let g:textobj_sandwich_no_default_key_mappings = 1

@@ -10,11 +10,15 @@ function! s:on_lsp_buffer_enabled() abort
 		\ foldexpr=lsp#ui#vim#folding#foldexpr()
 		\ foldtext=lsp#ui#vim#folding#foldtext()
 
+	" Prefer native help with vim files
+	if &filetype != 'vim'
+		nmap <silent><buffer> K      <Plug>(lsp-hover)
+	endif
+
 	nmap <silent><buffer> gr     <Plug>(lsp-references)
 	nmap <silent><buffer> gi     <Plug>(lsp-peek-implementation)
 	nmap <silent><buffer> gy     <Plug>(lsp-peek-type-definition)
 	nmap <buffer><leader>rn      <Plug>(lsp-rename)
-	nmap <silent><buffer> K      <Plug>(lsp-hover)
 	nmap <silent><buffer> <C-]>  <Plug>(lsp-definition)
 	nmap <silent><buffer> g<C-]> <Plug>(lsp-peek-definition)
 	nmap <silent><buffer> gd     <Plug>(lsp-peek-declaration)
