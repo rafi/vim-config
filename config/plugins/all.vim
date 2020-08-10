@@ -298,6 +298,8 @@ if dein#tap('gina.vim')
 	nnoremap <silent> <leader>gl :Gina log --graph --all<CR>
 	nnoremap <silent> <leader>gF :Gina! fetch<CR>
 	nnoremap <silent> <leader>gp :Gina! push<CR>
+	nnoremap <silent> <leader>go :,Gina browse :<CR>
+	vnoremap <silent> <leader>go :Gina browse :<CR>
 endif
 
 if dein#tap('vim-altr')

@@ -2,21 +2,37 @@
 " ---
 " Problems? https://github.com/lambdalisue/gina.vim/issues
 
-let g:gina#command#blame#formatter#format = '%au: %su%= on %ti %ma%in'
-
 call gina#custom#command#alias('status', 'st')
 call gina#custom#command#option('st', '-s')
+call gina#custom#command#option('status', '-b')
+
+" call gina#custom#command#option('/\v(status|branch|ls|grep|changes)', '--opener', 'botright 10split')
+" call gina#custom#command#option('/\v(blame|diff|log)', '--opener', 'tabnew')
+call gina#custom#command#option('commit', '--opener', 'below vnew')
+call gina#custom#command#option('commit', '--verbose')
+
+let s:width_quarter = string(winwidth(0) / 4)
+let s:width_half = string(winwidth(0) / 2)
+
+call gina#custom#command#option('blame', '--width', s:width_quarter)
+let g:gina#command#blame#formatter#format = '%au: %su%= on %ti %ma%in'
 
 " Open in vertical split
 call gina#custom#command#option(
-	\ '/\%(branch\|changes\|grep\|log\|reflog\)',
+	\ '/\%(branch\|changes\|status\|grep\|log\|reflog\)',
 	\ '--opener', 'vsplit'
+	\)
+
+" Fixed medium width types
+call gina#custom#execute(
+	\ '/\%(changes\|status\|ls\)',
+	\ 'vertical resize ' . s:width_half . ' | setlocal winfixwidth'
 	\)
 
 " Fixed small width special types
 call gina#custom#execute(
-	\ '/\%(branch\|grep\)',
-	\ 'vertical resize 30 | setlocal winfixwidth'
+	\ '/\%(branch\)',
+	\ 'vertical resize ' . s:width_quarter . ' | setlocal winfixwidth'
 	\)
 
 " Alias 'p'/'dp' globally

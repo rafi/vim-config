@@ -703,7 +703,6 @@ Note that,
 | <kbd>Space</kbd>+<kbd>a</kbd> | 𝐍 | Show nearby tag in structure window | <small>[liuchengxu/vista.vim]</small>
 | <kbd>Space</kbd>+<kbd>se</kbd> | 𝐍 | Save current workspace session | <small>[plugin/sessions.vim]</small>
 | <kbd>Space</kbd>+<kbd>sl</kbd> | 𝐍 | Load workspace session | <small>[plugin/sessions.vim]</small>
-| <kbd>Space</kbd>+<kbd>o</kbd> | 𝐍 𝐕 | Open SCM detailed URL in browser | <small>[plugin/browser.vim]</small>
 | <kbd>Space</kbd>+<kbd>n</kbd>/<kbd>N</kbd> | 𝐍 | Open alternative file | <small>[kana/vim-altr]</small>
 | <kbd>Space</kbd>+<kbd>tc</kbd> | 𝐍 | Enable scroll-context window | <small>[wellle/context.vim]</small>
 | <kbd>Space</kbd>+<kbd>tp</kbd> | 𝐍 | Peek scroll-context window | <small>[wellle/context.vim]</small>
@@ -759,6 +758,7 @@ Note that,
 | <kbd>Space</kbd>+<kbd>gl</kbd> | 𝐍 | Git log --all | <small>[lambdalisue/gina.vim]</small>
 | <kbd>Space</kbd>+<kbd>gF</kbd> | 𝐍 | Git fetch | <small>[lambdalisue/gina.vim]</small>
 | <kbd>Space</kbd>+<kbd>gp</kbd> | 𝐍 | Git push | <small>[lambdalisue/gina.vim]</small>
+| <kbd>Space</kbd>+<kbd>go</kbd> | 𝐍 𝐕 | Open SCM detailed URL in browser | <small>[lambdalisue/gina.vim]</small>
 
 ### Plugin: Denite
 
@@ -882,7 +882,6 @@ Big thanks to the dark knight [Shougo](https://github.com/Shougo).
 [config/mappings.vim]: ./config/mappings.vim
 [plugin/whitespace.vim]: ./plugin/whitespace.vim
 [plugin/sessions.vim]: ./plugin/sessions.vim
-[plugin/browser.vim]: ./plugin/browser.vim
 [plugin/devhelp.vim]: ./plugin/devhelp.vim
 [plugin/actionmenu.vim]: ./plugin/actionmenu.vim
 [Marked 2]: https://marked2app.com

@@ -280,10 +280,6 @@ endif
 nmap <Leader>se :<C-u>SessionSave<CR>
 nmap <Leader>sl :<C-u>SessionLoad<CR>
 
-" Open SCM website
-nmap <Leader>o :<C-u>OpenSCM<CR>
-vmap <Leader>o :OpenSCM<CR>
-
 if has('mac')
 	" Open the macOS dictionary on current word
 	nmap <Leader>? :!open dict://<cword><CR>
