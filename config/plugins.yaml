@@ -309,9 +309,20 @@
   on_event: QuickFixCmdPost
   on_map: { n: <Plug> }
   hook_add: |-
+    let g:qf_bufname_or_text = 1
     let g:qf_auto_open_quickfix = 0
     let g:qf_auto_open_loclist = 0
-    let g:qf_mapping_ack_style = 1
+    let g:qf_auto_resize = 0
+    autocmd User preview_open_pre
+      \ let g:vim_markdown_folding_disabled = 1
+      \| let g:vim_markdown_override_foldtext = 0
+      \| let g:vim_markdown_no_default_key_mappings = 1
+      \| let g:vim_markdown_emphasis_multiline = 0
+    autocmd User preview_open_post
+      \ unlet g:vim_markdown_folding_disabled
+      \| let g:vim_markdown_override_foldtext = 1
+      \| unlet g:vim_markdown_no_default_key_mappings
+      \| unlet g:vim_markdown_emphasis_multiline
 
 - repo: wellle/context.vim
   on_cmd: [ ContextToggle, ContextToggleWindow, ContextPeek ]
@@ -328,8 +339,8 @@
   hook_source: |-
     augroup user_plugin_cursorword
       autocmd!
-      autocmd FileType defx,denite,qf let b:cursorword = 0
-      autocmd WinEnter * if &diff | let b:cursorword = 0 | endif
+      autocmd FileType defx,denite,fern,qf let b:cursorword = 0
+      autocmd WinEnter * if &diff || &pvw | let b:cursorword = 0 | endif
       autocmd InsertEnter * let b:cursorword = 0
       autocmd InsertLeave * let b:cursorword = 1
     augroup END
