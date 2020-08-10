@@ -93,7 +93,7 @@ if dein#tap('vim-lsp')
 	" Close preview window with Escape
 	autocmd User lsp_float_opened
 		\ nmap <buffer> <silent> <Esc> <Plug>(lsp-preview-close)
-	autocmd User lsp_float_closed nunmap <buffer> <Esc>
+	autocmd User lsp_float_closed silent! nunmap <buffer> <Esc>
 endif
 
 if dein#tap('defx.nvim')

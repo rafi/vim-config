@@ -79,6 +79,7 @@ function! s:main()
 		" When using VIMINIT trick for exotic MYVIMRC locations, add path now.
 		if &runtimepath !~# $VIM_PATH
 			set runtimepath^=$VIM_PATH
+			set runtimepath+=$VIM_PATH/after
 		endif
 
 		" Ensure data directories

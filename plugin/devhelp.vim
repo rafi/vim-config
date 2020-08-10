@@ -31,6 +31,10 @@ function! s:show_help(word, ...)
 		execute '!open -g dash://' . l:expr
 	elseif executable('zeal')
 		execute '!zeal --query "' . l:expr . '"'
+	else
+		echohl ErrorMsg
+		echomsg 'Unable to find Dash or Zeal, install one of these.'
+		echohl None
 	endif
 	redraw!
 endfunction
