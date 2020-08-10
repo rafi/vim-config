@@ -280,6 +280,10 @@ endif
 nmap <Leader>se :<C-u>SessionSave<CR>
 nmap <Leader>sl :<C-u>SessionLoad<CR>
 
+" Jump entire buffers in jumplist
+nnoremap g<C-i> :<C-u>call JumpBuffer(-1)<CR>
+nnoremap g<C-o> :<C-u>call JumpBuffer(1)<CR>
+
 if has('mac')
 	" Open the macOS dictionary on current word
 	nmap <Leader>? :!open dict://<cword><CR>

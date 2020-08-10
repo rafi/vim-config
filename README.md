@@ -698,6 +698,8 @@ Note that,
 | <kbd>-</kbd> | 𝐍 | Choose a window to edit | <small>[t9md/vim-choosewin]</small>
 | <kbd>;</kbd>+<kbd>c</kbd> | 𝐍 | Open context-menu | <small>[plugin/actionmenu.vim]</small>
 | <kbd>gK</kbd> | 𝐍 | Open Zeal or Dash on some file-types | <small>[plugin/devhelp.vim]</small>
+| <kbd>g</kbd><kbd>Ctrl</kbd>+<kbd>o</kbd> | 𝐍 | Navigate to previous file on jumplist | <small>[plugin/jumpfile.vim]</small>
+| <kbd>g</kbd><kbd>Ctrl</kbd>+<kbd>i</kbd> | 𝐍 | Navigate to next file on jumplist | <small>[plugin/jumpfile.vim]</small>
 | <kbd>Space</kbd>+<kbd>l</kbd> | 𝐍 | Open side-menu helper | <small>[rafi/vim-sidemenu]</small>
 | <kbd>Space</kbd>+<kbd>b</kbd> | 𝐍 | Open structure window | <small>[liuchengxu/vista.vim]</small>
 | <kbd>Space</kbd>+<kbd>a</kbd> | 𝐍 | Show nearby tag in structure window | <small>[liuchengxu/vista.vim]</small>
@@ -883,6 +885,7 @@ Big thanks to the dark knight [Shougo](https://github.com/Shougo).
 [plugin/whitespace.vim]: ./plugin/whitespace.vim
 [plugin/sessions.vim]: ./plugin/sessions.vim
 [plugin/devhelp.vim]: ./plugin/devhelp.vim
+[plugin/jumpfile.vim]: ./plugin/jumpfile.vim
 [plugin/actionmenu.vim]: ./plugin/actionmenu.vim
 [Marked 2]: https://marked2app.com
 [Neovim]: https://github.com/neovim/neovim
