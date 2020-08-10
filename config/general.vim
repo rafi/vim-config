@@ -62,7 +62,7 @@ if has('wildmenu')
 	set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
 	set wildignore+=**/node_modules/**,**/bower_modules/**,*/.sass-cache/*
 	set wildignore+=__pycache__,*.egg-info,.pytest_cache,.mypy_cache/**
-	set wildcharm=<C-z>  " substitue for 'wildchar' (<Tab>) in macros
+	" set wildcharm=<C-z>  " substitue for 'wildchar' (<Tab>) in macros
 endif
 
 " }}}

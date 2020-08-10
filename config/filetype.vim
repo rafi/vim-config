@@ -17,6 +17,9 @@ augroup user_plugin_filetype " {{{
 	" Automatically set read-only for files being edited elsewhere
 	autocmd SwapExists * nested let v:swapchoice = 'o'
 
+	" Update diff comparison once leaving insert mode
+	autocmd InsertLeave * if &l:diff | diffupdate | endif
+
 	" Equalize window dimensions when resizing vim window
 	autocmd VimResized * tabdo wincmd =
 
