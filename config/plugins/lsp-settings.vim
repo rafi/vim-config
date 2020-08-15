@@ -1,4 +1,4 @@
-" vim-lsp-settings settings :)
+" vim-lsp
 " ---
 
 " Apply settings for languages that registered LSP
@@ -12,7 +12,7 @@ function! s:on_lsp_buffer_enabled() abort
 
 	" Prefer native help with vim files
 	if &filetype != 'vim'
-		nmap <silent><buffer> K      <Plug>(lsp-hover)
+		nmap <silent><buffer> K  <Plug>(lsp-hover)
 	endif
 
 	nmap <silent><buffer> gr     <Plug>(lsp-references)
@@ -24,8 +24,8 @@ function! s:on_lsp_buffer_enabled() abort
 	nmap <silent><buffer> gd     <Plug>(lsp-peek-declaration)
 	nmap <silent><buffer> gY     <Plug>(lsp-type-hierarchy)
 	nmap <silent><buffer> ,s     <Plug>(lsp-signature-help)
-	nmap <buffer> [d <Plug>(lsp-previous-diagnostic)
-	nmap <buffer> ]d <Plug>(lsp-next-diagnostic)
+	nmap <silent><buffer> [d <Plug>(lsp-previous-diagnostic)
+	nmap <silent><buffer> ]d <Plug>(lsp-next-diagnostic)
 endfunction
 
 augroup lsp_user_plugin

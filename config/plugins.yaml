@@ -453,10 +453,13 @@
 - repo: prabirshrestha/vim-lsp
   depends: asyncomplete-lsp.vim
   hook_add: |-
+    let g:lsp_async_completion = 1
+    let g:lsp_ignorecase = 1
+    let g:lsp_virtual_text_enabled = 0
     let g:lsp_diagnostics_enabled = 1
     let g:lsp_diagnostics_echo_cursor = 1
-    let g:lsp_diagnostics_echo_delay = 200
-    let g:lsp_virtual_text_enabled = 0
+    let g:lsp_diagnostics_echo_delay = 400
+    let g:lsp_highlight_references_enabled = 0
   hook_source: source $VIM_PATH/config/plugins/lsp-settings.vim
 
 - repo: mattn/vim-lsp-settings
@@ -561,9 +564,9 @@
   on_event: FileType
   hook_add: |-
     let g:UltiSnipsExpandTrigger = '<C-l>'
-    let g:UltiSnipsListSnippets = ''
-    let g:UltiSnipsJumpForwardTrigger = '<C-f>'
-    let g:UltiSnipsJumpBackwardTrigger = '<C-b>'
+    let g:UltiSnipsListSnippets = '<C-Tab>'
+    let g:UltiSnipsJumpForwardTrigger = '<Tab>'
+    let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
 
 - repo: honza/vim-snippets
   depends: ultisnips

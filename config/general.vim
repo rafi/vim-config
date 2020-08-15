@@ -189,7 +189,10 @@ set switchbuf=useopen           " Look for matching window buffers first
 set backspace=indent,eol,start  " Intuitive backspacing in insert mode
 set diffopt=filler,iwhite       " Diff mode: show fillers, ignore whitespace
 set completeopt=menu,menuone    " Always show menu, even for one item
-set completeopt+=noselect       " Do not select a match in the menu
+
+if has('patch-7.4.775')
+	set completeopt+=noselect       " Do not select a match in the menu
+endif
 
 if exists('+completepopup')
 	set completeopt+=popup
@@ -247,8 +250,8 @@ endif
 
 if has('nvim-0.4')
 	set signcolumn=auto:1
-else
-	set signcolumn=auto          " Always show signs column
+elseif exists('&signcolumn')
+	set signcolumn=auto
 endif
 
 " UI Symbols
@@ -278,7 +281,7 @@ if exists('+previewpopup')
 endif
 
 " Pseudo-transparency for completion menu and floating windows
-if &termguicolors
+if has('termguicolors') && &termguicolors
 	if exists('&pumblend')
 		set pumblend=10
 	endif
