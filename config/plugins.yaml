@@ -13,9 +13,6 @@
 - repo: sgur/vim-editorconfig
 - repo: Shougo/context_filetype.vim
 - repo: jaawerth/nrun.vim
-- repo: justinmk/vim-gtfo
-- { repo: wellle/visual-split.vim, merged: 0 }
-- { repo: wellle/targets.vim, merged: 0 }
 - { repo: rafi/awesome-vim-colorschemes, merged: 0 }
 
 - repo: christoomey/vim-tmux-navigator
