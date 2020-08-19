@@ -13,7 +13,7 @@ function! preview#open(file, line, column) abort
 	else
 
 		" Create read-only preview
-		doautocmd User preview_open_pre
+		silent doautocmd User preview_open_pre
 		execute 'silent! vertical pedit! +set\ nofoldenable ' . a:file
 		noautocmd wincmd P
 		let b:asyncomplete_enable = 0
@@ -23,10 +23,13 @@ function! preview#open(file, line, column) abort
 		setlocal bufhidden=delete
 		" setlocal nomodifiable nobuflisted buftype=nofile
 		" local window settings
-		setlocal statusline= number conceallevel=0 nospell signcolumn=no
+		setlocal statusline= number conceallevel=0 nospell
+		if exists('&signcolumn')
+			setlocal signcolumn=no
+		endif
 		setlocal cursorline cursorcolumn colorcolumn=
 		noautocmd execute 'vertical resize ' . (&columns / 2)
-		doautocmd User preview_open_post
+		silent doautocmd User preview_open_post
 	endif
 
 	if a:line > 1 || a:column > 1

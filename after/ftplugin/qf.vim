@@ -5,7 +5,16 @@
 let s:save_cpo = &cpoptions
 set cpoptions&vim
 
-setlocal cursorline signcolumn=yes
+setlocal cursorline
+if exists('&signcolumn')
+	setlocal signcolumn=yes
+endif
+
+if ! exists('b:qf_isLoc')
+	" Are we in a location list or a quickfix list?
+	let b:qf_isLoc = ! empty(getloclist(0))
+endif
+
 let &l:statusline="%t%{exists('w:quickfix_title') ? ' '.w:quickfix_title : ''} %=%-15(%l,%L%V%) %P"
 
 silent! nunmap <buffer> <CR>

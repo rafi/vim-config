@@ -4,7 +4,6 @@
 " Apply settings for languages that registered LSP
 function! s:on_lsp_buffer_enabled() abort
 	setlocal omnifunc=lsp#complete
-	setlocal signcolumn=yes
 	if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
 	setlocal foldmethod=expr
 		\ foldexpr=lsp#ui#vim#folding#foldexpr()
