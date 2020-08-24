@@ -72,6 +72,18 @@ highlight NonText cterm=NONE ctermfg=NONE
 highlight! link jsFutureKeys PreProc
 highlight! WarningMsg  ctermfg=100 guifg=#CCC566
 
+" if has('nvim') || has('patch-7.4.2218')
+" 	highlight EndOfBuffer gui=NONE guifg=#303030
+" endif
+
+if has('nvim')
+	highlight TermCursor    gui=NONE guibg=#cc22a0
+	highlight TermCursorNC  gui=NONE guibg=#666666
+	highlight TermCursor    gui=NONE guibg=#cc22a0
+	highlight TermCursorNC  gui=NONE guibg=#666666
+	" highlight NormalNC      gui=NONE guibg=#2c2c2c guifg=#bfbfbf
+endif
+
 highlight! link vimFunc Function
 highlight! link vimFunction Function
 highlight! link vimUserFunc PreProc

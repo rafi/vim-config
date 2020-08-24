@@ -13,9 +13,6 @@
 - repo: sgur/vim-editorconfig
 - repo: Shougo/context_filetype.vim
 - repo: jaawerth/nrun.vim
-- repo: justinmk/vim-gtfo
-- { repo: wellle/visual-split.vim, merged: 0 }
-- { repo: wellle/targets.vim, merged: 0 }
 - { repo: rafi/awesome-vim-colorschemes, merged: 0 }
 
 - repo: christoomey/vim-tmux-navigator
@@ -23,19 +20,6 @@
 
 - repo: tpope/vim-sleuth
   hook_add: let g:sleuth_neighbor_limit = 5
-
-- repo: liuchengxu/vim-clap
-  merged: 0
-  hook_add: |
-    let g:clap_cache_directory = $DATA_PATH . '/clap'
-    let g:clap_theme = 'atom_dark'
-    let g:clap_layout = { 'relative': 'editor' }
-    let g:clap_enable_icon = 1
-    let g:clap_search_box_border_style = 'curve'
-    let g:clap_provider_grep_enable_icon = 1
-    let g:clap_prompt_format = '%spinner%%forerunner_status% %provider_id%: '
-    highlight! link ClapMatches Function
-    highlight! link ClapNoMatchesFound WarningMsg
 
 # GUI only:
 - { repo: equalsraf/neovim-gui-shim, if: has('gui_running') }
@@ -59,7 +43,7 @@
 
 - repo: othree/html5.vim
   on_ft: html
-  hook_add: |
+  hook_add: |-
     let g:html5_event_handler_attributes_complete = 0
     let g:html5_rdfa_attributes_complete = 0
     let g:html5_microdata_attributes_complete = 0
@@ -68,7 +52,7 @@
 # Markdown related
 - repo: plasticboy/vim-markdown
   on_ft: markdown
-  hook_add: |
+  hook_add: |-
     let g:vim_markdown_frontmatter = 1
     let g:vim_markdown_strikethrough = 1
     let g:vim_markdown_folding_level = 6
@@ -97,7 +81,7 @@
 - repo: rhysd/vim-gfm-syntax
   depends: vim-markdown
   on_ft: markdown
-  hook_add: |
+  hook_add: |-
     let g:gfm_syntax_enable_always = 0
     let g:gfm_syntax_highlight_emoji = 0
     let g:gfm_syntax_enable_filetypes = ['markdown']
@@ -105,7 +89,7 @@
 # Javascript related
 - repo: pangloss/vim-javascript
   on_ft: [ javascript, javascriptreact ]
-  hook_add: |
+  hook_add: |-
     let g:javascript_plugin_jsdoc = 1
     let g:javascript_plugin_flow = 1
 
@@ -136,7 +120,7 @@
 - repo: fatih/vim-go
   if: has('nvim-0.4.0') || has('patch-8.0.1453')
   on_ft: [ go, gomod ]
-  hook_add: |
+  hook_add: |-
     let g:go_gopls_enabled = 0
     let g:go_code_completion_enabled = 0
     let g:go_doc_keywordprg_enabled = 0
@@ -148,7 +132,6 @@
     let g:go_highlight_trailing_whitespace_error = 0
     let g:go_highlight_extra_types = 1
     let g:go_highlight_build_constraints = 1
-    let g:go_highlight_extra_types = 1
     let g:go_highlight_fields = 1
     let g:go_highlight_format_strings = 1
     let g:go_highlight_functions = 1
@@ -186,12 +169,11 @@
 - { repo: robbles/logstash.vim, on_ft: logstash }
 - { repo: lifepillar/pgsql.vim, on_ft: pgsql }
 - { repo: chr4/nginx.vim, on_ft: nginx }
-- { repo: IN3D/vim-raml, on_ft: raml }
 - { repo: towolf/vim-helm, on_ft: helm }
 
 - repo: pearofducks/ansible-vim
   on_ft: [ ansible, ansible_hosts, jinja2 ]
-  hook_add: |
+  hook_add: |-
     let g:ansible_extra_keywords_highlight = 1
     let g:ansible_template_syntaxes = {
       \   '*.json.j2': 'json',
@@ -219,15 +201,18 @@
 - { repo: tyru/caw.vim, on_map: { nx: <Plug> }}
 - { repo: liuchengxu/vim-which-key, on_cmd: WhichKey }
 - { repo: mbbill/undotree, on_cmd: UndotreeToggle }
-- { repo: reedes/vim-wordy, on_cmd: [ Wordy, NextWordy, PrevWordy ]}
+- { repo: reedes/vim-wordy, on_cmd: [ Wordy, NoWordy, NextWordy ]}
 - { repo: jreybert/vimagit, on_cmd: Magit }
 - { repo: tweekmonster/helpful.vim, on_cmd: HelpfulVersion }
-- { repo: lambdalisue/gina.vim, on_cmd: Gina }
 - { repo: kana/vim-altr, on_map: { n: <Plug> }}
 - { repo: Shougo/vinarise.vim, on_cmd: Vinarise }
 - { repo: guns/xterm-color-table.vim, on_cmd: XtermColorTable }
 - { repo: cocopon/colorswatch.vim, on_cmd: ColorSwatchGenerate }
 - { repo: dstein64/vim-startuptime, on_cmd: StartupTime }
+
+- repo: lambdalisue/gina.vim
+  on_cmd: Gina
+  hook_source: source $VIM_PATH/config/plugins/gina.vim
 
 - repo: brooth/far.vim
   on_cmd: [ Far, Farp, F ]
@@ -254,7 +239,7 @@
 
 - repo: t9md/vim-choosewin
   on_map: { n: <Plug> }
-  hook_add: |
+  hook_add: |-
     let g:choosewin_label = 'ADFGHJKLUIOPQWERT'
     let g:choosewin_label_align = 'right'
     let g:choosewin_label_padding = 5
@@ -267,21 +252,9 @@
   on_cmd: [ GenTocGFM, GenTocRedcarpet, GenTocGitLab, UpdateToc ]
   hook_add: let g:vmt_auto_update_on_save = 0
 
-- repo: tpope/vim-fugitive
-  on_cmd: [ G, Git, Gfetch, Gpush, Glog, Gclog, Gdiffsplit ]
-  hook_source:
-    augroup user_fugitive_plugin
-      autocmd!
-      autocmd FileType fugitiveblame normal A
-    augroup END
-
-- repo: junegunn/gv.vim
-  depends: vim-fugitive
-  on_cmd: GV
-
 - repo: liuchengxu/vista.vim
   on_cmd: Vista
-  hook_add: |
+  hook_add: |-
     let g:vista#renderer#enable_icon = 1
     let g:vista_echo_cursor_strategy = 'scroll'
     let g:vista_vimwiki_executive = 'markdown'
@@ -295,7 +268,7 @@
   merged: 0
   on_cmd: FZF
   type__depth: 1
-  hook_source: |
+  hook_source: |-
     let g:fzf_layout = { 'down': '~25%' }
 
 - repo: junegunn/fzf.vim
@@ -309,7 +282,7 @@
     - Thesaurus
     - ThesaurusQueryReplaceCurrentWord
     - ThesaurusQueryLookupCurrentWord
-  hook_add: |
+  hook_add: |-
     let g:tq_map_keys = 0
     let g:tq_use_vim_autocomplete = 0
 
@@ -327,6 +300,26 @@
   on_event: TextYankPost
   hook_source: let g:highlightedyank_highlight_duration = 200
 
+- repo: romainl/vim-qf
+  on_ft: qf
+  on_event: QuickFixCmdPost
+  on_map: { n: <Plug> }
+  hook_add: |-
+    let g:qf_bufname_or_text = 1
+    let g:qf_auto_open_quickfix = 0
+    let g:qf_auto_open_loclist = 0
+    let g:qf_auto_resize = 0
+    autocmd User preview_open_pre
+      \ let g:vim_markdown_folding_disabled = 1
+      \| let g:vim_markdown_override_foldtext = 0
+      \| let g:vim_markdown_no_default_key_mappings = 1
+      \| let g:vim_markdown_emphasis_multiline = 0
+    autocmd User preview_open_post
+      \ unlet g:vim_markdown_folding_disabled
+      \| let g:vim_markdown_override_foldtext = 1
+      \| unlet g:vim_markdown_no_default_key_mappings
+      \| unlet g:vim_markdown_emphasis_multiline
+
 - repo: wellle/context.vim
   on_cmd: [ ContextToggle, ContextToggleWindow, ContextPeek ]
 
@@ -338,24 +331,25 @@
 #   on_event: [ FileType, WinEnter, InsertLeave ]
 
 - repo: itchyny/vim-cursorword
-  on_event: VimEnter
+  on_event: FileType
   hook_source: |-
     augroup user_plugin_cursorword
       autocmd!
-      autocmd FileType defx,denite,qf let b:cursorword = 0
-      autocmd WinEnter * if &diff | let b:cursorword = 0 | endif
+      autocmd FileType defx,denite,fern,qf let b:cursorword = 0
+      autocmd WinEnter * if &diff || &pvw | let b:cursorword = 0 | endif
       autocmd InsertEnter * let b:cursorword = 0
       autocmd InsertLeave * let b:cursorword = 1
     augroup END
 
 - repo: airblade/vim-gitgutter
   on_event: FileType
-  hook_add: |
+  hook_add: |-
     let g:gitgutter_map_keys = 0
     let g:gitgutter_sign_added = '▎'
     let g:gitgutter_sign_modified = '▎'
     let g:gitgutter_sign_removed = '▍'
     let g:gitgutter_sign_removed_first_line = '▘'
+    let g:gitgutter_sign_removed_above_and_below = '_¯'
     let g:gitgutter_sign_modified_removed = '▍'
     let g:gitgutter_preview_win_floating = 1
     let g:gitgutter_sign_allow_clobber = 0
@@ -365,7 +359,7 @@
 - repo: kshenoy/vim-signature
   depends: vim-gitgutter
   on_event: FileType
-  hook_add: |
+  hook_add: |-
     let g:SignatureForceRemoveGlobal = 0
     let g:SignatureUnconditionallyRecycleMarks = 1
     let g:SignatureErrorIfNoAvailableMarks = 0
@@ -378,7 +372,7 @@
 - repo: nathanaelkane/vim-indent-guides
   on_event: FileType
   hook_post_source: IndentGuidesEnable
-  hook_add: |
+  hook_add: |-
     let g:indent_guides_default_mapping = 0
     let g:indent_guides_tab_guides = 0
     let g:indent_guides_color_change_percent = 3
@@ -386,11 +380,12 @@
     let g:indent_guides_exclude_filetypes = [
       \ 'help', 'denite', 'denite-filter', 'startify',
       \ 'vista', 'vista_kind', 'tagbar', 'nerdtree',
-      \ 'lsp-hover', 'clap_input'
+      \ 'lsp-hover', 'clap_input', 'any-jump',
+      \ 'gina-status', 'gina-commit', 'gina-log'
       \ ]
 
 - repo: rhysd/committia.vim
-  on_path: [ COMMIT_EDITMSG, MERGE_MSG ]
+  on_event: BufReadPost
   hook_source: let g:committia_min_window_width = 70
 
 - repo: junegunn/goyo.vim
@@ -403,7 +398,7 @@
 
 - repo: itchyny/calendar.vim
   on_cmd: Calendar
-  hook_source: |
+  hook_source: |-
     let g:calendar_google_calendar = 1
     let g:calendar_google_task = 1
 
@@ -414,12 +409,12 @@
 - repo: vimwiki/vimwiki
   on_map: { n: <Plug> }
   on_cmd: [ VimwikiIndex, VimwikiUISelect ]
-  hook_add: |
+  hook_add: |-
     let g:vimwiki_use_calendar = 1
     let g:vimwiki_hl_headers = 1
     let g:vimwiki_hl_cb_checked = 1
     let g:vimwiki_autowriteall = 0
-  hook_source: |
+  hook_source: |-
     let g:vimwiki_list = [
     \   { 'diary_header': 'Diary',
     \     'diary_link_fmt': '%Y-%m/%d',
@@ -453,18 +448,24 @@
 
 - repo: prabirshrestha/vim-lsp
   depends: asyncomplete-lsp.vim
-  hook_add: |
-    let g:lsp_diagnostics_enabled = 0
+  hook_add: |-
+    let g:lsp_async_completion = 1
+    let g:lsp_ignorecase = 1
     let g:lsp_virtual_text_enabled = 0
+    let g:lsp_diagnostics_enabled = 1
+    let g:lsp_diagnostics_echo_cursor = 1
+    let g:lsp_diagnostics_echo_delay = 400
+    let g:lsp_highlight_references_enabled = 0
   hook_source: source $VIM_PATH/config/plugins/lsp-settings.vim
 
 - repo: mattn/vim-lsp-settings
   depends: vim-lsp
   merged: 0
-  hook_add: |
+  hook_add: |-
     let g:lsp_settings = {
+    \   'efm-langserver': {'disabled': 1},
     \   'yaml-language-server': {
-    \     'allowlist': ['yaml', 'yaml.ansible', 'helm'],
+    \     'allowlist': ['yaml', 'yaml.ansible'],
     \   }
     \ }
 
@@ -474,7 +475,7 @@
 
 - repo: prabirshrestha/asyncomplete-necovim.vim
   depends: asyncomplete.vim
-  hook_source: |
+  hook_source: |-
     autocmd User asyncomplete_setup call asyncomplete#register_source(
       \ asyncomplete#sources#necovim#get_source_options({
       \ 'name': 'necovim',
@@ -484,7 +485,7 @@
 
 - repo: prabirshrestha/asyncomplete-buffer.vim
   depends: asyncomplete.vim
-  hook_source: |
+  hook_source: |-
     autocmd User asyncomplete_setup call asyncomplete#register_source(
       \ asyncomplete#sources#buffer#get_source_options({
       \ 'name': 'buffer',
@@ -499,7 +500,7 @@
 - repo: prabirshrestha/asyncomplete-tags.vim
   if: executable('ctags')
   depends: asyncomplete.vim
-  hook_source: |
+  hook_source: |-
     autocmd User asyncomplete_setup call asyncomplete#register_source(
       \ asyncomplete#sources#tags#get_source_options({
       \ 'name': 'tags',
@@ -511,7 +512,7 @@
 
 - repo: prabirshrestha/asyncomplete-file.vim
   depends: asyncomplete.vim
-  hook_source: |
+  hook_source: |-
     autocmd User asyncomplete_setup call asyncomplete#register_source(
       \ asyncomplete#sources#file#get_source_options({
       \ 'name': 'file',
@@ -524,7 +525,7 @@
 - repo: wellle/tmux-complete.vim
   if: "! (has('win32') || has('win64'))"
   depends: asyncomplete.vim
-  hook_add: |
+  hook_add: |-
     let g:tmuxcomplete#trigger = ''
     let g:tmuxcomplete#asyncomplete_source_options = {
       \ 'name': 'tmux',
@@ -544,7 +545,7 @@
 - repo: prabirshrestha/asyncomplete-ultisnips.vim
   depends: asyncomplete.vim
   if: has('python3')
-  hook_source: |
+  hook_source: |-
     autocmd User asyncomplete_setup call asyncomplete#register_source(
       \ asyncomplete#sources#ultisnips#get_source_options({
       \ 'name': 'snip',
@@ -557,11 +558,11 @@
 - repo: SirVer/ultisnips
   if: has('python3')
   on_event: FileType
-  hook_add: |
+  hook_add: |-
     let g:UltiSnipsExpandTrigger = '<C-l>'
-    let g:UltiSnipsListSnippets = ''
-    let g:UltiSnipsJumpForwardTrigger = '<C-f>'
-    let g:UltiSnipsJumpBackwardTrigger = '<C-b>'
+    let g:UltiSnipsListSnippets = '<C-Tab>'
+    let g:UltiSnipsJumpForwardTrigger = '<Tab>'
+    let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
 
 - repo: honza/vim-snippets
   depends: ultisnips
@@ -569,22 +570,10 @@
   if: has('python3')
   merged: 0
 
-- repo: dense-analysis/ale
-  on_event: FileType
-  hook_add: |
-    let g:ale_disable_lsp = 0
-    let g:ale_echo_delay = 100
-    let g:ale_lint_delay = 1000
-    let g:ale_echo_msg_format = '%linter%: %code: %%s [%severity%]'
-    let g:ale_history_enabled = 0
-    let g:ale_sign_error = '✖'
-    let g:ale_sign_warning = 'ⁱ'
-    let g:ale_maximum_file_size = 500000
-
 - repo: mattn/emmet-vim
   on_event: InsertEnter
   on_ft: [ html, css, javascript, javascriptreact, svelte ]
-  hook_source: |
+  hook_source: |-
     let g:user_emmet_complete_tag = 0
     let g:user_emmet_install_global = 0
     let g:user_emmet_install_command = 0
@@ -593,7 +582,7 @@
 - repo: ncm2/float-preview.nvim
   if: has('nvim-0.4')
   on_event: InsertEnter
-  hook_source: |
+  hook_source: |-
     let g:float_preview#docked = 0
     let g:float_preview#max_width = 80
     function! s:float_preview()
@@ -604,7 +593,7 @@
 - repo: ludovicchabant/vim-gutentags
   if: executable('ctags')
   on_event: [ BufReadPost, BufWritePost ]
-  hook_add: |
+  hook_add: |-
     let g:gutentags_cache_dir = $DATA_PATH . '/tags'
     let g:gutentags_generate_on_write = 0
     let g:gutentags_generate_on_missing = 0
@@ -619,7 +608,7 @@
 
 - repo: Raimondi/delimitMate
   on_event: FileType
-  hook_source: |
+  hook_source: |-
     let g:delimitMate_expand_cr = 0
     let g:delimitMate_expand_space = 1
     let g:delimitMate_smart_quotes = 1
@@ -627,10 +616,10 @@
     let g:delimitMate_excluded_ft = 'mail,txt'
     augroup user_plugin_delimitMate
       au!
+      au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
       au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
       au FileType tex let b:delimitMate_quotes = ""
       au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
-      au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
     augroup END
 
 # ==========================================
@@ -643,7 +632,7 @@
 
 - repo: Shougo/neomru.vim
   on_source: denite.nvim
-  hook_add: |
+  hook_add: |-
     let g:neomru#directory_mru_path = $DATA_PATH . '/mru/dir'
     let g:neomru#file_mru_path = $DATA_PATH . '/mru/file'
     let g:unite_source_file_mru_limit = 5000
@@ -651,12 +640,11 @@
 - { repo: Shougo/neoyank.vim, on_source: denite.nvim, on_event: TextYankPost }
 - { repo: Shougo/junkfile.vim, on_source: denite.nvim }
 - { repo: chemzqm/unite-location, on_source: denite.nvim }
-- { repo: chemzqm/denite-git, on_source: denite.nvim }
 - { repo: rafi/vim-denite-session, on_source: denite.nvim }
 
 - repo: rafi/vim-denite-z
   on_source: denite.nvim
-  hook_source: |
+  hook_source: |-
     command! -nargs=+ -complete=file Z call denite#start(
       \ [{'name': 'z', 'args': [<q-args>], {'immediately': 1}}])
 
@@ -665,12 +653,11 @@
 # ---------
 - repo: kana/vim-operator-user  # only autoload functions, lazy by nature
 
-- repo: kana/vim-operator-replace
-  on_map: { vnx: <Plug> }
+- { repo: kana/vim-operator-replace, on_map: { vnx: <Plug> }}
 
 - repo: machakann/vim-sandwich
   on_map: { vonx: <Plug>(operator-sandwich- }
-  hook_add: |
+  hook_add: |-
     let g:sandwich_no_default_key_mappings = 1
     let g:operator_sandwich_no_default_key_mappings = 1
     let g:textobj_sandwich_no_default_key_mappings = 1
@@ -687,10 +674,6 @@
 - repo: AndrewRadev/dsf.vim
   on_map: { n: <Plug>Dsf }
   hook_add: let g:dsf_no_mappings = 1
-
-- repo: osyo-manga/vim-textobj-multiblock
-  on_map: { ox: <Plug> }
-  hook_add: let g:textobj_multiblock_no_default_key_mappings = 1
 
 - repo: kana/vim-textobj-function
   on_map: { ox: <Plug> }

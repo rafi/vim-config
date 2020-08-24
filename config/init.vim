@@ -51,15 +51,15 @@ let g:loaded_netrwFileHandlers = 1
 let $VIM_PATH =
 	\ get(g:, 'etc_vim_path',
 	\   exists('*stdpath') ? stdpath('config') :
-	\   ! empty($MYVIMRC) ? fnamemodify(expand($MYVIMRC), ':h') :
-	\   ! empty($VIMCONFIG) ? expand($VIMCONFIG) :
-	\   ! empty($VIM_PATH) ? expand($VIM_PATH) :
+	\   ! empty($MYVIMRC) ? fnamemodify(expand($MYVIMRC, 1), ':h') :
+	\   ! empty($VIMCONFIG) ? expand($VIMCONFIG, 1) :
+	\   ! empty($VIM_PATH) ? expand($VIM_PATH, 1) :
 	\   fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
 	\ )
 
 " Set data/cache directory as $XDG_CACHE_HOME/vim
 let $DATA_PATH =
-	\ expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : '~/.cache') . '/vim')
+	\ expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : '~/.cache') . '/vim', 1)
 
 " Collection of user plugin list config file-paths
 let s:config_paths = get(g:, 'etc_config_paths', [
@@ -79,6 +79,7 @@ function! s:main()
 		" When using VIMINIT trick for exotic MYVIMRC locations, add path now.
 		if &runtimepath !~# $VIM_PATH
 			set runtimepath^=$VIM_PATH
+			set runtimepath+=$VIM_PATH/after
 		endif
 
 		" Ensure data directories
@@ -240,9 +241,6 @@ function! s:parse_config_files()
 		call s:error(
 			\ 'Unable to read configuration files at ' . string(s:config_paths))
 		echoerr v:exception
-		echomsg 'Error parsing user configuration file(s).'
-		echoerr 'Please run: pip3 install --user PyYAML'
-		echomsg 'Caught: ' v:exception
 	endtry
 
 	" If there's more than one config file source,
@@ -308,22 +306,22 @@ endfunction
 " YAML related
 " ---
 
-let g:yaml2json_method = ''
+let s:convert_tool = ''
 
 function! s:load_yaml(filename)
-	if empty(g:yaml2json_method)
-		let g:yaml2json_method = s:find_yaml2json_method()
+	if empty(s:convert_tool)
+		let s:convert_tool = s:find_yaml2json_method()
 	endif
 
-	if g:yaml2json_method ==# 'ruby'
+	if s:convert_tool ==# 'ruby'
 		let l:cmd = "ruby -e 'require \"json\"; require \"yaml\"; ".
 			\ "print JSON.generate YAML.load \$stdin.read'"
-	elseif g:yaml2json_method ==# 'python'
+	elseif s:convert_tool ==# 'python'
 		let l:cmd = "python -c 'import sys,yaml,json; y=yaml.safe_load(sys.stdin.read()); print(json.dumps(y))'"
-	elseif g:yaml2json_method ==# 'yq'
+	elseif s:convert_tool ==# 'yq'
 		let l:cmd = 'yq r -j -'
 	else
-		let l:cmd = g:yaml2json_method
+		let l:cmd = s:convert_tool
 	endif
 
 	try
@@ -334,18 +332,22 @@ function! s:load_yaml(filename)
 			\ string(v:exception),
 			\ 'Error loading ' . a:filename,
 			\ 'Caught: ' . string(v:exception),
-			\ 'Please run: pip install --user PyYAML',
 			\ ])
 	endtry
 endfunction
 
 function! s:find_yaml2json_method()
 	if exists('*json_decode')
-		" First, try to decode YAML using a CLI tool named yaml2json, there's many
-		if executable('yaml2json') && s:test_yaml2json()
-			return 'yaml2json'
+		" Try different tools to convert YAML into JSON:
+		if executable('yj')
+			" See https://github.com/sclevine/yj
+			return 'yj'
 		elseif executable('yq')
+			" See https://github.com/mikefarah/yq
 			return 'yq'
+		elseif executable('yaml2json') && s:test_yaml2json()
+			" See https://github.com/bronze1man/yaml2json
+			return 'yaml2json'
 		" Or, try ruby. Which is installed on every macOS by default
 		" and has yaml built-in.
 		elseif executable('ruby') && s:test_ruby_yaml()
@@ -354,20 +356,24 @@ function! s:find_yaml2json_method()
 		elseif executable('python') && s:test_python_yaml()
 			return 'python'
 		endif
-		call s:error('Unable to find a proper YAML parsing utility')
+		call s:error([
+			\ 'Unable to find a proper YAML parsing utility.',
+			\ 'Please run: pip3 install --user PyYAML',
+			\ ])
+	else
+		call s:error('"json_decode" unsupported. Upgrade to latest Neovim or Vim')
 	endif
-	call s:error('Please upgrade to neovim +v0.1.4 or vim: +v7.4.1304')
 endfunction
 
 function! s:test_yaml2json()
 	" Test yaml2json capabilities
 	try
-		let result = system('yaml2json', "---\ntest: 1")
+		let result = system('yaml2json', "---\na: 1.5")
 		if v:shell_error != 0
 			return 0
 		endif
 		let result = json_decode(result)
-		return result.test
+		return result.a == 1.5
 	catch
 	endtry
 	return 0
@@ -376,13 +382,13 @@ endfunction
 function! s:test_ruby_yaml()
 	" Test Ruby YAML capabilities
 	call system("ruby -e 'require \"json\"; require \"yaml\"'")
-	return (v:shell_error == 0) ? 1 : 0
+	return v:shell_error == 0
 endfunction
 
 function! s:test_python_yaml()
 	" Test Python YAML capabilities
 	call system("python -c 'import sys,yaml,json'")
-	return (v:shell_error == 0) ? 1 : 0
+	return v:shell_error == 0
 endfunction
 
 call s:main()

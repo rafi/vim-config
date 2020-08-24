@@ -85,11 +85,11 @@ call denite#custom#source(
 " Ripgrep
 if executable('rg')
 	call denite#custom#var('file/rec', 'command',
-		\ ['rg', '--files', '--glob', '!.git', '--color', 'never'])
+		\ ['rg', '--hidden', '--files', '--glob', '!.git', '--color', 'never'])
 
 	call denite#custom#var('grep', {
 		\ 'command': ['rg'],
-		\ 'default_opts': ['-i', '--vimgrep', '--no-heading'],
+		\ 'default_opts': ['--hidden', '-i', '--vimgrep', '--no-heading'],
 		\ 'recursive_opts': [],
 		\ 'pattern_opt': ['--regexp'],
 		\ })
@@ -148,6 +148,10 @@ function! s:denite_settings() abort
 	setlocal signcolumn=no cursorline
 
 	" Denite selection window key mappings
+	nmap <silent><buffer> <C-j> j
+	nmap <silent><buffer> <C-k> k
+	nmap <silent><buffer> <C-n> j
+	nmap <silent><buffer> <C-p> k
 	nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
 	nnoremap <silent><buffer><expr> i    denite#do_map('open_filter_buffer')
 	nnoremap <silent><buffer><expr> /    denite#do_map('open_filter_buffer')
@@ -199,15 +203,11 @@ function! s:denite_filter_settings() abort
 	imap <silent><buffer> <Esc>       <Plug>(denite_filter_quit)
 	nmap <silent><buffer> <C-c>       <Plug>(denite_filter_quit)
 	imap <silent><buffer> <C-c>       <Plug>(denite_filter_quit)
+	imap <silent><buffer> <C-p>       <Up>
+	imap <silent><buffer> <C-n>       <Down>
 
-	inoremap <silent><buffer> <Tab> <Esc>
-		\ :call denite#move_to_parent()<CR>
-		\ :call cursor(line('.')+1,0)<CR>
-		\ :call denite#move_to_filter()<CR>A
-	inoremap <silent><buffer> <S-Tab> <Esc>
-		\ :call denite#move_to_parent()<CR>
-		\ :call cursor(line('.')-1,0)<CR>
-		\ :call denite#move_to_filter()<CR>A
+	imap <silent><buffer> <Tab>   <Plug>(denite_filter_quit)ji
+	imap <silent><buffer> <S-Tab> <Plug>(denite_filter_quit)ki
 endfunction
 
 " vim: set ts=2 sw=2 tw=80 noet :

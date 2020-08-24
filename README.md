@@ -202,7 +202,7 @@ collection.
 If you want to disable some of the plugins I use, you can overwrite them, e.g.:
 
 ```yaml
-- { repo: dense-analysis/ale, if: 0 }
+- { repo: prabirshrestha/asyncomplete.vim, if: 0 }
 ```
 
 ## Structure
@@ -305,7 +305,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [robbles/logstash.vim] | Highlights logstash configuration files
 | [lifepillar/pgsql.vim] | PostgreSQL syntax and indent
 | [chr4/nginx.vim] | Improved nginx syntax and indent
-| [IN3D/vim-raml] | Syntax and language settings for RAML
 | [towolf/vim-helm] | Syntax for Helm templates (yaml + gotmpl + sprig)
 | [pearofducks/ansible-vim] | Improved YAML support for Ansible
 | [hashivim/vim-terraform] | Base Terraform integration
@@ -337,7 +336,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [t9md/vim-choosewin] | Choose window to use, like tmux's 'display-pane'
 | [lambdalisue/suda.vim] | An alternative sudo.vim for Vim and Neovim
 | [mzlogin/vim-markdown-toc] | Generate table of contents for Markdown files
-| [chemzqm/vim-easygit] | Git wrapper focus on simplity and usability
 | [liuchengxu/vista.vim] | Viewer & Finder for LSP symbols and tags in Vim
 | [junegunn/fzf] | Powerful command-line fuzzy finder
 | [junegunn/fzf.vim] | Fzf integration
@@ -385,7 +383,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [prabirshrestha/asyncomplete-ultisnips.vim] | Provides UltiSnips autocomplete
 | [SirVer/ultisnips] | Ultimate snippet solution
 | [honza/vim-snippets] | Community-maintained snippets for programming languages
-| [dense-analysis/ale] | Check syntax asynchronously and fix files with LSP support
 | [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet
 | [ncm2/float-preview.nvim] | Less annoying completion preview window
 | [ludovicchabant/vim-gutentags] | Manages your tag files
@@ -400,7 +397,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [Shougo/neoyank.vim] | Denite plugin for yank history
 | [Shougo/junkfile.vim] | Denite plugin for temporary files
 | [chemzqm/unite-location] | Denite location & quickfix lists
-| [chemzqm/denite-git] | gitlog, gitstatus and gitchanged sources
 | [rafi/vim-denite-session] | Browse and open sessions
 | [rafi/vim-denite-z] | Filter and browse Z (jump around) data file
 
@@ -417,7 +413,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [AndrewRadev/splitjoin.vim] | Transition code between multi-line and single-line
 | [AndrewRadev/linediff.vim] | Perform diffs on blocks of code
 | [AndrewRadev/dsf.vim] | Delete surrounding function call
-| [osyo-manga/vim-textobj-multiblock] | Handle bracket objects
 | [kana/vim-textobj-function] | Text objects for functions
 
 [Shougo/dein.vim]: https://github.com/Shougo/dein.vim
@@ -475,7 +470,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [robbles/logstash.vim]: https://github.com/robbles/logstash.vim
 [lifepillar/pgsql.vim]: https://github.com/lifepillar/pgsql.vim
 [chr4/nginx.vim]: https://github.com/chr4/nginx.vim
-[IN3D/vim-raml]: https://github.com/IN3D/vim-raml
 [towolf/vim-helm]: https://github.com/towolf/vim-helm
 [pearofducks/ansible-vim]: https://github.com/pearofducks/ansible-vim
 [hashivim/vim-terraform]: https://github.com/hashivim/vim-terraform
@@ -503,7 +497,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [t9md/vim-choosewin]: https://github.com/t9md/vim-choosewin
 [lambdalisue/suda.vim]: https://github.com/lambdalisue/suda.vim
 [mzlogin/vim-markdown-toc]: https://github.com/mzlogin/vim-markdown-toc
-[chemzqm/vim-easygit]: https://github.com/chemzqm/vim-easygit
 [liuchengxu/vista.vim]: https://github.com/liuchengxu/vista.vim
 [junegunn/fzf]: https://github.com/junegunn/fzf
 [junegunn/fzf.vim]: https://github.com/junegunn/fzf.vim
@@ -543,7 +536,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [prabirshrestha/asyncomplete-ultisnips.vim]: https://github.com/prabirshrestha/asyncomplete-ultisnips.vim
 [SirVer/ultisnips]: https://github.com/SirVer/ultisnips
 [honza/vim-snippets]: https://github.com/honza/vim-snippets
-[dense-analysis/ale]: https://github.com/dense-analysis/ale
 [mattn/emmet-vim]: https://github.com/mattn/emmet-vim
 [ncm2/float-preview.nvim]: https://github.com/ncm2/float-preview.nvim
 [ludovicchabant/vim-gutentags]: https://github.com/ludovicchabant/vim-gutentags
@@ -554,7 +546,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [Shougo/neoyank.vim]: https://github.com/Shougo/neoyank.vim
 [Shougo/junkfile.vim]: https://github.com/Shougo/junkfile.vim
 [chemzqm/unite-location]: https://github.com/chemzqm/unite-location
-[chemzqm/denite-git]: https://github.com/chemzqm/denite-git
 [rafi/vim-denite-session]: https://github.com/rafi/vim-denite-session
 [rafi/vim-denite-z]: https://github.com/rafi/vim-denite-z
 
@@ -567,7 +558,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [AndrewRadev/splitjoin.vim]: https://github.com/AndrewRadev/splitjoin.vim
 [AndrewRadev/linediff.vim]: https://github.com/AndrewRadev/linediff.vim
 [AndrewRadev/dsf.vim]: https://github.com/AndrewRadev/dsf.vim
-[osyo-manga/vim-textobj-multiblock]: https://github.com/osyo-manga/vim-textobj-multiblock
 [kana/vim-textobj-function]: https://github.com/kana/vim-textobj-function
 
 </details>
@@ -706,12 +696,13 @@ Note that,
 | <kbd>-</kbd> | 𝐍 | Choose a window to edit | <small>[t9md/vim-choosewin]</small>
 | <kbd>;</kbd>+<kbd>c</kbd> | 𝐍 | Open context-menu | <small>[plugin/actionmenu.vim]</small>
 | <kbd>gK</kbd> | 𝐍 | Open Zeal or Dash on some file-types | <small>[plugin/devhelp.vim]</small>
+| <kbd>g</kbd><kbd>Ctrl</kbd>+<kbd>o</kbd> | 𝐍 | Navigate to previous file on jumplist | <small>[plugin/jumpfile.vim]</small>
+| <kbd>g</kbd><kbd>Ctrl</kbd>+<kbd>i</kbd> | 𝐍 | Navigate to next file on jumplist | <small>[plugin/jumpfile.vim]</small>
 | <kbd>Space</kbd>+<kbd>l</kbd> | 𝐍 | Open side-menu helper | <small>[rafi/vim-sidemenu]</small>
 | <kbd>Space</kbd>+<kbd>b</kbd> | 𝐍 | Open structure window | <small>[liuchengxu/vista.vim]</small>
 | <kbd>Space</kbd>+<kbd>a</kbd> | 𝐍 | Show nearby tag in structure window | <small>[liuchengxu/vista.vim]</small>
 | <kbd>Space</kbd>+<kbd>se</kbd> | 𝐍 | Save current workspace session | <small>[plugin/sessions.vim]</small>
 | <kbd>Space</kbd>+<kbd>sl</kbd> | 𝐍 | Load workspace session | <small>[plugin/sessions.vim]</small>
-| <kbd>Space</kbd>+<kbd>o</kbd> | 𝐍 𝐕 | Open SCM detailed URL in browser | <small>[plugin/browser.vim]</small>
 | <kbd>Space</kbd>+<kbd>n</kbd>/<kbd>N</kbd> | 𝐍 | Open alternative file | <small>[kana/vim-altr]</small>
 | <kbd>Space</kbd>+<kbd>tc</kbd> | 𝐍 | Enable scroll-context window | <small>[wellle/context.vim]</small>
 | <kbd>Space</kbd>+<kbd>tp</kbd> | 𝐍 | Peek scroll-context window | <small>[wellle/context.vim]</small>
@@ -758,12 +749,16 @@ Note that,
 | <kbd>gs</kbd> | 𝐍 | Preview hunk | <small>[airblade/vim-gitgutter]</small>
 | <kbd>gS</kbd> | 𝐍 𝐕 𝐒 | Stage hunk | <small>[airblade/vim-gitgutter]</small>
 | <kbd>Space</kbd>+<kbd>gr</kbd> | 𝐍 | Revert hunk | <small>[airblade/vim-gitgutter]</small>
-| <kbd>Space</kbd>+<kbd>ga</kbd> | 𝐍 | Git add current file | <small>[chemzqm/vim-easygit]</small>
-| <kbd>Space</kbd>+<kbd>gd</kbd> | 𝐍 | Git diff | <small>[chemzqm/vim-easygit]</small>
-| <kbd>Space</kbd>+<kbd>gc</kbd> | 𝐍 | Git commit | <small>[chemzqm/vim-easygit]</small>
-| <kbd>Space</kbd>+<kbd>gb</kbd> | 𝐍 | Git blame | <small>[chemzqm/vim-easygit]</small>
-| <kbd>Space</kbd>+<kbd>gF</kbd> | 𝐍 | Git fetch | <small>[chemzqm/vim-easygit]</small>
-| <kbd>Space</kbd>+<kbd>gp</kbd> | 𝐍 | Git push | <small>[chemzqm/vim-easygit]</small>
+| <kbd>Space</kbd>+<kbd>ga</kbd> | 𝐍 | Git add current file | <small>[lambdalisue/gina.vim]</small>
+| <kbd>Space</kbd>+<kbd>gd</kbd> | 𝐍 | Git diff | <small>[lambdalisue/gina.vim]</small>
+| <kbd>Space</kbd>+<kbd>gc</kbd> | 𝐍 | Git branches | <small>[lambdalisue/gina.vim]</small>
+| <kbd>Space</kbd>+<kbd>gc</kbd> | 𝐍 | Git commit | <small>[lambdalisue/gina.vim]</small>
+| <kbd>Space</kbd>+<kbd>gb</kbd> | 𝐍 | Git blame | <small>[lambdalisue/gina.vim]</small>
+| <kbd>Space</kbd>+<kbd>gs</kbd> | 𝐍 | Git status -s | <small>[lambdalisue/gina.vim]</small>
+| <kbd>Space</kbd>+<kbd>gl</kbd> | 𝐍 | Git log --all | <small>[lambdalisue/gina.vim]</small>
+| <kbd>Space</kbd>+<kbd>gF</kbd> | 𝐍 | Git fetch | <small>[lambdalisue/gina.vim]</small>
+| <kbd>Space</kbd>+<kbd>gp</kbd> | 𝐍 | Git push | <small>[lambdalisue/gina.vim]</small>
+| <kbd>Space</kbd>+<kbd>go</kbd> | 𝐍 𝐕 | Open SCM detailed URL in browser | <small>[lambdalisue/gina.vim]</small>
 
 ### Plugin: Denite
 
@@ -772,7 +767,8 @@ Note that,
 | <kbd>;r</kbd> | 𝐍 | Resumes last Denite window
 | <kbd>;f</kbd> | 𝐍 | File search
 | <kbd>;g</kbd> | 𝐍 | Grep search
-| <kbd>;b</kbd> | 𝐍 | Buffers and MRU
+| <kbd>;b</kbd> | 𝐍 | Buffers
+| <kbd>;i</kbd> | 𝐍 | Old files and MRU
 | <kbd>;d</kbd> | 𝐍 | Directories and MRU
 | <kbd>;v</kbd> | 𝐍 𝐕 | Yank history
 | <kbd>;l</kbd> | 𝐍 | Location list
@@ -790,9 +786,6 @@ Note that,
 | <kbd>;;</kbd> | 𝐍 | Command history
 | <kbd>;/</kbd> | 𝐍 | Buffer lines
 | <kbd>;*</kbd> | 𝐍 | Search word under cursor with lines
-| <kbd>Space</kbd>+<kbd>gl</kbd> | 𝐍 | Git log (all)
-| <kbd>Space</kbd>+<kbd>gs</kbd> | 𝐍 | Git status
-| <kbd>Space</kbd>+<kbd>gc</kbd> | 𝐍 | Git branches
 | <kbd>Space</kbd>+<kbd>gt</kbd> | 𝐍 | Find tags matching word under cursor
 | <kbd>Space</kbd>+<kbd>gf</kbd> | 𝐍 | Find files matching word under cursor
 | <kbd>Space</kbd>+<kbd>gg</kbd> | 𝐍 𝐕 | Grep word under cursor
@@ -860,8 +853,7 @@ Note that,
 | <kbd>Ctrl</kbd>+<kbd>y</kbd> | 𝐈 | Close pop-up
 | <kbd>Ctrl</kbd>+<kbd>e</kbd> | 𝐈 | Cancel selection and close pop-up
 | <kbd>Ctrl</kbd>+<kbd>l</kbd> | 𝐈 | Expand snippet at cursor
-| <kbd>Ctrl</kbd>+<kbd>f</kbd> | 𝐈 𝐒 | Jump to next snippet placeholder
-| <kbd>Ctrl</kbd>+<kbd>b</kbd> | 𝐈 𝐒 | Jump to previous snippet placeholder
+| <kbd>Tab</kbd> / <kbd>Shift-Tab</kbd> | 𝐈 𝐒 | Navigate snippet placeholders
 
 ### Plugin: Signature
 
@@ -889,8 +881,8 @@ Big thanks to the dark knight [Shougo](https://github.com/Shougo).
 [config/mappings.vim]: ./config/mappings.vim
 [plugin/whitespace.vim]: ./plugin/whitespace.vim
 [plugin/sessions.vim]: ./plugin/sessions.vim
-[plugin/browser.vim]: ./plugin/browser.vim
 [plugin/devhelp.vim]: ./plugin/devhelp.vim
+[plugin/jumpfile.vim]: ./plugin/jumpfile.vim
 [plugin/actionmenu.vim]: ./plugin/actionmenu.vim
 [Marked 2]: https://marked2app.com
 [Neovim]: https://github.com/neovim/neovim
