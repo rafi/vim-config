@@ -456,7 +456,7 @@
     let g:lsp_diagnostics_echo_cursor = 1
     let g:lsp_diagnostics_echo_delay = 400
     let g:lsp_highlight_references_enabled = 0
-  hook_source: source $VIM_PATH/config/plugins/lsp-settings.vim
+  hook_source: source $VIM_PATH/config/plugins/lsp.vim
 
 - repo: mattn/vim-lsp-settings
   depends: vim-lsp
