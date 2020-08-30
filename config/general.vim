@@ -271,14 +271,9 @@ if has('patch-7.4.1570')
 	set shortmess+=F
 endif
 
-if has('conceal') && v:version >= 703
-	" For snippet_complete marker
-	set conceallevel=2 concealcursor=niv
-endif
-
-if exists('+previewpopup')
-	set previewpopup=height:10,width:60
-endif
+" if exists('+previewpopup')
+" 	set previewpopup=height:10,width:60
+" endif
 
 " Pseudo-transparency for completion menu and floating windows
 if has('termguicolors') && &termguicolors
