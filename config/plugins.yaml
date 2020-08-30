@@ -119,13 +119,26 @@
 # Golang related
 - repo: fatih/vim-go
   if: has('nvim-0.4.0') || has('patch-8.0.1453')
-  on_ft: [ go, gomod ]
+  on_ft: [ go, gomod, gotexttmpl, gohtmltmpl ]
   hook_add: |-
-    let g:go_gopls_enabled = 0
+    let g:go_gopls_enabled = 1
     let g:go_code_completion_enabled = 0
     let g:go_doc_keywordprg_enabled = 0
     let g:go_def_mapping_enabled = 0
+    let g:go_jump_to_error = 0
+    let g:go_fmt_autosave = 1
+    let g:go_fmt_fail_silently = 1
+    let g:go_imports_autosave = 1
     let g:go_mod_fmt_autosave = 0
+    let g:go_snippet_engine = 'ultisnips'
+    let g:go_textobj_enabled = 1
+    let g:go_list_height = 10
+    let g:go_list_autoclose = 0
+    let g:go_fold_enable = []
+    let g:go_info_mode = 'gopls'
+    let g:go_def_mode = 'gopls'
+    let g:go_referrers_mode = 'gopls'
+    let g:go_implements_mode = 'guru'
     let g:go_highlight_array_whitespace_error = 0
     let g:go_highlight_chan_whitespace_error = 0
     let g:go_highlight_space_tab_error = 0
@@ -143,6 +156,10 @@
     let g:go_highlight_string_spellcheck = 0
     let g:go_highlight_variable_declarations = 0
     let g:go_highlight_variable_assignments = 0
+    if has('nvim') || exists(':terminal')
+      let g:go_term_enabled = 1
+      let g:go_term_close_on_exit = 0
+    endif
 
 # Python related
 - { repo: vim-python/python-syntax, on_ft: python }
@@ -449,13 +466,14 @@
 - repo: prabirshrestha/vim-lsp
   depends: asyncomplete-lsp.vim
   hook_add: |-
+    let g:lsp_auto_enable = 1
+    let g:lsp_signs_enabled = 1
     let g:lsp_async_completion = 1
-    let g:lsp_ignorecase = 1
     let g:lsp_virtual_text_enabled = 0
     let g:lsp_diagnostics_enabled = 1
     let g:lsp_diagnostics_echo_cursor = 1
     let g:lsp_diagnostics_echo_delay = 400
-    let g:lsp_highlight_references_enabled = 0
+    let g:lsp_ignorecase = 1
   hook_source: source $VIM_PATH/config/plugins/lsp.vim
 
 - repo: mattn/vim-lsp-settings
@@ -464,6 +482,9 @@
   hook_add: |-
     let g:lsp_settings = {
     \   'efm-langserver': {'disabled': 1},
+    \   'gopls': {
+    \     'cmd': ['gopls', '-remote=auto'],
+    \   },
     \   'yaml-language-server': {
     \     'allowlist': ['yaml', 'yaml.ansible'],
     \   }
