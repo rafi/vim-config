@@ -206,6 +206,12 @@ highlight! link deniteSource__LocationListWarning PreProc
 highlight! link HighlightedyankRegion DiffText
 " }}}
 
+" Plugin: vim-shot-f {{{
+" ---
+highlight! link ShotFGraph Number
+highlight! link ShotFBlank ErrorMsg
+" }}}
+
 " Plugin: vim-signature {{{
 highlight! SignatureMarkText    ctermfg=11 guifg=#756207 ctermbg=234 guibg=#1c1c1c
 highlight! SignatureMarkerText  ctermfg=12 guifg=#4EA9D7 ctermbg=234 guibg=#1c1c1c

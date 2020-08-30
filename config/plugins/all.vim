@@ -273,8 +273,6 @@ if dein#tap('vim-shot-f')
 	omap F  <Plug>(shot-f-F)
 	omap t  <Plug>(shot-f-t)
 	omap T  <Plug>(shot-f-T)
-	" highlight default ShotFGraph ctermfg=red ctermbg=NONE cterm=bold guifg=red guibg=NONE gui=bold
-	" highlight default ShotFBlank ctermfg=NONE ctermbg=red cterm=bold guifg=NONE guibg=red gui=bold
 endif
 
 if dein#tap('vimwiki')
