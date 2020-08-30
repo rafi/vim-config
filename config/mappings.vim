@@ -312,8 +312,9 @@ endfunction "}}}
 " -------------------------
 
 " Ultimatus Quitos
-autocmd user_events BufWinEnter * if &buftype == ''
-	\ | nnoremap <silent><buffer> q :quit<CR>
+autocmd user_events BufWinEnter,BufNew *
+	\ if &buftype == '' && ! mapcheck('q', 'n')
+	\ |   nnoremap <silent><buffer> q :<C-u>quit<CR>
 	\ | endif
 
 nnoremap <C-q> <C-w>
@@ -323,7 +324,6 @@ nnoremap <C-x> <C-w>x
 nnoremap  [Window]   <Nop>
 nmap      s [Window]
 
-nnoremap <silent><C-w>z :vert resize<CR>:resize<CR>:normal! ze<CR>
 nnoremap <silent> [Window]v  :<C-u>split<CR>
 nnoremap <silent> [Window]g  :<C-u>vsplit<CR>
 nnoremap <silent> [Window]t  :tabnew<CR>
@@ -331,6 +331,7 @@ nnoremap <silent> [Window]o  :<C-u>only<CR>
 nnoremap <silent> [Window]b  :b#<CR>
 nnoremap <silent> [Window]c  :close<CR>
 nnoremap <silent> [Window]x  :<C-u>call <SID>window_empty_buffer()<CR>
+nnoremap <silent> [Window]z  :<C-u>call <SID>zoom()<CR>
 
 " Split current buffer, go to previous window and previous buffer
 nnoremap <silent> [Window]sv :split<CR>:wincmd p<CR>:e#<CR>
@@ -383,6 +384,19 @@ function! s:window_empty_buffer()
 	if ! getbufvar(l:current, '&modified')
 		enew
 		silent! execute 'bdelete '.l:current
+	endif
+endfunction
+
+" Simple zoom toggle
+function! s:zoom()
+	if exists('t:zoomed')
+		unlet t:zoomed
+		wincmd =
+	else
+		let t:zoomed = { 'nr': bufnr('%') }
+		vertical resize
+		resize
+		normal! ze
 	endif
 endfunction
 " }}}

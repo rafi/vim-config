@@ -88,6 +88,7 @@ function! s:main()
 				\ $DATA_PATH . '/undo',
 				\ $DATA_PATH . '/backup',
 				\ $DATA_PATH . '/session',
+				\ $DATA_PATH . '/swap',
 				\ $VIM_PATH . '/spell' ]
 			if ! isdirectory(s:path)
 				call mkdir(s:path, 'p')
