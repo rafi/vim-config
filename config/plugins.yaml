@@ -394,10 +394,9 @@
     let g:indent_guides_color_change_percent = 3
     let g:indent_guides_guide_size = 1
     let g:indent_guides_exclude_filetypes = [
-      \ 'help', 'denite', 'denite-filter', 'startify',
-      \ 'vista', 'vista_kind', 'tagbar', 'nerdtree',
-      \ 'lsp-hover', 'clap_input', 'any-jump',
-      \ 'gina-status', 'gina-commit', 'gina-log'
+      \ 'help', 'defx', 'denite', 'denite-filter', 'startify',
+      \ 'vista', 'vista_kind', 'tagbar', 'lsp-hover', 'clap_input',
+      \ 'any-jump', 'gina-status', 'gina-commit', 'gina-log'
       \ ]
 
 - repo: rhysd/committia.vim
@@ -510,7 +509,7 @@
       \ asyncomplete#sources#buffer#get_source_options({
       \ 'name': 'buffer',
       \ 'allowlist': ['*'],
-      \ 'blocklist': ['go', 'denite-filter', 'clap_input'],
+      \ 'blocklist': ['go', 'denite', 'denite-filter', 'clap_input'],
       \ 'completor': function('asyncomplete#sources#buffer#completor'),
       \ 'config': {
       \    'max_buffer_size': 4000000,
@@ -525,7 +524,7 @@
       \ asyncomplete#sources#tags#get_source_options({
       \ 'name': 'tags',
       \ 'allowlist': ['*'],
-      \ 'blocklist': ['go', 'python', 'vim', 'denite-filter', 'clap_input'],
+      \ 'blocklist': ['go', 'python', 'vim', 'denite', 'denite-filter', 'clap_input'],
       \ 'completor': function('asyncomplete#sources#tags#completor'),
       \ 'config': { 'max_file_size': 5000000 },
       \ }))
@@ -538,7 +537,7 @@
       \ 'name': 'file',
       \ 'priority': 10,
       \ 'allowlist': ['*'],
-      \ 'blocklist': ['denite-filter', 'clap_input'],
+      \ 'blocklist': ['denite', 'denite-filter', 'clap_input'],
       \ 'completor': function('asyncomplete#sources#file#completor')
       \ }))
 
@@ -551,7 +550,7 @@
       \ 'name': 'tmux',
       \ 'priority': 0,
       \ 'allowlist': ['*'],
-      \ 'blocklist': ['denite-filter', 'clap_input'],
+      \ 'blocklist': ['denite', 'denite-filter', 'clap_input'],
       \ 'config': {
       \   'splitmode': 'words',
       \   'filter_prefix': 1,
@@ -571,7 +570,7 @@
       \ 'name': 'snip',
       \ 'priority': 0,
       \ 'allowlist': ['*'],
-      \ 'blocklist': ['denite-filter', 'clap_input'],
+      \ 'blocklist': ['denite', 'denite-filter', 'clap_input'],
       \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
       \ }))
 
