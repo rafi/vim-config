@@ -216,7 +216,15 @@ function! badge#syntax() abort
 	let l:msg = ''
 	let l:errors = 0
 	let l:warnings = 0
-	if exists('*neomake#Make')
+	let l:hints = 0
+	let l:information = 0
+	if exists('*lsp#ui#vim#diagnostics#get_buffer_diagnostics_counts')
+		let l:counts = lsp#ui#vim#diagnostics#get_buffer_diagnostics_counts()
+		let l:errors = get(l:counts, 'error', '')
+		let l:warnings = get(l:counts, 'warning', '')
+		let l:hints = get(l:counts, 'hint', '')
+		let l:information = get(l:counts, 'information', '')
+	elseif exists('*neomake#Make')
 		let l:counts = neomake#statusline#get_counts(bufnr('%'))
 		let l:errors = get(l:counts, 'E', '')
 		let l:warnings = get(l:counts, 'W', '')
@@ -232,6 +240,12 @@ function! badge#syntax() abort
 	endif
 	if l:warnings > 0
 		let l:msg .= printf(' %d ', l:warnings)
+	endif
+	if l:hints > 0
+		let l:msg .= printf(' %d ', l:hints)
+	endif
+	if l:information > 0
+		let l:msg .= printf(' %d ', l:information)
 	endif
 	return substitute(l:msg, '\s*$', '', '')
 endfunction
