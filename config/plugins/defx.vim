@@ -35,7 +35,7 @@ call defx#custom#column('filename', { 'root_marker_highlight': 'Comment' })
 let g:defx_icons_column_length = 2
 let g:defx_icons_mark_icon = ''
 
-" Internal use
+" Used in s:toggle_width()
 let s:original_width = get(get(defx#custom#_get().option, '_'), 'winwidth')
 
 " Events
@@ -88,6 +88,7 @@ endfunction
 function! s:defx_mappings() abort
 	" Defx window keyboard mappings
 	setlocal signcolumn=no expandtab
+	setlocal cursorline
 
 	nnoremap <silent><buffer><expr> <CR>  <SID>defx_toggle_tree()
 	nnoremap <silent><buffer><expr> e     <SID>defx_toggle_tree()
@@ -104,6 +105,7 @@ function! s:defx_mappings() abort
 	nnoremap <silent><buffer><expr> .     defx#do_action('toggle_ignored_files')
 
 	" Defx's buffer management
+	nnoremap <silent><buffer><expr> <Esc>  defx#do_action('quit')
 	nnoremap <silent><buffer><expr> q      defx#do_action('quit')
 	nnoremap <silent><buffer><expr> se     defx#do_action('save_session')
 	nnoremap <silent><buffer><expr> <C-r>  defx#do_action('redraw')
@@ -155,7 +157,7 @@ endfunction
 " ---
 
 function! s:git_diff(context) abort
-	Gdiffsplit
+	Gina compare
 endfunction
 
 function! s:find_files(context) abort
