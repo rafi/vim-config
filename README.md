@@ -773,6 +773,7 @@ Note that,
 | <kbd>;v</kbd> | 𝐍 𝐕 | Yank history
 | <kbd>;l</kbd> | 𝐍 | Location list
 | <kbd>;q</kbd> | 𝐍 | Quick fix
+| <kbd>;m</kbd> | 𝐍 | Marks
 | <kbd>;n</kbd> | 𝐍 | Dein plugin list
 | <kbd>;j</kbd> | 𝐍 | Jump points and change stack
 | <kbd>;u</kbd> | 𝐍 | Junk files
@@ -781,7 +782,7 @@ Note that,
 | <kbd>;t</kbd> | 𝐍 | Tag list
 | <kbd>;p</kbd> | 𝐍 | Jumps
 | <kbd>;h</kbd> | 𝐍 | Help
-| <kbd>;m</kbd> | 𝐍 | Memo list
+| <kbd>;w</kbd> | 𝐍 | Memo list
 | <kbd>;z</kbd> | 𝐍 | Z (jump around)
 | <kbd>;;</kbd> | 𝐍 | Command history
 | <kbd>;/</kbd> | 𝐍 | Buffer lines

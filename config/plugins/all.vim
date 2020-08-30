@@ -12,6 +12,7 @@ if dein#tap('denite.nvim')
 	xnoremap <silent><LocalLeader>v :<C-u>Denite neoyank -buffer-name=register -default-action=replace<CR>
 	nnoremap <silent><LocalLeader>l :<C-u>Denite location_list -buffer-name=list -no-start-filter<CR>
 	nnoremap <silent><LocalLeader>q :<C-u>Denite quickfix -buffer-name=list -no-start-filter<CR>
+	nnoremap <silent><LocalLeader>m :<C-u>Denite mark<CR>
 	nnoremap <silent><LocalLeader>n :<C-u>Denite dein<CR>
 	nnoremap <silent><LocalLeader>j :<C-u>Denite jump change file/point -no-start-filter<CR>
 	nnoremap <silent><LocalLeader>u :<C-u>Denite junkfile:new junkfile -buffer-name=list<CR>
@@ -20,7 +21,7 @@ if dein#tap('denite.nvim')
 	nnoremap <silent><LocalLeader>t :<C-u>Denite tag<CR>
 	nnoremap <silent><LocalLeader>p :<C-u>Denite jump<CR>
 	nnoremap <silent><LocalLeader>h :<C-u>Denite help<CR>
-	nnoremap <silent><LocalLeader>m :<C-u>Denite file/rec -buffer-name=memo -path=~/docs/blog<CR>
+	nnoremap <silent><LocalLeader>w :<C-u>Denite file/rec -buffer-name=memo -path=~/docs/blog<CR>
 	nnoremap <silent><LocalLeader>z :<C-u>Denite z -buffer-name=list<CR>
 	nnoremap <silent><LocalLeader>; :<C-u>Denite command_history command<CR>
 	nnoremap <silent><expr><LocalLeader>/ wordcount().chars > 10000 ?
