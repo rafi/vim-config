@@ -315,10 +315,10 @@
       \| let g:vim_markdown_no_default_key_mappings = 1
       \| let g:vim_markdown_emphasis_multiline = 0
     autocmd User preview_open_post
-      \ unlet g:vim_markdown_folding_disabled
+      \ unlet! g:vim_markdown_folding_disabled
       \| let g:vim_markdown_override_foldtext = 1
-      \| unlet g:vim_markdown_no_default_key_mappings
-      \| unlet g:vim_markdown_emphasis_multiline
+      \| unlet! g:vim_markdown_no_default_key_mappings
+      \| unlet! g:vim_markdown_emphasis_multiline
 
 - repo: wellle/context.vim
   on_cmd: [ ContextToggle, ContextToggleWindow, ContextPeek ]
