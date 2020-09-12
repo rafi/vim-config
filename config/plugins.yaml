@@ -241,6 +241,12 @@
       let g:far#source = 'ack'
     endif
 
+- repo: pechorin/any-jump.vim
+  on_cmd: [ AnyJump, AnyJumpVisual ]
+  hook_add: |-
+    let g:any_jump_disable_default_keybindings = 1
+    autocmd user_events FileType any-jump setlocal cursorline
+
 - repo: Vigemus/iron.nvim
   if: has('nvim')
   on_cmd: [ IronRepl, IronReplHere, IronFocus, IronSend, IronWatchCurrentFile ]

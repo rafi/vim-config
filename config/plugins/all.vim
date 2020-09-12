@@ -306,6 +306,20 @@ if dein#tap('vim-altr')
 	nmap <leader>N  <Plug>(altr-back)
 endif
 
+if dein#tap('any-jump.vim')
+	" Normal mode: Jump to definition under cursor
+	nnoremap <silent> <leader>ii :AnyJump<CR>
+
+	" Visual mode: jump to selected text in visual mode
+	xnoremap <silent> <leader>ii :AnyJumpVisual<CR>
+
+	" Normal mode: open previous opened file (after jump)
+	nnoremap <silent> <leader>ib :AnyJumpBack<CR>
+
+	" Normal mode: open last closed search window again
+	nnoremap <silent> <leader>il :AnyJumpLastResults<CR>
+endif
+
 if dein#tap('undotree')
 	nnoremap <Leader>gu :UndotreeToggle<CR>
 endif
