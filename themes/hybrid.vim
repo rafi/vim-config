@@ -13,7 +13,8 @@ endif
 
 " Terminal colors {{{
 " ---
-let g:terminal_color_0 = '#2a2a2a'
+"let g:terminal_color_0 = '#2a2a2a'
+let g:terminal_color_0 = '#282c34'
 let g:terminal_color_1 = '#d370a3'
 let g:terminal_color_2 = '#6d9e3f'
 let g:terminal_color_3 = '#b58858'

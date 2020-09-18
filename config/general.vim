@@ -2,6 +2,7 @@
 " ===
 
 " General {{{
+set expandtab
 set mouse=nv                 " Disable mouse in command-line mode
 set modeline                 " automatically setting options from modelines
 set report=0                 " Don't report on line changes
@@ -143,6 +144,7 @@ set smarttab        " Tab insert blanks according to 'shiftwidth'
 set autoindent      " Use same indenting on new lines
 " set smartindent     " Smart autoindenting on new lines
 set shiftround      " Round indent to multiple of 'shiftwidth'
+set number
 
 if exists('&breakindent')
 	set breakindentopt=shift:2,min:20
@@ -217,9 +219,9 @@ set noshowmode          " Don't show mode in cmd window
 set shortmess=aoOTI     " Shorten messages and don't show intro
 set scrolloff=2         " Keep at least 2 lines above/below
 set sidescrolloff=5     " Keep at least 5 lines left/right
-set nonumber            " Don't show line numbers
 set noruler             " Disable default status ruler
 set list                " Show hidden characters
+set relativenumber
 
 set showtabline=2       " Always show the tabs line
 set winwidth=30         " Minimum width for active window

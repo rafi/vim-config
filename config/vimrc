@@ -78,5 +78,6 @@ if filereadable($VIM_PATH . '/config/local.vim')
 endif
 
 set secure
+set et
 
 " vim: set ts=2 sw=2 tw=80 noet :

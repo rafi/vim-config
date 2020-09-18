@@ -16,6 +16,7 @@ endif
 " }}}
 " Navigation {{{
 " ----------
+"
 
 " Fix keybind name for Ctrl+Space
 map <Nul> <C-Space>
@@ -91,6 +92,16 @@ nnoremap <Leader>Y :let @+=expand("%:p")<CR>:echo 'Yanked absolute path'<CR>
 " }}}
 " Edit {{{
 " ----
+
+" When shortcut files are updated, renew bash and ranger configs with new material:
+	autocmd BufWritePost files,directories !shortcuts
+" Run xrdb whenever Xdefaults or Xresources are updated.
+	autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
+" Update binds when sxhkdrc is updated.
+	autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
+
+" Replace
+nnoremap S :%s//g<Left><Left>
 
 " Macros
 nnoremap Q q

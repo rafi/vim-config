@@ -49,6 +49,7 @@
 
 # Languages
 # ---------
+- { repo: PotatoesMaster/i3-vim-syntax, on_ft: i3 }
 - { repo: hail2u/vim-css3-syntax, on_ft: css }
 - { repo: othree/csscomplete.vim, on_ft: css }
 - { repo: cakebaker/scss-syntax.vim, on_ft: [ scss, sass ]}

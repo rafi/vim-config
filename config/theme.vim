@@ -5,7 +5,7 @@
 
 function! s:theme_init()
 	" Load cached colorscheme or hybrid by default
-	let l:default = 'hybrid'
+	let l:default = 'gruvbox'
 	let l:cache = s:theme_cache_file()
 	if ! exists('g:colors_name')
 		set background=dark
