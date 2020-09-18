@@ -133,7 +133,6 @@ if dein#tap('context.vim')
 	nmap <silent><Leader>tp :<C-u>ContextPeek<CR>
 endif
 
-<<<<<<< HEAD
 if dein#tap('vim-go')
 	autocmd user_events FileType go
 		"\   nmap <C-]> <Plug>(go-def)
