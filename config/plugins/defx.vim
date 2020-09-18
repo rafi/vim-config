@@ -9,7 +9,7 @@ call defx#custom#option('_', {
 	\ 'direction': 'topleft',
 	\ 'show_ignored_files': 0,
 	\ 'columns': 'indent:git:icons:filename',
-	\ 'root_marker': ' ',
+	\ 'root_marker': '',
 	\ 'ignored_files':
 	\     '.mypy_cache,.pytest_cache,.git,.hg,.svn,.stversions'
 	\   . ',__pycache__,.sass-cache,*.egg-info,.DS_Store,*.pyc'
@@ -29,12 +29,13 @@ call defx#custom#column('git', {
 	\ })
 
 call defx#custom#column('mark', { 'readonly_icon': '', 'selected_icon': '' })
+call defx#custom#column('filename', { 'root_marker_highlight': 'Comment' })
 
 " defx-icons plugin
 let g:defx_icons_column_length = 2
 let g:defx_icons_mark_icon = ''
 
-" Internal use
+" Used in s:toggle_width()
 let s:original_width = get(get(defx#custom#_get().option, '_'), 'winwidth')
 
 " Events
@@ -87,6 +88,7 @@ endfunction
 function! s:defx_mappings() abort
 	" Defx window keyboard mappings
 	setlocal signcolumn=no expandtab
+	setlocal cursorline
 
 	nnoremap <silent><buffer><expr> <CR>  <SID>defx_toggle_tree()
 	nnoremap <silent><buffer><expr> e     <SID>defx_toggle_tree()
@@ -96,13 +98,14 @@ function! s:defx_mappings() abort
 	nnoremap <silent><buffer><expr> st    defx#do_action('multi', [['drop', 'tabnew'], 'quit'])
 	nnoremap <silent><buffer><expr> sg    defx#do_action('multi', [['drop', 'vsplit'], 'quit'])
 	nnoremap <silent><buffer><expr> sv    defx#do_action('multi', [['drop', 'split'], 'quit'])
-	nnoremap <silent><buffer><expr> P     defx#do_action('open', 'pedit')
+	nnoremap <silent><buffer><expr> P     defx#do_action('preview')
 	nnoremap <silent><buffer><expr> y     defx#do_action('yank_path')
 	nnoremap <silent><buffer><expr> x     defx#do_action('execute_system')
 	nnoremap <silent><buffer><expr> gx    defx#do_action('execute_system')
 	nnoremap <silent><buffer><expr> .     defx#do_action('toggle_ignored_files')
 
 	" Defx's buffer management
+	nnoremap <silent><buffer><expr> <Esc>  defx#do_action('quit')
 	nnoremap <silent><buffer><expr> q      defx#do_action('quit')
 	nnoremap <silent><buffer><expr> se     defx#do_action('save_session')
 	nnoremap <silent><buffer><expr> <C-r>  defx#do_action('redraw')
@@ -142,7 +145,7 @@ function! s:defx_mappings() abort
 
 	" Tools
 	nnoremap <silent><buffer><expr> w   defx#do_action('call', '<SID>toggle_width')
-	nnoremap <silent><buffer><expr> gd  defx#async_action('multi', ['drop', ['call', '<SID>git_diff']])
+	nnoremap <silent><buffer><expr> gd  defx#async_action('multi', ['drop', 'quit', ['call', '<SID>git_diff']])
 	nnoremap <silent><buffer><expr> gr  defx#do_action('call', '<SID>grep')
 	nnoremap <silent><buffer><expr> gf  defx#do_action('call', '<SID>find_files')
 	if exists('$TMUX')
@@ -154,7 +157,7 @@ endfunction
 " ---
 
 function! s:git_diff(context) abort
-	execute 'GdiffThis'
+	Gina compare
 endfunction
 
 function! s:find_files(context) abort
@@ -177,8 +180,8 @@ function! s:toggle_width(context) abort
 	" Toggle between defx window width and longest line
 	let l:max = 0
 	for l:line in range(1, line('$'))
-		let l:len = len(getline(l:line))
-		let l:max = max([l:len, l:max])
+		let l:len = strdisplaywidth(substitute(getline(l:line), '\s\+$', '', ''))
+		let l:max = max([l:len + 1, l:max])
 	endfor
 	let l:new = l:max == winwidth(0) ? s:original_width : l:max
 	call defx#call_action('resize', l:new)

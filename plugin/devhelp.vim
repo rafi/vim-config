@@ -30,8 +30,11 @@ function! s:show_help(word, ...)
 	if executable('/Applications/Dash.app/Contents/MacOS/Dash')
 		execute '!open -g dash://' . l:expr
 	elseif executable('zeal')
-		"execute '!zeal "' . l:expr . '"'
-		execute '!zeal "' . word . '"'
+		execute '!zeal --query "' . l:expr . '"'
+	else
+		echohl ErrorMsg
+		echomsg 'Unable to find Dash or Zeal, install one of these.'
+		echohl None
 	endif
 	redraw!
 endfunction
