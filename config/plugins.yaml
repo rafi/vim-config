@@ -21,19 +21,6 @@
 - repo: tpope/vim-sleuth
   hook_add: let g:sleuth_neighbor_limit = 5
 
-- repo: liuchengxu/vim-clap
-  merged: 0
-  hook_add: |
-    let g:clap_cache_directory = $DATA_PATH . '/clap'
-    let g:clap_theme = 'material_design_dark'
-    let g:clap_layout = { 'relative': 'editor' }
-    let g:clap_enable_icon = 1
-    let g:clap_search_box_border_style = 'curve'
-    let g:clap_provider_grep_enable_icon = 1
-    let g:clap_prompt_format = '%spinner%%forerunner_status% %provider_id%: '
-    highlight! link ClapMatches Function
-    highlight! link ClapNoMatchesFound WarningMsg
-
 # ==========================================
 # Coding Productivity
 # ------------
@@ -612,20 +599,6 @@
   on_event: FileType
   if: has('python3')
   merged: 0
-
-- repo: dense-analysis/ale
-  on_event: FileType
-  hook_add: |
-    let g:ale_disable_lsp = 0
-    let g:ale_echo_delay = 100
-    let g:ale_lint_delay = 1000
-    let g:ale_echo_msg_format = '%linter%: %code: %%s [%severity%]'
-    let g:ale_history_enabled = 0
-    let g:ale_sign_error = '✖'
-    let g:ale_sign_warning = 'ⁱ'
-    let g:ale_maximum_file_size = 500000
-    let g:ale_linters = {'go': ['gopls', 'govet', 'golint', 'gofmt', 'gotype']}
-    let g:ale_go_golangci_lint_package=1
 
 - repo: mattn/emmet-vim
   on_event: InsertEnter
