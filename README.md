@@ -1,14 +1,3 @@
-# Rafael Bodill's Neo/vim Config
-
-Lean mean Neo/vim machine, 30-45ms startup time.
-
-Best with [Neovim] or [Vim8] and `python3` enabled.
-
-> I encourage you to fork this repo and create your own experience.
-> Learn how to tweak and change Neo/vim to the way YOU like it.
-> This is my cultivation of years of tweaking, use it as a git remote
-> and stay in-touch with upstream for reference or cherry-picking.
-
 <details>
   <summary>
     <strong>Table of Contents</strong>
@@ -17,8 +6,6 @@ Best with [Neovim] or [Vim8] and `python3` enabled.
 
 <!-- vim-markdown-toc GFM -->
 
-* [Features](#features)
-* [Screenshot](#screenshot)
 * [Prerequisites](#prerequisites)
 * [Install](#install)
 * [Language-Server Protocol (LSP)](#language-server-protocol-lsp)
@@ -57,27 +44,6 @@ Best with [Neovim] or [Vim8] and `python3` enabled.
 
 <!-- vim-markdown-toc -->
 </details>
-
-## Features
-
-* Fast startup time
-* Robust, yet light-weight
-* Lazy-load 95% of plugins with [Shougo/dein.vim]
-* Custom side-menu (try it out! <kbd>Space</kbd>+<kbd>l</kbd>)
-* Custom context-menu (try it! <kbd>;</kbd>+<kbd>c</kbd>)
-* Modular configuration (see [structure](#structure))
-* Auto-complete [prabirshrestha/asyncomplete.vim] extensive setup
-* [Shougo/denite.nvim] centric work-flow (lists)
-* Structure view with [liuchengxu/vista.vim]
-* Open SCM detailed URL in OS browser
-* Light-weight but informative status/tabline
-* Easy customizable theme
-* Premium color-schemes
-* Central location for tags and sessions
-
-## Screenshot
-
-![Vim screenshot](http://rafi.io/static/img/project/vim-config/features.png)
 
 ## Prerequisites
 
