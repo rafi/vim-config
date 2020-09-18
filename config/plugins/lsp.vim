@@ -32,12 +32,6 @@ augroup lsp_user_plugin
 
 	autocmd User lsp_buffer_enabled call <SID>on_lsp_buffer_enabled()
 
-<<<<<<< HEAD:config/plugins/lsp-settings.vim
-	"autocmd CompleteDone * if pumvisible() == 0 | pclose | endif
-||||||| 14c1a61:config/plugins/lsp-settings.vim
-	autocmd CompleteDone * if pumvisible() == 0 | pclose | endif
-=======
 	" vim-lsp completion error
 	" autocmd CompleteDone * if pumvisible() == 0 | pclose | endif
->>>>>>> 095716395f7b6671019832edd3b0b3c0c1109723:config/plugins/lsp.vim
 augroup END
