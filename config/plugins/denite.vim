@@ -10,42 +10,56 @@ endif
 " Denite general settings
 call denite#custom#option('_', {
 	\ 'prompt': '❯',
-	\ 'start_filter': 1,
-	\ 'statusline': 1,
-	\ 'smartcase': 1,
-	\ 'vertical_preview': 1,
+	\ 'start_filter': v:true,
+	\ 'smartcase': v:true,
+	\ 'source_names': 'short',
+	\ 'highlight_preview_line': 'CursorColumn',
 	\ 'max_dynamic_update_candidates': 50000,
 	\ })
+
+" Use Neovim's floating window
+if has('nvim-0.4')
+	call denite#custom#option('_', {
+		\ 'highlight_filter_background': 'NormalFloat',
+		\ 'split': 'floating',
+		\ 'filter_split_direction': 'floating',
+		\ 'floating_preview': v:true,
+		\ 'preview_height': &lines / 3,
+		\ 'preview_width': &columns / 2 - 4,
+		\ })
+else
+	call denite#custom#option('_', {
+		\ 'vertical_preview': v:true,
+		\ 'preview_width': &columns / 2,
+		\ })
+endif
 
 " Interactive grep search
 call denite#custom#var('grep', 'min_interactive_pattern', 2)
 call denite#custom#source('grep', 'args', ['', '', '!'])
 
-" Use Neovim's floating window
-if has('nvim')
-	call denite#custom#option('_', {
-		\ 'statusline': 0,
-		\ 'split': 'floating',
-		\ 'floating_preview': 1,
-		\ 'filter_split_direction': 'floating',
-		\ })
-endif
-
 " Allow customizable window positions: top, bottom, center (default)
 function! s:denite_resize(position)
 	if a:position ==# 'top'
 		call denite#custom#option('_', {
-			\ 'winwidth': (&columns - (&columns / 3)) - 1,
+			\ 'winwidth': &columns - 1,
 			\ 'winheight': &lines / 3,
 			\ 'wincol': 0,
 			\ 'winrow': 1,
 			\ })
 	elseif a:position ==# 'bottom'
 		call denite#custom#option('_', {
-			\ 'winwidth': (&columns - (&columns / 3)) - 1,
+			\ 'winwidth': &columns - 1,
 			\ 'winheight': &lines / 3,
 			\ 'wincol': 0,
 			\ 'winrow': (&lines - 2) - (&lines / 3),
+			\ })
+	elseif a:position ==# 'centertop'
+		call denite#custom#option('_', {
+			\ 'winwidth': &columns / 2,
+			\ 'winheight': &lines / 3,
+			\ 'wincol': &columns / 4,
+			\ 'winrow': (&lines / 12),
 			\ })
 	else
 		" Use Denite default, which is centered.
@@ -53,33 +67,45 @@ function! s:denite_resize(position)
 endfunction
 
 " Set Denite's window position
-let g:denite_position = get(g:, 'denite_position', '')
+let g:denite_position = get(g:, 'denite_position', 'centertop')
 call s:denite_resize(g:denite_position)
 
 " MATCHERS
 " Default is 'matcher/fuzzy'
 call denite#custom#source('tag', 'matchers', ['matcher/substring'])
+call denite#custom#source('file/old', 'matchers', [
+	\ 'matcher/project_files', 'matcher/ignore_globs' ])
+
+" call denite#custom#source('file/rec', 'converters', ['converter/truncate_abbr'])
+
+" Use vim-clap's rust binary, called maple
+if dein#tap('vim-clap')
+	call denite#custom#filter('matcher/clap', 'clap_path',
+		\ dein#get('vim-clap')['path'])
+
+	call denite#custom#source('file/rec', 'matchers', [ 'matcher/clap' ])
+endif
 
 " SORTERS
 " Default is 'sorter/rank'
-call denite#custom#source('z', 'sorters', ['sorter_z'])
+call denite#custom#source('z', 'sorters', ['sorter/z'])
 
 " CONVERTERS
 " Default is none
 call denite#custom#source(
-	\ 'buffer,file_mru,file_old',
-	\ 'converters', ['converter_relative_word'])
+	\ 'buffer,file_mru,file/old',
+	\ 'converters', ['converter/relative_word'])
 
 " FIND and GREP COMMANDS
 " ---
 " Ripgrep
 if executable('rg')
 	call denite#custom#var('file/rec', 'command',
-		\ ['rg', '--files', '--glob', '!.git'])
+		\ ['rg', '--hidden', '--files', '--glob', '!.git', '--color', 'never'])
 
 	call denite#custom#var('grep', {
 		\ 'command': ['rg'],
-		\ 'default_opts': ['-i', '--vimgrep', '--no-heading'],
+		\ 'default_opts': ['--hidden', '-i', '--vimgrep', '--no-heading'],
 		\ 'recursive_opts': [],
 		\ 'pattern_opt': ['--regexp'],
 		\ })
@@ -120,16 +146,6 @@ augroup user_plugin_denite
 	autocmd User denite-preview call s:denite_preview()
 
 	autocmd VimResized * call s:denite_resize(g:denite_position)
-
-	" Enable Denite special cursor-line highlight
-	autocmd WinEnter * if &filetype =~# '^denite'
-		\ |   highlight! link CursorLine WildMenu
-		\ | endif
-
-	" Disable Denite special cursor-line highlight
-	autocmd WinLeave * if &filetype ==# 'denite'
-		\ |   highlight! link CursorLine NONE
-		\ | endif
 augroup END
 
 " Denite main window settings
@@ -137,7 +153,15 @@ function! s:denite_settings() abort
 	" Window options
 	setlocal signcolumn=no cursorline
 
+	" Use a more vibrant cursorline for Denite
+	highlight! link CursorLine WildMenu
+	autocmd user_plugin_denite BufDelete <buffer> highlight! link CursorLine NONE
+
 	" Denite selection window key mappings
+	nmap <silent><buffer> <C-j> j
+	nmap <silent><buffer> <C-k> k
+	nmap <silent><buffer> <C-n> j
+	nmap <silent><buffer> <C-p> k
 	nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
 	nnoremap <silent><buffer><expr> i    denite#do_map('open_filter_buffer')
 	nnoremap <silent><buffer><expr> /    denite#do_map('open_filter_buffer')
@@ -158,14 +182,8 @@ endfunction
 " Denite-preview window settings
 function! s:denite_preview() abort
 	" Window options
-	setlocal nocursorline colorcolumn= signcolumn=no nonumber nolist nospell
-
-	if &lines > 35
-		resize +8
-	endif
-	" let l:pos = win_screenpos(win_getid())
-	" let l:heighten = &lines - l:pos[0]
-	" execute 'resize ' . l:heighten
+	setlocal colorcolumn= signcolumn=no nolist nospell
+	setlocal nocursorline nocursorcolumn number norelativenumber
 
 	" Clear indents
 	if exists('*indent_guides#clear_matches')
@@ -184,20 +202,16 @@ function! s:denite_filter_settings() abort
 	endif
 
 	" Denite Filter window key mappings
-	imap <silent><buffer> jj          <Plug>(denite_filter_quit)
-	nmap <silent><buffer> <Esc>       <Plug>(denite_filter_quit)
-	imap <silent><buffer> <Esc>       <Plug>(denite_filter_quit)
-	nmap <silent><buffer> <C-c>       <Plug>(denite_filter_quit)
-	imap <silent><buffer> <C-c>       <Plug>(denite_filter_quit)
+	imap <silent><buffer> jj          <Plug>(denite_filter_update)
+	nmap <silent><buffer> <Esc>       <Plug>(denite_filter_update)
+	imap <silent><buffer> <Esc>       <Plug>(denite_filter_update)
+	nmap <silent><buffer> <C-c>       <Plug>(denite_filter_update)
+	imap <silent><buffer> <C-c>       <Plug>(denite_filter_update)
+	imap <silent><buffer> <C-p>       <Up>
+	imap <silent><buffer> <C-n>       <Down>
 
-	inoremap <silent><buffer> <Tab> <Esc>
-		\ :call denite#move_to_parent()<CR>
-		\ :call cursor(line('.')+1,0)<CR>
-		\ :call denite#move_to_filter()<CR>A
-	inoremap <silent><buffer> <S-Tab> <Esc>
-		\ :call denite#move_to_parent()<CR>
-		\ :call cursor(line('.')-1,0)<CR>
-		\ :call denite#move_to_filter()<CR>A
+	imap <silent><buffer> <Tab>   <Plug>(denite_filter_update)ji
+	imap <silent><buffer> <S-Tab> <Plug>(denite_filter_update)ki
 endfunction
 
 " vim: set ts=2 sw=2 tw=80 noet :

@@ -46,8 +46,8 @@ highlight TabLineAltShade  ctermfg=238 ctermbg=236 guifg=#444444 guibg=#303030
 " }}}
 
 " Highlights: Statusline {{{
-highlight StatusLine   ctermfg=236 ctermbg=248 guifg=#30302c guibg=#a8a897
-highlight StatusLineNC ctermfg=236 ctermbg=242 guifg=#30302c guibg=#666656
+highlight StatusLine   ctermfg=236 ctermbg=248 guifg=#30302c guibg=#a8a897 cterm=reverse gui=reverse
+highlight StatusLineNC ctermfg=236 ctermbg=242 guifg=#30302c guibg=#666656 cterm=reverse gui=reverse
 
 " Filepath color
 highlight User1 guifg=#D7D7BC guibg=#30302c ctermfg=251 ctermbg=236
@@ -71,6 +71,18 @@ highlight User8 guifg=#ffb964 guibg=#30302c ctermfg=215 ctermbg=236
 highlight NonText cterm=NONE ctermfg=NONE
 highlight! link jsFutureKeys PreProc
 highlight! WarningMsg  ctermfg=100 guifg=#CCC566
+
+" if has('nvim') || has('patch-7.4.2218')
+" 	highlight EndOfBuffer gui=NONE guifg=#303030
+" endif
+
+if has('nvim')
+	highlight TermCursor    gui=NONE guibg=#cc22a0
+	highlight TermCursorNC  gui=NONE guibg=#666666
+	highlight TermCursor    gui=NONE guibg=#cc22a0
+	highlight TermCursorNC  gui=NONE guibg=#666666
+	" highlight NormalNC      gui=NONE guibg=#2c2c2c guifg=#bfbfbf
+endif
 
 highlight! link vimFunc Function
 highlight! link vimFunction Function
@@ -133,19 +145,19 @@ highlight! CurrentWordTwins ctermbg=235 guibg=#252A3D cterm=NONE gui=NONE
 " highlight! link mkdLineBreak      NONE
 " }}}
 
-" Plugin: Defx icons and highlights {{{
+" Plugin: Defx and plugins {{{
 " ---
-highlight! defxSelected             ctermbg=97 guibg=#36202b
-highlight Defx_filename_3_Modified  ctermfg=1  guifg=#D370A3
-highlight Defx_filename_3_Staged    ctermfg=10 guifg=#A3D572
-highlight Defx_filename_3_Ignored   ctermfg=8  guifg=#404660
-highlight link Defx_filename_3_root_marker Comment
+highlight def link Defx_filename_directory  Directory
 
-highlight def link Defx_filename_3_Untracked Comment
-highlight def link Defx_filename_3_Unknown Comment
-highlight def link Defx_filename_3_Renamed Title
-highlight def link Defx_filename_3_Unmerged Label
-" highlight Defx_git_Deleted   ctermfg=13 guifg=#b294bb
+highlight! Defx_git_Modified  ctermfg=1   guifg=#D370A3
+highlight! Defx_git_Staged    ctermfg=10  guifg=#A3D572
+highlight! Defx_git_Deleted   ctermfg=167 guifg=#fb4934
+highlight def link Defx_git_Renamed   Title
+highlight def link Defx_git_Unmerged  Label
+highlight def link Defx_git_Untracked Comment
+highlight def link Defx_git_Ignored   Comment
+highlight def link Defx_git_Unknown   Comment
+
 " }}}
 
 " Plugin: Ale {{{
@@ -192,6 +204,12 @@ highlight! link deniteSource__LocationListWarning PreProc
 " Plugin: vim-highlightedyank {{{
 " ---
 highlight! link HighlightedyankRegion DiffText
+" }}}
+
+" Plugin: vim-shot-f {{{
+" ---
+highlight! link ShotFGraph Number
+highlight! link ShotFBlank ErrorMsg
 " }}}
 
 " Plugin: vim-signature {{{

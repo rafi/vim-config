@@ -1,24 +1,30 @@
 " Snippets from vim-help
 " Credits: https://github.com/dahu/vim-help
 
-if exists('b:did_ftplugin')
-	finish
-endif
-let b:did_ftplugin = 1
-
 let s:save_cpo = &cpoptions
 set cpoptions&vim
 
-let b:undo_ftplugin = 'setlocal spell<'
-setlocal nospell
+let b:undo_ftplugin .= ' | setlocal spell< list< hidden< iskeyword<'
+	\ . " | execute 'nunmap <buffer> <CR>'"
+	\ . " | execute 'nunmap <buffer> <BS>'"
+	\ . " | execute 'nunmap <buffer> o'"
+	\ . " | execute 'nunmap <buffer> O'"
+	\ . " | execute 'nunmap <buffer> f'"
+	\ . " | execute 'nunmap <buffer> F'"
+	\ . " | execute 'nunmap <buffer> t'"
+	\ . " | execute 'nunmap <buffer> T'"
+	\ . " | execute 'nunmap <buffer> <leader>j'"
+	\ . " | execute 'nunmap <buffer> <leader>k'"
+	\ . " | execute 'nunmap <buffer> q'"
 
+setlocal nospell
 setlocal nolist
 setlocal nohidden
 setlocal iskeyword+=:
 setlocal iskeyword+=#
 setlocal iskeyword+=-
 
-if winnr('$') > 2 + (bufname('defx') ==# '' ? 0 : 1)
+if winnr('$') > 3 + (bufname('defx') ==# '' ? 0 : 1)
 	wincmd K
 else
 	wincmd L
@@ -51,5 +57,8 @@ nmap <buffer> t /\*\S\+\*<CR>l
 " Skip to previous tag (subject anchor)
 nmap <buffer> T h?\*\S\+\*<CR>l
 
+" Skip to next/prev quickfix list entry (from a helpgrep)
+nmap <buffer> <leader>j :cnext<CR>
+nmap <buffer> <leader>k :cprev<CR>
+
 let &cpoptions = s:save_cpo
-" vim: set ts=2 sw=2 tw=80 noet :
