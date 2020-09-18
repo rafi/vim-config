@@ -5,7 +5,7 @@
 let s:save_cpo = &cpoptions
 set cpoptions&vim
 
-setlocal cursorline
+setlocal cursorline colorcolumn=
 if exists('&signcolumn')
 	setlocal signcolumn=yes
 endif

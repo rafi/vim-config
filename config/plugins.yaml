@@ -58,12 +58,11 @@
     let g:vim_markdown_folding_level = 6
     let g:vim_markdown_override_foldtext = 1
     let g:vim_markdown_folding_style_pythonic = 1
-    let g:vim_markdown_conceal = 0
-    let g:vim_markdown_conceal_code_blocks = 0
-    let g:vim_markdown_edit_url_in = 'vsplit'
-    let g:vim_markdown_auto_insert_bullets = 1
+    let g:vim_markdown_conceal = 1
+    let g:vim_markdown_conceal_code_blocks = 1
     let g:vim_markdown_new_list_item_indent = 0
     let g:vim_markdown_toc_autofit = 0
+    let g:vim_markdown_edit_url_in = 'vsplit'
     let g:vim_markdown_fenced_languages = [
       \ 'c++=cpp',
       \ 'viml=vim',
@@ -119,13 +118,26 @@
 # Golang related
 - repo: fatih/vim-go
   if: has('nvim-0.4.0') || has('patch-8.0.1453')
-  on_ft: [ go, gomod ]
+  on_ft: [ go, gomod, gotexttmpl, gohtmltmpl ]
   hook_add: |-
-    let g:go_gopls_enabled = 0
+    let g:go_gopls_enabled = 1
     let g:go_code_completion_enabled = 0
     let g:go_doc_keywordprg_enabled = 0
     let g:go_def_mapping_enabled = 0
+    let g:go_jump_to_error = 0
+    let g:go_fmt_autosave = 1
+    let g:go_fmt_fail_silently = 1
+    let g:go_imports_autosave = 1
     let g:go_mod_fmt_autosave = 0
+    let g:go_snippet_engine = 'ultisnips'
+    let g:go_textobj_enabled = 1
+    let g:go_list_height = 10
+    let g:go_list_autoclose = 0
+    let g:go_fold_enable = []
+    let g:go_info_mode = 'gopls'
+    let g:go_def_mode = 'gopls'
+    let g:go_referrers_mode = 'gopls'
+    let g:go_implements_mode = 'guru'
     let g:go_highlight_array_whitespace_error = 0
     let g:go_highlight_chan_whitespace_error = 0
     let g:go_highlight_space_tab_error = 0
@@ -143,6 +155,10 @@
     let g:go_highlight_string_spellcheck = 0
     let g:go_highlight_variable_declarations = 0
     let g:go_highlight_variable_assignments = 0
+    if has('nvim') || exists(':terminal')
+      let g:go_term_enabled = 1
+      let g:go_term_close_on_exit = 0
+    endif
 
 # Python related
 - { repo: vim-python/python-syntax, on_ft: python }
@@ -224,6 +240,12 @@
     elseif executable('ack')
       let g:far#source = 'ack'
     endif
+
+- repo: pechorin/any-jump.vim
+  on_cmd: [ AnyJump, AnyJumpVisual ]
+  hook_add: |-
+    let g:any_jump_disable_default_keybindings = 1
+    autocmd user_events FileType any-jump setlocal cursorline
 
 - repo: Vigemus/iron.nvim
   if: has('nvim')
@@ -315,10 +337,10 @@
       \| let g:vim_markdown_no_default_key_mappings = 1
       \| let g:vim_markdown_emphasis_multiline = 0
     autocmd User preview_open_post
-      \ unlet g:vim_markdown_folding_disabled
+      \ unlet! g:vim_markdown_folding_disabled
       \| let g:vim_markdown_override_foldtext = 1
-      \| unlet g:vim_markdown_no_default_key_mappings
-      \| unlet g:vim_markdown_emphasis_multiline
+      \| unlet! g:vim_markdown_no_default_key_mappings
+      \| unlet! g:vim_markdown_emphasis_multiline
 
 - repo: wellle/context.vim
   on_cmd: [ ContextToggle, ContextToggleWindow, ContextPeek ]
@@ -378,10 +400,9 @@
     let g:indent_guides_color_change_percent = 3
     let g:indent_guides_guide_size = 1
     let g:indent_guides_exclude_filetypes = [
-      \ 'help', 'denite', 'denite-filter', 'startify',
-      \ 'vista', 'vista_kind', 'tagbar', 'nerdtree',
-      \ 'lsp-hover', 'clap_input', 'any-jump',
-      \ 'gina-status', 'gina-commit', 'gina-log'
+      \ 'help', 'defx', 'denite', 'denite-filter', 'startify',
+      \ 'vista', 'vista_kind', 'tagbar', 'lsp-hover', 'clap_input',
+      \ 'any-jump', 'gina-status', 'gina-commit', 'gina-log'
       \ ]
 
 - repo: rhysd/committia.vim
@@ -449,14 +470,15 @@
 - repo: prabirshrestha/vim-lsp
   depends: asyncomplete-lsp.vim
   hook_add: |-
+    let g:lsp_auto_enable = 1
+    let g:lsp_signs_enabled = 1
     let g:lsp_async_completion = 1
-    let g:lsp_ignorecase = 1
     let g:lsp_virtual_text_enabled = 0
     let g:lsp_diagnostics_enabled = 1
     let g:lsp_diagnostics_echo_cursor = 1
     let g:lsp_diagnostics_echo_delay = 400
-    let g:lsp_highlight_references_enabled = 0
-  hook_source: source $VIM_PATH/config/plugins/lsp-settings.vim
+    let g:lsp_ignorecase = 1
+  hook_source: source $VIM_PATH/config/plugins/lsp.vim
 
 - repo: mattn/vim-lsp-settings
   depends: vim-lsp
@@ -464,6 +486,9 @@
   hook_add: |-
     let g:lsp_settings = {
     \   'efm-langserver': {'disabled': 1},
+    \   'gopls': {
+    \     'cmd': ['gopls', '-remote=auto'],
+    \   },
     \   'yaml-language-server': {
     \     'allowlist': ['yaml', 'yaml.ansible'],
     \   }
@@ -490,7 +515,7 @@
       \ asyncomplete#sources#buffer#get_source_options({
       \ 'name': 'buffer',
       \ 'allowlist': ['*'],
-      \ 'blocklist': ['go', 'denite-filter', 'clap_input'],
+      \ 'blocklist': ['go', 'denite', 'denite-filter', 'clap_input'],
       \ 'completor': function('asyncomplete#sources#buffer#completor'),
       \ 'config': {
       \    'max_buffer_size': 4000000,
@@ -505,7 +530,7 @@
       \ asyncomplete#sources#tags#get_source_options({
       \ 'name': 'tags',
       \ 'allowlist': ['*'],
-      \ 'blocklist': ['go', 'python', 'vim', 'denite-filter', 'clap_input'],
+      \ 'blocklist': ['go', 'python', 'vim', 'denite', 'denite-filter', 'clap_input'],
       \ 'completor': function('asyncomplete#sources#tags#completor'),
       \ 'config': { 'max_file_size': 5000000 },
       \ }))
@@ -518,7 +543,7 @@
       \ 'name': 'file',
       \ 'priority': 10,
       \ 'allowlist': ['*'],
-      \ 'blocklist': ['denite-filter', 'clap_input'],
+      \ 'blocklist': ['denite', 'denite-filter', 'clap_input'],
       \ 'completor': function('asyncomplete#sources#file#completor')
       \ }))
 
@@ -531,7 +556,7 @@
       \ 'name': 'tmux',
       \ 'priority': 0,
       \ 'allowlist': ['*'],
-      \ 'blocklist': ['denite-filter', 'clap_input'],
+      \ 'blocklist': ['denite', 'denite-filter', 'clap_input'],
       \ 'config': {
       \   'splitmode': 'words',
       \   'filter_prefix': 1,
@@ -551,7 +576,7 @@
       \ 'name': 'snip',
       \ 'priority': 0,
       \ 'allowlist': ['*'],
-      \ 'blocklist': ['denite-filter', 'clap_input'],
+      \ 'blocklist': ['denite', 'denite-filter', 'clap_input'],
       \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
       \ }))
 

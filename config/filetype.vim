@@ -9,12 +9,12 @@ augroup user_plugin_filetype " {{{
 		\ source $MYVIMRC | redraw
 
 	" Highlight current line only on focused window
-	autocmd WinEnter,InsertLeave *
-		\ if ! &cursorline && &filetype !~# '^\(denite\|clap_\)'
+	autocmd WinEnter,BufEnter,InsertLeave *
+		\ if ! &cursorline && &filetype !~# '^\(denite\|clap_\)' && ! &pvw
 		\ | setlocal cursorline
 		\ | endif
-	autocmd WinLeave,InsertEnter *
-		\ if &cursorline && &filetype !~# '^\(denite\|clap_\)'
+	autocmd WinLeave,BufLeave,InsertEnter *
+		\ if &cursorline && &filetype !~# '^\(denite\|clap_\)' && ! &pvw
 		\ | setlocal nocursorline
 		\ | endif
 

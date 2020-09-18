@@ -330,6 +330,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [cocopon/colorswatch.vim] | Generate a beautiful color swatch for the current buffer
 | [dstein64/vim-startuptime] | Visually profile Vim's startup time
 | [brooth/far.vim] | Fast find and replace plugin
+| [pechorin/any-jump.vim] | Jump to any definition and references without overhead
 | [jaawerth/nrun.vim] | "which" and "exec" functions targeted at local node project bin
 | [Vigemus/iron.nvim] | Interactive REPL over Neovim
 | [kana/vim-niceblock] | Make blockwise Visual mode more useful
@@ -491,6 +492,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [cocopon/colorswatch.vim]: https://github.com/cocopon/colorswatch.vim
 [dstein64/vim-startuptime]: https://github.com/dstein64/vim-startuptime
 [brooth/far.vim]: https://github.com/brooth/far.vim
+[pechorin/any-jump.vim]: https://github.com/pechorin/any-jump.vim
 [jaawerth/nrun.vim]: https://github.com/jaawerth/nrun.vim
 [Vigemus/iron.nvim]: https://github.com/Vigemus/iron.nvim
 [kana/vim-niceblock]: https://github.com/kana/vim-niceblock
@@ -736,6 +738,7 @@ Note that,
 | <kbd>sb</kbd> | 𝐍 | Previous buffer | `:b#`
 | <kbd>sc</kbd> | 𝐍 | Close current buffer | `:close`
 | <kbd>sx</kbd> | 𝐍 | Delete buffer, leave blank window | `:enew │ bdelete`
+| <kbd>sz</kbd> | 𝐍 | Toggle window zoom | `:vertical resize │ resize`
 | <kbd>ssv</kbd> | 𝐍 | Split with previous buffer | `:split │ wincmd p │ e#`
 | <kbd>ssg</kbd> | 𝐍 | Vertical split with previous buffer | `:vsplit │ wincmd p │ e#`
 | <kbd>sh</kbd> | 𝐍 | Toggle colorscheme background=dark/light | `:set background` …
@@ -773,6 +776,7 @@ Note that,
 | <kbd>;v</kbd> | 𝐍 𝐕 | Yank history
 | <kbd>;l</kbd> | 𝐍 | Location list
 | <kbd>;q</kbd> | 𝐍 | Quick fix
+| <kbd>;m</kbd> | 𝐍 | Marks
 | <kbd>;n</kbd> | 𝐍 | Dein plugin list
 | <kbd>;j</kbd> | 𝐍 | Jump points and change stack
 | <kbd>;u</kbd> | 𝐍 | Junk files
@@ -781,7 +785,7 @@ Note that,
 | <kbd>;t</kbd> | 𝐍 | Tag list
 | <kbd>;p</kbd> | 𝐍 | Jumps
 | <kbd>;h</kbd> | 𝐍 | Help
-| <kbd>;m</kbd> | 𝐍 | Memo list
+| <kbd>;w</kbd> | 𝐍 | Memo list
 | <kbd>;z</kbd> | 𝐍 | Z (jump around)
 | <kbd>;;</kbd> | 𝐍 | Command history
 | <kbd>;/</kbd> | 𝐍 | Buffer lines
@@ -854,6 +858,15 @@ Note that,
 | <kbd>Ctrl</kbd>+<kbd>e</kbd> | 𝐈 | Cancel selection and close pop-up
 | <kbd>Ctrl</kbd>+<kbd>l</kbd> | 𝐈 | Expand snippet at cursor
 | <kbd>Tab</kbd> / <kbd>Shift-Tab</kbd> | 𝐈 𝐒 | Navigate snippet placeholders
+
+### Plugin: Any-Jump
+
+| Key   | Mode | Action
+| ----- |:----:| ------------------
+| <kbd>Space</kbd>+<kbd>ii</kbd> | 𝐍 | Jump to definition under cursor
+| <kbd>Space</kbd>+<kbd>ii</kbd> | 𝐕 | Jump to selected text in visual mode
+| <kbd>Space</kbd>+<kbd>ib</kbd> | 𝐍 | Open previous opened file (after jump)
+| <kbd>Space</kbd>+<kbd>il</kbd> | 𝐍 | Open last closed search window again
 
 ### Plugin: Signature
 
