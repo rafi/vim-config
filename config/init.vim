@@ -1,3 +1,4 @@
+set shell=/bin/sh
 " Configuration and plugin-manager manager :)
 " ---
 " Maintainer: Rafael Bodill
