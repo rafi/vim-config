@@ -14,18 +14,22 @@ call denite#custom#option('_', {
 	\ 'smartcase': v:true,
 	\ 'source_names': 'short',
 	\ 'highlight_preview_line': 'CursorColumn',
+	\ 'max_candidate_width': 512,
 	\ 'max_dynamic_update_candidates': 50000,
 	\ })
 
 " Use Neovim's floating window
 if has('nvim-0.4')
 	call denite#custom#option('_', {
-		\ 'highlight_filter_background': 'NormalFloat',
 		\ 'split': 'floating',
 		\ 'filter_split_direction': 'floating',
 		\ 'floating_preview': v:true,
 		\ 'preview_height': &lines / 3,
 		\ 'preview_width': &columns / 2 - 4,
+		\ 'match_highlight': v:false,
+		\ 'highlight_filter_background': 'NormalFloat',
+		\ 'highlight_matched_char': 'CursorLineNr',
+		\ 'highlight_matched_range': 'Comment',
 		\ })
 else
 	call denite#custom#option('_', {
@@ -80,10 +84,11 @@ call denite#custom#source('file/old', 'matchers', [
 
 " Use vim-clap's rust binary, called maple
 if dein#tap('vim-clap')
-	call denite#custom#filter('matcher/clap', 'clap_path',
-		\ dein#get('vim-clap')['path'])
-
-	call denite#custom#source('file/rec', 'matchers', [ 'matcher/clap' ])
+	let s:clap_path = dein#get('vim-clap')['path']
+	if executable(s:clap_path . '/target/release/maple')
+		call denite#custom#filter('matcher/clap', 'clap_path', s:clap_path)
+		call denite#custom#source('file/rec', 'matchers', [ 'matcher/clap' ])
+	endif
 endif
 
 " SORTERS
