@@ -196,7 +196,8 @@ function! badge#branch() abort
 endfunction
 
 function! badge#syntax() abort
-	" Returns syntax warnings from several plugins (ALE, Neomake, Syntastic)
+	" Returns syntax warnings from several plugins
+	" Supports vim-lsp, ALE, Neomake, and Syntastic
 	if &filetype =~? g:badge_filetype_blacklist
 		return ''
 	endif
@@ -206,7 +207,7 @@ function! badge#syntax() abort
 	let l:warnings = 0
 	let l:hints = 0
 	let l:information = 0
-	if exists('*lsp#ui#vim#diagnostics#get_buffer_diagnostics_counts')
+	if exists('*lsp#activate') && get(g:, 'lsp_diagnostics_enabled', 1)
 		let l:counts = lsp#ui#vim#diagnostics#get_buffer_diagnostics_counts()
 		let l:errors = get(l:counts, 'error', '')
 		let l:warnings = get(l:counts, 'warning', '')

@@ -95,6 +95,8 @@ if dein#tap('vim-lsp')
 	autocmd User lsp_float_opened
 		\ nmap <buffer> <silent> <Esc> <Plug>(lsp-preview-close)
 	autocmd User lsp_float_closed silent! nunmap <buffer> <Esc>
+	autocmd user_events FileType markdown.lsp-hover
+		\ nmap <silent><buffer>q :wincmd z<CR>
 endif
 
 if dein#tap('defx.nvim')

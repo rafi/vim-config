@@ -3,34 +3,25 @@
 " Context-aware menu at your cursor
 " Forked from: https://github.com/kizza/actionmenu.nvim
 
-if get(s:, 'loaded')
-	finish
-endif
+" Menu items
+let g:actionmenu#items = []
 
-let s:loaded = 1
+" Current menu selection
+let g:actionmenu#selected = 0
+
+" Private variables
 let s:buffer = 0
 let s:window = 0
-let g:actionmenu#items = []
-let g:actionmenu#selected = []
 
 function! actionmenu#open(items, callback, ...) abort
-	" Open the context-menu with a:items and a:callback for selected item
-	" action. In-order to change the icon settings, you can provide a third
-	" dictionary:
-	"
-	"  { "icon": { "character": "?", "foreground" }
+	" Open the context-menu with a:items and a:callback for selected item action.
 
 	if empty(a:items)
 		return
 	endif
 
-	" Prepare the icon
-	let l:opts = get(a:, 1, 0)
-	if type(l:opts['icon']) == type({})
-		let l:icon = l:opts['icon']
-	else
-		let l:icon = s:icon_default()
-	endif
+	" Close the old window if opened
+	call actionmenu#close()
 
 	" Create the buffer
 	if ! s:buffer
@@ -38,14 +29,15 @@ function! actionmenu#open(items, callback, ...) abort
 		call nvim_buf_set_option(s:buffer, 'syntax', 'OFF')
 	endif
 	call nvim_buf_set_option(s:buffer, 'modifiable', v:true)
-	call nvim_buf_set_lines(s:buffer, 0, -1, v:true, [ l:icon['character'] ])
+	call nvim_buf_set_option(s:buffer, 'completefunc', 'actionmenu#complete')
+	" call nvim_buf_set_lines(s:buffer, 0, -1, v:true, [ '' ])
 
+	" Persist menu items and callback function
 	let g:actionmenu#items = a:items
-	let g:actionmenu#selected = []
 	let s:callback = a:callback
 
-	" Close the old window if opened
-	call actionmenu#close()
+	" Process user hooks
+	doautocmd <nomodeline> User action_menu_open_pre
 
 	" Open the window
 	let l:opts = {
@@ -54,40 +46,91 @@ function! actionmenu#open(items, callback, ...) abort
 		\ 'width': 1,
 		\ 'height': 1,
 		\ 'row': 0,
-		\ 'col': 0
+		\ 'col': 0,
+		\ 'style': 'minimal',
 		\}
 
 	let s:window = nvim_open_win(s:buffer, 1, l:opts)
 	call nvim_win_set_option(s:window, 'foldenable', v:false)
-	call nvim_win_set_option(s:window, 'wrap', v:true)
+	call nvim_win_set_option(s:window, 'wrap', v:false)
 	call nvim_win_set_option(s:window, 'statusline', '')
-	call nvim_win_set_option(s:window, 'number', v:false)
-	call nvim_win_set_option(s:window, 'relativenumber', v:false)
-	call nvim_win_set_option(s:window, 'cursorline', v:false)
-	call nvim_win_set_option(s:window, 'winhl', 'Normal:Pmenu,NormalNC:Pmenu')
+	call nvim_win_set_option(s:window, 'sidescrolloff', 0)
+	call nvim_win_set_option(s:window, 'listchars', '')
+	if exists('&winblend')
+		call nvim_win_set_option(s:window, 'winblend', 100)
+	endif
 
 	" Setup the window
-	setlocal filetype=actionmenu
-	if ! empty(l:icon['foreground'])
-		execute('hi ActionMenuContext ctermfg=' . l:icon['foreground'] . ' guifg=' . l:icon['foreground'])
-		syn match ActionMenuContext '.'
-	endif
+	call nvim_buf_set_option(s:buffer, 'filetype', 'actionmenu')
+
+	" Menu mappings and events
+	call s:attach_events()
+
+	" startinsert  TODO: nvim cursor relative is off
+	call nvim_input("i\<C-x>\<C-u>")
 endfunction
 
-function! s:icon_default() abort
-	let l:icon = get(g:, 'actionmenu_icon', '')
-	if empty(l:icon)
-		" Current character and its foreground
-		let l:icon = {
-			\ 'character': strcharpart(strpart(getline('.'), col('.') - 1), 0, 1),
-			\ 'foreground': synIDattr(synID(line('.'), col('.'), 1), 'fg')
-			\ }
+function! s:attach_events() abort
+	mapclear <buffer>
+	imapclear <buffer>
+	inoremap <silent><nowait><buffer><expr> <CR> <SID>select_item()
+	" imap     <nowait><buffer> <C-y> <CR>
+	" imap     <nowait><buffer> <C-e> <Esc>
+
+	" Navigate in menu
+	inoremap <nowait><buffer> <Up>    <C-p>
+	inoremap <nowait><buffer> <Down>  <C-n>
+	inoremap <nowait><buffer> k       <C-p>
+	inoremap <nowait><buffer> j       <C-n>
+	inoremap <nowait><buffer> h       <C-p>
+	inoremap <nowait><buffer> l       <C-n>
+	inoremap <nowait><buffer> <Space> <C-n>
+	inoremap <nowait><buffer> <C-k>   <C-p>
+	inoremap <nowait><buffer> <C-j>   <C-n>
+	inoremap <nowait><buffer> <S-Tab> <C-p>
+	inoremap <nowait><buffer> <Tab>   <C-n>
+
+	" Scroll pages in menu
+	inoremap <nowait><buffer> <C-b>  <PageUp>
+	inoremap <nowait><buffer> <C-f>  <PageDown>
+	imap     <nowait><buffer> <C-u>  <PageUp>
+	imap     <nowait><buffer> <C-d>  <PageDown>
+
+	" Events
+	augroup actionmenu
+		autocmd!
+		autocmd InsertLeave <buffer> call <SID>on_insert_leave()
+	augroup END
+endfunction
+
+function! s:select_item() abort
+	if pumvisible()
+		if ! empty(v:completed_item)
+			let g:actionmenu#selected = copy(v:completed_item)
+		endif
+		" Close pum and leave insert
+		return "\<C-y>\<Esc>"
 	endif
-	return l:icon
+	" Leave insert mode
+	return "\<Esc>"
+endfunction
+
+function! s:on_insert_leave() abort
+	call actionmenu#close()
+	let l:index = -1
+	if type(g:actionmenu#selected) == type({})
+		let l:index = get(g:actionmenu#selected, 'user_data', -1)
+	endif
+	let l:data = l:index > -1 ? g:actionmenu#items[l:index] : {}
+	let g:actionmenu#items = []
+	let g:actionmenu#selected = 0
+	call actionmenu#callback(l:index, l:data)
+	unlet! s:callback
+	doautocmd <nomodeline> User action_menu_open_post
 endfunction
 
 " Pum completion function
-function! actionmenu#complete_func(findstart, base) abort
+function! actionmenu#complete(findstart, base) abort
 	if a:findstart
 		return 1
 	else
@@ -105,22 +148,20 @@ function! s:pum_parse_item(item, index) abort
 endfunction
 
 function! actionmenu#callback(index, item) abort
-	doautocmd <nomodeline> BufWinEnter
+	" doautocmd <nomodeline> BufWinEnter
 	if empty(s:callback)
 		return
 	endif
 	if a:index >= 0 && ! empty(a:item) && type(a:item) != type('')
-		call timer_start(1, s:callback)
+		call s:callback(a:item)
 	endif
-	unlet s:callback
 endfunction
 
 function! actionmenu#close() abort
 	if s:window
 		call nvim_win_close(s:window, v:false)
-		" execute('close')
-		" call feedkeys("\<C-w>\<C-c>")
 		let s:window = 0
+		let s:buffer = 0
 	endif
 endfunction
 

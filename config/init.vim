@@ -97,11 +97,8 @@ function! s:main()
 
 		" Python interpreter settings
 		if has('nvim')
-			" Try using pyenv virtualenv called 'neovim'
-			let l:virtualenv = ''
-			if ! empty($PYENV_ROOT)
-				let l:virtualenv = $PYENV_ROOT . '/versions/neovim/bin/python'
-			endif
+			" Try the virtualenv created by venv.sh
+			let l:virtualenv = $DATA_PATH . '/venv/bin/python'
 			if empty(l:virtualenv) || ! filereadable(l:virtualenv)
 				" Fallback to old virtualenv location
 				let l:virtualenv = $DATA_PATH . '/venv/neovim3/bin/python'
