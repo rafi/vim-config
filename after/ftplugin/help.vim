@@ -24,7 +24,25 @@ setlocal iskeyword+=:
 setlocal iskeyword+=#
 setlocal iskeyword+=-
 
-if winnr('$') > 3 + (bufname('defx') ==# '' ? 0 : 1)
+" Count tab page windows
+function! s:count_windows()
+	let l:count = 0
+	let l:tabnr = tabpagenr()
+	try
+		let l:windows = gettabinfo(l:tabnr)[0].windows
+		for l:win in l:windows
+			if getwinvar(l:win, '&filetype') !~# '^\(clap\|defx\|denite\|vista\)'
+				let l:count += 1
+			endif
+		endfor
+	catch
+		" Fallback
+		let l:count = tabpagewinnr(l:tabnr, '$')
+	endtry
+	return l:count
+endfunction
+
+if s:count_windows() - 1 > 1
 	wincmd K
 else
 	wincmd L

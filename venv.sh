@@ -4,12 +4,12 @@ _try_pyenv() {
 	local name='' src=''
 	if hash pyenv 2>/dev/null; then
 		echo '===> pyenv found, searching virtualenvs…'
-		for name in 'neovim' 'neovim3' 'nvim'; do
+		for name in neovim neovim3 nvim; do
 			src="$(pyenv prefix "${name}" 2>/dev/null)"
 			if [ -d "${src}" ]; then
 				echo "===> pyenv virtualenv found '${name}', upgrading..."
 				# Symlink virtualenv for easy access
-				ln -fhs "${src}" "${__venv}"
+				ln -fs "${src}" "${__venv}"
 				return 0
 			fi
 		done
