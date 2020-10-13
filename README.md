@@ -255,6 +255,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [sgur/vim-editorconfig] | EditorConfig plugin written entirely in Vimscript
 | [christoomey/tmux-navigator] | Seamless navigation between tmux panes and vim splits
 | [tpope/vim-sleuth] | Heuristically set buffer indent options
+| [antoinemadec/FixCursorHold.nvim] | Neovim CursorHold workaround
 | [roxma/nvim-yarp] | Vim8 remote plugin framework for Neovim
 | [roxma/vim-hug-neovim-rpc] | Vim8 compatibility layer for neovim rpc client
 
@@ -426,6 +427,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [sgur/vim-editorconfig]: https://github.com/sgur/vim-editorconfig
 [christoomey/tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator
 [tpope/vim-sleuth]: https://github.com/tpope/vim-sleuth
+[antoinemadec/FixCursorHold.nvim]: https://github.com/antoinemadec/FixCursorHold.nvim
 [roxma/nvim-yarp]: https://github.com/roxma/nvim-yarp
 [roxma/vim-hug-neovim-rpc]: https://github.com/roxma/vim-hug-neovim-rpc
 

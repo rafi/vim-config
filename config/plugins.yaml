@@ -15,6 +15,10 @@
 - repo: jaawerth/nrun.vim
 - { repo: rafi/awesome-vim-colorschemes, merged: 0 }
 
+# Improve CursorHold performance
+# See: https://github.com/neovim/neovim/issues/12587
+- { repo: antoinemadec/FixCursorHold.nvim, if: "has('nvim')" }
+
 - repo: christoomey/vim-tmux-navigator
   if: "! (has('win32') || has('win64'))"
 
