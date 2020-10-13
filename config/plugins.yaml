@@ -55,9 +55,7 @@
   hook_add: |-
     let g:vim_markdown_frontmatter = 1
     let g:vim_markdown_strikethrough = 1
-    let g:vim_markdown_folding_level = 6
-    let g:vim_markdown_override_foldtext = 1
-    let g:vim_markdown_folding_style_pythonic = 1
+    let g:vim_markdown_folding_disabled = 1
     let g:vim_markdown_conceal = 1
     let g:vim_markdown_conceal_code_blocks = 1
     let g:vim_markdown_new_list_item_indent = 0
@@ -76,14 +74,6 @@
       \ 'makefile=make',
       \ 'py=python'
       \ ]
-
-- repo: rhysd/vim-gfm-syntax
-  depends: vim-markdown
-  on_ft: markdown
-  hook_add: |-
-    let g:gfm_syntax_enable_always = 0
-    let g:gfm_syntax_highlight_emoji = 0
-    let g:gfm_syntax_enable_filetypes = ['markdown']
 
 # Javascript related
 - repo: pangloss/vim-javascript
@@ -477,6 +467,7 @@
     let g:lsp_diagnostics_enabled = 1
     let g:lsp_diagnostics_echo_cursor = 1
     let g:lsp_diagnostics_echo_delay = 400
+    let g:lsp_highlight_references_enabled = 0
     let g:lsp_ignorecase = 1
   hook_source: source $VIM_PATH/config/plugins/lsp.vim
 

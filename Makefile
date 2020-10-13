@@ -26,10 +26,10 @@ uninstall:
 
 test:
 ifeq ('$(vim)','nvim')
-	$(info Testing NVIM 0.4+...)
-	$(if $(shell echo "$(vim_version)" | egrep "NVIM v0\.[4-9]"),\
+	$(info Testing NVIM 0.5+...)
+	$(if $(shell echo "$(vim_version)" | egrep "NVIM v0\.[5-9]"),\
 		$(info OK),\
-		$(error   .. You need Neovim 0.4.x or newer))
+		$(error   .. You need Neovim 0.5.x or newer))
 else
 	$(info Testing VIM 8.x...)
 	$(if $(shell echo "$(vim_version)" | egrep "VIM .* 8\."),\

@@ -2,7 +2,7 @@
 
 Lean mean Neo/vim machine, 30-45ms startup time.
 
-Best with [Neovim] or [Vim8] and `python3` enabled.
+Best with [Neovim] 0.5.x or [Vim] 8.x and `python3` enabled.
 
 > I encourage you to fork this repo and create your own experience.
 > Learn how to tweak and change Neo/vim to the way YOU like it.
@@ -120,8 +120,10 @@ Enjoy! :smile:
 ## Language-Server Protocol (LSP)
 
 To leverage LSP auto-completions and other functionalities, once you open a
-file in Neo/vim, run `:LspInstallServer` to use [mattn/vim-lsp-settings]
-installation feature.
+file in Neo/vim, run `:LspInstallServer <name>` to use [mattn/vim-lsp-settings]
+installation feature, use <kbd>Tab</kbd> to list available servers.
+
+For example, open a `.go` file, and run: `:LspInstallServer gopls`
 
 ## Upgrade
 
@@ -271,7 +273,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [digitaltoad/vim-pug] | Pug (formerly Jade) syntax and indentation
 | [othree/html5.vim] | HTML5 omnicomplete and syntax
 | [plasticboy/vim-markdown] | Markdown syntax highlighting
-| [rhysd/vim-gfm-syntax] | GitHub Flavored Markdown syntax highlight extension
 | [pangloss/vim-javascript] | Enhanced Javascript syntax
 | [HerringtonDarkholme/yats.vim] | Advanced TypeScript Syntax Highlighting
 | [MaxMEllon/vim-jsx-pretty] | React JSX syntax pretty highlighting
@@ -437,7 +438,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [digitaltoad/vim-pug]: https://github.com/digitaltoad/vim-pug
 [othree/html5.vim]: https://github.com/othree/html5.vim
 [plasticboy/vim-markdown]: https://github.com/plasticboy/vim-markdown
-[rhysd/vim-gfm-syntax]: https://github.com/rhysd/vim-gfm-syntax
 [pangloss/vim-javascript]: https://github.com/pangloss/vim-javascript
 [HerringtonDarkholme/yats.vim]: https://github.com/HerringtonDarkholme/yats.vim
 [MaxMEllon/vim-jsx-pretty]: https://github.com/MaxMEllon/vim-jsx-pretty
@@ -645,8 +645,8 @@ Note that,
 
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
-| <kbd>*</kbd> / <kbd>#</kbd> | 𝐍 𝐕 | Search selection forward/backward | <small>[haya14busa/vim-asterisk]</small>
-| <kbd>g*</kbd> / <kbd>g#</kbd> | 𝐍 𝐕 | Search whole-word forward/backward | <small>[haya14busa/vim-asterisk]</small>
+| <kbd>\*</kbd> / <kbd>#</kbd> | 𝐍 𝐕 | Search selection forward/backward | <small>[haya14busa/vim-asterisk]</small>
+| <kbd>g\*</kbd> / <kbd>g#</kbd> | 𝐍 𝐕 | Search whole-word forward/backward | <small>[haya14busa/vim-asterisk]</small>
 | <kbd>Backspace</kbd> | 𝐍 | Match bracket | `%`
 | <kbd>gp</kbd> | 𝐍 | Select last paste |
 | <kbd>sg</kbd> | 𝐕 | Replace within selected area | `:s/⌴/gc`
@@ -789,7 +789,7 @@ Note that,
 | <kbd>;z</kbd> | 𝐍 | Z (jump around)
 | <kbd>;;</kbd> | 𝐍 | Command history
 | <kbd>;/</kbd> | 𝐍 | Buffer lines
-| <kbd>;*</kbd> | 𝐍 | Search word under cursor with lines
+| <kbd>;\*</kbd> | 𝐍 | Search word under cursor with lines
 | <kbd>Space</kbd>+<kbd>gt</kbd> | 𝐍 | Find tags matching word under cursor
 | <kbd>Space</kbd>+<kbd>gf</kbd> | 𝐍 | Find files matching word under cursor
 | <kbd>Space</kbd>+<kbd>gg</kbd> | 𝐍 𝐕 | Grep word under cursor
@@ -822,7 +822,7 @@ Note that,
 | <kbd>t</kbd> | 𝐍 | Expand directory tree recursively
 | <kbd>.</kbd> | 𝐍 | Toggle hidden files
 | <kbd>Space</kbd> | 𝐍 | Select entry
-| <kbd>*</kbd> | 𝐍 | Invert selection (select all)
+| <kbd>\*</kbd> | 𝐍 | Invert selection (select all)
 | <kbd>&</kbd> or <kbd>\</kbd> | 𝐍 | Change into current working directory
 | <kbd>~</kbd> | 𝐍 | Change to user home directory
 | <kbd>u</kbd> or <kbd>Backspace</kbd> | 𝐍 | Change into parent directory
@@ -899,5 +899,5 @@ Big thanks to the dark knight [Shougo](https://github.com/Shougo).
 [plugin/actionmenu.vim]: ./plugin/actionmenu.vim
 [Marked 2]: https://marked2app.com
 [Neovim]: https://github.com/neovim/neovim
-[Vim8]: https://github.com/vim/vim
+[Vim]: https://github.com/vim/vim
 [lazy-loaded]: ./config/plugins.yaml#L47

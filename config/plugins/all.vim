@@ -73,9 +73,14 @@ if dein#tap('vim-clap')
 	autocmd user_events FileType clap_input call s:clap_mappings()
 
 	function! s:clap_mappings()
+		nnoremap <silent> <buffer> <nowait> <Space> :call clap#handler#tab_action()<CR>
 		nnoremap <silent> <buffer> <nowait>' :call clap#handler#tab_action()<CR>
 		inoremap <silent> <buffer> <Tab>   <C-R>=clap#navigation#linewise('down')<CR>
 		inoremap <silent> <buffer> <S-Tab> <C-R>=clap#navigation#linewise('up')<CR>
+		nnoremap <silent> <buffer> <C-j> :<C-u>call clap#navigation#linewise('down')<CR>
+		nnoremap <silent> <buffer> <C-k> :<C-u>call clap#navigation#linewise('up')<CR>
+		nnoremap <silent> <buffer> <C-n> :<C-u>call clap#navigation#linewise('down')<CR>
+		nnoremap <silent> <buffer> <C-p> :<C-u>call clap#navigation#linewise('up')<CR>
 		nnoremap <silent> <buffer> <C-f> :<c-u>call clap#navigation#scroll('down')<CR>
 		nnoremap <silent> <buffer> <C-b> :<c-u>call clap#navigation#scroll('up')<CR>
 
