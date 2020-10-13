@@ -308,6 +308,8 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [lifepillar/pgsql.vim] | PostgreSQL syntax and indent
 | [chr4/nginx.vim] | Improved nginx syntax and indent
 | [towolf/vim-helm] | Syntax for Helm templates (yaml + gotmpl + sprig)
+| [udalov/kotlin-vim] | Kotlin syntax and indent
+| [reasonml-editor/vim-reason-plus] | Reason syntax and indent
 | [pearofducks/ansible-vim] | Improved YAML support for Ansible
 | [hashivim/vim-terraform] | Base Terraform integration
 
@@ -474,6 +476,8 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [lifepillar/pgsql.vim]: https://github.com/lifepillar/pgsql.vim
 [chr4/nginx.vim]: https://github.com/chr4/nginx.vim
 [towolf/vim-helm]: https://github.com/towolf/vim-helm
+[udalov/kotlin-vim]: https://github.com/udalov/kotlin-vim
+[reasonml-editor/vim-reason-plus]: https://github.com/reasonml-editor/vim-reason-plus
 [pearofducks/ansible-vim]: https://github.com/pearofducks/ansible-vim
 [hashivim/vim-terraform]: https://github.com/hashivim/vim-terraform
 

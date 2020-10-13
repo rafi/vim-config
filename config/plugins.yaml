@@ -180,6 +180,8 @@
 - { repo: lifepillar/pgsql.vim, on_ft: pgsql }
 - { repo: chr4/nginx.vim, on_ft: nginx }
 - { repo: towolf/vim-helm, on_ft: helm }
+- { repo: udalov/kotlin-vim, on_ft: kotlin }
+- { repo: reasonml-editor/vim-reason-plus, on_ft: [ reason, merlin ] }
 
 - repo: pearofducks/ansible-vim
   on_ft: [ ansible, ansible_hosts, jinja2 ]
