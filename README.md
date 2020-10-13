@@ -322,6 +322,8 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [kristijanhusak/defx-icons] | Filetype icons for Defx
 | [tyru/caw.vim] | Robust comment plugin with operator support
 | [Shougo/context_filetype.vim] | Context filetype detection for nested code
+| [mhinz/vim-grepper] | Helps you win at grep
+| [lambdalisue/fin.vim] | Filter the buffer content in-place
 | [liuchengxu/vim-which-key] | Shows key-bindings in pop-up
 | [mbbill/undotree] | Ultimate undo history visualizer
 | [reedes/vim-wordy] | Uncover usage problems in your writing
@@ -486,6 +488,8 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [kristijanhusak/defx-icons]: https://github.com/kristijanhusak/defx-icons
 [tyru/caw.vim]: https://github.com/tyru/caw.vim
 [Shougo/context_filetype.vim]: https://github.com/Shougo/context_filetype.vim
+[mhinz/vim-grepper]: https://github.com/mhinz/vim-grepper
+[lambdalisue/fin.vim]: https://github.com/lambdalisue/fin.vim
 [liuchengxu/vim-which-key]: https://github.com/liuchengxu/vim-which-key
 [mbbill/undotree]: https://github.com/mbbill/undotree
 [reedes/vim-wordy]: https://github.com/reedes/vim-wordy
@@ -651,6 +655,7 @@ Note that,
 
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
+| <kbd>Space</kbd>+<kbd>f</kbd> | 𝐍 | Filter lines in-place | <small>[lambdalisue/fin.vim]</small>
 | <kbd>\*</kbd> / <kbd>#</kbd> | 𝐍 𝐕 | Search selection forward/backward | <small>[haya14busa/vim-asterisk]</small>
 | <kbd>g\*</kbd> / <kbd>g#</kbd> | 𝐍 𝐕 | Search whole-word forward/backward | <small>[haya14busa/vim-asterisk]</small>
 | <kbd>Backspace</kbd> | 𝐍 | Match bracket | `%`
