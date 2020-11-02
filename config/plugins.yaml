@@ -15,6 +15,10 @@
 - repo: jaawerth/nrun.vim
 - { repo: rafi/awesome-vim-colorschemes, merged: 0 }
 
+# Improve CursorHold performance
+# See: https://github.com/neovim/neovim/issues/12587
+- { repo: antoinemadec/FixCursorHold.nvim, if: "has('nvim')" }
+
 - repo: christoomey/vim-tmux-navigator
   if: "! (has('win32') || has('win64'))"
 
@@ -55,9 +59,7 @@
   hook_add: |-
     let g:vim_markdown_frontmatter = 1
     let g:vim_markdown_strikethrough = 1
-    let g:vim_markdown_folding_level = 6
-    let g:vim_markdown_override_foldtext = 1
-    let g:vim_markdown_folding_style_pythonic = 1
+    let g:vim_markdown_folding_disabled = 1
     let g:vim_markdown_conceal = 1
     let g:vim_markdown_conceal_code_blocks = 1
     let g:vim_markdown_new_list_item_indent = 0
@@ -76,14 +78,6 @@
       \ 'makefile=make',
       \ 'py=python'
       \ ]
-
-- repo: rhysd/vim-gfm-syntax
-  depends: vim-markdown
-  on_ft: markdown
-  hook_add: |-
-    let g:gfm_syntax_enable_always = 0
-    let g:gfm_syntax_highlight_emoji = 0
-    let g:gfm_syntax_enable_filetypes = ['markdown']
 
 # Javascript related
 - repo: pangloss/vim-javascript
@@ -186,6 +180,8 @@
 - { repo: lifepillar/pgsql.vim, on_ft: pgsql }
 - { repo: chr4/nginx.vim, on_ft: nginx }
 - { repo: towolf/vim-helm, on_ft: helm }
+- { repo: udalov/kotlin-vim, on_ft: kotlin }
+- { repo: reasonml-editor/vim-reason-plus, on_ft: [ reason, merlin ] }
 
 - repo: pearofducks/ansible-vim
   on_ft: [ ansible, ansible_hosts, jinja2 ]
@@ -215,6 +211,8 @@
 - { repo: kristijanhusak/defx-icons, on_source: defx.nvim }
 
 - { repo: tyru/caw.vim, on_map: { nx: <Plug> }}
+- { repo: mhinz/vim-grepper, on_map: { nx: <Plug> }, on_cmd: Grepper }
+- { repo: lambdalisue/fin.vim, on_cmd: Fin }
 - { repo: liuchengxu/vim-which-key, on_cmd: WhichKey }
 - { repo: mbbill/undotree, on_cmd: UndotreeToggle }
 - { repo: reedes/vim-wordy, on_cmd: [ Wordy, NoWordy, NextWordy ]}
@@ -477,6 +475,7 @@
     let g:lsp_diagnostics_enabled = 1
     let g:lsp_diagnostics_echo_cursor = 1
     let g:lsp_diagnostics_echo_delay = 400
+    let g:lsp_highlight_references_enabled = 0
     let g:lsp_ignorecase = 1
   hook_source: source $VIM_PATH/config/plugins/lsp.vim
 
