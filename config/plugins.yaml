@@ -603,6 +603,12 @@
   if: has('python3')
   merged: 0
 
+- repo: mlaursen/vim-react-snippets
+  depends: ultisnips
+  on_event: FileType
+  if: has('python3')
+  merged: 0
+
 - repo: mattn/emmet-vim
   on_event: InsertEnter
   on_ft: [ html, css, javascript, javascriptreact, svelte ]
