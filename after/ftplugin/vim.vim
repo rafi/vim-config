@@ -6,12 +6,13 @@ if exists('b:undo_ftplugin')
 else
 	let b:undo_ftplugin = ''
 endif
-let b:undo_ftplugin .= 'setl modeline<'
+let b:undo_ftplugin .= 'setl modeline< iskeyword< keywordprg< suffixesadd< includeexpr< path<'
 
-setlocal iskeyword+=:,#
-setlocal foldmethod=indent
+setlocal iskeyword+=:
+setlocal iskeyword+=#
 setlocal keywordprg=:help
-setlocal conceallevel=0
+" setlocal foldmethod=indent
+" setlocal conceallevel=0
 
 " For gf
 let &l:path = join(map(split(&runtimepath, ','), 'v:val."/autoload"'), ',')

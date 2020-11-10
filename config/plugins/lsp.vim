@@ -5,9 +5,10 @@
 function! s:on_lsp_buffer_enabled() abort
 	setlocal omnifunc=lsp#complete
 	if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
-	setlocal foldmethod=expr
-		\ foldexpr=lsp#ui#vim#folding#foldexpr()
-		\ foldtext=lsp#ui#vim#folding#foldtext()
+	" Slow
+	" setlocal foldmethod=expr
+	"	\ foldexpr=lsp#ui#vim#folding#foldexpr()
+	"	\ foldtext=lsp#ui#vim#folding#foldtext()
 
 	" Prefer native help with vim files
 	if &filetype != 'vim'
@@ -23,8 +24,8 @@ function! s:on_lsp_buffer_enabled() abort
 	nmap <silent><buffer> gd     <Plug>(lsp-peek-declaration)
 	nmap <silent><buffer> gY     <Plug>(lsp-type-hierarchy)
 	nmap <silent><buffer> ,s     <Plug>(lsp-signature-help)
-	nmap <silent><buffer> [d <Plug>(lsp-previous-diagnostic)
-	nmap <silent><buffer> ]d <Plug>(lsp-next-diagnostic)
+	nmap <silent><buffer> [d     <Plug>(lsp-previous-diagnostic)
+	nmap <silent><buffer> ]d     <Plug>(lsp-next-diagnostic)
 endfunction
 
 augroup lsp_user_plugin
