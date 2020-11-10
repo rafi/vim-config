@@ -33,6 +33,8 @@
 
 # Languages
 # ---------
+- { repo: 'prettier/vim-prettier', on_ft: ['javascript', 'js', 'css', 'less',
+  'scss', 'json', 'graphql', 'markdown', 'vue', 'html', 'yaml'] }
 - { repo: PotatoesMaster/i3-vim-syntax, on_ft: i3 }
 - { repo: hail2u/vim-css3-syntax, on_ft: css }
 - { repo: othree/csscomplete.vim, on_ft: css }
