@@ -1,9 +1,6 @@
 " Vim Only Terminal Tweaks: Colors, cursor shape, and tmux
 " ---
 
-" Enable 256 color terminal
-set t_Co=256
-
 " Paste
 " Credits: https://github.com/Shougo/shougo-s-github
 " ---
@@ -30,6 +27,11 @@ if has('mouse')
 		set ttymouse=xterm2
 	endif
 endif
+
+" Disable modifyOtherKeys
+" See: https://github.com/vim/vim/issues/5200
+let &t_TI = ""
+let &t_TE = ""
 
 " Cursor-shape
 " Credits: https://github.com/wincent/terminus
@@ -94,12 +96,6 @@ let &t_EI = s:end_insert
 " ---
 if s:tmux
 	set ttyfast
-
-	" Set Vim-specific sequences for RGB colors
-	" Fixes 'termguicolors' usage in tmux
-	" :h xterm-true-color
-	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 	" Assigns some xterm(1)-style keys to escape sequences passed by tmux
 	" when 'xterm-keys' is set to 'on'.  Inspired by an example given by
