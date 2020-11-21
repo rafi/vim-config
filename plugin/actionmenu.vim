@@ -52,6 +52,7 @@ function! s:build_menu(cword)
 			\ { 'word': 'Find symbol…', 'user_data': 'DeniteCursorWord tag:include -no-start-filter' },
 			\ { 'word': 'Paste from…', 'user_data': 'Denite neoyank -default-action=replace -no-start-filter' },
 			\ { 'word': 'Grep…', 'user_data': 'DeniteCursorWord grep -no-start-filter' },
+			\ { 'word': 'Jump…', 'user_data': 'AnyJump' },
 			\ { 'word': '-------' },
 			\ ])
 	endif

@@ -28,7 +28,7 @@ let s:stl_nc .= '%{&ft} '                      " File type
 
 " Status-line blacklist
 let s:disable_statusline =
-	\ 'defx\|denite\|vista\|tagbar\|undotree\|diff\|peekaboo\|sidemenu\|qf'
+	\ 'defx\|denite\|vista\|undotree\|diff\|sidemenu\|qf\|minimap'
 
 function! s:active()
 	if &filetype ==# 'defx'
