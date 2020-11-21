@@ -125,7 +125,10 @@ To leverage LSP auto-completions and other functionalities, once you open a
 file in Neo/vim, run `:LspInstallServer <name>` to use [mattn/vim-lsp-settings]
 installation feature, use <kbd>Tab</kbd> to list available servers.
 
-For example, open a `.go` file, and run: `:LspInstallServer gopls`
+Here are a few useful commands:
+* For example, open a `.go` file, and run: `:LspInstallServer gopls`
+* In a `go` file, use action `:LspCodeAction source.organizeImports`
+* See [config/plugins/lsp.vim] for special code intellisense mappings
 
 ## Upgrade
 
@@ -920,6 +923,7 @@ Big thanks to the dark knight [Shougo](https://github.com/Shougo).
 [plugin/devhelp.vim]: ./plugin/devhelp.vim
 [plugin/jumpfile.vim]: ./plugin/jumpfile.vim
 [plugin/actionmenu.vim]: ./plugin/actionmenu.vim
+[config/plugins/lsp.vim]: ./config/plugins/lsp.vim
 [Marked 2]: https://marked2app.com
 [Neovim]: https://github.com/neovim/neovim
 [Vim]: https://github.com/vim/vim

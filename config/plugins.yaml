@@ -427,47 +427,48 @@
 - repo: prabirshrestha/async.vim  # only autoload functions, lazy by nature
 
 - repo: prabirshrestha/asyncomplete.vim
-  depends: async.vim
+  on_source: asyncomplete-lsp.vim
   hook_add: let g:asyncomplete_auto_completeopt = 0
   hook_source: source $VIM_PATH/config/plugins/asyncomplete.vim
 
 - repo: prabirshrestha/asyncomplete-lsp.vim
-  depends: asyncomplete.vim
+  on_source: vim-lsp
 
 - repo: prabirshrestha/vim-lsp
-  depends: asyncomplete-lsp.vim
+  on_source: vim-lsp-settings
+  hook_source: source $VIM_PATH/config/plugins/lsp.vim
   hook_add: |-
-    let g:lsp_auto_enable = 1
+    let g:lsp_auto_enable = argc() > 0
+    let g:lsp_highlight_references_enabled = 1
+    let g:lsp_ignorecase = 1
     let g:lsp_signs_enabled = 1
     let g:lsp_async_completion = 1
+    let g:lsp_fold_enabled = 0
     let g:lsp_virtual_text_enabled = 0
     let g:lsp_diagnostics_enabled = 1
     let g:lsp_diagnostics_echo_cursor = 1
     let g:lsp_diagnostics_echo_delay = 400
-    let g:lsp_highlight_references_enabled = 0
-    let g:lsp_ignorecase = 1
-  hook_source: source $VIM_PATH/config/plugins/lsp.vim
+    let g:lsp_text_edit_enabled = 1
+    let g:lsp_preview_float = 1
+    let g:lsp_signs_error = {'text': "✘"}
+    let g:lsp_signs_warning = {'text': "⬪"}
 
 - repo: mattn/vim-lsp-settings
-  depends: vim-lsp
+  on_event: [ BufReadPre, VimEnter ]
   merged: 0
+  hook_post_source: |-
+    if ! g:lsp_auto_enable
+      call lsp#enable()
+    endif
   hook_add: |-
     let g:lsp_settings = {
-    \   'efm-langserver': {'disabled': 1},
-    \   'gopls': {
-    \     'cmd': ['gopls', '-remote=auto'],
-    \   },
     \   'yaml-language-server': {
     \     'allowlist': ['yaml', 'yaml.ansible'],
     \   }
     \ }
 
-- repo: Shougo/neco-vim
-  on_ft: vim
-  merged: 0
-
 - repo: prabirshrestha/asyncomplete-necovim.vim
-  depends: asyncomplete.vim
+  on_source: vim-lsp-settings
   hook_source: |-
     autocmd User asyncomplete_setup call asyncomplete#register_source(
       \ asyncomplete#sources#necovim#get_source_options({
@@ -476,8 +477,11 @@
       \ 'completor': function('asyncomplete#sources#necovim#completor'),
       \ }))
 
+- repo: Shougo/neco-vim
+  on_source: asyncomplete-necovim.vim
+
 - repo: prabirshrestha/asyncomplete-buffer.vim
-  depends: asyncomplete.vim
+  on_source: vim-lsp-settings
   hook_source: |-
     autocmd User asyncomplete_setup call asyncomplete#register_source(
       \ asyncomplete#sources#buffer#get_source_options({
@@ -492,19 +496,20 @@
 
 - repo: prabirshrestha/asyncomplete-tags.vim
   if: executable('ctags')
-  depends: asyncomplete.vim
+  on_source: vim-lsp-settings
   hook_source: |-
     autocmd User asyncomplete_setup call asyncomplete#register_source(
       \ asyncomplete#sources#tags#get_source_options({
       \ 'name': 'tags',
       \ 'allowlist': ['*'],
-      \ 'blocklist': ['go', 'python', 'vim', 'denite', 'denite-filter', 'clap_input'],
+      \ 'blocklist': ['go', 'python', 'vim', 'denite',
+      \               'denite-filter', 'clap_input'],
       \ 'completor': function('asyncomplete#sources#tags#completor'),
       \ 'config': { 'max_file_size': 5000000 },
       \ }))
 
 - repo: prabirshrestha/asyncomplete-file.vim
-  depends: asyncomplete.vim
+  on_source: vim-lsp-settings
   hook_source: |-
     autocmd User asyncomplete_setup call asyncomplete#register_source(
       \ asyncomplete#sources#file#get_source_options({
@@ -517,7 +522,7 @@
 
 - repo: wellle/tmux-complete.vim
   if: "! (has('win32') || has('win64'))"
-  depends: asyncomplete.vim
+  on_source: vim-lsp-settings
   hook_add: |-
     let g:tmuxcomplete#trigger = ''
     let g:tmuxcomplete#asyncomplete_source_options = {
@@ -536,8 +541,8 @@
       \ }
 
 - repo: prabirshrestha/asyncomplete-ultisnips.vim
-  depends: asyncomplete.vim
   if: has('python3')
+  on_source: vim-lsp-settings
   hook_source: |-
     autocmd User asyncomplete_setup call asyncomplete#register_source(
       \ asyncomplete#sources#ultisnips#get_source_options({
