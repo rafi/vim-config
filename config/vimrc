@@ -77,8 +77,12 @@ if filereadable($VIM_PATH . '/config/local.vim')
 	call s:source_file('config/local.vim')
 endif
 
-call s:source_file('config/statusline.vim')
-call s:source_file('config/tabline.vim')
+if get(g:, 'tabline_plugin_enable', 1)
+	call s:source_file('config/statusline.vim')
+endif
+if get(g:, 'statusline_plugin_enable', 1)
+	call s:source_file('config/tabline.vim')
+endif
 
 set secure
 set et

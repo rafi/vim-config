@@ -307,6 +307,7 @@
 - { repo: rafi/vim-sidemenu, on_map: { nv: <Plug> }}
 
 - repo: machakann/vim-highlightedyank
+  if: "! has('nvim-0.5')"
   on_event: TextYankPost
   hook_source: let g:highlightedyank_highlight_duration = 200
 
