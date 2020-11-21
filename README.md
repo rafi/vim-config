@@ -209,7 +209,28 @@ collection.
 If you want to disable some of the plugins I use, you can overwrite them, e.g.:
 
 ```yaml
-- { repo: prabirshrestha/asyncomplete.vim, if: 0 }
+- { repo: mattn/vim-lsp-settings, if: 0 }
+```
+
+### Disable built-in statusline & tabline
+
+You can use your local `config/local.vim` to disable status and tab lines:
+
+```vim
+let g:tabline_plugin_enable = 0
+let g:statusline_plugin_enable = 0
+```
+
+Now, using `config/local.plugins.yaml` you can install any line plugin you
+want, _e.g._:
+
+```yaml
+# Use only one!
+- repo: itchyny/lightline.vim
+- repo: vim-airline/vim-airline
+- repo: glepnir/galaxyline.nvim
+- repo: glepnir/spaceline.vim
+- repo: liuchengxu/eleline.vim
 ```
 
 ## Structure

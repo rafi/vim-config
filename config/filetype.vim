@@ -38,11 +38,12 @@ augroup user_plugin_filetype " {{{
 	autocmd Syntax * if line('$') > 5000 | syntax sync minlines=200 | endif
 
 	" Neovim terminal settings
-	if has('nvim')
+	if has('nvim-0.5')
 		autocmd TermOpen * setlocal modifiable
-		autocmd TermClose * buffer #
-		" autocmd TextYankPost *
-		"	\ silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=150}
+		try
+			autocmd TextYankPost *
+				\ silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=150}
+		endtry
 	endif
 
 	" Update filetype on save if empty
