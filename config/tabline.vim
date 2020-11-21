@@ -49,7 +49,9 @@ function! Tabline()
 		" Append window count, for tabs
 		let l:win_count = tabpagewinnr(l:nr, '$')
 		for l:bufnr in l:bufnrlist
-			if bufname(l:bufnr) =~ 'denite\|defx\|vimfiler\|fugitive\|magit\|fern'
+			let l:bufname = bufname(l:bufnr)
+			if l:bufname =~ 'denite\|defx\|vimfiler\|fugitive\|magit\|fern'
+					\ || empty(l:bufname)
 				let l:win_count -= 1
 			endif
 		endfor
