@@ -135,11 +135,6 @@ if dein#tap('vim-gitgutter')
 	nmap gs <Plug>(GitGutterPreviewHunk)
 endif
 
-if dein#tap('context.vim')
-	nmap <silent><Leader>tc :<C-u>ContextEnableWindow<CR>
-	nmap <silent><Leader>tp :<C-u>ContextPeek<CR>
-endif
-
 if dein#tap('iron.nvim')
 	nmap <silent> <Leader>rr :<C-u>IronRepl<CR><Esc>
 	nmap <silent> <Leader>rq <Plug>(iron-exit)
