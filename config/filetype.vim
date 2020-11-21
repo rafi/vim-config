@@ -1,5 +1,5 @@
 " File Types
-" ===
+" ---
 
 augroup user_plugin_filetype " {{{
 	autocmd!
@@ -10,11 +10,13 @@ augroup user_plugin_filetype " {{{
 
 	" Highlight current line only on focused window
 	autocmd WinEnter,BufEnter,InsertLeave *
-		\ if ! &cursorline && &filetype !~# '^\(denite\|clap_\)' && ! &pvw
+		\ if ! &cursorline && &filetype !~# '^\(denite\|clap_\)'
+		\      && ! &previewwindow && ! pumvisible()
 		\ | setlocal cursorline
 		\ | endif
 	autocmd WinLeave,BufLeave,InsertEnter *
-		\ if &cursorline && &filetype !~# '^\(denite\|clap_\)' && ! &pvw
+		\ if &cursorline && &filetype !~# '^\(denite\|clap_\)'
+		\      && ! &previewwindow && ! pumvisible()
 		\ | setlocal nocursorline
 		\ | endif
 
@@ -57,12 +59,27 @@ augroup user_plugin_filetype " {{{
 		\ endif
 
 	" When editing a file, always jump to the last known cursor position.
-	" Don't do it when the position is invalid or when inside an event handler
+	" Credits: https://github.com/farmergreg/vim-lastplace
 	autocmd BufReadPost *
-		\ if &ft !~# 'commit' && ! &diff &&
-		\      line("'\"") >= 1 && line("'\"") <= line("$")
-		\|   execute 'normal! g`"zvzz'
+		\ if index(['gitcommit', 'gitrebase', 'svn', 'hgcommit'], &buftype) == -1 &&
+		\      index(['quickfix', 'nofile', 'help'], &buftype) == -1 &&
+		\      ! &diff && ! &previewwindow &&
+		\      line("'\"") > 0 && line("'\"") <= line("$")
+		\|   if line("w$") == line("$")
+		\|     execute "normal! g`\""
+		\|   elseif line("$") - line("'\"") > ((line("w$") - line("w0")) / 2) - 1
+		\|     execute "normal! g`\"zz"
+		\|   else
+		\|     execute "normal! \G'\"\<c-e>"
+		\|   endif
+		\|   if foldclosed('.') != -1
+		\|     execute 'normal! zvzz'
+		\|   endif
 		\| endif
+
+	autocmd FileType apache setlocal path+=./;/
+
+	autocmd FileType html setlocal path+=./;/
 
 	autocmd FileType crontab setlocal nobackup nowritebackup
 
@@ -72,23 +89,18 @@ augroup user_plugin_filetype " {{{
 
 	autocmd FileType gitcommit,qfreplace setlocal nofoldenable
 
-	" https://webpack.github.io/docs/webpack-dev-server.html#working-with-editors-ides-supporting-safe-write
-	autocmd FileType css,javascript,javascriptreact setlocal backupcopy=yes
-
-	autocmd FileType php
-		\ setlocal matchpairs-=<:> iskeyword+=\\ path+=/usr/local/share/pear
+	autocmd FileType php setlocal matchpairs-=<:> iskeyword+=\\
 
 	autocmd FileType python
 		\ setlocal expandtab smarttab nosmartindent
 		\ | setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=80
 
-	autocmd FileType html setlocal path+=./;/
-
 	autocmd FileType markdown
 		\ setlocal expandtab spell conceallevel=0
 		\ | setlocal autoindent formatoptions=tcroqn2 comments=n:>
 
-	autocmd FileType apache setlocal path+=./;/
+	" https://webpack.github.io/docs/webpack-dev-server.html#working-with-editors-ides-supporting-safe-write
+	autocmd FileType css,javascript,javascriptreact setlocal backupcopy=yes
 
 augroup END " }}}
 
@@ -100,7 +112,9 @@ let g:PHP_removeCRwhenUnix = 0
 
 " }}}
 " Python {{{
-let g:python_highlight_all = 1
+let g:python_recommended_style = 0
+let g:pydoc_executable = 0
+" let g:python_highlight_all = 1
 " let g:python_highlight_builtins = 1
 " let g:python_highlight_exceptions = 1
 " let g:python_highlight_string_format = 1
@@ -116,6 +130,7 @@ let g:vim_indent_cont = &shiftwidth
 " }}}
 " Bash {{{
 let g:is_bash = 1
+let g:sh_no_error = 1
 
 " }}}
 " Java {{{
