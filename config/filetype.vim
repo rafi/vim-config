@@ -25,7 +25,7 @@ augroup user_plugin_filetype " {{{
 	autocmd InsertLeave * if &l:diff | diffupdate | endif
 
 	" Equalize window dimensions when resizing vim window
-	autocmd VimResized * tabdo wincmd =
+	autocmd VimResized * wincmd =
 
 	" Force write shada on leaving nvim
 	autocmd VimLeave * if has('nvim') | wshada! | else | wviminfo! | endif
