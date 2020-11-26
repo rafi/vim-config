@@ -15,11 +15,13 @@ call denite#custom#option('_', {
 	\ 'source_names': 'short',
 	\ 'highlight_preview_line': 'CursorColumn',
 	\ 'max_candidate_width': 512,
-	\ 'max_dynamic_update_candidates': 50000,
+	\ 'max_dynamic_update_candidates': 30000,
 	\ })
 
 " Use Neovim's floating window
 if has('nvim-0.4')
+	highlight! DeniteBackground ctermfg=250 ctermbg=237 guifg=#ACAFAE guibg=#2C3237
+
 	call denite#custom#option('_', {
 		\ 'split': 'floating',
 		\ 'filter_split_direction': 'floating',
@@ -27,6 +29,7 @@ if has('nvim-0.4')
 		\ 'preview_height': &lines / 3,
 		\ 'preview_width': &columns / 2 - 4,
 		\ 'match_highlight': v:false,
+		\ 'highlight_window_background': 'DeniteBackground',
 		\ 'highlight_filter_background': 'NormalFloat',
 		\ 'highlight_matched_char': 'CursorLineNr',
 		\ 'highlight_matched_range': 'Comment',

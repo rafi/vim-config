@@ -101,7 +101,7 @@ if dein#tap('vim-lsp')
 		\ nmap <buffer> <silent> <Esc> <Plug>(lsp-preview-close)
 	autocmd User lsp_float_closed silent! nunmap <buffer> <Esc>
 	autocmd user_events FileType markdown.lsp-hover
-		\ nmap <silent><buffer>q :wincmd z<CR>
+		\ nmap <silent><buffer>q :pclose<CR>| doautocmd <nomodeline> BufWinEnter
 endif
 
 if dein#tap('defx.nvim')
@@ -133,11 +133,6 @@ if dein#tap('vim-gitgutter')
 	xmap gS <Plug>(GitGutterStageHunk)
 	nmap <Leader>gr <Plug>(GitGutterUndoHunk)
 	nmap gs <Plug>(GitGutterPreviewHunk)
-endif
-
-if dein#tap('context.vim')
-	nmap <silent><Leader>tc :<C-u>ContextEnableWindow<CR>
-	nmap <silent><Leader>tp :<C-u>ContextPeek<CR>
 endif
 
 if dein#tap('iron.nvim')

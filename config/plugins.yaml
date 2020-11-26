@@ -6,14 +6,21 @@
 # Startup
 # -------
 - repo: Shougo/dein.vim
-- repo: itchyny/vim-gitbranch
-- repo: itchyny/vim-parenmatch
 - repo: thinca/vim-localrc
-- repo: romainl/vim-cool
-- repo: sgur/vim-editorconfig
 - repo: Shougo/context_filetype.vim
 - repo: jaawerth/nrun.vim
 - { repo: rafi/awesome-vim-colorschemes, merged: 0 }
+
+- repo: sgur/vim-editorconfig
+  hook_add: |-
+    let g:editorconfig_verbose = 1
+    let g:editorconfig_blacklist = {
+      \ 'filetype': [
+      \   'git.*', 'fugitive', 'help', 'defx', 'denite.*', 'startify',
+      \   'vista.*', 'tagbar', 'lsp-.*', 'clap_.*', 'any-jump', 'gina-.*'
+      \  ],
+      \ 'pattern': ['\.un~$']
+      \ }
 
 # Improve CursorHold performance
 # See: https://github.com/neovim/neovim/issues/12587
@@ -82,9 +89,7 @@
 # Javascript related
 - repo: pangloss/vim-javascript
   on_ft: [ javascript, javascriptreact ]
-  hook_add: |-
-    let g:javascript_plugin_jsdoc = 1
-    let g:javascript_plugin_flow = 1
+  hook_add: let g:javascript_plugin_jsdoc = 1
 
 - repo: HerringtonDarkholme/yats.vim
   on_ft: [ typescript, typescriptreact ]
@@ -108,51 +113,6 @@
 #- repo: mxw/vim-jsx
 #  on_ft: [ javascript, javascriptreact ]
 #  hook_add: let g:jsx_ext_required = 0
-
-# Golang related
-- repo: fatih/vim-go
-  if: has('nvim-0.4.0') || has('patch-8.0.1453')
-  on_ft: [ go, gomod, gotexttmpl, gohtmltmpl ]
-  hook_add: |-
-    let g:go_gopls_enabled = 1
-    let g:go_code_completion_enabled = 0
-    let g:go_doc_keywordprg_enabled = 0
-    let g:go_def_mapping_enabled = 0
-    let g:go_jump_to_error = 0
-    let g:go_fmt_autosave = 1
-    let g:go_fmt_fail_silently = 1
-    let g:go_imports_autosave = 1
-    let g:go_mod_fmt_autosave = 0
-    let g:go_snippet_engine = 'ultisnips'
-    let g:go_textobj_enabled = 1
-    let g:go_list_height = 10
-    let g:go_list_autoclose = 0
-    let g:go_fold_enable = []
-    let g:go_info_mode = 'gopls'
-    let g:go_def_mode = 'gopls'
-    let g:go_referrers_mode = 'gopls'
-    let g:go_implements_mode = 'guru'
-    let g:go_highlight_array_whitespace_error = 0
-    let g:go_highlight_chan_whitespace_error = 0
-    let g:go_highlight_space_tab_error = 0
-    let g:go_highlight_trailing_whitespace_error = 0
-    let g:go_highlight_extra_types = 1
-    let g:go_highlight_build_constraints = 1
-    let g:go_highlight_fields = 1
-    let g:go_highlight_format_strings = 1
-    let g:go_highlight_functions = 1
-    let g:go_highlight_function_calls = 1
-    let g:go_highlight_function_parameters = 1
-    let g:go_highlight_types = 1
-    let g:go_highlight_generate_tags = 1
-    let g:go_highlight_operators = 1
-    let g:go_highlight_string_spellcheck = 0
-    let g:go_highlight_variable_declarations = 0
-    let g:go_highlight_variable_assignments = 0
-    if has('nvim') || exists(':terminal')
-      let g:go_term_enabled = 1
-      let g:go_term_close_on_exit = 0
-    endif
 
 # Python related
 - { repo: vim-python/python-syntax, on_ft: python }
@@ -211,11 +171,8 @@
 - { repo: kristijanhusak/defx-icons, on_source: defx.nvim }
 
 - { repo: tyru/caw.vim, on_map: { nx: <Plug> }}
-- { repo: mhinz/vim-grepper, on_map: { nx: <Plug> }, on_cmd: Grepper }
 - { repo: lambdalisue/fin.vim, on_cmd: Fin }
-- { repo: liuchengxu/vim-which-key, on_cmd: WhichKey }
 - { repo: mbbill/undotree, on_cmd: UndotreeToggle }
-- { repo: reedes/vim-wordy, on_cmd: [ Wordy, NoWordy, NextWordy ]}
 - { repo: jreybert/vimagit, on_cmd: Magit }
 - { repo: tweekmonster/helpful.vim, on_cmd: HelpfulVersion }
 - { repo: kana/vim-altr, on_map: { n: <Plug> }}
@@ -223,10 +180,28 @@
 - { repo: guns/xterm-color-table.vim, on_cmd: XtermColorTable }
 - { repo: cocopon/colorswatch.vim, on_cmd: ColorSwatchGenerate }
 - { repo: dstein64/vim-startuptime, on_cmd: StartupTime }
+- { repo: lambdalisue/suda.vim, on_event: BufRead }
+
+- repo: liuchengxu/vim-which-key
+  on_cmd: [ WhichKey, WhichKeyVisual ]
+  hook_source: source $VIM_PATH/config/plugins/whichkey.vim
 
 - repo: lambdalisue/gina.vim
   on_cmd: Gina
+  on_ft: [ gitcommit, gitrebase ]
   hook_source: source $VIM_PATH/config/plugins/gina.vim
+
+- repo: mhinz/vim-grepper
+  on_map: { nx: <Plug> }
+  on_cmd: Grepper
+  hook_add: |-
+    let g:grepper = {
+        \ 'tools': ['rg', 'git', 'fd'],
+        \ 'fd': {
+        \   'grepprg':    'fd',
+        \   'grepformat': '%f',
+        \   'escape':     '\+*^$()[]',
+        \ }}
 
 - repo: brooth/far.vim
   on_cmd: [ Far, Farp, F ]
@@ -261,16 +236,20 @@
   on_map: { n: <Plug> }
   hook_add: |-
     let g:choosewin_label = 'ADFGHJKLUIOPQWERT'
-    let g:choosewin_label_align = 'right'
     let g:choosewin_label_padding = 5
 
-- repo: lambdalisue/suda.vim
-  on_event: BufRead
-  hook_add: let g:suda_smart_edit = 1
+- repo: wfxr/minimap.vim
+  on_cmd: [ Minimap, MinimapToggle ]
+  hook_source: |-
+    let g:minimap_block_filetypes = ['fugitive', 'nerdtree', 'defx']
 
 - repo: mzlogin/vim-markdown-toc
   on_cmd: [ GenTocGFM, GenTocRedcarpet, GenTocGitLab, UpdateToc ]
   hook_add: let g:vmt_auto_update_on_save = 0
+
+- repo: reedes/vim-wordy
+  on_cmd: [ Wordy, NoWordy, NextWordy ]
+  hook_add: let g:wordy_spell_dir = $DATA_PATH . '/wordy'
 
 - repo: liuchengxu/vista.vim
   on_cmd: Vista
@@ -309,14 +288,17 @@
 # ==========================================
 # Interface
 # ---------
+- { repo: itchyny/vim-gitbranch, on_event: FileType }
+- { repo: itchyny/vim-parenmatch, on_event: FileType }
+- { repo: romainl/vim-cool, on_event: [ CursorMoved, InsertEnter ] }
 - { repo: haya14busa/vim-asterisk, on_map: { nv: <Plug> }}
 - { repo: rhysd/accelerated-jk, on_map: { n: <Plug> }, if: $SUDO_USER == '' }
 - { repo: haya14busa/vim-edgemotion, on_map: { nv: <Plug> }}
 - { repo: t9md/vim-quickhl, on_map: { nv: <Plug> }}
-- { repo: hotwatermorning/auto-git-diff, on_ft: gitrebase }
 - { repo: rafi/vim-sidemenu, on_map: { nv: <Plug> }}
 
 - repo: machakann/vim-highlightedyank
+  if: "! has('nvim-0.5')"
   on_event: TextYankPost
   hook_source: let g:highlightedyank_highlight_duration = 200
 
@@ -330,32 +312,19 @@
     let g:qf_auto_open_loclist = 0
     let g:qf_auto_resize = 0
     autocmd User preview_open_pre
-      \ let g:vim_markdown_folding_disabled = 1
-      \| let g:vim_markdown_override_foldtext = 0
-      \| let g:vim_markdown_no_default_key_mappings = 1
+      \  let g:vim_markdown_no_default_key_mappings = 1
       \| let g:vim_markdown_emphasis_multiline = 0
     autocmd User preview_open_post
-      \ unlet! g:vim_markdown_folding_disabled
-      \| let g:vim_markdown_override_foldtext = 1
-      \| unlet! g:vim_markdown_no_default_key_mappings
+      \  unlet! g:vim_markdown_no_default_key_mappings
       \| unlet! g:vim_markdown_emphasis_multiline
-
-- repo: wellle/context.vim
-  on_cmd: [ ContextToggle, ContextToggleWindow, ContextPeek ]
-
-# hook_add: let g:context_add_autocmds = 0
-# let g:context_add_mappings = 0
-# hook_source: source $VIM_PATH/config/plugins/context.vim
-
-# - repo: dominikduda/vim_current_word
-#   on_event: [ FileType, WinEnter, InsertLeave ]
 
 - repo: itchyny/vim-cursorword
   on_event: FileType
+  hook_add: let g:cursorword = 0
   hook_source: |-
     augroup user_plugin_cursorword
       autocmd!
-      autocmd FileType defx,denite,fern,qf let b:cursorword = 0
+      autocmd FileType yaml,markdown let b:cursorword = 1
       autocmd WinEnter * if &diff || &pvw | let b:cursorword = 0 | endif
       autocmd InsertEnter * let b:cursorword = 0
       autocmd InsertLeave * let b:cursorword = 1
@@ -391,8 +360,8 @@
 
 - repo: nathanaelkane/vim-indent-guides
   on_event: FileType
-  hook_post_source: IndentGuidesEnable
-  hook_add: |-
+  hook_source: |-
+    let g:indent_guides_enable_on_vim_startup = 0
     let g:indent_guides_default_mapping = 0
     let g:indent_guides_tab_guides = 0
     let g:indent_guides_color_change_percent = 3
@@ -402,6 +371,7 @@
       \ 'vista', 'vista_kind', 'tagbar', 'lsp-hover', 'clap_input',
       \ 'any-jump', 'gina-status', 'gina-commit', 'gina-log'
       \ ]
+    autocmd user_events FileType * ++once IndentGuidesEnable
 
 - repo: rhysd/committia.vim
   on_event: BufReadPost
@@ -458,47 +428,48 @@
 - repo: prabirshrestha/async.vim  # only autoload functions, lazy by nature
 
 - repo: prabirshrestha/asyncomplete.vim
-  depends: async.vim
+  on_source: asyncomplete-lsp.vim
   hook_add: let g:asyncomplete_auto_completeopt = 0
   hook_source: source $VIM_PATH/config/plugins/asyncomplete.vim
 
 - repo: prabirshrestha/asyncomplete-lsp.vim
-  depends: asyncomplete.vim
+  on_source: vim-lsp
 
 - repo: prabirshrestha/vim-lsp
-  depends: asyncomplete-lsp.vim
+  on_source: vim-lsp-settings
+  hook_source: source $VIM_PATH/config/plugins/lsp.vim
   hook_add: |-
-    let g:lsp_auto_enable = 1
+    let g:lsp_auto_enable = argc() > 0
+    let g:lsp_highlight_references_enabled = 1
+    let g:lsp_ignorecase = 1
     let g:lsp_signs_enabled = 1
     let g:lsp_async_completion = 1
+    let g:lsp_fold_enabled = 0
     let g:lsp_virtual_text_enabled = 0
     let g:lsp_diagnostics_enabled = 1
     let g:lsp_diagnostics_echo_cursor = 1
     let g:lsp_diagnostics_echo_delay = 400
-    let g:lsp_highlight_references_enabled = 0
-    let g:lsp_ignorecase = 1
-  hook_source: source $VIM_PATH/config/plugins/lsp.vim
+    let g:lsp_text_edit_enabled = 1
+    let g:lsp_preview_float = 1
+    let g:lsp_signs_error = {'text': "✘"}
+    let g:lsp_signs_warning = {'text': "⬪"}
 
 - repo: mattn/vim-lsp-settings
-  depends: vim-lsp
+  on_event: [ BufReadPre, VimEnter ]
   merged: 0
+  hook_post_source: |-
+    if ! g:lsp_auto_enable
+      call lsp#enable()
+    endif
   hook_add: |-
     let g:lsp_settings = {
-    \   'efm-langserver': {'disabled': 1},
-    \   'gopls': {
-    \     'cmd': ['gopls', '-remote=auto'],
-    \   },
     \   'yaml-language-server': {
     \     'allowlist': ['yaml', 'yaml.ansible'],
     \   }
     \ }
 
-- repo: Shougo/neco-vim
-  on_ft: vim
-  merged: 0
-
 - repo: prabirshrestha/asyncomplete-necovim.vim
-  depends: asyncomplete.vim
+  on_source: vim-lsp-settings
   hook_source: |-
     autocmd User asyncomplete_setup call asyncomplete#register_source(
       \ asyncomplete#sources#necovim#get_source_options({
@@ -507,8 +478,11 @@
       \ 'completor': function('asyncomplete#sources#necovim#completor'),
       \ }))
 
+- repo: Shougo/neco-vim
+  on_source: asyncomplete-necovim.vim
+
 - repo: prabirshrestha/asyncomplete-buffer.vim
-  depends: asyncomplete.vim
+  on_source: vim-lsp-settings
   hook_source: |-
     autocmd User asyncomplete_setup call asyncomplete#register_source(
       \ asyncomplete#sources#buffer#get_source_options({
@@ -523,19 +497,20 @@
 
 - repo: prabirshrestha/asyncomplete-tags.vim
   if: executable('ctags')
-  depends: asyncomplete.vim
+  on_source: vim-lsp-settings
   hook_source: |-
     autocmd User asyncomplete_setup call asyncomplete#register_source(
       \ asyncomplete#sources#tags#get_source_options({
       \ 'name': 'tags',
       \ 'allowlist': ['*'],
-      \ 'blocklist': ['go', 'python', 'vim', 'denite', 'denite-filter', 'clap_input'],
+      \ 'blocklist': ['go', 'python', 'vim', 'denite',
+      \               'denite-filter', 'clap_input'],
       \ 'completor': function('asyncomplete#sources#tags#completor'),
       \ 'config': { 'max_file_size': 5000000 },
       \ }))
 
 - repo: prabirshrestha/asyncomplete-file.vim
-  depends: asyncomplete.vim
+  on_source: vim-lsp-settings
   hook_source: |-
     autocmd User asyncomplete_setup call asyncomplete#register_source(
       \ asyncomplete#sources#file#get_source_options({
@@ -548,7 +523,7 @@
 
 - repo: wellle/tmux-complete.vim
   if: "! (has('win32') || has('win64'))"
-  depends: asyncomplete.vim
+  on_source: vim-lsp-settings
   hook_add: |-
     let g:tmuxcomplete#trigger = ''
     let g:tmuxcomplete#asyncomplete_source_options = {
@@ -567,8 +542,8 @@
       \ }
 
 - repo: prabirshrestha/asyncomplete-ultisnips.vim
-  depends: asyncomplete.vim
   if: has('python3')
+  on_source: vim-lsp-settings
   hook_source: |-
     autocmd User asyncomplete_setup call asyncomplete#register_source(
       \ asyncomplete#sources#ultisnips#get_source_options({
@@ -603,17 +578,6 @@
     let g:user_emmet_install_command = 0
     let g:user_emmet_mode = 'i'
 
-- repo: ncm2/float-preview.nvim
-  if: has('nvim-0.4')
-  on_event: InsertEnter
-  hook_source: |-
-    let g:float_preview#docked = 0
-    let g:float_preview#max_width = 80
-    function! s:float_preview()
-      call nvim_win_set_option(g:float_preview#win, 'signcolumn', 'no')
-    endfunction
-    autocmd user_events User FloatPreviewWinOpen call <SID>float_preview()
-
 - repo: ludovicchabant/vim-gutentags
   if: executable('ctags')
   on_event: [ BufReadPost, BufWritePost ]
@@ -625,10 +589,7 @@
     let g:gutentags_exclude_project_root = [ '/usr/local' ]
     let g:gutentags_exclude_filetypes = [ 'defx', 'denite', 'vista', 'magit' ]
     let g:gutentags_ctags_exclude = [
-      \ '.idea', '.cache', '.tox', '.bundle', 'build', 'dist',
-      \ '*/wp-admin', '*/wp-content', '*/wp-includes',
-      \ '*/application/vendor', '*/vendor/ckeditor', '*/media/vendor'
-      \ ]
+      \ '.idea', '.cache', '.tox', '.bundle', 'build', 'dist' ]
 
 - repo: Raimondi/delimitMate
   on_event: FileType
@@ -671,6 +632,29 @@
   hook_source: |-
     command! -nargs=+ -complete=file Z call denite#start(
       \ [{'name': 'z', 'args': [<q-args>], {'immediately': 1}}])
+
+- repo: liuchengxu/vim-clap
+  merged: 0
+  on_cmd: Clap
+  hook_add: |-
+    let g:clap_cache_directory = $DATA_PATH . '/clap'
+    let g:clap_disable_run_rooter = v:true
+    let g:clap_theme = 'atom_dark'
+    let g:clap_layout = { 'relative': 'editor' }
+    let g:clap_enable_icon = 1
+    let g:clap_search_box_border_style = 'curve'
+    let g:clap_provider_grep_enable_icon = 1
+    let g:clap_prompt_format = '%spinner%%forerunner_status% %provider_id%: '
+    let g:clap_current_selection_sign = {
+      \ 'text': '→',
+      \ 'texthl': 'ClapCurrentSelectionSign',
+      \ 'linehl': 'ClapCurrentSelection' }
+    let g:clap_selected_sign = {
+      \ 'text': '* ',
+      \ 'texthl': 'ClapSelectedSign',
+      \ 'linehl': 'ClapSelected' }
+    highlight! link ClapMatches Function
+    highlight! link ClapNoMatchesFound WarningMsg
 
 # ==========================================
 # Operators
