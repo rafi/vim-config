@@ -86,6 +86,11 @@ Best with [Neovim] 0.5.x or [Vim] 8.x and `python3` enabled.
 * Python 3 (`brew install python`)
 * Neovim or Vim (`brew install neovim` and/or `brew install vim`)
 
+*Caveat*: You must have **one** of these tools installed:
+[yj](https://github.com/sclevine/yj), [yq](https://github.com/mikefarah/yq),
+[yaml2json](https://github.com/bronze1man/yaml2json), Ruby, or Python with
+PyYAML in-order for the YAML configuration to be parsed.
+
 ## Install
 
 **_1._** Let's clone this repo! Clone to `~/.config/nvim`,
@@ -105,7 +110,7 @@ ln -s ~/.config/nvim ~/.vim  # For "regular" Vim
 **_2._** Install the Python 3 `pynvim` library. This is also needed for Vim 8
 if you want to use Denite and Defx.
 
-> Neovim: `./venvs.sh` or `pip3 install --user pynvim`
+> Neovim: `./venv.sh` or `pip3 install --user pynvim`
 
 > Vim: `pip3 install --user pynvim`
 
