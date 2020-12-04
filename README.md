@@ -809,7 +809,8 @@ Note that,
 | <kbd>;f</kbd> | 𝐍 | File search
 | <kbd>;g</kbd> | 𝐍 | Grep search
 | <kbd>;b</kbd> | 𝐍 | Buffers
-| <kbd>;i</kbd> | 𝐍 | Old files and MRU
+| <kbd>;i</kbd> | 𝐍 | Old files
+| <kbd>;x</kbd> | 𝐍 | Most recently used files (MRU)
 | <kbd>;d</kbd> | 𝐍 | Directories and MRU
 | <kbd>;v</kbd> | 𝐍 𝐕 | Yank history
 | <kbd>;l</kbd> | 𝐍 | Location list
@@ -890,7 +891,7 @@ Note that,
 | **Within _Clap_ window** ||
 | <kbd>jj</kbd> or <kbd>Escape</kbd> | 𝐈 | Leave Insert mode
 | <kbd>i</kbd> | 𝐍 | Enter Insert mode (filter input)
-| <kbd>q</kbd> or <kbd>Escape</kbd> | 𝐍 | Exit denite window
+| <kbd>q</kbd> or <kbd>Escape</kbd> | 𝐍 | Exit clap window
 | <kbd>Tab</kbd> or <kbd>Shift</kbd>+<kbd>Tab</kbd> | 𝐈 | Next/previous candidate
 | <kbd>Space</kbd> or <kbd>\'</kbd> | 𝐍 | Select candidate entry
 | <kbd>st</kbd> | 𝐍 | Open in a new tab

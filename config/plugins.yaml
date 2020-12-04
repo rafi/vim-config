@@ -571,7 +571,15 @@
 
 - repo: mattn/emmet-vim
   on_event: InsertEnter
-  on_ft: [ html, css, javascript, javascriptreact, svelte ]
+  on_ft:
+    - css
+    - html
+    - vue
+    - svelte
+    - javascript
+    - javascriptreact
+    - typescript
+    - typescriptreact
   hook_source: |-
     let g:user_emmet_complete_tag = 0
     let g:user_emmet_install_global = 0
@@ -598,7 +606,7 @@
     let g:delimitMate_expand_space = 1
     let g:delimitMate_smart_quotes = 1
     let g:delimitMate_expand_inside_quotes = 0
-    let g:delimitMate_excluded_ft = 'mail,txt'
+    let g:delimitMate_excluded_ft = 'mail,txt,denite-filter,clap_input'
     augroup user_plugin_delimitMate
       au!
       au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
