@@ -45,7 +45,7 @@ endif
 call denite#custom#var('grep', 'min_interactive_pattern', 2)
 call denite#custom#source('grep', 'args', ['', '', '!'])
 
-" Allow customizable window positions: top, bottom, center (default)
+" Allow customizable window positions: top, bottom, centertop, center (default)
 function! s:denite_resize(position)
 	if a:position ==# 'top'
 		call denite#custom#option('_', {
@@ -83,20 +83,22 @@ call denite#custom#source('tag', 'matchers', ['matcher/substring'])
 call denite#custom#source('file/old', 'matchers', [
 	\ 'matcher/project_files', 'matcher/ignore_globs' ])
 
-" call denite#custom#source('file/rec', 'converters', ['converter/truncate_abbr'])
-
 " Use vim-clap's rust binary, called maple
 if dein#tap('vim-clap')
 	let s:clap_path = dein#get('vim-clap')['path']
 	if executable(s:clap_path . '/target/release/maple')
 		call denite#custom#filter('matcher/clap', 'clap_path', s:clap_path)
-		call denite#custom#source('file/rec', 'matchers', [ 'matcher/clap' ])
+		call denite#custom#source('file/rec,grep,jump,buffer,file_mru,tag',
+			\ 'matchers', [ 'matcher/clap' ])
 	endif
 endif
 
 " SORTERS
 " Default is 'sorter/rank'
 call denite#custom#source('z', 'sorters', ['sorter/z'])
+if has('nvim')
+	call denite#custom#source('file/old', 'sorters', ['sorter/oldfiles'])
+endif
 
 " CONVERTERS
 " Default is none
