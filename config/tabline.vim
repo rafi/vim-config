@@ -50,8 +50,8 @@ function! Tabline()
 		let l:win_count = tabpagewinnr(l:nr, '$')
 		for l:bufnr in l:bufnrlist
 			let l:bufname = bufname(l:bufnr)
-			if l:bufname =~ 'denite\|defx\|vimfiler\|fugitive\|magit\|fern'
-					\ || empty(l:bufname)
+			if empty(l:bufname) || l:bufname =~
+				\ '^\(denite\|defx\|fugitive\|magit\|fern\|hover\|clap_\|Telescope\)'
 				let l:win_count -= 1
 			endif
 		endfor
