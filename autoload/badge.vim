@@ -209,8 +209,9 @@ function! badge#syntax() abort
 	let l:warnings = 0
 	let l:hints = 0
 	let l:information = 0
-	if exists('*lsp#activate') && get(g:, 'lsp_diagnostics_enabled', 1)
-		let l:counts = lsp#ui#vim#diagnostics#get_buffer_diagnostics_counts()
+	if exists('*lsp#get_buffer_diagnostics_counts')
+			\ && get(g:, 'lsp_diagnostics_enabled', 1)
+		let l:counts = lsp#get_buffer_diagnostics_counts()
 		let l:errors = get(l:counts, 'error', '')
 		let l:warnings = get(l:counts, 'warning', '')
 		let l:hints = get(l:counts, 'hint', '')
