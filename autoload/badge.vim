@@ -99,16 +99,14 @@ function! badge#filename(...) abort
 	if l:filetype =~? g:badge_filetype_blacklist
 		" Empty if owned by certain plugins
 		let l:fn = ''
-	elseif l:filetype ==# 'denite' || l:filetype ==# 'denite-filter'
-		let l:fn = '⌖  denite'
+	elseif l:filetype ==# 'denite.*\|quickpick-filter'
+		let l:fn = '⌖ '
 	elseif l:filetype ==# 'qf'
 		let l:fn = '⌗ list'
 	elseif l:filetype ==# 'TelescopePrompt'
-		let l:fn = '⌖  telescope'
+		let l:fn = '⌖ '
 	elseif l:filetype ==# 'defx'
-		let l:defx = get(getbufvar(l:bufnr, 'defx', {}), 'context', {})
-		let l:fn = '⌯ ' . get(l:defx, 'buffer_name', 'defx')
-		unlet! l:defx
+		let l:fn = ' '
 	elseif l:filetype ==# 'magit'
 		let l:fn = magit#git#top_dir()
 	elseif l:filetype ==# 'vimfiler'
@@ -304,6 +302,23 @@ endfunction
 function! badge#indexing() abort
 	let l:out = ''
 
+	if exists('*lsp#get_progress')
+		let s:lsp_progress = lsp#get_progress()
+		if len(s:lsp_progress) > 0 && has_key(s:lsp_progress[0], 'message')
+			" Show only last progress message
+			let s:lsp_progress = s:lsp_progress[0]
+			let l:percent = get(s:lsp_progress, 'percentage')
+			if s:lsp_progress['message'] != '' && l:percent != 100
+				let l:out .= s:lsp_progress['server'] . ':'
+					\ . s:lsp_progress['title'] . ' '
+					\ . s:lsp_progress['message']
+					\ . l:percent
+				if l:percent >= 0
+					let l:out .= ' ' . string(l:percent) . '%'
+				endif
+			endif
+		endif
+	endif
 	if exists('*gutentags#statusline')
 		let l:tags = gutentags#statusline('[', ']')
 		if ! empty(l:tags)

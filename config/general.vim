@@ -171,11 +171,11 @@ endif
 if executable('rg')
 	set grepformat=%f:%l:%c:%m
 	let &grepprg =
-		\ 'rg --hidden --vimgrep' . (&smartcase ? ' --smart-case' : '') . ' --'
+		\ 'rg --vimgrep --no-heading' . (&smartcase ? ' --smart-case' : '') . ' --'
 elseif executable('ag')
 	set grepformat=%f:%l:%c:%m
 	let &grepprg =
-		\ 'ag --hidden --vimgrep' . (&smartcase ? ' --smart-case' : '') . ' --'
+		\ 'ag --vimgrep' . (&smartcase ? ' --smart-case' : '') . ' --'
 endif
 
 " }}}
