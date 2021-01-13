@@ -478,7 +478,7 @@
     \ }
 
 - repo: prabirshrestha/asyncomplete-necovim.vim
-  on_source: vim-lsp-settings
+  on_source: asyncomplete.vim
   hook_source: |-
     autocmd User asyncomplete_setup call asyncomplete#register_source(
       \ asyncomplete#sources#necovim#get_source_options({
@@ -491,13 +491,14 @@
   on_source: asyncomplete-necovim.vim
 
 - repo: prabirshrestha/asyncomplete-buffer.vim
-  on_source: vim-lsp-settings
+  on_source: asyncomplete.vim
   hook_source: |-
     autocmd User asyncomplete_setup call asyncomplete#register_source(
       \ asyncomplete#sources#buffer#get_source_options({
       \ 'name': 'buffer',
       \ 'allowlist': ['*'],
-      \ 'blocklist': ['go', 'denite', 'denite-filter', 'clap_input'],
+      \ 'blocklist': ['go', 'denite', 'denite-filter', 'clap_input',
+      \               'quickpick-filter', 'lsp-quickpick-filter'],
       \ 'completor': function('asyncomplete#sources#buffer#completor'),
       \ 'config': {
       \    'max_buffer_size': 4000000,
@@ -506,40 +507,42 @@
 
 - repo: prabirshrestha/asyncomplete-tags.vim
   if: executable('ctags')
-  on_source: vim-lsp-settings
+  on_source: asyncomplete.vim
   hook_source: |-
     autocmd User asyncomplete_setup call asyncomplete#register_source(
       \ asyncomplete#sources#tags#get_source_options({
       \ 'name': 'tags',
       \ 'allowlist': ['*'],
-      \ 'blocklist': ['go', 'python', 'vim', 'denite',
-      \               'denite-filter', 'clap_input'],
+      \ 'blocklist': ['go', 'python', 'vim', 'denite', 'denite-filter',
+      \               'clap_input', 'quickpick-filter', 'lsp-quickpick-filter'],
       \ 'completor': function('asyncomplete#sources#tags#completor'),
       \ 'config': { 'max_file_size': 5000000 },
       \ }))
 
 - repo: prabirshrestha/asyncomplete-file.vim
-  on_source: vim-lsp-settings
+  on_source: asyncomplete.vim
   hook_source: |-
     autocmd User asyncomplete_setup call asyncomplete#register_source(
       \ asyncomplete#sources#file#get_source_options({
       \ 'name': 'file',
       \ 'priority': 10,
       \ 'allowlist': ['*'],
-      \ 'blocklist': ['denite', 'denite-filter', 'clap_input'],
+      \ 'blocklist': ['denite', 'denite-filter', 'clap_input',
+      \               'quickpick-filter', 'lsp-quickpick-filter'],
       \ 'completor': function('asyncomplete#sources#file#completor')
       \ }))
 
 - repo: wellle/tmux-complete.vim
   if: "! (has('win32') || has('win64'))"
-  on_source: vim-lsp-settings
+  on_source: asyncomplete.vim
   hook_add: |-
     let g:tmuxcomplete#trigger = ''
     let g:tmuxcomplete#asyncomplete_source_options = {
       \ 'name': 'tmux',
       \ 'priority': 0,
       \ 'allowlist': ['*'],
-      \ 'blocklist': ['denite', 'denite-filter', 'clap_input'],
+      \ 'blocklist': ['denite', 'denite-filter', 'clap_input',
+      \               'quickpick-filter', 'lsp-quickpick-filter'],
       \ 'config': {
       \   'splitmode': 'words',
       \   'filter_prefix': 1,
@@ -552,14 +555,15 @@
 
 - repo: prabirshrestha/asyncomplete-ultisnips.vim
   if: has('python3')
-  on_source: vim-lsp-settings
+  on_source: asyncomplete.vim
   hook_source: |-
     autocmd User asyncomplete_setup call asyncomplete#register_source(
       \ asyncomplete#sources#ultisnips#get_source_options({
       \ 'name': 'snip',
       \ 'priority': 0,
       \ 'allowlist': ['*'],
-      \ 'blocklist': ['denite', 'denite-filter', 'clap_input'],
+      \ 'blocklist': ['denite', 'denite-filter', 'clap_input',
+      \               'quickpick-filter', 'lsp-quickpick-filter'],
       \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
       \ }))
 
