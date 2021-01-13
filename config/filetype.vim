@@ -14,12 +14,12 @@ augroup user_plugin_filetype " {{{
 	" 3. Preview window
 	" 4. Completion popup menu is visible
 	autocmd WinEnter,BufEnter,InsertLeave *
-		\ if ! &cursorline && &filetype !~# '^\(denite\|clap_\)'
+		\ if ! &cursorline && &filetype !~# '^\(denite\|clap_\|.*quickpick\)'
 		\      && ! &previewwindow && ! pumvisible()
 		\ | setlocal cursorline
 		\ | endif
 	autocmd WinLeave,BufLeave,InsertEnter *
-		\ if &cursorline && &filetype !~# '^\(denite\|clap_\)'
+		\ if &cursorline && &filetype !~# '^\(denite\|clap_\|.*quickpick\)'
 		\      && ! &previewwindow && ! pumvisible()
 		\ | setlocal nocursorline
 		\ | endif
