@@ -194,6 +194,11 @@ function! s:use_dein()
 			call dein#install()
 		endif
 	endif
+
+	if has('vim_starting') && ! has('nvim')
+		filetype plugin indent on
+		syntax enable
+	endif
 endfunction
 
 function! s:use_plug() abort
