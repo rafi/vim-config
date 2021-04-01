@@ -98,8 +98,10 @@ nnoremap <Leader>Y :let @+=expand("%:p")<CR>:echo 'Yanked absolute path'<CR>
 " ----
 
 " Macros
-nnoremap Q q
-nnoremap gQ @q
+if get(g:, 'enable_universal_quit_mapping', 1)
+	nnoremap Q q
+	nnoremap gQ @q
+endif
 
 " Start new line from any cursor position in insert-mode
 inoremap <S-Return> <C-o>o
@@ -304,10 +306,12 @@ endfunction "}}}
 " -------------------------
 
 " Ultimatus Quitos
-autocmd user_events BufWinEnter,BufNew,BufNewFile *
-	\ if &buftype == '' && ! mapcheck('q', 'n')
-	\ |   nnoremap <silent><buffer> q :<C-u>quit<CR>
-	\ | endif
+if get(g:, 'enable_universal_quit_mapping', 1)
+	autocmd user_events BufWinEnter,BufNew,BufNewFile *
+		\ if &buftype == '' && ! mapcheck('q', 'n')
+		\ |   nnoremap <silent><buffer> q :<C-u>quit<CR>
+		\ | endif
+endif
 
 nnoremap <C-q> <C-w>
 nnoremap <C-x> <C-w>x
