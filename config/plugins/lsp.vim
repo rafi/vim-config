@@ -29,6 +29,7 @@ function! s:on_lsp_buffer_enabled() abort
 	nmap <silent><buffer> g<C-]> <Plug>(lsp-peek-definition)
 	nmap <silent><buffer> gd     <Plug>(lsp-peek-declaration)
 	nmap <silent><buffer> gY     <Plug>(lsp-type-hierarchy)
+	nmap <silent><buffer> gA     <Plug>(lsp-code-action)
 	nmap <silent><buffer> ,s     <Plug>(lsp-signature-help)
 	nmap <silent><buffer> [d     <Plug>(lsp-previous-diagnostic)
 	nmap <silent><buffer> ]d     <Plug>(lsp-next-diagnostic)
@@ -42,7 +43,12 @@ augroup lsp_user_plugin
 
 	autocmd User lsp_buffer_enabled call <SID>on_lsp_buffer_enabled()
 
-	autocmd CompleteDone * if pumvisible() == 0 | pclose | endif
+	" autocmd CompleteDone * if pumvisible() == 0 | pclose | endif
 
-	" autocmd BufWinEnter * let g:lsp_preview_max_width = winwidth(0) / 2
+	" autocmd VimResized * call <SID>fix_preview_max_width()
+
+	" autocmd FileType markdown.lsp-hover
+	"	\ nnoremap <buffer> K <Nop>
+	"	\| nnoremap <silent><buffer>q :pclose<CR>
+
 augroup END
