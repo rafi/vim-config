@@ -356,20 +356,15 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [tweekmonster/helpful.vim] | Display vim version numbers in docs
 | [lambdalisue/gina.vim] | Asynchronously control git repositories
 | [mhinz/vim-grepper] | Helps you win at grep
-| [kana/vim-altr] | Switch to the alternate file without interaction
 | [Shougo/vinarise.vim] | Hex editor
 | [guns/xterm-color-table.vim] | Display 256 xterm colors with their RGB equivalents
 | [cocopon/colorswatch.vim] | Generate a beautiful color swatch for the current buffer
 | [dstein64/vim-startuptime] | Visually profile Vim's startup time
 | [lambdalisue/suda.vim] | An alternative sudo.vim for Vim and Neovim
-| [liuchengxu/vim-which-key] | Shows key-bindings in pop-up
 | [brooth/far.vim] | Fast find and replace plugin
 | [pechorin/any-jump.vim] | Jump to any definition and references without overhead
-| [jaawerth/nrun.vim] | "which" and "exec" functions targeted at local node project bin
-| [Vigemus/iron.nvim] | Interactive REPL over Neovim
 | [kana/vim-niceblock] | Make blockwise Visual mode more useful
 | [t9md/vim-choosewin] | Choose window to use, like tmux's 'display-pane'
-| [wfxr/minimap.vim] | Blazing fast minimap for vim, powered by code-minimap
 | [mzlogin/vim-markdown-toc] | Generate table of contents for Markdown files
 | [reedes/vim-wordy] | Uncover usage problems in your writing
 | [liuchengxu/vista.vim] | Viewer & Finder for LSP symbols and tags in Vim
@@ -520,20 +515,15 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [tweekmonster/helpful.vim]: https://github.com/tweekmonster/helpful.vim
 [lambdalisue/gina.vim]: https://github.com/lambdalisue/gina.vim
 [mhinz/vim-grepper]: https://github.com/mhinz/vim-grepper
-[kana/vim-altr]: https://github.com/kana/vim-altr
 [Shougo/vinarise.vim]: https://github.com/Shougo/vinarise.vim
 [guns/xterm-color-table.vim]: https://github.com/guns/xterm-color-table.vim
 [cocopon/colorswatch.vim]: https://github.com/cocopon/colorswatch.vim
 [dstein64/vim-startuptime]: https://github.com/dstein64/vim-startuptime
 [lambdalisue/suda.vim]: https://github.com/lambdalisue/suda.vim
-[liuchengxu/vim-which-key]: https://github.com/liuchengxu/vim-which-key
 [brooth/far.vim]: https://github.com/brooth/far.vim
 [pechorin/any-jump.vim]: https://github.com/pechorin/any-jump.vim
-[jaawerth/nrun.vim]: https://github.com/jaawerth/nrun.vim
-[Vigemus/iron.nvim]: https://github.com/Vigemus/iron.nvim
 [kana/vim-niceblock]: https://github.com/kana/vim-niceblock
 [t9md/vim-choosewin]: https://github.com/t9md/vim-choosewin
-[wfxr/minimap.vim]: https://github.com/wfxr/minimap.vim
 [mzlogin/vim-markdown-toc]: https://github.com/mzlogin/vim-markdown-toc
 [reedes/vim-wordy]: https://github.com/reedes/vim-wordy
 [liuchengxu/vista.vim]: https://github.com/liuchengxu/vista.vim
@@ -743,9 +733,6 @@ Note that,
 | <kbd>Space</kbd>+<kbd>a</kbd> | 𝐍 | Show nearby tag in structure window | <small>[liuchengxu/vista.vim]</small>
 | <kbd>Space</kbd>+<kbd>se</kbd> | 𝐍 | Save current workspace session | <small>[plugin/sessions.vim]</small>
 | <kbd>Space</kbd>+<kbd>sl</kbd> | 𝐍 | Load workspace session | <small>[plugin/sessions.vim]</small>
-| <kbd>Space</kbd>+<kbd>n</kbd>/<kbd>N</kbd> | 𝐍 | Open alternative file | <small>[kana/vim-altr]</small>
-| <kbd>Space</kbd>+<kbd>tc</kbd> | 𝐍 | Enable scroll-context window | <small>[wellle/context.vim]</small>
-| <kbd>Space</kbd>+<kbd>tp</kbd> | 𝐍 | Peek scroll-context window | <small>[wellle/context.vim]</small>
 | <kbd>Space</kbd>+<kbd>S</kbd> | 𝐍 𝐕 | Source selection | `y:execute @@`
 | <kbd>Space</kbd>+<kbd>?</kbd> | 𝐍 | Open the macOS dictionary on current word | `:!open dict://`
 | <kbd>Space</kbd>+<kbd>P</kbd> | 𝐍 | Use Marked 2 for real-time Markdown preview | <small>[Marked 2]</small>
@@ -954,4 +941,4 @@ Big thanks to the dark knight [Shougo](https://github.com/Shougo).
 [Marked 2]: https://marked2app.com
 [Neovim]: https://github.com/neovim/neovim
 [Vim]: https://github.com/vim/vim
-[lazy-loaded]: ./config/plugins.yaml#L47
+[lazy-loaded]: ./config/plugins.yaml#L42

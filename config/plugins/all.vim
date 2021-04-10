@@ -138,17 +138,6 @@ if dein#tap('vim-gitgutter')
 	nmap gs <Plug>(GitGutterPreviewHunk)
 endif
 
-if dein#tap('iron.nvim')
-	nmap <silent> <Leader>rr :<C-u>IronRepl<CR><Esc>
-	nmap <silent> <Leader>rq <Plug>(iron-exit)
-	nmap <silent> <Leader>rl <Plug>(iron-send-line)
-	vmap <silent> <Leader>rl <Plug>(iron-visual-send)
-	nmap <silent> <Leader>rp <Plug>(iron-repeat-cmd)
-	nmap <silent> <Leader>rc <Plug>(iron-clear)
-	nmap <silent> <Leader>r<CR>  <Plug>(iron-cr)
-	nmap <silent> <Leader>r<Esc> <Plug>(iron-interrupt)
-endif
-
 if dein#tap('vim-sandwich')
 	nmap <silent> sa <Plug>(operator-sandwich-add)
 	xmap <silent> sa <Plug>(operator-sandwich-add)
@@ -232,15 +221,6 @@ if dein#tap('vim-signature')
 		\ }
 endif
 
-if dein#tap('auto-git-diff')
-	autocmd user_events FileType gitrebase
-		\  nmap <buffer><CR>  <Plug>(auto_git_diff_scroll_manual_update)
-		\| nmap <buffer><C-n> <Plug>(auto_git_diff_scroll_down_page)
-		\| nmap <buffer><C-p> <Plug>(auto_git_diff_scroll_up_page)
-		\| nmap <buffer><C-d> <Plug>(auto_git_diff_scroll_down_half)
-		\| nmap <buffer><C-u> <Plug>(auto_git_diff_scroll_up_half)
-endif
-
 if dein#tap('committia.vim')
 	let g:committia_hooks = {}
 	function! g:committia_hooks.edit_open(info)
@@ -306,11 +286,6 @@ if dein#tap('gina.vim')
 	vnoremap <silent> <leader>go :Gina browse :<CR>
 endif
 
-if dein#tap('vim-altr')
-	nmap <leader>n  <Plug>(altr-forward)
-	nmap <leader>N  <Plug>(altr-back)
-endif
-
 if dein#tap('any-jump.vim')
 	" Normal mode: Jump to definition under cursor
 	nnoremap <silent> <leader>ii :AnyJump<CR>
@@ -362,8 +337,6 @@ if dein#tap('sideways.vim')
 endif
 
 if dein#tap('splitjoin.vim')
-	let g:splitjoin_join_mapping = ''
-	let g:splitjoin_split_mapping = ''
 	nmap sj :SplitjoinJoin<CR>
 	nmap sk :SplitjoinSplit<CR>
 endif
