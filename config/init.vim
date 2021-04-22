@@ -56,6 +56,7 @@ let g:loaded_netrw = 1
 let g:loaded_netrwPlugin = 1
 let g:loaded_netrwSettings = 1
 let g:loaded_netrwFileHandlers = 1
+let g:tagbar_ctags_bin = '/usr/bin/ctags'
 
 " Set main configuration directory as parent directory
 let $VIM_PATH =
