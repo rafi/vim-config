@@ -16,6 +16,9 @@ let g:badge_tab_filename_max_dirs =
 let g:badge_tab_dir_max_chars =
 	\ get(g:, 'badge_tab_dir_max_chars', 5)
 
+let g:badge_exclude_window_count =
+	\ '^\(qf\|denite\|defx\|fugitive\|magit\|fern\|hover\|clap_\|Telescope\|vista\)'
+
 " Display entire tabline
 function! Tabline()
 	if exists('g:SessionLoad')
@@ -25,7 +28,7 @@ function! Tabline()
 
 	" Active project name
 	let l:tabline =
-		\ '%#TabLineAlt# %{"  " . badge#project()} %#TabLineAltShade#'
+		\ '%#TabLineAlt# %{"" . get(g:, "global_symbol_padding", " ") . badge#project()} %#TabLineAltShade#'
 
 	" Iterate through all tabs and collect labels
 	let l:current = tabpagenr()
@@ -49,9 +52,8 @@ function! Tabline()
 		" Append window count, for tabs
 		let l:win_count = tabpagewinnr(l:nr, '$')
 		for l:bufnr in l:bufnrlist
-			let l:bufname = bufname(l:bufnr)
-			if empty(l:bufname) || l:bufname =~
-				\ '^\(denite\|defx\|fugitive\|magit\|fern\|hover\|clap_\|Telescope\)'
+			let l:buffiletype = getbufvar(l:bufnr, '&filetype')
+			if empty(l:buffiletype) || l:buffiletype =~ g:badge_exclude_window_count
 				let l:win_count -= 1
 			endif
 		endfor
@@ -61,7 +63,7 @@ function! Tabline()
 
 		" Add '+' if one of the buffers in the tab page is modified
 		for l:bufnr in l:bufnrlist
-			if getbufvar(l:bufnr, "&modified")
+			if getbufvar(l:bufnr, "&modified") && empty(getbufvar(l:bufnr, "&buftype"))
 				let l:tabline .= (l:nr == l:current ? '%#Number#' : '%6*') . '+%*'
 				break
 			endif

@@ -163,15 +163,18 @@ nnoremap <expr> gp '`['.strpart(getregtype(), 0, 1).'`]'
 xnoremap sg :s//gc<Left><Left><Left>
 
 " C-r: Easier search and replace visual/select mode
-xnoremap <C-r> :<C-u>call <SID>get_selection('/')<CR>:%s/\V<C-R>=@/<CR>//gc<Left><Left><Left>
+xnoremap <C-r> :<C-u>%s/\V<C-R>=<SID>get_selection()<CR>//gc<Left><Left><Left>
 
 " Returns visually selected text
-function! s:get_selection(cmdtype) "{{{
-	let temp = @s
-	normal! gv"sy
-	let @/ = substitute(escape(@s, '\'.a:cmdtype), '\n', '\\n', 'g')
-	let @s = temp
-endfunction "}}}
+function! s:get_selection() abort
+	try
+		let a_save = @a
+		silent! normal! gv"ay
+		return substitute(escape(@a, '\/'), '\n', '\\n', 'g')
+	finally
+		let @a = a_save
+	endtry
+endfunction
 
 " }}}
 " Command & History {{{
@@ -219,7 +222,7 @@ cnoremap <C-s> <C-u>write<CR>
 " ---------
 
 " Toggle editor's visual effects
-nmap <Leader>ts :setlocal spell!<cr>
+nmap <Leader>ts :setlocal spell!<CR>
 nmap <Leader>tn :setlocal nonumber!<CR>
 nmap <Leader>tl :setlocal nolist!<CR>
 nmap <Leader>th :nohlsearch<CR>
@@ -232,7 +235,8 @@ nmap <Leader>tw :execute('setlocal wrap! breakindent! colorcolumn=' .
 nnoremap <silent> g1 :<C-u>tabfirst<CR>
 nnoremap <silent> g5 :<C-u>tabprevious<CR>
 nnoremap <silent> g9 :<C-u>tablast<CR>
-nnoremap <silent> <C-Tab> :<C-U>tabnext<CR>
+
+nnoremap <silent> <C-Tab>   :<C-U>tabnext<CR>
 nnoremap <silent> <C-S-Tab> :<C-U>tabprevious<CR>
 nnoremap <silent> <A-j> :<C-U>tabnext<CR>
 nnoremap <silent> <A-k> :<C-U>tabprevious<CR>
@@ -280,13 +284,13 @@ nnoremap g<C-o> :<C-u>call JumpBuffer(1)<CR>
 
 if has('mac')
 	" Open the macOS dictionary on current word
-	nmap <Leader>? :!open dict://<cword><CR>
+	nnoremap <Leader>? :silent !open dict://<cword><CR>
 
 	" Use Marked for real-time Markdown preview
 	"
 	if executable('/Applications/Marked 2.app/Contents/MacOS/Marked 2')
 		autocmd user_events FileType markdown
-			\ nmap <buffer><Leader>P :silent !open -a Marked\ 2.app '%:p'<CR>
+			\ nnoremap <buffer><Leader>P :silent !open -a Marked\ 2.app '%:p'<CR>
 	endif
 endif
 
@@ -307,8 +311,9 @@ endfunction "}}}
 
 " Ultimatus Quitos
 if get(g:, 'enable_universal_quit_mapping', 1)
-	autocmd user_events BufWinEnter,BufNew,BufNewFile *
-		\ if &buftype == '' && ! mapcheck('q', 'n')
+	" TODO: VimEnter is needed when opening nvim with a file from terminal
+	autocmd user_events BufWinEnter,BufNew,BufNewFile,VimEnter *
+		\ if ! mapcheck('q', 'n')
 		\ |   nnoremap <silent><buffer> q :<C-u>quit<CR>
 		\ | endif
 endif
@@ -326,6 +331,7 @@ nnoremap <silent> [Window]t  :tabnew<CR>
 nnoremap <silent> [Window]o  :<C-u>only<CR>
 nnoremap <silent> [Window]b  :b#<CR>
 nnoremap <silent> [Window]c  :close<CR>
+nnoremap <silent> [Window]q  :<C-u>quit<CR>
 nnoremap <silent> [Window]x  :<C-u>call <SID>window_empty_buffer()<CR>
 nnoremap <silent> [Window]z  :<C-u>call <SID>zoom()<CR>
 

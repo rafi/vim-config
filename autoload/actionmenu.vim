@@ -125,8 +125,10 @@ function! s:on_insert_leave() abort
 	let g:actionmenu#items = []
 	let g:actionmenu#selected = 0
 	call actionmenu#callback(l:index, l:data)
-	unlet! s:callback
 	doautocmd <nomodeline> User action_menu_open_post
+
+	" Don't clear s:callback variable in-case the callback function
+	" is in fact initializing a new actionmenu.
 endfunction
 
 " Pum completion function
@@ -148,7 +150,6 @@ function! s:pum_parse_item(item, index) abort
 endfunction
 
 function! actionmenu#callback(index, item) abort
-	" doautocmd <nomodeline> BufWinEnter
 	if empty(s:callback)
 		return
 	endif
