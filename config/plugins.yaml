@@ -163,12 +163,30 @@
 # ==========================================
 # Commands
 # --------
-- repo: Shougo/defx.nvim
-  on_cmd: Defx
-  hook_source: source $VIM_PATH/config/plugins/defx.vim
 
-- { repo: kristijanhusak/defx-git, on_source: defx.nvim }
-- { repo: kristijanhusak/defx-icons, on_source: defx.nvim }
+- repo: lambdalisue/fern.vim
+  on_cmd: Fern
+  hook_source: source $VIM_PATH/config/plugins/fern.vim
+
+- repo: lambdalisue/nerdfont.vim  # lazy by nature
+
+- repo: lambdalisue/fern-git-status.vim
+  on_source: fern.vim
+  hook_add: let g:fern_git_status_disable_startup = 1
+  hook_source: call fern_git_status#init()
+
+- { repo: lambdalisue/fern-mapping-git.vim, on_source: fern.vim }
+- { repo: lambdalisue/fern-bookmark.vim, on_source: fern.vim }
+
+- repo: lambdalisue/fern-renderer-nerdfont.vim
+  on_source: fern.vim
+  hook_source: |-
+    let g:fern#renderer = "nerdfont"
+    let g:fern#renderer#nerdfont#padding = get(g:, 'global_symbol_padding', ' ')
+
+- repo: lambdalisue/glyph-palette.vim
+  on_source: fern.vim
+  hook_source: autocmd user_events FileType fern call glyph_palette#apply()
 
 - { repo: lambdalisue/fin.vim, on_cmd: Fin }
 - { repo: mbbill/undotree, on_cmd: UndotreeToggle }
@@ -605,9 +623,11 @@
     let g:delimitMate_expand_space = 1
     let g:delimitMate_smart_quotes = 1
     let g:delimitMate_expand_inside_quotes = 0
-    let g:delimitMate_excluded_ft = 'mail,txt,denite-filter,clap_input'
+    let g:delimitMate_excluded_ft =
+      \ 'mail,denite-filter,clap_input,gitrebase,lsp-quickpick-filter'
     augroup user_plugin_delimitMate
       au!
+      au FileType html let b:delimitMate_matchpairs = "(:),[:],{:}"
       au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
       au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
       au FileType tex let b:delimitMate_quotes = ""

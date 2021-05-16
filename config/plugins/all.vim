@@ -105,13 +105,9 @@ if dein#tap('vim-lsp')
 		\ nmap <silent><buffer>q :pclose<CR>| doautocmd <nomodeline> BufWinEnter
 endif
 
-if dein#tap('defx.nvim')
-	nnoremap <silent> <LocalLeader>e
-		\ :<C-u>Defx -toggle -buffer-name=explorer`tabpagenr()`<CR>
-	nnoremap <silent> <LocalLeader>a
-		\ :<C-u>Defx
-		\   -search=`escape(expand('%:p'), ' :')`
-		\   -buffer-name=explorer`tabpagenr()`<CR>
+if dein#tap('fern.vim')
+	nnoremap <silent> <LocalLeader>e :<C-u>Fern -toggle -drawer .<CR>
+	nnoremap <silent> <LocalLeader>a :<C-u>Fern -reveal=% -drawer .<CR>
 endif
 
 if dein#tap('delimitMate')

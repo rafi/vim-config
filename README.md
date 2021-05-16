@@ -50,7 +50,7 @@ Best with [Neovim] 0.5.x or [Vim] 8.x and `python3` enabled.
   * [Window Management](#window-management)
   * [Git Version Control](#git-version-control)
   * [Plugin: Denite](#plugin-denite)
-  * [Plugin: Defx](#plugin-defx)
+  * [Plugin: Fern](#plugin-fern)
   * [Plugin: Clap](#plugin-clap)
   * [Plugin: Asyncomplete and Emmet](#plugin-asyncomplete-and-emmet)
   * [Plugin: Any-Jump](#plugin-any-jump)
@@ -108,7 +108,7 @@ ln -s ~/.config/nvim ~/.vim  # For "regular" Vim
   Neovim follows the XDG base-directories convention, Vim doesn't.
 
 **_2._** Install the Python 3 `pynvim` library. This is also needed for Vim 8
-if you want to use Denite and Defx.
+if you want to use Denite.
 
 > Neovim: `./venv.sh` or `pip3 install --user pynvim`
 
@@ -263,7 +263,7 @@ want, _e.g._:
 * Plugin management with cache and lazy loading for speed
 * Auto-completion with Language-Server Protocol (LSP)
 * Project-aware tabs and labels
-* Defx as file-manager + Git status icons
+* Fern as file-manager + Git status icons
 * Extensive language extensions library
 
 _Note_ that 95% of the plugins are **[lazy-loaded]**.
@@ -345,9 +345,13 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 
 | Name           | Description
 | -------------- | ----------------------
-| [Shougo/defx.nvim] | Dark powered file explorer implementation
-| [kristijanhusak/defx-git] | Git status implementation for Defx
-| [kristijanhusak/defx-icons] | Filetype icons for Defx
+| [lambdalisue/fern.vim] | General purpose asynchronous tree viewer in pure vim
+| [lambdalisue/nerdfont.vim] | Fundemental plugin to handle Nerd Fonts
+| [lambdalisue/fern-git-status.vim] | Fern git status badge integration
+| [lambdalisue/fern-mapping-git.vim] | Fern git related mappings
+| [lambdalisue/fern-bookmark.vim] | Fern bookmark plugin
+| [lambdalisue/fern-renderer-nerdfont.vim] | Fern nerdfont integration
+| [lambdalisue/glyph-palette.vim] | Universal nerdfont palette
 | [tyru/caw.vim] | Robust comment plugin with operator support
 | [Shougo/context_filetype.vim] | Context filetype detection for nested code
 | [lambdalisue/fin.vim] | Filter the buffer content in-place
@@ -504,9 +508,13 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [pearofducks/ansible-vim]: https://github.com/pearofducks/ansible-vim
 [hashivim/vim-terraform]: https://github.com/hashivim/vim-terraform
 
-[Shougo/defx.nvim]: https://github.com/Shougo/defx.nvim
-[kristijanhusak/defx-git]: https://github.com/kristijanhusak/defx-git
-[kristijanhusak/defx-icons]: https://github.com/kristijanhusak/defx-icons
+[lambdalisue/fern.vim]: https://github.com/lambdalisue/fern.vim
+[lambdalisue/nerdfont.vim]: https://github.com/lambdalisue/nerdfont.vim
+[lambdalisue/fern-git-status.vim]: https://github.com/lambdalisue/fern-git-status.vim
+[lambdalisue/fern-mapping-git.vim]: https://github.com/lambdalisue/fern-mapping-git.vim
+[lambdalisue/fern-bookmark.vim]: https://github.com/lambdalisue/fern-bookmark.vim
+[lambdalisue/fern-renderer-nerdfont.vim]: https://github.com/lambdalisue/fern-renderer-nerdfont.vim
+[lambdalisue/glyph-palette.vim]: https://github.com/lambdalisue/glyph-palette.vim
 [tyru/caw.vim]: https://github.com/tyru/caw.vim
 [Shougo/context_filetype.vim]: https://github.com/Shougo/context_filetype.vim
 [lambdalisue/fin.vim]: https://github.com/lambdalisue/fin.vim
@@ -597,7 +605,7 @@ Note that,
 
 * **Leader** key set as <kbd>Space</kbd>
 * **Local-Leader** key set as <kbd>;</kbd> and used for navigation and search
-  (Denite and Defx)
+  (Denite and Fern)
 * Disable <kbd>←</kbd> <kbd>↑</kbd> <kbd>→</kbd> <kbd>↓</kbd> in normal mode by enabling `g:elite_mode` in `.vault.vim`
 
 <details open>
@@ -836,39 +844,31 @@ Note that,
 | <kbd>yy</kbd> | 𝐍 | Yank
 | <kbd>Tab</kbd> | 𝐍 | List and choose action
 
-### Plugin: Defx
+### Plugin: Fern
 
 | Key   | Mode | Action
 | ----- |:----:| ------------------
 | <kbd>;e</kbd> | 𝐍 | Open file-explorer (toggle)
 | <kbd>;a</kbd> | 𝐍 | Focus current file in file-explorer
-| **Within _Defx_ window** ||
+| **Within _Fern_ window** ||
 | <kbd>j</kbd> or <kbd>k</kbd> | 𝐍 | Move up and down the tree
 | <kbd>l</kbd> or <kbd>Return</kbd> | 𝐍 | Toggle collapse/expand directory or open file
 | <kbd>h</kbd> | 𝐍 | Collapse directory tree
-| <kbd>t</kbd> | 𝐍 | Expand directory tree recursively
-| <kbd>.</kbd> | 𝐍 | Toggle hidden files
+| <kbd>!</kbd> | 𝐍 | Toggle hidden files
 | <kbd>Space</kbd> | 𝐍 | Select entry
-| <kbd>\*</kbd> | 𝐍 | Invert selection (select all)
-| <kbd>&</kbd> or <kbd>\</kbd> | 𝐍 | Change into current working directory
-| <kbd>~</kbd> | 𝐍 | Change to user home directory
-| <kbd>u</kbd> or <kbd>Backspace</kbd> | 𝐍 | Change into parent directory
-| <kbd>u</kbd> <kbd>2</kbd>/<kbd>3</kbd>/<kbd>4</kbd> | 𝐍 | Change into parent directory count
+| <kbd>^</kbd> | 𝐍 | Change into current working directory
+| <kbd>Backspace</kbd> | 𝐍 | Change into parent directory
 | <kbd>st</kbd> | 𝐍 | Open file in new tab
 | <kbd>sv</kbd> | 𝐍 | Open file in a horizontal split
 | <kbd>sg</kbd> | 𝐍 | Open file in a vertical split
 | <kbd>N</kbd> | 𝐍 | Create new directories and/or files
 | <kbd>K</kbd> | 𝐍 | Create new directory
-| <kbd>c</kbd> / <kbd>m</kbd> / <kbd>p</kbd> | 𝐍 | Copy, move, and paste
-| <kbd>r</kbd> | 𝐍 | Rename file or directory
-| <kbd>dd</kbd> | 𝐍 | Trash selected files and directories
-| <kbd>y</kbd> | 𝐍 | Yank path to clipboard
+| <kbd>c</kbd> / <kbd>m</kbd> | 𝐍 | Copy/move
+| <kbd>R</kbd> | 𝐍 | Rename file or directory
+| <kbd>D</kbd> | 𝐍 | Trash selected files and directories
+| <kbd>yy</kbd> | 𝐍 | Yank path to clipboard
 | <kbd>w</kbd> | 𝐍 | Toggle window size
-| <kbd>]g</kbd> | 𝐍 | Next dirty git item
-| <kbd>[g</kbd> | 𝐍 | Previous dirty git item
 | <kbd>x</kbd> or <kbd>gx</kbd> | 𝐍 | Execute associated system application
-| <kbd>gd</kbd> | 𝐍 | Open git diff on selected file
-| <kbd>gl</kbd> | 𝐍 | Open terminal file explorer with tmux
 | <kbd>gr</kbd> | 𝐍 | Grep in current position
 | <kbd>gf</kbd> | 𝐍 | Find files in current position
 
