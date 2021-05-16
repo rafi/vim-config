@@ -5,8 +5,8 @@ augroup user_plugin_filetype " {{{
 	autocmd!
 
 	" Reload vim configuration automatically on-save
-	autocmd BufWritePost $VIM_PATH/{*.vim,*.yaml,vimrc} nested
-		\ source $MYVIMRC | redraw
+	" autocmd BufWritePost $VIM_PATH/{*.vim,*.yaml,vimrc} nested
+	"	\ source $MYVIMRC | redraw
 
 	" Highlight current line only on focused window, unless:
 	" 1. Cursor-line is already set to wanted value

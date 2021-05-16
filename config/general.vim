@@ -191,9 +191,7 @@ set diffopt=filler,iwhite       " Diff mode: show fillers, ignore whitespace
 
 set completeopt=menuone         " Always show menu, even for one item
 if has('patch-7.4.775')
-	" Do not select a match in the menu.
-	" Do not insert any text for a match until the user selects from menu.
-	set completeopt+=noselect,noinsert
+	set completeopt+=noselect     " Do not select a match in the menu.
 endif
 
 if has('patch-8.1.0360') || has('nvim-0.5')

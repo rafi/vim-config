@@ -1,6 +1,6 @@
--- nvim-colorizer
--- ===
--- See https://github.com/norcalli/nvim-colorizer.lua
+-- plugin: nvim-colorizer.lua
+-- see: https://github.com/norcalli/nvim-colorizer.lua
+-- rafi settings
 
 require 'colorizer'.setup {
   css = { rgb_fn = true; };

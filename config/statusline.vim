@@ -70,18 +70,6 @@ augroup user_statusline
 
 	" Redraw on Vim events
 	autocmd FileChangedShellPost,BufFilePost,BufNewFile,BufWritePost * redrawstatus
-
-	" Redraw on Plugins custom events
-	autocmd User ALELintPost,ALEFixPost redrawstatus
-	autocmd User NeomakeJobFinished redrawstatus
-	autocmd User GutentagsUpdating redrawstatus
-	autocmd User CocStatusChange,CocGitStatusChange redrawstatus
-	autocmd User CocDiagnosticChange redrawstatus
-	" autocmd User lsp_diagnostics_updated redrawstatus
-
-	" if exists('##LspDiagnosticsChanged')
-	" 	autocmd LspDiagnosticsChanged * redrawstatus
-	" endif
 augroup END
 
 " vim: set ts=2 sw=2 tw=80 noet :
