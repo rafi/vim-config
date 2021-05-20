@@ -5,11 +5,11 @@
 
 function! s:theme_init()
 	" Load cached colorscheme or hybrid by default
-	let l:default = 'hybrid'
+	let l:default = 'space-vim-dark'
 	let l:cache = s:theme_cache_file()
 	if ! exists('g:colors_name')
 		set background=dark
-		let l:scheme = filereadable(l:cache) ? readfile(l:cache)[0] : l:default
+		let l:scheme = l:default
 		silent! execute 'colorscheme' l:scheme
 	endif
 endfunction

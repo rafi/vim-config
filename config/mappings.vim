@@ -28,8 +28,16 @@ vmap <Leader><Leader> <Esc>
 " Toggle fold
 nnoremap <CR> za
 
+" fzf
+nnoremap <Leader>a :Ag<CR>
+nnoremap <Leader>f :Files<CR>
+
 " Focus the current fold by closing all others
 nnoremap <S-Return> zMzvzt
+
+" Fzf
+nnoremap <Leader>a :Ag<CR>
+nnoremap <Leader>f :Files<CR>
 
 " The plugin rhysd/accelerated-jk moves through display-lines in normal mode,
 " these mappings will move through display-lines in visual mode too.
@@ -214,6 +222,12 @@ nnoremap <C-s> :<C-u>write<CR>
 xnoremap <C-s> :<C-u>write<CR>
 cnoremap <C-s> <C-u>write<CR>
 
+" For Tagbar
+nnoremap <Leader>t :TagbarToggle<CR>
+
+" For Git
+nmap <Leader>gd :Gdiffsplit<CR>
+
 " }}}
 " Editor UI {{{
 " ---------
@@ -229,11 +243,10 @@ nmap <Leader>tw :execute('setlocal wrap! breakindent! colorcolumn=' .
 	\ (&colorcolumn == '' ? &textwidth : ''))<CR>
 
 " Tabs
-nnoremap <silent> g1 :<C-u>tabfirst<CR>
-nnoremap <silent> g5 :<C-u>tabprevious<CR>
-nnoremap <silent> g9 :<C-u>tablast<CR>
-nnoremap <silent> <C-Tab> :<C-U>tabnext<CR>
-nnoremap <silent> <C-S-Tab> :<C-U>tabprevious<CR>
+nnoremap <silent> e1 :<C-u>tabfirst<CR>
+nnoremap <silent> e2 :<C-u>tabprevious<CR>
+nnoremap <silent> e3 :<C-U>tabnext<CR>
+nnoremap <silent> e9 :<C-u>tablast<CR>
 nnoremap <silent> <A-j> :<C-U>tabnext<CR>
 nnoremap <silent> <A-k> :<C-U>tabprevious<CR>
 nnoremap <silent> <A-{> :<C-u>-tabmove<CR>

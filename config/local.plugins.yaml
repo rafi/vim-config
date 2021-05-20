@@ -1,0 +1,54 @@
+- repo: Shougo/deoplete.nvim # only autoload functions, lazy by nature
+  hook_add: |
+    let g:deoplete#enable_at_startup = 1
+
+- repo: solarnz/thrift.vim # only autoload functions, lazy by nature
+  hook_add: |
+
+- repo: octol/vim-cpp-enhanced-highlight # only autoload functions, lazy by nature
+  hook_add: |
+    let g:cpp_class_scope_highlight = 1
+    let g:cpp_member_variable_highlight = 1
+    let g:cpp_class_decl_highlight = 1
+    let g:cpp_posix_standard = 1
+    let g:cpp_experimental_simple_template_highlight = 1
+    let g:cpp_concepts_highlight = 1
+    let g:cpp_no_function_highlight = 1
+
+- repo: easymotion/vim-easymotion 
+  hook_add: |
+    let g:EasyMotion_smartcase = 1 
+
+- repo: majutsushi/tagbar
+  hook_add: |
+
+- repo: lfv89/vim-interestingwords
+  hook_add: |
+    let g:interestingWordsTermColors = ['154', '121', '211', '137', '214', '222']
+
+- repo: junegunn/vim-easy-align
+  hook_add: |
+    let g:easy_align_delimiters = {
+    \ '>': { 'pattern': '>>\|=>\|>' },
+    \ '/': {
+    \     'pattern':         '//\+\|/\*\|\*/',
+    \     'delimiter_align': 'l',
+    \     'ignore_groups':   ['!Comment'] },
+    \ ']': {
+    \     'pattern':       '[[\]]',
+    \     'left_margin':   0,
+    \     'right_margin':  0,
+    \     'stick_to_left': 0
+    \   },
+    \ ')': {
+    \     'pattern':       '[()]',
+    \     'left_margin':   0,
+    \     'right_margin':  0,
+    \     'stick_to_left': 0
+    \   },
+    \ 'd': {
+    \     'pattern':      ' \(\S\+\s*[;=]\)\@=',
+    \     'left_margin':  0,
+    \     'right_margin': 0
+    \   }
+    \ }
