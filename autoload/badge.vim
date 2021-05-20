@@ -21,6 +21,10 @@ let g:badge_loading_charset =
 	\ get(g:, 'badge_loading_charset',
 	\ ['⠃', '⠁', '⠉', '⠈', '⠐', '⠠', '⢠', '⣠', '⠄', '⠂'])
 
+let s:badge_scrollbar_charset =
+	\ get(g:, 'badge_scrollbar_charset', [
+	\ '_', '▁', '▂', '▃', '▄', '▅', '▆', '▇', '█'])
+
 let g:badge_nofile = get(g:, 'badge_nofile', 'N/A')
 
 let g:badge_project_separator = get(g:, 'badge_project_separator', '')
@@ -85,24 +89,31 @@ function! badge#filename(...) abort
 		let l:bufnr = a:1
 	endif
 
+	let l:filetype = getbufvar(l:bufnr, '&filetype')
+	if empty(l:filetype)
+		return g:badge_nofile
+	endif
+
 	" Use buffer's cached filepath
 	let l:cache_var_name = a:0 > 3 ? a:4 : 'filename'
-	let l:cache_var_name = 'badge_cache_' . l:cache_var_name
+	let l:cache_var_name =
+		\ tolower('badge_cache_' . l:filetype . '_' . l:cache_var_name)
+	let l:cache_var_name = substitute(l:cache_var_name, '[^a-z]', '_', 'g')
+
 	let l:fn = getbufvar(l:bufnr, l:cache_var_name, '')
 	if len(l:fn) > 0
 		return l:fn
 	endif
 
 	let l:bufname = bufname(l:bufnr)
-	let l:filetype = getbufvar(l:bufnr, '&filetype')
 
 	if l:filetype =~? g:badge_filetype_blacklist
 		" Empty if owned by certain plugins
 		let l:fn = ''
-	elseif l:filetype ==# 'denite.*\|quickpick-filter'
+	elseif l:filetype =~# 'denite.*\|quickpick-filter'
 		let l:fn = '⌖ '
 	elseif l:filetype ==# 'qf'
-		let l:fn = '⌗ list'
+		let l:fn = ' '
 	elseif l:filetype ==# 'TelescopePrompt'
 		let l:fn = '⌖ '
 	elseif l:filetype ==# 'defx'
@@ -138,7 +149,7 @@ function! badge#filename(...) abort
 			let l:icon = get(l:icon, 'icon', '')
 		endif
 		if ! empty(l:icon)
-			let l:fn .= l:icon . '  '
+			let l:fn .= l:icon . get(g:, 'global_symbol_padding', ' ')
 		endif
 
 		let l:fn .= join(parts, '/')
@@ -184,7 +195,9 @@ function! badge#branch() abort
 	" Returns git branch name, using different plugins.
 
 	if &filetype !~? g:badge_filetype_blacklist
-		if exists('*gitbranch#name')
+		if exists('*gina#component#repo#branch')
+			return gina#component#repo#branch()
+		elseif exists('*gitbranch#name')
 			return gitbranch#name()
 		elseif exists('*vcs#info')
 			return vcs#info('%b')
@@ -206,14 +219,18 @@ function! badge#syntax() abort
 	let l:errors = 0
 	let l:warnings = 0
 	let l:hints = 0
-	let l:information = 0
-	if exists('*lsp#get_buffer_diagnostics_counts')
+	let l:info = 0
+	if exists('*luaeval')
+			\ && luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
+		let l:errors = luaeval("vim.lsp.diagnostic.get_count(0, [[Error]])")
+		let l:warnings = luaeval("vim.lsp.diagnostic.get_count(0, [[Warning]])")
+	elseif exists('*lsp#get_buffer_diagnostics_counts')
 			\ && get(g:, 'lsp_diagnostics_enabled', 1)
 		let l:counts = lsp#get_buffer_diagnostics_counts()
 		let l:errors = get(l:counts, 'error', '')
 		let l:warnings = get(l:counts, 'warning', '')
 		let l:hints = get(l:counts, 'hint', '')
-		let l:information = get(l:counts, 'information', '')
+		let l:info = get(l:counts, 'information', '')
 	elseif exists('*neomake#Make')
 		let l:counts = neomake#statusline#get_counts(bufnr('%'))
 		let l:errors = get(l:counts, 'E', '')
@@ -234,7 +251,7 @@ function! badge#syntax() abort
 	if l:hints > 0
 		let l:msg .= printf(' %d ', l:hints)
 	endif
-	if l:information > 0
+	if l:info > 0
 		let l:msg .= printf(' %d ', l:information)
 	endif
 	return substitute(l:msg, '\s*$', '', '')
@@ -337,6 +354,23 @@ function! badge#indexing() abort
 		let l:out .= '[s]'
 	endif
 	return l:out
+endfunction
+
+" Credits: https://github.com/glepnir/galaxyline.nvim
+function! badge#scrollbar() abort
+	let l:index = 0
+	let l:current_line = line('.')
+	let l:total_lines = line('$')
+	let l:total_chars = len(s:badge_scrollbar_charset)
+	if l:total_lines == 1
+		return '·'  "•
+	elseif l:current_line == l:total_lines
+		let l:index = l:total_chars - 1
+	else
+	let l:line_ratio = floor(l:current_line) / floor(l:total_lines)
+	let l:index = float2nr(l:line_ratio * l:total_chars)
+	endif
+	return s:badge_scrollbar_charset[l:index]
 endfunction
 
 function! s:numtr(number, charset) abort

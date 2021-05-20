@@ -8,7 +8,6 @@
 - repo: Shougo/dein.vim
 - repo: thinca/vim-localrc
 - repo: Shougo/context_filetype.vim
-- repo: jaawerth/nrun.vim
 - { repo: rafi/awesome-vim-colorschemes, merged: 0 }
 
 - repo: sgur/vim-editorconfig
@@ -164,28 +163,46 @@
 # ==========================================
 # Commands
 # --------
-- repo: Shougo/defx.nvim
-  on_cmd: Defx
-  hook_source: source $VIM_PATH/config/plugins/defx.vim
 
-- { repo: kristijanhusak/defx-git, on_source: defx.nvim }
-- { repo: kristijanhusak/defx-icons, on_source: defx.nvim }
+- repo: lambdalisue/fern.vim
+  on_cmd: Fern
+  hook_source: source $VIM_PATH/config/plugins/fern.vim
 
-- { repo: tyru/caw.vim, on_map: { nx: <Plug> }}
+- repo: lambdalisue/nerdfont.vim  # lazy by nature
+
+- repo: lambdalisue/fern-git-status.vim
+  on_source: fern.vim
+  hook_add: let g:fern_git_status_disable_startup = 1
+  hook_source: call fern_git_status#init()
+
+- { repo: lambdalisue/fern-mapping-git.vim, on_source: fern.vim }
+- { repo: lambdalisue/fern-bookmark.vim, on_source: fern.vim }
+
+- repo: lambdalisue/fern-renderer-nerdfont.vim
+  on_source: fern.vim
+  hook_source: |-
+    let g:fern#renderer = "nerdfont"
+    let g:fern#renderer#nerdfont#padding = get(g:, 'global_symbol_padding', ' ')
+
+- repo: lambdalisue/glyph-palette.vim
+  on_source: fern.vim
+  hook_source: autocmd user_events FileType fern call glyph_palette#apply()
+
 - { repo: lambdalisue/fin.vim, on_cmd: Fin }
 - { repo: mbbill/undotree, on_cmd: UndotreeToggle }
 - { repo: jreybert/vimagit, on_cmd: Magit }
 - { repo: tweekmonster/helpful.vim, on_cmd: HelpfulVersion }
-- { repo: kana/vim-altr, on_map: { n: <Plug> }}
 - { repo: Shougo/vinarise.vim, on_cmd: Vinarise }
 - { repo: guns/xterm-color-table.vim, on_cmd: XtermColorTable }
 - { repo: cocopon/colorswatch.vim, rev: main, on_cmd: ColorSwatchGenerate }
 - { repo: dstein64/vim-startuptime, on_cmd: StartupTime }
 - { repo: lambdalisue/suda.vim, on_event: BufRead }
 
-- repo: liuchengxu/vim-which-key
-  on_cmd: [ WhichKey, WhichKeyVisual ]
-  hook_source: source $VIM_PATH/config/plugins/whichkey.vim
+- repo: tyru/caw.vim
+  on_map: { nx: <Plug> }
+  hook_add: |-
+    let g:caw_no_default_keymappings = 1
+    let g:caw_operator_keymappings = 0
 
 - repo: lambdalisue/gina.vim
   on_cmd: Gina
@@ -221,14 +238,6 @@
     let g:any_jump_disable_default_keybindings = 1
     autocmd user_events FileType any-jump setlocal cursorline
 
-- repo: Vigemus/iron.nvim
-  if: has('nvim')
-  on_cmd: [ IronRepl, IronReplHere, IronFocus, IronSend, IronWatchCurrentFile ]
-  on_map: { nv: <Plug> }
-  on_func: IronUnwatchFile
-  hook_add: let g:iron_map_defaults = 0 | let g:iron_map_extended = 0
-  hook_source: luafile $VIM_PATH/config/plugins/iron.lua
-
 - repo: kana/vim-niceblock
   on_map: { x: <Plug> }
   hook_add: let g:niceblock_no_default_key_mappings = 0
@@ -238,11 +247,6 @@
   hook_add: |-
     let g:choosewin_label = 'ADFGHJKLUIOPQWERT'
     let g:choosewin_label_padding = 5
-
-- repo: wfxr/minimap.vim
-  on_cmd: [ Minimap, MinimapToggle ]
-  hook_source: |-
-    let g:minimap_block_filetypes = ['fugitive', 'nerdtree', 'defx']
 
 - repo: mzlogin/vim-markdown-toc
   on_cmd: [ GenTocGFM, GenTocRedcarpet, GenTocGitLab, UpdateToc ]
@@ -619,9 +623,11 @@
     let g:delimitMate_expand_space = 1
     let g:delimitMate_smart_quotes = 1
     let g:delimitMate_expand_inside_quotes = 0
-    let g:delimitMate_excluded_ft = 'mail,txt,denite-filter,clap_input'
+    let g:delimitMate_excluded_ft =
+      \ 'mail,denite-filter,clap_input,gitrebase,lsp-quickpick-filter'
     augroup user_plugin_delimitMate
       au!
+      au FileType html let b:delimitMate_matchpairs = "(:),[:],{:}"
       au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
       au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
       au FileType tex let b:delimitMate_quotes = ""
@@ -696,9 +702,16 @@
 # ------------
 - repo: kana/vim-textobj-user  # only autoload functions, lazy by nature
 - { repo: terryma/vim-expand-region, on_map: { x: <Plug> }}
-- { repo: AndrewRadev/sideways.vim, on_map: { onx: <Plug>Sideways }}
-- { repo: AndrewRadev/splitjoin.vim, on_map: { n: <Plug>Splitjoin }}
+- { repo: AndrewRadev/sideways.vim, rev: main, on_map: { onx: <Plug>Sideways }}
 - { repo: AndrewRadev/linediff.vim, on_cmd: Linediff }
+
+- repo: AndrewRadev/splitjoin.vim
+  rev: main
+  on_map: { n: <Plug>Splitjoin }
+  hook_add: |-
+    let g:splitjoin_join_mapping = ''
+    let g:splitjoin_split_mapping = ''
+    autocmd user_events FileType go let b:splitjoin_trailing_comma = 1
 
 - repo: AndrewRadev/dsf.vim
   on_map: { n: <Plug>Dsf }

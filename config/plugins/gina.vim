@@ -19,13 +19,13 @@ let g:gina#command#blame#formatter#format = '%au: %su%= on %ti %ma%in'
 
 " Open in vertical split
 call gina#custom#command#option(
-	\ '/\%(branch\|changes\|status\|grep\|log\|reflog\)',
+	\ '/\%(branch\|changes\|grep\|log\|reflog\)',
 	\ '--opener', 'vsplit'
 	\)
 
 " Fixed medium width types
 call gina#custom#execute(
-	\ '/\%(changes\|status\|ls\)',
+	\ '/\%(changes\|ls\)',
 	\ 'vertical resize ' . s:width_half . ' | setlocal winfixwidth'
 	\)
 

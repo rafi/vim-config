@@ -2,15 +2,6 @@
 " hybrid custom
 " ===
 
-" gVim Appearance {{{
-" ---
-if has('gui_running')
-	set guifont=PragmataPro:h16
-	set guioptions=Mc
-	" set noantialias
-endif
-" }}}
-
 " Terminal colors {{{
 " ---
 let g:terminal_color_0 = '#2a2a2a'
@@ -206,8 +197,8 @@ highlight! link HighlightedyankRegion DiffText
 
 " Plugin: vim-shot-f {{{
 " ---
-highlight! link ShotFGraph Number
-highlight! link ShotFBlank ErrorMsg
+highlight! ShotFGraph ctermbg=236 guibg=#3A4F3E
+highlight! link ShotFBlank SpellBad
 " }}}
 
 " Plugin: vim-signature {{{

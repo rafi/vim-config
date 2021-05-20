@@ -20,7 +20,7 @@ let s:stl .= '%4*%*%( %{&ft} %)'                 " File type
 let s:stl .= '%3*%2* %l/%2c%4p%% '               " Line and column
 
 " Non-active Statusline
-let s:stl_nc = " %{badge#mode('🔒', 'Z')}%n"   " Read-only symbol
+let s:stl_nc = " %{badge#mode('🔒', '🔎')}%n"  " Read-only symbol
 let s:stl_nc .= "%6*%{badge#modified('+')}%*"  " Unsaved changes symbol
 let s:stl_nc .= ' %{badge#filename()}'         " Relative supername
 let s:stl_nc .= '%='                           " Align to right
@@ -37,6 +37,7 @@ let s:statusline_filetypes = get(g:, 'statusline_filetypes', {
 	\   '%y %{badge#gitstatus()}%= %l/%L'],
 	\ 'minimap': [' '],
 	\ 'denite-filter': ['%#Normal#'],
+	\ 'lsp-quickpick-filter': ['%#Normal#'],
 	\ })
 
 " s:set_state replaces current statusline

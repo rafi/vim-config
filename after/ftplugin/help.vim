@@ -5,7 +5,12 @@ let s:save_cpo = &cpoptions
 set cpoptions&vim
 
 function! s:setup_buffer()
-	let b:undo_ftplugin .= ' | setlocal spell< list< hidden< iskeyword<'
+	if exists('b:undo_ftplugin')
+		let b:undo_ftplugin .= ' | '
+	else
+		let b:undo_ftplugin = ''
+	endif
+	let b:undo_ftplugin .= 'setlocal spell< list< hidden< iskeyword<'
 		\ . " | execute 'nunmap <buffer> <CR>'"
 		\ . " | execute 'nunmap <buffer> <BS>'"
 		\ . " | execute 'nunmap <buffer> o'"

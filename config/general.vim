@@ -188,8 +188,8 @@ set splitbelow splitright       " Splits open bottom right
 " set switchbuf=useopen           " Look for matching window buffers first
 set backspace=indent,eol,start  " Intuitive backspacing in insert mode
 set diffopt=filler,iwhite       " Diff mode: show fillers, ignore whitespace
-set completeopt=menuone         " Always show menu, even for one item
 
+set completeopt=menuone         " Always show menu, even for one item
 if has('patch-7.4.775')
 	" Do not select a match in the menu.
 	" Do not insert any text for a match until the user selects from menu.
@@ -202,9 +202,9 @@ if has('patch-8.1.0360') || has('nvim-0.5')
 endif
 
 " Use the new Neovim :h jumplist-stack
-if has('nvim-0.5')
-	set jumpoptions=stack
-endif
+" if has('nvim-0.5')
+" 	set jumpoptions=stack
+" endif
 
 " }}}
 " Editor UI {{{
@@ -226,8 +226,8 @@ set pumheight=15        " Pop-up menu's line height
 set helpheight=12       " Minimum help window height
 set previewheight=12    " Completion preview height
 
-set showcmd             " Show command in status line
-set cmdheight=2         " Height of the command line
+set noshowcmd           " Don't show command in status line
+set cmdheight=1         " Height of the command line
 set cmdwinheight=5      " Command-line lines
 set noequalalways       " Don't resize windows on split or close
 set laststatus=2        " Always show a status line
@@ -250,8 +250,6 @@ endif
 " icons:  ▏│ ¦ ╎ ┆ ⋮ ⦙ ┊ 
 let &showbreak='↳  '
 set listchars=tab:\▏\ ,extends:⟫,precedes:⟪,nbsp:␣,trail:·
-" set fillchars=foldopen:O,foldclose:x
-" set fillchars=vert:▉,fold:─
 
 if has('patch-7.4.314')
 	" Do not display completion messages
