@@ -252,7 +252,7 @@ function! badge#syntax() abort
 		let l:msg .= printf(' %d ', l:hints)
 	endif
 	if l:info > 0
-		let l:msg .= printf(' %d ', l:information)
+		let l:msg .= printf(' %d ', l:info)
 	endif
 	return substitute(l:msg, '\s*$', '', '')
 endfunction
