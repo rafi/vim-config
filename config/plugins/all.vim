@@ -2,20 +2,52 @@
 " ---
 
 if dein#tap('telescope.nvim')
-	nnoremap <silent><LocalLeader>f :<C-u>Telescope find_files theme=get_dropdown previewer=false<CR>
-	nnoremap <silent><LocalLeader>g :<C-u>Telescope live_grep<CR>
-	nnoremap <silent><LocalLeader>b :<C-u>Telescope buffers theme=get_dropdown show_all_buffers=true<CR>
-	nnoremap <silent><LocalLeader>h :<C-u>Telescope highlights<CR>
-	nnoremap <silent><LocalLeader>j :<C-u>Telescope jumplist<CR>
-	nnoremap <silent><LocalLeader>m :<C-u>Telescope marks<CR>
-	nnoremap <silent><LocalLeader>v :<C-u>Telescope registers<CR>
-	nnoremap <silent><LocalLeader>u :<C-u>Telescope spell_suggest<CR>
-	nnoremap <silent><LocalLeader>s :<C-u>Telescope session-lens search_session<CR>
-	nnoremap <silent><LocalLeader>x :<C-u>Telescope oldfiles<CR>
-	nnoremap <silent><LocalLeader>z :<C-u>Telescope zoxide list<CR>
-	nnoremap <silent><LocalLeader>; :<C-u>Telescope command_history<CR>
-	nnoremap <silent><LocalLeader>/ :<C-u>Telescope search_history<CR>
-	nnoremap <silent> <Leader>gg :Telescope grep_string<CR>
+	" git_commits    git_bcommits   git_branches
+	" git_status     git_stash      git_files
+	" file_browser   tags           fd             autocommands   quickfix
+	" filetypes      commands       man_pages      help_tags      loclist
+	" lsp_workspace_diagnostics     lsp_document_diagnostics
+
+	nnoremap <silent><LocalLeader>f <cmd>Telescope find_files<CR>
+	nnoremap <silent><LocalLeader>g <cmd>Telescope live_grep<CR>
+	nnoremap <silent><LocalLeader>b <cmd>Telescope buffers<CR>
+	nnoremap <silent><LocalLeader>h <cmd>Telescope highlights<CR>
+	nnoremap <silent><LocalLeader>j <cmd>Telescope jumplist<CR>
+	nnoremap <silent><LocalLeader>m <cmd>Telescope marks<CR>
+	nnoremap <silent><LocalLeader>o <cmd>Telescope vim_options<CR>
+	nnoremap <silent><LocalLeader>t <cmd>Telescope lsp_dynamic_workspace_symbols<CR>
+	nnoremap <silent><LocalLeader>v <cmd>Telescope registers<CR>
+	nnoremap <silent><LocalLeader>u <cmd>Telescope spell_suggest<CR>
+	nnoremap <silent><LocalLeader>s <cmd>Telescope session-lens search_session<CR>
+	nnoremap <silent><LocalLeader>x <cmd>Telescope oldfiles<CR>
+	nnoremap <silent><LocalLeader>z <cmd>Telescope zoxide list<CR>
+	nnoremap <silent><LocalLeader>; <cmd>Telescope command_history<CR>
+	nnoremap <silent><LocalLeader>/ <cmd>Telescope search_history<CR>
+	nnoremap <silent><LocalLeader>n :lua require 'telescope.builtin'.find_files({prompt_title = "plugins", cwd = "$XDG_DATA_HOME/nvim/dein/repos/github.com"})<CR>
+	nnoremap <silent><LocalLeader>w :lua require 'telescope.builtin'.find_files({prompt_title = "docs", cwd = "$HOME/docs/blog"})<CR>
+
+	nnoremap <silent><LocalLeader>dd <cmd>Telescope lsp_definitions<CR>
+	nnoremap <silent><LocalLeader>di <cmd>Telescope lsp_implementations<CR>
+	nnoremap <silent><LocalLeader>dr <cmd>Telescope lsp_references<CR>
+	nnoremap <silent><LocalLeader>da <cmd>Telescope lsp_code_actions<CR>
+	vnoremap <silent><LocalLeader>da :Telescope lsp_range_code_actions<CR>
+
+	nnoremap <silent> <Leader>/  <cmd>Telescope current_buffer_fuzzy_find<CR>
+	nnoremap <silent> <Leader>gt <cmd>Telescope lsp_workspace_symbols default_text=<C-r>=shellescape(expand('<cword>'), 1)<CR><CR>
+	nnoremap <silent> <Leader>gf <cmd>Telescope find_files default_text=<C-r>=shellescape(expand('<cword>'), 1)<CR><CR>
+	nnoremap <silent> <Leader>gg <cmd>Telescope grep_string<CR>
+	vnoremap <silent> <Leader>gg :<C-u>Telescope grep_string default_text=<C-r>=shellescape(<SID>get_selection(), 1)<CR><CR>
+
+	" Returns visually selected text
+	function! s:get_selection() abort
+		try
+			let a_save = @a
+			silent! normal! gv"ay
+			return substitute(escape(@a, '\/'), '\n', '\\n', 'g')
+		finally
+			let @a = a_save
+		endtry
+	endfunction
 endif
 
 if dein#tap('fern.vim')
@@ -24,7 +56,7 @@ if dein#tap('fern.vim')
 endif
 
 if dein#tap('symbols-outline.nvim')
-	nnoremap <silent> <Leader>b :<C-u>SymbolsOutline<CR>
+	nnoremap <silent> <Leader>o :<C-u>SymbolsOutline<CR>
 endif
 
 if dein#tap('vim-vsnip')
@@ -38,14 +70,14 @@ if dein#tap('emmet-vim')
 		\ | imap <silent><buffer> <C-y> <Plug>(emmet-expand-abbr)
 endif
 
-if dein#tap('vim-gitgutter')
-	nmap ]g <Plug>(GitGutterNextHunk)
-	nmap [g <Plug>(GitGutterPrevHunk)
-	nmap gS <Plug>(GitGutterStageHunk)
-	xmap gS <Plug>(GitGutterStageHunk)
-	nmap <Leader>gr <Plug>(GitGutterUndoHunk)
-	nmap gs <Plug>(GitGutterPreviewHunk)
-endif
+" if dein#tap('vim-gitgutter')
+" 	nmap ]g <Plug>(GitGutterNextHunk)
+" 	nmap [g <Plug>(GitGutterPrevHunk)
+" 	nmap gS <Plug>(GitGutterStageHunk)
+" 	xmap gS <Plug>(GitGutterStageHunk)
+" 	nmap <Leader>gr <Plug>(GitGutterUndoHunk)
+" 	nmap gs <Plug>(GitGutterPreviewHunk)
+" endif
 
 if dein#tap('vim-sandwich')
 	nmap <silent> sa <Plug>(operator-sandwich-add)
@@ -126,6 +158,55 @@ if dein#tap('vim-signature')
 		\ }
 endif
 
+if dein#tap('nvim-bqf')
+	nmap <silent> <Leader>q <cmd>lua require('user').qflist.toggle()<CR>
+endif
+
+" if dein#tap('vim-qf')
+" 	nmap <Leader>a :call <SID>toggle_qf(1)<CR>
+" 	silent! nunmap ]q
+" 	silent! nunmap [q
+" 	nnoremap ]q <Plug>(qf_qf_next)
+" 	nnoremap [q <Plug>(qf_qf_previous)
+"
+" 	function! s:toggle_qf(stay)
+" 		" save the view if the current window is not a quickfix window
+" 		if get(g:, 'qf_save_win_view', 1) && !qf#IsQfWindow(winnr())
+" 			let winview = winsaveview()
+" 		else
+" 			let winview = {}
+" 		endif
+"
+" 		" get user-defined maximum height
+" 		let max_height = get(g:, 'qf_max_height', 10) < 1 ? 10 : get(g:, 'qf_max_height', 10)
+"
+" 		" if one of the windows is a quickfix window close it and return
+" 		if qf#IsQfWindowOpen()
+" 			cclose
+" 			if !empty(winview)
+" 				call winrestview(winview)
+" 			endif
+" 		else
+" 			execute get(g:, 'qf_auto_resize', 1) ? min([ max_height, len(getqflist()) ]) . 'copen' : max_height . 'copen'
+" 			if qf#IsQfWindowOpen()
+" 				wincmd p
+" 				if !empty(winview)
+" 					call winrestview(winview)
+" 				endif
+" 				if !a:stay
+" 					wincmd p
+" 				endif
+" 			endif
+" 		endif
+" 	endfunction
+" endif
+
+if dein#tap('goto-preview')
+	nnoremap gb <cmd>lua require('goto-preview').goto_preview_definition()<CR>
+	nnoremap go <cmd>lua require('goto-preview').goto_preview_implementation()<CR>
+	" nnoremap <Leader>gP <cmd>lua require('goto-preview').close_all_win()<CR>
+endif
+
 if dein#tap('committia.vim')
 	let g:committia_hooks = {}
 	function! g:committia_hooks.edit_open(info)
@@ -155,12 +236,18 @@ if dein#tap('vim-shot-f')
 	omap T  <Plug>(shot-f-T)
 endif
 
+if dein#tap('todo-comments.nvim')
+	nnoremap <leader>tt <cmd>TodoTelescope<CR>
+endif
+
 if dein#tap('trouble.nvim')
-	nnoremap <leader>e <cmd>TroubleToggle lsp_document_diagnostics<cr>
-	nnoremap <leader>r <cmd>TroubleToggle lsp_workspace_diagnostics<cr>
-	nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
-	nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
-	nnoremap gR <cmd>TroubleToggle lsp_references<cr>
+	nnoremap <leader>e <cmd>TroubleToggle lsp_document_diagnostics<CR>
+	nnoremap <leader>r <cmd>TroubleToggle lsp_workspace_diagnostics<CR>
+	nnoremap <leader>xq <cmd>TroubleToggle quickfix<CR>
+	nnoremap <leader>xl <cmd>TroubleToggle loclist<CR>
+	nnoremap ]t <cmd>lua require("trouble").next({skip_groups = true, jump = true})<CR>
+	nnoremap [t <cmd>lua require("trouble").previous({skip_groups = true, jump = true})<CR>
+	nnoremap gR <cmd>TroubleToggle lsp_references<CR>
 endif
 
 if dein#tap('diffview.nvim')
@@ -188,7 +275,7 @@ if dein#tap('gina.vim')
 	nnoremap <silent> <leader>gs :Gina status -s<CR>
 	nnoremap <silent> <leader>gl :Gina log --graph --all<CR>
 	nnoremap <silent> <leader>gF :Gina! fetch<CR>
-	nnoremap <silent> <leader>gp :Gina! push<CR>
+	" nnoremap <silent> <leader>gp :Gina! push<CR>
 	nnoremap <silent> <leader>go :,Gina browse :<CR>
 	vnoremap <silent> <leader>go :Gina browse :<CR>
 endif
@@ -199,6 +286,21 @@ if dein#tap('vim-gitgrep')
 	autocmd user_events FileType GitGrep
 		\  nnoremap <buffer> gq :<C-u>quit<CR>
 		\| nmap <buffer> <nowait> <Space> zak
+endif
+
+if dein#tap('zen-mode.nvim')
+	nnoremap <silent> <Leader>z <cmd>ZenMode<CR>
+endif
+
+if dein#tap('rest.nvim')
+	nmap <silent> ,ht <plug>RestNvim
+endif
+
+if dein#tap('yaml.nvim')
+	nnoremap <silent> ,av <Cmd>lua require("yaml_nvim").view()<CR>
+	nnoremap <silent> ,ay <Cmd>lua require("yaml_nvim").yank()<CR>
+	" nnoremap <silent> ,aY <Cmd>lua require("yaml_nvim").yank_path()<CR>
+	" nnoremap <silent> ,a <Cmd>lua require("yaml_nvim").telescope()<CR>
 endif
 
 if dein#tap('any-jump.vim')
@@ -265,7 +367,7 @@ endif
 
 if dein#tap('caw.vim')
 	function! InitCaw() abort
-		if &l:modifiable && &buftype ==# '' && &filetype != 'gitrebase'
+		if &l:modifiable && &buftype ==# '' && &filetype !=# 'gitrebase'
 			xmap <buffer> <Leader>V <Plug>(caw:wrap:toggle)
 			nmap <buffer> <Leader>V <Plug>(caw:wrap:toggle)
 			xmap <buffer> <Leader>v <Plug>(caw:hatpos:toggle)

@@ -8,8 +8,14 @@
 - repo: Shougo/dein.vim
 - repo: thinca/vim-localrc
 - { repo: rafi/awesome-vim-colorschemes, merged: 0 }
-- { repo: folke/lsp-colors.nvim, if: has("nvim-0.5") }
 
+- repo: christoomey/vim-tmux-navigator
+  if: "! (has('win32') || has('win64'))"
+
+- repo: tpope/vim-sleuth
+  hook_add: let g:sleuth_neighbor_limit = 5
+
+- { repo: folke/lsp-colors.nvim, if: has("nvim-0.5") }
 - { repo: nvim-lua/plenary.nvim, if: has("nvim-0.5") }
 - { repo: nvim-lua/popup.nvim, if: has("nvim-0.5") }
 - { repo: kyazdani42/nvim-web-devicons, if: has("nvim-0.5") }
@@ -29,12 +35,6 @@
 # Improve CursorHold performance
 # See: https://github.com/neovim/neovim/issues/12587
 # - { repo: antoinemadec/FixCursorHold.nvim, if: "has('nvim')" }
-
-- repo: christoomey/vim-tmux-navigator
-  if: "! (has('win32') || has('win64'))"
-
-- repo: tpope/vim-sleuth
-  hook_add: let g:sleuth_neighbor_limit = 5
 
 # Lazy Loading
 # ==========================================
@@ -64,9 +64,33 @@
   on_cmd: GG
   on_func: gitgrep#run
 
+- repo: folke/zen-mode.nvim
+  if: has('nvim-0.5')
+  on_cmd: ZenMode
+  hook_post_source: lua require('plugins.zen-mode')
+
+- repo: folke/which-key.nvim
+  if: has('nvim-0.5')
+  on_cmd: WhichKey
+  hook_post_source: lua require('plugins.which-key')
+
 - repo: tversteeg/registers.nvim
+  rev: main
+  if: has('nvim-0.5')
   on_cmd: Registers
   on_map: { i: '<C-r>', n: '"' }
+  hook_source: let g:registers_window_border = 'rounded'
+
+- repo: NTBBloodbath/rest.nvim
+  if: has('nvim-0.5')
+  on_map: { n: <Plug>RestNvim }
+  on_ft: http
+  hook_post_source: lua require('rest-nvim').setup()
+
+- repo: cuducos/yaml.nvim
+  if: has('nvim-0.5')
+  # on_ft: yaml
+  on_cmd: YAMLView
 
 - repo: pechorin/any-jump.vim
   on_cmd: [ AnyJump, AnyJumpVisual ]
@@ -125,23 +149,28 @@
         \| endif
     augroup END
 
-- repo: airblade/vim-gitgutter
-  on_event: FileType
-  hook_add: |-
-    let g:gitgutter_map_keys = 0
-    let g:gitgutter_sign_added = '▎'
-    let g:gitgutter_sign_modified = '▎'
-    let g:gitgutter_sign_removed = '▍'
-    let g:gitgutter_sign_removed_first_line = '▘'
-    let g:gitgutter_sign_removed_above_and_below = '_¯'
-    let g:gitgutter_sign_modified_removed = '▍'
-    let g:gitgutter_preview_win_floating = 1
-    let g:gitgutter_sign_allow_clobber = 0
-    let g:gitgutter_sign_priority = 0
-    let g:gitgutter_override_sign_column_highlight = 0
+- repo: lewis6991/gitsigns.nvim
+  if: has('nvim-0.5')
+  on_event: VimEnter
+  hook_post_source: lua require('plugins.gitsigns')
+
+# - repo: airblade/vim-gitgutter
+#   on_event: FileType
+#   hook_add: |-
+#     let g:gitgutter_map_keys = 0
+#     let g:gitgutter_sign_added = '▎'
+#     let g:gitgutter_sign_modified = '▎'
+#     let g:gitgutter_sign_removed = '▍'
+#     let g:gitgutter_sign_removed_first_line = '▘'
+#     let g:gitgutter_sign_removed_above_and_below = '_¯'
+#     let g:gitgutter_sign_modified_removed = '▍'
+#     let g:gitgutter_preview_win_floating = 1
+#     let g:gitgutter_sign_allow_clobber = 0
+#     let g:gitgutter_sign_priority = 0
+#     let g:gitgutter_override_sign_column_highlight = 0
 
 - repo: kshenoy/vim-signature
-  depends: vim-gitgutter
+  depends: gitsigns.nvim
   on_event: FileType
   hook_add: |-
     let g:SignatureForceRemoveGlobal = 0
@@ -151,7 +180,7 @@
     let g:SignatureMarkTextHLDynamic = 1
     let g:SignatureMarkerTextHLDynamic = 1
     let g:SignatureIncludeMarkers = repeat('⚐', 10)
-    autocmd user_events User GitGutter call signature#sign#Refresh()
+    " autocmd user_events User GitGutter call signature#sign#Refresh()"
 
 - repo: nathanaelkane/vim-indent-guides
   on_event: FileType
@@ -180,41 +209,97 @@
     augroup END
     autocmd user_events FileType * ++once IndentGuidesEnable
 
-- repo: romainl/vim-qf
-  on_ft: qf
-  on_event: QuickFixCmdPost
-  on_map: { n: <Plug> }
-  hook_post_source: |-
-    augroup qf
-      autocmd!
-    augroup END
-  hook_add: |-
-    " let g:loaded_qf = 1"
-    let g:qf_bufname_or_text = 1
-    let g:qf_auto_open_quickfix = 0
-    let g:qf_auto_open_loclist = 0
-    let g:qf_auto_quit = 0
-    let g:qf_auto_resize = 0
-    autocmd User preview_open_pre
-      \  let g:vim_markdown_no_default_key_mappings = 1
-      \| let g:vim_markdown_emphasis_multiline = 0
-    autocmd User preview_open_post
-      \  unlet! g:vim_markdown_no_default_key_mappings
-      \| unlet! g:vim_markdown_emphasis_multiline
+# - repo: lukas-reineke/indent-blankline.nvim
+#   rev: lua
+#   if: has('nvim-0.5')
+#   on_event: FileType
+#   hook_add: |-
+#     let g:indent_blankline_char = ' '
+#     let g:indent_blankline_space_char_blankline = ' '
+#     let g:indent_blankline_show_end_of_line = v:true
+#     let g:indent_blankline_show_foldtext = v:false
+#     let g:indent_blankline_show_trailing_blankline_indent = v:false
+#     let g:indent_blankline_char_highlight_list = ['IndentBlanklineChar', 'IndentBlanklineCharOdd']
+#     let g:indent_blankline_buftype_exclude = ['prompt', 'nofile', 'quickfix']
+#     let g:indent_blankline_filetype_exclude = [
+#       \ 'help', 'man', 'fern', 'defx', 'denite', 'denite-filter', 'startify',
+#       \ 'vista', 'vista_kind', 'tagbar', 'lsp-hover', 'clap_input', 'fzf',
+#       \ 'any-jump', 'gina-status', 'gina-commit', 'gina-log', 'minimap',
+#       \ 'quickpick-filter', 'lsp-quickpick-filter', 'lspinfo', 'TelescopePrompt'
+#       \ ]
 
-# - repo: rhysd/committia.vim
-#   on_event: [ BufReadPre, BufReadPost ]
-#   hook_source: let g:committia_min_window_width = 70
+# g:indent_blankline_char_highlight_list
+# g:indent_blankline_space_char_highlight_list
+# g:indent_blankline_space_char_blankline_highlight_list
+# let g:indent_blankline_show_current_context = v:true
+# let g:indent_blankline_use_treesitter = v:true
+# let g:indent_blankline_char_list = ['|', '¦', '┆', '┊']
+
+- repo: kevinhwang91/nvim-bqf
+  if: has('nvim-0.5')
+  on_ft: qf
+  on_cmd: BqfAutoToggle
+  on_event: QuickFixCmdPost
+  hook_source: lua require('plugins.bqf')
+
+# - repo: romainl/vim-qf
+#   on_ft: qf
+#   on_event: QuickFixCmdPost
+#   on_map: { n: <Plug> }
+#   hook_add: |-
+#     let g:qf_bufname_or_text = 1
+#     let g:qf_auto_open_quickfix = 0
+#     let g:qf_auto_open_loclist = 0
+#     let g:qf_auto_quit = 0
+#     let g:qf_auto_resize = 0
+
+# hook_post_source: |-
+#   augroup qf
+#     autocmd!
+#   augroup END
+# let g:loaded_qf = 1
+# autocmd User preview_open_pre
+#   \  let g:vim_markdown_no_default_key_mappings = 1
+#   \| let g:vim_markdown_emphasis_multiline = 0
+# autocmd User preview_open_post
+#   \  unlet! g:vim_markdown_no_default_key_mappings
+#   \| unlet! g:vim_markdown_emphasis_multiline
+
+- repo: norcalli/nvim-colorizer.lua
+  if: has('nvim-0.4')
+  on_event: FileType
+  hook_post_source: lua require('plugins.colorizer')
+
+- repo: rmagatti/goto-preview
+  if: has('nvim-0.5')
+  on_event: FileType
+  hook_post_source: lua require('plugins.goto-preview')
+
+- repo: rhysd/committia.vim
+  on_event: BufWinEnter
+  hook_add: let g:loaded_committia = 1
+  hook_source: |-
+    let g:committia_min_window_width = 70
+    autocmd user_events BufWinEnter COMMIT_EDITMSG,MERGE_MSG
+      \  if ! exists('b:committia_opened')
+      \|   call committia#open('git')
+      \| endif
 
 - repo: itchyny/calendar.vim
   on_cmd: Calendar
   hook_source: |-
     let g:calendar_google_calendar = 1
     let g:calendar_google_task = 1
+    "let g:calendar_cache_directory = $DATA_PATH.'/nvim/calendar'"
 
 - repo: deris/vim-shot-f
   on_map: { nxo: <Plug> }
   hook_add: let g:shot_f_no_default_key_mappings = 1
+
+- repo: kristijanhusak/orgmode.nvim
+  if: has('nvim-0.5')
+  # on_ft: org
+  hook_post_source: lua require('plugins.orgmode')
 
 - repo: vimwiki/vimwiki
   on_map: { n: <Plug> }
@@ -237,27 +322,33 @@
     \     'ext': '.md' }
     \ ]
 
-- repo: norcalli/nvim-colorizer.lua
-  if: has('nvim-0.4')
-  on_event: FileType
-  hook_post_source: lua require('plugins.colorizer')
-
 # ==========================================
 # Completion and code analysis
 # ----------
 
 - { repo: kabouzeid/nvim-lspinstall, if: has('nvim-0.5') }
+- { repo: kosayoda/nvim-lightbulb, if: has('nvim-0.5') }
 
 - repo: neovim/nvim-lspconfig
   if: has('nvim-0.5')
-  depends: [ lsp_signature.nvim, todo-comments.nvim ]
+  depends: [ lsp_signature.nvim, todo-comments.nvim, lua-dev.nvim, lspsaga.nvim ]
   on_event: VimEnter
   hook_post_source: lua require('plugins.lspconfig')
+
+- repo: glepnir/lspsaga.nvim
+  if: has('nvim-0.5')
+  on_cmd: Lspsaga
+  hook_post_source: lua require('plugins.lspsaga')
 
 - repo: ray-x/lsp_signature.nvim
   if: has('nvim-0.5')
   lazy: true
   hook_post_source: lua require('plugins.lsp_signature')
+
+- repo: folke/lua-dev.nvim
+  if: has('nvim-0.5')
+  lazy: true
+  hook_post_source: lua require('plugins.lua-dev')
 
 - repo: folke/todo-comments.nvim
   if: has("nvim-0.5")
@@ -267,7 +358,8 @@
 - repo: hrsh7th/nvim-compe
   if: has('nvim-0.5')
   on_event: InsertEnter
-  # depends: compe-tmux
+  depends: nvim-autopairs
+  # depends: lspkind-nvim
   hook_post_source: lua require('plugins.compe')
   hook_source: |-
     augroup user_plugin_compe
@@ -276,11 +368,22 @@
         \ call compe#setup({'enabled': v:false}, 0)
     augroup END
 
+# - repo: onsails/lspkind-nvim
+#   if: has("nvim-0.5")
+#   lazy: true
+#   hook_post_source: lua require('lspkind').init()
+
 # - { repo: andersevenrud/compe-tmux, if: has("nvim-0.5"), lazy: true }
+
+- repo: windwp/nvim-autopairs
+  if: has('nvim-0.5')
+  on_event: InsertEnter
+  hook_post_source: lua require('nvim-autopairs').setup()
 
 - repo: hrsh7th/vim-vsnip
   depends: [ vim-vsnip-integ, friendly-snippets ]
   on_event: InsertEnter
+  merged: 0
   hook_post_source: |-
     let g:vsnip_filetypes = {}
     let g:vsnip_filetypes.javascriptreact = ['javascript']
@@ -293,7 +396,10 @@
   if: has("nvim-0.5")
   on_cmd: [ Trouble, TroubleToggle ]
 
-- { repo: sindrets/diffview.nvim, if: has('nvim-0.5'), on_cmd: DiffviewOpen }
+- repo: sindrets/diffview.nvim
+  if: has('nvim-0.5')
+  on_cmd: DiffviewOpen
+  hook_post_source: lua require('plugins.diffview')
 
 - repo: nvim-telescope/telescope.nvim
   if: has("nvim-0.5")
@@ -310,8 +416,11 @@
 
 - repo: rmagatti/auto-session
   if: has("nvim-0.5")
+  depends: [ gitsigns.nvim, nvim-lspconfig ]
   on_event: VimEnter
   hook_post_source: lua require('plugins.auto-session')
+
+- { repo: sbdchd/neoformat, on_cmd: Neoformat }
 
 - repo: mattn/emmet-vim
   on_event: InsertEnter
@@ -322,23 +431,23 @@
     let g:user_emmet_install_command = 0
     let g:user_emmet_mode = 'i'
 
-- repo: Raimondi/delimitMate
-  on_event: FileType
-  hook_source: |-
-    let g:delimitMate_expand_cr = 0
-    let g:delimitMate_expand_space = 1
-    let g:delimitMate_smart_quotes = 1
-    let g:delimitMate_expand_inside_quotes = 0
-    let g:delimitMate_excluded_ft =
-      \ 'mail,denite-filter,clap_input,gitrebase,lsp-quickpick-filter'
-    augroup user_plugin_delimitMate
-      au!
-      au FileType html let b:delimitMate_matchpairs = "(:),[:],{:}"
-      au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
-      au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
-      au FileType tex let b:delimitMate_quotes = ""
-      au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
-    augroup END
+# - repo: Raimondi/delimitMate
+#   on_event: FileType
+#   hook_source: |-
+#     let g:delimitMate_expand_cr = 0
+#     let g:delimitMate_expand_space = 1
+#     let g:delimitMate_smart_quotes = 1
+#     let g:delimitMate_expand_inside_quotes = 0
+#     let g:delimitMate_excluded_ft =
+#       \ 'mail,denite-filter,clap_input,gitrebase,lsp-quickpick-filter'
+#     augroup user_plugin_delimitMate
+#       au!
+#       au FileType html let b:delimitMate_matchpairs = "(:),[:],{:}"
+#       au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
+#       au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
+#       au FileType tex let b:delimitMate_quotes = ""
+#       au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
+#     augroup END
 
 # ==========================================
 # Fern
@@ -356,6 +465,7 @@
 
 - { repo: lambdalisue/fern-mapping-git.vim, on_source: fern.vim }
 - { repo: lambdalisue/fern-bookmark.vim, on_source: fern.vim }
+- { repo: yuki-yano/fern-preview.vim, on_source: fern.vim }
 
 - repo: lambdalisue/fern-renderer-nerdfont.vim
   on_source: fern.vim
@@ -383,6 +493,8 @@
   depends: nvim-treesitter
   on_event: FileType
   hook_source: lua require('plugins.textobjects')
+
+- { repo: towolf/vim-helm, on_ft: helm }
 
 - repo: plasticboy/vim-markdown
   on_ft: markdown
@@ -420,6 +532,14 @@
     let g:sandwich_no_default_key_mappings = 1
     let g:operator_sandwich_no_default_key_mappings = 1
     let g:textobj_sandwich_no_default_key_mappings = 1
+
+- repo: mfussenegger/nvim-ts-hint-textobject
+  if: has("nvim-0.5")
+  depends: nvim-treesitter
+  on_event: FileType
+  hook_source: |-
+    omap     <silent> m :<C-U>lua require('tsht').nodes()<CR>
+    vnoremap <silent> m :lua require('tsht').nodes()<CR>
 
 - { repo: AndrewRadev/sideways.vim, rev: main, on_map: { onx: <Plug>Sideways }}
 - { repo: AndrewRadev/linediff.vim, on_cmd: Linediff }
