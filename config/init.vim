@@ -67,10 +67,6 @@ let $VIM_PATH =
 	\   fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
 	\ )
 
-" Set data/cache directory as $XDG_CACHE_HOME/vim
-let $DATA_PATH =
-	\ expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : '~/.cache') . '/vim', 1)
-
 " Collection of user plugin list config file-paths
 let s:config_paths = get(g:, 'etc_config_paths', [
 	\ $VIM_PATH . '/config/plugins.yaml',
@@ -94,34 +90,34 @@ function! s:main()
 
 		" Ensure data directories
 		for s:path in [
-				\ $DATA_PATH,
-				\ $DATA_PATH . '/undo',
-				\ $DATA_PATH . '/backup',
-				\ $DATA_PATH . '/session',
-				\ $DATA_PATH . '/swap',
+				\ $XDG_DATA_HOME . '/nvim/backup',
+				\ $XDG_DATA_HOME . '/nvim/sessions',
+				\ $XDG_DATA_HOME . '/nvim/swap',
+				\ $XDG_DATA_HOME . '/nvim/undo',
 				\ $VIM_PATH . '/spell' ]
 			if ! isdirectory(s:path)
 				call mkdir(s:path, 'p', 0770)
 			endif
 		endfor
 
-		" Python interpreter settings
-		if has('nvim')
-			" Try the virtualenv created by venv.sh
-			let l:virtualenv = $DATA_PATH . '/venv/bin/python'
-			if empty(l:virtualenv) || ! filereadable(l:virtualenv)
-				" Fallback to old virtualenv location
-				let l:virtualenv = $DATA_PATH . '/venv/neovim3/bin/python'
-			endif
-			if filereadable(l:virtualenv)
-				let g:python3_host_prog = l:virtualenv
-			endif
+		" Try setting up the custom virtualenv created by ./venv.sh
+		let l:virtualenv = $XDG_DATA_HOME . '/nvim/venv/bin/python'
+		if empty(l:virtualenv) || ! filereadable(l:virtualenv)
+			" Fallback to old virtualenv location
+			let l:virtualenv = $XDG_DATA_HOME . '/nvim/venv/neovim3/bin/python'
+		endif
 
-		elseif has('pythonx')
-			if has('python3')
-				set pyxversion=3
-			elseif has('python')
-				set pyxversion=2
+		" Python interpreter settings
+		if filereadable(l:virtualenv)
+			if has('nvim')
+				let g:python3_host_prog = l:virtualenv
+			elseif has('pythonx')
+				execute 'set pythonthreehome=' . fnamemodify(l:virtualenv, ':h:h')
+				if has('python3')
+					set pyxversion=3
+				elseif has('python')
+					set pyxversion=2
+				endif
 			endif
 		endif
 	endif
@@ -132,16 +128,14 @@ endfunction
 
 " Use dein as a plugin manager
 function! s:use_dein()
-	let l:cache_path = $DATA_PATH . '/dein'
+	let l:cache_path = $XDG_DATA_HOME . '/nvim/dein'
 
 	if has('vim_starting')
 		let g:dein#auto_recache = v:true
 		" let g:dein#lazy_rplugins = v:true
-		" let g:dein#lazy_rplugins = 1
-		" let g:dein#auto_recache = 1
-		" let g:dein#install_progress_type = 'title'
-		" let g:dein#enable_notification = v:true
-		let g:dein#install_max_processes = 12
+		let g:dein#install_progress_type = 'echo'
+		let g:dein#install_message_type = 'echo'
+		let g:dein#install_max_processes = 8
 
 		" Add dein to vim's runtimepath
 		if &runtimepath !~# '/dein.vim'
@@ -192,9 +186,6 @@ function! s:use_dein()
 
 		" Update or install plugins if a change detected
 		if dein#check_install()
-			if ! has('nvim')
-				set nomore
-			endif
 			call dein#install()
 		endif
 	endif
@@ -207,7 +198,7 @@ endfunction
 
 function! s:use_plug() abort
 	" vim-plug package-manager initialization
-	let l:cache_root = $DATA_PATH . '/plug'
+	let l:cache_root = $XDG_DATA_HOME . '/nvim/plug'
 	let l:cache_init = l:cache_root . '/init.vimplug'
 	let l:cache_repos = l:cache_root . '/repos'
 
@@ -218,7 +209,7 @@ function! s:use_plug() abort
 	if &runtimepath !~# '/init.vimplug'
 
 		if ! isdirectory(l:cache_init)
-			silent !curl -fLo $DATA_PATH/plug/init.vimplug/autoload/plug.vim
+			silent !curl -fLo $XDG_DATA_HOME/nvim/plug/init.vimplug/autoload/plug.vim
 				\ --create-dirs
 				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 

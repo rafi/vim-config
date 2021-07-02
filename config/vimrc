@@ -49,11 +49,6 @@ if has('vim_starting')
 	xnoremap ,        <Nop>
 	nnoremap ;        <Nop>
 	xnoremap ;        <Nop>
-
-	" Vim only, Linux terminal settings
-	if ! has('nvim') && ! has('gui_running') && ! has('win32') && ! has('win64')
-		call s:source_file('config/terminal.vim')
-	endif
 endif
 
 " Load user scripts with confidential information
@@ -68,9 +63,7 @@ call s:source_file('config/plugins/all.vim')
 
 " Initialize all my configurations
 call s:source_file('config/general.vim')
-call s:source_file('config/filetype.vim')
 call s:source_file('config/mappings.vim')
-call s:source_file('config/theme.vim')
 
 " Load user custom local settings
 if filereadable($VIM_PATH . '/config/local.vim')

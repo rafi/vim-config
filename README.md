@@ -1,11 +1,11 @@
-# Rafael Bodill's Neo/vim Config
+# Rafael Bodill's Neovim Config
 
-Lean mean Neo/vim machine, 30-45ms startup time.
+Lean mean Neovim machine, 30-45ms startup time.
 
-Best with [Neovim] 0.5.x or [Vim] 8.x and `python3` enabled.
+Works best with [Neovim] 0.5.x.
 
 > I encourage you to fork this repo and create your own experience.
-> Learn how to tweak and change Neo/vim to the way YOU like it.
+> Learn how to tweak and change Neovim to the way YOU like it.
 > This is my cultivation of years of tweaking, use it as a git remote
 > and stay in-touch with upstream for reference or cherry-picking.
 
@@ -68,11 +68,11 @@ Best with [Neovim] 0.5.x or [Vim] 8.x and `python3` enabled.
 * Custom side-menu (try it out! <kbd>Space</kbd>+<kbd>l</kbd>)
 * Custom context-menu (try it! <kbd>;</kbd>+<kbd>c</kbd>)
 * Modular configuration (see [structure](#structure))
-* Auto-complete [prabirshrestha/asyncomplete.vim] extensive setup
-* [Shougo/denite.nvim] centric work-flow (lists)
-* Structure view with [liuchengxu/vista.vim]
-* Open SCM detailed URL in OS browser
-* Light-weight but informative status/tabline
+* Auto-complete [neovim/nvim-lspconfig] and [hrsh7th/nvim-compe] extensive setup
+* [nvim-telescope/telescope.nvim] centric work-flow (lists)
+* Structure view with [simrat39/symbols-outline.nvim]
+* Git features using [lambdalisue/gina.vim] and [lewis6991/gitsigns.nvim]
+* Light-weight but informative status & tab lines
 * Easy customizable theme
 * Premium color-schemes
 * Central location for tags and sessions
@@ -83,57 +83,42 @@ Best with [Neovim] 0.5.x or [Vim] 8.x and `python3` enabled.
 
 ## Prerequisites
 
-* Python 3 (`brew install python`)
-* Neovim or Vim (`brew install neovim` and/or `brew install vim`)
-
-*Caveat*: You must have **one** of these tools installed:
-[yj](https://github.com/sclevine/yj), [yq](https://github.com/mikefarah/yq),
-[yaml2json](https://github.com/bronze1man/yaml2json), Ruby, or Python with
-PyYAML in-order for the YAML configuration to be parsed.
+* Neovim, see [Installing Neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim).
+* In-order for the plugins YAML file to be read, you must have
+  **one** of these tools installed:
+    - [yj](https://github.com/sclevine/yj)
+    - [yq](https://github.com/mikefarah/yq)
+    - [yaml2json](https://github.com/bronze1man/yaml2json)
+    - Ruby
+    - Python with PyYAML
 
 ## Install
 
-**_1._** Let's clone this repo! Clone to `~/.config/nvim`,
-we'll also symlink it for regular Vim:
+**_1._** Let's clone this repo! Clone to `~/.config/nvim`
 
 ```bash
 mkdir ~/.config
 git clone git://github.com/rafi/vim-config.git ~/.config/nvim
 cd ~/.config/nvim
-ln -s ~/.config/nvim ~/.vim  # For "regular" Vim
 ```
 
-* _**Note**:_ If you set a custom `$XDG_CONFIG_HOME`,
-  use that instead of `~/.config` in the commands above.
-  Neovim follows the XDG base-directories convention, Vim doesn't.
+**_2._** Run `make test` to test your nvim version and capabilities.
 
-**_2._** Install the Python 3 `pynvim` library. This is also needed for Vim 8
-if you want to use Denite.
+**_3._** Run `make` to install all plugins.
 
-> Neovim: `./venv.sh` or `pip3 install --user pynvim`
-
-> Vim: `pip3 install --user pynvim`
-
-**_3._** Run `make test` to test your nvim/vim version and capabilities.
-
-**_4._** Run `make` to install all plugins.
-
-**_5._** If you are experiencing problems, run and read `nvim -c checkhealth`
-
-Test Python 3 availability with `:py3 print(sys.version_info)`
+**_4._** If you are experiencing problems, run and read `nvim -c checkhealth`
 
 Enjoy! :smile:
 
 ## Language-Server Protocol (LSP)
 
 To leverage LSP auto-completions and other functionalities, once you open a
-file in Neo/vim, run `:LspInstallServer <name>` to use [mattn/vim-lsp-settings]
+file in Neovim, run `:LspInstall <language>` to use [kabouzeid/nvim-lspinstall]
 installation feature, use <kbd>Tab</kbd> to list available servers.
 
-Here are a few useful commands:
-* For example, open a `.go` file, and run: `:LspInstallServer gopls`
-* In a `go` file, use action `:LspCodeAction source.organizeImports`
-* See [config/plugins/lsp.vim] for special code intellisense mappings
+Here are some useful commands:
+* For example, open a `.go` file, and run: `:LspInstall go`
+* See [lua/plugins/lspconfig.lua] for special code intellisense mappings.
 
 ## Upgrade
 
@@ -196,8 +181,6 @@ pip3 install --user vim-vint pycodestyle pyflakes flake8
 * Jump around with **z**: [rupa/z](https://github.com/rupa/z)
   (macOS: `brew install z`)
   * or **z.lua**: [acme/zlua](https://github.com/skywind3000/z.lua)
-* **[Universal ctags](https://ctags.io/)** for syntax tokenization
-  (macOS: `brew install universal-ctags/universal-ctags/universal-ctags`)
 * Fuzzy file finders:
   **[fzf](https://github.com/junegunn/fzf)**,
   **[fzy](https://github.com/jhawthorn/fzy)**, or
@@ -214,7 +197,7 @@ collection.
 If you want to disable some of the plugins I use, you can overwrite them, e.g.:
 
 ```yaml
-- { repo: mattn/vim-lsp-settings, if: 0 }
+- { repo: hrsh7th/nvim-compe, if: 0 }
 ```
 
 ### Disable built-in statusline & tabline
@@ -240,20 +223,20 @@ want, _e.g._:
 
 ## Structure
 
+* [after/](./after) - Language specific custom settings
 * [config/](./config) - Configuration
   * [plugins/](./config/plugins) - Plugin configurations
     * [all.vim](./config/plugins/all.vim) - Plugin mappings
     * […](./config/plugins)
-  * [filetype.vim](./config/filetype.vim) - Language behavior
   * [general.vim](./config/general.vim) - General configuration
+  * [init.vim](./config/init.vim) - Package-manager initialization
   * **local.plugins.yaml** - Custom user plugins
   * **local.vim** - Custom user settings
   * [mappings.vim](./config/mappings.vim) - Key-mappings
   * [plugins.yaml](./config/plugins.yaml) - My favorite _**Plugins!**_
-  * [terminal.vim](./config/terminal.vim) - Terminal configuration
   * [vimrc](./config/vimrc) - Initialization
-* [ftplugin/](./ftplugin) - Language specific custom settings
-* [plugin/](./plugin) - Customized small plugins
+* [lua/](./lua) - Lua plugin configurations
+* [plugin/](./plugin) - Custom written plugins
 * [snippets/](./snippets) - Personal code snippets
 * [themes/](./themes) - Colorscheme overrides
 * [filetype.vim](./filetype.vim) - Custom filetype detection
@@ -262,9 +245,9 @@ want, _e.g._:
 
 * Plugin management with cache and lazy loading for speed
 * Auto-completion with Language-Server Protocol (LSP)
-* Project-aware tabs and labels
+* Project-aware tabline
 * Fern as file-manager + Git status icons
-* Extensive language extensions library
+* Extensive syntax highlighting with [nvim-treesitter/nvim-treesitter]
 
 _Note_ that 95% of the plugins are **[lazy-loaded]**.
 
@@ -932,14 +915,13 @@ Note that,
 
 Big thanks to the dark knight [Shougo](https://github.com/Shougo).
 
+[Neovim]: https://github.com/neovim/neovim
+[lazy-loaded]: ./config/plugins.yaml#L39
 [config/mappings.vim]: ./config/mappings.vim
 [plugin/whitespace.vim]: ./plugin/whitespace.vim
 [plugin/sessions.vim]: ./plugin/sessions.vim
 [plugin/devhelp.vim]: ./plugin/devhelp.vim
 [plugin/jumpfile.vim]: ./plugin/jumpfile.vim
 [plugin/actionmenu.vim]: ./plugin/actionmenu.vim
-[config/plugins/lsp.vim]: ./config/plugins/lsp.vim
+[lua/plugins/lspconfig.lua]: ./lua/plugins/lspconfig.lua
 [Marked 2]: https://marked2app.com
-[Neovim]: https://github.com/neovim/neovim
-[Vim]: https://github.com/vim/vim
-[lazy-loaded]: ./config/plugins.yaml#L42
