@@ -1,12 +1,16 @@
-" Extend romainl/vim-qf
+" Quickfix and Location lists
 " ---
-" See Also: https://github.com/romainl/vim-qf
 
 let s:save_cpo = &cpoptions
 set cpoptions&vim
 
 " Local window settings
 setlocal cursorline colorcolumn=
+
+" let s:winheight = get(g:, 'qf_winheight', 10)
+" if winheight(0) != s:winheight
+" 	execute 'resize' s:winheight
+" endif
 
 if exists('&signcolumn')
 	setlocal signcolumn=yes
@@ -20,8 +24,14 @@ endif
 
 if ! exists('b:qf_isLoc')
 	" Are we in a location list or a quickfix list?
-	let b:qf_isLoc = ! empty(getloclist(0))
+	let b:qf_isLoc = get(get(getwininfo(win_getid()), 0, {}), 'loclist', 0)
 endif
+
+let &cpoptions = s:save_cpo
+finish
+
+" TODO:
+" -------------------------------------------------------------------------
 
 " Is this redundant?
 " let &l:statusline="%t%{exists('w:quickfix_title') ? ' '.w:quickfix_title : ''} %=%-15(%l,%L%V%) %P"
@@ -69,8 +79,6 @@ else
 	nnoremap <buffer> i :<C-u>Keep<Space>
 endif
 
-" let s:ns = nvim_create_namespace('hlgrep')
-
 if exists('b:undo_ftplugin')
 	let b:undo_ftplugin .= ' | '
 else
@@ -80,17 +88,17 @@ let b:undo_ftplugin .=
 	\ 'setl cursorline< colorcolumn< signcolumn<'
 	\ . " | execute 'nunmap <buffer> <CR>'"
 	\ . " | execute 'nunmap <buffer> <Esc>'"
+	\ . " | execute 'nunmap <buffer> o'"
 	\ . " | execute 'nunmap <buffer> q'"
 	\ . " | execute 'nunmap <buffer> p'"
 	\ . " | execute 'nunmap <buffer> K'"
+	\ . " | execute 'nunmap <buffer> dd'"
 	\ . " | execute 'nunmap <buffer> <C-r>'"
 	\ . " | execute 'nunmap <buffer> R'"
 	\ . " | execute 'nunmap <buffer> O'"
 	\ . " | execute 'nunmap <buffer> <C-s>'"
 	\ . " | execute 'nunmap <buffer> S'"
 	\ . " | execute 'nunmap <buffer> <C-o>'"
-	\ . " | execute 'nunmap <buffer> i'"
-	\ . " | execute 'nunmap <buffer> o'"
 	\ . " | execute 'nunmap <buffer> sg'"
 	\ . " | execute 'nunmap <buffer> sv'"
 	\ . " | execute 'nunmap <buffer> st'"
@@ -98,6 +106,7 @@ let b:undo_ftplugin .=
 	\ . " | execute 'nunmap <buffer> <S-Tab>'"
 	\ . " | execute 'nunmap <buffer> gj'"
 	\ . " | execute 'nunmap <buffer> gk'"
+	\ . " | execute 'nunmap <buffer> i'"
 
 function! s:get_entry()
 	" Find the file, line number and column of current entry

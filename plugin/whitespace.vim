@@ -50,7 +50,7 @@ let s:blacklist = get(g:, 'whitespace_filetype_blacklist', [
 	\ 'diff', 'git', 'gitcommit', 'help', 'qf', 'denite', 'defx' ])
 
 function! s:ToggleWhitespace(mode)
-	if &buftype =~? 'nofile\|help\|prompt' || index(s:blacklist, &filetype) > -1
+	if ! &modifiable || ! empty(&buftype) || index(s:blacklist, &filetype) > -1
 		return
 	elseif a:mode ==? ''
 		call matchdelete(w:whitespace_match_id)

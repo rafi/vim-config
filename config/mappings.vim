@@ -1,5 +1,12 @@
 " Key-mappings
 " ===
+" Settings:
+" - g:disable_mappings - Set true to disable this file entirely.
+" - g:enable_universal_quit_mapping - Toggle 'q' for :quit mapping.
+
+if get(g:, 'disable_mappings')
+	finish
+endif
 
 " Elite-mode {{{
 " ----------
@@ -41,10 +48,10 @@ nnoremap gh g^
 nnoremap gl g$
 
 " Location/quickfix list movement
-nmap ]l :lnext<CR>
-nmap [l :lprev<CR>
 nmap ]q :cnext<CR>
 nmap [q :cprev<CR>
+nmap ]a :lnext<CR>
+nmap [a :lprev<CR>
 
 " Whitespace jump (see plugin/whitespace.vim)
 nnoremap ]w :<C-u>WhitespaceNext<CR>
@@ -93,6 +100,23 @@ nnoremap <Leader>Y :let @+=expand("%:p")<CR>:echo 'Yanked absolute path'<CR>
 " xnoremap p  "0p
 " nnoremap x "_x
 
+" Paste in visual-mode without pushing to register
+xnoremap p :call <SID>visual_paste('p')<CR>
+xnoremap P :call <SID>visual_paste('P')<CR>
+
+function! s:visual_paste(direction) range abort "{{{
+	let registers = {}
+	for name in ['"', '0']
+		let registers[name] = {'type': getregtype(name), 'value': getreg(name)}
+	endfor
+
+	execute 'normal!' 'gv' . a:direction
+
+	for [name, register] in items(registers)
+		call setreg(name, register.value, register.type)
+	endfor
+endfunction "}}}
+
 " }}}
 " Edit {{{
 " ----
@@ -127,9 +151,9 @@ nnoremap <Leader>j :m+<CR>==
 vnoremap <Leader>k :m'<-2<CR>gv=gv
 vnoremap <Leader>j :m'>+<CR>gv=gv
 
-" Duplicate lines
-nnoremap <Leader>d m`YP``
-vnoremap <Leader>d YPgv
+" Duplicate lines without affecting registers
+nnoremap <Leader>d m`""Y""P``
+vnoremap <Leader>d ""Y""Pgv
 
 " Change current word in a repeatable manner
 nnoremap <Leader>cn *``cgn
@@ -166,7 +190,7 @@ xnoremap sg :s//gc<Left><Left><Left>
 xnoremap <C-r> :<C-u>%s/\V<C-R>=<SID>get_selection()<CR>//gc<Left><Left><Left>
 
 " Returns visually selected text
-function! s:get_selection() abort
+function! s:get_selection() abort "{{{
 	try
 		let a_save = @a
 		silent! normal! gv"ay
@@ -174,7 +198,7 @@ function! s:get_selection() abort
 	finally
 		let @a = a_save
 	endtry
-endfunction
+endfunction "}}}
 
 " }}}
 " Command & History {{{
@@ -246,7 +270,7 @@ nnoremap <silent> <A-}> :<C-u>+tabmove<CR>
 " nnoremap <silent> <A-]> :<C-u>tabnext<CR>
 
 " Show vim syntax highlight groups for character under cursor
-nmap <silent> <Leader>h
+nmap <silent> <Leader>tH
 	\ :echo 'hi<'.synIDattr(synID(line('.'), col('.'), 1), 'name')
 	\ . '> trans<'.synIDattr(synID(line('.'), col('.'), 0), 'name') . '> lo<'
 	\ . synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name') . '>'<CR>
@@ -339,12 +363,10 @@ nnoremap <silent> [Window]z  :<C-u>call <SID>zoom()<CR>
 nnoremap <silent> [Window]sv :split<CR>:wincmd p<CR>:e#<CR>
 nnoremap <silent> [Window]sg :vsplit<CR>:wincmd p<CR>:e#<CR>
 
-" Background dark/light toggle and contrasts
+" Background dark/light toggle
 nmap <silent> [Window]h :<C-u>call <SID>toggle_background()<CR>
-nmap <silent> [Window]- :<c-u>call <SID>toggle_contrast(-v:count1)<cr>
-nmap <silent> [Window]= :<c-u>call <SID>toggle_contrast(+v:count1)<cr>
 
-function! s:toggle_background()
+function! s:toggle_background() "{{{
 	if ! exists('g:colors_name')
 		echomsg 'No colorscheme set'
 		return
@@ -366,31 +388,18 @@ function! s:toggle_background()
 			echo 'Set colorscheme to '.&background.' mode'
 		endif
 	endif
-endfunction
+endfunction "}}}
 
-function! s:toggle_contrast(delta)
-	let l:scheme = ''
-	if g:colors_name =~# 'solarized8'
-		let l:schemes = map(['_low', '_flat', '', '_high'],
-			\ '"solarized8_".(&background).v:val')
-		let l:contrast = ((a:delta + index(l:schemes, g:colors_name)) % 4 + 4) % 4
-		let l:scheme = l:schemes[l:contrast]
-	endif
-	if l:scheme !=# ''
-		execute 'colorscheme' l:scheme
-	endif
-endfunction
-
-function! s:window_empty_buffer()
+function! s:window_empty_buffer() "{{{
 	let l:current = bufnr('%')
 	if ! getbufvar(l:current, '&modified')
 		enew
 		silent! execute 'bdelete '.l:current
 	endif
-endfunction
+endfunction "}}}
 
 " Simple zoom toggle
-function! s:zoom()
+function! s:zoom() "{{{
 	if exists('t:zoomed')
 		unlet t:zoomed
 		wincmd =
@@ -400,7 +409,7 @@ function! s:zoom()
 		resize
 		normal! ze
 	endif
-endfunction
+endfunction "}}}
 " }}}
 
 " vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :

@@ -165,6 +165,12 @@ set wrapscan      " Searches wrap around the end of the file
 
 set complete=.,w,b,k  " C-n completion: Scan buffers, windows and dictionary
 
+" Set popup max width/height.
+set pumheight=10
+if exists('+pumwidth')
+	set pumwidth=10
+endif
+
 if exists('+inccommand')
 	set inccommand=nosplit
 endif

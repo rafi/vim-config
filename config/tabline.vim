@@ -28,7 +28,9 @@ function! Tabline()
 
 	" Active project name
 	let l:tabline =
-		\ '%#TabLineAlt# %{"" . get(g:, "global_symbol_padding", " ") . badge#project()} %#TabLineAltShade#'
+		\ '%#TabLineAlt# %{badge#project()} %#TabLineAltShade#'
+	" let l:tabline =
+	"	\ '%#TabLineAlt# %{"" . get(g:, "global_symbol_padding", " ") . badge#project()} %#TabLineAltShade#'
 
 	" Iterate through all tabs and collect labels
 	let l:current = tabpagenr()
@@ -63,7 +65,7 @@ function! Tabline()
 
 		" Add '+' if one of the buffers in the tab page is modified
 		for l:bufnr in l:bufnrlist
-			if getbufvar(l:bufnr, "&modified") && empty(getbufvar(l:bufnr, "&buftype"))
+			if getbufvar(l:bufnr, '&modified') && empty(getbufvar(l:bufnr, '&buftype'))
 				let l:tabline .= (l:nr == l:current ? '%#Number#' : '%6*') . '+%*'
 				break
 			endif
@@ -77,10 +79,12 @@ function! Tabline()
 		endif
 	endfor
 
+	let l:session_name = tr(v:this_session, '%', '/')
+
 	" Empty elastic space and session indicator
 	let l:tabline .=
 		\ '%#TabLineFill#%T%=%#TabLine#' .
-		\ '%{badge#session("' . fnamemodify(v:this_session, ':t:r') . '  ")}'
+		\ '%{badge#session("' . fnamemodify(l:session_name, ':t:r') . '  ")}'
 
 	return l:tabline
 endfunction

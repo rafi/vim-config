@@ -53,7 +53,7 @@ function! badge#gitstatus(...) abort
 
 	let l:icons = ['₊', '∗', '₋']  " added, modified, removed
 	let l:out = ''
-	" if &filetype ==# 'magit'
+	if &filetype ==# 'magit'
 	"	let l:map = {}
 	"	for l:file in magit#git#get_status()
 	"		let l:map[l:file['unstaged']] = get(l:map, l:file['unstaged'], 0) + 1
@@ -61,7 +61,7 @@ function! badge#gitstatus(...) abort
 	"	for l:status in l:map
 	"		let l:out = values(l:map)
 	"	endfor
-	" else
+	else
 		if exists('*gitgutter#hunk#summary')
 			let l:summary = gitgutter#hunk#summary(bufnr('%'))
 			for l:idx in range(0, len(l:summary) - 1)
@@ -70,7 +70,7 @@ function! badge#gitstatus(...) abort
 				endif
 			endfor
 		endif
-	" endif
+	endif
 	return trim(l:out)
 endfunction
 
@@ -90,9 +90,6 @@ function! badge#filename(...) abort
 	endif
 
 	let l:filetype = getbufvar(l:bufnr, '&filetype')
-	if empty(l:filetype)
-		return g:badge_nofile
-	endif
 
 	" Use buffer's cached filepath
 	let l:cache_var_name = a:0 > 3 ? a:4 : 'filename'
@@ -142,7 +139,11 @@ function! badge#filename(...) abort
 
 		" Set icon
 		let l:icon = ''
-		if exists('*nerdfont#find')
+		if get(g:, 'nvim_web_devicons')
+			let l:icon = luaeval(
+				\ 'require"nvim-web-devicons".get_icon(_A[1], _A[2], { default = true })',
+				\ [fnamemodify(l:bufname, ':t:r'), fnamemodify(l:bufname, ':e')])
+		elseif exists('*nerdfont#find')
 			let l:icon = nerdfont#find(l:bufname)
 		elseif exists('*defx_icons#get')
 			let l:icon = get(defx_icons#get().icons.extensions, expand('%:e'), {})
@@ -222,8 +223,8 @@ function! badge#syntax() abort
 	let l:info = 0
 	if exists('*luaeval')
 			\ && luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
-		let l:errors = luaeval("vim.lsp.diagnostic.get_count(0, [[Error]])")
-		let l:warnings = luaeval("vim.lsp.diagnostic.get_count(0, [[Warning]])")
+		let l:errors = luaeval('vim.lsp.diagnostic.get_count(0, [[Error]])')
+		let l:warnings = luaeval('vim.lsp.diagnostic.get_count(0, [[Warning]])')
 	elseif exists('*lsp#get_buffer_diagnostics_counts')
 			\ && get(g:, 'lsp_diagnostics_enabled', 1)
 		let l:counts = lsp#get_buffer_diagnostics_counts()
@@ -243,18 +244,18 @@ function! badge#syntax() abort
 		let l:msg = SyntasticStatuslineFlag()
 	endif
 	if l:errors > 0
-		let l:msg .= printf(' %d ', l:errors)
+		let l:msg .= printf('%%#LspDiagnosticsDefaultError# %d%%* ', l:errors)
 	endif
 	if l:warnings > 0
-		let l:msg .= printf(' %d ', l:warnings)
+		let l:msg .= printf('%%#LspDiagnosticsDefaultWarning# %d%%* ', l:warnings)
 	endif
 	if l:hints > 0
-		let l:msg .= printf(' %d ', l:hints)
+		let l:msg .= printf('%%#LspDiagnosticsDefaultHint# %d%%* ', l:hints)
 	endif
 	if l:info > 0
-		let l:msg .= printf(' %d ', l:information)
+		let l:msg .= printf('%%#LspDiagnosticsDefaultInformation# %d%%* ', l:info)
 	endif
-	return substitute(l:msg, '\s*$', '', '')
+	return l:msg
 endfunction
 
 function! badge#trails(...) abort

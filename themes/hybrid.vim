@@ -23,6 +23,14 @@ let g:terminal_color_15 = '#cfcfcf'
 " }}}
 
 " Tabline {{{
+highlight! UserBorder         ctermfg=254 guifg=#525865
+highlight! UserSelectionCaret ctermfg=139 guifg=#B294BB ctermbg=97 guibg=#4D2238
+highlight! UserSelectionBackground                      ctermbg=97 guibg=#4D2238
+" #ACAFAE  #2C3237
+" #2a2e36  #525865
+" }}}
+
+" Tabline {{{
 " ---
 " TabLineFill: Tab pages line, where there are no labels
 hi TabLineFill ctermfg=234 ctermbg=236 guifg=#1C1C1C guibg=#303030 cterm=NONE gui=NONE
@@ -37,8 +45,8 @@ highlight TabLineAltShade  ctermfg=238 ctermbg=236 guifg=#444444 guibg=#303030
 " }}}
 
 " Highlights: Statusline {{{
-highlight StatusLine   ctermfg=236 ctermbg=248 guifg=#30302c guibg=#a8a897 cterm=reverse gui=reverse
-highlight StatusLineNC ctermfg=236 ctermbg=242 guifg=#30302c guibg=#666656 cterm=reverse gui=reverse
+highlight StatusLine   ctermfg=236 ctermbg=248 guifg=#30302c guibg=#a8a897
+highlight StatusLineNC ctermfg=236 ctermbg=242 guifg=#30302c guibg=#666656
 
 " Filepath color
 highlight User1 guifg=#D7D7BC guibg=#30302c ctermfg=251 ctermbg=236
@@ -59,6 +67,7 @@ highlight User8 guifg=#ffb964 guibg=#30302c ctermfg=215 ctermbg=236
 " Highlights: General GUI {{{
 " ---
 " :h slow-terminal  " gui=NONE guifg=NONE
+highlight IncSearch guifg=#222222 guibg=#99ad6a cterm=NONE gui=NONE
 highlight NonText cterm=NONE ctermfg=NONE
 highlight! link jsFutureKeys PreProc
 highlight! WarningMsg  ctermfg=100 guifg=#CCC566
@@ -115,6 +124,9 @@ hi! link mkdItalic htmlItalic
 " hi! link mkdLinkTitle mkdInlineURL
 " hi! link mkdDelimiter Keyword
 
+" simrat39/symbols-outline.nvim
+highlight! FocusedSymbol ctermbg=236 guibg=#2D3C42 cterm=NONE gui=NONE
+
 " See: https://github.com/itchyny/vim-parenmatch
 let g:parenmatch_highlight = 0
 highlight! ParenMatch ctermbg=236 guibg=#494D2A cterm=underline gui=underline
@@ -124,70 +136,60 @@ highlight! CurrentWord ctermbg=236 guibg=#2D3C42 cterm=NONE gui=NONE
 highlight! CurrentWordTwins ctermbg=235 guibg=#252A3D cterm=NONE gui=NONE
 " highlight! CurrentWord ctermbg=60 guibg=#2D3C42 cterm=NONE gui=NONE
 " highlight! CurrentWordTwins ctermbg=237 guibg=#2B2A22 cterm=NONE gui=NONE
-
-" highlight! link MatchParen  Visual
 " highlight! MatchParen  ctermfg=NONE guifg=NONE ctermbg=236 guibg=#2d3c42
 " highlight! ParenMatch  ctermfg=NONE guifg=NONE ctermbg=236 guibg=#494d2A
-
-" highlight! Error  term=NONE cterm=NONE
-" highlight! link WarningMsg  Comment
-" highlight! link pythonSpaceError  NONE
-" highlight! link pythonIndentError NONE
-" highlight! link mkdLineBreak      NONE
 " }}}
 
-" Plugin: Defx and plugins {{{
+" Plugin: IndentGuides {{{
 " ---
-highlight def link Defx_filename_directory  Directory
-
-highlight! Defx_git_Modified  ctermfg=1   guifg=#D370A3
-highlight! Defx_git_Staged    ctermfg=10  guifg=#A3D572
-highlight! Defx_git_Deleted   ctermfg=167 guifg=#fb4934
-highlight def link Defx_git_Renamed   Title
-highlight def link Defx_git_Unmerged  Label
-highlight def link Defx_git_Untracked Comment
-highlight def link Defx_git_Ignored   Comment
-highlight def link Defx_git_Unknown   Comment
-
+" highlight! IndentGuidesOdd  guifg=#292B2D guibg=#232527
+" highlight! IndentGuidesEven guifg=#232527 guibg=#292B2D
 " }}}
 
-" Plugin: Ale {{{
+" Plugin: IndentBlankline {{{
 " ---
-highlight! ALEErrorSign ctermfg=167 guifg=#fb4934
-highlight! ALEWarningSign ctermfg=214 guifg=#fabd2f
-highlight! ALEInfoSign ctermfg=109 guifg=#83a598
+highlight! IndentBlanklineChar cterm=nocombine gui=nocombine guibg=#232527
+highlight! IndentBlanklineCharOdd cterm=nocombine gui=nocombine guibg=#292B2D
+" highlight! IndentBlanklineSpaceChar cterm=nocombine gui=nocombine guifg=#373b41
+" highlight! IndentBlanklineSpaceCharBlankline cterm=nocombine gui=nocombine guifg=#373b41
+" highlight! IndentBlanklineContextChar cterm=nocombine ctermbg=110 gui=nocombine guibg=#81a2be
 " }}}
 
-" Plugin: Neomake icons {{{
-" ---
-" let g:neomake_error_sign = {'text': '✘', 'texthl': 'ErrorMsg'}
-" let g:neomake_warning_sign = {'text': '✚', 'texthl': 'WarningSyntax'}
-" let g:neomake_message_sign = {'text': '♯', 'texthl': 'NeomakeMessageSign'}
-" let g:neomake_info_sign = {'text': '⋆', 'texthl': 'NeomakeInfoSign'}
-" highlight! clear WarningSyntax
-" highlight! WarningSyntax ctermfg=58 guifg=#7d7629
-"}}}
-
-" Plugin: vim-gitgutter {{{
-" ---
-highlight! GitGutterAdd ctermfg=22 guifg=#008500 ctermbg=234 guibg=#1c1c1c
-highlight! GitGutterChange ctermfg=58 guifg=#808200 ctermbg=234 guibg=#1c1c1c
-highlight! GitGutterDelete ctermfg=52 guifg=#800000 ctermbg=234 guibg=#1c1c1c
-highlight! GitGutterChangeDelete ctermfg=52 guifg=#800000 ctermbg=234 guibg=#1c1c1c
-" }}}
-
-" Plugin: denite {{{
+" Plugin: Telescope {{{
 " ---
 highlight! clear WildMenu
-highlight! WildMenu ctermbg=97 guibg=#82395F
-highlight! link deniteSelectedLine Statement
-highlight! link deniteMatchedChar Function
-highlight! link deniteMatchedRange Underlined
-highlight! link deniteMode Comment
-highlight! link deniteSource_QuickfixPosition qfLineNr
-highlight! link deniteSource__LocationListPosition qfLineNr
-highlight! link deniteSource__LocationListError Constant
-highlight! link deniteSource__LocationListWarning PreProc
+highlight! link WildMenu UserSelectionBackground
+highlight! link TelescopeSelection WildMenu
+highlight! link TelescopeSelectionCaret UserSelectionCaret
+highlight! link TelescopeBorder UserBorder
+highlight! link TelescopePromptBorder UserBorder
+highlight! link TelescopeResultsBorder UserBorder
+highlight! link TelescopePreviewBorder UserBorder
+" }}}
+
+" Plugin: Fern {{{
+" ---
+highlight! FernGitStatusBracket  ctermfg=234 ctermbg=NONE guifg=bg guibg=NONE
+highlight! FernGitStatusIndex    ctermfg=10  guifg=#A3D572
+highlight! FernGitStatusWorktree ctermfg=1   guifg=#D370A3
+highlight! link FernSpinner Identifier
+" }}}
+
+" Plugin: Bqf {{{
+" ---
+" hi default link BqfPreviewFloat Normal
+highlight! BqfPreviewBorder guifg=#525865
+highlight! link BqfPreviewCursor TermCursor
+highlight! default link BqfPreviewRange TermCursorNC
+" hi default BqfSign ctermfg=14 guifg=Cyan
+" }}}
+
+" Plugin: gitsigns {{{
+" ---
+" highlight! SignColumn ctermbg=234 guibg=#1c1c1c
+highlight! GitSignsAdd ctermfg=22 guifg=#008500 ctermbg=234 guibg=#1c1c1c
+highlight! GitSignsChange ctermfg=58 guifg=#808200 ctermbg=234 guibg=#1c1c1c
+highlight! GitSignsDelete ctermfg=52 guifg=#800000 ctermbg=234 guibg=#1c1c1c
 " }}}
 
 " Plugin: vim-highlightedyank {{{
