@@ -34,9 +34,6 @@ nnoremap <Plug>(fern-close-drawer) :<C-u>FernDo close -drawer -stay<CR>
 highlight! FernCursorLine ctermbg=236 guibg=#323232
 
 function! s:init_fern()
-	autocmd BufEnter <buffer> highlight! link CursorLine FernCursorLine
-	autocmd BufLeave <buffer> highlight! link CursorLine NONE
-
 	silent! nnoremap <buffer> f <Nop>
 	silent! nnoremap <buffer> F <Nop>
 	silent! nnoremap <buffer> t <Nop>
@@ -80,6 +77,11 @@ function! s:init_fern()
 	nmap <buffer><silent> fe     <Plug>(fern-action-exclude)
 	nmap <buffer><silent> <<     <Plug>(fern-action-git-stage)
 	nmap <buffer><silent> >>     <Plug>(fern-action-git-unstage)
+
+	nmap <silent> <buffer> p     <Plug>(fern-action-preview:toggle)
+	nmap <silent> <buffer> <C-p> <Plug>(fern-action-preview:auto:toggle)
+	nmap <silent> <buffer> <C-f> <Plug>(fern-action-preview:scroll:down:half)
+	nmap <silent> <buffer> <C-b> <Plug>(fern-action-preview:scroll:up:half)
 
 	nmap <buffer><silent> ?      <Plug>(fern-action-help)
 	nmap <buffer><silent> !      <Plug>(fern-action-hidden)
@@ -147,6 +149,9 @@ endfunction
 augroup fern-custom
 	autocmd! *
 	autocmd FileType fern call s:init_fern()
+	autocmd BufEnter <buffer> highlight! link CursorLine FernCursorLine
+	autocmd BufLeave <buffer> highlight! link CursorLine NONE
+	" autocmd DirChanged * ++nested execute printf('FernDo Fern\ %s\ -drawer\ -stay -drawer -stay', v:event.cwd)
 augroup END
 
 function! s:get_selected_nodes(helper) abort
@@ -154,23 +159,33 @@ function! s:get_selected_nodes(helper) abort
 	return empty(nodes) ? [a:helper.sync.get_cursor_node()] : nodes
 endfunction
 
-function! s:get_selected_paths(helper) abort
-	let l:nodes = s:get_selected_nodes(a:helper)
-	return map(l:nodes, {_, val ->
-		\ val.status == g:fern#STATUS_NONE || val.status == g:fern#STATUS_COLLAPSED
-		\ ? fnamemodify(val._path, ':h') : val._path})
+function! s:get_cursor_path(helper) abort
+	let l:node = a:helper.sync.get_cursor_node()
+	let l:path = l:node._path
+	if index([g:fern#STATUS_NONE, g:fern#STATUS_COLLAPSED], l:node.status) >= 0
+		let l:path = fnamemodify(l:path, ':h')
+	endif
+	return l:path
 endfunction
 
 function! s:find(helper) abort
-	let l:paths = s:get_selected_paths(a:helper)
+	let l:path = s:get_cursor_path(a:helper)
 	silent execute 'wincmd w'
-	call denite#start([{'name': 'file/rec', 'args': l:paths}])
+	if exists(':Telescope')
+		execute 'Telescope find_files cwd=' . fnameescape(l:path)
+	elseif exists(':Denite')
+		call denite#start([{'name': 'file/rec', 'args': [l:path]}])
+	endif
 endfunction
 
 function! s:grep(helper) abort
-	let l:paths = s:get_selected_paths(a:helper)
+	let l:path = s:get_cursor_path(a:helper)
 	silent execute 'wincmd w'
-	call denite#start([{'name': 'grep', 'args': l:paths}])
+	if exists(':Telescope')
+		execute 'Telescope grep_string cwd=' . fnameescape(l:path)
+	else
+		call denite#start([{'name': 'grep', 'args': [l:path]}])
+	endif
 endfunction
 
 function! s:enter_project_root(helper) abort

@@ -3,7 +3,7 @@
 -- rafi settings
 
 require('todo-comments').setup{
-	signs = true,
+	signs = false,
 	-- keywords = {
 	--   FIX = {
 	--     icon = " ",

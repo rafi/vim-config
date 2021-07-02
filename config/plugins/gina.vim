@@ -51,3 +51,5 @@ let g:gina#command#blame#use_default_mappings = 0
 call gina#custom#mapping#nmap('blame', '<Return>', '<Plug>(gina-blame-open)')
 call gina#custom#mapping#nmap('blame', '<Backspace>', '<Plug>(gina-blame-back)')
 call gina#custom#mapping#nmap('blame', '<C-r>', '<Plug>(gina-blame-C-L)')
+
+" vim: set ts=2 sw=2 tw=80 noet :

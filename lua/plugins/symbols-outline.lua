@@ -5,13 +5,13 @@
 vim.g.symbols_outline = {
 	highlight_hovered_item = true,
 	show_guides = true,
-	auto_preview = true, -- experimental
+	auto_preview = false,
 	position = 'right',
 	keymaps = {
 		close = "<Esc>",
 		goto_location = "<CR>",
 		focus_location = "o",
-		hover_symbol = "K",
+		hover_symbol = "p",
 		rename_symbol = "r",
 		code_actions = "a",
 	},

@@ -37,21 +37,19 @@ function! s:build_menu(cword)
 
 		if l:filetype ==# 'python' || l:filetype ==# 'go'
 			let l:items = extend(l:items, [
-				\ { 'word': 'Declaration', 'user_data': 'LspDeclaration' },
-				\ { 'word': 'Definition', 'user_data': 'LspDefinition' },
-				\ { 'word': 'References…', 'user_data': 'LspReferences' },
-				\ { 'word': 'Implementation', 'user_data': 'LspImplementation' },
-				\ { 'word': 'TypeDefinition', 'user_data': 'LspTypeDefinition' },
-				\ { 'word': 'TypeHierarchy', 'user_data': 'LspTypeHierarchy' },
+				\ { 'word': 'Declaration', 'user_data': 'lua vim.lsp.buf.declaration()' },
+				\ { 'word': 'Definition', 'user_data': 'lua vim.lsp.buf.definition()' },
+				\ { 'word': 'References…', 'user_data': 'lua vim.lsp.buf.references()' },
+				\ { 'word': 'Implementation', 'user_data': 'lua vim.lsp.buf.implementation()' },
+				\ { 'word': 'TypeDefinition', 'user_data': 'lua vim.lsp.buf.type_definition' },
 				\ { 'word': '--------' },
 				\ ])
 		endif
 
 		" Word operations
 		let l:items = extend(l:items, [
-			\ { 'word': 'Find symbol…', 'user_data': 'DeniteCursorWord tag:include -no-start-filter' },
-			\ { 'word': 'Paste from…', 'user_data': 'Denite neoyank -default-action=replace -no-start-filter' },
-			\ { 'word': 'Grep…', 'user_data': 'DeniteCursorWord grep -no-start-filter' },
+			\ { 'word': 'Find symbol…', 'user_data': 'Telescope lsp_dynamic_workspace_symbols' },
+			\ { 'word': 'Grep…', 'user_data': 'Telescope grep_string' },
 			\ { 'word': 'Jump…', 'user_data': 'AnyJump' },
 			\ { 'word': '-------' },
 			\ ])
@@ -59,7 +57,7 @@ function! s:build_menu(cword)
 
 	" File operations
 	let l:items = extend(l:items, [
-		\ { 'word': 'Diagnostics', 'user_data': 'LspDocumentDiagnostics' },
+		\ { 'word': 'Diagnostics', 'user_data': 'Trouble' },
 		\ { 'word': 'Bookmark', 'user_data': 'normal mm' },
 		\ { 'word': 'Git diff', 'user_data': 'Gina compare' },
 		\ { 'word': 'Unsaved diff', 'user_data': 'DiffOrig' },

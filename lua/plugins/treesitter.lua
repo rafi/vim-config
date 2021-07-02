@@ -1,6 +1,6 @@
 -- plugin: nvim-treesitter
 -- see: https://github.com/nvim-treesitter/nvim-treesitter
--- user settings
+-- rafi settings
 
 require'nvim-treesitter.configs'.setup {
 	ensure_installed = "maintained", -- all, maintained, or list of languages
