@@ -1,4 +1,4 @@
--- plugin: Zen Mode
+-- plugin: which-key.nvim
 -- See: https://github.com/folke/which-key.nvim
 -- rafi settings
 

@@ -70,15 +70,6 @@ if dein#tap('emmet-vim')
 		\ | imap <silent><buffer> <C-y> <Plug>(emmet-expand-abbr)
 endif
 
-" if dein#tap('vim-gitgutter')
-" 	nmap ]g <Plug>(GitGutterNextHunk)
-" 	nmap [g <Plug>(GitGutterPrevHunk)
-" 	nmap gS <Plug>(GitGutterStageHunk)
-" 	xmap gS <Plug>(GitGutterStageHunk)
-" 	nmap <Leader>gr <Plug>(GitGutterUndoHunk)
-" 	nmap gs <Plug>(GitGutterPreviewHunk)
-" endif
-
 if dein#tap('vim-sandwich')
 	nmap <silent> sa <Plug>(operator-sandwich-add)
 	xmap <silent> sa <Plug>(operator-sandwich-add)
@@ -161,45 +152,6 @@ endif
 if dein#tap('nvim-bqf')
 	nmap <silent> <Leader>q <cmd>lua require('user').qflist.toggle()<CR>
 endif
-
-" if dein#tap('vim-qf')
-" 	nmap <Leader>a :call <SID>toggle_qf(1)<CR>
-" 	silent! nunmap ]q
-" 	silent! nunmap [q
-" 	nnoremap ]q <Plug>(qf_qf_next)
-" 	nnoremap [q <Plug>(qf_qf_previous)
-"
-" 	function! s:toggle_qf(stay)
-" 		" save the view if the current window is not a quickfix window
-" 		if get(g:, 'qf_save_win_view', 1) && !qf#IsQfWindow(winnr())
-" 			let winview = winsaveview()
-" 		else
-" 			let winview = {}
-" 		endif
-"
-" 		" get user-defined maximum height
-" 		let max_height = get(g:, 'qf_max_height', 10) < 1 ? 10 : get(g:, 'qf_max_height', 10)
-"
-" 		" if one of the windows is a quickfix window close it and return
-" 		if qf#IsQfWindowOpen()
-" 			cclose
-" 			if !empty(winview)
-" 				call winrestview(winview)
-" 			endif
-" 		else
-" 			execute get(g:, 'qf_auto_resize', 1) ? min([ max_height, len(getqflist()) ]) . 'copen' : max_height . 'copen'
-" 			if qf#IsQfWindowOpen()
-" 				wincmd p
-" 				if !empty(winview)
-" 					call winrestview(winview)
-" 				endif
-" 				if !a:stay
-" 					wincmd p
-" 				endif
-" 			endif
-" 		endif
-" 	endfunction
-" endif
 
 if dein#tap('goto-preview')
 	nnoremap gb <cmd>lua require('goto-preview').goto_preview_definition()<CR>

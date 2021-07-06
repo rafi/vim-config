@@ -1,4 +1,4 @@
--- plugin: Zen Mode
+-- plugin: zen-mode.nvim
 -- See: https://github.com/folke/zen-mode.nvim
 -- rafi settings
 
