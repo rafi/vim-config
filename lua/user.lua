@@ -50,12 +50,11 @@ user.diagnostic.publish_loclist = function(toggle)
 	if vim.api.nvim_buf_get_option(0, 'filetype') ~= 'qf' then
 		vim.lsp.diagnostic.set_loclist({ open_loclist = false })
 	end
-	-- TODO: find other buffers' opened loclists and close all first.
-	-- if toggle then
-	-- 	user.loclist.toggle()
-	-- else
+	if toggle then
+		user.loclist.toggle()
+	else
 		user.loclist.open()
-	-- end
+	end
 end
 
 -- Set location items, open the list and jump to first item.
@@ -71,17 +70,24 @@ end
 
 -- Toggle list window
 user._toggle_list = function(key)
-	for _, buf in pairs(user._get_tabpage_win_bufs(0)) do
+	local win_bufs = user._get_tabpage_win_bufs(0)
+	local was_opened = false
+	for win, buf in pairs(win_bufs) do
 		if vim.api.nvim_buf_get_option(buf, 'filetype') == 'qf' then
 			local qf_isLoc = vim.api.nvim_buf_get_var(buf, 'qf_isLoc')
 			if qf_isLoc == lists[key].qf_isLoc then
-				vim.api.nvim_command(lists[key].cmd_close)
-				return
+				was_opened = true
+				vim.api.nvim_win_close(win, false)
+				-- vim.api.nvim_buf_call(buf, function()
+				-- 	vim.api.nvim_command(lists[key].cmd_close)
+				-- end)
 			end
 		end
 	end
 
-	vim.api.nvim_command(lists[key].cmd_open)
+	if not was_opened then
+		vim.api.nvim_command(lists[key].cmd_open)
+	end
 end
 
 -- Return a table with all window buffers from a tabpage.
@@ -91,7 +97,7 @@ user._get_tabpage_win_bufs = function(tabpage)
 		if win ~= nil and vim.api.nvim_win_is_valid(win) then
 			local buf = vim.api.nvim_win_get_buf(win)
 			if buf ~= nil and vim.api.nvim_buf_is_valid(buf) then
-				table.insert(bufs, buf)
+				bufs[win] = buf
 			end
 		end
 	end
