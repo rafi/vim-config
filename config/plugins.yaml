@@ -340,15 +340,8 @@
   on_cmd: Lspsaga
   hook_post_source: lua require('plugins.lspsaga')
 
-- repo: ray-x/lsp_signature.nvim
-  if: has('nvim-0.5')
-  lazy: true
-  hook_post_source: lua require('plugins.lsp_signature')
-
-- repo: folke/lua-dev.nvim
-  if: has('nvim-0.5')
-  lazy: true
-  hook_post_source: lua require('plugins.lua-dev')
+- { repo: ray-x/lsp_signature.nvim, if: has('nvim-0.5'), lazy: true }
+- { repo: folke/lua-dev.nvim, if: has('nvim-0.5'), lazy: true }
 
 - repo: folke/todo-comments.nvim
   if: has("nvim-0.5")

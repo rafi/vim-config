@@ -1,8 +1,8 @@
--- nvim-lspconfig
---
+-- plugin: nvim-lspconfig
 -- see: https://github.com/neovim/nvim-lspconfig
 --      https://github.com/kabouzeid/nvim-lspinstall
 --      https://github.com/kosayoda/nvim-lightbulb
+--      https://github.com/folke/lua-dev.nvim
 -- rafi settings
 
 local opts = { noremap=true, silent=true }
@@ -15,8 +15,13 @@ local on_attach = function(client, bufnr)
 	local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 	-- local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
-	-- See lua/plugins/lsp_signature.lua
-	require 'lsp_signature'.on_attach(require('plugins.lsp_signature'))
+	-- See https://github.com/ray-x/lsp_signature.nvim
+	-- require('lsp_signature').on_attach({
+	-- 	bind = true,
+	-- 	hint_enable = true,
+	-- 	hint_prefix = ' ',
+	-- 	handler_opts = { border = 'single' },
+	-- })
 
 	-- Mappings.
 	buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -189,9 +194,16 @@ local function setup_servers()
 		local config = make_config()
 
 		if server == 'lua' then
-			-- See lua/plugins/lua-dev.lua
-			config = require('plugins.lua-dev')
+			-- See https://github.com/folke/lua-dev.nvim
 			config.settings = lua_settings
+			config = require('lua-dev').setup({
+				lspconfig = config,
+				library = {
+					vimruntime = true, -- runtime path
+					types = true, -- full signature, docs and completion
+					plugins = { 'plenary.nvim' },
+				},
+			})
 		elseif server == 'yaml' then
 			config.init_options = {
 				config = {

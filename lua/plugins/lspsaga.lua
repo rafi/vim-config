@@ -2,7 +2,7 @@
 -- see: https://github.com/glepnir/lspsaga.nvim
 -- rafi settings
 
-require 'lspsaga'.init_lsp_saga {
+require('lspsaga').init_lsp_saga{
 	use_saga_diagnostic_sign = false,
 	max_preview_lines = 10,
 	border_style = 'round', -- single, double, round, plus
@@ -17,7 +17,7 @@ require 'lspsaga'.init_lsp_saga {
 	-- definition_preview_icon = '  '
 	-- finder_definition_icon = '  ',
 	-- finder_reference_icon = '  ',
-	-- rename_prompt_prefix = '➤',
+	rename_prompt_prefix = 'Rename ❯',
 	finder_action_keys = {
 		open = 'o', -- {'o', '<CR>'},
 		vsplit = 'sg', -- {'s', 'sg'},
