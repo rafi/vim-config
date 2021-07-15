@@ -44,7 +44,6 @@
 # --------
 
 - { repo: mbbill/undotree, on_cmd: UndotreeToggle }
-- { repo: jreybert/vimagit, on_cmd: Magit }
 - { repo: tweekmonster/helpful.vim, on_cmd: HelpfulVersion }
 - { repo: lambdalisue/suda.vim, on_event: BufRead }
 
@@ -53,6 +52,12 @@
   hook_add: |-
     let g:caw_no_default_keymappings = 1
     let g:caw_operator_keymappings = 0
+
+- repo: TimUntersberger/neogit
+  depends: diffview.nvim
+  on_cmd: Neogit
+  on_lua: neogit
+  hook_source: lua require('plugins.neogit')
 
 - repo: lambdalisue/gina.vim
   on_cmd: Gina
