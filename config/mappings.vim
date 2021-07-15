@@ -24,10 +24,6 @@ endif
 " Navigation {{{
 " ----------
 
-" Fix keybind name for Ctrl+Space
-map <Nul> <C-Space>
-map! <Nul> <C-Space>
-
 " Double leader key for toggling visual-line mode
 nmap <Leader><Leader> V
 vmap <Leader><Leader> <Esc>
@@ -151,7 +147,7 @@ nnoremap <Leader>j :m+<CR>==
 vnoremap <Leader>k :m'<-2<CR>gv=gv
 vnoremap <Leader>j :m'>+<CR>gv=gv
 
-" Duplicate lines without affecting registers
+" Duplicate lines without affecting PRIMARY and CLIPBOARD selections.
 nnoremap <Leader>d m`""Y""P``
 vnoremap <Leader>d ""Y""Pgv
 
@@ -298,10 +294,6 @@ if has('nvim')
 	nmap <silent> <LocalLeader>c :<C-u>ActionMenu<CR>
 endif
 
-" Session management shortcuts (see plugin/sessions.vim)
-nmap <Leader>se :<C-u>SessionSave<CR>
-nmap <Leader>sl :<C-u>SessionLoad<CR>
-
 " Jump entire buffers in jumplist
 nnoremap g<C-i> :<C-u>call JumpBuffer(-1)<CR>
 nnoremap g<C-o> :<C-u>call JumpBuffer(1)<CR>
@@ -338,8 +330,8 @@ if get(g:, 'enable_universal_quit_mapping', 1)
 	" TODO: VimEnter is needed when opening nvim with a file from terminal
 	autocmd user_events BufWinEnter,BufNew,BufNewFile,VimEnter *
 		\ if ! mapcheck('q', 'n')
-		\ |   nnoremap <silent><buffer> q :<C-u>quit<CR>
-		\ | endif
+		\|   nnoremap <silent><buffer> q :<C-u>quit<CR>
+		\| endif
 endif
 
 nnoremap <C-q> <C-w>

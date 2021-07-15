@@ -276,7 +276,10 @@ augroup user_general_settings
 	" 3. Preview window
 	" 4. Completion popup menu is visible
 	autocmd WinEnter,BufEnter,InsertLeave *
-		\ if ! &cursorline && empty(&buftype) | setlocal cursorline | endif
+		\ if ! &cursorline && empty(&buftype)
+		\ | setlocal cursorline
+		\ | endif
+
 	autocmd WinLeave,BufLeave,InsertEnter *
 		\ if &cursorline && empty(&buftype) && ! &previewwindow && ! pumvisible()
 		\ | setlocal nocursorline

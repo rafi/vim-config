@@ -138,7 +138,7 @@
   hook_source: |-
     augroup user_plugin_cursorword
       autocmd!
-      autocmd FileType json,yaml,markdown,nginx,dosini,conf
+      autocmd FileType json,yaml,markdown,nginx,dosini,conf,text
         \ let b:cursorword = 1
       autocmd WinEnter * if &diff || &pvw | let b:cursorword = 0 | endif
       autocmd InsertEnter * if get(b:, 'cursorword', 0) == 1
@@ -199,7 +199,7 @@
     augroup user_plugin_indentguides
       autocmd!
       autocmd BufEnter *
-      \ if ! empty(&l:filetype) && empty(&buftype)
+      \ if ! empty(&l:filetype) && empty(&buftype) && ! &previewwindow
       \|   if g:indent_guides_autocmds_enabled == 0 && &l:expandtab
       \|     IndentGuidesEnable
       \|   elseif g:indent_guides_autocmds_enabled == 1 && ! &l:expandtab
@@ -411,8 +411,8 @@
   hook_post_source: lua require('plugins.telescope-zoxide')
 
 - repo: simrat39/symbols-outline.nvim
-  if: has("nvim-0.5")
-  on_cmd: SymbolsOutline, SymbolsOutlineOpen
+  if: has('nvim-0.5')
+  on_cmd: [ SymbolsOutline, SymbolsOutlineOpen ]
   hook_source: lua require('plugins.symbols-outline')
 
 - repo: rmagatti/auto-session
