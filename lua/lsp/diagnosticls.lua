@@ -1,8 +1,8 @@
--- language-server: diagnosticls
+-- diagnostic-languageserver
 -- see: https://github.com/iamcco/diagnostic-languageserver
 -- rafi settings
 
-return {
+local config = {
 	filetypes = {
 		'dockerfile',
 		'go',
@@ -224,6 +224,10 @@ return {
 			vue = 'prettier',
 		},
 	}
+}
+
+return {
+	config = function(_) return config end,
 }
 
 -- vim: set ts=2 sw=2 tw=80 noet :

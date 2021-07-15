@@ -331,14 +331,14 @@
 
 - repo: neovim/nvim-lspconfig
   if: has('nvim-0.5')
-  depends: [ lsp_signature.nvim, todo-comments.nvim, lua-dev.nvim, lspsaga.nvim ]
+  depends: [ lsp_signature.nvim, todo-comments.nvim, lua-dev.nvim ]
   on_event: VimEnter
   hook_post_source: lua require('plugins.lspconfig')
 
-- repo: glepnir/lspsaga.nvim
-  if: has('nvim-0.5')
-  on_cmd: Lspsaga
-  hook_post_source: lua require('plugins.lspsaga')
+# - repo: glepnir/lspsaga.nvim
+#   if: has('nvim-0.5')
+#   on_cmd: Lspsaga
+#   hook_post_source: lua require('plugins.lspsaga')
 
 - { repo: ray-x/lsp_signature.nvim, if: has('nvim-0.5'), lazy: true }
 - { repo: folke/lua-dev.nvim, if: has('nvim-0.5'), lazy: true }
@@ -395,12 +395,20 @@
   hook_post_source: lua require('plugins.diffview')
 
 - repo: nvim-telescope/telescope.nvim
-  if: has("nvim-0.5")
-  depends: [ todo-comments.nvim, session-lens ]
+  if: has('nvim-0.5')
+  depends: [ todo-comments.nvim, session-lens, telescope-zoxide ]
   on_cmd: Telescope
-  hook_post_source: lua require('plugins.telescope')
+  on_lua: telescope
+  hook_add: lua require('plugins.telescope').preload()
+  hook_post_source: lua require('plugins.telescope').setup()
 
 - { repo: rmagatti/session-lens, if: has("nvim-0.5"), lazy: true }
+
+- repo: jvgrootveld/telescope-zoxide
+  rev: feature/add-user-configuration
+  if: has('nvim-0.5')
+  lazy: true
+  hook_post_source: lua require('plugins.telescope-zoxide')
 
 - repo: simrat39/symbols-outline.nvim
   if: has("nvim-0.5")

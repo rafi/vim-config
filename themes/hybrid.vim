@@ -159,7 +159,7 @@ highlight! IndentBlanklineCharOdd cterm=nocombine gui=nocombine guibg=#292B2D
 " ---
 highlight! clear WildMenu
 highlight! link WildMenu UserSelectionBackground
-highlight! link TelescopeSelection WildMenu
+highlight! link TelescopeSelection UserSelectionBackground
 highlight! link TelescopeSelectionCaret UserSelectionCaret
 highlight! link TelescopeBorder UserBorder
 highlight! link TelescopePromptBorder UserBorder
