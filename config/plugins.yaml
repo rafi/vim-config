@@ -356,7 +356,7 @@
 - repo: hrsh7th/nvim-compe
   if: has('nvim-0.5')
   on_event: InsertEnter
-  depends: nvim-autopairs
+  depends: [ nvim-autopairs, compe-tmux ]
   # depends: lspkind-nvim
   hook_post_source: lua require('plugins.compe')
   hook_source: |-
@@ -366,12 +366,15 @@
         \ call compe#setup({'enabled': v:false}, 0)
     augroup END
 
+- repo: andersevenrud/compe-tmux
+  if: has('nvim-0.5')
+  on_event: InsertEnter
+  hook_add: let g:loaded_compe_tmux = v:true
+
 # - repo: onsails/lspkind-nvim
-#   if: has("nvim-0.5")
+#   if: has('nvim-0.5')
 #   lazy: true
 #   hook_post_source: lua require('lspkind').init()
-
-# - { repo: andersevenrud/compe-tmux, if: has("nvim-0.5"), lazy: true }
 
 - repo: windwp/nvim-autopairs
   if: has('nvim-0.5')

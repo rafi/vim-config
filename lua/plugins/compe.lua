@@ -2,19 +2,33 @@
 -- see: https://github.com/hrsh7th/nvim-compe
 -- rafi settings
 
-require'compe'.setup({
+require('compe').setup({
+	-- debug = false,
+	-- min_length = 1,
+	-- preselect = 'enable',
 	source = {
 		path = true,
-		buffer = {kind = '⌯', true},  -- ﬘,
-		-- spell = true,
+		buffer = true,
 		nvim_lsp = true,
 		nvim_lua = true,
-		vsnip = {kind = '*'},  -- ﬌
+		vsnip = true,
 		orgmode = true,
-		-- tmux = true,
-		-- tmux = { all_panes = true }
+		tmux = { all_panes = true },
+		spell = false,
+		calc = false,
 	},
+	documentation = {
+		border = 'rounded',
+		max_width = 120,
+		min_width = 60,
+		max_height = math.floor(vim.o.lines * 0.3),
+		min_height = 1,
+		winhighlight = 'NormalFloat:CompeDocumentation,FloatBorder:UserBorder',
+	}
 })
+
+-- Register compe-tmux
+require('compe').register_source('tmux', require('compe_tmux'))
 
 local t = function(str)
 	return vim.api.nvim_replace_termcodes(str, true, true, true)
@@ -22,27 +36,30 @@ end
 
 local check_back_space = function()
 	local col = vim.fn.col('.') - 1
-	if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
-		return true
-	else
-		return false
-	end
+	return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
 end
 
-local npairs = require('nvim-autopairs')
+-- delimiMate
+-- _G.confirm_completion = function()
+-- 	if vim.fn.pumvisible() == 0 then
+-- 		return t '<Plug>delimitMateCR'
+-- 	elseif vim.fn.complete_info()['selected'] ~= -1 then
+-- 	  return vim.fn['compe#confirm']({ keys = t '<Plug>delimitMateCR', mode = '' })
+-- 	else
+-- 		return t '<C-e><Plug>delimitMateCR'
+-- 	end
+-- end
 
+-- autopairs
 _G.confirm_completion = function()
-	-- compe#confirm(luaeval("require 'nvim-autopairs'.autopairs_cr()"))
+	local npairs = require('nvim-autopairs')
 	if vim.fn.pumvisible() == 0 then
 		return npairs.autopairs_cr()
-		-- return t '<Plug>delimitMateCR'
 	elseif vim.fn.complete_info()['selected'] ~= -1 then
-		return vim.fn['compe#confirm'](npairs.esc('<cr>'))
-	-- elseif vim.fn.complete_info()['selected'] ~= -1 then
-	--   return vim.fn['compe#confirm']({ keys = t '<Plug>delimitMateCR', mode = '' })
+		return vim.fn['compe#confirm'](npairs.autopairs_cr())
+		-- return vim.fn['compe#confirm'](npairs.esc('<cr>'))
 	else
 		return npairs.esc('<cr>')
-		-- return t '<C-e><Plug>delimitMateCR'
 	end
 end
 
@@ -51,36 +68,39 @@ end
 --- jump to prev/next snippet's placeholder
 _G.tab_complete = function()
 	if vim.fn.pumvisible() == 1 then
-		return t "<C-n>"
-	elseif vim.fn.call("vsnip#available", {1}) == 1 then
-		return t "<Plug>(vsnip-expand-or-jump)"
+		return t '<C-n>'
+	elseif vim.fn['vsnip#available'](1) == 1 then
+		return t '<Plug>(vsnip-expand-or-jump)'
 	elseif check_back_space() then
-		return t "<Tab>"
+		return t '<Tab>'
 	else
 		return vim.fn['compe#complete']()
 	end
 end
+
 _G.s_tab_complete = function()
 	if vim.fn.pumvisible() == 1 then
-		return t "<C-p>"
-	elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
-		return t "<Plug>(vsnip-jump-prev)"
+		return t '<C-p>'
+	elseif vim.fn['vsnip#jumpable'](-1) == 1 then
+		return t '<Plug>(vsnip-jump-prev)'
 	else
-		return t "<S-Tab>"
+		-- If <S-Tab> is not working in your terminal, change it to <C-h>
+		return t '<C-h>'
 	end
 end
 
-local remap = vim.api.nvim_set_keymap
-remap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
-remap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
-remap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-remap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+local keymap = vim.api.nvim_set_keymap
+local args = { expr = true, noremap = true, silent = true }
 
-remap("i", "<CR>", "v:lua.confirm_completion()", {expr = true, noremap=true})
+keymap('i', '<C-Space>', 'compe#complete()', args)
+keymap('i', '<CR>', 'v:lua.confirm_completion()', args)
+keymap('i', '<C-e>', "compe#close('<C-e>')", args)
+keymap('i', '<C-u>', "compe#scroll({ 'delta': 4 })", args)
+keymap('i', '<C-d>', "compe#scroll({ 'delta': -4 })", args)
 
-local args = {expr = true, noremap = true, silent = true}
-remap("i", "<C-e>", "compe#close('<C-e>')", args)
-remap("i", "<C-u>", "compe#scroll({'delta': 4})", args)
-remap("i", "<C-d>", "compe#scroll({'delta': -4})", args)
+keymap('i', '<Tab>', 'v:lua.tab_complete()', { expr = true })
+keymap('s', '<Tab>', 'v:lua.tab_complete()', { expr = true })
+keymap('i', '<S-Tab>', 'v:lua.s_tab_complete()', { expr = true })
+keymap('s', '<S-Tab>', 'v:lua.s_tab_complete()', { expr = true })
 
 -- vim: set ts=2 sw=2 tw=80 noet :
