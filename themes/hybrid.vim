@@ -178,7 +178,7 @@ highlight! link FernSpinner Identifier
 " Plugin: Bqf {{{
 " ---
 " hi default link BqfPreviewFloat Normal
-highlight! BqfPreviewBorder guifg=#525865
+highlight! link BqfPreviewBorder UserBorder
 highlight! link BqfPreviewCursor TermCursor
 highlight! default link BqfPreviewRange TermCursorNC
 " hi default BqfSign ctermfg=14 guifg=Cyan

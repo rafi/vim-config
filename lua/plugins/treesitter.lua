@@ -3,7 +3,7 @@
 -- rafi settings
 
 require'nvim-treesitter.configs'.setup {
-	ensure_installed = "maintained", -- all, maintained, or list of languages
+	ensure_installed = 'maintained', -- all, maintained, or list of languages
 	highlight = {
 		enable = true,
 		use_languagetree = false, -- Very unstable
@@ -11,10 +11,10 @@ require'nvim-treesitter.configs'.setup {
 	incremental_selection = {
 		enable = true,
 		keymaps = {
-			init_selection = "gnn",
-			node_incremental = "grn",
-			scope_incremental = "grc",
-			node_decremental = "grm",
+			init_selection = 'gnn',
+			node_incremental = 'grn',
+			scope_incremental = 'grc',
+			node_decremental = 'grm',
 		},
 	},
 	indent = {

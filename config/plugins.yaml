@@ -15,10 +15,10 @@
 - repo: tpope/vim-sleuth
   hook_add: let g:sleuth_neighbor_limit = 5
 
-- { repo: folke/lsp-colors.nvim, if: has("nvim-0.5") }
-- { repo: nvim-lua/plenary.nvim, if: has("nvim-0.5") }
-- { repo: nvim-lua/popup.nvim, if: has("nvim-0.5") }
-- { repo: kyazdani42/nvim-web-devicons, if: has("nvim-0.5") }
+- { repo: folke/lsp-colors.nvim, if: has('nvim-0.5') }
+- { repo: nvim-lua/plenary.nvim, if: has('nvim-0.5') }
+- { repo: nvim-lua/popup.nvim, if: has('nvim-0.5') }
+- { repo: kyazdani42/nvim-web-devicons, if: has('nvim-0.5') }
 
 - repo: sgur/vim-editorconfig
   hook_add: |-
@@ -349,7 +349,7 @@
 - { repo: folke/lua-dev.nvim, if: has('nvim-0.5'), lazy: true }
 
 - repo: folke/todo-comments.nvim
-  if: has("nvim-0.5")
+  if: has('nvim-0.5')
   lazy: true
   hook_post_source: lua require('plugins.todo-comments')
 
@@ -394,7 +394,7 @@
 - { repo: rafamadriz/friendly-snippets, lazy: true, merged: 0 }
 
 - repo: folke/trouble.nvim
-  if: has("nvim-0.5")
+  if: has('nvim-0.5')
   on_cmd: [ Trouble, TroubleToggle ]
 
 - repo: sindrets/diffview.nvim
@@ -410,7 +410,10 @@
   hook_add: lua require('plugins.telescope').preload()
   hook_post_source: lua require('plugins.telescope').setup()
 
-- { repo: rmagatti/session-lens, if: has("nvim-0.5"), lazy: true }
+- repo: rmagatti/session-lens
+  if: has('nvim-0.5')
+  lazy: true
+  hook_post_source: lua require('plugins.session-lens')
 
 - repo: jvgrootveld/telescope-zoxide
   rev: feature/add-user-configuration
@@ -424,7 +427,7 @@
   hook_source: lua require('plugins.symbols-outline')
 
 - repo: rmagatti/auto-session
-  if: has("nvim-0.5")
+  if: has('nvim-0.5')
   depends: [ gitsigns.nvim, nvim-lspconfig ]
   on_event: VimEnter
   hook_post_source: lua require('plugins.auto-session')
@@ -479,7 +482,7 @@
 - repo: lambdalisue/fern-renderer-nerdfont.vim
   on_source: fern.vim
   hook_source: |-
-    let g:fern#renderer = "nerdfont"
+    let g:fern#renderer = 'nerdfont'
     let g:fern#renderer#nerdfont#padding = get(g:, 'global_symbol_padding', ' ')
 
 - repo: lambdalisue/glyph-palette.vim
@@ -491,14 +494,14 @@
 # ---------
 
 - repo: nvim-treesitter/nvim-treesitter
-  if: has("nvim-0.5")
+  if: has('nvim-0.5')
   on_event: FileType
   on_cmd: [ TSUpdate, TSInstall, TSInstallInfo, TSModuleInfo, TSConfigInfo ]
   hook_post_update: ':TSUpdate'
   hook_source: lua require('plugins.treesitter')
 
 - repo: nvim-treesitter/nvim-treesitter-textobjects
-  if: has("nvim-0.5")
+  if: has('nvim-0.5')
   depends: nvim-treesitter
   on_event: FileType
   hook_source: lua require('plugins.textobjects')
@@ -543,7 +546,7 @@
     let g:textobj_sandwich_no_default_key_mappings = 1
 
 - repo: mfussenegger/nvim-ts-hint-textobject
-  if: has("nvim-0.5")
+  if: has('nvim-0.5')
   depends: nvim-treesitter
   on_event: FileType
   hook_source: |-

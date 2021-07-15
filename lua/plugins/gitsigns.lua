@@ -31,15 +31,16 @@ require('gitsigns').setup {
 		['o ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>',
 		['x ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>'
 	},
-	watch_index = {
-		interval = 1000
-	},
-	numhl = false,
-	linehl = false,
-	current_line_blame = false,
-	sign_priority = 6,
-	update_debounce = 100,
-	status_formatter = nil, -- Use default
-	use_decoration_api = true,
-	use_internal_diff = true,  -- If luajit is present
+	-- watch_index = {
+	-- 	interval = 1000
+	-- },
+	-- numhl = false,
+	-- linehl = false,
+	-- current_line_blame = false,
+	-- sign_priority = 6,
+	-- update_debounce = 100,
+	-- status_formatter = nil, -- Use default
+	-- word_diff = false,
+	-- use_decoration_api = true,
+	-- use_internal_diff = true,  -- If luajit is present
 }

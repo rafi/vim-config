@@ -3,7 +3,9 @@
 -- rafi settings
 
 require('which-key').load()
-require('which-key').setup {
+require('which-key').setup{
+	-- triggers = 'auto', -- automatically setup triggers
+	triggers = { '<localleader>d' },
 	plugins = {
 		marks = true, -- shows a list of your marks on ' and `
 		registers = false, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
@@ -25,7 +27,7 @@ require('which-key').setup {
 	},
 	-- -- add operators that will trigger motion and text object completion
 	-- -- to enable all native operators, set the preset / operators plugin above
-	-- operators = { gc = "Comments" },
+	-- operators = { gc = 'Comments' },
 	icons = {
 		breadcrumb = '»', -- symbol used in the command line area that shows your active key combo
 		separator = ' ', -- symbol used between a key and it's label
@@ -45,8 +47,6 @@ require('which-key').setup {
 		align = 'left', -- align columns left, center or right
 	},
 	ignore_missing = false, -- enable this to hide mappings for which you didn't specify a label
-	hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ "}, -- hide mapping boilerplate
+	hidden = { '<silent>', '<cmd>', '<Cmd>', '<CR>', 'call', 'lua', '^:', '^ '}, -- hide mapping boilerplate
 	show_help = true, -- show help message on the command line when the popup is visible
-	triggers = "auto", -- automatically setup triggers
-	-- triggers = {"<leader>"} -- or specifiy a list manually
 }
