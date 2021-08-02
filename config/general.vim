@@ -194,7 +194,7 @@ set breakat=\ \	;:,!?           " Long lines break chars
 set nostartofline               " Cursor in same column for few commands
 set whichwrap+=h,l,<,>,[,],~    " Move to following line on certain keys
 set splitbelow splitright       " Splits open bottom right
-" set switchbuf=useopen           " Look for matching window buffers first
+set switchbuf=uselast           " Use last window with quickfix entries
 set backspace=indent,eol,start  " Intuitive backspacing in insert mode
 set diffopt=filler,iwhite       " Diff mode: show fillers, ignore whitespace
 
@@ -299,7 +299,7 @@ augroup user_general_settings
 	autocmd VimResized * wincmd =
 
 	" Force write shada on leaving nvim
-	autocmd VimLeave * if has('nvim') | wshada! | else | wviminfo! | endif
+	" autocmd VimLeave * if has('nvim') | wshada! | endif
 
 	" Check if file changed when its window is focus, more eager than 'autoread'
 	autocmd FocusGained * checktime

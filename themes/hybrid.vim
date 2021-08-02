@@ -26,6 +26,8 @@ let g:terminal_color_15 = '#cfcfcf'
 highlight! UserBorder         ctermfg=254 guifg=#525865
 highlight! UserSelectionCaret ctermfg=139 guifg=#B294BB ctermbg=97 guibg=#4D2238
 highlight! UserSelectionBackground                      ctermbg=97 guibg=#4D2238
+highlight! link UserPreviewLine UserSelectionBackground
+" ctermbg=236 guibg=#323232
 " #ACAFAE  #2C3237
 " #2a2e36  #525865
 " }}}
@@ -165,6 +167,7 @@ highlight! link TelescopeBorder UserBorder
 highlight! link TelescopePromptBorder UserBorder
 highlight! link TelescopeResultsBorder UserBorder
 highlight! link TelescopePreviewBorder UserBorder
+highlight! link TelescopePreviewLine UserPreviewLine
 " }}}
 
 " Plugin: Fern {{{

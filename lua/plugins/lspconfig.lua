@@ -1,6 +1,7 @@
 -- plugin: nvim-lspconfig
 -- see: https://github.com/neovim/nvim-lspconfig
 --      https://github.com/kabouzeid/nvim-lspinstall
+--      https://github.com/ray-x/lsp_signature.nvim
 --      https://github.com/kosayoda/nvim-lightbulb
 -- rafi settings
 
@@ -14,7 +15,7 @@ local on_attach = function(client, bufnr)
 		client.config.flags.debounce_text_changes  = 100
 	end
 
-	-- Mappings.
+	-- Keyboard mappings
 	local opts = { noremap = true, silent = true }
 	buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
 	buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
@@ -63,43 +64,40 @@ local on_attach = function(client, bufnr)
 	end
 end
 
---   ✘
+-- Diagnostics signs and highlights
 vim.fn.sign_define(
-	'LspDiagnosticsSignError',
+	'LspDiagnosticsSignError',  --   ✘
 	{ texthl = 'LspDiagnosticsSignError', text = '✘', numhl = 'LspDiagnosticsSignError' }
 )
---  ⚠ 
 vim.fn.sign_define(
-	'LspDiagnosticsSignWarning',
+	'LspDiagnosticsSignWarning',  --  ⚠ 
 	{ texthl = 'LspDiagnosticsSignWarning', text = '', numhl = 'LspDiagnosticsSignWarning' }
 )
---  
 vim.fn.sign_define(
-	'LspDiagnosticsSignHint',
+	'LspDiagnosticsSignHint',  --  
 	{ texthl = 'LspDiagnosticsSignHint', text = '', numhl = 'LspDiagnosticsSignHint' }
 )
---   ⁱ
 vim.fn.sign_define(
-	'LspDiagnosticsSignInformation',
+	'LspDiagnosticsSignInformation',  --   ⁱ
 	{ texthl = 'LspDiagnosticsSignInformation', text = 'ⁱ', numhl = 'LspDiagnosticsSignInformation' }
 )
 
 -- Symbols for autocomplete
 vim.lsp.protocol.CompletionItemKind = {
-	'   (Text)',
-	'   (Method)',
-	'   (Function)',
-	'   (Constructor)',
-	'   (Field)', -- ﴲ   
-	'   (Variable)',
-	'   (Class)',
+	'   (Text)', --  𝓐
+	'   (Method)', --  ƒ
+	'   (Function)', -- 
+	'   (Constructor)', --  
+	'   (Field)', --  ﴲ   
+	'   (Variable)', --  
+	'   (Class)', --  𝓒
 	'   (Interface)', -- ﰮ   
-	'   (Module)',
+	'   (Module)', --  
 	' 襁 (Property)', -- 襁
 	'   (Unit)',
 	'   (Value)',
-	' 練 (Enum)',
-	'   (Keyword)', --  
+	' 練 (Enum)', -- 練 ℰ
+	'   (Keyword)', --   🔐
 	' ⮡  (Snippet)', -- ﬌ ⮡ 
 	'   (Color)',
 	'   (File)',
@@ -107,13 +105,13 @@ vim.lsp.protocol.CompletionItemKind = {
 	'   (Folder)',
 	'   (EnumMember)',
 	'   (Constant)',
-	'   (Struct)',
-	'   (Event)',
-	'   (Operator)',
-	'   (TypeParameter)',
+	'   (Struct)', --  𝓢
+	'   (Event)', --  🗲
+	'   (Operator)', --  +
+	'   (TypeParameter)', --  𝙏
 }
 
--- Enable diagnostics
+-- Configure diagnostics publish settings
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
 	vim.lsp.diagnostic.on_publish_diagnostics, {
 		update_in_insert = false,
@@ -128,10 +126,33 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
 	}
 )
 
-vim.lsp.handlers['textDocument/references'] = function(_, _, result)
-	require('user').diagnostic.set_qflist(result)
+-- Open references in quickfix window and jump to first item.
+-- local on_references = vim.lsp.handlers['textDocument/references']
+-- vim.lsp.handlers['textDocument/references'] = vim.lsp.with(
+-- 	on_references, {
+-- 		-- Use location list instead of quickfix list
+-- 		loclist = true,
+-- 	}
+-- )
+vim.lsp.handlers['textDocument/references'] = function(_, _, result, _, bufnr, _)
+	if not result or vim.tbl_isempty(result) then
+		vim.notify('No references found')
+	else
+		vim.lsp.util.set_qflist(vim.lsp.util.locations_to_items(result, bufnr))
+		require('user').qflist.open()
+		vim.api.nvim_command('.cc')
+	end
 end
 
+-- Configure hover (normal K) handle
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
+	vim.lsp.handlers.hover, {
+		-- Use a sharp border with `FloatBorder` highlights
+		border = 'rounded'
+	}
+)
+
+-- Combine base config for each server and merge user-defined settings.
 local function make_config(server_name)
 	-- Setup base config for each server.
 	local c = {}
@@ -156,6 +177,7 @@ local function make_config(server_name)
 	return c
 end
 
+-- Iterate and setup all language servers and trigger FileType in windows.
 local function setup_servers()
 	local lsp_install = require('lspinstall')
 	lsp_install.setup()
@@ -185,19 +207,21 @@ if vim.fn.has('vim_starting') then
 	-- Setup LSP with lspinstall
 	setup_servers()
 
-	-- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
+	-- Automatically reload after `:LspInstall <server>`
 	require'lspinstall'.post_install_hook = function()
 		setup_servers()  -- reload installed servers
 		if not vim.o.modified then
-			vim.cmd('bufdo e')  -- this triggers the FileType autocmd that starts the server
+			vim.cmd('bufdo e')  -- starts server by triggering the FileType autocmd
 		end
 	end
 
-	-- global keymappings
+	-- global custom location-list diagnostics window toggle.
+	local args = { noremap = true, silent = true }
 	vim.api.nvim_set_keymap(
 		'n',
-		'<Leader>a', '<cmd>lua require("user").diagnostic.publish_loclist(true)<CR>',
-		{ noremap = true, silent = true, }
+		'<Leader>a',
+		'<cmd>lua require("user").diagnostic.publish_loclist(true)<CR>',
+		args
 	)
 
 	-- See https://github.com/kosayoda/nvim-lightbulb

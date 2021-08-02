@@ -12,7 +12,6 @@ require('gitsigns').setup {
 	-- },
 	keymaps = {
 		noremap = true,
-		buffer = true,
 
 		['n ]g'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"},
 		['n [g'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},

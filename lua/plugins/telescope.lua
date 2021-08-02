@@ -93,25 +93,33 @@ end
 local pickers = {}
 
 pickers.grep_string_visual = function()
-	require'telescope.builtin'.live_grep({ default_text = visual_selection() })
+	require'telescope.builtin'.live_grep({
+		default_text = visual_selection(),
+	})
 end
 
 pickers.grep_string_cursor = function()
-	require'telescope.builtin'.live_grep({ default_text = vim.fn.expand('<cword>') })
+	require'telescope.builtin'.live_grep({
+		default_text = vim.fn.expand('<cword>'),
+	})
 end
 
 pickers.find_files_cursor = function()
-	require'telescope.builtin'.find_files({ default_text = vim.fn.expand('<cword>') })
+	require'telescope.builtin'.find_files({
+		default_text = vim.fn.expand('<cword>'),
+	})
 end
 
 pickers.lsp_workspace_symbols_cursor = function()
-	require'telescope.builtin'.lsp_workspace_symbols({ default_text = vim.fn.expand('<cword>') })
+	require'telescope.builtin'.lsp_workspace_symbols({
+		default_text = vim.fn.expand('<cword>'),
+	})
 end
 
 pickers.zoxide = function()
 	require'telescope'.extensions.zoxide.list({
 		layout_config = {
-			width = 0.5,
+			width = 0.4,
 			height = 0.6,
 		},
 	})
@@ -157,7 +165,7 @@ pickers.plugin_directories = function(opts)
 		},
 		sorter = require('telescope.sorters').get_fuzzy_file(),
 		previewer = require('telescope.previewers.term_previewer').cat.new(opts),
-		attach_mappings = function(prompt_bufnr, map)
+		attach_mappings = function(_, map)
 			map('i', '<cr>', myactions.change_directory)
 			map('n', '<cr>', myactions.change_directory)
 			return true
@@ -280,7 +288,6 @@ local setup = function()
 					-- insert_symbol
 					-- run_builtin
 					-- complete_tag
-					-- open_qflist
 				},
 				n = {
 					['q']     = actions.close,
@@ -320,17 +327,33 @@ local setup = function()
 				theme = 'dropdown',
 				previewer = false,
 				sort_lastused = true,
+				sort_mru = true,
 				show_all_buffers = true,
 				ignore_current_buffer = true,
-				layout_config = { width = width_for_nopreview, height = height_dropdown_nopreview },
+				path_display = { shorten = 5 },
+				layout_config = {
+					width = width_for_nopreview,
+					height = height_dropdown_nopreview,
+				},
 				mappings = {
-					n = { ['dd'] = actions.delete_buffer }
+					i = {
+						['<C-u>'] = myactions.page_up,
+						['<C-d>'] = myactions.page_down,
+					},
+					n = {
+						['dd'] = actions.delete_buffer,
+						['<C-u>'] = myactions.page_up,
+						['<C-d>'] = myactions.page_down,
+					},
 				}
 			},
 			find_files = {
 				theme = 'dropdown',
 				previewer = false,
-				layout_config = { width = width_for_nopreview, height = height_dropdown_nopreview },
+				layout_config = {
+					width = width_for_nopreview,
+					height = height_dropdown_nopreview,
+				},
 				mappings = no_previewer_mappings,
 				find_command = {
 					'rg',
@@ -342,18 +365,25 @@ local setup = function()
 					'--files',
 				}
 			},
+			colorscheme = {
+				enable_preview = true,
+				-- previewer = false,
+				-- theme = 'dropdown',
+				layout_config = { width = 0.45, height = 0.8 },
+				mappings = no_previewer_mappings,
+			},
 			highlights = {
 				layout_strategy = 'horizontal',
 				layout_config = { preview_width = 0.80 },
 			},
-			jumplist = {
-				layout_strategy = 'horizontal',
-				layout_config = { preview_width = 0.60 },
-			},
+			-- jumplist = {
+			-- 	layout_strategy = 'horizontal',
+			-- 	layout_config = { preview_width = 0.60 },
+			-- },
 			vim_options = {
 				theme = 'dropdown',
 				previewer = false,
-				layout_config = { width = 0.5, height = 0.7 },
+				layout_config = { width = 0.6, height = 0.7 },
 				mappings = no_previewer_mappings,
 			},
 			command_history = {
@@ -368,37 +398,59 @@ local setup = function()
 				mappings = no_previewer_mappings,
 			},
 			spell_suggest = {
-				theme = 'dropdown',
-				layout_config = { width = 0.2, height = 0.7 },
+				theme = 'cursor',
+				layout_config = { width = 0.27, height = 0.45 },
 				mappings = no_previewer_mappings,
 			},
 			registers = {
-				theme = 'dropdown',
+				theme = 'cursor',
 				previewer = false,
-				layout_config = { width = 0.5, height = 0.7 },
+				layout_config = { width = 0.45, height = 0.6 },
 				mappings = no_previewer_mappings,
 			},
 			oldfiles = {
 				theme = 'dropdown',
 				previewer = false,
-				-- path_display = 'shorten',
-				layout_config = { width = width_for_nopreview, height = height_dropdown_nopreview },
+				path_display= { shorten = 5 },
+				layout_config = {
+					width = width_for_nopreview,
+					height = height_dropdown_nopreview,
+				},
 				mappings = no_previewer_mappings,
 			},
+			lsp_definitions = {
+				layout_strategy = 'horizontal',
+				layout_config = { width = 0.95, height = 0.85, preview_width = 0.45 },
+			},
+			lsp_implementations = {
+				layout_strategy = 'horizontal',
+				layout_config = { width = 0.95, height = 0.85, preview_width = 0.45 },
+			},
+			lsp_references = {
+				layout_strategy = 'horizontal',
+				layout_config = { width = 0.95, height = 0.85, preview_width = 0.45 },
+			},
 			lsp_code_actions = {
-				theme = 'dropdown',
+				theme = 'cursor',
 				previewer = false,
 				layout_config = { width = 0.3, height = 0.4 },
 				mappings = no_previewer_mappings,
 			},
 			lsp_range_code_actions = {
-				theme = 'dropdown',
+				theme = 'cursor',
 				previewer = false,
 				layout_config = { width = 0.3, height = 0.4 },
 				mappings = no_previewer_mappings,
 			},
 		},
 	}
+
+	vim.cmd [[
+		augroup telescope_events
+			autocmd!
+			autocmd User TelescopePreviewerLoaded setlocal list | IndentGuidesEnable
+		augroup END
+	]]
 
 	-- Telescope extensions are loaded in each plugin.
 end

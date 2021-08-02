@@ -75,7 +75,7 @@ Works best with [Neovim] 0.5.x.
 * Light-weight but informative status & tab lines
 * Easy customizable theme
 * Premium color-schemes
-* Central location for tags and sessions
+* Auto-save and restore with sessions.
 
 ## Screenshot
 

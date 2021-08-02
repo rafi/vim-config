@@ -8,14 +8,17 @@ require('compe').setup({
 	-- preselect = 'enable',
 	source = {
 		path = true,
-		buffer = true,
+		buffer = { kind = '  ' },  --     
 		nvim_lsp = true,
 		nvim_lua = true,
-		vsnip = true,
+		vsnip = { kind = ' ⮡  (Snippet)' },  -- ⮡
 		orgmode = true,
-		tmux = { all_panes = true },
-		spell = false,
+		tmux = { kind = '  ', all_panes = true },  --   
 		calc = false,
+		spell = {
+			kind = ' ',  --  
+			filetypes = {'mail', 'gitcommit', 'markdown', 'text'},
+		},
 	},
 	documentation = {
 		border = 'rounded',

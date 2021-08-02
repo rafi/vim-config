@@ -48,21 +48,13 @@ end
 -- Set locations with diagnostics and open the list.
 user.diagnostic.publish_loclist = function(toggle)
 	if vim.api.nvim_buf_get_option(0, 'filetype') ~= 'qf' then
-		vim.lsp.diagnostic.set_loclist({ open_loclist = false })
+		vim.lsp.diagnostic.set_loclist({ open = false })
 	end
 	if toggle then
 		user.loclist.toggle()
 	else
 		user.loclist.open()
 	end
-end
-
--- Set location items, open the list and jump to first item.
-user.diagnostic.set_qflist = function(items)
-	if not items then return end
-	vim.lsp.util.set_qflist(vim.lsp.util.locations_to_items(items))
-	user.qflist.open()
-	vim.api.nvim_command('.cc')
 end
 
 -- Private

@@ -11,7 +11,7 @@ require('telescope._extensions.zoxide.config').setup({
 			action = function(selection)
 				vim.cmd('lcd ' .. selection.path)
 			end,
-			after_action = function(selection) end
+			after_action = function(_) end
 		},
 	}
 })

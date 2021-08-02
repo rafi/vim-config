@@ -3,21 +3,21 @@
 
 local settings = {
 	Lua = {
-		runtime = { version = 'LuaJIT', path = vim.split(package.path, ';'), },
+		runtime = { version = 'LuaJIT', path = vim.fn.split(package.path, ';') },
 		diagnostics = {
 			enable = true,
 			globals = {'vim', 'use', 'describe', 'it', 'assert', 'before_each', 'after_each'},
 		},
-		workspace = {
-			preloadFileSize = 1000,
-			maxPreload = 2000,
-			library = {
-				[vim.fn.expand('$VIMRUNTIME/lua')] = true,
-				[vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-				[vim.fn.stdpath('config') .. '/lua'] = true,
-				-- [vim.fn.stdpath('data') .. '/site/pack'] = true,
-			},
-		},
+		-- workspace = {
+		-- 	preloadFileSize = 1000,
+		-- 	maxPreload = 2000,
+		-- 	library = {
+		-- 		[vim.fn.expand('$VIMRUNTIME/lua')] = true,
+		-- 		[vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+		-- 		[vim.fn.stdpath('config') .. '/lua'] = true,
+		-- 		-- [vim.fn.stdpath('data') .. '/dein/repos/github.com'] = true,
+		-- 	},
+		-- },
 	}
 }
 

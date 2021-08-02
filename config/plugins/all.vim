@@ -183,14 +183,6 @@ if dein#tap('gina.vim')
 	vnoremap <silent> <leader>go :Gina browse :<CR>
 endif
 
-if dein#tap('vim-gitgrep')
-	nnoremap <silent> <Leader>;
-		\ :<C-u>call gitgrep#run('', expand('<cword>'), { 'ignorecase': 1 })<CR>
-	autocmd user_events FileType GitGrep
-		\  nnoremap <buffer> gq :<C-u>quit<CR>
-		\| nmap <buffer> <nowait> <Space> zak
-endif
-
 if dein#tap('zen-mode.nvim')
 	nnoremap <silent> <Leader>z <cmd>ZenMode<CR>
 endif

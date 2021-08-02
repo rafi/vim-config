@@ -1,18 +1,30 @@
 -- plugin: bqf
--- see: https://github.com/kevinhwang91/nvim-bqf/
+-- see: https://github.com/kevinhwang91/nvim-bqf
 -- rafi settings
 
 require('bqf').setup({
 	auto_resize_height = false,
 	func_map = {
-		tab = 'st',
-		split = 'sv',
+		tab    = 'st',
+		split  = 'sv',
 		vsplit = 'sg',
+
+		stoggleup   = 'K',
+		stoggledown = 'J',
+		stogglevm   = '<Space>',
+
 		ptoggleitem = 'p',
 		ptoggleauto = 'P',
 		ptogglemode = 'zp',
+
 		pscrollup   = '<C-b>',
 		pscrolldown = '<C-f>',
+
+		prevfile = 'gk',
+		nextfile = 'gj',
+
+		prevhist = '<S-Tab>',
+		nexthist = '<Tab>',
 	},
 	preview = {
 		auto_preview = true,

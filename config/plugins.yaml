@@ -1,7 +1,8 @@
 ---
 # PLUGINS
 # ===
-# See config/plugins/all.vim for plugin mappings and config/plugins/*.vim
+# See lua/plugins/*.lua and config/plugins/*.vim for plugin configuration.
+# See config/plugins/all.vim for plugin mappings.
 
 # Startup
 # -------
@@ -13,7 +14,9 @@
   if: "! (has('win32') || has('win64'))"
 
 - repo: tpope/vim-sleuth
-  hook_add: let g:sleuth_neighbor_limit = 5
+  hook_add: |-
+    let g:sleuth_neighbor_limit = 5
+    autocmd user_events FileType markdown let b:sleuth_automatic = 0
 
 - { repo: folke/lsp-colors.nvim, if: has('nvim-0.5') }
 - { repo: nvim-lua/plenary.nvim, if: has('nvim-0.5') }
@@ -65,10 +68,6 @@
   # on_event: FileType
   hook_source: source $VIM_PATH/config/plugins/gina.vim
 
-- repo: rstacruz/vim-gitgrep
-  on_cmd: GG
-  on_func: gitgrep#run
-
 - repo: folke/zen-mode.nvim
   if: has('nvim-0.5')
   on_cmd: ZenMode
@@ -91,11 +90,6 @@
   on_map: { n: <Plug>RestNvim }
   on_ft: http
   hook_post_source: lua require('rest-nvim').setup()
-
-- repo: cuducos/yaml.nvim
-  if: has('nvim-0.5')
-  # on_ft: yaml
-  on_cmd: YAMLView
 
 - repo: pechorin/any-jump.vim
   on_cmd: [ AnyJump, AnyJumpVisual ]
@@ -159,21 +153,6 @@
   on_event: VimEnter
   hook_post_source: lua require('plugins.gitsigns')
 
-# - repo: airblade/vim-gitgutter
-#   on_event: FileType
-#   hook_add: |-
-#     let g:gitgutter_map_keys = 0
-#     let g:gitgutter_sign_added = '▎'
-#     let g:gitgutter_sign_modified = '▎'
-#     let g:gitgutter_sign_removed = '▍'
-#     let g:gitgutter_sign_removed_first_line = '▘'
-#     let g:gitgutter_sign_removed_above_and_below = '_¯'
-#     let g:gitgutter_sign_modified_removed = '▍'
-#     let g:gitgutter_preview_win_floating = 1
-#     let g:gitgutter_sign_allow_clobber = 0
-#     let g:gitgutter_sign_priority = 0
-#     let g:gitgutter_override_sign_column_highlight = 0
-
 - repo: kshenoy/vim-signature
   depends: gitsigns.nvim
   on_event: FileType
@@ -185,10 +164,10 @@
     let g:SignatureMarkTextHLDynamic = 1
     let g:SignatureMarkerTextHLDynamic = 1
     let g:SignatureIncludeMarkers = repeat('⚐', 10)
-    " autocmd user_events User GitGutter call signature#sign#Refresh()"
 
 - repo: nathanaelkane/vim-indent-guides
   on_event: FileType
+  hook_post_source: IndentGuidesEnable
   hook_source: |-
     let g:indent_guides_enable_on_vim_startup = 0
     let g:indent_guides_default_mapping = 0
@@ -212,33 +191,7 @@
       \|   endif
       \| endif
     augroup END
-    autocmd user_events FileType * ++once IndentGuidesEnable
-
-# - repo: lukas-reineke/indent-blankline.nvim
-#   rev: lua
-#   if: has('nvim-0.5')
-#   on_event: FileType
-#   hook_add: |-
-#     let g:indent_blankline_char = ' '
-#     let g:indent_blankline_space_char_blankline = ' '
-#     let g:indent_blankline_show_end_of_line = v:true
-#     let g:indent_blankline_show_foldtext = v:false
-#     let g:indent_blankline_show_trailing_blankline_indent = v:false
-#     let g:indent_blankline_char_highlight_list = ['IndentBlanklineChar', 'IndentBlanklineCharOdd']
-#     let g:indent_blankline_buftype_exclude = ['prompt', 'nofile', 'quickfix']
-#     let g:indent_blankline_filetype_exclude = [
-#       \ 'help', 'man', 'fern', 'defx', 'denite', 'denite-filter', 'startify',
-#       \ 'vista', 'vista_kind', 'tagbar', 'lsp-hover', 'clap_input', 'fzf',
-#       \ 'any-jump', 'gina-status', 'gina-commit', 'gina-log', 'minimap',
-#       \ 'quickpick-filter', 'lsp-quickpick-filter', 'lspinfo', 'TelescopePrompt'
-#       \ ]
-
-# g:indent_blankline_char_highlight_list
-# g:indent_blankline_space_char_highlight_list
-# g:indent_blankline_space_char_blankline_highlight_list
-# let g:indent_blankline_show_current_context = v:true
-# let g:indent_blankline_use_treesitter = v:true
-# let g:indent_blankline_char_list = ['|', '¦', '┆', '┊']
+    "autocmd user_events FileType * ++once IndentGuidesEnable
 
 - repo: kevinhwang91/nvim-bqf
   if: has('nvim-0.5')
@@ -246,29 +199,6 @@
   on_cmd: BqfAutoToggle
   on_event: QuickFixCmdPost
   hook_source: lua require('plugins.bqf')
-
-# - repo: romainl/vim-qf
-#   on_ft: qf
-#   on_event: QuickFixCmdPost
-#   on_map: { n: <Plug> }
-#   hook_add: |-
-#     let g:qf_bufname_or_text = 1
-#     let g:qf_auto_open_quickfix = 0
-#     let g:qf_auto_open_loclist = 0
-#     let g:qf_auto_quit = 0
-#     let g:qf_auto_resize = 0
-
-# hook_post_source: |-
-#   augroup qf
-#     autocmd!
-#   augroup END
-# let g:loaded_qf = 1
-# autocmd User preview_open_pre
-#   \  let g:vim_markdown_no_default_key_mappings = 1
-#   \| let g:vim_markdown_emphasis_multiline = 0
-# autocmd User preview_open_post
-#   \  unlet! g:vim_markdown_no_default_key_mappings
-#   \| unlet! g:vim_markdown_emphasis_multiline
 
 - repo: norcalli/nvim-colorizer.lua
   if: has('nvim-0.4')
@@ -340,11 +270,6 @@
   on_event: VimEnter
   hook_post_source: lua require('plugins.lspconfig')
 
-# - repo: glepnir/lspsaga.nvim
-#   if: has('nvim-0.5')
-#   on_cmd: Lspsaga
-#   hook_post_source: lua require('plugins.lspsaga')
-
 - { repo: ray-x/lsp_signature.nvim, if: has('nvim-0.5'), lazy: true }
 - { repo: folke/lua-dev.nvim, if: has('nvim-0.5'), lazy: true }
 
@@ -357,7 +282,6 @@
   if: has('nvim-0.5')
   on_event: InsertEnter
   depends: [ nvim-autopairs, compe-tmux ]
-  # depends: lspkind-nvim
   hook_post_source: lua require('plugins.compe')
   hook_source: |-
     augroup user_plugin_compe
@@ -371,11 +295,6 @@
   on_event: InsertEnter
   hook_add: let g:loaded_compe_tmux = v:true
 
-# - repo: onsails/lspkind-nvim
-#   if: has('nvim-0.5')
-#   lazy: true
-#   hook_post_source: lua require('lspkind').init()
-
 - repo: windwp/nvim-autopairs
   if: has('nvim-0.5')
   on_event: InsertEnter
@@ -383,15 +302,17 @@
 
 - repo: hrsh7th/vim-vsnip
   depends: [ vim-vsnip-integ, friendly-snippets ]
-  on_event: InsertEnter
+  on_event: InsertCharPre
   merged: 0
-  hook_post_source: |-
+  hook_add: |-
+    let g:vsnip_snippet_dir = expand('$XDG_DATA_HOME/nvim/vsnip')
+    let g:vsnip_snippet_dirs = [ expand('$VIM_PATH/snippets') ]
     let g:vsnip_filetypes = {}
     let g:vsnip_filetypes.javascriptreact = ['javascript']
     let g:vsnip_filetypes.typescriptreact = ['typescript']
 
-- { repo: hrsh7th/vim-vsnip-integ, lazy: true }
-- { repo: rafamadriz/friendly-snippets, lazy: true, merged: 0 }
+- { repo: hrsh7th/vim-vsnip-integ, on_event: InsertCharPre }
+- { repo: rafamadriz/friendly-snippets, on_event: InsertCharPre, merged: 0 }
 
 - repo: folke/trouble.nvim
   if: has('nvim-0.5')
@@ -400,7 +321,7 @@
 - repo: sindrets/diffview.nvim
   if: has('nvim-0.5')
   on_cmd: DiffviewOpen
-  hook_post_source: lua require('plugins.diffview')
+  hook_post_source: lua require('plugins.diffview').init()
 
 - repo: nvim-telescope/telescope.nvim
   if: has('nvim-0.5')
@@ -416,7 +337,7 @@
   hook_post_source: lua require('plugins.session-lens')
 
 - repo: jvgrootveld/telescope-zoxide
-  rev: feature/add-user-configuration
+  rev: main
   if: has('nvim-0.5')
   lazy: true
   hook_post_source: lua require('plugins.telescope-zoxide')
@@ -442,24 +363,6 @@
     let g:user_emmet_install_global = 0
     let g:user_emmet_install_command = 0
     let g:user_emmet_mode = 'i'
-
-# - repo: Raimondi/delimitMate
-#   on_event: FileType
-#   hook_source: |-
-#     let g:delimitMate_expand_cr = 0
-#     let g:delimitMate_expand_space = 1
-#     let g:delimitMate_smart_quotes = 1
-#     let g:delimitMate_expand_inside_quotes = 0
-#     let g:delimitMate_excluded_ft =
-#       \ 'mail,denite-filter,clap_input,gitrebase,lsp-quickpick-filter'
-#     augroup user_plugin_delimitMate
-#       au!
-#       au FileType html let b:delimitMate_matchpairs = "(:),[:],{:}"
-#       au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
-#       au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
-#       au FileType tex let b:delimitMate_quotes = ""
-#       au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
-#     augroup END
 
 # ==========================================
 # Fern

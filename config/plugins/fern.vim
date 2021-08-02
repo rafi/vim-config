@@ -31,9 +31,9 @@ let s:original_width = g:fern#drawer_width
 
 nnoremap <Plug>(fern-close-drawer) :<C-u>FernDo close -drawer -stay<CR>
 
-highlight! FernCursorLine ctermbg=236 guibg=#323232
-
 function! s:init_fern()
+	setl winhighlight=CursorLine:UserSelectionBackground
+
 	silent! nnoremap <buffer> f <Nop>
 	silent! nnoremap <buffer> F <Nop>
 	silent! nnoremap <buffer> t <Nop>
@@ -149,8 +149,6 @@ endfunction
 augroup fern-custom
 	autocmd! *
 	autocmd FileType fern call s:init_fern()
-	autocmd BufEnter <buffer> highlight! link CursorLine FernCursorLine
-	autocmd BufLeave <buffer> highlight! link CursorLine NONE
 	" autocmd DirChanged * ++nested execute printf('FernDo Fern\ %s\ -drawer\ -stay -drawer -stay', v:event.cwd)
 augroup END
 

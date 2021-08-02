@@ -17,3 +17,7 @@ vim.g.symbols_outline = {
 	},
 	lsp_blacklist = {},
 }
+
+vim.cmd [[
+	autocmd FileType Outline setlocal cursorline winhighlight=CursorLine:UserSelectionBackground
+]]

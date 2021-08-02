@@ -190,10 +190,8 @@ function! s:use_dein()
 		endif
 	endif
 
-	if has('vim_starting') && ! has('nvim')
-		filetype plugin indent on
-		syntax enable
-	endif
+	filetype plugin indent on
+	syntax enable
 endfunction
 
 function! s:use_plug() abort

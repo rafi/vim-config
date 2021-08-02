@@ -15,7 +15,7 @@ let g:badge_status_dir_max_chars =
 " Less verbosity on specific filetypes (regexp)
 let g:badge_filetype_blacklist =
 	\ get(g:, 'badge_filetype_blacklist',
-	\ 'vimfiler\|gundo\|diff\|fugitive\|gitv')
+	\ 'vimfiler\|gundo\|diff\|fugitive\|gitv\|NeogitStatus')
 
 let g:badge_loading_charset =
 	\ get(g:, 'badge_loading_charset',
