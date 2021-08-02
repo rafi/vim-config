@@ -156,10 +156,10 @@ for example, to install the [Hack](https://sourcefoundry.org/hack/) font:
 ```bash
 brew tap homebrew/cask-fonts
 brew search nerd-font
-brew cask install font-hack-nerd-font
-brew cask install font-iosevka-nerd-font-mono
-brew cask install font-jetbrains-mono
-brew cask install font-fira-code
+brew install font-hack-nerd-font
+brew install font-iosevka-nerd-font-mono
+brew install font-jetbrains-mono
+brew install font-fira-code
 ```
 
 [Pragmata Pro]: https://www.fsd.it/shop/fonts/pragmatapro/
