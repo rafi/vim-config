@@ -2,13 +2,22 @@
 -- see: https://github.com/hrsh7th/nvim-compe
 -- rafi settings
 
+-- defaults:
+-- THROTTLE_TIME = 80
+-- SOURCE_TIMEOUT = 200
+-- RESOLVE_TIMEOUT = 800
+-- INCOMPLETE_DELAY = 400
+
 require('compe').setup({
 	-- debug = false,
 	-- min_length = 1,
 	-- preselect = 'enable',
+	max_abbr_width = math.ceil(vim.o.columns / 3),
+	max_kind_width = 20,
+	max_menu_width = 10,
 	source = {
 		path = true,
-		buffer = { kind = '  ' },  --     
+		buffer = { kind = '  ', menu = '[Buf]' },  --     
 		nvim_lsp = true,
 		nvim_lua = true,
 		vsnip = { kind = ' ⮡  (Snippet)' },  -- ⮡
@@ -42,18 +51,8 @@ local check_back_space = function()
 	return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
 end
 
--- delimiMate
--- _G.confirm_completion = function()
--- 	if vim.fn.pumvisible() == 0 then
--- 		return t '<Plug>delimitMateCR'
--- 	elseif vim.fn.complete_info()['selected'] ~= -1 then
--- 	  return vim.fn['compe#confirm']({ keys = t '<Plug>delimitMateCR', mode = '' })
--- 	else
--- 		return t '<C-e><Plug>delimitMateCR'
--- 	end
--- end
-
--- autopairs
+-- autopairs confirm selection
+-- see windwp/nvim-autopairs
 _G.confirm_completion = function()
 	local npairs = require('nvim-autopairs')
 	if vim.fn.pumvisible() == 0 then
@@ -65,6 +64,18 @@ _G.confirm_completion = function()
 		return npairs.esc('<cr>')
 	end
 end
+
+-- delimiMate confirm selection
+-- see https://github.com/Raimondi/delimitMate
+-- _G.confirm_completion = function()
+-- 	if vim.fn.pumvisible() == 0 then
+-- 		return t '<Plug>delimitMateCR'
+-- 	elseif vim.fn.complete_info()['selected'] ~= -1 then
+-- 	  return vim.fn['compe#confirm']({ keys = t '<Plug>delimitMateCR', mode = '' })
+-- 	else
+-- 		return t '<C-e><Plug>delimitMateCR'
+-- 	end
+-- end
 
 -- Use (s-)tab to:
 --- move to prev/next item in completion menuone

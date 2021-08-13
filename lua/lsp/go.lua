@@ -11,7 +11,7 @@ local config = {
 				fillreturns = true,
 				nonewvars = true,
 				undeclaredname = true,
-				unusedparams = true,
+				unusedparams = false,
 				ST1000 = false,
 				ST1005 = false,
 			},

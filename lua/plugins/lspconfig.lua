@@ -224,7 +224,13 @@ if vim.fn.has('vim_starting') then
 		args
 	)
 
-	-- See https://github.com/kosayoda/nvim-lightbulb
-	-- vim.cmd [[ autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb() ]]
-	vim.cmd [[ autocmd CursorHold * lua require'nvim-lightbulb'.update_lightbulb() ]]
+	vim.cmd [[
+		augroup user_lspconfig
+			autocmd!
+			autocmd FileType helm lua vim.lsp.diagnostic.disable()
+
+			" See https://github.com/kosayoda/nvim-lightbulb
+			autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
+		augroup END
+	]]
 end

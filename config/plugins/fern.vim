@@ -32,7 +32,9 @@ let s:original_width = g:fern#drawer_width
 nnoremap <Plug>(fern-close-drawer) :<C-u>FernDo close -drawer -stay<CR>
 
 function! s:init_fern()
-	setl winhighlight=CursorLine:UserSelectionBackground
+	if has('nvim')
+		setl winhighlight=CursorLine:UserSelectionBackground
+	end
 
 	silent! nnoremap <buffer> f <Nop>
 	silent! nnoremap <buffer> F <Nop>
@@ -149,7 +151,8 @@ endfunction
 augroup fern-custom
 	autocmd! *
 	autocmd FileType fern call s:init_fern()
-	" autocmd DirChanged * ++nested execute printf('FernDo Fern\ %s\ -drawer\ -stay -drawer -stay', v:event.cwd)
+	" autocmd DirChanged * ++nested
+	"	\ execute printf('FernDo Fern %s -drawer -stay -drawer -stay', v:event.cwd)
 augroup END
 
 function! s:get_selected_nodes(helper) abort
