@@ -2,7 +2,8 @@
 
 Lean mean Neovim machine, 30-45ms startup time.
 
-Works best with [Neovim] 0.5.x.
+Works best with [Neovim] 0.5.x ⚠️ For Vim 8.x, use the
+[`vim` git tag](https://github.com/rafi/vim-config/tree/vim).
 
 > I encourage you to fork this repo and create your own experience.
 > Learn how to tweak and change Neovim to the way YOU like it.
@@ -148,7 +149,7 @@ This will run `git pull --ff --ff-only` and update all plugins using
 On macOS with Homebrew, choose one of the [Nerd Fonts],
 for example, here are some popular fonts:
 
-```bash
+```sh
 brew tap homebrew/cask-fonts
 brew search nerd-font
 brew install --cask font-victor-mono-nerd-font
