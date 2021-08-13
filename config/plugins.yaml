@@ -412,7 +412,23 @@
   on_event: FileType
   hook_source: lua require('plugins.textobjects')
 
+# Old syntax/indent plugins
+# - { repo: groenewege/vim-less, on_ft: less }
+# - { repo: iloginow/vim-stylus, on_ft: stylus }  # or wavded/vim-stylus ?
+- { repo: chrisbra/csv.vim, on_ft: csv }
+- { repo: tpope/vim-git, on_ft: [ gitcommit, gitrebase, gitconfig ]}
+- { repo: dag/vim-fish, on_ft: fish }
 - { repo: towolf/vim-helm, on_ft: helm }
+- { repo: mboughaba/i3config.vim, on_ft: i3config }
+- { repo: mustache/vim-mustache-handlebars, on_ft: [html, mustache, handlebars]}
+- { repo: digitaltoad/vim-pug, on_ft: [ pug, jade ]}
+- { repo: keith/swift.vim, on_ft: swift }
+- { repo: lifepillar/pgsql.vim, on_ft: pgsql }
+- { repo: chr4/nginx.vim, on_ft: nginx }
+- { repo: vim-jp/syntax-vim-ex, on_ft: vim }
+- { repo: MTDL9/vim-log-highlighting, on_ft: log }
+- { repo: tmux-plugins/vim-tmux, on_ft: tmux }
+- { repo: reasonml-editor/vim-reason-plus, on_ft: [ reason, merlin ] }
 
 - repo: plasticboy/vim-markdown
   on_ft: markdown
@@ -440,6 +456,23 @@
       \ 'makefile=make',
       \ 'py=python'
       \ ]
+
+- repo: pearofducks/ansible-vim
+  on_ft: [ ansible, ansible_hosts, jinja2 ]
+  hook_add: |-
+    let g:ansible_extra_keywords_highlight = 1
+    let g:ansible_template_syntaxes = {
+      \   '*.json.j2': 'json',
+      \   '*.(ba)?sh.j2': 'sh',
+      \   '*.ya?ml.j2': 'yaml',
+      \   '*.xml.j2': 'xml',
+      \   '*.conf.j2': 'conf',
+      \   '*.ini.j2': 'ini'
+      \ }
+
+- repo: hashivim/vim-terraform
+  on_ft: terraform
+  on_cmd: [ Terraform, TerraformFmt ]
 
 # ==========================================
 # Operators and text objects
