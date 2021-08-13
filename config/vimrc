@@ -70,9 +70,9 @@ if filereadable($VIM_PATH . '/config/local.vim')
 	call s:source_file('config/local.vim')
 endif
 
-if get(g:, 'statusline_plugin_enable', 1)
-	call s:source_file('config/statusline.vim')
-endif
+" if get(g:, 'statusline_plugin_enable', 1)
+" 	call s:source_file('config/statusline.vim')
+" endif
 if get(g:, 'tabline_plugin_enable', 1)
 	call s:source_file('config/tabline.vim')
 endif
