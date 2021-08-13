@@ -9,13 +9,10 @@ let g:badge_status_filename_max_dirs =
 	\ get(g:, 'badge_status_filename_max_dirs', 3)
 
 " Maximum number of characters in each directory
-let g:badge_status_dir_max_chars =
-	\ get(g:, 'badge_status_dir_max_chars', 5)
+let g:badge_status_dir_max_chars = get(g:, 'badge_status_dir_max_chars', 5)
 
 " Less verbosity on specific filetypes (regexp)
-let g:badge_filetype_blacklist =
-	\ get(g:, 'badge_filetype_blacklist',
-	\ 'vimfiler\|gundo\|diff\|fugitive\|gitv\|NeogitStatus')
+let g:badge_filetype_blacklist = get(g:, 'badge_filetype_blacklist', '')
 
 let g:badge_loading_charset =
 	\ get(g:, 'badge_loading_charset',
@@ -104,26 +101,9 @@ function! badge#filename(...) abort
 
 	let l:bufname = bufname(l:bufnr)
 
-	if l:filetype =~? g:badge_filetype_blacklist
-		" Empty if owned by certain plugins
-		let l:fn = ''
-	elseif l:filetype =~# 'denite.*\|quickpick-filter'
-		let l:fn = '⌖ '
-	elseif l:filetype ==# 'qf'
-		let l:fn = ' '
-	elseif l:filetype ==# 'TelescopePrompt'
-		let l:fn = '⌖ '
-	elseif l:filetype ==# 'defx'
-		let l:fn = ' '
-	elseif l:filetype ==# 'magit'
-		let l:fn = magit#git#top_dir()
-	elseif l:filetype ==# 'vimfiler'
-		let l:fn = vimfiler#get_status_string()
-	elseif empty(l:bufname)
+	if empty(getbufvar(l:bufnr, '&buftype')) && empty(l:bufname)
 		" Placeholder for empty buffer
 		let l:fn = g:badge_nofile
-	" elseif ! &buflisted
-	" 	let l:fn = ''
 	else
 		" Shorten dir names
 		let l:max = a:0 > 2 ? a:3 : g:badge_status_dir_max_chars
@@ -139,7 +119,26 @@ function! badge#filename(...) abort
 
 		" Set icon
 		let l:icon = ''
-		if get(g:, 'nvim_web_devicons')
+		if l:filetype ==# 'fern'
+			let l:icon = ''
+		elseif l:filetype ==# 'undotree'
+			let l:icon = ''
+		elseif l:filetype ==# 'qf'
+			let l:icon = ''
+			let parts = [ 'List' ]
+		elseif l:filetype ==# 'TelescopePrompt'
+			let l:icon = ''
+			let parts = [ 'Telescope' ]
+		elseif l:filetype ==# 'Trouble'
+			let l:icon = ''
+		elseif l:filetype ==# 'DiffviewFiles'
+			let l:icon = ''
+		elseif l:filetype ==# 'Outline'
+			let l:icon = ''
+			let parts = [ 'Outline' ]
+		elseif l:filetype ==# 'NeogitStatus'
+			let l:icon = ''
+		elseif get(g:, 'nvim_web_devicons')
 			let l:icon = luaeval(
 				\ 'require"nvim-web-devicons".get_icon(_A[1], _A[2], { default = true })',
 				\ [fnamemodify(l:bufname, ':t:r'), fnamemodify(l:bufname, ':e')])
@@ -154,12 +153,6 @@ function! badge#filename(...) abort
 		endif
 
 		let l:fn .= join(parts, '/')
-	endif
-
-	" Append fugitive blob type
-	let l:fugitive = getbufvar(l:bufnr, 'fugitive_type')
-	if l:fugitive ==# 'blob'
-		let l:fn .= ' (blob)'
 	endif
 
 	" Cache and return the final result
