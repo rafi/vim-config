@@ -454,7 +454,7 @@
   on_event: FileType
   hook_source: |-
     omap     <silent> m :<C-U>lua require('tsht').nodes()<CR>
-    vnoremap <silent> m :lua require('tsht').nodes()<CR>
+    vnoremap <silent> m <cmd>lua require('tsht').nodes()<CR>
 
 - { repo: AndrewRadev/sideways.vim, rev: main, on_map: { onx: <Plug>Sideways }}
 - { repo: AndrewRadev/linediff.vim, on_cmd: Linediff }
