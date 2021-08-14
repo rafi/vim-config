@@ -67,6 +67,10 @@ let $VIM_PATH =
 	\   fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
 	\ )
 
+" Set data directory
+let $XDG_DATA_HOME =
+  \ expand(($XDG_DATA_HOME ? $XDG_DATA_HOME : '~/.local/share'), 1)
+
 " Collection of user plugin list config file-paths
 let s:config_paths = get(g:, 'etc_config_paths', [
 	\ $VIM_PATH . '/config/plugins.yaml',
