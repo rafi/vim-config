@@ -49,13 +49,13 @@ Works best with [Neovim] 0.5.x ⚠️ For Vim 8.x, use the
   * [Editor UI](#editor-ui)
   * [Custom Tools & Plugins](#custom-tools--plugins)
   * [Window Management](#window-management)
-  * [Git Version Control](#git-version-control)
+  * [Plugin: Gitsigns](#plugin-gitsigns)
+  * [Plugin: Gina](#plugin-gina)
   * [Plugin: Telescope](#plugin-telescope)
   * [Plugin: Fern](#plugin-fern)
   * [Plugin: LSP](#plugin-lsp)
   * [Plugin: Any-Jump](#plugin-any-jump)
   * [Plugin: Signature](#plugin-signature)
-* [Credits & Contribution](#credits--contribution)
 
 <!-- vim-markdown-toc -->
 </details>
@@ -195,25 +195,18 @@ pip3 install --user pycodestyle pyflakes flake8
 
 ## User Custom Config
 
-If you want to add your own configuration, create the `config/local.vim` file
-and add your personal vimscript there. If you'd like to install plugins by
-yourself, create a `config/local.plugins.yaml` file and manage your own plugin
-collection.
+For **custom configuration**, create the `config/local.vim` file
+and add your personal vimscript there.
 
-If you want to disable some of the plugins I use, you can overwrite them, e.g.:
+For **installing plugins**, create a `config/local.plugins.yaml` file and
+manage your own plugin collection.  If you want to disable some of the plugins
+I use, you can overwrite them, _e.g._:
 
 ```yaml
 - { repo: shadmansaleh/lualine.nvim, if: 0 }
 ```
 
-Disable builtin tabline in your local `config/local.vim` with:
-
-```vim
-let g:tabline_plugin_enable = 0
-```
-
-Using `config/local.plugins.yaml` you can install any plugin you
-want, _e.g._:
+Using `config/local.plugins.yaml` you can install any plugin you want, _e.g._:
 
 ```yaml
 # Choose only ONE of these statuslines ;)
@@ -224,26 +217,58 @@ want, _e.g._:
 - repo: liuchengxu/eleline.vim
 ```
 
+You can set **global specific features** by defining in your local
+`config/local.vim`:
+
+```vim
+let g:elite_mode = 1                     " Set arrow-keys to window resize
+let g:global_symbol_padding = '  '       " Padding after nerd symbols
+let g:tabline_plugin_enable = 0          " Disable built-in tabline
+let g:enable_universal_quit_mapping = 0  " Disable normal 'q' mapping
+let g:disable_mappings = 0               " Disable config/mappings.vim
+```
+
+To override **LSP configurations**, create a `lua/lsp-local/<server_name>.lua`
+file. Must return a table with `config` function. For example, create
+`lua/lsp-local/go.lua`:
+
+```lua
+local config = {
+	settings = {
+		gopls = {
+			staticcheck = true
+		}
+	}
+}
+
+return {
+	config = function(_) return config end,
+}
+```
+
+⚠️ This will completely overwrite built-in [`lua/lsp/go.lua`](./lua/lsp/go.lua).
+
 ## Structure
 
 * [after/](./after) - Language specific custom settings
 * [autoload/](./autoload) - Action-menu and badge functions
 * [config/](./config) - Configuration
-  * [plugins/](./config/plugins) - Plugin configurations
-    * [all.vim](./config/plugins/all.vim) - Plugin mappings
-    * […](./config/plugins)
-  * [general.vim](./config/general.vim) - General configuration
-  * [init.vim](./config/init.vim) - Package-manager initialization
-  * **local.plugins.yaml** - Custom user plugins
-  * **local.vim** - Custom user settings
-  * [mappings.vim](./config/mappings.vim) - Key-mappings
-  * [plugins.yaml](./config/plugins.yaml) - My favorite _**Plugins!**_
-  * [vimrc](./config/vimrc) - Initialization
+    * [plugins/](./config/plugins) - Plugin configurations
+        * [all.vim](./config/plugins/all.vim) - Plugin mappings
+        * […](./config/plugins)
+    * [general.vim](./config/general.vim) - General configuration
+    * [init.vim](./config/init.vim) - Package-manager initialization
+    * **local.plugins.yaml** - Custom user plugins
+    * **local.vim** - Custom user settings
+    * [mappings.vim](./config/mappings.vim) - Key-mappings
+    * [plugins.yaml](./config/plugins.yaml) - My favorite _**Plugins!**_
+    * [vimrc](./config/vimrc) - Initialization
 * [lua/](./lua) - Lua plugin configurations
-  * [lsp/](./lua/lsp) - LSP configurations
-  * [plugins/](./lua/plugins) - Plugins configurations
-  * [badge.lua](./lua/badge.lua) - Badges for status lines
-  * [user.lua](./lua/user.lua) - Custom functions
+    * [lsp/](./lua/lsp) - LSP configurations
+    * **lsp-local** - Custom user LSP configurations
+    * [plugins/](./lua/plugins) - Plugins configurations
+    * [badge.lua](./lua/badge.lua) - Badges for status lines
+    * [user.lua](./lua/user.lua) - Custom functions
 * [plugin/](./plugin) - Custom written plugins
 * [snippets/](./snippets) - Personal code snippets
 * [themes/](./themes) - Colorscheme overrides
@@ -642,8 +667,8 @@ Note that,
 | ----- |:----:| ------------------ | ------
 | <kbd>-</kbd> | 𝐍 | Choose a window to edit | <small>[t9md/vim-choosewin]</small>
 | <kbd>;</kbd>+<kbd>c</kbd> | 𝐍 | Open context-menu | <small>[plugin/actionmenu.vim]</small>
-| <kbd>g</kbd><kbd>Ctrl</kbd>+<kbd>o</kbd> | 𝐍 | Navigate to previous file on jumplist | <small>[plugin/jumpfile.vim]</small>
-| <kbd>g</kbd><kbd>Ctrl</kbd>+<kbd>i</kbd> | 𝐍 | Navigate to next file on jumplist | <small>[plugin/jumpfile.vim]</small>
+| <kbd>g</kbd><kbd>Ctrl</kbd>+<kbd>o</kbd> | 𝐍 | Navigate to previous file on jumplist | <small>s:jump_buffer</small>
+| <kbd>g</kbd><kbd>Ctrl</kbd>+<kbd>i</kbd> | 𝐍 | Navigate to next file on jumplist | <small>s:jump_buffer</small>
 | <kbd>Space</kbd>+<kbd>l</kbd> | 𝐍 | Open side-menu helper | <small>[rafi/vim-sidemenu]</small>
 | <kbd>Space</kbd>+<kbd>o</kbd> | 𝐍 | Open structure window | <small>[simrat39/symbols-outline.nvim]</small>
 | <kbd>Space</kbd>+<kbd>S</kbd> | 𝐍 𝐕 | Source selection | `y:execute @@`
@@ -819,10 +844,9 @@ Note that,
 [nvim-lspconfig]: https://github.com/neovim/nvim-lspconfig
 [nvim-compe]: https://github.com/hrsh7th/nvim-compe
 [telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
-[lazy-loaded]: ./config/plugins.yaml#L36
+[lazy-loaded]: ./config/plugins.yaml#L39
 [config/mappings.vim]: ./config/mappings.vim
 [plugin/whitespace.vim]: ./plugin/whitespace.vim
-[plugin/jumpfile.vim]: ./plugin/jumpfile.vim
 [plugin/actionmenu.vim]: ./plugin/actionmenu.vim
 [lua/plugins/lspconfig.lua]: ./lua/plugins/lspconfig.lua
 [nvim-treesitter]: https://github.com/nvim-treesitter/nvim-treesitter
