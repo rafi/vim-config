@@ -168,7 +168,11 @@ local function make_config(server_name)
 	}
 
 	-- Merge user-defined lsp settings.
-	local exists, module = pcall(require, 'lsp.'..server_name)
+	-- These can be overridden locally by lua/lsp-local/<server_name>.lua
+	local exists, module = pcall(require, 'lsp-local.'..server_name)
+	if not exists then
+		exists, module = pcall(require, 'lsp.'..server_name)
+	end
 	if exists then
 		local user_config = module.config(c)
 		for k, v in pairs(user_config) do c[k] = v end
