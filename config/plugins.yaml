@@ -479,7 +479,8 @@
 # Operators and text objects
 # ---------
 - repo: machakann/vim-sandwich
-  on_map: { vonx: <Plug>(operator-sandwich- }
+  on_map:
+    nxo: [ <Plug>(operator-sandwich-, <Plug>(textobj-sandwich- ]
   hook_add: |-
     let g:sandwich_no_default_key_mappings = 1
     let g:operator_sandwich_no_default_key_mappings = 1
@@ -493,12 +494,15 @@
     omap     <silent> m :<C-U>lua require('tsht').nodes()<CR>
     vnoremap <silent> m <cmd>lua require('tsht').nodes()<CR>
 
-- { repo: AndrewRadev/sideways.vim, rev: main, on_map: { onx: <Plug>Sideways }}
-- { repo: AndrewRadev/linediff.vim, on_cmd: Linediff }
+- repo: AndrewRadev/sideways.vim
+  on_map:
+    xo: <Plug>Sideways
+    n: [ SidewaysLeft, SidewaysRight, SidewaysJumpLeft, SidewaysJumpRight ]
+
+- { repo: AndrewRadev/linediff.vim, on_cmd: [ Linediff, LinediffAdd ]}
 
 - repo: AndrewRadev/splitjoin.vim
-  rev: main
-  on_map: { n: <Plug>Splitjoin }
+  on_map: { n: [ SplitjoinJoin, SplitjoinSplit ]}
   hook_add: |-
     let g:splitjoin_join_mapping = ''
     let g:splitjoin_split_mapping = ''

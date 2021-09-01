@@ -53,8 +53,8 @@ if dein#tap('accelerated-jk')
 endif
 
 if dein#tap('vim-edgemotion')
-	map gj <Plug>(edgemotion-j)
-	map gk <Plug>(edgemotion-k)
+	nmap gj <Plug>(edgemotion-j)
+	nmap gk <Plug>(edgemotion-k)
 	xmap gj <Plug>(edgemotion-j)
 	xmap gk <Plug>(edgemotion-k)
 endif
@@ -214,15 +214,23 @@ if dein#tap('thesaurus_query.vim')
 endif
 
 if dein#tap('vim-asterisk')
-	map *   <Plug>(asterisk-g*)
-	map g*  <Plug>(asterisk-*)
-	map #   <Plug>(asterisk-g#)
-	map g#  <Plug>(asterisk-#)
+	nmap *   <Plug>(asterisk-g*)
+	nmap g*  <Plug>(asterisk-*)
+	nmap #   <Plug>(asterisk-g#)
+	nmap g#  <Plug>(asterisk-#)
+	xmap *   <Plug>(asterisk-g*)
+	xmap g*  <Plug>(asterisk-*)
+	xmap #   <Plug>(asterisk-g#)
+	xmap g#  <Plug>(asterisk-#)
 
-	map z*  <Plug>(asterisk-z*)
-	map gz* <Plug>(asterisk-gz*)
-	map z#  <Plug>(asterisk-z#)
-	map gz# <Plug>(asterisk-gz#)
+	nmap z*  <Plug>(asterisk-z*)
+	nmap gz* <Plug>(asterisk-gz*)
+	nmap z#  <Plug>(asterisk-z#)
+	nmap gz# <Plug>(asterisk-gz#)
+	xmap z*  <Plug>(asterisk-z*)
+	xmap gz* <Plug>(asterisk-gz*)
+	xmap z#  <Plug>(asterisk-z#)
+	xmap gz# <Plug>(asterisk-gz#)
 endif
 
 if dein#tap('sideways.vim')

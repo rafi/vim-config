@@ -212,7 +212,7 @@ cnoremap <Down> <C-n>
 " ---------------
 
 " Switch (window) to the directory of the current opened buffer
-map <Leader>cd :lcd %:p:h<CR>:pwd<CR>
+nmap <Leader>cd :lcd %:p:h<CR>:pwd<CR>
 
 " Open file under the cursor in a vsplit
 nnoremap gf <cmd>vertical wincmd f<CR>

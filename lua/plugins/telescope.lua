@@ -39,14 +39,14 @@ local preload = function()
 	keymap('n', '<leader>gt', '<cmd>lua require"plugins.telescope".pickers.lsp_workspace_symbols_cursor()<CR>', opts)
 	keymap('n', '<leader>gf', '<cmd>lua require"plugins.telescope".pickers.find_files_cursor()<CR>', opts)
 	keymap('n', '<leader>gg', '<cmd>lua require"plugins.telescope".pickers.grep_string_cursor()<CR>', opts)
-	keymap('v', '<leader>gg', '<cmd>lua require"plugins.telescope".pickers.grep_string_visual()<CR>', opts)
+	keymap('x', '<leader>gg', '<cmd>lua require"plugins.telescope".pickers.grep_string_visual()<CR>', opts)
 
 	-- LSP related
 	keymap('n', '<localleader>dd', '<cmd>Telescope lsp_definitions<CR>', opts)
 	keymap('n', '<localleader>di', '<cmd>Telescope lsp_implementations<CR>', opts)
 	keymap('n', '<localleader>dr', '<cmd>Telescope lsp_references<CR>', opts)
 	keymap('n', '<localleader>da', '<cmd>Telescope lsp_code_actions<CR>', opts)
-	keymap('v', '<localleader>da', '<cmd>Telescope lsp_range_code_actions<CR>', opts)
+	keymap('x', '<localleader>da', ':Telescope lsp_range_code_actions<CR>', opts)
 end
 
 -- Helpers
