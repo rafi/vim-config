@@ -378,7 +378,7 @@ function! s:jump_buffer(direction)
 
 	for i in searchrange
 		let l:nr = jumplist[i]['bufnr']
-		if l:nr != bufnr('%') && bufname(l:nr) !~? "^\a\+://"
+		if l:nr != bufnr('%') && bufname(l:nr) !~? '^\a\+://'
 			let n = abs((i - curjump) * a:direction)
 			echo 'Executing' jumpcmdstr n . ' times'
 			execute 'normal! ' . n . jumpcmdchr

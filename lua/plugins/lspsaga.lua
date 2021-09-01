@@ -2,7 +2,7 @@
 -- see: https://github.com/glepnir/lspsaga.nvim
 -- rafi settings
 
-require('lspsaga').init_lsp_saga{
+require('lspsaga').init_lsp_saga({
 	use_saga_diagnostic_sign = false,
 	max_preview_lines = 10,
 	border_style = 'round', -- single, double, round, plus
@@ -22,16 +22,16 @@ require('lspsaga').init_lsp_saga{
 		open = 'o', -- {'o', '<CR>'},
 		vsplit = 'sg', -- {'s', 'sg'},
 		split = 'sv', -- {'i', 'sv'},
-		quit = {'q', '<Esc>'},
+		quit = { 'q', '<Esc>' },
 		scroll_down = '<C-d>', -- {'<C-f>', '<C-d>'},
 		scroll_up = '<C-u>', -- {'<C-b>', '<C-u>'},
 	},
 	code_action_keys = {
-		quit = {'q', '<Esc>'},
+		quit = { 'q', '<Esc>' },
 		exec = '<CR>',
 	},
 	rename_action_keys = {
-		quit = {'<C-c>', '<Esc>'},
+		quit = { '<C-c>', '<Esc>' },
 		exec = '<CR>',
 	},
-}
+})

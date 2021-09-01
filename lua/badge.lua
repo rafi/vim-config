@@ -14,7 +14,7 @@ function M.filepath(max_dirs, dir_max_chars)
 		local msg = ''
 		-- local ft = vim.bo.filetype
 		local name = vim.fn.expand('%:~:.')
-		local cache_key = 'badge_cache_filepath'  -- _'..ft
+		local cache_key = 'badge_cache_filepath' -- _'..ft
 		local cache_ok, cache = pcall(vim.api.nvim_buf_get_var, 0, cache_key)
 
 		if cache_ok then
@@ -26,17 +26,23 @@ function M.filepath(max_dirs, dir_max_chars)
 		local i = 0
 		local parts = {}
 		local iter = string.gmatch(name, '([^/]+)')
-		for dir in iter do table.insert(parts, dir) end
+		for dir in iter do
+			table.insert(parts, dir)
+		end
 		while #parts > 1 do
 			local dir = table.remove(parts, 1)
 			if #parts <= max_dirs then
 				dir = string.sub(dir, 0, dir_max_chars)
-				if i > 0 then msg = msg..'/' end
-				msg = msg..dir
+				if i > 0 then
+					msg = msg .. '/'
+				end
+				msg = msg .. dir
 				i = i + 1
 			end
 		end
-		if i > 0 then msg = msg..'/' end
+		if i > 0 then
+			msg = msg .. '/'
+		end
 		msg = msg .. table.concat(parts, '/')
 		vim.api.nvim_buf_set_var(0, cache_key, msg)
 
@@ -86,13 +92,13 @@ function M.modified(symbol)
 end
 
 function M.icon()
-	return function ()
+	return function()
 		local ft = vim.bo.filetype
 		if #ft < 1 then
 			return ''
 		end
 
-		local cache_key = 'badge_cache_icon'  -- _'..ft
+		local cache_key = 'badge_cache_icon' -- _'..ft
 		local cache_ok, cache = pcall(vim.api.nvim_buf_get_var, 0, cache_key)
 		if cache_ok then
 			return cache
@@ -134,11 +140,15 @@ function M.trails(symbol)
 		end
 
 		local msg = ''
-		if not vim.bo.readonly and vim.bo.modifiable and vim.fn.line('$') < 9000 then
+		if
+			not vim.bo.readonly
+			and vim.bo.modifiable
+			and vim.fn.line('$') < 9000
+		then
 			local trailing = vim.fn.search('\\s$', 'nw')
 			if trailing > 0 then
 				local label = symbol or 'WS:'
-				msg = msg..label..trailing
+				msg = msg .. label .. trailing
 			end
 		end
 		vim.api.nvim_buf_set_var(0, cache_key, msg)

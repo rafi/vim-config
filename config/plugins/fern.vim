@@ -33,7 +33,7 @@ nnoremap <Plug>(fern-close-drawer) :<C-u>FernDo close -drawer -stay<CR>
 
 function! s:init_fern()
 	if has('nvim')
-		setl winhighlight=CursorLine:UserSelectionBackground
+		setlocal winhighlight=CursorLine:UserSelectionBackground
 	end
 
 	silent! nnoremap <buffer> f <Nop>
