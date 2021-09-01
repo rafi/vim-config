@@ -273,12 +273,16 @@
 
 - repo: neovim/nvim-lspconfig
   if: has('nvim-0.5')
-  depends: [ lsp_signature.nvim, todo-comments.nvim, lua-dev.nvim ]
+  depends:
+    - lsp_signature.nvim
+    - todo-comments.nvim
+    - lua-dev.nvim
+    - cmp-nvim-lsp
   on_event: VimEnter
   hook_post_source: lua require('plugins.lspconfig')
 
-- { repo: ray-x/lsp_signature.nvim, if: has('nvim-0.5'), lazy: true }
-- { repo: folke/lua-dev.nvim, if: has('nvim-0.5'), lazy: true }
+- { repo: ray-x/lsp_signature.nvim, lazy: true }
+- { repo: folke/lua-dev.nvim, lazy: true }
 
 - repo: folke/todo-comments.nvim
   if: has('nvim-0.5')
@@ -290,22 +294,19 @@
   on_event: InsertEnter
   hook_post_source: lua require('nvim-autopairs').setup()
 
-- repo: hrsh7th/nvim-compe
+- repo: hrsh7th/nvim-cmp
   if: has('nvim-0.5')
-  on_event: InsertEnter
-  depends: [ nvim-autopairs, compe-tmux, vim-vsnip ]
-  hook_post_source: lua require('plugins.compe')
-  hook_source: |-
-    augroup user_plugin_compe
-      autocmd!
-      autocmd FileType denite-filter,clap_input
-        \ call compe#setup({'enabled': v:false}, 0)
-    augroup END
+  on_event: VimEnter
+  depends: [ nvim-autopairs, vim-vsnip ]
+  hook_post_source: lua require('plugins.cmp')
 
-- repo: andersevenrud/compe-tmux
-  if: has('nvim-0.5')
-  lazy: true
-  hook_add: let g:loaded_compe_tmux = v:true
+- { repo: hrsh7th/cmp-nvim-lsp, lazy: true }
+- { repo: hrsh7th/cmp-nvim-lua, on_source: nvim-cmp }
+- { repo: hrsh7th/cmp-buffer, on_source: nvim-cmp }
+- { repo: hrsh7th/cmp-vsnip, on_source: nvim-cmp }
+- { repo: hrsh7th/cmp-path, on_source: nvim-cmp }
+- { repo: hrsh7th/cmp-emoji, on_source: nvim-cmp }
+- { repo: andersevenrud/compe-tmux, rev: cmp, on_source: nvim-cmp }
 
 - repo: hrsh7th/vim-vsnip
   depends: [ vim-vsnip-integ, friendly-snippets ]

@@ -26,6 +26,8 @@ let g:terminal_color_15 = '#cfcfcf'
 highlight! UserBorder         ctermfg=254 guifg=#525865
 highlight! UserSelectionCaret ctermfg=139 guifg=#B294BB ctermbg=97 guibg=#4D2238
 highlight! UserSelectionBackground                      ctermbg=97 guibg=#4D2238
+highlight! UserFloat          ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
+" highlight! link UserFloat NormalFloat
 highlight! link UserPreviewLine UserSelectionBackground
 " ctermbg=236 guibg=#323232
 " #ACAFAE  #2C3237

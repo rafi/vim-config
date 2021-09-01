@@ -68,7 +68,7 @@ Works best with [Neovim] 0.5.x ⚠️ For Vim 8.x, use the
 * LSP installers (`:LspInstall <filetype>`)
 * Custom side-menu (try it! <kbd>Space</kbd>+<kbd>l</kbd>)
 * Custom context-menu (try it! <kbd>;</kbd>+<kbd>c</kbd>)
-* Auto-complete extensive setup with [nvim-lspconfig] and [nvim-compe]
+* Auto-complete extensive setup with [nvim-lspconfig] and [nvim-cmp]
   (try <kbd>Tab</kbd> in insert-mode)
 * [telescope.nvim] centric work-flow with lists (try <kbd>;</kbd>+<kbd>f</kbd>…)
 * Structure view with [simrat39/symbols-outline.nvim]
@@ -371,8 +371,8 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [ray-x/lsp_signature.nvim] | LSP signature hint when you type
 | [folke/lua-dev.nvim] | Dev setup for Lua
 | [folke/todo-comments.nvim] | Highlight, list and search todo comments in your projects
-| [hrsh7th/nvim-compe] | Auto completion Lua plugin for nvim
-| [andersevenrud/compe-tmux] | Tmux completion source for nvim-compe
+| [hrsh7th/nvim-cmp] | Completion plugin for neovim written in Lua
+| [andersevenrud/compe-tmux] | Tmux completion source for nvim-compe/cmp
 | [windwp/nvim-autopairs] | autopairs for neovim written by lua
 | [hrsh7th/vim-vsnip] | Snippet plugin for vim/nvim that supports LSP/VSCode's snippet format
 | [hrsh7th/vim-vsnip-integ] | vim-vsnip integrations to other plugins
@@ -490,7 +490,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [ray-x/lsp_signature.nvim]: https://github.com/ray-x/lsp_signature.nvim
 [folke/lua-dev.nvim]: https://github.com/folke/lua-dev.nvim
 [folke/todo-comments.nvim]: https://github.com/folke/todo-comments.nvim
-[hrsh7th/nvim-compe]: https://github.com/hrsh7th/nvim-compe
+[hrsh7th/nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
 [andersevenrud/compe-tmux]: https://github.com/andersevenrud/compe-tmux
 [windwp/nvim-autopairs]: https://github.com/windwp/nvim-autopairs
 [hrsh7th/vim-vsnip]: https://github.com/hrsh7th/vim-vsnip
@@ -854,7 +854,7 @@ Note that,
 [lua/lsp/*]: ./lua/lsp/
 [lua/plugins/lspconfig.lua]: ./lua/plugins/lspconfig.lua
 [nvim-lspconfig]: https://github.com/neovim/nvim-lspconfig
-[nvim-compe]: https://github.com/hrsh7th/nvim-compe
+[nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
 [telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
 [lazy-loaded]: ./config/plugins.yaml#L39
 [config/mappings.vim]: ./config/mappings.vim

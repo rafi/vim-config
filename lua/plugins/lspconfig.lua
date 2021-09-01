@@ -158,14 +158,15 @@ local function make_config(server_name)
 	local c = {}
 	c.on_attach = on_attach
 	c.capabilities = vim.lsp.protocol.make_client_capabilities()
-	c.capabilities.textDocument.completion.completionItem.snippetSupport = true
-	c.capabilities.textDocument.completion.completionItem.resolveSupport = {
-		properties = {
-			'documentation',
-			'detail',
-			'additionalTextEdits',
-		}
-	}
+	c.capabilities = require('cmp_nvim_lsp').update_capabilities(c.capabilities)
+	-- c.capabilities.textDocument.completion.completionItem.snippetSupport = true
+	-- c.capabilities.textDocument.completion.completionItem.resolveSupport = {
+	-- 	properties = {
+	-- 		'documentation',
+	-- 		'detail',
+	-- 		'additionalTextEdits',
+	-- 	}
+	-- }
 
 	-- Merge user-defined lsp settings.
 	-- These can be overridden locally by lua/lsp-local/<server_name>.lua
