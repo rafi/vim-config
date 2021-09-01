@@ -7,8 +7,14 @@
 
 -- Buffer attached
 local on_attach = function(client, bufnr)
-	local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-	-- local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+	local function map_buf(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+	-- local function opt_buf(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+	-- Disable diagnostics for Helm template files
+	if vim.bo[bufnr].buftype ~= '' or vim.bo[bufnr].filetype == 'helm' then
+		vim.lsp.diagnostic.disable()
+		return
+	end
 
 	if client.config.flags then
 		client.config.flags.allow_incremental_sync = true
@@ -17,21 +23,21 @@ local on_attach = function(client, bufnr)
 
 	-- Keyboard mappings
 	local opts = { noremap = true, silent = true }
-	buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-	buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-	buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-	buf_set_keymap('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-	buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-	buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-	buf_set_keymap('n', ',s', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-	buf_set_keymap('n', ',wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-	buf_set_keymap('n', ',wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-	buf_set_keymap('n', ',wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-	buf_set_keymap('n', ',rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-	buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-	buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-	buf_set_keymap('n', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-	buf_set_keymap('n', '<Leader>ce', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+	map_buf('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+	map_buf('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+	map_buf('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+	map_buf('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+	map_buf('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+	map_buf('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+	map_buf('n', ',s', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+	map_buf('n', ',wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+	map_buf('n', ',wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+	map_buf('n', ',wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+	map_buf('n', ',rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+	map_buf('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+	map_buf('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+	map_buf('n', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+	map_buf('n', '<Leader>ce', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
 
 	-- lspsaga
 	-- buf_set_keymap('n', '<Leader>f', '<cmd>lua require("lspsaga.provider").lsp_finder()<CR>', opts)
@@ -43,73 +49,40 @@ local on_attach = function(client, bufnr)
 
 	-- Set some keybinds conditional on server capabilities
 	if client.resolved_capabilities.document_formatting then
-		buf_set_keymap('n', ',f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+		map_buf('n', ',f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 	end
 	if client.resolved_capabilities.document_range_formatting then
-		buf_set_keymap('v', ',f', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
+		map_buf('v', ',f', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
 	end
 
 	-- Set autocommands conditional on server_capabilities
 	if client.resolved_capabilities.document_highlight then
 		vim.api.nvim_exec([[
-			hi! LspReferenceRead ctermbg=237 guibg=#3D3741
-			hi! LspReferenceText ctermbg=237 guibg=#373B41
-			hi! LspReferenceWrite ctermbg=237 guibg=#374137
+			highlight! LspReferenceRead ctermbg=237 guibg=#3D3741
+			highlight! LspReferenceText ctermbg=237 guibg=#373B41
+			highlight! LspReferenceWrite ctermbg=237 guibg=#374137
 			augroup lsp_document_highlight
-			autocmd! * <buffer>
-			autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-			autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+				autocmd! * <buffer>
+				autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+				autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
 			augroup END
 		]], false)
 	end
 end
 
 -- Diagnostics signs and highlights
-vim.fn.sign_define(
-	'LspDiagnosticsSignError',  --   ✘
-	{ texthl = 'LspDiagnosticsSignError', text = '✘', numhl = 'LspDiagnosticsSignError' }
-)
-vim.fn.sign_define(
-	'LspDiagnosticsSignWarning',  --  ⚠ 
-	{ texthl = 'LspDiagnosticsSignWarning', text = '', numhl = 'LspDiagnosticsSignWarning' }
-)
-vim.fn.sign_define(
-	'LspDiagnosticsSignHint',  --  
-	{ texthl = 'LspDiagnosticsSignHint', text = '', numhl = 'LspDiagnosticsSignHint' }
-)
-vim.fn.sign_define(
-	'LspDiagnosticsSignInformation',  --   ⁱ
-	{ texthl = 'LspDiagnosticsSignInformation', text = 'ⁱ', numhl = 'LspDiagnosticsSignInformation' }
-)
+--   Error:   ✘
+--   Warning:  ⚠ 
+--   Hint:  
+--   Information:   ⁱ
+local signs = { Error = '✘', Warning = '', Hint = '', Information = 'ⁱ'}
+for type, icon in pairs(signs) do
+	local hl = 'LspDiagnosticsSign' .. type
+	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
 
--- Symbols for autocomplete
-vim.lsp.protocol.CompletionItemKind = {
-	'   (Text)', --  𝓐
-	'   (Method)', --  ƒ
-	'   (Function)', -- 
-	'   (Constructor)', --  
-	'   (Field)', --  ﴲ   
-	'   (Variable)', --  
-	'   (Class)', --  𝓒
-	'   (Interface)', -- ﰮ   
-	'   (Module)', --  
-	' 襁 (Property)', -- 襁
-	'   (Unit)',
-	'   (Value)',
-	' 練 (Enum)', -- 練 ℰ
-	'   (Keyword)', --   🔐
-	' ⮡  (Snippet)', -- ﬌ ⮡ 
-	'   (Color)',
-	'   (File)',
-	'   (Reference)',
-	'   (Folder)',
-	'   (EnumMember)',
-	'   (Constant)',
-	'   (Struct)', --  𝓢
-	'   (Event)', --  🗲
-	'   (Operator)', --  +
-	'   (TypeParameter)', --  𝙏
-}
+-- Setup CompletionItemKind symbols, see lua/lsp_kind.lua
+-- require('lsp_kind').init()
 
 -- Configure diagnostics publish settings
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
@@ -205,8 +178,9 @@ if vim.fn.has('vim_starting') then
 	require('lsp_signature').setup({
 		bind = true,
 		hint_enable = false,
-		hint_prefix = ' ',
+		hint_prefix = ' ',  --  
 		handler_opts = { border = 'rounded' },
+		zindex = 50,
 	})
 
 	-- Setup LSP with lspinstall
@@ -215,7 +189,7 @@ if vim.fn.has('vim_starting') then
 	-- Automatically reload after `:LspInstall <server>`
 	require'lspinstall'.post_install_hook = function()
 		setup_servers()  -- reload installed servers
-		if not vim.o.modified then
+		if not vim.bo.modified and vim.bo.buftype == '' then
 			vim.cmd('bufdo e')  -- starts server by triggering the FileType autocmd
 		end
 	end
@@ -229,13 +203,12 @@ if vim.fn.has('vim_starting') then
 		args
 	)
 
-	vim.cmd [[
+	vim.api.nvim_exec([[
 		augroup user_lspconfig
 			autocmd!
-			autocmd FileType helm lua vim.lsp.diagnostic.disable()
 
 			" See https://github.com/kosayoda/nvim-lightbulb
 			autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
 		augroup END
-	]]
+	]], false)
 end
