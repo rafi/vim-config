@@ -11,13 +11,19 @@ vim.g.symbols_outline = {
 		close = { '<Esc>', 'q' },
 		goto_location = '<CR>',
 		focus_location = 'o',
-		hover_symbol = 'p',
+		toggle_preview = 'p',
+		hover_symbol = 'K',
 		rename_symbol = 'r',
 		code_actions = 'a',
 	},
 	lsp_blacklist = {},
 }
 
-vim.cmd [[
-	autocmd FileType Outline setlocal cursorline winhighlight=CursorLine:UserSelectionBackground
-]]
+vim.cmd([[
+	augroup user-symbols-outline
+		autocmd!
+		autocmd FileType Outline setlocal cursorline winhighlight=CursorLine:UserSelectionBackground
+		autocmd WinEnter,BufEnter Outline setlocal cursorline
+		autocmd WinLeave,BufLeave Outline setlocal nocursorline
+	augroup END
+]])

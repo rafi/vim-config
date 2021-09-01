@@ -79,8 +79,9 @@ local extension_quickfix = {
 		lualine_a = {
 			{
 				function()
-					local q = '  '
-					local l = '  '
+					local pad = vim.g.global_symbol_padding or ' '
+					local q = '' .. pad
+					local l = '' .. pad
 					return is_loclist() and l..'Location List' or q..'Quickfix List'
 				end,
 				right_padding = 0,

@@ -2,11 +2,19 @@
 -- see: https://github.com/nvim-treesitter/nvim-treesitter
 -- rafi settings
 
-require'nvim-treesitter.configs'.setup {
+local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
+parser_configs.http = {
+	install_info = {
+		url = 'https://github.com/NTBBloodbath/tree-sitter-http',
+		files = { 'src/parser.c' },
+		branch = 'main',
+	},
+}
+
+require('nvim-treesitter.configs').setup({
 	ensure_installed = 'maintained', -- all, maintained, or list of languages
 	highlight = {
 		enable = true,
-		use_languagetree = false, -- Very unstable
 	},
 	-- incremental_selection = {
 	-- 	enable = true,
@@ -18,10 +26,10 @@ require'nvim-treesitter.configs'.setup {
 	-- 	},
 	-- },
 	indent = {
-		enable = true
+		enable = true,
 	},
 	refactor = {
 		highlight_definitions = { enable = true },
 		highlight_current_scope = { enable = true },
 	},
-}
+})

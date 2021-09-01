@@ -21,7 +21,7 @@
 
 - { repo: folke/lsp-colors.nvim, if: has('nvim-0.5') }
 - { repo: nvim-lua/plenary.nvim, if: has('nvim-0.5') }
-- { repo: nvim-lua/popup.nvim, if: has('nvim-0.5') }
+# - { repo: nvim-lua/popup.nvim, if: has('nvim-0.5') }  # Not needed?
 - { repo: kyazdani42/nvim-web-devicons, if: has('nvim-0.5') }
 
 - repo: sgur/vim-editorconfig
@@ -75,7 +75,6 @@
   hook_post_source: lua require('plugins.which-key')
 
 - repo: tversteeg/registers.nvim
-  rev: main
   if: has('nvim-0.5')
   on_cmd: Registers
   on_map: { i: '<C-r>', n: '"' }
@@ -157,7 +156,6 @@
     augroup END
 
 - repo: lewis6991/gitsigns.nvim
-  rev: main
   if: has('nvim-0.5')
   on_event: VimEnter
   hook_post_source: lua require('plugins.gitsigns')
@@ -346,7 +344,6 @@
   hook_post_source: lua require('plugins.session-lens')
 
 - repo: jvgrootveld/telescope-zoxide
-  rev: main
   if: has('nvim-0.5')
   lazy: true
   hook_post_source: lua require('plugins.telescope-zoxide')

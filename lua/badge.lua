@@ -1,11 +1,10 @@
-
-vim.cmd [[
+vim.api.nvim_exec([[
 augroup badge_lua_cache
 	autocmd!
 	autocmd BufWritePre,FileChangedShellPost,TextChanged,InsertLeave * unlet! b:badge_cache_trails
 	autocmd BufReadPost,BufFilePost,BufNewFile,BufWritePost * unlet! b:badge_cache_filepath | unlet! b:badge_cache_icon
 augroup END
-]]
+]], false)
 
 local M = {}
 
@@ -180,7 +179,8 @@ function M.utility_title()
 			NeogitStatus = '',
 			Outline = '',
 		}
-		return icons[vim.bo.filetype]..'  %y'
+		local padding = vim.g.global_symbol_padding or ' '
+		return icons[vim.bo.filetype] .. padding .. '%y'
 	end
 end
 
