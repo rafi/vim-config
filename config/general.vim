@@ -27,7 +27,7 @@ if has('vim_starting')
 endif
 
 " What to save for views and sessions:
-set viewoptions=folds,cursor,curdir,slash,unix
+set viewoptions=folds,cursor,curdir
 set sessionoptions=curdir,help,tabpages,winsize
 
 if has('mac') && has('vim_starting')
@@ -333,10 +333,9 @@ augroup user_general_settings
 	" When editing a file, always jump to the last known cursor position.
 	" Credits: https://github.com/farmergreg/vim-lastplace
 	autocmd BufReadPost *
-		\ if index(['gitcommit', 'gitrebase', 'svn', 'hgcommit'], &filetype) == -1 &&
-		\      index(['quickfix', 'nofile', 'help', 'prompt'], &buftype) == -1 &&
-		\      ! &diff && ! &previewwindow &&
-		\      line("'\"") > 0 && line("'\"") <= line("$")
+		\ if index(['gitcommit', 'gitrebase', 'svn', 'hgcommit'], &filetype) == -1
+		\      && empty(&buftype) && ! &diff && ! &previewwindow
+		\      && line("'\"") > 0 && line("'\"") <= line("$")
 		\|   if line("w$") == line("$")
 		\|     execute "normal! g`\""
 		\|   elseif line("$") - line("'\"") > ((line("w$") - line("w0")) / 2) - 1
@@ -351,15 +350,12 @@ augroup user_general_settings
 augroup END
 
 " }}}
-
 augroup user_plugin_filetype " {{{
 	autocmd!
 
-	autocmd FileType apache setlocal path+=./;/
+	autocmd FileType apache,html setlocal path+=./;/
 
 	autocmd FileType helm setlocal commentstring=#\ %s
-
-	autocmd FileType html setlocal path+=./;/
 
 	autocmd FileType crontab setlocal nobackup nowritebackup
 
@@ -374,7 +370,7 @@ augroup user_plugin_filetype " {{{
 
 	autocmd FileType python
 		\ setlocal expandtab smarttab nosmartindent
-		\ | setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=80
+		\ | setlocal tabstop=4 shiftwidth=4 textwidth=80
 
 	autocmd FileType markdown
 		\ setlocal expandtab spell autoindent formatoptions=tcroqn2 comments=n:>

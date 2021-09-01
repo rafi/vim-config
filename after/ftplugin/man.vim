@@ -2,6 +2,8 @@
 let s:save_cpo = &cpoptions
 set cpoptions&vim
 
+setlocal softtabstop=-1
+
 silent! nunmap <buffer> q
 nnoremap <silent><buffer> q :<C-u>quit<CR>
 

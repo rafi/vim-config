@@ -4,7 +4,7 @@
 " Runtime and Plugins
 " ===
 
-if &compatible
+if ! has('nvim') && &compatible
 	" vint: -ProhibitSetNoCompatible
 	set nocompatible
 	" vint: +ProhibitSetNoCompatible

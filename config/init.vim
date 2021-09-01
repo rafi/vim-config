@@ -51,11 +51,12 @@ let g:loaded_2html_plugin = 1
 let g:loaded_logiPat = 1
 let g:loaded_rrhelper = 1
 let g:no_gitrebase_maps = 1
+let g:no_man_maps = 1  " See share/nvim/runtime/ftplugin/man.vim
 
-" let g:loaded_netrw = 1
-" let g:loaded_netrwPlugin = 1
-" let g:loaded_netrwSettings = 1
-" let g:loaded_netrwFileHandlers = 1
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
+let g:loaded_netrwSettings = 1
+let g:loaded_netrwFileHandlers = 1
 
 " Set main configuration directory as parent directory
 let $VIM_PATH =
@@ -140,7 +141,8 @@ function! s:use_dein()
 		" let g:dein#lazy_rplugins = v:true
 		let g:dein#install_progress_type = 'echo'
 		let g:dein#install_message_type = 'echo'
-		let g:dein#install_max_processes = 8
+		let g:dein#install_max_processes = 10
+		let g:dein#enable_notification = v:true
 
 		" Add dein to vim's runtimepath
 		if &runtimepath !~# '/dein.vim'
@@ -195,8 +197,9 @@ function! s:use_dein()
 		endif
 	endif
 
-	filetype plugin indent on
-	syntax enable
+	autocmd user_events VimEnter *
+		\ filetype plugin indent on
+		\| syntax enable
 endfunction
 
 function! s:use_plug() abort

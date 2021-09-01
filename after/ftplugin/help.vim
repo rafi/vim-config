@@ -21,6 +21,7 @@ function! s:setup_buffer()
 		\ . " | execute 'nunmap <buffer> T'"
 		\ . " | execute 'nunmap <buffer> <leader>j'"
 		\ . " | execute 'nunmap <buffer> <leader>k'"
+		\ . " | execute 'nunmap <buffer> <Leader>o'"
 		\ . " | execute 'nunmap <buffer> q'"
 
 	setlocal nospell
@@ -30,16 +31,14 @@ function! s:setup_buffer()
 	setlocal iskeyword+=#
 	setlocal iskeyword+=-
 
-	" unsilent echomsg 'help edit' &ft bufname() 'type:' &buftype
-
-	if s:count_windows() - 1 > 1
+	if s:count_windows() > 2
 		wincmd K
 	else
 		wincmd L
 	endif
 
 	" Exit help window with 'q'
-	nnoremap <silent><buffer> q :quit<CR>
+	nnoremap <buffer> q <cmd>quit<CR>
 
 	" Jump to links with enter
 	nmap <buffer> <CR> <C-]>
@@ -66,19 +65,21 @@ function! s:setup_buffer()
 	nmap <buffer> T h?\*\S\+\*<CR>l
 
 	" Skip to next/prev quickfix list entry (from a helpgrep)
-	nmap <buffer> <leader>j :cnext<CR>
-	nmap <buffer> <leader>k :cprev<CR>
+	nmap <buffer> <leader>j <cmd>cnext<CR>
+	nmap <buffer> <leader>k <cmd>cprev<CR>
+
+	" See hare/nvim/runtime/ftplugin/help.vim
+	nmap <buffer> <Leader>o gO
 endfunction
 
 " Count tab page windows
 function! s:count_windows()
 	let l:count = 0
 	let l:tabnr = tabpagenr()
-	let l:ignore = '^\(hover\|fern\|clap_\|defx\|denite\)'
 	try
 		let l:windows = gettabinfo(l:tabnr)[0].windows
 		for l:win in l:windows
-			if getwinvar(l:win, '&filetype') !~# l:ignore
+			if empty(getbufvar(winbufnr(l:win), '&buftype'))
 				let l:count += 1
 			endif
 		endfor
