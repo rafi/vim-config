@@ -14,10 +14,12 @@ local lists = {
 	},
 }
 
-local user = { diagnostic = {}, qflist = {}, loclist = {} }
+local user = {}
 
 -- QFLT_QUICKFIX Quickfix list - global list
 ----
+
+user.qflist = {}
 
 -- Open quickfix list window
 user.qflist.open = function()
@@ -32,6 +34,8 @@ end
 -- QFLT_LOCATION Location list - per window list
 ----
 
+user.loclist = {}
+
 -- Open location list window
 user.loclist.open = function()
 	vim.api.nvim_command(lists.location.cmd_open)
@@ -45,10 +49,28 @@ end
 -- Diagnostics
 ----
 
+user.diagnostic = {}
+
 -- Set locations with diagnostics and open the list.
 user.diagnostic.publish_loclist = function(toggle)
 	if vim.api.nvim_buf_get_option(0, 'filetype') ~= 'qf' then
 		vim.lsp.diagnostic.set_loclist({ open = false })
+	end
+	if toggle then
+		user.loclist.toggle()
+	else
+		user.loclist.open()
+	end
+end
+
+-- Git
+----
+
+user.githunk = {}
+
+user.githunk.publish_loclist = function(toggle)
+	if vim.api.nvim_buf_get_option(0, 'filetype') ~= 'qf' then
+		require('gitsigns').setloclist()
 	end
 	if toggle then
 		user.loclist.toggle()

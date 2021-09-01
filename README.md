@@ -728,6 +728,7 @@ Note that,
 | <kbd>Space</kbd>+<kbd>hu</kbd> | 𝐍 | Undo stage hunk |
 | <kbd>Space</kbd>+<kbd>hr</kbd> | 𝐍 𝐕 | Reset hunk |
 | <kbd>Space</kbd>+<kbd>hR</kbd> | 𝐍 | Reset buffer |
+| <kbd>Space</kbd>+<kbd>hl</kbd> | 𝐍 | Publish hunks to location-list |
 
 ### Plugin: Gina
 
