@@ -2,7 +2,7 @@
 -- see: https://github.com/folke/todo-comments.nvim
 -- rafi settings
 
-require('todo-comments').setup{
+require('todo-comments').setup({
 	signs = false,
 	-- keywords = {
 	--   FIX = {
@@ -24,4 +24,4 @@ require('todo-comments').setup{
 	--   hint = { 'LspDiagnosticsDefaultHint', '#10B981' },
 	--   default = { 'Identifier', '#7C3AED' },
 	-- },
-}
+})

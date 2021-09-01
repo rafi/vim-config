@@ -98,8 +98,8 @@ augroup END
 
 " If sudo, disable vim swap/backup/undo/shada/viminfo writing
 if $SUDO_USER !=# '' && $USER !=# $SUDO_USER
-		\ && $HOME !=# expand('~'.$USER, 1)
-		\ && $HOME ==# expand('~'.$SUDO_USER, 1)
+		\ && $HOME !=# expand('~' . $USER, 1)
+		\ && $HOME ==# expand('~' . $SUDO_USER, 1)
 
 	set noswapfile
 	set nobackup
@@ -382,8 +382,9 @@ augroup user_plugin_filetype " {{{
 	" https://webpack.github.io/docs/webpack-dev-server.html#working-with-editors-ides-supporting-safe-write
 	autocmd FileType css,javascript,javascriptreact setlocal backupcopy=yes
 
-augroup END " }}}
+augroup END
 
+" }}}
 " Internal vim plugins {{{
 let g:sh_no_error = 1
 let g:python_recommended_style = 0
@@ -391,11 +392,10 @@ let g:vimsyntax_noerror = 1
 let g:vim_indent_cont = &shiftwidth
 let g:ruby_no_expensive = 1
 let g:PHP_removeCRwhenUnix = 0
-" }}}
 
+" }}}
 " Theme {{{
 " ---
-"
 " Autoloads theme according to user selected colorschemes
 
 function! s:theme_init()
@@ -443,29 +443,7 @@ augroup user_theme
 augroup END
 
 call s:theme_init()
-" }}}
 
-" ### Disabled {{{
-" if exists('+previewpopup')
-" 	set previewpopup=height:10,width:60
-" endif
-
-" Pseudo-transparency for completion menu and floating windows
-" if has('termguicolors') && &termguicolors
-" 	if exists('&pumblend')
-" 		set pumblend=10
-" 	endif
-" 	if exists('&winblend')
-" 		set winblend=10
-" 	endif
-" endif
-
-" if has('nvim-0.4')
-" 		set signcolumn=auto:1-2
-" " 	set signcolumn=yes
-" " elseif exists('&signcolumn')
-" " 	set signcolumn=auto
-" endif
 " }}}
 
 " vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :

@@ -2,7 +2,7 @@
 -- see: https://github.com/jvgrootveld/telescope-zoxide
 -- rafi settings
 
-local z_utils = require('telescope._extensions.zoxide.utils')
+-- local z_utils = require('telescope._extensions.zoxide.utils')
 
 require('telescope._extensions.zoxide.config').setup({
 	prompt_title = '[ Zoxide directories ]',
@@ -11,9 +11,9 @@ require('telescope._extensions.zoxide.config').setup({
 			action = function(selection)
 				vim.cmd('lcd ' .. selection.path)
 			end,
-			after_action = function(_) end
+			after_action = function(_) end,
 		},
-	}
+	},
 })
 
 require('telescope').load_extension('zoxide')

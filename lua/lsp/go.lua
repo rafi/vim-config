@@ -15,12 +15,12 @@ local config = {
 				ST1000 = false,
 				ST1005 = false,
 			},
-		}
+		},
 	},
 	init_options = {
 		usePlaceholders = true,
 		completeUnimported = true,
-	}
+	},
 }
 
 return {

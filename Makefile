@@ -12,7 +12,7 @@ update: update-repo update-plugins
 upgrade: update
 
 create-dirs:
-	@mkdir -vp ./spell "$(XDG_DATA_HOME)/nvim/"{backup,sessions,swap,undo}
+	@mkdir -vp ./spell "$(XDG_DATA_HOME)/nvim/"{backup,sessions,swap,undo,vsnip}
 
 update-repo:
 	git pull --ff --ff-only
@@ -25,10 +25,10 @@ uninstall:
 	rm -rf "$(XDG_DATA_HOME)/nvim/dein"
 
 test:
-	$(info Testing NVIM 0.5+...)
+	$(info Testing NVIM 0.5.0+...)
 	$(if $(shell echo "$(nvim_version)" | egrep "NVIM v0\.[5-9]"),\
 		$(info OK),\
-		$(error   .. You need Neovim 0.5.x or newer))
+		$(error   .. You need Neovim 0.5.0 or newer))
 	@echo All tests passed, hooray!
 
 .PHONY: install create-dirs update-repo update-plugins uninstall test

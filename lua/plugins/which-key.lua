@@ -3,7 +3,7 @@
 -- rafi settings
 
 require('which-key').load()
-require('which-key').setup{
+require('which-key').setup({
 	-- triggers = 'auto', -- automatically setup triggers
 	triggers = { '<localleader>d' },
 	plugins = {
@@ -47,6 +47,6 @@ require('which-key').setup{
 		align = 'left', -- align columns left, center or right
 	},
 	ignore_missing = false, -- enable this to hide mappings for which you didn't specify a label
-	hidden = { '<silent>', '<cmd>', '<Cmd>', '<CR>', 'call', 'lua', '^:', '^ '}, -- hide mapping boilerplate
+	hidden = { '<silent>', '<cmd>', '<Cmd>', '<CR>', 'call', 'lua', '^:', '^ ' }, -- hide mapping boilerplate
 	show_help = true, -- show help message on the command line when the popup is visible
-}
+})

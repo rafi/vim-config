@@ -116,20 +116,29 @@ Enjoy! :smile:
 
 To leverage LSP auto-completions and other functionalities, once you open a
 file in Neovim, run `:LspInstall <language>` to use [kabouzeid/nvim-lspinstall]
-installation feature, use <kbd>Tab</kbd> to list available servers.
-
-See [lua/plugins/lspconfig.lua] for custom mappings for intellisense.
+installation feature. Use <kbd>Tab</kbd> to list available servers.
 
 Here are some useful LSP server installations:
 
 * `:LspInstall bash`
 * `:LspInstall diagnosticls`
+* `:LspInstall dockerfile`
+* `:LspInstall go`
 * `:LspInstall json`
 * `:LspInstall lua`
-* `:LspInstall go`
 * `:LspInstall python`
+* `:LspInstall typescript`
 * `:LspInstall vim`
 * `:LspInstall yaml`
+* and [more](https://github.com/kabouzeid/nvim-lspinstall/tree/main/lua/lspinstall/servers)…
+
+See [lua/plugins/lspconfig.lua] and [lua/lsp/*] for built-in
+mapping and configuration for several language-servers. You'll need utilities
+like `npm` and `curl` to install some extensions. For more information, see:
+
+* Plugin used for installation: [kabouzeid/nvim-lspinstall] and
+  [supported language-servers].
+* Plugin used for configuration: [neovim/nvim-lspconfig]
 
 ## Upgrade
 
@@ -198,7 +207,7 @@ pip3 install --user pycodestyle pyflakes flake8
 For **custom configuration**, create the `config/local.vim` file
 and add your personal vimscript there.
 
-For **installing plugins**, create a `config/local.plugins.yaml` file and
+For **installing plugins**, create a `config/plugins.local.yaml` file and
 manage your own plugin collection.  If you want to disable some of the plugins
 I use, you can overwrite them, _e.g._:
 
@@ -206,7 +215,7 @@ I use, you can overwrite them, _e.g._:
 - { repo: shadmansaleh/lualine.nvim, if: 0 }
 ```
 
-Using `config/local.plugins.yaml` you can install any plugin you want, _e.g._:
+Using `config/plugins.local.yaml` you can install any plugin you want, _e.g._:
 
 ```yaml
 # Choose only ONE of these statuslines ;)
@@ -234,15 +243,15 @@ file. Must return a table with `config` function. For example, create
 
 ```lua
 local config = {
-	settings = {
-		gopls = {
-			staticcheck = true
-		}
-	}
+  settings = {
+    gopls = {
+      staticcheck = true
+    }
+  }
 }
 
 return {
-	config = function(_) return config end,
+  config = function(_) return config end,
 }
 ```
 
@@ -253,22 +262,22 @@ return {
 * [after/](./after) - Language specific custom settings
 * [autoload/](./autoload) - Action-menu and badge functions
 * [config/](./config) - Configuration
-    * [plugins/](./config/plugins) - Plugin configurations
-        * [all.vim](./config/plugins/all.vim) - Plugin mappings
-        * […](./config/plugins)
-    * [general.vim](./config/general.vim) - General configuration
-    * [init.vim](./config/init.vim) - Package-manager initialization
-    * **local.plugins.yaml** - Custom user plugins
-    * **local.vim** - Custom user settings
-    * [mappings.vim](./config/mappings.vim) - Key-mappings
-    * [plugins.yaml](./config/plugins.yaml) - My favorite _**Plugins!**_
-    * [vimrc](./config/vimrc) - Initialization
+  * [plugins/](./config/plugins) - Plugin configurations
+    * [all.vim](./config/plugins/all.vim) - Plugin mappings
+    * […](./config/plugins)
+  * [general.vim](./config/general.vim) - General configuration
+  * [init.vim](./config/init.vim) - Package-manager initialization
+  * **plugins.local.yaml** - Custom user plugins
+  * **local.vim** - Custom user settings
+  * [mappings.vim](./config/mappings.vim) - Key-mappings
+  * [plugins.yaml](./config/plugins.yaml) - My favorite _**Plugins!**_
+  * [vimrc](./config/vimrc) - Initialization
 * [lua/](./lua) - Lua plugin configurations
-    * [lsp/](./lua/lsp) - LSP configurations
-    * **lsp-local** - Custom user LSP configurations
-    * [plugins/](./lua/plugins) - Plugins configurations
-    * [badge.lua](./lua/badge.lua) - Badges for status lines
-    * [user.lua](./lua/user.lua) - Custom functions
+  * [lsp/](./lua/lsp) - LSP configurations
+  * **lsp-local** - Custom user LSP configurations
+  * [plugins/](./lua/plugins) - Plugins configurations
+  * [badge.lua](./lua/badge.lua) - Badges for status lines
+  * [user.lua](./lua/user.lua) - Custom functions
 * [plugin/](./plugin) - Custom written plugins
 * [snippets/](./snippets) - Personal code snippets
 * [themes/](./themes) - Colorscheme overrides
@@ -841,6 +850,9 @@ Note that,
 </details>
 
 [Neovim]: https://github.com/neovim/neovim
+[supported language-servers]: https://github.com/kabouzeid/nvim-lspinstall/tree/main/lua/lspinstall/servers
+[lua/lsp/*]: ./lua/lsp/
+[lua/plugins/lspconfig.lua]: ./lua/plugins/lspconfig.lua
 [nvim-lspconfig]: https://github.com/neovim/nvim-lspconfig
 [nvim-compe]: https://github.com/hrsh7th/nvim-compe
 [telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
@@ -848,6 +860,5 @@ Note that,
 [config/mappings.vim]: ./config/mappings.vim
 [plugin/whitespace.vim]: ./plugin/whitespace.vim
 [plugin/actionmenu.vim]: ./plugin/actionmenu.vim
-[lua/plugins/lspconfig.lua]: ./lua/plugins/lspconfig.lua
 [nvim-treesitter]: https://github.com/nvim-treesitter/nvim-treesitter
 [Marked 2]: https://marked2app.com

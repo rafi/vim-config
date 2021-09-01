@@ -2,7 +2,7 @@
 -- see: https://github.com/norcalli/nvim-colorizer.lua
 -- rafi settings
 
-require 'colorizer'.setup {
+require('colorizer').setup({
 	html = { mode = 'foreground' },
 	css = { rgb_fn = true },
 	scss = { rgb_fn = true },
@@ -16,4 +16,4 @@ require 'colorizer'.setup {
 	'typescript',
 	'typescriptreact',
 	'lua',
-}
+})

@@ -2,7 +2,7 @@
 -- see: https://github.com/TimUntersberger/neogit
 -- rafi settings
 
-require'neogit'.setup{
+require('neogit').setup({
 	disable_signs = false,
 	disable_context_highlighting = false,
 	disable_commit_confirmation = false,
@@ -13,10 +13,10 @@ require'neogit'.setup{
 		hunk = { '', '' },
 	},
 	integrations = {
-		diffview = true
+		diffview = true,
 	},
 	-- mappings = {
 	-- 	status = {
 	-- 	}
 	-- }
-}
+})

@@ -34,7 +34,6 @@ local colors = {
 		error = '#ec5f67',
 		warn = '#ECBE7B',
 		info = '#008080',
-
 	},
 	git = {
 		added = '#516C31',

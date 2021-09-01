@@ -2,7 +2,7 @@
 -- See: https://github.com/folke/zen-mode.nvim
 -- rafi settings
 
-require('zen-mode').setup {
+require('zen-mode').setup({
 	window = {
 		backdrop = 0.98,
 		width = 82,
@@ -18,6 +18,6 @@ require('zen-mode').setup {
 		},
 	},
 	plugins = {
-		tmux = { enabled = true }
-	}
-}
+		tmux = { enabled = true },
+	},
+})

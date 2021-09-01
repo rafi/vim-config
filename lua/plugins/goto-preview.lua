@@ -2,7 +2,7 @@
 -- see: https://github.com/rmagatti/goto-preview
 -- rafi settings
 
-require('goto-preview').setup {
+require('goto-preview').setup({
 	-- debug = false,
 	width = 78,
 	height = 15,
@@ -10,9 +10,9 @@ require('goto-preview').setup {
 	opacity = 10,
 	post_open_hook = function(_, win)
 		vim.api.nvim_win_set_config(win, {
-			border = {'╭', '─', '╮', '│', '╯', '─', '╰', '│'},
+			border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
 		})
 		vim.api.nvim_win_set_option(win, 'spell', false)
 		vim.api.nvim_win_set_option(win, 'signcolumn', 'no')
 	end,
-}
+})

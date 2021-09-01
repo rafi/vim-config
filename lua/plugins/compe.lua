@@ -26,7 +26,7 @@ require('compe').setup({
 		calc = false,
 		spell = {
 			kind = ' ',  --  
-			filetypes = {'mail', 'gitcommit', 'markdown', 'text'},
+			filetypes = { 'mail', 'gitcommit', 'markdown', 'text' },
 		},
 	},
 	documentation = {

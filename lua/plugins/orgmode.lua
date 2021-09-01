@@ -4,7 +4,7 @@
 
 require('orgmode').setup({
 	-- org_agenda_files = {'~/docs/org/*', '~/my-orgs/**/*'},
-	org_agenda_files = {'~/docs/org/*'},
+	org_agenda_files = { '~/docs/org/*' },
 	org_default_notes_file = '~/docs/org/refile.org',
 	-- mappings = {
 	-- 	disable_all = false,
