@@ -85,7 +85,12 @@
   if: has('nvim-0.5')
   on_map: { n: <Plug>RestNvim }
   on_ft: http
-  hook_post_source: lua require('rest-nvim').setup()
+  hook_post_source: lua require('rest-nvim').setup{skip_ssl_verification=true}
+  hook_add: |
+    augroup user_events
+      autocmd BufNewFile,BufRead *.http setlocal expandtab
+      autocmd FileType httpResult nnoremap <buffer> q <cmd>quit<CR>
+    augroup END
 
 - repo: pechorin/any-jump.vim
   on_cmd: [ AnyJump, AnyJumpVisual ]
@@ -325,7 +330,7 @@
 - repo: sindrets/diffview.nvim
   if: has('nvim-0.5')
   on_cmd: DiffviewOpen
-  hook_post_source: lua require('plugins.diffview').init()
+  hook_post_source: lua require('plugins.diffview').setup()
 
 - repo: nvim-telescope/telescope.nvim
   if: has('nvim-0.5')
@@ -489,10 +494,7 @@
 - repo: mfussenegger/nvim-ts-hint-textobject
   if: has('nvim-0.5')
   depends: nvim-treesitter
-  on_event: FileType
-  hook_source: |-
-    omap     <silent> m :<C-U>lua require('tsht').nodes()<CR>
-    vnoremap <silent> m <cmd>lua require('tsht').nodes()<CR>
+  on_lua: tsht
 
 - repo: AndrewRadev/sideways.vim
   on_map:

@@ -7,17 +7,22 @@ local lib = require('diffview.lib')
 
 -- View entry without moving focus from explorer.
 local function view_entry()
-	local view = lib.get_current_diffview()
-	if view and view.file_panel:is_open() then
-		local file = view.file_panel:get_file_at_cursor()
-		if file then view:set_file(file, false) end
+	local view = lib.get_current_view()
+	if view and view.panel:is_open() then
+		local file = view.panel:get_file_at_cursor()
+		if file then
+			view:set_file(file, false)
+		end
 	end
 end
 
-local function init()
+local function setup()
 	-- vim.cmd[[ autocmd! Diffview ]]
 	vim.cmd [[
-		autocmd BufWinEnter DiffviewFiles* setlocal winhighlight=CursorLine:UserSelectionBackground
+		augroup user-diffview
+			autocmd!
+			autocmd WinEnter,BufEnter diffview:///panels/* setlocal cursorline winhighlight=CursorLine:UserSelectionBackground
+		augroup END
 	]]
 
 	require('diffview').setup{
@@ -49,7 +54,7 @@ local function init()
 end
 
 return {
-	init = init,
+	setup = setup,
 	view_entry = view_entry,
 }
 

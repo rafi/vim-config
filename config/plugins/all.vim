@@ -233,6 +233,11 @@ if dein#tap('vim-asterisk')
 	xmap gz# <Plug>(asterisk-gz#)
 endif
 
+if dein#tap('nvim-ts-hint-textobject')
+	omap              am <cmd>lua require('tsht').nodes()<CR>
+	xnoremap <silent> am :lua require('tsht').nodes()<CR>
+endif
+
 if dein#tap('sideways.vim')
 	nnoremap <silent> <, <cmd>SidewaysLeft<CR>
 	nnoremap <silent> >, <cmd>SidewaysRight<CR>
