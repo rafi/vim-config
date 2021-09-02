@@ -71,11 +71,11 @@ endif
 set undofile
 if ! has('nvim')
 	set swapfile nobackup
-	set directory=$XDG_DATA_HOME/nvim/swap//
-	set undodir=$XDG_DATA_HOME/nvim/undo//
-	set backupdir=$XDG_DATA_HOME/nvim/backup/
-	set viewdir=$XDG_DATA_HOME/nvim/view/
-	set spellfile=$XDG_DATA_HOME/nvim/spell/en.utf-8.add
+	set directory=$VIM_DATA_PATH/swap//
+	set undodir=$VIM_DATA_PATH/undo//
+	set backupdir=$VIM_DATA_PATH/backup/
+	set viewdir=$VIM_DATA_PATH/view/
+	set spellfile=$VIM_DATA_PATH/spell/en.utf-8.add
 endif
 
 " History saving
@@ -84,7 +84,7 @@ set history=2000
 if has('nvim') && ! has('win32') && ! has('win64')
 	set shada='400,<20,@100,s10,f1,h,r/tmp,r/private/var
 else
-	set viminfo='400,<20,@50,f1,h,n$XDG_CACHE_HOME/viminfo
+	set viminfo='400,<20,@50,f1,h,n$HOME/.cache/viminfo
 endif
 
 augroup user_persistent_undo
@@ -415,7 +415,7 @@ function! s:theme_autoload()
 endfunction
 
 function! s:theme_cache_file()
-	return $XDG_DATA_HOME . '/nvim/theme.txt'
+	return expand($VIM_DATA_PATH . '/theme.txt')
 endfunction
 
 function! s:theme_cached_scheme(default)

@@ -232,7 +232,7 @@
   hook_source: |-
     let g:calendar_google_calendar = 1
     let g:calendar_google_task = 1
-    "let g:calendar_cache_directory = $XDG_DATA_HOME.'/nvim/calendar'"
+    "let g:calendar_cache_directory = $VIM_DATA_PATH.'/calendar'"
 
 - repo: deris/vim-shot-f
   on_map: { nxo: <Plug> }
@@ -313,7 +313,7 @@
   on_event: InsertEnter
   merged: 0
   hook_add: |-
-    let g:vsnip_snippet_dir = expand('$XDG_DATA_HOME/nvim/vsnip')
+    let g:vsnip_snippet_dir = expand('$VIM_DATA_PATH/vsnip')
     let g:vsnip_snippet_dirs = [ expand('$VIM_PATH/snippets') ]
     let g:vsnip_filetypes = {}
     let g:vsnip_filetypes.javascriptreact = ['javascript']

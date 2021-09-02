@@ -134,7 +134,7 @@ end
 
 pickers.plugin_directories = function(opts)
 	local utils = require('telescope.utils')
-	local dir = vim.fn.expand('$XDG_DATA_HOME/nvim/dein/repos/github.com')
+	local dir = vim.fn.expand('$VIM_DATA_PATH/dein/repos/github.com')
 
 	opts = opts or {}
 	opts.cmd = utils.get_default(opts.cmd, {
