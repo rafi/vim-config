@@ -175,13 +175,13 @@ end
 
 if vim.fn.has('vim_starting') then
 	-- See https://github.com/ray-x/lsp_signature.nvim
-	require('lsp_signature').setup({
-		bind = true,
-		hint_enable = false,
-		hint_prefix = ' ',  --  
-		handler_opts = { border = 'rounded' },
-		zindex = 50,
-	})
+	-- require('lsp_signature').setup({
+	-- 	bind = true,
+	-- 	hint_enable = false,
+	-- 	hint_prefix = ' ',  --  
+	-- 	handler_opts = { border = 'rounded' },
+	-- 	zindex = 50,
+	-- })
 
 	-- Setup LSP with lspinstall
 	setup_servers()
