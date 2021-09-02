@@ -32,7 +32,7 @@ xmap <Leader><Leader> <Esc>
 nnoremap <CR> za
 
 " Focus the current fold by closing all others
-nnoremap <S-Return> zMzvzt
+nnoremap <S-Return> zMzv
 
 " The plugin rhysd/accelerated-jk moves through display-lines in normal mode,
 " these mappings will move through display-lines in visual mode too.
@@ -309,8 +309,8 @@ endif
 
 " Ultimatus Quitos
 if get(g:, 'enable_universal_quit_mapping', 1)
-	autocmd user_events BufWinEnter,BufNew,BufNewFile *
-		\ if empty(&buftype) && ! mapcheck('q', 'n')
+	autocmd user_events BufWinEnter,VimEnter *
+		\  if ! maparg('q', 'n')
 		\|   nnoremap <buffer> q <cmd>quit<CR>
 		\| endif
 endif

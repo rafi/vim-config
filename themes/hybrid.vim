@@ -128,20 +128,6 @@ hi! link mkdItalic htmlItalic
 " hi! link mkdLinkTitle mkdInlineURL
 " hi! link mkdDelimiter Keyword
 
-" simrat39/symbols-outline.nvim
-highlight! FocusedSymbol ctermbg=236 guibg=#2D3C42 cterm=NONE gui=NONE
-
-" See: https://github.com/itchyny/vim-parenmatch
-let g:parenmatch_highlight = 0
-highlight! ParenMatch ctermbg=236 guibg=#494D2A cterm=underline gui=underline
-
-" See: https://github.com/dominikduda/vim_current_word
-highlight! CurrentWord ctermbg=236 guibg=#2D3C42 cterm=NONE gui=NONE
-highlight! CurrentWordTwins ctermbg=235 guibg=#252A3D cterm=NONE gui=NONE
-" highlight! CurrentWord ctermbg=60 guibg=#2D3C42 cterm=NONE gui=NONE
-" highlight! CurrentWordTwins ctermbg=237 guibg=#2B2A22 cterm=NONE gui=NONE
-" highlight! MatchParen  ctermfg=NONE guifg=NONE ctermbg=236 guibg=#2d3c42
-" highlight! ParenMatch  ctermfg=NONE guifg=NONE ctermbg=236 guibg=#494d2A
 " }}}
 
 " Plugin: IndentGuides {{{
@@ -197,15 +183,15 @@ highlight! GitSignsChange ctermfg=58 guifg=#808200 ctermbg=234 guibg=#1c1c1c
 highlight! GitSignsDelete ctermfg=52 guifg=#800000 ctermbg=234 guibg=#1c1c1c
 " }}}
 
-" Plugin: vim-highlightedyank {{{
+" Plugin: simrat39/symbols-outline.nvim {{{
 " ---
-highlight! link HighlightedyankRegion DiffText
+highlight! FocusedSymbol ctermbg=236 guibg=#2D3C42 cterm=NONE gui=NONE
 " }}}
 
 " Plugin: vim-shot-f {{{
 " ---
-highlight! ShotFGraph ctermbg=236 guibg=#3A4F3E
-highlight! link ShotFBlank SpellBad
+highlight! link ShotFGraph SpellRare
+highlight! link ShotFBlank DiffAdd
 " }}}
 
 " Plugin: vim-signature {{{
