@@ -749,6 +749,8 @@ Note that,
 
 | Key   | Mode | Action
 | ----- |:----:| ------------------
+| <kbd>;r</kbd> | 𝐍 | Results of the previous picker
+| <kbd>;R</kbd> | 𝐍 | List of the previous pickers
 | <kbd>;f</kbd> | 𝐍 | File search
 | <kbd>;g</kbd> | 𝐍 | Grep search
 | <kbd>;b</kbd> | 𝐍 | Buffers
@@ -770,15 +772,20 @@ Note that,
 | <kbd>Space</kbd>+<kbd>gf</kbd> | 𝐍 | Find files matching word under cursor
 | <kbd>Space</kbd>+<kbd>gg</kbd> | 𝐍 𝐕 | Grep word under cursor
 | **Within _Telescope_ window** ||
+| <kbd>?</kbd> | 𝐍 | Keymaps help screen
 | <kbd>jj</kbd> or <kbd>Escape</kbd> | 𝐈 | Leave Insert mode
 | <kbd>i</kbd> | 𝐍 | Enter Insert mode (filter input)
 | <kbd>q</kbd> or <kbd>Escape</kbd> | 𝐍 | Exit denite window
 | <kbd>Tab</kbd> or <kbd>Shift</kbd>+<kbd>Tab</kbd> | 𝐍 𝐈 | Next/previous candidate
-| <kbd>J</kbd> or <kbd>J</kbd> | 𝐍 | Select candidates up/downwards
-| <kbd>dd</kbd> | 𝐍 | Delete entry
+| <kbd>Ctrl</kbd> <kbd>d</kbd>/<kbd>u</kbd> | 𝐍 𝐈 | Scroll down/upwards
+| <kbd>Ctrl</kbd> <kbd>f</kbd>/<kbd>b</kbd> | 𝐍 𝐈 | Scroll preview down/upwards
+| <kbd>J</kbd> or <kbd>K</kbd> | 𝐍 | Select candidates up/downwards
 | <kbd>st</kbd> | 𝐍 | Open in a new tab
 | <kbd>sg</kbd> | 𝐍 | Open in a vertical split
 | <kbd>sv</kbd> | 𝐍 | Open in a split
+| <kbd>w</kbd> | 𝐍 | Smart send to quickfix list
+| <kbd>e</kbd> | 𝐍 | Send to quickfix list
+| <kbd>dd</kbd> | 𝐍 | Delete entry (buffer list)
 
 ### Plugin: Fern
 
