@@ -68,8 +68,8 @@ nnoremap zl z4l
 nnoremap zh z4h
 
 " Resize tab windows after top/bottom window movement
-nnoremap <C-w>K <C-w>K<C-w>=
-nnoremap <C-w>J <C-w>J<C-w>=
+" nnoremap <C-w>K <C-w>K<C-w>=
+" nnoremap <C-w>J <C-w>J<C-w>=
 
 " Improve scroll, credits: https://github.com/Shougo
 " noremap <expr> <C-f> max([winheight(0) - 2, 1])

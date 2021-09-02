@@ -140,7 +140,7 @@ if dein#tap('vim-shot-f')
 endif
 
 if dein#tap('todo-comments.nvim')
-	nnoremap <LocalLeader>d <cmd>TodoTelescope<CR>
+	nnoremap <LocalLeader>dt <cmd>TodoTelescope<CR>
 endif
 
 if dein#tap('trouble.nvim')
@@ -178,7 +178,7 @@ if dein#tap('gina.vim')
 	nnoremap <silent> <leader>gs <cmd>Gina status -s<CR>
 	nnoremap <silent> <leader>gl <cmd>Gina log --graph --all<CR>
 	nnoremap <silent> <leader>gF <cmd>Gina! fetch<CR>
-	" nnoremap <silent> <leader>gp <cmd>Gina! push<CR>
+	nnoremap <silent> <leader>gp <cmd>Gina! push<CR>
 	nnoremap <silent> <leader>go <cmd>,Gina browse :<CR>
 	xnoremap <silent> <leader>go :Gina browse :<CR>
 endif

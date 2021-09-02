@@ -578,7 +578,7 @@ Note that,
 | <kbd>Return</kbd> | 𝐍 | Toggle fold | `za`
 | <kbd>Shift</kbd>+<kbd>Return</kbd> | 𝐍 | Focus the current fold by closing all others | `zMzvzt`
 | <kbd>]q</kbd> or <kbd>]q</kbd> | 𝐍 | Next/previous on quickfix list | `:cnext` / `:cprev`
-| <kbd>]l</kbd> or <kbd>]l</kbd> | 𝐍 | Next/previous on location-list | `:lnext` / `:lprev`
+| <kbd>]a</kbd> or <kbd>]a</kbd> | 𝐍 | Next/previous on location-list | `:lnext` / `:lprev`
 | <kbd>]w</kbd> or <kbd>]w</kbd> | 𝐍 | Next/previous whitespace error | <small>[plugin/whitespace.vim]</small>
 | <kbd>]g</kbd> or <kbd>]g</kbd> | 𝐍 | Next/previous Git hunk | <small>[lewis6991/gitsigns.nvim]</small>
 | <kbd>]d</kbd> or <kbd>]d</kbd> | 𝐍 | Next/previous LSP diagnostic | <small>[lua/plugins/lspconfig.lua]</small>
@@ -592,26 +592,26 @@ Note that,
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
 | <kbd>Space</kbd>+<kbd>cd</kbd> | 𝐍 | Switch to the directory of opened buffer | `:lcd %:p:h`
-| <kbd>gf</kbd> | 𝐍 𝐕 | Open file under the cursor in a vsplit | `:rightbelow wincmd f`
-| <kbd>Space</kbd>+<kbd>w</kbd> | 𝐍 𝐕 𝐒 | Write buffer to file | `:write`
-| <kbd>Ctrl</kbd>+<kbd>s</kbd> | 𝐍 𝐕 𝐒 𝐂 | Write buffer to file | `:write`
+| <kbd>gf</kbd> | 𝐍 | Open file under the cursor in a vsplit | `:rightbelow wincmd f`
+| <kbd>Space</kbd>+<kbd>w</kbd> | 𝐍 | Write buffer to file | `:write`
+| <kbd>Ctrl</kbd>+<kbd>s</kbd> | 𝐍 𝐕 𝐂 | Write buffer to file | `:write`
 
 ### Edit
 
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
-| <kbd>Ctrl</kbd>+<kbd>Return</kbd> | 𝐈 | Expand emmet abbreviation | <small>[mattn/emmet-vim]</small>
+| <kbd>Ctrl</kbd>+<kbd>y</kbd> | 𝐈 | Expand emmet abbreviation | <small>[mattn/emmet-vim]</small>
 | <kbd>Q</kbd> | 𝐍 | Start/stop macro recording | `q`
 | <kbd>gQ</kbd> | 𝐍 | Play macro 'q' | `@q`
 | <kbd>Shift</kbd>+<kbd>Return</kbd> | 𝐈 | Start new line from any cursor position | `<C-o>o`
-| <kbd><</kbd> | 𝐕 𝐒 | Indent to left and re-select | `<gv`
-| <kbd>></kbd> | 𝐕 𝐒 | Indent to right and re-select | `>gv|`
-| <kbd>Tab</kbd> | 𝐕 𝐒 | Indent to right and re-select | `>gv|`
-| <kbd>Shift</kbd>+<kbd>Tab</kbd> | 𝐕 𝐒 | Indent to left and re-select | `<gv`
-| <kbd>gc</kbd> | 𝐍 𝐕 𝐒 | Caw (comments plugin) prefix | <small>[tyru/caw.vim]</small>
-| <kbd>gcc</kbd> | 𝐍 𝐕 𝐒 | Toggle comments | <small>[tyru/caw.vim]</small>
-| <kbd>Space</kbd>+<kbd>v</kbd> | 𝐍 𝐕 𝐒 | Toggle single-line comments | <small>[tyru/caw.vim]</small>
-| <kbd>Space</kbd>+<kbd>V</kbd> | 𝐍 𝐕 𝐒 | Toggle comment block | <small>[tyru/caw.vim]</small>
+| <kbd><</kbd> | 𝐕 | Indent to left and re-select | `<gv`
+| <kbd>></kbd> | 𝐕 | Indent to right and re-select | `>gv|`
+| <kbd>Tab</kbd> | 𝐕 | Indent to right and re-select | `>gv|`
+| <kbd>Shift</kbd>+<kbd>Tab</kbd> | 𝐕 | Indent to left and re-select | `<gv`
+| <kbd>gc</kbd> | 𝐍 𝐕 | Caw (comments plugin) prefix | <small>[tyru/caw.vim]</small>
+| <kbd>gcc</kbd> | 𝐍 𝐕 | Toggle comments | <small>[tyru/caw.vim]</small>
+| <kbd>Space</kbd>+<kbd>v</kbd> | 𝐍 𝐕 | Toggle single-line comments | <small>[tyru/caw.vim]</small>
+| <kbd>Space</kbd>+<kbd>V</kbd> | 𝐍 𝐕 | Toggle comment block | <small>[tyru/caw.vim]</small>
 | <kbd>Space</kbd>+<kbd>j</kbd> or <kbd>k</kbd> | 𝐍 𝐕 | Move lines down/up | `:m` …
 | <kbd>Space</kbd>+<kbd>d</kbd> | 𝐍 𝐕 | Duplicate line or selection |
 | <kbd>Space</kbd>+<kbd>cn</kbd> / <kbd>cN</kbd> | 𝐍 𝐕 | Change current word in a repeatable manner |
@@ -627,7 +627,7 @@ Note that,
 | <kbd>\*</kbd> / <kbd>#</kbd> | 𝐍 𝐕 | Search selection forward/backward | <small>[haya14busa/vim-asterisk]</small>
 | <kbd>g\*</kbd> / <kbd>g#</kbd> | 𝐍 𝐕 | Search whole-word forward/backward | <small>[haya14busa/vim-asterisk]</small>
 | <kbd>Backspace</kbd> | 𝐍 | Match bracket | `%`
-| <kbd>gp</kbd> | 𝐍 | Select last paste |
+| <kbd>gpp</kbd> | 𝐍 | Select last paste |
 | <kbd>sg</kbd> | 𝐕 | Replace within selected area | `:s/⌴/gc`
 | <kbd>Ctrl</kbd>+<kbd>r</kbd> | 𝐕 | Replace selection with step-by-step confirmation | `:%s/\V/⌴/gc`
 
@@ -635,7 +635,7 @@ Note that,
 
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
-| <kbd>p</kbd> | 𝐕 𝐒 | Paste without yank | <small>s:visual_paste</small>
+| <kbd>p</kbd> or <kbd>P</kbd> | 𝐕 | Paste without yank | <small>s:visual_paste</small>
 | <kbd>Y</kbd> | 𝐍 | Yank to the end of line | `y$`
 | <kbd>Space</kbd>+<kbd>y</kbd> | 𝐍 | Copy relative file-path to clipboard |
 | <kbd>Space</kbd>+<kbd>Y</kbd> | 𝐍 | Copy absolute file-path to clipboard |
@@ -659,6 +659,7 @@ Note that,
 | <kbd>Space</kbd>+<kbd>th</kbd> | 𝐍 | Toggle highlighted search | <small>`:set hlsearch!`</small>
 | <kbd>Space</kbd>+<kbd>tw</kbd> | 𝐍 | Toggle wrap | <small>`:setlocal wrap!`</small> …
 | <kbd>Space</kbd>+<kbd>ti</kbd> | 𝐍 | Toggle indentation lines | <small>[nathanaelkane/vim-indent-guides]</small>
+| <kbd>Space</kbd>+<kbd>tt</kbd> | 𝐍 | Show highlight groups for word |
 | <kbd>g1</kbd> | 𝐍 | Go to first tab | `:tabfirst`
 | <kbd>g9</kbd> | 𝐍 | Go to last tab | `:tablast`
 | <kbd>g5</kbd> | 𝐍 | Go to previous tab | `:tabprevious`
@@ -668,16 +669,16 @@ Note that,
 | <kbd>Alt</kbd>+<kbd>k</kbd> | 𝐍 | Go to previous tab | `:tabprevious`
 | <kbd>Alt</kbd>+<kbd>{</kbd> | 𝐍 | Move tab backward | `:-tabmove`
 | <kbd>Alt</kbd>+<kbd>}</kbd> | 𝐍 | Move tab forward | `:+tabmove`
-| <kbd>Space</kbd>+<kbd>h</kbd> | 𝐍 | Show highlight groups for word |
 
 ### Custom Tools & Plugins
 
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
-| <kbd>-</kbd> | 𝐍 | Choose a window to edit | <small>[t9md/vim-choosewin]</small>
 | <kbd>;</kbd>+<kbd>c</kbd> | 𝐍 | Open context-menu | <small>[plugin/actionmenu.vim]</small>
 | <kbd>g</kbd><kbd>Ctrl</kbd>+<kbd>o</kbd> | 𝐍 | Navigate to previous file on jumplist | <small>s:jump_buffer</small>
 | <kbd>g</kbd><kbd>Ctrl</kbd>+<kbd>i</kbd> | 𝐍 | Navigate to next file on jumplist | <small>s:jump_buffer</small>
+| <kbd>-</kbd> | 𝐍 | Choose a window to edit | <small>[t9md/vim-choosewin]</small>
+| <kbd>Space</kbd>+<kbd>-</kbd> | 𝐍 | Switch editing window with selected | <small>[t9md/vim-choosewin]</small>
 | <kbd>Space</kbd>+<kbd>l</kbd> | 𝐍 | Open side-menu helper | <small>[rafi/vim-sidemenu]</small>
 | <kbd>Space</kbd>+<kbd>o</kbd> | 𝐍 | Open structure window | <small>[simrat39/symbols-outline.nvim]</small>
 | <kbd>Space</kbd>+<kbd>S</kbd> | 𝐍 𝐕 | Source selection | `y:execute @@`
@@ -689,7 +690,6 @@ Note that,
 | <kbd>Space</kbd>+<kbd>mds</kbd> | 𝐍 | Shows the comparison for all marked regions | <small>[AndrewRadev/linediff.vim]</small>
 | <kbd>Space</kbd>+<kbd>mdr</kbd> | 𝐍 | Removes the signs denoting the diff regions | <small>[AndrewRadev/linediff.vim]</small>
 | <kbd>Space</kbd>+<kbd>mt</kbd> | 𝐍 𝐕 | Toggle highlighted word | <small>[t9md/vim-quickhl]</small>
-| <kbd>Space</kbd>+<kbd>-</kbd> | 𝐍 | Switch editing window with selected | <small>[t9md/vim-choosewin]</small>
 | <kbd>Space</kbd>+<kbd>z</kbd> | 𝐍 | Toggle distraction-free writing | <small>[folke/zen-mode.nvim]</small>
 | <kbd>Space</kbd>+<kbd>gu</kbd> | 𝐍 | Open undo-tree | <small>[mbbill/undotree]</small>
 | <kbd>Space</kbd>+<kbd>K</kbd> | 𝐍 | Thesaurus | <small>[Ron89/thesaurus_query.vim]</small>
@@ -700,7 +700,6 @@ Note that,
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
 | <kbd>q</kbd> | 𝐍 | Quit window (and Vim, if last window) | `:quit`
-| <kbd>Ctrl</kbd>+<kbd>q</kbd> | 𝐍 | Remap to C-w | <kbd>Ctrl</kbd>+<kbd>w</kbd>
 | <kbd>Ctrl</kbd>+<kbd>x</kbd> | 𝐍 | Rotate window placement | `C-w` `x`
 | <kbd>sv</kbd> | 𝐍 | Horizontal split | `:split`
 | <kbd>sg</kbd> | 𝐍 | Vertical split | `:vsplit`
@@ -708,19 +707,19 @@ Note that,
 | <kbd>so</kbd> | 𝐍 | Close other windows | `:only`
 | <kbd>sb</kbd> | 𝐍 | Previous buffer | `:b#`
 | <kbd>sc</kbd> | 𝐍 | Close current buffer | `:close`
+| <kbd>sd</kbd> | 𝐍 | Delete buffer | `:bdelete`
 | <kbd>sq</kbd> | 𝐍 | Quit window | `:quit`
 | <kbd>sx</kbd> | 𝐍 | Delete buffer, leave blank window | `:enew │ bdelete`
 | <kbd>sz</kbd> | 𝐍 | Toggle window zoom | `:vertical resize │ resize`
 | <kbd>ssv</kbd> | 𝐍 | Split with previous buffer | `:split │ wincmd p │ e#`
 | <kbd>ssg</kbd> | 𝐍 | Vertical split with previous buffer | `:vsplit │ wincmd p │ e#`
 | <kbd>sh</kbd> | 𝐍 | Toggle colorscheme background=dark/light | `:set background` …
-| <kbd>s-</kbd> | 𝐍 | Lower solarized8 colorscheme contrast | `:colorscheme ` …
-| <kbd>s=</kbd> | 𝐍 | Raise solarized8 colorscheme contrast | `:colorscheme ` …
 
 ### Plugin: Gitsigns
 
 | Key   | Mode | Action             |
 | ----- |:----:| ------------------ |
+| <kbd>]g</kbd> or <kbd>]g</kbd> | 𝐍 | Next/previous Git hunk |
 | <kbd>gs</kbd> | 𝐍 | Preview hunk |
 | <kbd>Space</kbd>+<kbd>hp</kbd> | 𝐍 | Preview hunk |
 | <kbd>Space</kbd>+<kbd>hb</kbd> | 𝐍 | Blame line |
@@ -736,11 +735,10 @@ Note that,
 | ----- |:----:| ------------------ |
 | <kbd>Space</kbd>+<kbd>ga</kbd> | 𝐍 | Git add current file |
 | <kbd>Space</kbd>+<kbd>gd</kbd> | 𝐍 | Git diff |
-| <kbd>Space</kbd>+<kbd>gc</kbd> | 𝐍 | Git branches |
 | <kbd>Space</kbd>+<kbd>gc</kbd> | 𝐍 | Git commit |
 | <kbd>Space</kbd>+<kbd>gb</kbd> | 𝐍 | Git blame |
 | <kbd>Space</kbd>+<kbd>gs</kbd> | 𝐍 | Git status -s |
-| <kbd>Space</kbd>+<kbd>gl</kbd> | 𝐍 | Git log --all |
+| <kbd>Space</kbd>+<kbd>gl</kbd> | 𝐍 | Git log --graph --all |
 | <kbd>Space</kbd>+<kbd>gF</kbd> | 𝐍 | Git fetch |
 | <kbd>Space</kbd>+<kbd>gp</kbd> | 𝐍 | Git push |
 | <kbd>Space</kbd>+<kbd>go</kbd> | 𝐍 𝐕 | Open SCM detailed URL in browser |
@@ -795,25 +793,34 @@ Note that,
 | <kbd>;a</kbd> | 𝐍 | Focus current file in file-explorer
 | **Within _Fern_ window** ||
 | <kbd>j</kbd> or <kbd>k</kbd> | 𝐍 | Move up and down the tree
+| <kbd>J</kbd> or <kbd>K</kbd> or <kbd>Space</kbd> | 𝐍 | Select entries up/downwards
 | <kbd>l</kbd> or <kbd>Return</kbd> | 𝐍 | Toggle collapse/expand directory or open file
 | <kbd>h</kbd> | 𝐍 | Collapse directory tree
+| <kbd>Ctrl</kbd>+<kbd>Return</kbd> | 𝐍 | Choose window to edit entry
+| <kbd>a</kbd> | 𝐍 | Select entry action
+| <kbd>p</kbd> | 𝐍 | Preview entry
+| <kbd>Ctrl</kbd>+<kbd>p</kbd> | 𝐍 | Toggle auto-preview
+| <kbd>Ctrl</kbd>+<kbd>f</kbd> or <kbd>b</kbd> | 𝐍 | Preview scroll up/down
+| <kbd>gr</kbd> | 𝐍 | Grep in current position
+| <kbd>gf</kbd> | 𝐍 | Find files in current position
 | <kbd>!</kbd> | 𝐍 | Toggle hidden files
-| <kbd>Space</kbd> | 𝐍 | Select entry
-| <kbd>^</kbd> | 𝐍 | Change into current working directory
+| <kbd>^</kbd> | 𝐍 | Change into project root directory
 | <kbd>Backspace</kbd> | 𝐍 | Change into parent directory
+| <kbd>o</kbd> | 𝐍 | Open bookmarks
+| <kbd>B</kbd> | 𝐍 | Save location as bookmark
 | <kbd>st</kbd> | 𝐍 | Open file in new tab
 | <kbd>sv</kbd> | 𝐍 | Open file in a horizontal split
 | <kbd>sg</kbd> | 𝐍 | Open file in a vertical split
 | <kbd>N</kbd> | 𝐍 | Create new directories and/or files
-| <kbd>K</kbd> | 𝐍 | Create new directory
+| <kbd>Ctrl</kbd>+<kbd>n</kbd> | 𝐍 | Create new directory
 | <kbd>c</kbd> / <kbd>m</kbd> | 𝐍 | Copy/move
+| <kbd>C</kbd> / <kbd>M</kbd> / <kbd>P</kbd> | 𝐍 | Clipboard copy/move/paste
 | <kbd>R</kbd> | 𝐍 | Rename file or directory
 | <kbd>D</kbd> | 𝐍 | Trash selected files and directories
+| <kbd>fi</kbd> / <kbd>fe</kbd> | 𝐍 | Include/exclude
 | <kbd>yy</kbd> | 𝐍 | Yank path to clipboard
 | <kbd>w</kbd> | 𝐍 | Toggle window size
-| <kbd>x</kbd> or <kbd>gx</kbd> | 𝐍 | Execute associated system application
-| <kbd>gr</kbd> | 𝐍 | Grep in current position
-| <kbd>gf</kbd> | 𝐍 | Find files in current position
+| <kbd>x</kbd> | 𝐍 | Execute associated system application
 
 ### Plugin: LSP
 
