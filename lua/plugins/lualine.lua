@@ -34,6 +34,7 @@ local colors = {
 		error = '#ec5f67',
 		warn = '#ECBE7B',
 		info = '#008080',
+		hint = '#006080',
 	},
 	git = {
 		added = '#516C31',
@@ -84,7 +85,7 @@ local extension_quickfix = {
 					local l = '' .. pad
 					return is_loclist() and l..'Location List' or q..'Quickfix List'
 				end,
-				right_padding = 0,
+				padding = { left = 1, right = 0 },
 			},
 			{
 				function()
@@ -110,10 +111,10 @@ local extension_file_explorer = {
 				padding = 0,
 			},
 			{ function() return '' end, padding = 1 },
-			{ function() return '%<' end, right_padding = 0 },
+			{ function() return '%<' end, padding = { left = 1, right = 0 }},
 			{
 				function() return vim.fn.fnamemodify(vim.fn.getcwd(), ':~') end,
-				left_padding = 0,
+				padding = { left = 0, right = 1 },
 			}
 		},
 		lualine_z = { function() return '%l/%L' end },
@@ -121,10 +122,10 @@ local extension_file_explorer = {
 	inactive_sections = {
 		lualine_a = {
 			{ function() return '' end, padding = 1 },
-			{ function() return '%<' end, right_padding = 0 },
+			{ function() return '%<' end, padding = { left = 1, right = 0 }},
 			{
 				function() return vim.fn.fnamemodify(vim.fn.getcwd(), ':~') end,
-				left_padding = 0,
+				padding = { left = 0, right = 1 },
 			}
 		},
 		lualine_z = { function() return '%l/%L' end },
@@ -139,7 +140,7 @@ local extension_line_count = {
 			{
 				function() return '▊' end,
 				color = { fg = colors.active.boundary },
-				left_padding = 0,
+				padding = { left = 0, right = 1 },
 			},
 			{ badge.utility_title(), padding = 0 },
 		},
@@ -156,8 +157,8 @@ local extension_line_count = {
 -- Global Config
 local config = {
 	options = {
-		component_separators = '',
-		section_separators = '',
+		component_separators = { left = '', right = ''},
+		section_separators = { left = '', right = ''},
 		theme = {
 			normal = {
 				a = { fg = colors.active.fg, bg = colors.active.bg },
@@ -189,7 +190,7 @@ local config = {
 			{
 				function() return '▊' end,
 				color = { fg = colors.active.boundary },
-				left_padding = 0,
+				padding = { left = 0, right = 1 },
 			},
 
 			-- Paste mode
@@ -222,7 +223,7 @@ local config = {
 			-- File path
 			{
 				badge.filepath(3, 5),
-				condition = conditions.buffer_not_empty,
+				cond = conditions.buffer_not_empty,
 				color = { fg = colors.active.filepath },
 			},
 
@@ -230,30 +231,35 @@ local config = {
 			{
 				'diagnostics',
 				sources = { 'nvim_lsp' },
-				symbols = { error = ' ', warn = ' ', info = ' ' },
-				color_error = { fg = colors.diagnostics.error },
-				color_warn = { fg = colors.diagnostics.warn },
-				color_info = { fg = colors.diagnostics.info },
+				symbols = { error = ' ', warn = ' ', info = ' ', hint = 'H' },
+				diagnostics_color = {
+					error = { fg = colors.diagnostics.error },
+					warn = { fg = colors.diagnostics.warn },
+					info = { fg = colors.diagnostics.info },
+					hint = { fg = colors.diagnostics.hint },
+				},
 				padding = 0,
 			},
 
 			-- Start truncating here
-			{ function() return '%<' end, right_padding = 0 },
+			{ function() return '%<' end, padding = { left = 1, right = 0 }},
 
 			-- Whitespace trails
 			{ badge.trails('␣'), padding = 0 },
 
 			-- Git branch
-			{ 'branch', icon = '', condition = conditions.check_git_workspace },
+			{ 'branch', icon = '', cond = conditions.check_git_workspace },
 
 			-- Git status
 			{
 				'diff',
 				symbols = { added = '₊', modified = '∗', removed = '₋' },
-				color_added = { fg = colors.git.added },
-				color_modified = { fg = colors.git.modified },
-				color_removed = { fg = colors.git.deleted },
-				condition = conditions.hide_in_width,
+				diff_color = {
+					added = { fg = colors.git.added },
+					modified = { fg = colors.git.modified },
+					removed = { fg = colors.git.deleted },
+				},
+				cond = conditions.hide_in_width,
 				padding = 0,
 			},
 		},
@@ -264,8 +270,8 @@ local config = {
 			-- File format, encoding and type.
 			{
 				badge.filemedia('  '),
-				condition = conditions.hide_in_width,
-				left_padding = 0,
+				cond = conditions.hide_in_width,
+				padding = { left = 0, right = 1 },
 			},
 		},
 		lualine_z = {
@@ -291,7 +297,7 @@ local config = {
 	inactive_sections = {
 		lualine_a = {
 			{ badge.icon() },
-			{ badge.filepath(3, 5), right_padding = 0 },
+			{ badge.filepath(3, 5), padding = { left = 1, right = 0 }},
 			{ badge.modified('+'), color = { fg = colors.filemode.modified }},
 		},
 		lualine_b = {},
