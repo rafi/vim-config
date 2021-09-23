@@ -327,7 +327,7 @@
 
 - repo: sindrets/diffview.nvim
   if: has('nvim-0.5')
-  on_cmd: DiffviewOpen
+  on_cmd: [ DiffviewOpen, DiffviewFileHistory ]
   hook_post_source: lua require('plugins.diffview').setup()
 
 - repo: nvim-telescope/telescope.nvim

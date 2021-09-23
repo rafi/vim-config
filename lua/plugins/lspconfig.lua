@@ -47,12 +47,21 @@ local on_attach = function(client, bufnr)
 	-- buf_set_keymap('n', '<Leader>ca', '<cmd>lua require("lspsaga.codeaction").code_action()<CR>', opts)
 	-- buf_set_keymap('v', '<Leader>ca', ':<C-u>lua require("lspsaga.codeaction").range_code_action()<CR>', opts)
 
+	-- See https://github.com/ray-x/lsp_signature.nvim
+	-- require('lsp_signature').on_attach({
+	-- 	bind = true,
+	-- 	hint_enable = false,
+	-- 	hint_prefix = ' ',  --  
+	-- 	handler_opts = { border = 'rounded' },
+	-- 	zindex = 50,
+	-- }, bufnr)
+
 	-- Set some keybinds conditional on server capabilities
 	if client.resolved_capabilities.document_formatting then
 		map_buf('n', ',f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 	end
 	if client.resolved_capabilities.document_range_formatting then
-		map_buf('v', ',f', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
+		map_buf('x', ',f', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
 	end
 
 	-- Set autocommands conditional on server_capabilities
@@ -107,15 +116,15 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
 -- 		loclist = true,
 -- 	}
 -- )
-vim.lsp.handlers['textDocument/references'] = function(_, _, result, _, bufnr, _)
-	if not result or vim.tbl_isempty(result) then
-		vim.notify('No references found')
-	else
-		vim.lsp.util.set_qflist(vim.lsp.util.locations_to_items(result, bufnr))
-		require('user').qflist.open()
-		vim.api.nvim_command('.cc')
-	end
-end
+-- vim.lsp.handlers['textDocument/references'] = function(_, _, result, _, bufnr, _)
+-- 	if not result or vim.tbl_isempty(result) then
+-- 		vim.notify('No references found')
+-- 	else
+-- 		vim.lsp.util.set_qflist(vim.lsp.util.locations_to_items(result, bufnr))
+-- 		require('user').qflist.open()
+-- 		-- vim.api.nvim_command('.cc')
+-- 	end
+-- end
 
 -- Configure hover (normal K) handle
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
@@ -174,15 +183,6 @@ end
 -- main
 
 if vim.fn.has('vim_starting') then
-	-- See https://github.com/ray-x/lsp_signature.nvim
-	-- require('lsp_signature').setup({
-	-- 	bind = true,
-	-- 	hint_enable = false,
-	-- 	hint_prefix = ' ',  --  
-	-- 	handler_opts = { border = 'rounded' },
-	-- 	zindex = 50,
-	-- })
-
 	-- Setup LSP with lspinstall
 	setup_servers()
 
@@ -208,7 +208,9 @@ if vim.fn.has('vim_starting') then
 			autocmd!
 
 			" See https://github.com/kosayoda/nvim-lightbulb
-			autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
+			" autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
+			" Automatic diagnostic hover
+			" autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({ focusable=false })
 		augroup END
 	]], false)
 end

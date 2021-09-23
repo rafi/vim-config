@@ -113,7 +113,6 @@ endif
 if dein#tap('committia.vim')
 	let g:committia_hooks = {}
 	function! g:committia_hooks.edit_open(info)
-		setlocal winminheight=1 winheight=10
 		resize 10
 		imap <buffer><C-d> <Plug>(committia-scroll-diff-down-half)
 		imap <buffer><C-u> <Plug>(committia-scroll-diff-up-half)

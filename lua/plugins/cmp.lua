@@ -8,16 +8,16 @@ _G.cmp_source_list = function(arr)
 	local config = {
 		buffer = {
 			name = 'buffer',
-			opts = {
-				-- Use all visible buffers
-				get_bufnrs = function()
-					local bufs = {}
-					for _, win in ipairs(vim.api.nvim_list_wins()) do
-						bufs[vim.api.nvim_win_get_buf(win)] = true
-					end
-					return vim.tbl_keys(bufs)
-				end,
-			},
+			-- opts = {
+			-- 	-- Use all visible buffers
+			-- 	get_bufnrs = function()
+			-- 		local bufs = {}
+			-- 		for _, win in ipairs(vim.api.nvim_list_wins()) do
+			-- 			bufs[vim.api.nvim_win_get_buf(win)] = true
+			-- 		end
+			-- 		return vim.tbl_keys(bufs)
+			-- 	end,
+			-- },
 		},
 		nvim_lsp = { name = 'nvim_lsp' },
 		nvim_lua = { name = 'nvim_lua' },
@@ -153,13 +153,4 @@ cmp.setup {
 		end,
 	},
 
-	event = {
-		on_confirm_done = function(entry)
-			local kind = cmp.lsp.CompletionItemKind
-			local item = entry:get_completion_item()
-			if item.kind == kind.Method or item.kind == kind.Function then
-				vim.api.nvim_feedkeys('(', 'i', true)
-			end
-		end,
-	},
 }
