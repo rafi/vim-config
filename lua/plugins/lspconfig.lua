@@ -102,9 +102,10 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
 			spacing = 4,
 			-- prefix = '',
 		},
-		signs = function(bufnr, _)
-			return vim.bo[bufnr].buftype == ''
-		end,
+		signs = true,
+		-- signs = function(bufnr, _)
+		-- 	return vim.bo[bufnr].buftype == ''
+		-- end,
 	}
 )
 
