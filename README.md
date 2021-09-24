@@ -405,7 +405,8 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | Name           | Description
 | -------------- | ----------------------
 | [nvim-treesitter/nvim-treesitter] | Nvim Treesitter configurations and abstraction layer
-| [nvim-treesitter/nvim-treesitter-textobjects] | textobjects using tree-sitter queries
+| [nvim-treesitter/nvim-treesitter-textobjects] | Textobjects using treesitter queries
+| [JoosepAlviste/nvim-ts-context-commentstring] | Set the commentstring based on the cursor location
 | [chrisbra/csv.vim] | Handling column separated data
 | [tpope/vim-git] | Git runtime files
 | [dag/vim-fish] | Fish shell edit support
@@ -517,6 +518,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 
 [nvim-treesitter/nvim-treesitter]: https://github.com/nvim-treesitter/nvim-treesitter
 [nvim-treesitter/nvim-treesitter-textobjects]: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+[JoosepAlviste/nvim-ts-context-commentstring]: https://github.com/JoosepAlviste/nvim-ts-context-commentstring
 
 [chrisbra/csv.vim]: https://github.com/chrisbra/csv.vim
 [tpope/vim-git]: https://github.com/tpope/vim-git

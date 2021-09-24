@@ -32,4 +32,25 @@ require('nvim-treesitter.configs').setup({
 		highlight_definitions = { enable = true },
 		highlight_current_scope = { enable = true },
 	},
+	-- See: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+	textobjects = {
+		select = {
+			enable = true,
+			-- Automatically jump forward to textobj, similar to targets.vim
+			lookahead = true,
+			keymaps = {
+				-- You can use the capture groups defined in textobjects.scm
+				['af'] = '@function.outer',
+				['if'] = '@function.inner',
+				['ac'] = '@class.outer',
+				['ic'] = '@class.inner',
+			},
+		},
+	},
+	-- See: https://github.com/JoosepAlviste/nvim-ts-context-commentstring
+	context_commentstring = {
+		enable = true,
+		-- The plugin caw.vim will automatically detect and use this plugin itself
+		enable_autocmd = false,
+	},
 })

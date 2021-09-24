@@ -48,6 +48,7 @@
 
 - repo: tyru/caw.vim
   on_map: { nx: <Plug> }
+  depends: nvim-ts-context-commentstring
   hook_add: |-
     let g:caw_no_default_keymappings = 1
     let g:caw_operator_keymappings = 0
@@ -410,10 +411,10 @@
   hook_source: lua require('plugins.treesitter')
 
 - repo: nvim-treesitter/nvim-treesitter-textobjects
-  if: has('nvim-0.5')
-  depends: nvim-treesitter
-  on_event: FileType
-  hook_source: lua require('plugins.textobjects')
+  on_source: nvim-treesitter
+
+- repo: JoosepAlviste/nvim-ts-context-commentstring
+  on_source: nvim-treesitter
 
 # Old syntax/indent plugins
 # - { repo: groenewege/vim-less, on_ft: less }
