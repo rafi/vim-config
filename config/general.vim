@@ -46,7 +46,9 @@ if has('mac') && has('vim_starting')
 endif
 
 if has('clipboard') && has('vim_starting')
-	set clipboard& clipboard^=unnamed,unnamedplus
+	" Keep yank and macOS clipboard separate by commenting out
+	" set clipboard& clipboard+=unnamedplus
+	" set clipboard& clipboard^=unnamed,unnamedplus
 endif
 
 " }}}

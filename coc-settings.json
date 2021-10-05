@@ -1,13 +1,37 @@
 {
-	"diagnostic.displayByAle": false, // ALE does not support hover popups in neovim yet
-	"coc.preferences.formatOnSaveFiletypes": ["javascript", "typescript", "json", "css", "markdown"],
-	"signature.maxWindowHeight": 14,
-	"codeLens.enable": true,
-//	"suggest.autoTrigger": "none",
-//	"suggest.floatEnable": false,
-	"coc.preferences.hoverTarget": "float",
-	"diagnostic.enableMessage": "always",
+  "diagnostic.displayByAle": false, // ALE does not support hover popups in neovim yet
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "typescript",
+    "json",
+    "css",
+    "markdown",
+    "reason",
+    "rescript",
+    "terraform"
+  ],
+  "signature.maxWindowHeight": 14,
+  "codeLens.enable": true,
+  //	"suggest.autoTrigger": "none",
+  //	"suggest.floatEnable": false,
+  "coc.preferences.hoverTarget": "float",
+  "diagnostic.enableMessage": "always",
   "diagnostic.messageTarget": "float", // Disable redundant popups for linter if using macvim. displayByAle disables this too
-	"diagnostic.virtualText": false,
-//	"signature.target": "echo", // Disable if using  asyncomplete to show signatures.
+  "diagnostic.virtualText": false,
+  "languageserver": {
+    "terraform": {
+      "command": "terraform-ls",
+      "args": ["serve"],
+      "filetypes": ["terraform", "tf"],
+      "initializationOptions": {},
+      "settings": {}
+    },
+    "haskell": {
+      "command": "haskell-language-server-wrapper",
+      "args": ["--lsp"],
+      "rootPatterns": ["*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"],
+      "filetypes": ["haskell", "lhaskell"]
+    }
+  }
+  //	"signature.target": "echo", // Disable if using  asyncomplete to show signatures.
 }

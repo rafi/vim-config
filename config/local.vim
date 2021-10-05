@@ -27,7 +27,7 @@ endfunction
 set wrap
 
 " Add CoC intellisense support
-let g:coc_global_extensions = ['coc-tsserver', 'coc-prettier', 'coc-eslint', 'coc-json', 'coc-html', 'coc-css', 'coc-python', 'coc-reason', 'coc-yaml', 'coc-phpls']
+let g:coc_global_extensions = ['coc-tsserver', 'coc-prettier', 'coc-eslint', 'coc-json', 'coc-html', 'coc-css', 'coc-python', 'coc-reason', 'coc-rescript', 'coc-yaml', 'coc-phpls']
 " Load recommended key bindings and settings for CoC
 if filereadable($VIM_PATH . '/config/local.vim')
 	call s:source_file('config/coc.vim')
@@ -80,18 +80,20 @@ inoremap <C-Insert> <C-r>*
 " Command mode paste
 cnoremap <C-Insert> <C-r>*
 " Normal mode paste
-nnoremap <C-Insert> P
+nnoremap <C-Insert> "*P
 " Visual mode paste (without yanking replaced text)
 " vnoremap <C-Insert> "_c<C-r>+<Esc>
-vnoremap <C-Insert> "_dP
+vnoremap <C-Insert> "*P
 " Remap Copy Key Mappings
 " ----------
 " Remap copy to work in neovim
-vmap <M-[>2;5+ y
+vmap <M-[>2;5+ "*y
+" Meta-x to cut to only OS clipboard
+vmap <M-x> "*x
 " Remap copy to work in vim8
-vmap [2;5+ y
+vmap [2;5+ "*y
 " Select all
-noremap <C-S-Insert> <Esc>ggVG
+noremap <C-S-Insert> <Esc>
 " Remap Indent
 " ----------
 vmap <M-]> >gv|
@@ -161,6 +163,8 @@ endif
 
 " Hygen {{{
 " ----------
-command MakeUnit !{yarn hygen unit-test-generator new %}
-command MakeInt !{yarn hygen int-test-generator new %}
+" command MakeUnit !{yarn hygen unit-test-generator new %}
+" command MakeInt !{yarn hygen int-test-generator new %}
 " }}}
+"
+let g:python3_host_prog = '/opt/homebrew/bin/python3'

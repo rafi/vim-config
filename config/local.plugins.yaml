@@ -3,8 +3,8 @@
   merged: 0
 - { repo: kkoomen/vim-doge }
 - { repo: janko/vim-test }
-# - { repo: yegappan/greplace }
-- { repo: skwp/greplace.vim }
+- { repo: yegappan/greplace }
+# - { repo: skwp/greplace.vim }
 
 # Enable nvim native LSP with asyncomplete
 # - repo: yami-beta/asyncomplete-omni.vim
@@ -100,3 +100,6 @@
       \   '*.conf.j2': 'conf',
       \   '*.ini.j2': 'ini'
       \ }
+
+- { repo: reasonml-editor/vim-reason-plus }
+- { repo: amiralies/vim-rescript }
