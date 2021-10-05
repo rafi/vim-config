@@ -2,15 +2,6 @@
 " hybrid custom
 " ===
 
-" gVim Appearance {{{
-" ---
-if has('gui_running')
-	set guifont=PragmataPro:h16
-	set guioptions=Mc
-	" set noantialias
-endif
-" }}}
-
 " Terminal colors {{{
 " ---
 let g:terminal_color_0 = '#2a2a2a'
@@ -29,6 +20,18 @@ let g:terminal_color_12 = '#98cbfe'
 let g:terminal_color_13 = '#e5b0ff'
 let g:terminal_color_14 = '#75daa9'
 let g:terminal_color_15 = '#cfcfcf'
+" }}}
+
+" Tabline {{{
+highlight! UserBorder         ctermfg=254 guifg=#525865
+highlight! UserSelectionCaret ctermfg=139 guifg=#B294BB ctermbg=97 guibg=#4D2238
+highlight! UserSelectionBackground                      ctermbg=97 guibg=#4D2238
+highlight! UserFloat          ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
+" highlight! link UserFloat NormalFloat
+highlight! link UserPreviewLine UserSelectionBackground
+" ctermbg=236 guibg=#323232
+" #ACAFAE  #2C3237
+" #2a2e36  #525865
 " }}}
 
 " Tabline {{{
@@ -68,9 +71,22 @@ highlight User8 guifg=#ffb964 guibg=#30302c ctermfg=215 ctermbg=236
 " Highlights: General GUI {{{
 " ---
 " :h slow-terminal  " gui=NONE guifg=NONE
+highlight IncSearch guifg=#222222 guibg=#99ad6a cterm=NONE gui=NONE
 highlight NonText cterm=NONE ctermfg=NONE
 highlight! link jsFutureKeys PreProc
 highlight! WarningMsg  ctermfg=100 guifg=#CCC566
+highlight! link QuickFixLine WildMenu
+highlight! link lspReference Visual
+
+" if has('nvim') || has('patch-7.4.2218')
+" 	highlight EndOfBuffer gui=NONE guifg=#303030
+" endif
+
+if has('nvim')
+	highlight TermCursor    gui=NONE guibg=#cc22a0
+	highlight TermCursorNC  gui=NONE guibg=#666666
+	" highlight NormalNC      gui=NONE guibg=#2c2c2c guifg=#bfbfbf
+endif
 
 highlight! link vimFunc Function
 highlight! link vimFunction Function
@@ -101,7 +117,7 @@ hi! link mkdItalic htmlItalic
 " hi! link mkdCodeEnd mkdCode
 " hi! link mkdBlockquote Comment
 " hi! link mkdListItem Keyword
-hi! link mkdListItemLine Normal
+" hi! link mkdListItemLine Normal
 " hi! link mkdFootnotes mkdFootnote
 " hi! link mkdLink markdownLinkText
 " hi! link mkdURL markdownUrl
@@ -112,86 +128,70 @@ hi! link mkdListItemLine Normal
 " hi! link mkdLinkTitle mkdInlineURL
 " hi! link mkdDelimiter Keyword
 
-" See: https://github.com/itchyny/vim-parenmatch
-let g:parenmatch_highlight = 0
-highlight! ParenMatch ctermbg=236 guibg=#494D2A cterm=underline gui=underline
-
-" See: https://github.com/dominikduda/vim_current_word
-highlight! CurrentWord ctermbg=236 guibg=#2D3C42 cterm=NONE gui=NONE
-highlight! CurrentWordTwins ctermbg=235 guibg=#252A3D cterm=NONE gui=NONE
-" highlight! CurrentWord ctermbg=60 guibg=#2D3C42 cterm=NONE gui=NONE
-" highlight! CurrentWordTwins ctermbg=237 guibg=#2B2A22 cterm=NONE gui=NONE
-
-" highlight! link MatchParen  Visual
-" highlight! MatchParen  ctermfg=NONE guifg=NONE ctermbg=236 guibg=#2d3c42
-" highlight! ParenMatch  ctermfg=NONE guifg=NONE ctermbg=236 guibg=#494d2A
-
-" highlight! Error  term=NONE cterm=NONE
-" highlight! link WarningMsg  Comment
-" highlight! link pythonSpaceError  NONE
-" highlight! link pythonIndentError NONE
-" highlight! link mkdLineBreak      NONE
 " }}}
 
-" Plugin: Defx icons and highlights {{{
+" Plugin: IndentGuides {{{
 " ---
-highlight! defxSelected             ctermbg=97 guibg=#36202b
-highlight Defx_filename_3_Modified  ctermfg=1  guifg=#D370A3
-highlight Defx_filename_3_Staged    ctermfg=10 guifg=#A3D572
-highlight Defx_filename_3_Ignored   ctermfg=8  guifg=#404660
-highlight link Defx_filename_3_root_marker Comment
-
-highlight def link Defx_filename_3_Untracked Comment
-highlight def link Defx_filename_3_Unknown Comment
-highlight def link Defx_filename_3_Renamed Title
-highlight def link Defx_filename_3_Unmerged Label
-" highlight Defx_git_Deleted   ctermfg=13 guifg=#b294bb
+" highlight! IndentGuidesOdd  guifg=#292B2D guibg=#232527
+" highlight! IndentGuidesEven guifg=#232527 guibg=#292B2D
 " }}}
 
-" Plugin: Ale {{{
+" Plugin: IndentBlankline {{{
 " ---
-highlight! ALEErrorSign ctermfg=167 guifg=#fb4934
-highlight! ALEWarningSign ctermfg=214 guifg=#fabd2f
-highlight! ALEInfoSign ctermfg=109 guifg=#83a598
-" highlight! ALEStyleErrorSign
-" highlight! ALEStyleWarningSign
+highlight! IndentBlanklineChar cterm=nocombine gui=nocombine guibg=#232527
+highlight! IndentBlanklineCharOdd cterm=nocombine gui=nocombine guibg=#292B2D
+" highlight! IndentBlanklineSpaceChar cterm=nocombine gui=nocombine guifg=#373b41
+" highlight! IndentBlanklineSpaceCharBlankline cterm=nocombine gui=nocombine guifg=#373b41
+" highlight! IndentBlanklineContextChar cterm=nocombine ctermbg=110 gui=nocombine guibg=#81a2be
 " }}}
 
-" Plugin: Neomake icons {{{
-" ---
-" let g:neomake_error_sign = {'text': '✘', 'texthl': 'ErrorMsg'}
-" let g:neomake_warning_sign = {'text': '✚', 'texthl': 'WarningSyntax'}
-" let g:neomake_message_sign = {'text': '♯', 'texthl': 'NeomakeMessageSign'}
-" let g:neomake_info_sign = {'text': '⋆', 'texthl': 'NeomakeInfoSign'}
-" highlight! clear WarningSyntax
-" highlight! WarningSyntax ctermfg=58 guifg=#7d7629
-"}}}
-
-" Plugin: vim-gitgutter {{{
-" ---
-highlight! GitGutterAdd ctermfg=22 guifg=#008500 ctermbg=234 guibg=#1c1c1c
-highlight! GitGutterChange ctermfg=58 guifg=#808200 ctermbg=234 guibg=#1c1c1c
-highlight! GitGutterDelete ctermfg=52 guifg=#800000 ctermbg=234 guibg=#1c1c1c
-highlight! GitGutterChangeDelete ctermfg=52 guifg=#800000 ctermbg=234 guibg=#1c1c1c
-" }}}
-
-" Plugin: denite {{{
+" Plugin: Telescope {{{
 " ---
 highlight! clear WildMenu
-highlight! WildMenu ctermbg=97 guibg=#82395F
-highlight! link deniteSelectedLine Statement
-highlight! link deniteMatchedChar Function
-highlight! link deniteMatchedRange Underlined
-highlight! link deniteMode Comment
-highlight! link deniteSource_QuickfixPosition qfLineNr
-highlight! link deniteSource__LocationListPosition qfLineNr
-highlight! link deniteSource__LocationListError Constant
-highlight! link deniteSource__LocationListWarning PreProc
+highlight! link WildMenu UserSelectionBackground
+highlight! link TelescopeSelection UserSelectionBackground
+highlight! link TelescopeSelectionCaret UserSelectionCaret
+highlight! link TelescopeBorder UserBorder
+highlight! link TelescopePromptBorder UserBorder
+highlight! link TelescopeResultsBorder UserBorder
+highlight! link TelescopePreviewBorder UserBorder
+highlight! link TelescopePreviewLine UserPreviewLine
 " }}}
 
-" Plugin: vim-highlightedyank {{{
+" Plugin: Fern {{{
 " ---
-highlight! link HighlightedyankRegion DiffText
+highlight! FernGitStatusBracket  ctermfg=234 ctermbg=NONE guifg=bg guibg=NONE
+highlight! FernGitStatusIndex    ctermfg=10  guifg=#A3D572
+highlight! FernGitStatusWorktree ctermfg=1   guifg=#D370A3
+highlight! link FernSpinner Identifier
+" }}}
+
+" Plugin: Bqf {{{
+" ---
+" hi default link BqfPreviewFloat Normal
+highlight! link BqfPreviewBorder UserBorder
+highlight! link BqfPreviewCursor TermCursor
+highlight! default link BqfPreviewRange TermCursorNC
+" hi default BqfSign ctermfg=14 guifg=Cyan
+" }}}
+
+" Plugin: gitsigns {{{
+" ---
+" highlight! SignColumn ctermbg=234 guibg=#1c1c1c
+highlight! GitSignsAdd ctermfg=22 guifg=#008500 ctermbg=234 guibg=#1c1c1c
+highlight! GitSignsChange ctermfg=58 guifg=#808200 ctermbg=234 guibg=#1c1c1c
+highlight! GitSignsDelete ctermfg=52 guifg=#800000 ctermbg=234 guibg=#1c1c1c
+" }}}
+
+" Plugin: simrat39/symbols-outline.nvim {{{
+" ---
+highlight! FocusedSymbol ctermbg=236 guibg=#2D3C42 cterm=NONE gui=NONE
+" }}}
+
+" Plugin: vim-shot-f {{{
+" ---
+highlight! link ShotFGraph SpellRare
+highlight! link ShotFBlank DiffAdd
 " }}}
 
 " Plugin: vim-signature {{{

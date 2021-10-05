@@ -4,46 +4,38 @@
 
 " Configuration
 
-" Limit display of directories in path
-let g:badge_tab_filename_max_dirs =
-	\ get(g:, 'badge_tab_filename_max_dirs', 1)
-
-" Limit display of characters in each directory in path
-let g:badge_tab_dir_max_chars =
-	\ get(g:, 'badge_tab_dir_max_chars', 5)
-
 " Maximum number of directories in filepath
 let g:badge_status_filename_max_dirs =
 	\ get(g:, 'badge_status_filename_max_dirs', 3)
 
 " Maximum number of characters in each directory
-let g:badge_status_dir_max_chars =
-	\ get(g:, 'badge_status_dir_max_chars', 5)
+let g:badge_status_dir_max_chars = get(g:, 'badge_status_dir_max_chars', 5)
 
 " Less verbosity on specific filetypes (regexp)
-let g:badge_filetype_blacklist =
-	\ get(g:, 'badge_filetype_blacklist',
-	\ 'qf\|help\|vimfiler\|gundo\|diff\|fugitive\|gitv')
-
-let g:badge_numeric_charset =
-	\ get(g:, 'badge_numeric_charset',
-	\ ['⁰','¹','²','³','⁴','⁵','⁶','⁷','⁸','⁹'])
-	"\ ['₀','₁','₂','₃','₄','₅','₆','₇','₈','₉'])
+let g:badge_filetype_blacklist = get(g:, 'badge_filetype_blacklist', '')
 
 let g:badge_loading_charset =
 	\ get(g:, 'badge_loading_charset',
 	\ ['⠃', '⠁', '⠉', '⠈', '⠐', '⠠', '⢠', '⣠', '⠄', '⠂'])
 
+let s:badge_scrollbar_charset =
+	\ get(g:, 'badge_scrollbar_charset', [
+	\ '_', '▁', '▂', '▃', '▄', '▅', '▆', '▇', '█'])
+
 let g:badge_nofile = get(g:, 'badge_nofile', 'N/A')
 
 let g:badge_project_separator = get(g:, 'badge_project_separator', '')
 
+" Private variables
+let s:caches = []
+
 " Clear cache on save
 augroup statusline_cache
 	autocmd!
-	autocmd BufWritePre,FileChangedShellPost * unlet! b:badge_cache_trails
-	autocmd BufReadPost,BufFilePost,BufNewFile *
-		\ unlet! b:badge_cache_filename b:badge_cache_tab
+	autocmd BufWritePre,FileChangedShellPost,TextChanged,InsertLeave *
+		\ unlet! b:badge_cache_trails
+	autocmd BufReadPost,BufFilePost,BufNewFile,BufWritePost *
+		\ for cache_name in s:caches | execute 'unlet! b:' . cache_name | endfor
 augroup END
 
 function! badge#project() abort
@@ -58,7 +50,7 @@ function! badge#gitstatus(...) abort
 
 	let l:icons = ['₊', '∗', '₋']  " added, modified, removed
 	let l:out = ''
-	" if &filetype ==# 'magit'
+	if &filetype ==# 'magit'
 	"	let l:map = {}
 	"	for l:file in magit#git#get_status()
 	"		let l:map[l:file['unstaged']] = get(l:map, l:file['unstaged'], 0) + 1
@@ -66,7 +58,7 @@ function! badge#gitstatus(...) abort
 	"	for l:status in l:map
 	"		let l:out = values(l:map)
 	"	endfor
-	" else
+	else
 		if exists('*gitgutter#hunk#summary')
 			let l:summary = gitgutter#hunk#summary(bufnr('%'))
 			for l:idx in range(0, len(l:summary) - 1)
@@ -75,7 +67,7 @@ function! badge#gitstatus(...) abort
 				endif
 			endfor
 		endif
-	" endif
+	endif
 	return trim(l:out)
 endfunction
 
@@ -84,89 +76,90 @@ function! badge#filename(...) abort
 	" limits number of total directories. Caches the result for current buffer.
 	" Parameters:
 	"   1: Buffer number, ignored if tab number supplied
-	"   2: Tab number
-	"   3: Enable to append total window count in tab
-	"   4: Include project directory if different from current
+	"   2: Maximum characters displayed in base filename
+	"   3: Maximum characters displayed in each directory
+	"   4: Cache key
 
-	" Compute buffer name
-	if a:0 > 1
-		let l:buflist = tabpagebuflist(a:2)
-		let l:bufnr = l:buflist[tabpagewinnr(a:2) - 1]
-	elseif a:0 == 1
+	" Compute buffer id
+	let l:bufnr = '%'
+	if a:0 > 0
 		let l:bufnr = a:1
-	elseif a:0 == 0
-		let l:bufnr = '%'
 	endif
 
+	let l:filetype = getbufvar(l:bufnr, '&filetype')
+
 	" Use buffer's cached filepath
-	let l:cache_var_name = 'badge_cache_' . (a:0 > 1 ? 'tab' : 'filename')
+	let l:cache_var_name = a:0 > 3 ? a:4 : 'filename'
+	let l:cache_var_name =
+		\ tolower('badge_cache_' . l:filetype . '_' . l:cache_var_name)
+	let l:cache_var_name = substitute(l:cache_var_name, '[^a-z]', '_', 'g')
+
 	let l:fn = getbufvar(l:bufnr, l:cache_var_name, '')
 	if len(l:fn) > 0
 		return l:fn
 	endif
 
 	let l:bufname = bufname(l:bufnr)
-	let l:filetype = getbufvar(l:bufnr, '&filetype')
 
-	if a:0 < 2 && l:filetype =~? g:badge_filetype_blacklist
-		" Empty if owned by certain plugins
-		let l:fn = ''
-	elseif a:0 < 2 && l:filetype ==# 'defx'
-		let l:defx = getbufvar(l:bufnr, 'defx')
-		let l:fn = get(get(l:defx, 'context', {}), 'buffer_name')
-		unlet! l:defx
-	elseif a:0 < 2 && l:filetype ==# 'magit'
-		let l:fn = magit#git#top_dir()
-	elseif a:0 < 2 && l:filetype ==# 'vimfiler'
-		let l:fn = vimfiler#get_status_string()
-	elseif empty(l:bufname)
+	if empty(getbufvar(l:bufnr, '&buftype')) && empty(l:bufname)
 		" Placeholder for empty buffer
 		let l:fn = g:badge_nofile
 	else
-		" let l:icons = defx_icons#get()
 		" Shorten dir names
-		let l:max = a:0 > 1 ?
-			\ g:badge_tab_dir_max_chars : g:badge_status_dir_max_chars
+		let l:max = a:0 > 2 ? a:3 : g:badge_status_dir_max_chars
 		let short = substitute(l:bufname,
 			\ "[^/]\\{" . l:max . "}\\zs[^/]\*\\ze/", '', 'g')
 
 		" Decrease dir count
-		let l:max = a:0 > 1 ?
-			\ g:badge_tab_filename_max_dirs : g:badge_status_filename_max_dirs
+		let l:max = a:0 > 1 ? a:2 : g:badge_status_filename_max_dirs
 		let parts = split(short, '/')
 		if len(parts) > l:max
 			let parts = parts[-l:max-1 : ]
 		endif
-		let l:fn = join(parts, '/')
-	endif
 
-	" Append fugitive blob type
-	let l:fugitive = getbufvar(l:bufnr, 'fugitive_type')
-	if l:fugitive ==# 'blob'
-		let l:fn .= ' (blob)'
-	endif
-
-	" Append window count, for tabs
-	if a:0 > 2 && a:3
-		let l:win_count = tabpagewinnr(a:2, '$')
-		if l:win_count > 1
-			let l:fn .= s:numtr(l:win_count, g:badge_numeric_charset)
+		" Set icon
+		let l:icon = ''
+		if l:filetype ==# 'fern'
+			let l:icon = ''
+		elseif l:filetype ==# 'undotree'
+			let l:icon = ''
+		elseif l:filetype ==# 'qf'
+			let l:icon = ''
+			let parts = [ 'List' ]
+		elseif l:filetype ==# 'TelescopePrompt'
+			let l:icon = ''
+			let parts = [ 'Telescope' ]
+		elseif l:filetype ==# 'Trouble'
+			let l:icon = ''
+		elseif l:filetype ==# 'DiffviewFiles'
+			let l:icon = ''
+		elseif l:filetype ==# 'Outline'
+			let l:icon = ''
+			let parts = [ 'Outline' ]
+		elseif l:filetype ==# 'NeogitStatus'
+			let l:icon = ''
+		elseif get(g:, 'nvim_web_devicons')
+			let l:icon = luaeval(
+				\ 'require"nvim-web-devicons".get_icon(_A[1], _A[2], { default = true })',
+				\ [fnamemodify(l:bufname, ':t:r'), fnamemodify(l:bufname, ':e')])
+		elseif exists('*nerdfont#find')
+			let l:icon = nerdfont#find(l:bufname)
+		elseif exists('*defx_icons#get')
+			let l:icon = get(defx_icons#get().icons.extensions, expand('%:e'), {})
+			let l:icon = get(l:icon, 'icon', '')
 		endif
-	endif
+		if ! empty(l:icon)
+			let l:fn .= l:icon . get(g:, 'global_symbol_padding', ' ')
+		endif
 
-	" Prepend project dir, for tabs
-	if a:0 > 3 && a:4
-		" g:badge_project_separator
-		" let project_dir = getbufvar(a:n, 'project_dir')
-		" if strridx(filepath, project_dir) == 0
-		"	let filepath = strpart(filepath, len(project_dir))
-		"	let project .= fnamemodify(project_dir, ':t') . (a:0 > 0 ? a:1 : '|')
-		"	let l:fn = project . l:fn
-		"	endif
+		let l:fn .= join(parts, '/')
 	endif
 
 	" Cache and return the final result
 	call setbufvar(l:bufnr, l:cache_var_name, l:fn)
+	if index(s:caches, l:cache_var_name) == -1
+		call add(s:caches, l:cache_var_name)
+	endif
 	return l:fn
 endfunction
 
@@ -179,8 +172,8 @@ function! badge#root() abort
 		let patterns = ['.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/']
 		for pattern in patterns
 			let is_dir = stridx(pattern, '/') != -1
-			let match = is_dir ? finddir(pattern, curr_dir.';')
-				\ : findfile(pattern, curr_dir.';')
+			let match = is_dir ? finddir(pattern, curr_dir . ';')
+				\ : findfile(pattern, curr_dir . ';')
 			if ! empty(match)
 				let dir = fnamemodify(match, is_dir ? ':p:h:h' : ':p:h')
 				call setbufvar('%', 'project_dir', dir)
@@ -196,7 +189,9 @@ function! badge#branch() abort
 	" Returns git branch name, using different plugins.
 
 	if &filetype !~? g:badge_filetype_blacklist
-		if exists('*gitbranch#name')
+		if exists('*gina#component#repo#branch')
+			return gina#component#repo#branch()
+		elseif exists('*gitbranch#name')
 			return gitbranch#name()
 		elseif exists('*vcs#info')
 			return vcs#info('%b')
@@ -208,7 +203,8 @@ function! badge#branch() abort
 endfunction
 
 function! badge#syntax() abort
-	" Returns syntax warnings from several plugins (ALE, Neomake, Syntastic)
+	" Returns syntax warnings from several plugins
+	" Supports vim-lsp, ALE, Neomake, and Syntastic
 	if &filetype =~? g:badge_filetype_blacklist
 		return ''
 	endif
@@ -216,7 +212,20 @@ function! badge#syntax() abort
 	let l:msg = ''
 	let l:errors = 0
 	let l:warnings = 0
-	if exists('*neomake#Make')
+	let l:hints = 0
+	let l:info = 0
+	if exists('*luaeval')
+			\ && luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
+		let l:errors = luaeval('vim.lsp.diagnostic.get_count(0, [[Error]])')
+		let l:warnings = luaeval('vim.lsp.diagnostic.get_count(0, [[Warning]])')
+	elseif exists('*lsp#get_buffer_diagnostics_counts')
+			\ && get(g:, 'lsp_diagnostics_enabled', 1)
+		let l:counts = lsp#get_buffer_diagnostics_counts()
+		let l:errors = get(l:counts, 'error', '')
+		let l:warnings = get(l:counts, 'warning', '')
+		let l:hints = get(l:counts, 'hint', '')
+		let l:info = get(l:counts, 'information', '')
+	elseif exists('*neomake#Make')
 		let l:counts = neomake#statusline#get_counts(bufnr('%'))
 		let l:errors = get(l:counts, 'E', '')
 		let l:warnings = get(l:counts, 'W', '')
@@ -228,12 +237,18 @@ function! badge#syntax() abort
 		let l:msg = SyntasticStatuslineFlag()
 	endif
 	if l:errors > 0
-		let l:msg .= printf(' %d ', l:errors)
+		let l:msg .= printf('%%#LspDiagnosticsDefaultError# %d%%* ', l:errors)
 	endif
 	if l:warnings > 0
-		let l:msg .= printf(' %d ', l:warnings)
+		let l:msg .= printf('%%#LspDiagnosticsDefaultWarning# %d%%* ', l:warnings)
 	endif
-	return substitute(l:msg, '\s*$', '', '')
+	if l:hints > 0
+		let l:msg .= printf('%%#LspDiagnosticsDefaultHint# %d%%* ', l:hints)
+	endif
+	if l:info > 0
+		let l:msg .= printf('%%#LspDiagnosticsDefaultInformation# %d%%* ', l:info)
+	endif
+	return l:msg
 endfunction
 
 function! badge#trails(...) abort
@@ -298,6 +313,23 @@ endfunction
 function! badge#indexing() abort
 	let l:out = ''
 
+	if exists('*lsp#get_progress')
+		let s:lsp_progress = lsp#get_progress()
+		if len(s:lsp_progress) > 0 && has_key(s:lsp_progress[0], 'message')
+			" Show only last progress message
+			let s:lsp_progress = s:lsp_progress[0]
+			let l:percent = get(s:lsp_progress, 'percentage')
+			if s:lsp_progress['message'] != '' && l:percent != 100
+				let l:out .= s:lsp_progress['server'] . ':'
+					\ . s:lsp_progress['title'] . ' '
+					\ . s:lsp_progress['message']
+					\ . l:percent
+				if l:percent >= 0
+					let l:out .= ' ' . string(l:percent) . '%'
+				endif
+			endif
+		endif
+	endif
 	if exists('*gutentags#statusline')
 		let l:tags = gutentags#statusline('[', ']')
 		if ! empty(l:tags)
@@ -316,6 +348,23 @@ function! badge#indexing() abort
 		let l:out .= '[s]'
 	endif
 	return l:out
+endfunction
+
+" Credits: https://github.com/glepnir/galaxyline.nvim
+function! badge#scrollbar() abort
+	let l:index = 0
+	let l:current_line = line('.')
+	let l:total_lines = line('$')
+	let l:total_chars = len(s:badge_scrollbar_charset)
+	if l:total_lines == 1
+		return '·'  "•
+	elseif l:current_line == l:total_lines
+		let l:index = l:total_chars - 1
+	else
+	let l:line_ratio = floor(l:current_line) / floor(l:total_lines)
+	let l:index = float2nr(l:line_ratio * l:total_chars)
+	endif
+	return s:badge_scrollbar_charset[l:index]
 endfunction
 
 function! s:numtr(number, charset) abort
