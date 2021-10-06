@@ -26,12 +26,18 @@ endfunction
 " Set line wrap
 set wrap
 
+" Focus the current fold by closing all others
+nnoremap S<Return> zMzv
+
+" autocmd FileType reason
+"	\ setlocal expandtab
+
 " Add CoC intellisense support
-let g:coc_global_extensions = ['coc-tsserver', 'coc-prettier', 'coc-eslint', 'coc-json', 'coc-html', 'coc-css', 'coc-python', 'coc-reason', 'coc-rescript', 'coc-yaml', 'coc-phpls']
+" let g:coc_global_extensions = ['coc-tsserver', 'coc-prettier', 'coc-eslint', 'coc-json', 'coc-html', 'coc-css', 'coc-python', 'coc-reason', 'coc-rescript', 'coc-yaml', 'coc-phpls']
 " Load recommended key bindings and settings for CoC
-if filereadable($VIM_PATH . '/config/local.vim')
-	call s:source_file('config/coc.vim')
-endif
+" if filereadable($VIM_PATH . '/config/local.vim')
+" "	call s:source_file('config/coc.vim')
+" endif
 
 " let g:vista#executives = ['coc', 'ctags', 'lcn', 'vim_lsp']
 let g:vista_executive_for = {'typescript': 'coc'}
@@ -127,16 +133,16 @@ vnoremap <expr> <S-LeftMouse> '<Esc><LeftMouse>mN`V'.b:v_mode.'`N'
 " WhichKey {{{
 " ----------
 " Define prefix dictionary
-autocmd! User vim-which-key call which_key#register('<Space>', "g:which_key_map")
-let g:which_key_map =  {}
-nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
-vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
-nnoremap <localleader> :<c-u>WhichKey  ';'<CR>
-vnoremap <localleader> :<c-u>WhichKeyVisual  ';'<CR>
-" Hide status line when whichkey is open
-autocmd! FileType which_key
-autocmd  FileType which_key set laststatus=0 noshowmode noruler
-  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+" autocmd! User vim-which-key call which_key#register('<Space>', "g:which_key_map")
+" let g:which_key_map =  {}
+" nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
+" vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
+" nnoremap <localleader> :<c-u>WhichKey  ';'<CR>
+" vnoremap <localleader> :<c-u>WhichKeyVisual  ';'<CR>
+" " Hide status line when whichkey is open
+" autocmd! FileType which_key
+" autocmd  FileType which_key set laststatus=0 noshowmode noruler
+"  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 " }}}
 "
 
@@ -144,9 +150,9 @@ autocmd  FileType which_key set laststatus=0 noshowmode noruler
 " ----------
 " Open refs in preview window
 " nnoremap gdv :<C-u>pedit %<Bar>wincmd P<Bar>>norm! <Plug>(coc-definition)<Bar>wincmd p<CR>
-nmap <silent> gdh :sp<CR><Plug>(coc-definition)
-nmap <silent> gdv :vsp<CR><Plug>(coc-definition)
-nmap <silent> gdt :vsp<CR><Plug>(coc-definition)<C-W>T
+" nmap <silent> gdh :sp<CR><Plug>(coc-definition)
+" nmap <silent> gdv :vsp<CR><Plug>(coc-definition)
+" nmap <silent> gdt :vsp<CR><Plug>(coc-definition)<C-W>T
 " }}}
 
 " Doge Doc Generator {{{
@@ -166,5 +172,14 @@ endif
 " command MakeUnit !{yarn hygen unit-test-generator new %}
 " command MakeInt !{yarn hygen int-test-generator new %}
 " }}}
-"
+
 let g:python3_host_prog = '/opt/homebrew/bin/python3'
+
+" Neoformat {{{
+" Enables auto format on save
+" ----------
+augroup fmt
+	autocmd!
+	autocmd BufWritePre * undojoin | Neoformat
+augroup END
+" }}}

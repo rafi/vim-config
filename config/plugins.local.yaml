@@ -1,0 +1,50 @@
+#- repo: neoclide/coc.nvim
+#  rev: release
+#  merged: 0
+- { repo: kkoomen/vim-doge }
+- { repo: janko/vim-test }
+- { repo: yegappan/greplace }
+# - { repo: skwp/greplace.vim }
+
+# Enable nvim native LSP with asyncomplete
+# - repo: yami-beta/asyncomplete-omni.vim
+#   merged: 0
+# - repo: neovim/nvim-lsp
+#   merged: 0
+# - { repo: prabirshrestha/vim-lsp, if: 0 } # Adds LSP support to vim
+
+# Disabling asycomplete beceause it is slow compared to CoC
+#- { repo: prabirshrestha/async.vim, if: 0 }
+#- { repo: prabirshrestha/asyncomplete.vim, if: 0 }
+#- { repo: prabirshrestha/asyncomplete-necovim.vim, if: 0 }
+#- { repo: prabirshrestha/asyncomplete-tags.vim, if: 0 }
+#- { repo: prabirshrestha/asyncomplete-file.vim, if: 0 }
+#- { repo: prabirshrestha/asyncomplete-ultisnips.vim, if: 0 }
+
+# Disable vim-lsp since we are using CoC
+# Also vim-lsp + asyncomplete have performance issues with vim8
+# yami-beta/asyncomplete-omni.vim
+#- { repo: prabirshrestha/asyncomplete-lsp.vim, if: 0 } # Adds LSP support to asyncomplete
+#- { repo: prabirshrestha/vim-lsp, if: 0 } # Adds LSP support to vim
+#- { repo: mattn/vim-lsp-settings, if: 0 } # Adds commands to install language
+# servers for vim-lsp
+
+# Disable ale since we are using CoC for linting
+# - { repo: dense-analysis/ale, if: 0 }
+
+- { repo: reasonml-editor/vim-reason-plus }
+- { repo: amiralies/vim-rescript }
+# - { repo: williamboman/nvim-lsp-installer }
+# - { repo: kabouzeid/nvim-lspinstall, if: 0 }
+- repo: neovim/nvim-lspconfig
+  if: has('nvim-0.5')
+  depends:
+    - lsp_signature.nvim
+    - todo-comments.nvim
+    - lua-dev.nvim
+    - cmp-nvim-lsp
+  on_event: VimEnter
+  hook_post_source: lua require('plugins.lspconfig') require('local-lspconfig')
+# - repo: itchyny/lightline.vim
+# - repo: vim-airline/vim-airline
+# - repo: glepnir/spaceline.vim

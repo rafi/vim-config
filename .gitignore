@@ -6,3 +6,5 @@
 /.stignore
 /.stfolder
 /.stversions
+/node_modules/*
+.nvimlog

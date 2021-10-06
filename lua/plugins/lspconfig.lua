@@ -48,13 +48,13 @@ local on_attach = function(client, bufnr)
 	-- buf_set_keymap('v', '<Leader>ca', ':<C-u>lua require("lspsaga.codeaction").range_code_action()<CR>', opts)
 
 	-- See https://github.com/ray-x/lsp_signature.nvim
-	-- require('lsp_signature').on_attach({
-	-- 	bind = true,
-	-- 	hint_enable = false,
-	-- 	hint_prefix = ' ',  --  
-	-- 	handler_opts = { border = 'rounded' },
-	-- 	zindex = 50,
-	-- }, bufnr)
+	require('lsp_signature').on_attach({
+		bind = true,
+		hint_enable = false,
+		hint_prefix = ' ',  --  
+		handler_opts = { border = 'shadow' },
+		zindex = 50,
+	}, bufnr)
 
 	-- Set some keybinds conditional on server capabilities
 	if client.resolved_capabilities.document_formatting then
@@ -215,3 +215,4 @@ if vim.fn.has('vim_starting') then
 		augroup END
 	]], false)
 end
+return { make_config = make_config }
