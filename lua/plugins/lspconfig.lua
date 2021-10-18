@@ -50,6 +50,7 @@ local on_attach = function(client, bufnr)
 	-- See https://github.com/ray-x/lsp_signature.nvim
 	-- require('lsp_signature').on_attach({
 	-- 	bind = true,
+	-- 	check_pumvisible = true,
 	-- 	hint_enable = false,
 	-- 	hint_prefix = ' ',  --  
 	-- 	handler_opts = { border = 'rounded' },
@@ -194,16 +195,15 @@ end
 -- main
 
 if vim.fn.has('vim_starting') then
-	-- Setup LSP with lspinstall
-	setup_servers()
+	local lsp_installer = require('nvim-lsp-installer')
 
-	-- Automatically reload after `:LspInstall <server>`
-	require'lspinstall'.post_install_hook = function()
-		setup_servers()  -- reload installed servers
-		if not vim.bo.modified and vim.bo.buftype == '' then
-			vim.cmd('bufdo e')  -- starts server by triggering the FileType autocmd
-		end
-	end
+	lsp_installer.on_server_ready(function(server)
+		print(vim.inspect(server.name))
+		local opts = make_config(server.name)
+
+		server:setup(opts)
+		vim.cmd [[ do User LspAttachBuffers ]]
+	end)
 
 	-- global custom location-list diagnostics window toggle.
 	local args = { noremap = true, silent = true }

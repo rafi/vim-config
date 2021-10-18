@@ -268,12 +268,13 @@
 # Completion and code analysis
 # ----------
 
-- { repo: kabouzeid/nvim-lspinstall, if: has('nvim-0.5') }
+- { repo: williamboman/nvim-lsp-installer, if: has('nvim-0.5'), lazy: true }
 - { repo: kosayoda/nvim-lightbulb, if: has('nvim-0.5') }
 
 - repo: neovim/nvim-lspconfig
   if: has('nvim-0.5')
   depends:
+    - nvim-lsp-installer
     - lsp_signature.nvim
     - todo-comments.nvim
     - lua-dev.nvim
