@@ -9,6 +9,7 @@ parser_configs.http = {
 		files = { 'src/parser.c' },
 		branch = 'main',
 	},
+	filetype = 'http',
 }
 
 require('nvim-treesitter.configs').setup({
