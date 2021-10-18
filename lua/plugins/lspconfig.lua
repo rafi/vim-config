@@ -198,9 +198,7 @@ if vim.fn.has('vim_starting') then
 	local lsp_installer = require('nvim-lsp-installer')
 
 	lsp_installer.on_server_ready(function(server)
-		print(vim.inspect(server.name))
 		local opts = make_config(server.name)
-
 		server:setup(opts)
 		vim.cmd [[ do User LspAttachBuffers ]]
 	end)
