@@ -208,7 +208,7 @@ manage your own plugin collection.  If you want to disable some of the plugins
 I use, you can overwrite them, _e.g._:
 
 ```yaml
-- { repo: shadmansaleh/lualine.nvim, if: 0 }
+- { repo: nvim-lualine/lualine.nvim, if: 0 }
 ```
 
 Using `config/plugins.local.yaml` you can install any plugin you want, _e.g._:
@@ -343,7 +343,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [t9md/vim-quickhl] | Highlight words quickly
 | [rcarriga/nvim-notify] | Fancy notification manager for NeoVim
 | [rafi/vim-sidemenu] | Small side-menu useful for terminal users
-| [hoob3rt/lualine.nvim] | statusline plugin written in pure lua
+| [nvim-lualine/lualine.nvim] | statusline plugin written in pure lua
 | [itchyny/cursorword] | Underlines word under cursor
 | [lewis6991/gitsigns.nvim] | Git signs written in pure lua
 | [kshenoy/vim-signature] | Display and toggle marks
@@ -467,7 +467,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [t9md/vim-quickhl]: https://github.com/t9md/vim-quickhl
 [rcarriga/nvim-notify]: https://github.com/rcarriga/nvim-notify
 [rafi/vim-sidemenu]: https://github.com/rafi/vim-sidemenu
-[hoob3rt/lualine.nvim]: https://github.com/hoob3rt/lualine.nvim
+[nvim-lualine/lualine.nvim]: https://github.com/nvim-lualine/lualine.nvim
 [itchyny/cursorword]: https://github.com/itchyny/vim-cursorword
 [lewis6991/gitsigns.nvim]: https://github.com/lewis6991/gitsigns.nvim
 [kshenoy/vim-signature]: https://github.com/kshenoy/vim-signature

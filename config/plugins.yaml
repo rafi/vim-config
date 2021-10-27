@@ -133,7 +133,7 @@
 - { repo: rafi/vim-sidemenu, on_map: { nv: <Plug> }}
 
 # - repo: hoob3rt/lualine.nvim
-- repo: shadmansaleh/lualine.nvim
+- repo: nvim-lualine/lualine.nvim
   if: has('nvim-0.5')
   on_event: VimEnter
   hook_post_source: lua require('plugins.lualine')
