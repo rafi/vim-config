@@ -41,6 +41,9 @@ endif
 " let g:loaded_zip = 1
 " let g:loaded_zipPlugin = 1
 
+autocmd BufWritePre *.go lua goimports(1000)
+
+let g:enable_universal_quit_mapping = 0  " Disable normal 'q' mapping
 let g:loaded_getscript = 1
 let g:loaded_getscriptPlugin = 1
 let g:loaded_vimball = 1

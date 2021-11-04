@@ -24,6 +24,11 @@ endif
 " Navigation {{{
 " ----------
 
+""""""""""""""""""""""""""""""""""""""""""""
+" Personal maps
+""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <A-r> 			:source $MYVIMRC<CR>
+
 " Double leader key for toggling visual-line mode
 nmap <Leader><Leader> V
 xmap <Leader><Leader> <Esc>
@@ -129,10 +134,10 @@ xnoremap <S-Tab> <gv
 " nmap <<  <<_
 
 " Drag current line/s vertically and auto-indent
-nnoremap <Leader>k <cmd>move-2<CR>==
-nnoremap <Leader>j <cmd>move+<CR>==
-xnoremap <Leader>k :move'<-2<CR>gv=gv
-xnoremap <Leader>j :move'>+<CR>gv=gv
+nnoremap <A-k> <cmd>move-2<CR>==
+nnoremap <A-j> <cmd>move+<CR>==
+xnoremap <A-k> :move'<-2<CR>gv=gv
+xnoremap <A-j> :move'>+<CR>gv=gv
 
 " Duplicate lines without affecting PRIMARY and CLIPBOARD selections.
 nnoremap <Leader>d m`""Y""P``
@@ -242,8 +247,8 @@ nnoremap g1 <cmd>tabfirst<CR>
 nnoremap g5 <cmd>tabprevious<CR>
 nnoremap g9 <cmd>tablast<CR>
 
-nnoremap <A-j>     <cmd>tabnext<CR>
-nnoremap <A-k>     <cmd>tabprevious<CR>
+nnoremap <A-l>     <cmd>tabnext<CR>
+nnoremap <A-h>     <cmd>tabprevious<CR>
 nnoremap <A-[>     <cmd>tabprevious<CR>
 nnoremap <A-]>     <cmd>tabnext<CR>
 nnoremap <C-Tab>   <cmd>tabnext<CR>
