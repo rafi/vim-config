@@ -1,0 +1,1 @@
+/Users/wansmer/projects/code/nvimconfig/local.vim
