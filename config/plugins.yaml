@@ -341,6 +341,7 @@
 
 - repo: rmagatti/session-lens
   if: has('nvim-0.5')
+  depends: [auto-session]
   lazy: true
   hook_post_source: lua require('plugins.session-lens')
 
