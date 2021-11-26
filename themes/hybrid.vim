@@ -78,6 +78,11 @@ highlight! WarningMsg  ctermfg=100 guifg=#CCC566
 highlight! link QuickFixLine WildMenu
 highlight! link lspReference Visual
 
+highlight! DiagnosticError ctermfg=1   guifg=Red
+highlight! DiagnosticWarn  ctermfg=3   guifg=Orange
+highlight! DiagnosticInfo  ctermfg=4   guifg=LightBlue
+highlight! DiagnosticHint  ctermfg=143 guifg=#b5bd68
+
 " if has('nvim') || has('patch-7.4.2218')
 " 	highlight EndOfBuffer gui=NONE guifg=#303030
 " endif

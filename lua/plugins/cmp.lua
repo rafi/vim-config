@@ -8,7 +8,7 @@ _G.cmp_source_list = function(arr)
 	local config = {
 		buffer = {
 			name = 'buffer',
-			-- opts = {
+			-- option = {
 			-- 	-- Use all visible buffers
 			-- 	get_bufnrs = function()
 			-- 		local bufs = {}
@@ -24,7 +24,7 @@ _G.cmp_source_list = function(arr)
 		path  = { name = 'path' },
 		emoji = { name = 'emoji' },
 		vsnip = { name = 'vsnip' },
-		tmux  = { name = 'tmux', opts = { all_panes = true }},
+		tmux  = { name = 'tmux', option = { all_panes = true }},
 		latex = { name = 'latex_symbols' },
 	}
 	local sources = {}
