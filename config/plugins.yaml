@@ -333,7 +333,7 @@
 
 - repo: nvim-telescope/telescope.nvim
   if: has('nvim-0.5')
-  depends: [ todo-comments.nvim, session-lens, telescope-zoxide ]
+  depends: [ todo-comments.nvim, telescope-zoxide ]
   on_cmd: Telescope
   on_lua: telescope
   hook_add: lua require('plugins.telescope').preload()

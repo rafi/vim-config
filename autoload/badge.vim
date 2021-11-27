@@ -6,10 +6,10 @@
 
 " Maximum number of directories in filepath
 let g:badge_status_filename_max_dirs =
-	\ get(g:, 'badge_status_filename_max_dirs', 3)
+	\ get(g:, 'badge_status_filename_max_dirs', 5)
 
 " Maximum number of characters in each directory
-let g:badge_status_dir_max_chars = get(g:, 'badge_status_dir_max_chars', 5)
+let g:badge_status_dir_max_chars = get(g:, 'badge_status_dir_max_chars', 10)
 
 " Less verbosity on specific filetypes (regexp)
 let g:badge_filetype_blacklist = get(g:, 'badge_filetype_blacklist', '')

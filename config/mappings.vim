@@ -237,23 +237,19 @@ nmap <Leader>th <cmd>nohlsearch<CR>
 nmap <Leader>tw <cmd>execute('setlocal wrap! breakindent! colorcolumn=' .
 	\ (&colorcolumn == '' ? &textwidth : ''))<CR>
 
-" Tabs: Many ways to navigate them
-nnoremap g1 <cmd>tabfirst<CR>
-nnoremap g5 <cmd>tabprevious<CR>
-nnoremap g9 <cmd>tablast<CR>
+" Tabs
+nnoremap <silent> f1 :<C-u>tabfirst<CR>
+nnoremap <silent> f9 :<C-u>tablast<CR>
+nnoremap <silent> fl :<C-U>tabnext<CR>
+nnoremap <silent> fh :<C-U>tabprevious<CR>
 
-nnoremap <A-j>     <cmd>tabnext<CR>
-nnoremap <A-k>     <cmd>tabprevious<CR>
-nnoremap <A-[>     <cmd>tabprevious<CR>
-nnoremap <A-]>     <cmd>tabnext<CR>
-nnoremap <C-Tab>   <cmd>tabnext<CR>
-nnoremap <C-S-Tab> <cmd>tabprevious<CR>
-nnoremap <C-S-j>   <cmd>tabnext<CR>
-nnoremap <C-S-k>   <cmd>tabprevious<CR>
+" Move tabs left or right
+nnoremap <silent> f] :<C-u>tabm +1<CR>
+nnoremap <silent> f[ :<C-u>tabm -1<CR>
 
-" Moving tabs
-nnoremap <A-{> <cmd>-tabmove<CR>
-nnoremap <A-}> <cmd>+tabmove<CR>
+" Uses g:lasttab set on TabLeave in MyAutoCmd
+let g:lasttab = 1
+nmap <silent> fL :execute 'tabn '.g:lasttab<CR>
 
 " Show syntax highlight groups for character under cursor
 nmap <Leader>tt <cmd>echo
@@ -336,6 +332,10 @@ nnoremap [Window]z  <cmd>call <SID>zoom()<CR>
 " Split current buffer, go to previous window and previous buffer
 nnoremap [Window]sv <cmd>split<CR>:wincmd p<CR>:e#<CR>
 nnoremap [Window]sg <cmd>vsplit<CR>:wincmd p<CR>:e#<CR>
+
+" New split with empty buffer
+nnoremap <silent> sV :new<CR>
+nnoremap <silent> sG :vnew<CR>
 
 " Background dark/light toggle
 nmap [Window]h <cmd>call <SID>toggle_background()<CR>

@@ -41,9 +41,9 @@ hi TabLineFill ctermfg=234 ctermbg=236 guifg=#1C1C1C guibg=#303030 cterm=NONE gu
 " TabLine: Not-active tab page label
 hi TabLine     ctermfg=243 ctermbg=236 guifg=#767676 guibg=#303030 cterm=NONE gui=NONE
 " TabLineSel: Active tab page label
-hi TabLineSel  ctermfg=241 ctermbg=234 guifg=#626262 guibg=#1C1C1C cterm=NONE gui=NONE
+hi TabLineSel ctermfg=241 ctermbg=234 guifg=#1a1a1a guibg=#88A1BB cterm=NONE gui=NONE
 " Custom
-highlight TabLineSelShade  ctermfg=235 ctermbg=234 guifg=#262626 guibg=#1C1C1C
+highlight TabLineSelShade  ctermfg=235 ctermbg=234 guifg=#88A1BB guibg=#1C1C1C
 highlight TabLineAlt       ctermfg=252 ctermbg=238 guifg=#D0D0D0 guibg=#444444
 highlight TabLineAltShade  ctermfg=238 ctermbg=236 guifg=#444444 guibg=#303030
 " }}}
@@ -55,7 +55,7 @@ highlight StatusLineNC ctermfg=236 ctermbg=242 guifg=#30302c guibg=#666656
 " Filepath color
 highlight User1 guifg=#D7D7BC guibg=#30302c ctermfg=251 ctermbg=236
 " Line and column information
-highlight User2 guifg=#a8a897 guibg=#4e4e43 ctermfg=248 ctermbg=239
+highlight User2 guifg=#a8a897 guibg=#88A1BB ctermfg=248 ctermbg=239
 " Line and column corner arrow
 highlight User3 guifg=#4e4e43 guibg=#30302c ctermfg=239 ctermbg=236
 " Buffer # symbol and whitespace or syntax errors
@@ -213,5 +213,9 @@ let g:choosewin_color_label_current = {
 let g:choosewin_color_other = {
 	\ 'cterm': [ 235, 235 ], 'gui': [ '#232323', '#000000' ] }
 " }}}
+
+" Change vim split line color
+set fillchars=vert:│,fold:─
+hi vertsplit guifg=#cf6a4c guibg=black
 
 " vim: set foldmethod=marker ts=2 sw=0 tw=80 noet :

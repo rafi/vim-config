@@ -14,7 +14,7 @@ let g:badge_tab_filename_max_dirs =
 
 " Limit display of characters in each directory in path
 let g:badge_tab_dir_max_chars =
-	\ get(g:, 'badge_tab_dir_max_chars', 5)
+	\ get(g:, 'badge_tab_dir_max_chars', 10)
 
 let g:badge_exclude_window_count =
 	\ '^\(qf\|denite\|defx\|fugitive\|magit\|fern\|hover\|clap_\|Telescope\|vista\)'
@@ -41,7 +41,7 @@ function! Tabline()
 
 		" Left-side of single tab
 		if l:nr == l:current
-			let l:tabline .= '%#TabLineFill#%#TabLineSel# '
+			let l:tabline .= '%#TabLineFill#%#TabLineSel# '
 		else
 			let l:tabline .= '%#TabLine#  '
 		endif
@@ -66,14 +66,14 @@ function! Tabline()
 		" Add '+' if one of the buffers in the tab page is modified
 		for l:bufnr in l:bufnrlist
 			if getbufvar(l:bufnr, '&modified') && empty(getbufvar(l:bufnr, '&buftype'))
-				let l:tabline .= (l:nr == l:current ? '%#Number#' : '%6*') . '+%*'
+				let l:tabline .= (l:nr == l:current ? '%#TabLineFill#%#TabLineSel#' : '%6*') . '+%*'
 				break
 			endif
 		endfor
 
 		" Right-side of single tab
 		if l:nr == l:current
-			let l:tabline .= '%#TabLineSel# %#TabLineFill#'
+			let l:tabline .= '%#TabLineSel# %#TabLineFill# '
 		else
 			let l:tabline .= '%#TabLine#  '
 		endif

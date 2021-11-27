@@ -1,6 +1,8 @@
-# Rafael Bodill's Neovim Config
+# Neovim Config
 
 Lean mean Neovim machine, 30-45ms startup time.
+
+Based on Rafael Bodill's Neo/vim [Config](https://github.com/rafi/vim-config)
 
 Works best with [Neovim] 0.5.x ⚠️ For Vim 8.x, use the
 [`vim` git tag](https://github.com/rafi/vim-config/tree/vim).
