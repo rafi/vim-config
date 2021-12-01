@@ -129,8 +129,12 @@
 - { repo: rhysd/accelerated-jk, on_map: { n: <Plug> }, if: $SUDO_USER == '' }
 - { repo: haya14busa/vim-edgemotion, on_map: { nv: <Plug> }}
 - { repo: t9md/vim-quickhl, on_map: { nv: <Plug> }}
-- { repo: rcarriga/nvim-notify, if: has('nvim-0.5') }  # lazy by nature
 - { repo: rafi/vim-sidemenu, on_map: { nv: <Plug> }}
+
+# - repo: rcarriga/nvim-notify
+#   if: has('nvim-0.5')
+#   on_lua: notify  # lazy by nature
+#   hook_post_source: lua require('notify').setup({background_colour = '#000000'})
 
 - repo: nvim-lualine/lualine.nvim
   if: has('nvim-0.5')
