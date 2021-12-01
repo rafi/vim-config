@@ -310,7 +310,7 @@
 - { repo: hrsh7th/cmp-vsnip, on_source: nvim-cmp }
 - { repo: hrsh7th/cmp-path, on_source: nvim-cmp }
 - { repo: hrsh7th/cmp-emoji, on_source: nvim-cmp }
-- { repo: andersevenrud/compe-tmux, rev: cmp, on_source: nvim-cmp }
+- { repo: andersevenrud/cmp-tmux, on_source: nvim-cmp }
 
 - repo: hrsh7th/vim-vsnip
   depends: [ vim-vsnip-integ, friendly-snippets ]
