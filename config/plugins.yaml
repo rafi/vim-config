@@ -77,7 +77,7 @@
 - repo: tversteeg/registers.nvim
   if: has('nvim-0.5')
   on_cmd: Registers
-  on_map: { i: '<C-r>', n: '"' }
+  on_map: { i: '<C-r>', nx: '"' }
   hook_source: let g:registers_window_border = 'rounded'
 
 - repo: NTBBloodbath/rest.nvim
@@ -129,8 +129,12 @@
 - { repo: rhysd/accelerated-jk, on_map: { n: <Plug> }, if: $SUDO_USER == '' }
 - { repo: haya14busa/vim-edgemotion, on_map: { nv: <Plug> }}
 - { repo: t9md/vim-quickhl, on_map: { nv: <Plug> }}
-- { repo: rcarriga/nvim-notify, if: has('nvim-0.5') }  # lazy by nature
 - { repo: rafi/vim-sidemenu, on_map: { nv: <Plug> }}
+
+# - repo: rcarriga/nvim-notify
+#   if: has('nvim-0.5')
+#   on_lua: notify  # lazy by nature
+#   hook_post_source: lua require('notify').setup({background_colour = '#000000'})
 
 - repo: nvim-lualine/lualine.nvim
   if: has('nvim-0.5')
@@ -159,17 +163,11 @@
   on_event: VimEnter
   hook_post_source: lua require('plugins.gitsigns')
 
-- repo: kshenoy/vim-signature
+- repo: chentau/marks.nvim
+  if: has('nvim-0.5')
   depends: gitsigns.nvim
   on_event: FileType
-  hook_add: |-
-    let g:SignatureForceRemoveGlobal = 0
-    let g:SignatureUnconditionallyRecycleMarks = 1
-    let g:SignatureErrorIfNoAvailableMarks = 0
-    let g:SignaturePurgeConfirmation = 0
-    let g:SignatureMarkTextHLDynamic = 1
-    let g:SignatureMarkerTextHLDynamic = 1
-    let g:SignatureIncludeMarkers = repeat('⚐', 10)
+  hook_post_source: lua require('plugins.marks')
 
 - repo: nathanaelkane/vim-indent-guides
   on_event: FileType
@@ -189,15 +187,16 @@
     augroup user_plugin_indentguides
       autocmd!
       autocmd BufEnter *
-      \ if ! empty(&l:filetype) && empty(&buftype) && ! &previewwindow
-      \|   if g:indent_guides_autocmds_enabled == 0 && &l:expandtab
-      \|     IndentGuidesEnable
-      \|   elseif g:indent_guides_autocmds_enabled == 1 && ! &l:expandtab
-      \|     IndentGuidesDisable
-      \|   endif
-      \| endif
+        \ if ! empty(&l:filetype) && empty(&buftype) && ! &previewwindow
+        \|   if g:indent_guides_autocmds_enabled == 0 && &l:expandtab
+        \|     IndentGuidesEnable
+        \|   elseif g:indent_guides_autocmds_enabled == 1 && ! &l:expandtab
+        \|     IndentGuidesDisable
+        \|   endif
+        \| elseif g:indent_guides_autocmds_enabled == 1
+        \|   IndentGuidesDisable
+        \| endif
     augroup END
-    "autocmd user_events FileType * ++once IndentGuidesEnable
 
 - repo: kevinhwang91/nvim-bqf
   if: has('nvim-0.5')
@@ -212,7 +211,8 @@
   hook_post_source: lua require('plugins.colorizer')
 
 - repo: rmagatti/goto-preview
-  if: has('nvim-0.5')
+  if: has('nvim-0.5.1')
+  depends: telescope.nvim
   on_event: FileType
   hook_post_source: lua require('plugins.goto-preview')
 
@@ -231,7 +231,7 @@
   hook_source: |-
     let g:calendar_google_calendar = 1
     let g:calendar_google_task = 1
-    "let g:calendar_cache_directory = $VIM_DATA_PATH.'/calendar'"
+    let g:calendar_cache_directory = expand('$VIM_DATA_PATH/calendar')
 
 - repo: deris/vim-shot-f
   on_map: { nxo: <Plug> }
@@ -306,7 +306,7 @@
 - { repo: hrsh7th/cmp-vsnip, on_source: nvim-cmp }
 - { repo: hrsh7th/cmp-path, on_source: nvim-cmp }
 - { repo: hrsh7th/cmp-emoji, on_source: nvim-cmp }
-- { repo: andersevenrud/compe-tmux, rev: cmp, on_source: nvim-cmp }
+- { repo: andersevenrud/cmp-tmux, on_source: nvim-cmp }
 
 - repo: hrsh7th/vim-vsnip
   depends: [ vim-vsnip-integ, friendly-snippets ]
@@ -387,8 +387,13 @@
   hook_source: call fern_git_status#init()
 
 - { repo: lambdalisue/fern-mapping-git.vim, on_source: fern.vim }
-- { repo: lambdalisue/fern-bookmark.vim, on_source: fern.vim }
 - { repo: yuki-yano/fern-preview.vim, on_source: fern.vim }
+
+- repo: lambdalisue/fern-bookmark.vim
+  on_source: fern.vim
+  hook_source: |-
+    let g:fern#scheme#bookmark#store#file =
+      \ expand('$VIM_DATA_PATH/fern_bookmarks.json')
 
 - repo: lambdalisue/fern-renderer-nerdfont.vim
   on_source: fern.vim
@@ -429,7 +434,7 @@
 - { repo: digitaltoad/vim-pug, on_ft: [ pug, jade ]}
 - { repo: keith/swift.vim, on_ft: swift }
 - { repo: lifepillar/pgsql.vim, on_ft: pgsql }
-- { repo: chr4/nginx.vim, on_ft: nginx }
+# - { repo: chr4/nginx.vim, on_ft: nginx }  # Built-in vim
 - { repo: vim-jp/syntax-vim-ex, on_ft: vim }
 - { repo: MTDL9/vim-log-highlighting, on_ft: log }
 - { repo: tmux-plugins/vim-tmux, on_ft: tmux }
