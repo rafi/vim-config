@@ -199,9 +199,10 @@ highlight! link ShotFGraph SpellRare
 highlight! link ShotFBlank DiffAdd
 " }}}
 
-" Plugin: vim-signature {{{
-highlight! SignatureMarkText    ctermfg=11 guifg=#756207 ctermbg=234 guibg=#1c1c1c
-highlight! SignatureMarkerText  ctermfg=12 guifg=#4EA9D7 ctermbg=234 guibg=#1c1c1c
+" Plugin: chentau/marks.nvim {{{
+highlight! MarkSignHL ctermfg=12 guifg=#4EA9D7
+" highlight! default link MarkSignNumHL CursorLineNr
+" highlight! default link MarkVirtTextHL Comment
 " }}}
 
 " Plugin: vim-choosewin {{{
