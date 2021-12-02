@@ -73,33 +73,6 @@ if dein#tap('vim-indent-guides')
 	nmap <Leader>ti <cmd>IndentGuidesToggle<CR>
 endif
 
-if dein#tap('vim-signature')
-	let g:SignatureIncludeMarks = 'abcdefghijkloqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-	let g:SignatureMap = {
-		\ 'Leader':            'm',
-		\ 'ListBufferMarks':   'm/',
-		\ 'ListBufferMarkers': 'm?',
-		\ 'PlaceNextMark':     'm,',
-		\ 'ToggleMarkAtLine':  'mm',
-		\ 'PurgeMarksAtLine':  'm-',
-		\ 'DeleteMark':        'dm',
-		\ 'PurgeMarks':        'm<Space>',
-		\ 'PurgeMarkers':      'm<BS>',
-		\ 'GotoNextLineAlpha': "']",
-		\ 'GotoPrevLineAlpha': "'[",
-		\ 'GotoNextSpotAlpha': '`]',
-		\ 'GotoPrevSpotAlpha': '`[',
-		\ 'GotoNextLineByPos': "]'",
-		\ 'GotoPrevLineByPos': "['",
-		\ 'GotoNextSpotByPos': 'mn',
-		\ 'GotoPrevSpotByPos': 'mp',
-		\ 'GotoNextMarker':    ']-',
-		\ 'GotoPrevMarker':    '[-',
-		\ 'GotoNextMarkerAny': ']=',
-		\ 'GotoPrevMarkerAny': '[=',
-		\ }
-endif
-
 if dein#tap('nvim-bqf')
 	nmap <Leader>q <cmd>lua require('user').qflist.toggle()<CR>
 endif
@@ -108,6 +81,7 @@ if dein#tap('goto-preview')
 	nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>
 	nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>
 	nnoremap gpc <cmd>lua require('goto-preview').close_all_win()<CR>
+	nnoremap gpr <cmd>lua require('goto-preview').goto_preview_references()<CR>
 endif
 
 if dein#tap('committia.vim')

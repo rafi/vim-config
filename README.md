@@ -55,7 +55,7 @@ Works best with [Neovim] 0.5.x ⚠️ For Vim 8.x, use the
   * [Plugin: Fern](#plugin-fern)
   * [Plugin: LSP](#plugin-lsp)
   * [Plugin: Any-Jump](#plugin-any-jump)
-  * [Plugin: Signature](#plugin-signature)
+  * [Plugin: Marks](#plugin-marks)
 
 <!-- vim-markdown-toc -->
 </details>
@@ -346,7 +346,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [hoob3rt/lualine.nvim] | statusline plugin written in pure lua
 | [itchyny/cursorword] | Underlines word under cursor
 | [lewis6991/gitsigns.nvim] | Git signs written in pure lua
-| [kshenoy/vim-signature] | Display and toggle marks
+| [chentau/marks.nvim] | Interacting with and manipulating marks
 | [nathanaelkane/vim-indent-guides] | Visually display indent levels in code
 | [kevinhwang91/nvim-bqf] | Better quickfix window in Neovim
 | [norcalli/nvim-colorizer.lua] | The fastest Neovim colorizer
@@ -470,7 +470,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [hoob3rt/lualine.nvim]: https://github.com/hoob3rt/lualine.nvim
 [itchyny/cursorword]: https://github.com/itchyny/vim-cursorword
 [lewis6991/gitsigns.nvim]: https://github.com/lewis6991/gitsigns.nvim
-[kshenoy/vim-signature]: https://github.com/kshenoy/vim-signature
+[chentau/marks.nvim]: https://github.com/chentau/marks.nvim
 [nathanaelkane/vim-indent-guides]: https://github.com/nathanaelkane/vim-indent-guides
 [kevinhwang91/nvim-bqf]: https://github.com/kevinhwang91/nvim-bqf
 [norcalli/nvim-colorizer.lua]: https://github.com/norcalli/nvim-colorizer.lua
@@ -843,22 +843,19 @@ Note that,
 | <kbd>Space</kbd>+<kbd>ib</kbd> | 𝐍 | Open previous opened file (after jump)
 | <kbd>Space</kbd>+<kbd>il</kbd> | 𝐍 | Open last closed search window again
 
-### Plugin: Signature
+### Plugin: Marks
 
 | Key   | Mode | Action
 | ----- |:----:| ------------------
-| <kbd>m/</kbd> or <kbd>m?</kbd> | 𝐍 | Show list of buffer marks/markers
-| <kbd>mm</kbd> | 𝐍 | Toggle mark on current line
-| <kbd>m,</kbd> | 𝐍 | Place next mark
-| <kbd>m</kbd> <kbd>a-z</kbd> | 𝐍 | Place specific mark (Won't work for: <kbd>mm</kbd>, <kbd>mn</kbd>, <kbd>mp</kbd>)
-| <kbd>dm</kbd> <kbd>a-z</kbd> | 𝐍 | Remove specific mark (Won't work for: <kbd>mm</kbd>, <kbd>mn</kbd>, <kbd>mp</kbd>)
-| <kbd>mn</kbd> | 𝐍 | Jump to next mark
-| <kbd>mp</kbd> | 𝐍 | Jump to previous mark
-| <kbd>]=</kbd> | 𝐍 | Jump to next marker
-| <kbd>[=</kbd> | 𝐍 | Jump to previous marker
-| <kbd>m-</kbd> | 𝐍 | Purge all on current line
-| <kbd>m</kbd> <kbd>Space</kbd> | 𝐍 | Purge marks
-| <kbd>m</kbd> <kbd>Backspace</kbd> | 𝐍 | Purge markers
+| <kbd>m,</kbd> | 𝐍 | Set the next available alphabetical (lowercase) mark
+| <kbd>m;</kbd> | 𝐍 | Toggle the next available mark at the current line
+| <kbd>m</kbd> <kbd>a-z</kbd> | 𝐍 | Set mark
+| <kbd>dm</kbd> <kbd>a-z</kbd> | 𝐍 | Remove mark
+| <kbd>dm-</kbd> | 𝐍 | Delete all marks on the current line
+| <kbd>dm<Space></kbd>  | 𝐍 | Delete all marks in the current buffer
+| <kbd>m]</kbd>  | 𝐍 | Move to next mark
+| <kbd>m[</kbd>  | 𝐍 | Move to previous mark
+| <kbd>m:</kbd>  | 𝐍 | Preview mark, prompts you for a specific mark.
 
 </details>
 
