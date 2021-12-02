@@ -108,6 +108,7 @@ if dein#tap('goto-preview')
 	nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>
 	nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>
 	nnoremap gpc <cmd>lua require('goto-preview').close_all_win()<CR>
+	nnoremap gpr <cmd>lua require('goto-preview').goto_preview_references()<CR>
 endif
 
 if dein#tap('committia.vim')
