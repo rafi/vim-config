@@ -163,17 +163,11 @@
   on_event: VimEnter
   hook_post_source: lua require('plugins.gitsigns')
 
-- repo: kshenoy/vim-signature
+- repo: chentau/marks.nvim
+  if: has('nvim-0.5')
   depends: gitsigns.nvim
   on_event: FileType
-  hook_add: |-
-    let g:SignatureForceRemoveGlobal = 0
-    let g:SignatureUnconditionallyRecycleMarks = 1
-    let g:SignatureErrorIfNoAvailableMarks = 0
-    let g:SignaturePurgeConfirmation = 0
-    let g:SignatureMarkTextHLDynamic = 1
-    let g:SignatureMarkerTextHLDynamic = 1
-    let g:SignatureIncludeMarkers = repeat('⚐', 10)
+  hook_post_source: lua require('plugins.marks')
 
 - repo: nathanaelkane/vim-indent-guides
   on_event: FileType
