@@ -1,6 +1,6 @@
 -- plugin: nvim-lspconfig
 -- see: https://github.com/neovim/nvim-lspconfig
---      https://github.com/kabouzeid/nvim-lspinstall
+--      https://github.com/williamboman/nvim-lsp-installer
 --      https://github.com/ray-x/lsp_signature.nvim
 --      https://github.com/kosayoda/nvim-lightbulb
 -- rafi settings
@@ -12,7 +12,7 @@ local on_attach = function(client, bufnr)
 
 	-- Disable diagnostics for Helm template files
 	if vim.bo[bufnr].buftype ~= '' or vim.bo[bufnr].filetype == 'helm' then
-		vim.lsp.diagnostic.disable()
+		require('user').diagnostic.disable()
 		return
 	end
 
@@ -34,12 +34,13 @@ local on_attach = function(client, bufnr)
 	map_buf('n', ',wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
 	map_buf('n', ',wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
 	map_buf('n', ',rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-	map_buf('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-	map_buf('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+	map_buf('n', '[d', '<cmd>lua require("user").diagnostic.goto_prev()<CR>', opts)
+	map_buf('n', ']d', '<cmd>lua require("user").diagnostic.goto_next()<CR>', opts)
 	map_buf('n', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-	map_buf('n', '<Leader>ce', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+	map_buf('n', '<Leader>ce', '<cmd>lua require("user").diagnostic.show_line_diagnostics()<CR>', opts)
 
-	-- lspsaga
+	-- lspsaga.nvim
+	-- See https://github.com/glepnir/lspsaga.nvim
 	-- buf_set_keymap('n', '<Leader>f', '<cmd>lua require("lspsaga.provider").lsp_finder()<CR>', opts)
 	-- buf_set_keymap('n', 'K', '<cmd>lua require("lspsaga.hover").render_hover_doc()<CR>', opts)
 	-- buf_set_keymap('n', ',s', '<cmd>lua require("lspsaga.signaturehelp").signature_help()<CR>', opts)
@@ -47,6 +48,7 @@ local on_attach = function(client, bufnr)
 	-- buf_set_keymap('n', '<Leader>ca', '<cmd>lua require("lspsaga.codeaction").code_action()<CR>', opts)
 	-- buf_set_keymap('v', '<Leader>ca', ':<C-u>lua require("lspsaga.codeaction").range_code_action()<CR>', opts)
 
+	-- lsp_signature.nvim
 	-- See https://github.com/ray-x/lsp_signature.nvim
 	-- require('lsp_signature').on_attach({
 	-- 	bind = true,
@@ -94,6 +96,9 @@ end
 -- Setup CompletionItemKind symbols, see lua/lsp_kind.lua
 -- require('lsp_kind').init()
 
+-- Configure LSP Handlers
+-- ---
+
 -- Configure diagnostics publish settings
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
 	vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -107,32 +112,15 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
 	}
 )
 
--- Configure hover (normal K) handle
+-- Configure help hover (normal K) handler
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
 	vim.lsp.handlers.hover, { border = 'rounded' }
 )
 
+-- Configure signature help (,s) handler
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
 	vim.lsp.handlers.signature_help, { border = 'rounded' }
 )
-
--- Open references in quickfix window and jump to first item.
--- local on_references = vim.lsp.handlers['textDocument/references']
--- vim.lsp.handlers['textDocument/references'] = vim.lsp.with(
--- 	on_references, {
--- 		-- Use location list instead of quickfix list
--- 		loclist = true,
--- 	}
--- )
--- vim.lsp.handlers['textDocument/references'] = function(_, _, result, _, bufnr, _)
--- 	if not result or vim.tbl_isempty(result) then
--- 		vim.notify('No references found')
--- 	else
--- 		vim.lsp.util.set_qflist(vim.lsp.util.locations_to_items(result, bufnr))
--- 		require('user').qflist.open()
--- 		-- vim.api.nvim_command('.cc')
--- 	end
--- end
 
 -- Combine base config for each server and merge user-defined settings.
 local function make_config(server_name)
@@ -176,25 +164,11 @@ local function make_config(server_name)
 	return c
 end
 
--- Iterate and setup all language servers and trigger FileType in windows.
-local function setup_servers()
-	local lsp_install = require('lspinstall')
-	lsp_install.setup()
-	local servers = lsp_install.installed_servers()
-	for _, server in pairs(servers) do
-		local config = make_config(server)
-		require'lspconfig'[server].setup(config)
-	end
-
-	-- Reload if files were supplied in command-line arguments
-	if vim.fn.argc() > 0 and not vim.o.modified then
-		vim.cmd('windo e') -- triggers the FileType autocmd that starts the server
-	end
-end
-
 -- main
 
 if vim.fn.has('vim_starting') then
+	-- Setup language servers using nvim-lsp-installer
+	-- See https://github.com/williamboman/nvim-lsp-installer
 	local lsp_installer = require('nvim-lsp-installer')
 
 	lsp_installer.on_server_ready(function(server)
@@ -219,7 +193,7 @@ if vim.fn.has('vim_starting') then
 			" See https://github.com/kosayoda/nvim-lightbulb
 			autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
 			" Automatic diagnostic hover
-			" autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({ focusable=false })
+			" autocmd CursorHold * lua require("user").diagnostic.show_line_diagnostics({ focusable=false })
 		augroup END
 	]], false)
 end
