@@ -230,7 +230,7 @@ local config = {
 			-- Diagnostics
 			{
 				'diagnostics',
-				sources = { 'nvim_lsp' },
+				sources = { 'nvim_diagnostic' },
 				symbols = { error = ' ', warn = ' ', info = ' ', hint = 'H' },
 				diagnostics_color = {
 					error = { fg = colors.diagnostics.error },
