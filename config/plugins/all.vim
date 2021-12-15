@@ -117,8 +117,8 @@ if dein#tap('todo-comments.nvim')
 endif
 
 if dein#tap('trouble.nvim')
-	nnoremap <leader>e <cmd>TroubleToggle lsp_document_diagnostics<CR>
-	nnoremap <leader>r <cmd>TroubleToggle lsp_workspace_diagnostics<CR>
+	nnoremap <leader>e <cmd>TroubleToggle document_diagnostics<CR>
+	nnoremap <leader>r <cmd>TroubleToggle workspace_diagnostics<CR>
 	nnoremap <leader>xq <cmd>TroubleToggle quickfix<CR>
 	nnoremap <leader>xl <cmd>TroubleToggle loclist<CR>
 	nnoremap ]t <cmd>lua require("trouble").next({skip_groups = true, jump = true})<CR>
