@@ -239,7 +239,7 @@
 
 - repo: kristijanhusak/orgmode.nvim
   if: has('nvim-0.5')
-  # on_ft: org
+  on_source: nvim-treesitter
   hook_post_source: lua require('plugins.orgmode')
 
 - repo: vimwiki/vimwiki
