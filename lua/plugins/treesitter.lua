@@ -59,7 +59,7 @@ require('nvim-treesitter.configs').setup({
 	-- See: https://github.com/JoosepAlviste/nvim-ts-context-commentstring
 	context_commentstring = {
 		enable = true,
-		-- The plugin caw.vim will automatically detect and use this plugin itself
+		-- Let comment plugin call 'update-commentstring()' manually
 		enable_autocmd = false,
 	},
 })

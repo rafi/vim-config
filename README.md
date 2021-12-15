@@ -315,7 +315,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 
 | Name           | Description
 | -------------- | ----------------------
-| [tyru/caw.vim] | Robust comment plugin with operator support
+| [b3nj5m1n/kommentary] | Commenting plugin, written in Lua
 | [mbbill/undotree] | Ultimate undo history visualizer
 | [tweekmonster/helpful.vim] | Display vim version numbers in docs
 | [lambdalisue/suda.vim] | An alternative sudo.vim for Vim and Neovim
@@ -446,7 +446,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [mbbill/undotree]: https://github.com/mbbill/undotree
 [tweekmonster/helpful.vim]: https://github.com/tweekmonster/helpful.vim
 [lambdalisue/suda.vim]: https://github.com/lambdalisue/suda.vim
-[tyru/caw.vim]: https://github.com/tyru/caw.vim
+[b3nj5m1n/kommentary]: https://github.com/b3nj5m1n/kommentary
 [TimUntersberger/neogit]: https://github.com/TimUntersberger/neogit
 [lambdalisue/gina.vim]: https://github.com/lambdalisue/gina.vim
 [folke/zen-mode.nvim]: https://github.com/folke/zen-mode.nvim
@@ -606,10 +606,10 @@ Note that,
 | <kbd>></kbd> | 𝐕 | Indent to right and re-select | `>gv|`
 | <kbd>Tab</kbd> | 𝐕 | Indent to right and re-select | `>gv|`
 | <kbd>Shift</kbd>+<kbd>Tab</kbd> | 𝐕 | Indent to left and re-select | `<gv`
-| <kbd>gc</kbd> | 𝐍 𝐕 | Caw (comments plugin) prefix | <small>[tyru/caw.vim]</small>
-| <kbd>gcc</kbd> | 𝐍 𝐕 | Toggle comments | <small>[tyru/caw.vim]</small>
-| <kbd>Space</kbd>+<kbd>v</kbd> | 𝐍 𝐕 | Toggle single-line comments | <small>[tyru/caw.vim]</small>
-| <kbd>Space</kbd>+<kbd>V</kbd> | 𝐍 𝐕 | Toggle comment block | <small>[tyru/caw.vim]</small>
+| <kbd>gc</kbd> | 𝐍 𝐕 | Comment prefix | <small>[b3nj5m1n/kommentary]</small>
+| <kbd>gcc</kbd> | 𝐍 𝐕 | Toggle comments | <small>[b3nj5m1n/kommentary]</small>
+| <kbd>Space</kbd>+<kbd>v</kbd> | 𝐍 𝐕 | Toggle single-line comments | <small>[b3nj5m1n/kommentary]</small>
+| <kbd>Space</kbd>+<kbd>V</kbd> | 𝐍 𝐕 | Toggle comment block | <small>[b3nj5m1n/kommentary]</small>
 | <kbd>Space</kbd>+<kbd>j</kbd> or <kbd>k</kbd> | 𝐍 𝐕 | Move lines down/up | `:m` …
 | <kbd>Space</kbd>+<kbd>d</kbd> | 𝐍 𝐕 | Duplicate line or selection |
 | <kbd>Space</kbd>+<kbd>cn</kbd> / <kbd>cN</kbd> | 𝐍 𝐕 | Change current word in a repeatable manner |
