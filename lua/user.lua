@@ -1,7 +1,7 @@
 -- rafi user functions
 -- https://github.com/rafi/vim-config
 
-local legacy_api = not vim.fn.has('nvim-0.6')
+local legacy_api = vim.fn.has('nvim-0.6') == 0
 local diagnostic = legacy_api and vim.lsp.diagnostic or vim.diagnostic
 
 local lists = {
