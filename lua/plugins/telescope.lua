@@ -121,7 +121,7 @@ end
 pickers.zoxide = function()
 	require'telescope'.extensions.zoxide.list({
 		layout_config = {
-			width = 0.4,
+			width = 0.5,
 			height = 0.6,
 		},
 	})
