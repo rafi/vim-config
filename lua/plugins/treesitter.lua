@@ -11,6 +11,14 @@ parser_configs.http = {
 	},
 	filetype = 'http',
 }
+parser_configs.org = {
+	install_info = {
+		url = 'https://github.com/milisims/tree-sitter-org',
+		revision = 'main',
+		files = {'src/parser.c', 'src/scanner.cc'},
+	},
+	filetype = 'org',
+}
 
 require('nvim-treesitter.configs').setup({
 	ensure_installed = 'maintained', -- all, maintained, or list of languages
@@ -51,7 +59,7 @@ require('nvim-treesitter.configs').setup({
 	-- See: https://github.com/JoosepAlviste/nvim-ts-context-commentstring
 	context_commentstring = {
 		enable = true,
-		-- The plugin caw.vim will automatically detect and use this plugin itself
+		-- Let comment plugin call 'update-commentstring()' manually
 		enable_autocmd = false,
 	},
 })

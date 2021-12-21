@@ -46,12 +46,10 @@
 - { repo: tweekmonster/helpful.vim, on_cmd: HelpfulVersion }
 - { repo: lambdalisue/suda.vim, on_event: BufRead }
 
-- repo: tyru/caw.vim
-  on_map: { nx: <Plug> }
-  depends: nvim-ts-context-commentstring
-  hook_add: |-
-    let g:caw_no_default_keymappings = 1
-    let g:caw_operator_keymappings = 0
+- repo: b3nj5m1n/kommentary
+  if: has('nvim-0.5')
+  on_event: FileType
+  hook_source: lua require('plugins.kommentary')
 
 - repo: TimUntersberger/neogit
   depends: diffview.nvim
@@ -239,7 +237,7 @@
 
 - repo: kristijanhusak/orgmode.nvim
   if: has('nvim-0.5')
-  # on_ft: org
+  on_source: nvim-treesitter
   hook_post_source: lua require('plugins.orgmode')
 
 - repo: vimwiki/vimwiki
