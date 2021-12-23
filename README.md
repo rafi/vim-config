@@ -866,7 +866,7 @@ Note that,
 [nvim-lspconfig]: https://github.com/neovim/nvim-lspconfig
 [nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
 [telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
-[lazy-loaded]: ./config/plugins.yaml#L39
+[lazy-loaded]: ./config/plugins.yaml#L34
 [config/mappings.vim]: ./config/mappings.vim
 [plugin/whitespace.vim]: ./plugin/whitespace.vim
 [plugin/actionmenu.vim]: ./plugin/actionmenu.vim

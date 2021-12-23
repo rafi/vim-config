@@ -9,19 +9,15 @@
 - repo: Shougo/dein.vim
 - repo: thinca/vim-localrc
 - { repo: rafi/awesome-vim-colorschemes, merged: 0 }
+- { repo: folke/lsp-colors.nvim, if: has('nvim-0.5') }
+- { repo: nvim-lua/plenary.nvim, if: has('nvim-0.5') }
+- { repo: kyazdani42/nvim-web-devicons, if: has('nvim-0.5') }
 
 - repo: christoomey/vim-tmux-navigator
   if: "! (has('win32') || has('win64'))"
 
 - repo: tpope/vim-sleuth
-  hook_add: |-
-    let g:sleuth_neighbor_limit = 5
-    autocmd user_events FileType markdown,yaml,help
-      \ let b:sleuth_automatic = 0
-
-- { repo: folke/lsp-colors.nvim, if: has('nvim-0.5') }
-- { repo: nvim-lua/plenary.nvim, if: has('nvim-0.5') }
-- { repo: kyazdani42/nvim-web-devicons, if: has('nvim-0.5') }
+  hook_add: let g:sleuth_no_filetype_indent_on = 1
 
 - repo: sgur/vim-editorconfig
   hook_add: |-
