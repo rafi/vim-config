@@ -406,12 +406,10 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [tpope/vim-git] | Git runtime files
 | [dag/vim-fish] | Fish shell edit support
 | [towolf/vim-helm] | Syntax for Helm templates (yaml + gotmpl + sprig)
-| [mboughaba/i3config.vim] | i3 window manager config syntax
 | [mustache/vim-mustache-handlebars] | Mustache and handlebars syntax
 | [digitaltoad/vim-pug] | Pug (formerly Jade) syntax and indentation
 | [keith/swift.vim] | Swift support
 | [lifepillar/pgsql.vim] | PostgreSQL syntax and indent
-| [chr4/nginx.vim] | Improved nginx syntax and indent
 | [vim-jp/syntax-vim-ex] | Improved Vim syntax highlighting
 | [MTDL9/vim-log-highlighting] | Syntax highlighting for generic log files
 | [tmux-plugins/vim-tmux] | Plugin for tmux.conf
@@ -524,12 +522,10 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [tpope/vim-git]: https://github.com/tpope/vim-git
 [dag/vim-fish]: https://github.com/dag/vim-fish
 [towolf/vim-helm]: https://github.com/towolf/vim-helm
-[mboughaba/i3config.vim]: https://github.com/mboughaba/i3config.vim
 [mustache/vim-mustache-handlebars]: https://github.com/mustache/vim-mustache-handlebars
 [digitaltoad/vim-pug]: https://github.com/digitaltoad/vim-pug
 [keith/swift.vim]: https://github.com/keith/swift.vim
 [lifepillar/pgsql.vim]: https://github.com/lifepillar/pgsql.vim
-[chr4/nginx.vim]: https://github.com/chr4/nginx.vim
 [vim-jp/syntax-vim-ex]: https://github.com/vim-jp/syntax-vim-ex
 [MTDL9/vim-log-highlighting]: https://github.com/MTDL9/vim-log-highlighting
 [tmux-plugins/vim-tmux]: https://github.com/tmux-plugins/vim-tmux
