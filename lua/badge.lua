@@ -178,6 +178,7 @@ function M.utility_title()
 			DiffviewFiles = '',
 			NeogitStatus = '',
 			Outline = '',
+			['lsp-installer'] = '',
 		}
 		local padding = vim.g.global_symbol_padding or ' '
 		return icons[vim.bo.filetype] .. padding .. '%y'

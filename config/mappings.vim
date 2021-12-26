@@ -313,6 +313,11 @@ if get(g:, 'enable_universal_quit_mapping', 1)
 		\  if ! maparg('q', 'n')
 		\|   nnoremap <buffer> q <cmd>quit<CR>
 		\| endif
+
+	if &diff && has('vim_starting')
+		set cursorline
+		nnoremap q <cmd>quit<CR>
+	endif
 endif
 
 " Switch with adjacent window
