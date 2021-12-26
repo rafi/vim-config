@@ -56,7 +56,7 @@
 - repo: lambdalisue/gina.vim
   on_cmd: Gina
   on_ft: [ gitcommit, gitrebase ]
-  hook_source: source $VIM_PATH/config/plugins/gina.vim
+  hook_source: lua require('plugins.gina')
 
 - repo: folke/zen-mode.nvim
   if: has('nvim-0.5')

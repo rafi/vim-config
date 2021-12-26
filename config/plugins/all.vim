@@ -147,9 +147,9 @@ if dein#tap('gina.vim')
 	nnoremap <silent> <leader>ga <cmd>Gina add %:p<CR>
 	nnoremap <silent> <leader>gd <cmd>Gina compare<CR>
 	nnoremap <silent> <leader>gc <cmd>Gina commit<CR>
-	nnoremap <silent> <leader>gb <cmd>Gina blame --width=40<CR>
-	nnoremap <silent> <leader>gs <cmd>Gina status -s<CR>
-	nnoremap <silent> <leader>gl <cmd>Gina log --graph --all<CR>
+	nnoremap <silent> <leader>gb <cmd>Gina blame<CR>
+	nnoremap <silent> <leader>gs <cmd>Gina status<CR>
+	nnoremap <silent> <leader>gl <cmd>Gina log --all<CR>
 	nnoremap <silent> <leader>gF <cmd>Gina! fetch<CR>
 	nnoremap <silent> <leader>gp <cmd>Gina! push<CR>
 	nnoremap <silent> <leader>go <cmd>,Gina browse :<CR>
