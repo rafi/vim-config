@@ -301,12 +301,11 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [Shougo/dein.vim] | Dark powered Vim/Neovim plugin manager
 | [thinca/vim-localrc] | Enable configuration file of each directory
 | [rafi/awesome-colorschemes] | Awesome color-schemes
-| [christoomey/tmux-navigator] | Seamless navigation between tmux panes and vim splits
-| [tpope/vim-sleuth] | Heuristically set buffer indent options
 | [folke/lsp-colors.nvim] | LSP diagnostics highlight groups for colorschemes
 | [nvim-lua/plenary.nvim] | Lua functions library
-| [nvim-lua/popup.nvim] | An implementation of the Popup API from vim in Neovim
 | [kyazdani42/nvim-web-devicons] | Lua fork of vim-devicons
+| [christoomey/tmux-navigator] | Seamless navigation between tmux panes and vim splits
+| [tpope/vim-sleuth] | Heuristically set buffer indent options
 | [sgur/vim-editorconfig] | EditorConfig plugin written entirely in Vimscript
 
 ### Lazy-Loaded Plugins
@@ -361,15 +360,15 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 
 | Name           | Description
 | -------------- | ----------------------
+| [neovim/nvim-lspconfig] | Quickstart configurations for the Nvim LSP client
 | [williamboman/nvim-lsp-installer] | Provides the missing :LspInstall for nvim-lspconfig
 | [kosayoda/nvim-lightbulb] | VSCode 💡 for neovim's built-in LSP
-| [neovim/nvim-lspconfig] | Quickstart configurations for the Nvim LSP client
 | [ray-x/lsp_signature.nvim] | LSP signature hint when you type
 | [folke/lua-dev.nvim] | Dev setup for Lua
 | [folke/todo-comments.nvim] | Highlight, list and search todo comments in your projects
+| [windwp/nvim-autopairs] | autopairs for neovim written by lua
 | [hrsh7th/nvim-cmp] | Completion plugin for neovim written in Lua
 | [andersevenrud/compe-tmux] | Tmux completion source for nvim-compe/cmp
-| [windwp/nvim-autopairs] | autopairs for neovim written by lua
 | [hrsh7th/vim-vsnip] | Snippet plugin for vim/nvim that supports LSP/VSCode's snippet format
 | [hrsh7th/vim-vsnip-integ] | vim-vsnip integrations to other plugins
 | [rafamadriz/friendly-snippets] | Preconfigured snippets for different languages
@@ -383,7 +382,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [sbdchd/neoformat] | Plugin for formatting code
 | [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet
 
-#### Fern
+#### File Explorer
 
 | Name           | Description
 | -------------- | ----------------------
@@ -435,12 +434,11 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [Shougo/dein.vim]: https://github.com/Shougo/dein.vim
 [thinca/vim-localrc]: https://github.com/thinca/vim-localrc
 [rafi/awesome-colorschemes]: https://github.com/rafi/awesome-vim-colorschemes
-[christoomey/tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator
-[tpope/vim-sleuth]: https://github.com/tpope/vim-sleuth
 [folke/lsp-colors.nvim]: https://github.com/folke/lsp-colors.nvim
 [nvim-lua/plenary.nvim]: https://github.com/nvim-lua/plenary.nvim
-[nvim-lua/popup.nvim]: https://github.com/nvim-lua/popup.nvim
 [kyazdani42/nvim-web-devicons]: https://github.com/kyazdani42/nvim-web-devicons
+[christoomey/tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator
+[tpope/vim-sleuth]: https://github.com/tpope/vim-sleuth
 [sgur/vim-editorconfig]: https://github.com/sgur/vim-editorconfig
 
 [mbbill/undotree]: https://github.com/mbbill/undotree
@@ -481,15 +479,21 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [kristijanhusak/orgmode.nvim]: https://github.com/kristijanhusak/orgmode.nvim
 [vimwiki/vimwiki]: https://github.com/vimwiki/vimwiki
 
+[neovim/nvim-lspconfig]: https://github.com/neovim/nvim-lspconfig
 [williamboman/nvim-lsp-installer]: https://github.com/williamboman/nvim-lsp-installer
 [kosayoda/nvim-lightbulb]: https://github.com/kosayoda/nvim-lightbulb
-[neovim/nvim-lspconfig]: https://github.com/neovim/nvim-lspconfig
 [ray-x/lsp_signature.nvim]: https://github.com/ray-x/lsp_signature.nvim
 [folke/lua-dev.nvim]: https://github.com/folke/lua-dev.nvim
 [folke/todo-comments.nvim]: https://github.com/folke/todo-comments.nvim
-[hrsh7th/nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
-[andersevenrud/compe-tmux]: https://github.com/andersevenrud/compe-tmux
 [windwp/nvim-autopairs]: https://github.com/windwp/nvim-autopairs
+[hrsh7th/nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
+[hrsh7th/cmp-nvim-lsp]: https://github.com/hrsh7th/cmp-nvim-lsp
+[hrsh7th/cmp-nvim-lua]: https://github.com/hrsh7th/cmp-nvim-lua
+[hrsh7th/cmp-buffer]: https://github.com/hrsh7th/cmp-buffer
+[hrsh7th/cmp-vsnip]: https://github.com/hrsh7th/cmp-vsnip
+[hrsh7th/cmp-path]: https://github.com/hrsh7th/cmp-path
+[hrsh7th/cmp-emoji]: https://github.com/hrsh7th/cmp-emoji
+[andersevenrud/compe-tmux]: https://github.com/andersevenrud/compe-tmux
 [hrsh7th/vim-vsnip]: https://github.com/hrsh7th/vim-vsnip
 [hrsh7th/vim-vsnip-integ]: https://github.com/hrsh7th/vim-vsnip-integ
 [rafamadriz/friendly-snippets]: https://github.com/rafamadriz/friendly-snippets
