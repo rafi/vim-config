@@ -231,7 +231,7 @@ local config = {
 			{
 				'diagnostics',
 				sources = { 'nvim_diagnostic' },
-				symbols = { error = ' ', warn = ' ', info = ' ', hint = 'H' },
+				symbols = { error = ' ', warn = ' ', info = ' ', hint = ' ' },
 				diagnostics_color = {
 					error = { fg = colors.diagnostics.error },
 					warn = { fg = colors.diagnostics.warn },
