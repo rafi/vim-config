@@ -59,7 +59,6 @@ endif
 
 " Initialize plugin-manager and load main config files
 call s:source_file('config/init.vim')
-call s:source_file('config/plugins/all.vim')
 
 " Initialize all my configurations
 call s:source_file('config/general.vim')
