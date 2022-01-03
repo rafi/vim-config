@@ -138,6 +138,9 @@ function! badge#filename(...) abort
 			let parts = [ 'Outline' ]
 		elseif l:filetype ==# 'NeogitStatus'
 			let l:icon = ''
+		elseif l:filetype ==# 'lsp-installer'
+			let l:icon = ''
+			let parts = [ 'LSP Installer' ]
 		elseif get(g:, 'nvim_web_devicons')
 			let l:icon = luaeval(
 				\ 'require"nvim-web-devicons".get_icon(_A[1], _A[2], { default = true })',
@@ -216,8 +219,9 @@ function! badge#syntax() abort
 	let l:info = 0
 	if exists('*luaeval')
 			\ && luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
-		let l:errors = luaeval('vim.lsp.diagnostic.get_count(0, [[Error]])')
-		let l:warnings = luaeval('vim.lsp.diagnostic.get_count(0, [[Warning]])')
+		" See :h diagnostic-severity
+		let l:errors = luaeval('#vim.diagnostic.get(0, {severity=vim.diagnostic.severity.ERROR})')
+		let l:warnings = luaeval('#vim.diagnostic.get(0, {severity=vim.diagnostic.severity.WARN})')
 	elseif exists('*lsp#get_buffer_diagnostics_counts')
 			\ && get(g:, 'lsp_diagnostics_enabled', 1)
 		let l:counts = lsp#get_buffer_diagnostics_counts()

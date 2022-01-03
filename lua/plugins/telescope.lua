@@ -121,7 +121,7 @@ end
 pickers.zoxide = function()
 	require'telescope'.extensions.zoxide.list({
 		layout_config = {
-			width = 0.4,
+			width = 0.5,
 			height = 0.6,
 		},
 	})
@@ -198,6 +198,14 @@ end
 local height_dropdown_nopreview = function(_, _, rows)
 	return math.floor(rows * 0.7)
 end
+
+-- Enable indent-guides in telescope preview
+vim.cmd [[
+	augroup telescope_events
+		autocmd!
+		autocmd User TelescopePreviewerLoaded setlocal wrap list number
+	augroup END
+]]
 
 -- On-demand setup
 local setup = function()
@@ -423,14 +431,6 @@ local setup = function()
 			},
 		},
 	}
-
-	-- Enable indent-guides in telescope preview
-	vim.cmd [[
-		augroup telescope_events
-			autocmd!
-			autocmd User TelescopePreviewerLoaded setlocal list | IndentGuidesEnable
-		augroup END
-	]]
 
 	-- Telescope extensions are loaded in each plugin.
 end

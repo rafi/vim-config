@@ -64,7 +64,7 @@ local config = {
 				},
 				{
 					fileMatch = { 'resume.json' },
-					url = 'http://json.schemastore.org/resume.json',
+					url = 'https://raw.githubusercontent.com/jsonresume/resume-schema/master/schema.json',
 				},
 				{
 					fileMatch = { '.solidarity', '.solidarity.json' },
