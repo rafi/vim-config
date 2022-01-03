@@ -9,19 +9,15 @@
 - repo: Shougo/dein.vim
 - repo: thinca/vim-localrc
 - { repo: rafi/awesome-vim-colorschemes, merged: 0 }
+- { repo: folke/lsp-colors.nvim, if: has('nvim-0.5') }
+- { repo: nvim-lua/plenary.nvim, if: has('nvim-0.5') }
+- { repo: kyazdani42/nvim-web-devicons, if: has('nvim-0.5') }
 
 - repo: christoomey/vim-tmux-navigator
   if: "! (has('win32') || has('win64'))"
 
 - repo: tpope/vim-sleuth
-  hook_add: |-
-    let g:sleuth_neighbor_limit = 5
-    autocmd user_events FileType markdown,yaml,help
-      \ let b:sleuth_automatic = 0
-
-- { repo: folke/lsp-colors.nvim, if: has('nvim-0.5') }
-- { repo: nvim-lua/plenary.nvim, if: has('nvim-0.5') }
-- { repo: kyazdani42/nvim-web-devicons, if: has('nvim-0.5') }
+  hook_add: let g:sleuth_no_filetype_indent_on = 1
 
 - repo: sgur/vim-editorconfig
   hook_add: |-
@@ -60,7 +56,7 @@
 - repo: lambdalisue/gina.vim
   on_cmd: Gina
   on_ft: [ gitcommit, gitrebase ]
-  hook_source: source $VIM_PATH/config/plugins/gina.vim
+  hook_source: lua require('plugins.gina')
 
 - repo: folke/zen-mode.nvim
   if: has('nvim-0.5')
@@ -427,12 +423,10 @@
 - { repo: tpope/vim-git, on_ft: [ gitcommit, gitrebase, gitconfig ]}
 - { repo: dag/vim-fish, on_ft: fish }
 - { repo: towolf/vim-helm, on_ft: helm }
-- { repo: mboughaba/i3config.vim, on_ft: i3config }
 - { repo: mustache/vim-mustache-handlebars, on_ft: [html, mustache, handlebars]}
 - { repo: digitaltoad/vim-pug, on_ft: [ pug, jade ]}
 - { repo: keith/swift.vim, on_ft: swift }
 - { repo: lifepillar/pgsql.vim, on_ft: pgsql }
-# - { repo: chr4/nginx.vim, on_ft: nginx }  # Built-in vim
 - { repo: vim-jp/syntax-vim-ex, on_ft: vim }
 - { repo: MTDL9/vim-log-highlighting, on_ft: log }
 - { repo: tmux-plugins/vim-tmux, on_ft: tmux }
