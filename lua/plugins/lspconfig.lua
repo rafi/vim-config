@@ -10,24 +10,20 @@ local on_attach = function(client, bufnr)
 	local function map_buf(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 	-- local function opt_buf(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
-	-- Disable diagnostics for Helm template files
+	-- Keyboard mappings
+	local opts = { noremap = true, silent = true }
+	map_buf('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+
+	-- Short-circuit for Helm template files
 	if vim.bo[bufnr].buftype ~= '' or vim.bo[bufnr].filetype == 'helm' then
-		require('user').diagnostic.disable()
+		require('user').diagnostic.disable(0)
 		return
 	end
 
-	if client.config.flags then
-		client.config.flags.allow_incremental_sync = true
-		client.config.flags.debounce_text_changes  = 100
-	end
-
-	-- Keyboard mappings
-	local opts = { noremap = true, silent = true }
 	map_buf('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
 	map_buf('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
 	map_buf('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 	map_buf('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-	map_buf('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
 	map_buf('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
 	map_buf('n', ',s', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
 	map_buf('n', ',wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
@@ -58,6 +54,11 @@ local on_attach = function(client, bufnr)
 	-- 	handler_opts = { border = 'rounded' },
 	-- 	zindex = 50,
 	-- }, bufnr)
+
+	if client.config.flags then
+		client.config.flags.allow_incremental_sync = true
+		client.config.flags.debounce_text_changes  = 100
+	end
 
 	-- Set some keybinds conditional on server capabilities
 	if client.resolved_capabilities.document_formatting then
@@ -197,3 +198,5 @@ if vim.fn.has('vim_starting') then
 		augroup END
 	]], false)
 end
+
+-- vim: set ts=2 sw=2 tw=80 noet :

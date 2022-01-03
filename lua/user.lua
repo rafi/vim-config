@@ -70,8 +70,8 @@ user.diagnostic.publish_loclist = function(toggle)
 	end
 end
 
-user.diagnostic.disable = function()
-	diagnostic.disable()
+user.diagnostic.disable = function(bufnr, namespace)
+	diagnostic.disable(bufnr, namespace)
 end
 
 user.diagnostic.goto_prev = function()

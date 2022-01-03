@@ -143,11 +143,31 @@ hi! link mkdItalic htmlItalic
 
 " Plugin: IndentBlankline {{{
 " ---
-highlight! IndentBlanklineChar cterm=nocombine gui=nocombine guibg=#232527
-highlight! IndentBlanklineCharOdd cterm=nocombine gui=nocombine guibg=#292B2D
+" highlight! IndentBlanklineChar cterm=nocombine gui=nocombine guibg=#232527
+" highlight! IndentBlanklineCharOdd cterm=nocombine gui=nocombine guibg=#292B2D
+
 " highlight! IndentBlanklineSpaceChar cterm=nocombine gui=nocombine guifg=#373b41
 " highlight! IndentBlanklineSpaceCharBlankline cterm=nocombine gui=nocombine guifg=#373b41
 " highlight! IndentBlanklineContextChar cterm=nocombine ctermbg=110 gui=nocombine guibg=#81a2be
+" }}}
+
+" Plugin: nvim-cmp {{{
+" ---
+highlight! link CmpItemAbbrMatch Statement
+highlight! link CmpItemAbbrMatchFuzzy Statement
+
+highlight! link CmpItemKindVariable PreProc
+highlight! link CmpItemKindInterface PreProc
+highlight! link CmpItemKindText PreProc
+
+highlight! link CmpItemKindFunction Identifier
+highlight! link CmpItemKindMethod Identifier
+
+highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4
+highlight! CmpItemKindProperty guibg=NONE guifg=#D4D4D4
+highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4
+highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
+
 " }}}
 
 " Plugin: Telescope {{{
