@@ -19,7 +19,7 @@ local settings = {
 			maxPreload = 2000, -- 1000,
 			preloadFileSize = 1000, -- 150,
 			-- Make the server aware of Neovim runtime files
-			library = vim.api.nvim_get_runtime_file('', true),
+			-- library = vim.api.nvim_get_runtime_file('', true),
 			-- library = {
 			-- 	[vim.fn.stdpath('config') .. '/lua'] = true,
 			-- 	[vim.fn.expand('$VIMRUNTIME/lua')] = true,

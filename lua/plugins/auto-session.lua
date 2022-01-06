@@ -10,7 +10,7 @@ require('auto-session').setup({
 	auto_session_enable_last_session = false,
 	auto_session_enabled = true,
 	auto_save_enabled = true,
-	auto_restore_enabled = true,
+	auto_restore_enabled = vim.g.auto_session_enabled or true,
 	auto_session_suppress_dirs = { '/etc', '/tmp', HOME, HOME .. '/code' },
 
 	pre_save_cmds = { 'lua require("interface").win.close_plugin_owned()' },

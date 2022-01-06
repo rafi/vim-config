@@ -16,7 +16,7 @@ local on_attach = function(client, bufnr)
 
 	-- Short-circuit for Helm template files
 	if vim.bo[bufnr].buftype ~= '' or vim.bo[bufnr].filetype == 'helm' then
-		require('user').diagnostic.disable(0)
+		require('user').diagnostic.disable(bufnr)
 		return
 	end
 

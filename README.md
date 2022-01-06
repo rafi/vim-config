@@ -2,7 +2,7 @@
 
 Lean mean Neovim machine, 30-45ms startup time.
 
-Works best with [Neovim] 0.5.x ⚠️ For Vim 8.x, use the
+Works best with [Neovim] ≥0.5 ⚠️ For Vim 8.x, use the
 [`vim` git tag](https://github.com/rafi/vim-config/tree/vim).
 
 > I encourage you to fork this repo and create your own experience.
@@ -314,10 +314,10 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 
 | Name           | Description
 | -------------- | ----------------------
-| [b3nj5m1n/kommentary] | Commenting plugin, written in Lua
 | [mbbill/undotree] | Ultimate undo history visualizer
 | [tweekmonster/helpful.vim] | Display vim version numbers in docs
 | [lambdalisue/suda.vim] | An alternative sudo.vim for Vim and Neovim
+| [b3nj5m1n/kommentary] | Commenting plugin, written in Lua
 | [TimUntersberger/neogit] | Magit clone for Neovim
 | [lambdalisue/gina.vim] | Asynchronously control git repositories
 | [folke/zen-mode.nvim] | Distraction-free coding for Neovim
@@ -340,9 +340,9 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [rhysd/accelerated-jk] | Up/down movement acceleration
 | [haya14busa/vim-edgemotion] | Jump to the edge of block
 | [t9md/vim-quickhl] | Highlight words quickly
-| [rcarriga/nvim-notify] | Fancy notification manager for NeoVim
 | [rafi/vim-sidemenu] | Small side-menu useful for terminal users
 | [hoob3rt/lualine.nvim] | statusline plugin written in pure lua
+| [rcarriga/nvim-notify] | Fancy notification manager for NeoVim
 | [itchyny/cursorword] | Underlines word under cursor
 | [lewis6991/gitsigns.nvim] | Git signs written in pure lua
 | [chentau/marks.nvim] | Interacting with and manipulating marks
@@ -368,6 +368,12 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [folke/todo-comments.nvim] | Highlight, list and search todo comments in your projects
 | [windwp/nvim-autopairs] | autopairs for neovim written by lua
 | [hrsh7th/nvim-cmp] | Completion plugin for neovim written in Lua
+| [hrsh7th/cmp-nvim-lsp] | nvim-cmp source for neovim builtin LSP client
+| [hrsh7th/cmp-nvim-lua] | nvim-cmp source for nvim lua
+| [hrsh7th/cmp-buffer] | nvim-cmp source for buffer words
+| [hrsh7th/cmp-vsnip] | nvim-cmp source for vim-vsnip
+| [hrsh7th/cmp-path] | nvim-cmp source for path
+| [hrsh7th/cmp-emoji] | nvim-cmp source for emoji
 | [andersevenrud/compe-tmux] | Tmux completion source for nvim-compe/cmp
 | [hrsh7th/vim-vsnip] | Snippet plugin for vim/nvim that supports LSP/VSCode's snippet format
 | [hrsh7th/vim-vsnip-integ] | vim-vsnip integrations to other plugins
@@ -461,9 +467,9 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [rhysd/accelerated-jk]: https://github.com/rhysd/accelerated-jk
 [haya14busa/vim-edgemotion]: https://github.com/haya14busa/vim-edgemotion
 [t9md/vim-quickhl]: https://github.com/t9md/vim-quickhl
-[rcarriga/nvim-notify]: https://github.com/rcarriga/nvim-notify
 [rafi/vim-sidemenu]: https://github.com/rafi/vim-sidemenu
 [hoob3rt/lualine.nvim]: https://github.com/hoob3rt/lualine.nvim
+[rcarriga/nvim-notify]: https://github.com/rcarriga/nvim-notify
 [itchyny/cursorword]: https://github.com/itchyny/vim-cursorword
 [lewis6991/gitsigns.nvim]: https://github.com/lewis6991/gitsigns.nvim
 [chentau/marks.nvim]: https://github.com/chentau/marks.nvim
@@ -866,7 +872,7 @@ Note that,
 [nvim-lspconfig]: https://github.com/neovim/nvim-lspconfig
 [nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
 [telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
-[lazy-loaded]: ./config/plugins.yaml#L34
+[lazy-loaded]: ./config/plugins.yaml#L35
 [config/mappings.vim]: ./config/mappings.vim
 [plugin/whitespace.vim]: ./plugin/whitespace.vim
 [plugin/actionmenu.vim]: ./plugin/actionmenu.vim

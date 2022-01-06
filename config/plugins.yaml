@@ -81,7 +81,7 @@
   hook_post_source: lua require('rest-nvim').setup{skip_ssl_verification=true}
   hook_add: |
     augroup user_events
-      autocmd BufNewFile,BufRead *.http setlocal expandtab
+      autocmd BufNewFile,BufRead *.http setf http
       autocmd FileType httpResult nnoremap <buffer> q <cmd>quit<CR>
     augroup END
 
@@ -125,15 +125,15 @@
 - { repo: t9md/vim-quickhl, on_map: { nv: <Plug> }}
 - { repo: rafi/vim-sidemenu, on_map: { nv: <Plug> }}
 
-# - repo: rcarriga/nvim-notify
-#   if: has('nvim-0.5')
-#   on_lua: notify  # lazy by nature
-#   hook_post_source: lua require('notify').setup({background_colour = '#000000'})
-
 - repo: nvim-lualine/lualine.nvim
   if: has('nvim-0.5')
   on_event: VimEnter
   hook_post_source: lua require('plugins.lualine')
+
+- repo: rcarriga/nvim-notify
+  if: has('nvim-0.5')
+  on_lua: notify
+  hook_post_source: lua require('notify').setup()
 
 - repo: itchyny/vim-cursorword
   on_event: FileType
@@ -234,6 +234,7 @@
 - repo: kristijanhusak/orgmode.nvim
   if: has('nvim-0.5')
   on_source: nvim-treesitter
+  on_ft: org
   hook_post_source: lua require('plugins.orgmode')
 
 - repo: vimwiki/vimwiki
@@ -354,6 +355,8 @@
   depends: [ gitsigns.nvim, nvim-lspconfig ]
   on_event: VimEnter
   hook_post_source: lua require('plugins.auto-session')
+  hook_add: |-
+    autocmd user_events StdinReadPre * let g:auto_session_enabled = v:false
 
 - { repo: sbdchd/neoformat, on_cmd: Neoformat }
 
