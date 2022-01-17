@@ -57,7 +57,7 @@ local on_attach = function(client, bufnr)
 
 	if client.config.flags then
 		client.config.flags.allow_incremental_sync = true
-		client.config.flags.debounce_text_changes  = 100
+		client.config.flags.debounce_text_changes  = vim.opt.updatetime:get()
 	end
 
 	-- Set some keybinds conditional on server capabilities
@@ -83,73 +83,16 @@ local on_attach = function(client, bufnr)
 	end
 end
 
--- Diagnostics signs and highlights
---   Error:   ✘
---   Warn:  ⚠ 
---   Hint:  
---   Info:   ⁱ
-local signs = { Error = '✘', Warn = '', Hint = '', Info = 'ⁱ'}
-for type, icon in pairs(signs) do
-	local hl = 'DiagnosticSign' .. type
-	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
-end
-
--- Setup CompletionItemKind symbols, see lua/lsp_kind.lua
--- require('lsp_kind').init()
-
--- Configure LSP Handlers
--- ---
-
--- Configure diagnostics publish settings
-vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-	vim.lsp.diagnostic.on_publish_diagnostics, {
-		signs = true,
-		underline = false,
-		update_in_insert = false,
-		virtual_text = {
-			spacing = 4,
-			-- prefix = '',
-		}
-	}
-)
-
--- Configure help hover (normal K) handler
-vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
-	vim.lsp.handlers.hover, { border = 'rounded' }
-)
-
--- Configure signature help (,s) handler
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-	vim.lsp.handlers.signature_help, { border = 'rounded' }
-)
-
 -- Combine base config for each server and merge user-defined settings.
 local function make_config(server_name)
 	-- Setup base config for each server.
 	local c = {}
 	c.on_attach = on_attach
-	c.capabilities = vim.lsp.protocol.make_client_capabilities()
-	c.capabilities = require('cmp_nvim_lsp').update_capabilities(c.capabilities)
+	local cap = vim.lsp.protocol.make_client_capabilities()
+	c.capabilities = require('cmp_nvim_lsp').update_capabilities(cap)
 	c.flags = {
-		debounce_text_changes = 150,
+		debounce_text_changes = vim.opt.updatetime:get(),
 	}
-
-	-- cmp_nvim_lsp enables following options:
-	--   completionItem = {
-	--     commitCharactersSupport = true,
-	--     deprecatedSupport = true,
-	--     documentationFormat = { "markdown", "plaintext" },
-	--     insertReplaceSupport = true,
-	--     labelDetailsSupport = true,
-	--     preselectSupport = true,
-	--     resolveSupport = {
-	--       properties = { "documentation", "detail", "additionalTextEdits" }
-	--     },
-	--     snippetSupport = true,
-	--     tagSupport = {
-	--       valueSet = { 1 }
-	--     }
-	--   }
 
 	-- Merge user-defined lsp settings.
 	-- These can be overridden locally by lua/lsp-local/<server_name>.lua
@@ -167,7 +110,66 @@ end
 
 -- main
 
-if vim.fn.has('vim_starting') then
+local function setup()
+	-- Config
+	vim.diagnostic.config({
+		virtual_text = true,
+		signs = true,
+		underline = true,
+		update_in_insert = false,
+		severity_sort = true,
+	})
+
+	-- Diagnostics signs and highlights
+	--   Error:   ✘
+	--   Warn:  ⚠ 
+	--   Hint:  
+	--   Info:   ⁱ
+	local signs = { Error = '✘', Warn = '', Hint = '', Info = 'ⁱ'}
+	for type, icon in pairs(signs) do
+		local hl = 'DiagnosticSign' .. type
+		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
+	end
+
+	-- Setup CompletionItemKind symbols, see lua/lsp_kind.lua
+	-- require('lsp_kind').init()
+
+	-- Configure LSP Handlers
+	-- ---
+
+	vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
+		vim.lsp.diagnostic.on_publish_diagnostics, {
+			virtual_text = {
+				-- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#show-source-in-diagnostics-neovim-06-only
+				source = 'if_many',
+				prefix = '●',
+			},
+		})
+
+	-- Configure diagnostics publish settings
+	-- vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
+	-- 	vim.lsp.diagnostic.on_publish_diagnostics, {
+	-- 		signs = true,
+	-- 		underline = true,
+	-- 		update_in_insert = false,
+	-- 		severity_sort = true,
+	-- 		virtual_text = {
+	-- 			spacing = 4,
+	-- 			-- prefix = '',
+	-- 		}
+	-- 	}
+	-- )
+
+	-- Configure help hover (normal K) handler
+	vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
+		vim.lsp.handlers.hover, { border = 'rounded' }
+	)
+
+	-- Configure signature help (,s) handler
+	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+		vim.lsp.handlers.signature_help, { border = 'rounded' }
+	)
+
 	-- Setup language servers using nvim-lsp-installer
 	-- See https://github.com/williamboman/nvim-lsp-installer
 	local lsp_installer = require('nvim-lsp-installer')
@@ -175,7 +177,6 @@ if vim.fn.has('vim_starting') then
 	lsp_installer.on_server_ready(function(server)
 		local opts = make_config(server.name)
 		server:setup(opts)
-		vim.cmd [[ do User LspAttachBuffers ]]
 	end)
 
 	-- global custom location-list diagnostics window toggle.
@@ -199,4 +200,8 @@ if vim.fn.has('vim_starting') then
 	]], false)
 end
 
+return {
+	setup = setup,
+	on_attach = on_attach,
+}
 -- vim: set ts=2 sw=2 tw=80 noet :
