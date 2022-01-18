@@ -325,6 +325,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [tversteeg/registers.nvim] | Preview the contents of the registers
 | [NTBBloodbath/rest.nvim] | A fast Neovim http client written in Lua
 | [pechorin/any-jump.vim] | Jump to any definition and references without overhead
+| [windwp/nvim-spectre] | Find the enemy and replace them with dark power
 | [kana/vim-niceblock] | Make blockwise Visual mode more useful
 | [t9md/vim-choosewin] | Choose window to use, like tmux's 'display-pane'
 | [mzlogin/vim-markdown-toc] | Generate table of contents for Markdown files
@@ -382,10 +383,12 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [sindrets/diffview.nvim] | Tabpage interface for cycling through diffs
 | [nvim-telescope/telescope.nvim] | Find, Filter, Preview, Pick. All lua, all the time
 | [rmagatti/session-lens] | Session-switcher extension for rmagatti/auto-session
+| [nvim-telescope/telescope-ui-select.nvim] | Sets vim.ui.select to telescope
 | [jvgrootveld/telescope-zoxide] | Telescope extension for Zoxide
 | [simrat39/symbols-outline.nvim] | Tree like view for symbols using LSP
 | [rmagatti/auto-session] | Automated session manager for Neovim
 | [sbdchd/neoformat] | Plugin for formatting code
+| [SmiteshP/nvim-gps] | Shows context of the current cursor position in file
 | [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet
 
 #### File Explorer
@@ -408,6 +411,9 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [nvim-treesitter/nvim-treesitter] | Nvim Treesitter configurations and abstraction layer
 | [nvim-treesitter/nvim-treesitter-textobjects] | Textobjects using treesitter queries
 | [JoosepAlviste/nvim-ts-context-commentstring] | Set the commentstring based on the cursor location
+| [windwp/nvim-ts-autotag] | Use treesitter to auto close and auto rename html tag
+| [monkoose/matchparen.nvim] | Alternative to matchparen built-in plugin
+| [iloginow/vim-stylus] | Better vim plugin for stylus
 | [chrisbra/csv.vim] | Handling column separated data
 | [tpope/vim-git] | Git runtime files
 | [dag/vim-fish] | Fish shell edit support
@@ -456,6 +462,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [tversteeg/registers.nvim]: https://github.com/tversteeg/registers.nvim
 [NTBBloodbath/rest.nvim]: https://github.com/NTBBloodbath/rest.nvim
 [pechorin/any-jump.vim]: https://github.com/pechorin/any-jump.vim
+[windwp/nvim-spectre]: https://github.com/windwp/nvim-spectre
 [kana/vim-niceblock]: https://github.com/kana/vim-niceblock
 [t9md/vim-choosewin]: https://github.com/t9md/vim-choosewin
 [mzlogin/vim-markdown-toc]: https://github.com/mzlogin/vim-markdown-toc
@@ -505,10 +512,12 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [sindrets/diffview.nvim]: https://github.com/sindrets/diffview.nvim
 [nvim-telescope/telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
 [rmagatti/session-lens]: https://github.com/rmagatti/session-lens
+[nvim-telescope/telescope-ui-select.nvim]: https://github.com/nvim-telescope/telescope-ui-select.nvim
 [jvgrootveld/telescope-zoxide]: https://github.com/jvgrootveld/telescope-zoxide
 [simrat39/symbols-outline.nvim]: https://github.com/simrat39/symbols-outline.nvim
 [rmagatti/auto-session]: https://github.com/rmagatti/auto-session
 [sbdchd/neoformat]: https://github.com/sbdchd/neoformat
+[SmiteshP/nvim-gps]: https://github.com/SmiteshP/nvim-gps
 [mattn/emmet-vim]: https://github.com/mattn/emmet-vim
 
 [lambdalisue/fern.vim]: https://github.com/lambdalisue/fern.vim
@@ -523,7 +532,10 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [nvim-treesitter/nvim-treesitter]: https://github.com/nvim-treesitter/nvim-treesitter
 [nvim-treesitter/nvim-treesitter-textobjects]: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 [JoosepAlviste/nvim-ts-context-commentstring]: https://github.com/JoosepAlviste/nvim-ts-context-commentstring
+[windwp/nvim-ts-autotag]: https://github.com/windwp/nvim-ts-autotag
+[monkoose/matchparen.nvim]: https://github.com/monkoose/matchparen.nvim
 
+[iloginow/vim-stylus]: https://github.com/iloginow/vim-stylus
 [chrisbra/csv.vim]: https://github.com/chrisbra/csv.vim
 [tpope/vim-git]: https://github.com/tpope/vim-git
 [dag/vim-fish]: https://github.com/dag/vim-fish
@@ -684,6 +696,7 @@ Note that,
 | <kbd>Space</kbd>+<kbd>-</kbd> | 𝐍 | Switch editing window with selected | <small>[t9md/vim-choosewin]</small>
 | <kbd>Space</kbd>+<kbd>l</kbd> | 𝐍 | Open side-menu helper | <small>[rafi/vim-sidemenu]</small>
 | <kbd>Space</kbd>+<kbd>o</kbd> | 𝐍 | Open structure window | <small>[simrat39/symbols-outline.nvim]</small>
+| <kbd>Space</kbd>+<kbd>f</kbd> | 𝐍 | Show current structure scope | <small>[SmiteshP/nvim-gps]</small>
 | <kbd>Space</kbd>+<kbd>S</kbd> | 𝐍 𝐕 | Source selection | `y:execute @@`
 | <kbd>Space</kbd>+<kbd>?</kbd> | 𝐍 | Open the macOS dictionary on current word | `:!open dict://`
 | <kbd>Space</kbd>+<kbd>P</kbd> | 𝐍 | Use Marked 2 for real-time Markdown preview | <small>[Marked 2]</small>
@@ -854,6 +867,15 @@ Note that,
 | <kbd>Ctrl</kbd>+<kbd>y</kbd> | 𝐈 | Expand Emmet sequence
 | <kbd>Ctrl</kbd>+<kbd>e</kbd> | 𝐈 | Abort selection and close pop-up
 | <kbd>Ctrl</kbd>+<kbd>l</kbd> | 𝐈 | Expand snippet at cursor
+
+### Plugin: Spectre
+
+| Key   | Mode | Action
+| ----- |:----:| ------------------
+| <kbd>Space</kbd>+<kbd>so</kbd> | 𝐍 | Open spectre window
+| <kbd>Space</kbd>+<kbd>sw</kbd> | 𝐍 | Open spectre window with current word
+| <kbd>Space</kbd>+<kbd>s</kbd> | 𝐕 | Open spectre window with visual selection
+| <kbd>Space</kbd>+<kbd>sp</kbd> | 𝐍 | Search in current file
 
 ### Plugin: Any-Jump
 

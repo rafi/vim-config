@@ -87,6 +87,11 @@
     let g:any_jump_disable_default_keybindings = 1
     autocmd user_events FileType any-jump setlocal cursorline
 
+- repo: windwp/nvim-spectre
+  if: has('nvim-0.5')
+  on_lua: spectre
+  hook_post_source: lua require('plugins.spectre')
+
 - repo: kana/vim-niceblock
   on_map: { x: <Plug> }
   hook_add: let g:niceblock_no_default_key_mappings = 0
@@ -328,6 +333,11 @@
   hook_add: let g:loaded_session_lens = 1
   hook_post_source: lua require('plugins.session-lens')
 
+- repo: nvim-telescope/telescope-ui-select.nvim
+  if: has('nvim-0.5')
+  on_source: telescope.nvim
+  hook_post_source: lua require('telescope').load_extension('ui-select')
+
 - repo: jvgrootveld/telescope-zoxide
   if: has('nvim-0.5')
   on_source: telescope.nvim
@@ -347,6 +357,12 @@
     autocmd user_events StdinReadPre * let g:auto_session_enabled = v:false
 
 - { repo: sbdchd/neoformat, on_cmd: Neoformat }
+
+- repo: SmiteshP/nvim-gps
+  if: has('nvim-0.5')
+  on_event: VimEnter
+  depends: nvim-treesitter
+  hook_post_source: lua require('nvim-gps').setup()
 
 - repo: mattn/emmet-vim
   on_event: InsertEnter
@@ -407,9 +423,16 @@
 - repo: JoosepAlviste/nvim-ts-context-commentstring
   on_source: nvim-treesitter
 
-# Old syntax/indent plugins
-# - { repo: groenewege/vim-less, on_ft: less }
-# - { repo: iloginow/vim-stylus, on_ft: stylus }  # or wavded/vim-stylus ?
+- repo: windwp/nvim-ts-autotag
+  on_source: nvim-treesitter
+
+- repo: monkoose/matchparen.nvim
+  if: has('nvim-0.5')
+  on_event: FileType
+  hook_post_source: lua require('matchparen').setup()
+
+# Vimscript syntax/indent plugins
+- { repo: iloginow/vim-stylus, on_ft: stylus }
 - { repo: chrisbra/csv.vim, on_ft: csv }
 - { repo: tpope/vim-git, on_ft: [ gitcommit, gitrebase, gitconfig ]}
 - { repo: dag/vim-fish, on_ft: fish }

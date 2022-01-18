@@ -515,10 +515,14 @@ if dein#tap('vim-vsnip')
 	smap <expr><C-l> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
 endif
 
+if dein#tap('nvim-gps')
+	nnoremap <Leader>f <cmd>lua print(require'nvim-gps'.get_location())<CR>
+endif
+
 if dein#tap('emmet-vim')
 	autocmd user_events FileType html,css,vue,javascript,javascriptreact,svelte
 		\ EmmetInstall
-"		\ | imap <silent><buffer> <C-y> <Plug>(emmet-expand-abbr)
+		\ | imap <silent><buffer> <C-y> <Plug>(emmet-expand-abbr)
 endif
 
 if dein#tap('vim-sandwich')
@@ -686,6 +690,15 @@ if dein#tap('any-jump.vim')
 
 	" Normal mode: open last closed search window again
 	nnoremap <silent> <leader>il <cmd>AnyJumpLastResults<CR>
+endif
+
+if dein#tap('nvim-spectre')
+	nnoremap <Leader>so <cmd>lua require('spectre').open()<CR>
+	" Search current word
+	nnoremap <Leader>sw <cmd>lua require('spectre').open_visual({select_word=true})<CR>
+	xnoremap <silent><Leader>s :lua require('spectre').open_visual()<CR>
+	" Search in current file
+	nnoremap <silent><Leader>sp viw:lua require('spectre').open_file_search()<cr>
 endif
 
 if dein#tap('undotree')

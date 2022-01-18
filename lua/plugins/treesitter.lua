@@ -76,4 +76,18 @@ require('nvim-treesitter.configs').setup({
 		-- Let other plugins (kommentary) call 'update_commentstring()' manually.
 		enable_autocmd = false,
 	},
+
+	-- See: https://github.com/windwp/nvim-ts-autotag
+	autotag = {
+		enable = true,
+		filetypes = {
+			'html',
+			'javascript',
+			'javascriptreact',
+			'typescriptreact',
+			'svelte',
+			'vue',
+		}
+	}
+
 })

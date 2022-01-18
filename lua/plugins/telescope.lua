@@ -381,6 +381,13 @@ local setup = function()
 				layout_config = { width = 0.3, height = 0.4 },
 			},
 		},
+		extensions = {
+			['ui-select'] = {
+				require('telescope.themes').get_cursor {
+					layout_config = { width = 0.35, height = 0.35 },
+				}
+			}
+		}
 	}
 
 	-- Telescope extensions are loaded in each plugin.
