@@ -255,12 +255,8 @@ return {
 
 ## Structure
 
-* [after/](./after) - Language specific custom settings
-* [autoload/](./autoload) - Action-menu and badge functions
+* [after/](./after) - Language specific custom settings and plugins
 * [config/](./config) - Configuration
-  * [plugins/](./config/plugins) - Plugin configurations
-    * [all.vim](./config/plugins/all.vim) - Plugin mappings
-    * […](./config/plugins)
   * [general.vim](./config/general.vim) - General configuration
   * [init.vim](./config/init.vim) - Package-manager initialization
   * **plugins.local.yaml** - Custom user plugins
@@ -274,7 +270,6 @@ return {
   * [plugins/](./lua/plugins) - Plugins configurations
   * [badge.lua](./lua/badge.lua) - Badges for status lines
   * [user.lua](./lua/user.lua) - Custom functions
-* [plugin/](./plugin) - Custom written plugins
 * [snippets/](./snippets) - Personal code snippets
 * [themes/](./themes) - Colorscheme overrides
 * [filetype.vim](./filetype.vim) - Custom filetype detection
