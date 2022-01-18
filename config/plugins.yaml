@@ -362,7 +362,7 @@
 # ------
 - repo: lambdalisue/fern.vim
   on_cmd: Fern
-  hook_source: source $VIM_PATH/config/plugins/fern.vim
+  hook_source: source $VIM_PATH/config/fern.vim
 
 - repo: lambdalisue/nerdfont.vim  # lazy by nature
 

@@ -67,7 +67,6 @@ Works best with [Neovim] ≥0.5 ⚠️ For Vim 8.x, use the
 * Lazy-load 95% of plugins with [Shougo/dein.vim]
 * LSP installers (`:LspInstall <server>`)
 * Custom side-menu (try it! <kbd>Space</kbd>+<kbd>l</kbd>)
-* Custom context-menu (try it! <kbd>;</kbd>+<kbd>c</kbd>)
 * Auto-complete extensive setup with [nvim-lspconfig] and [nvim-cmp]
   (try <kbd>Tab</kbd> in insert-mode)
 * [telescope.nvim] centric work-flow with lists (try <kbd>;</kbd>+<kbd>f</kbd>…)
@@ -114,22 +113,23 @@ Enjoy! :smile:
 
 ## Language-Server Protocol (LSP)
 
-To leverage LSP auto-completions and other functionalities, once you open a
-file in Neovim, run `:LspInstall <server>` to use
-[williamboman/nvim-lsp-installer] installation feature.
-Use <kbd>Tab</kbd> to list available servers.
+To leverage LSP auto-completions and other functionalities, run
+`:LspInstall <server>` to use [williamboman/nvim-lsp-installer] installation
+feature. Use <kbd>Tab</kbd> to list available servers.
 
-Here are some useful LSP server installations:
+Instead, you can use the UI with ':LspInstallInfo'.
+
+Here's some popular servers to install:
 
 * `:LspInstall html cssls jsonls yamlls`
 * `:LspInstall gopls`
 * `:LspInstall pylsp`
 * `:LspInstall bashls vimls sumneko_lua`
-* `:LspInstall diagnosticls`
+* `:LspInstall tsserver`
 * and [more](https://github.com/williamboman/nvim-lsp-installer#available-lsps)…
 
 See [lua/plugins/lspconfig.lua] and [lua/lsp/*] for built-in
-mapping and configuration for several language-servers. You'll need utilities
+mapping and configuration for some language-servers. You'll need utilities
 like `npm` and `curl` to install some extensions. For more information, see:
 
 * Plugin used for installation: [williamboman/nvim-lsp-installer] and
@@ -379,7 +379,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [hrsh7th/vim-vsnip-integ] | vim-vsnip integrations to other plugins
 | [rafamadriz/friendly-snippets] | Preconfigured snippets for different languages
 | [folke/trouble.nvim] | Pretty lists to help you solve all code diagnostics
-| [sindrets/diffview.nvim] | Tabpage interface for easily cycling through diffs
+| [sindrets/diffview.nvim] | Tabpage interface for cycling through diffs
 | [nvim-telescope/telescope.nvim] | Find, Filter, Preview, Pick. All lua, all the time
 | [rmagatti/session-lens] | Session-switcher extension for rmagatti/auto-session
 | [jvgrootveld/telescope-zoxide] | Telescope extension for Zoxide
@@ -678,7 +678,6 @@ Note that,
 
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
-| <kbd>;</kbd>+<kbd>c</kbd> | 𝐍 | Open context-menu | <small>[plugin/actionmenu.vim]</small>
 | <kbd>g</kbd><kbd>Ctrl</kbd>+<kbd>o</kbd> | 𝐍 | Navigate to previous file on jumplist | <small>s:jump_buffer</small>
 | <kbd>g</kbd><kbd>Ctrl</kbd>+<kbd>i</kbd> | 𝐍 | Navigate to next file on jumplist | <small>s:jump_buffer</small>
 | <kbd>-</kbd> | 𝐍 | Choose a window to edit | <small>[t9md/vim-choosewin]</small>
@@ -875,6 +874,5 @@ Note that,
 [lazy-loaded]: ./config/plugins.yaml#L35
 [config/mappings.vim]: ./config/mappings.vim
 [plugin/whitespace.vim]: ./plugin/whitespace.vim
-[plugin/actionmenu.vim]: ./plugin/actionmenu.vim
 [nvim-treesitter]: https://github.com/nvim-treesitter/nvim-treesitter
 [Marked 2]: https://marked2app.com
