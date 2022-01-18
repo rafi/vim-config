@@ -485,10 +485,7 @@
 - repo: machakann/vim-sandwich
   on_map:
     nxo: [ <Plug>(operator-sandwich-, <Plug>(textobj-sandwich- ]
-  hook_add: |-
-    let g:sandwich_no_default_key_mappings = 1
-    let g:operator_sandwich_no_default_key_mappings = 1
-    let g:textobj_sandwich_no_default_key_mappings = 1
+  hook_add: let g:sandwich_no_default_key_mappings = 1
 
 - repo: mfussenegger/nvim-ts-hint-textobject
   if: has('nvim-0.5')

@@ -718,12 +718,28 @@ Note that,
 | <kbd>ssg</kbd> | 𝐍 | Vertical split with previous buffer | `:vsplit │ wincmd p │ e#`
 | <kbd>sh</kbd> | 𝐍 | Toggle colorscheme background=dark/light | `:set background` …
 
+### Plugin: Sandwich
+
+| Key            | Mode  | Action                       |
+| -------------- |:-----:| ---------------------------- |
+| <kbd>ds</kbd>  | 𝐍     | Delete around with query     |
+| <kbd>dss</kbd> | 𝐍     | Delete around automatically  |
+| <kbd>cs</kbd>  | 𝐍     | Change around with query     |
+| <kbd>css</kbd> | 𝐍     | Change around automatically  |
+| <kbd>sa</kbd>  | 𝐍 𝐕 𝐎 | Trigger add operator         |
+| <kbd>sd</kbd>  | 𝐍 𝐕   | Trigger delete operator      |
+| <kbd>sdb</kbd> | 𝐍     | Delete around automatically  |
+| <kbd>sr</kbd>  | 𝐍 𝐕   | Trigger replace operator     |
+| <kbd>srb</kbd> | 𝐍     | Replace around automatically |
+| <kbd>ir</kbd>  | 𝐕 𝐎   | Inner automatically          |
+| <kbd>ab</kbd>  | 𝐕 𝐎   | Around automatically         |
+
 ### Plugin: Gitsigns
 
 | Key   | Mode | Action             |
 | ----- |:----:| ------------------ |
 | <kbd>]g</kbd> or <kbd>]g</kbd> | 𝐍 | Next/previous Git hunk |
-| <kbd>gs</kbd> | 𝐍 | Preview hunk |
+| <kbd>gs</kbd>                  | 𝐍 | Preview hunk |
 | <kbd>Space</kbd>+<kbd>hp</kbd> | 𝐍 | Preview hunk |
 | <kbd>Space</kbd>+<kbd>hb</kbd> | 𝐍 | Blame line |
 | <kbd>Space</kbd>+<kbd>hs</kbd> | 𝐍 𝐕 | Stage hunk |
@@ -830,14 +846,14 @@ Note that,
 | Key   | Mode | Action
 | ----- |:----:| ------------------
 | <kbd>Tab</kbd> / <kbd>Shift-Tab</kbd> | 𝐈 | Navigate completion-menu
-| <kbd>Enter</kbd> | 𝐈 | Select completion or expand snippet
-| <kbd>Ctrl</kbd>+<kbd>j</kbd>/<kbd>k</kbd>/<kbd>d</kbd>/<kbd>u</kbd> | 𝐈 | Movement in completion pop-up
-| <kbd>Ctrl</kbd>+<kbd>Return</kbd> | 𝐈 | Expand Emmet sequence
-| <kbd>Ctrl</kbd>+<kbd>Space</kbd> | 𝐈 | Refresh and show candidates
-| <kbd>Ctrl</kbd>+<kbd>y</kbd> | 𝐈 | Close pop-up
-| <kbd>Ctrl</kbd>+<kbd>e</kbd> | 𝐈 | Cancel selection and close pop-up
-| <kbd>Ctrl</kbd>+<kbd>l</kbd> | 𝐈 | Expand snippet at cursor
 | <kbd>Tab</kbd> / <kbd>Shift-Tab</kbd> | 𝐈 𝐒 | Navigate snippet placeholders
+| <kbd>Ctrl</kbd>+<kbd>Space</kbd> | 𝐈 | Open completion menu
+| <kbd>Enter</kbd> | 𝐈 | Select completion or expand snippet
+| <kbd>Ctrl</kbd>+<kbd>p</kbd>/<kbd>n</kbd> | 𝐈 | Movement in completion pop-up
+| <kbd>Ctrl</kbd>+<kbd>b</kbd>/<kbd>f</kbd> | 𝐈 | Scroll documentation
+| <kbd>Ctrl</kbd>+<kbd>y</kbd> | 𝐈 | Expand Emmet sequence
+| <kbd>Ctrl</kbd>+<kbd>e</kbd> | 𝐈 | Abort selection and close pop-up
+| <kbd>Ctrl</kbd>+<kbd>l</kbd> | 𝐈 | Expand snippet at cursor
 
 ### Plugin: Any-Jump
 
