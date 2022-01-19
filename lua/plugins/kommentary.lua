@@ -3,6 +3,7 @@
 -- rafi settings
 
 -- Setup context-aware commenting via nvim-ts-context-commentstring
+-- See also lua/plugins/treesitter.lua
 local update_commentstring = {
 	hook_function = function()
 		-- See https://github.com/JoosepAlviste/nvim-ts-context-commentstring
@@ -28,3 +29,5 @@ k.configure_language('lua', {
 -- Mappings
 vim.api.nvim_set_keymap('n', '<Leader>v', '<Plug>kommentary_line_default', {})
 vim.api.nvim_set_keymap('x', '<Leader>v', '<Plug>kommentary_visual_default<C-c>', {})
+
+-- vim: set ts=2 sw=0 tw=80 noet :

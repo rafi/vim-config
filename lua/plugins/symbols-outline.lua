@@ -2,6 +2,7 @@
 -- see: https://github.com/simrat39/symbols-outline.nvim
 -- rafi settings
 
+-- :h symbols-outline.txt
 vim.g.symbols_outline = {
 	highlight_hovered_item = true,
 	show_guides = true,
