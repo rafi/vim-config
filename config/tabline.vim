@@ -16,9 +16,6 @@ let g:badge_tab_filename_max_dirs =
 let g:badge_tab_dir_max_chars =
 	\ get(g:, 'badge_tab_dir_max_chars', 10)
 
-let g:badge_exclude_window_count =
-	\ '^\(qf\|denite\|defx\|fugitive\|magit\|fern\|hover\|clap_\|Telescope\|vista\)'
-
 " Display entire tabline
 function! Tabline()
 	if exists('g:SessionLoad')
@@ -55,7 +52,7 @@ function! Tabline()
 		let l:win_count = tabpagewinnr(l:nr, '$')
 		for l:bufnr in l:bufnrlist
 			let l:buffiletype = getbufvar(l:bufnr, '&filetype')
-			if empty(l:buffiletype) || l:buffiletype =~ g:badge_exclude_window_count
+			if empty(l:buffiletype) || ! s:is_file_buffer(l:bufnr)
 				let l:win_count -= 1
 			endif
 		endfor
@@ -87,6 +84,10 @@ function! Tabline()
 		\ '%{badge#session("' . fnamemodify(l:session_name, ':t:r') . '  ")}'
 
 	return l:tabline
+endfunction
+
+function! s:is_file_buffer(bufnr) abort
+	return empty(getbufvar(a:bufnr, '&buftype'))
 endfunction
 
 function! s:numtr(number, charset) abort

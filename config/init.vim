@@ -46,8 +46,8 @@ let g:loaded_getscriptPlugin = 1
 let g:loaded_vimball = 1
 let g:loaded_vimballPlugin = 1
 
-" let g:loaded_matchit = 1
-" let g:loaded_matchparen = 1
+let g:loaded_matchit = 1
+let g:loaded_matchparen = 1
 let g:loaded_2html_plugin = 1
 let g:loaded_logiPat = 1
 let g:loaded_rrhelper = 1
@@ -138,7 +138,6 @@ function! s:use_dein()
 
 	if has('vim_starting')
 		let g:dein#auto_recache = v:true
-		" let g:dein#lazy_rplugins = v:true
 		let g:dein#install_progress_type = 'echo'
 		let g:dein#install_message_type = 'echo'
 		let g:dein#install_max_processes = 10

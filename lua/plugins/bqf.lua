@@ -2,6 +2,7 @@
 -- see: https://github.com/kevinhwang91/nvim-bqf
 -- rafi settings
 
+-- :h bqf.txt
 require('bqf').setup({
 	auto_resize_height = false,
 	func_map = {
