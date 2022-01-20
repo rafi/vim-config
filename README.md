@@ -2,7 +2,6 @@
 
 Lean mean Neovim machine, 30-45ms startup time.
 
-<<<<<<< HEAD
 Based on Rafael Bodill's Neo/vim [Config](https://github.com/rafi/vim-config)
 
 Works best with [Neovim] ≥0.5 ⚠️ For Vim 8.x, use the
