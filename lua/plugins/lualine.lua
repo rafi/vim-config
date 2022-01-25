@@ -1,22 +1,12 @@
--- Eviline config for lualine
--- Author: shadmansaleh
--- Credit: glepnir
+-- Rafi's custom statusline for lualine
 local lualine = require('lualine')
 local badge = require('badge')
 
 -- Color table for highlights
 local colors = {
-	-- yellow = '#ECBE7B',
-	-- cyan = '#008080',
-	-- darkblue = '#081633',
-	-- green = '#98be65',
-	-- orange = '#FF8800',
-	-- violet = '#a9a1e1',
-	-- magenta = '#c678dd',
-
 	active = {
 		fg = '#a8a897', -- '#bbc2cf',
-		bg = '#30302c', -- '#202328',
+		bg = '#30302c',
 		boundary = '#51afef',
 		paste = '#98be65',
 		filepath = '#D7D7BC',
@@ -24,7 +14,7 @@ local colors = {
 	},
 	inactive = {
 		fg = '#666656',
-		bg = '#30302c', -- '#202328',
+		bg = '#30302c',
 	},
 	filemode = {
 		modified = '#ec5f67',
@@ -43,6 +33,22 @@ local colors = {
 	},
 }
 
+local palette_active = {
+	a = { fg = colors.active.fg, bg = colors.active.bg },
+	b = { fg = colors.active.fg, bg = colors.active.bg },
+	c = { fg = colors.active.fg, bg = colors.active.bg },
+	y = { fg = colors.active.fg, bg = colors.active.bg },
+	z = { fg = colors.active.fg, bg = colors.active.progress },
+}
+
+local palette_inactive = {
+	a = { fg = colors.inactive.fg, bg = colors.inactive.bg },
+	b = { fg = colors.inactive.fg, bg = colors.inactive.bg },
+	c = { fg = colors.inactive.fg, bg = colors.inactive.bg },
+	y = { fg = colors.inactive.fg, bg = colors.inactive.bg },
+	z = { fg = colors.inactive.fg, bg = colors.inactive.bg },
+}
+
 -- Reference
 -- Explorer:                         
 -- Misc: ﬘ ⌯ ☱ ♯ 
@@ -56,8 +62,8 @@ local colors = {
 
 -- Section conditions
 local conditions = {
-	hide_in_width = function()
-		return vim.fn.winwidth(0) > 80
+	hide_in_width = function(width)
+		return function() return vim.fn.winwidth(0) > width end
 	end,
 	buffer_not_empty = function()
 		return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
@@ -157,23 +163,16 @@ local extension_line_count = {
 -- Global Config
 local config = {
 	options = {
+		always_divide_middle = false,
 		component_separators = { left = '', right = ''},
-		section_separators = { left = '', right = ''},
+		section_separators   = { left = '', right = ''},
 		theme = {
-			normal = {
-				a = { fg = colors.active.fg, bg = colors.active.bg },
-				b = { fg = colors.active.fg, bg = colors.active.bg },
-				c = { fg = colors.active.fg, bg = colors.active.bg },
-				y = { fg = colors.active.fg, bg = colors.active.bg },
-				z = { fg = colors.active.fg, bg = colors.active.progress },
-			},
-			inactive = {
-				a = { fg = colors.inactive.fg, bg = colors.inactive.bg },
-				b = { fg = colors.inactive.fg, bg = colors.inactive.bg },
-				c = { fg = colors.inactive.fg, bg = colors.inactive.bg },
-				y = { fg = colors.inactive.fg, bg = colors.inactive.bg },
-				z = { fg = colors.inactive.fg, bg = colors.inactive.bg },
-			}
+			normal   = palette_active,
+			inactive = palette_inactive,
+			insert   = palette_active,
+			visual   = palette_active,
+			replace  = palette_active,
+			command  = palette_active,
 		},
 	},
 
@@ -193,7 +192,7 @@ local config = {
 				padding = { left = 0, right = 1 },
 			},
 
-			-- Paste mode
+			-- Paste mode sign
 			{
 				function() return vim.go.paste and '=' or '' end,
 				padding = 0,
@@ -210,7 +209,7 @@ local config = {
 			-- Buffer number
 			{ function() return '%n' end, padding = 0 },
 
-			-- Modified
+			-- Modified sign
 			{
 				badge.modified('+'),
 				padding = 0,
@@ -225,6 +224,7 @@ local config = {
 				badge.filepath(3, 5),
 				cond = conditions.buffer_not_empty,
 				color = { fg = colors.active.filepath },
+				padding = { left = 1, right = 0 },
 			},
 
 			-- Diagnostics
@@ -238,17 +238,22 @@ local config = {
 					info = { fg = colors.diagnostics.info },
 					hint = { fg = colors.diagnostics.hint },
 				},
-				padding = 0,
+				padding = { left = 1, right = 0 },
 			},
 
 			-- Start truncating here
-			{ function() return '%<' end, padding = { left = 1, right = 0 }},
+			{ function() return '%<' end, padding = { left = 0, right = 0 }},
 
 			-- Whitespace trails
-			{ badge.trails('␣'), padding = 0 },
+			{ badge.trails('␣'), padding = { left = 1, right = 0 }},
 
 			-- Git branch
-			{ 'branch', icon = '', cond = conditions.check_git_workspace },
+			{
+				'branch',
+				icon = '',
+				-- cond = conditions.check_git_workspace,
+				padding = { left = 1, right = 0 },
+			},
 
 			-- Git status
 			{
@@ -259,8 +264,8 @@ local config = {
 					modified = { fg = colors.git.modified },
 					removed = { fg = colors.git.deleted },
 				},
-				cond = conditions.hide_in_width,
-				padding = 0,
+				cond = conditions.hide_in_width(70),
+				padding = { left = 1, right = 0 },
 			},
 		},
 		lualine_b = {},
@@ -270,7 +275,7 @@ local config = {
 			-- File format, encoding and type.
 			{
 				badge.filemedia('  '),
-				cond = conditions.hide_in_width,
+				cond = conditions.hide_in_width(60),
 				padding = { left = 0, right = 1 },
 			},
 		},
@@ -286,7 +291,7 @@ local config = {
 
 			-- Box boundary
 			-- {
-			-- 	function() return '▊' end,
+			-- 	function() return '▐' end,
 			-- 	color = { fg = colors.active.boundary },
 			-- 	padding = 0
 			-- },

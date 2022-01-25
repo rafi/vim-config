@@ -2,6 +2,7 @@
 -- see: https://github.com/norcalli/nvim-colorizer.lua
 -- rafi settings
 
+-- :h colorizer.lua
 require('colorizer').setup({
 	html = { mode = 'foreground' },
 	css = { rgb_fn = true },

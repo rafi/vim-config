@@ -23,11 +23,7 @@
   hook_add: |-
     let g:editorconfig_verbose = 1
     let g:editorconfig_blacklist = {
-      \ 'filetype': [
-      \   'git.*', 'fugitive', 'help', 'defx', 'denite.*', 'startify',
-      \   'vista.*', 'tagbar', 'lsp-.*', 'clap_.*', 'any-jump', 'gina-.*',
-      \   'lsp-*'
-      \  ],
+      \ 'filetype': ['git.*', 'help', 'lsp-.*', 'any-jump', 'gina-.*'],
       \ 'pattern': ['\.un~$']
       \ }
 
@@ -81,7 +77,7 @@
   hook_post_source: lua require('rest-nvim').setup{skip_ssl_verification=true}
   hook_add: |
     augroup user_events
-      autocmd BufNewFile,BufRead *.http setlocal expandtab
+      autocmd BufNewFile,BufRead *.http setf http
       autocmd FileType httpResult nnoremap <buffer> q <cmd>quit<CR>
     augroup END
 
@@ -90,6 +86,11 @@
   hook_add: |-
     let g:any_jump_disable_default_keybindings = 1
     autocmd user_events FileType any-jump setlocal cursorline
+
+- repo: windwp/nvim-spectre
+  if: has('nvim-0.5')
+  on_lua: spectre
+  hook_post_source: lua require('plugins.spectre')
 
 - repo: kana/vim-niceblock
   on_map: { x: <Plug> }
@@ -125,15 +126,15 @@
 - { repo: t9md/vim-quickhl, on_map: { nv: <Plug> }}
 - { repo: rafi/vim-sidemenu, on_map: { nv: <Plug> }}
 
-# - repo: rcarriga/nvim-notify
-#   if: has('nvim-0.5')
-#   on_lua: notify  # lazy by nature
-#   hook_post_source: lua require('notify').setup({background_colour = '#000000'})
-
 - repo: nvim-lualine/lualine.nvim
   if: has('nvim-0.5')
   on_event: VimEnter
   hook_post_source: lua require('plugins.lualine')
+
+- repo: rcarriga/nvim-notify
+  if: has('nvim-0.5')
+  on_lua: notify
+  hook_post_source: lua require('notify').setup()
 
 - repo: itchyny/vim-cursorword
   on_event: FileType
@@ -233,8 +234,9 @@
 
 - repo: kristijanhusak/orgmode.nvim
   if: has('nvim-0.5')
-  on_source: nvim-treesitter
-  hook_post_source: lua require('plugins.orgmode')
+  depends: nvim-treesitter
+  on_ft: org
+  hook_source: lua require('plugins.orgmode')
 
 - repo: vimwiki/vimwiki
   on_map: { n: <Plug> }
@@ -263,30 +265,14 @@
 
 - repo: neovim/nvim-lspconfig
   if: has('nvim-0.5')
-  depends:
-    - nvim-lsp-installer
-    - lsp_signature.nvim
-    - todo-comments.nvim
-    - lua-dev.nvim
-    - nvim-lightbulb
-    - cmp-nvim-lsp
   on_event: VimEnter
-  hook_post_source: lua require('plugins.lspconfig')
+  hook_post_source: lua require('plugins.lspconfig').setup()
 
-- { repo: williamboman/nvim-lsp-installer, lazy: true }
-- { repo: kosayoda/nvim-lightbulb, lazy: true }
-- { repo: ray-x/lsp_signature.nvim, lazy: true }
-- { repo: folke/lua-dev.nvim, lazy: true }
-
-- repo: folke/todo-comments.nvim
-  if: has('nvim-0.5')
-  lazy: true
-  hook_post_source: lua require('plugins.todo-comments')
-
-- repo: windwp/nvim-autopairs
-  if: has('nvim-0.5')
-  on_event: InsertEnter
-  hook_post_source: lua require('nvim-autopairs').setup()
+- { repo: hrsh7th/cmp-nvim-lsp, on_source: nvim-lspconfig }
+- { repo: williamboman/nvim-lsp-installer, on_source: nvim-lspconfig }
+- { repo: kosayoda/nvim-lightbulb, on_source: nvim-lspconfig }
+- { repo: ray-x/lsp_signature.nvim, on_source: nvim-lspconfig }
+- { repo: folke/lua-dev.nvim, on_source: nvim-lspconfig }
 
 - repo: hrsh7th/nvim-cmp
   if: has('nvim-0.5')
@@ -294,7 +280,6 @@
   depends: [ nvim-autopairs, vim-vsnip ]
   hook_post_source: lua require('plugins.cmp')
 
-- { repo: hrsh7th/cmp-nvim-lsp, lazy: true }
 - { repo: hrsh7th/cmp-nvim-lua, on_source: nvim-cmp }
 - { repo: hrsh7th/cmp-buffer, on_source: nvim-cmp }
 - { repo: hrsh7th/cmp-vsnip, on_source: nvim-cmp }
@@ -303,7 +288,6 @@
 - { repo: andersevenrud/cmp-tmux, on_source: nvim-cmp }
 
 - repo: hrsh7th/vim-vsnip
-  depends: [ vim-vsnip-integ, friendly-snippets ]
   on_event: InsertEnter
   merged: 0
   hook_add: |-
@@ -313,8 +297,18 @@
     let g:vsnip_filetypes.javascriptreact = ['javascript']
     let g:vsnip_filetypes.typescriptreact = ['typescript']
 
-- { repo: hrsh7th/vim-vsnip-integ, lazy: true }
-- { repo: rafamadriz/friendly-snippets, merged: 0, lazy: true }
+- { repo: hrsh7th/vim-vsnip-integ, on_source: vim-vsnip }
+- { repo: rafamadriz/friendly-snippets, merged: 0, on_source: vim-vsnip }
+
+- repo: windwp/nvim-autopairs
+  if: has('nvim-0.5')
+  on_source: nvim-cmp
+  hook_post_source: lua require('nvim-autopairs').setup()
+
+- repo: folke/todo-comments.nvim
+  if: has('nvim-0.5')
+  on_source: [ telescope.nvim, neovim/nvim-lspconfig ]
+  hook_post_source: lua require('plugins.todo-comments')
 
 - repo: folke/trouble.nvim
   if: has('nvim-0.5')
@@ -327,21 +321,26 @@
 
 - repo: nvim-telescope/telescope.nvim
   if: has('nvim-0.5')
-  depends: [ todo-comments.nvim, session-lens, telescope-zoxide ]
+  depends: [ session-lens ]
   on_cmd: Telescope
   on_lua: telescope
-  hook_add: lua require('plugins.telescope').preload()
   hook_post_source: lua require('plugins.telescope').setup()
 
 - repo: rmagatti/session-lens
   if: has('nvim-0.5')
   depends: auto-session
-  lazy: true
+  on_source: telescope.nvim
+  hook_add: let g:loaded_session_lens = 1
   hook_post_source: lua require('plugins.session-lens')
+
+- repo: nvim-telescope/telescope-ui-select.nvim
+  if: has('nvim-0.5')
+  on_source: telescope.nvim
+  hook_post_source: lua require('telescope').load_extension('ui-select')
 
 - repo: jvgrootveld/telescope-zoxide
   if: has('nvim-0.5')
-  lazy: true
+  on_source: telescope.nvim
   hook_post_source: lua require('plugins.telescope-zoxide')
 
 - repo: simrat39/symbols-outline.nvim
@@ -354,8 +353,16 @@
   depends: [ gitsigns.nvim, nvim-lspconfig ]
   on_event: VimEnter
   hook_post_source: lua require('plugins.auto-session')
+  hook_add: |-
+    autocmd user_events StdinReadPre * let g:auto_session_enabled = v:false
 
 - { repo: sbdchd/neoformat, on_cmd: Neoformat }
+
+- repo: SmiteshP/nvim-gps
+  if: has('nvim-0.5')
+  on_event: VimEnter
+  depends: nvim-treesitter
+  hook_post_source: lua require('nvim-gps').setup()
 
 - repo: mattn/emmet-vim
   on_event: InsertEnter
@@ -371,7 +378,7 @@
 # ------
 - repo: lambdalisue/fern.vim
   on_cmd: Fern
-  hook_source: source $VIM_PATH/config/plugins/fern.vim
+  hook_source: source $VIM_PATH/config/fern.vim
 
 - repo: lambdalisue/nerdfont.vim  # lazy by nature
 
@@ -405,7 +412,7 @@
 
 - repo: nvim-treesitter/nvim-treesitter
   if: has('nvim-0.5')
-  on_event: FileType
+  on_event: VimEnter
   on_cmd: [ TSUpdate, TSInstall, TSInstallInfo, TSModuleInfo, TSConfigInfo ]
   hook_post_update: ':TSUpdate'
   hook_source: lua require('plugins.treesitter')
@@ -416,13 +423,19 @@
 - repo: JoosepAlviste/nvim-ts-context-commentstring
   on_source: nvim-treesitter
 
-# Old syntax/indent plugins
-# - { repo: groenewege/vim-less, on_ft: less }
-# - { repo: iloginow/vim-stylus, on_ft: stylus }  # or wavded/vim-stylus ?
+- repo: windwp/nvim-ts-autotag
+  on_source: nvim-treesitter
+
+- repo: monkoose/matchparen.nvim
+  if: has('nvim-0.5')
+  on_event: FileType
+  hook_post_source: lua require('matchparen').setup()
+
+# Vimscript syntax/indent plugins
+- { repo: iloginow/vim-stylus, on_ft: stylus }
 - { repo: chrisbra/csv.vim, on_ft: csv }
 - { repo: tpope/vim-git, on_ft: [ gitcommit, gitrebase, gitconfig ]}
 - { repo: dag/vim-fish, on_ft: fish }
-- { repo: towolf/vim-helm, on_ft: helm }
 - { repo: mustache/vim-mustache-handlebars, on_ft: [html, mustache, handlebars]}
 - { repo: digitaltoad/vim-pug, on_ft: [ pug, jade ]}
 - { repo: keith/swift.vim, on_ft: swift }
@@ -431,6 +444,12 @@
 - { repo: MTDL9/vim-log-highlighting, on_ft: log }
 - { repo: tmux-plugins/vim-tmux, on_ft: tmux }
 - { repo: reasonml-editor/vim-reason-plus, on_ft: [ reason, merlin ] }
+
+- repo: towolf/vim-helm
+  on_ft: helm
+  hook_add: |-
+    autocmd user_events BufRead,BufNewFile */templates/*.{yaml,yml,tpl}
+      \ setfiletype helm
 
 - repo: plasticboy/vim-markdown
   on_ft: markdown
@@ -471,10 +490,17 @@
       \   '*.conf.j2': 'conf',
       \   '*.ini.j2': 'ini'
       \ }
+    autocmd user_events BufNewFile,BufRead */playbooks/*.{yml,yaml}
+      \ setfiletype yaml.ansible
+    autocmd user_events BufNewFile,BufRead */inventory/*.{ini,yml}
+      \ setfiletype ansible_hosts
 
 - repo: hashivim/vim-terraform
   on_ft: terraform
   on_cmd: [ Terraform, TerraformFmt ]
+  hook_add: |-
+    autocmd user_events BufNewFile,BufRead *.hcl setfiletype hcl
+    autocmd user_events BufNewFile,BufRead *.tf,*.tfvars setfiletype terraform
 
 # ==========================================
 # Operators and text objects
@@ -482,10 +508,7 @@
 - repo: machakann/vim-sandwich
   on_map:
     nxo: [ <Plug>(operator-sandwich-, <Plug>(textobj-sandwich- ]
-  hook_add: |-
-    let g:sandwich_no_default_key_mappings = 1
-    let g:operator_sandwich_no_default_key_mappings = 1
-    let g:textobj_sandwich_no_default_key_mappings = 1
+  hook_add: let g:sandwich_no_default_key_mappings = 1
 
 - repo: mfussenegger/nvim-ts-hint-textobject
   if: has('nvim-0.5')
