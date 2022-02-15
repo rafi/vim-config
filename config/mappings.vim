@@ -698,7 +698,7 @@ if dein#tap('nvim-spectre')
 	nnoremap <Leader>sw <cmd>lua require('spectre').open_visual({select_word=true})<CR>
 	xnoremap <silent><Leader>s :lua require('spectre').open_visual()<CR>
 	" Search in current file
-	nnoremap <silent><Leader>sp viw:lua require('spectre').open_file_search()<cr>
+	nnoremap <silent><Leader>sp viw:lua require('spectre').open_file_search()<CR>
 endif
 
 if dein#tap('undotree')

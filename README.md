@@ -36,7 +36,7 @@ Works best with [Neovim] ≥0.5 ⚠️ For Vim 8.x, use the
     * [Commands](#commands)
     * [Interface](#interface)
     * [Completion & Code-Analysis](#completion--code-analysis)
-    * [Fern](#fern)
+    * [File Explorer](#file-explorer)
     * [Syntax](#syntax)
     * [Operators & Text Objects](#operators--text-objects)
 * [Custom Key-mappings](#custom-key-mappings)
@@ -49,11 +49,13 @@ Works best with [Neovim] ≥0.5 ⚠️ For Vim 8.x, use the
   * [Editor UI](#editor-ui)
   * [Custom Tools & Plugins](#custom-tools--plugins)
   * [Window Management](#window-management)
+  * [Plugin: Sandwich](#plugin-sandwich)
   * [Plugin: Gitsigns](#plugin-gitsigns)
   * [Plugin: Gina](#plugin-gina)
   * [Plugin: Telescope](#plugin-telescope)
   * [Plugin: Fern](#plugin-fern)
   * [Plugin: LSP](#plugin-lsp)
+  * [Plugin: Spectre](#plugin-spectre)
   * [Plugin: Any-Jump](#plugin-any-jump)
   * [Plugin: Marks](#plugin-marks)
 
@@ -204,7 +206,7 @@ For **custom configuration**, create the `config/local.vim` file
 and add your personal vimscript there.
 
 For **installing plugins**, create a `config/plugins.local.yaml` file and
-manage your own plugin collection.  If you want to disable some of the plugins
+manage your own plugin collection. If you want to disable some of the plugins
 I use, you can overwrite them, _e.g._:
 
 ```yaml

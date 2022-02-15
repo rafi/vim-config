@@ -9,7 +9,7 @@ local function setup()
 		augroup user-diffview
 			autocmd!
 			autocmd WinEnter,BufEnter diffview://* setlocal cursorline
-			autocmd WinEnter,BufEnter diffview:///panels/* setlocal winhighlight=CursorLine:UserSelectionBackground
+			autocmd WinEnter,BufEnter diffview:///panels/* setlocal winhighlight=CursorLine:WildMenu
 		augroup END
 	]]
 
