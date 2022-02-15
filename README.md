@@ -423,7 +423,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [MTDL9/vim-log-highlighting] | Syntax highlighting for generic log files
 | [tmux-plugins/vim-tmux] | Plugin for tmux.conf
 | [reasonml-editor/vim-reason-plus] | Reason syntax and indent
-| [plasticboy/vim-markdown] | Markdown syntax highlighting
+| [preservim/vim-markdown] | Markdown syntax highlighting
 | [pearofducks/ansible-vim] | Improved YAML support for Ansible
 | [hashivim/vim-terraform] | Base Terraform integration
 
@@ -545,7 +545,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [MTDL9/vim-log-highlighting]: https://github.com/MTDL9/vim-log-highlighting
 [tmux-plugins/vim-tmux]: https://github.com/tmux-plugins/vim-tmux
 [reasonml-editor/vim-reason-plus]: https://github.com/reasonml-editor/vim-reason-plus
-[plasticboy/vim-markdown]: https://github.com/plasticboy/vim-markdown
+[preservim/vim-markdown]: https://github.com/preservim/vim-markdown
 [pearofducks/ansible-vim]: https://github.com/pearofducks/ansible-vim
 [hashivim/vim-terraform]: https://github.com/hashivim/vim-terraform
 

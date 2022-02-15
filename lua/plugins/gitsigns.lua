@@ -31,7 +31,7 @@ require('gitsigns').setup {
 		['n <leader>hl'] = '<cmd>lua require("user").githunk.publish_loclist(true)<CR>',
 
 		-- Text objects
-		['o ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>',
-		['x ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>'
+		['o ih'] = ':<C-U>Gitsigns select_hunk<CR>',
+		['x ih'] = ':<C-U>Gitsigns select_hunk<CR>'
 	},
 }

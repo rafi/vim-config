@@ -6,19 +6,19 @@
 require('bqf').setup({
 	auto_resize_height = false,
 	func_map = {
-		tab    = 'st',
-		split  = 'sv',
+		tab = 'st',
+		split = 'sv',
 		vsplit = 'sg',
 
-		stoggleup   = 'K',
+		stoggleup = 'K',
 		stoggledown = 'J',
-		stogglevm   = '<Space>',
+		stogglevm = '<Space>',
 
 		ptoggleitem = 'p',
 		ptoggleauto = 'P',
 		ptogglemode = 'zp',
 
-		pscrollup   = '<C-b>',
+		pscrollup = '<C-b>',
 		pscrolldown = '<C-f>',
 
 		prevfile = 'gk',
@@ -37,6 +37,6 @@ require('bqf').setup({
 				return false
 			end
 			return true
-		end
-	}
+		end,
+	},
 })

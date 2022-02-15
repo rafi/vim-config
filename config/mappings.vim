@@ -271,11 +271,6 @@ nnoremap <Leader>ml <cmd>call <SID>append_modeline()<CR>
 xnoremap <Leader>S y:execute @@<CR>:echo 'Sourced selection.'<CR>
 nnoremap <Leader>S ^vg_y:execute @@<CR>:echo 'Sourced line.'<CR>
 
-" Context-aware action-menu, neovim only (see plugin/actionmenu.vim)
-if has('nvim')
-	nmap <LocalLeader>c <cmd>ActionMenu<CR>
-endif
-
 " Jump entire buffers in jumplist
 nnoremap g<C-i> <cmd>call <SID>jump_buffer(-1)<CR>
 nnoremap g<C-o> <cmd>call <SID>jump_buffer(1)<CR>
@@ -635,8 +630,8 @@ if dein#tap('trouble.nvim')
 	nnoremap <leader>r <cmd>TroubleToggle workspace_diagnostics<CR>
 	nnoremap <leader>xq <cmd>TroubleToggle quickfix<CR>
 	nnoremap <leader>xl <cmd>TroubleToggle loclist<CR>
-	nnoremap ]t <cmd>lua require("trouble").next({skip_groups = true, jump = true})<CR>
-	nnoremap [t <cmd>lua require("trouble").previous({skip_groups = true, jump = true})<CR>
+	nnoremap ]t <cmd>lua require('trouble').next({skip_groups = true, jump = true})<CR>
+	nnoremap [t <cmd>lua require('trouble').previous({skip_groups = true, jump = true})<CR>
 	nnoremap gR <cmd>TroubleToggle lsp_references<CR>
 endif
 
