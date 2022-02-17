@@ -24,7 +24,7 @@ vim.g.symbols_outline = {
 vim.cmd([[
 	augroup user-symbols-outline
 		autocmd!
-		autocmd FileType Outline setlocal cursorline winhighlight=CursorLine:UserSelectionBackground
+		autocmd FileType Outline setlocal cursorline winhighlight=CursorLine:WildMenu
 		autocmd WinEnter,BufEnter Outline setlocal cursorline
 		autocmd WinLeave,BufLeave Outline setlocal nocursorline
 	augroup END

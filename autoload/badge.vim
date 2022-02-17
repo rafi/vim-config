@@ -135,7 +135,6 @@ function! badge#filename(...) abort
 			let l:icon = ''
 		elseif l:filetype ==# 'Outline'
 			let l:icon = ''
-			let parts = [ 'Outline' ]
 		elseif l:filetype ==# 'NeogitStatus'
 			let l:icon = ''
 		elseif l:filetype ==# 'lsp-installer'

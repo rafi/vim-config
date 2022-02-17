@@ -36,7 +36,7 @@ Works best with [Neovim] ≥0.5 ⚠️ For Vim 8.x, use the
     * [Commands](#commands)
     * [Interface](#interface)
     * [Completion & Code-Analysis](#completion--code-analysis)
-    * [Fern](#fern)
+    * [File Explorer](#file-explorer)
     * [Syntax](#syntax)
     * [Operators & Text Objects](#operators--text-objects)
 * [Custom Key-mappings](#custom-key-mappings)
@@ -49,11 +49,13 @@ Works best with [Neovim] ≥0.5 ⚠️ For Vim 8.x, use the
   * [Editor UI](#editor-ui)
   * [Custom Tools & Plugins](#custom-tools--plugins)
   * [Window Management](#window-management)
+  * [Plugin: Sandwich](#plugin-sandwich)
   * [Plugin: Gitsigns](#plugin-gitsigns)
   * [Plugin: Gina](#plugin-gina)
   * [Plugin: Telescope](#plugin-telescope)
   * [Plugin: Fern](#plugin-fern)
   * [Plugin: LSP](#plugin-lsp)
+  * [Plugin: Spectre](#plugin-spectre)
   * [Plugin: Any-Jump](#plugin-any-jump)
   * [Plugin: Marks](#plugin-marks)
 
@@ -204,7 +206,7 @@ For **custom configuration**, create the `config/local.vim` file
 and add your personal vimscript there.
 
 For **installing plugins**, create a `config/plugins.local.yaml` file and
-manage your own plugin collection.  If you want to disable some of the plugins
+manage your own plugin collection. If you want to disable some of the plugins
 I use, you can overwrite them, _e.g._:
 
 ```yaml
@@ -421,7 +423,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [MTDL9/vim-log-highlighting] | Syntax highlighting for generic log files
 | [tmux-plugins/vim-tmux] | Plugin for tmux.conf
 | [reasonml-editor/vim-reason-plus] | Reason syntax and indent
-| [plasticboy/vim-markdown] | Markdown syntax highlighting
+| [preservim/vim-markdown] | Markdown syntax highlighting
 | [pearofducks/ansible-vim] | Improved YAML support for Ansible
 | [hashivim/vim-terraform] | Base Terraform integration
 
@@ -543,7 +545,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [MTDL9/vim-log-highlighting]: https://github.com/MTDL9/vim-log-highlighting
 [tmux-plugins/vim-tmux]: https://github.com/tmux-plugins/vim-tmux
 [reasonml-editor/vim-reason-plus]: https://github.com/reasonml-editor/vim-reason-plus
-[plasticboy/vim-markdown]: https://github.com/plasticboy/vim-markdown
+[preservim/vim-markdown]: https://github.com/preservim/vim-markdown
 [pearofducks/ansible-vim]: https://github.com/pearofducks/ansible-vim
 [hashivim/vim-terraform]: https://github.com/hashivim/vim-terraform
 

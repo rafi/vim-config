@@ -152,7 +152,6 @@ local extension_line_count = {
 		},
 		lualine_z = { function() return '%l/%L' end },
 	},
-	-- Wait for https://github.com/hoob3rt/lualine.nvim/issues/301
 	inactive_sections = {
 		lualine_a = { badge.utility_title() },
 		lualine_z = { function() return '%l/%L' end },
@@ -224,7 +223,7 @@ local config = {
 				badge.filepath(3, 5),
 				cond = conditions.buffer_not_empty,
 				color = { fg = colors.active.filepath },
-				padding = { left = 1, right = 0 },
+				padding = { left = 0, right = 0 },
 			},
 
 			-- Diagnostics
@@ -302,7 +301,7 @@ local config = {
 	inactive_sections = {
 		lualine_a = {
 			{ badge.icon() },
-			{ badge.filepath(3, 5), padding = { left = 1, right = 0 }},
+			{ badge.filepath(3, 5), padding = { left = 0, right = 0 }},
 			{ badge.modified('+'), color = { fg = colors.filemode.modified }},
 		},
 		lualine_b = {},

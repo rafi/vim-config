@@ -451,7 +451,7 @@
     autocmd user_events BufRead,BufNewFile */templates/*.{yaml,yml,tpl}
       \ setfiletype helm
 
-- repo: plasticboy/vim-markdown
+- repo: preservim/vim-markdown
   on_ft: markdown
   hook_add: |-
     let g:vim_markdown_frontmatter = 1
@@ -492,7 +492,7 @@
       \ }
     autocmd user_events BufNewFile,BufRead */playbooks/*.{yml,yaml}
       \ setfiletype yaml.ansible
-    autocmd user_events BufNewFile,BufRead */inventory/*.{ini,yml}
+    autocmd user_events BufNewFile,BufRead */inventory/*.ini
       \ setfiletype ansible_hosts
 
 - repo: hashivim/vim-terraform
@@ -516,14 +516,13 @@
   on_lua: tsht
 
 - repo: AndrewRadev/sideways.vim
-  on_map:
-    xo: <Plug>Sideways
-    n: [ SidewaysLeft, SidewaysRight, SidewaysJumpLeft, SidewaysJumpRight ]
+  on_cmd: [ SidewaysLeft, SidewaysRight, SidewaysJumpLeft, SidewaysJumpRight ]
+  on_map: { xo: <Plug>Sideways }
 
 - { repo: AndrewRadev/linediff.vim, on_cmd: [ Linediff, LinediffAdd ]}
 
 - repo: AndrewRadev/splitjoin.vim
-  on_map: { n: [ SplitjoinJoin, SplitjoinSplit ]}
+  on_cmd: [ SplitjoinJoin, SplitjoinSplit ]
   hook_add: |-
     let g:splitjoin_join_mapping = ''
     let g:splitjoin_split_mapping = ''
