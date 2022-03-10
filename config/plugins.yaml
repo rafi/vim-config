@@ -12,6 +12,7 @@
 - { repo: folke/lsp-colors.nvim, if: has('nvim-0.5') }
 - { repo: nvim-lua/plenary.nvim, if: has('nvim-0.5') }
 - { repo: kyazdani42/nvim-web-devicons, if: has('nvim-0.5') }
+- { repo: nathom/filetype.nvim, if: has('nvim-0.6') }
 
 - repo: christoomey/vim-tmux-navigator
   if: "! (has('win32') || has('win64'))"

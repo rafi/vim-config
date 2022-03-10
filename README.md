@@ -299,6 +299,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [folke/lsp-colors.nvim] | LSP diagnostics highlight groups for colorschemes
 | [nvim-lua/plenary.nvim] | Lua functions library
 | [kyazdani42/nvim-web-devicons] | Lua fork of vim-devicons
+| [nathom/filetype.nvim] | A faster version of filetype.vim
 | [christoomey/tmux-navigator] | Seamless navigation between tmux panes and vim splits
 | [tpope/vim-sleuth] | Heuristically set buffer indent options
 | [sgur/vim-editorconfig] | EditorConfig plugin written entirely in Vimscript
@@ -431,6 +432,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [folke/lsp-colors.nvim]: https://github.com/folke/lsp-colors.nvim
 [nvim-lua/plenary.nvim]: https://github.com/nvim-lua/plenary.nvim
 [kyazdani42/nvim-web-devicons]: https://github.com/kyazdani42/nvim-web-devicons
+[nathom/filetype.nvim]: https://github.com/nathom/filetype.nvim
 [christoomey/tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator
 [tpope/vim-sleuth]: https://github.com/tpope/vim-sleuth
 [sgur/vim-editorconfig]: https://github.com/sgur/vim-editorconfig
