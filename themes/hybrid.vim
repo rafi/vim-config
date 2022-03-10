@@ -189,12 +189,10 @@ highlight! link TelescopePreviewBorder FloatBorder
 highlight! link TelescopePreviewLine WildMenu
 " }}}
 
-" Plugin: Fern {{{
+" Plugin: NvimTree {{{
 " ---
-highlight! FernGitStatusBracket  ctermfg=234 ctermbg=NONE guifg=bg guibg=NONE
-highlight! FernGitStatusIndex    ctermfg=10  guifg=#A3D572
-highlight! FernGitStatusWorktree ctermfg=1   guifg=#D370A3
-highlight! link FernSpinner Identifier
+highlight! link NvimTreeIndentMarker FloatBorder
+
 " }}}
 
 " Plugin: Bqf {{{

@@ -2,7 +2,7 @@
 
 Lean mean Neovim machine, 30-45ms startup time.
 
-Works best with [Neovim] ≥0.5 ⚠️ For Vim 8.x, use the
+Works best with [Neovim] ≥0.6 ⚠️ For Vim 8.x, use the
 [`vim` git tag](https://github.com/rafi/vim-config/tree/vim).
 
 > I encourage you to fork this repo and create your own experience.
@@ -53,7 +53,6 @@ Works best with [Neovim] ≥0.5 ⚠️ For Vim 8.x, use the
   * [Plugin: Gitsigns](#plugin-gitsigns)
   * [Plugin: Gina](#plugin-gina)
   * [Plugin: Telescope](#plugin-telescope)
-  * [Plugin: Fern](#plugin-fern)
   * [Plugin: LSP](#plugin-lsp)
   * [Plugin: Spectre](#plugin-spectre)
   * [Plugin: Any-Jump](#plugin-any-jump)
@@ -86,7 +85,7 @@ Works best with [Neovim] ≥0.5 ⚠️ For Vim 8.x, use the
 ## Prerequisites
 
 * [Neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim)
-  (`brew install neovim`) ≥ v0.5.0
+  (`brew install neovim`) ≥ v0.6.0
 * Plugins are parsed [from YAML](./config/plugins.yaml) and cached.
   Ensure **one** of these tools is installed:
   * [yj](https://github.com/sclevine/yj) (`brew install yj`)
@@ -281,7 +280,6 @@ return {
 * Plugin management with cache and lazy loading for speed
 * Auto-completion with Language-Server Protocol (LSP)
 * Project-aware tabline
-* Fern as file-manager + Git status icons
 * Extensive syntax highlighting with [nvim-treesitter].
 
 _Note_ that 95% of the plugins are **[lazy-loaded]**.
@@ -311,6 +309,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 
 | Name           | Description
 | -------------- | ----------------------
+| [kyazdani42/nvim-tree.lua] | File explorer written in Lua
 | [mbbill/undotree] | Ultimate undo history visualizer
 | [tweekmonster/helpful.vim] | Display vim version numbers in docs
 | [lambdalisue/suda.vim] | An alternative sudo.vim for Vim and Neovim
@@ -388,19 +387,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [SmiteshP/nvim-gps] | Shows context of the current cursor position in file
 | [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet
 
-#### File Explorer
-
-| Name           | Description
-| -------------- | ----------------------
-| [lambdalisue/fern.vim] | General purpose asynchronous tree viewer in pure vim
-| [lambdalisue/nerdfont.vim] | Fundemental plugin to handle Nerd Fonts
-| [lambdalisue/fern-git-status.vim] | Fern git status badge integration
-| [lambdalisue/fern-mapping-git.vim] | Fern git related mappings
-| [lambdalisue/fern-bookmark.vim] | Fern bookmark plugin
-| [yuki-yano/fern-preview.vim] | File preview window to fern.vim
-| [lambdalisue/fern-renderer-nerdfont.vim] | Fern nerdfont integration
-| [lambdalisue/glyph-palette.vim] | Universal nerdfont palette
-
 #### Syntax
 
 | Name           | Description
@@ -448,6 +434,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [tpope/vim-sleuth]: https://github.com/tpope/vim-sleuth
 [sgur/vim-editorconfig]: https://github.com/sgur/vim-editorconfig
 
+[kyazdani42/nvim-tree.lua]: https://github.com/kyazdani42/nvim-tree.lua
 [mbbill/undotree]: https://github.com/mbbill/undotree
 [tweekmonster/helpful.vim]: https://github.com/tweekmonster/helpful.vim
 [lambdalisue/suda.vim]: https://github.com/lambdalisue/suda.vim
@@ -517,15 +504,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [SmiteshP/nvim-gps]: https://github.com/SmiteshP/nvim-gps
 [mattn/emmet-vim]: https://github.com/mattn/emmet-vim
 
-[lambdalisue/fern.vim]: https://github.com/lambdalisue/fern.vim
-[lambdalisue/nerdfont.vim]: https://github.com/lambdalisue/nerdfont.vim
-[lambdalisue/fern-git-status.vim]: https://github.com/lambdalisue/fern-git-status.vim
-[lambdalisue/fern-mapping-git.vim]: https://github.com/lambdalisue/fern-mapping-git.vim
-[lambdalisue/fern-bookmark.vim]: https://github.com/lambdalisue/fern-bookmark.vim
-[yuki-yano/fern-preview.vim]: https://github.com/yuki-yano/fern-preview.vim
-[lambdalisue/fern-renderer-nerdfont.vim]: https://github.com/lambdalisue/fern-renderer-nerdfont.vim
-[lambdalisue/glyph-palette.vim]: https://github.com/lambdalisue/glyph-palette.vim
-
 [nvim-treesitter/nvim-treesitter]: https://github.com/nvim-treesitter/nvim-treesitter
 [nvim-treesitter/nvim-treesitter-textobjects]: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 [JoosepAlviste/nvim-ts-context-commentstring]: https://github.com/JoosepAlviste/nvim-ts-context-commentstring
@@ -564,7 +542,7 @@ Note that,
 
 * **Leader** key set as <kbd>Space</kbd>
 * **Local-Leader** key set as <kbd>;</kbd> and used for navigation and search
-  (Telescope and Fern)
+  (Telescope and Tree)
 * Disable <kbd>←</kbd> <kbd>↑</kbd> <kbd>→</kbd> <kbd>↓</kbd> in normal mode by enabling `g:elite_mode` in `.vault.vim`
 
 <details open>
@@ -814,13 +792,13 @@ Note that,
 | <kbd>e</kbd> | 𝐍 | Send to quickfix list
 | <kbd>dd</kbd> | 𝐍 | Delete entry (buffer list)
 
-### Plugin: Fern
+### Plugin: Nvim-Tree
 
 | Key   | Mode | Action
 | ----- |:----:| ------------------
 | <kbd>;e</kbd> | 𝐍 | Open file-explorer (toggle)
 | <kbd>;a</kbd> | 𝐍 | Focus current file in file-explorer
-| **Within _Fern_ window** ||
+| **Within _Nvim-Tree_ window** ||
 | <kbd>j</kbd> or <kbd>k</kbd> | 𝐍 | Move up and down the tree
 | <kbd>J</kbd> or <kbd>K</kbd> or <kbd>Space</kbd> | 𝐍 | Select entries up/downwards
 | <kbd>l</kbd> or <kbd>Return</kbd> | 𝐍 | Toggle collapse/expand directory or open file
