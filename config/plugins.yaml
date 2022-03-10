@@ -279,6 +279,12 @@
 - { repo: ray-x/lsp_signature.nvim, on_source: nvim-lspconfig }
 - { repo: folke/lua-dev.nvim, on_source: nvim-lspconfig }
 
+- repo: jose-elias-alvarez/null-ls.nvim
+  if: has('nvim-0.5')
+  on_event: VimEnter
+  depends: nvim-lspconfig
+  hook_post_source: lua require('plugins.null-ls')
+
 - repo: hrsh7th/nvim-cmp
   if: has('nvim-0.5')
   on_event: VimEnter

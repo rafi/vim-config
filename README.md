@@ -362,6 +362,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [kosayoda/nvim-lightbulb] | VSCode 💡 for neovim's built-in LSP
 | [ray-x/lsp_signature.nvim] | LSP signature hint when you type
 | [folke/lua-dev.nvim] | Dev setup for Lua
+| [jose-elias-alvarez/null-ls.nvim] | Inject LSP diagnostics, code actions, and more
 | [folke/todo-comments.nvim] | Highlight, list and search todo comments in your projects
 | [windwp/nvim-autopairs] | autopairs for neovim written by lua
 | [hrsh7th/nvim-cmp] | Completion plugin for neovim written in Lua
@@ -479,6 +480,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [kosayoda/nvim-lightbulb]: https://github.com/kosayoda/nvim-lightbulb
 [ray-x/lsp_signature.nvim]: https://github.com/ray-x/lsp_signature.nvim
 [folke/lua-dev.nvim]: https://github.com/folke/lua-dev.nvim
+[jose-elias-alvarez/null-ls.nvim]: https://github.com/jose-elias-alvarez/null-ls.nvim
 [folke/todo-comments.nvim]: https://github.com/folke/todo-comments.nvim
 [windwp/nvim-autopairs]: https://github.com/windwp/nvim-autopairs
 [hrsh7th/nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
