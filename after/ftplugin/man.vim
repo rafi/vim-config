@@ -1,3 +1,5 @@
+" Man ftplugin
+" ---
 
 let s:save_cpo = &cpoptions
 set cpoptions&vim

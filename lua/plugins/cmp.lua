@@ -23,6 +23,8 @@ _G.cmp_get_sources = function(arr)
 	return sources
 end
 
+--     
+--    ⮡
 -- Labels for completion candidates.
 local completion_labels = {
 	nvim_lsp = "[LSP]",
@@ -132,7 +134,7 @@ cmp.setup {
 
 	documentation = {
 		border = 'rounded',
-		winhighlight = 'NormalFloat:UserFloat,FloatBorder:UserBorder',
+		winhighlight = 'NormalFloat:NormalFloat,FloatBorder:FloatBorder',
 	},
 
 	formatting = {

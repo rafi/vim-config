@@ -267,11 +267,6 @@ nnoremap <Leader>ml <cmd>call <SID>append_modeline()<CR>
 xnoremap <Leader>S y:execute @@<CR>:echo 'Sourced selection.'<CR>
 nnoremap <Leader>S ^vg_y:execute @@<CR>:echo 'Sourced line.'<CR>
 
-" Context-aware action-menu, neovim only (see plugin/actionmenu.vim)
-if has('nvim')
-	nmap <LocalLeader>c <cmd>ActionMenu<CR>
-endif
-
 " Jump entire buffers in jumplist
 nnoremap g<C-i> <cmd>call <SID>jump_buffer(-1)<CR>
 nnoremap g<C-o> <cmd>call <SID>jump_buffer(1)<CR>
@@ -501,9 +496,9 @@ if dein#tap('telescope.nvim')
 	xnoremap <localleader>da :Telescope lsp_range_code_actions<CR>
 endif
 
-if dein#tap('fern.vim')
-	nnoremap <LocalLeader>e <cmd>Fern -toggle -drawer .<CR>
-	nnoremap <LocalLeader>a <cmd>Fern -reveal=% -drawer .<CR>
+if dein#tap('nvim-tree.lua')
+	nnoremap <LocalLeader>e <cmd>NvimTreeToggle<CR>
+	nnoremap <LocalLeader>a <cmd>NvimTreeFindFile<CR>
 endif
 
 if dein#tap('symbols-outline.nvim')
@@ -635,8 +630,8 @@ if dein#tap('trouble.nvim')
 	nnoremap <leader>r <cmd>TroubleToggle workspace_diagnostics<CR>
 	nnoremap <leader>xq <cmd>TroubleToggle quickfix<CR>
 	nnoremap <leader>xl <cmd>TroubleToggle loclist<CR>
-	nnoremap ]t <cmd>lua require("trouble").next({skip_groups = true, jump = true})<CR>
-	nnoremap [t <cmd>lua require("trouble").previous({skip_groups = true, jump = true})<CR>
+	nnoremap ]t <cmd>lua require('trouble').next({skip_groups = true, jump = true})<CR>
+	nnoremap [t <cmd>lua require('trouble').previous({skip_groups = true, jump = true})<CR>
 	nnoremap gR <cmd>TroubleToggle lsp_references<CR>
 endif
 
@@ -698,7 +693,7 @@ if dein#tap('nvim-spectre')
 	nnoremap <Leader>sw <cmd>lua require('spectre').open_visual({select_word=true})<CR>
 	xnoremap <silent><Leader>s :lua require('spectre').open_visual()<CR>
 	" Search in current file
-	nnoremap <silent><Leader>sp viw:lua require('spectre').open_file_search()<cr>
+	nnoremap <silent><Leader>sp viw:lua require('spectre').open_file_search()<CR>
 endif
 
 if dein#tap('undotree')

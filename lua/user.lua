@@ -58,20 +58,18 @@ user.diagnostic = {}
 user.diagnostic.publish_loclist = function(toggle)
 	if vim.api.nvim_buf_get_option(0, 'filetype') ~= 'qf' then
 		if legacy_api then
-			diagnostic.set_loclist({ open = false })
+			diagnostic.set_loclist({ open = not toggle })
 		else
-			diagnostic.setloclist({ open = false })
+			diagnostic.setloclist({ open = not toggle })
 		end
 	end
 	if toggle then
 		user.loclist.toggle()
-	else
-		user.loclist.open()
 	end
 end
 
-user.diagnostic.disable = function(bufnr, namespace)
-	diagnostic.disable(bufnr, namespace)
+user.diagnostic.disable = function(bufnr)
+	diagnostic.disable(bufnr)
 end
 
 user.diagnostic.goto_prev = function()
@@ -82,7 +80,7 @@ user.diagnostic.goto_next = function()
 	diagnostic.goto_next()
 end
 
-user.diagnostic.show_line_diagnostics = function(opts)
+user.diagnostic.open_float = function(opts)
 	if legacy_api then
 		diagnostic.show_line_diagnostics(opts)
 	else
