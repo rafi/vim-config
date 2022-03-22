@@ -19,17 +19,18 @@ update-repo:
 	git pull --ff --ff-only
 
 update-plugins:
-	$(nvim) -V1 -es -i NONE -N --noplugin -u config/init.vim \
+	$(nvim) -V1 -es -i NONE -n --noplugin -u config/init.vim \
 		-c "try | call dein#clear_state() | call dein#update() | finally | messages | qall! | endtry"
+	@echo
 
 uninstall:
 	rm -rf "$(VIM_DATA_HOME)"/dein
 
 test:
-	$(info Testing NVIM 0.5.0+...)
-	$(if $(shell echo "$(nvim_version)" | egrep "NVIM v0\.[5-9]"),\
+	$(info Testing NVIM 0.6.0+...)
+	$(if $(shell echo "$(nvim_version)" | egrep "NVIM v0\.[6-9]"),\
 		$(info OK),\
-		$(error   .. You need Neovim 0.5.0 or newer))
+		$(error   .. You need Neovim 0.6.0 or newer))
 	@echo All tests passed, hooray!
 
 .PHONY: install create-dirs update-repo update-plugins uninstall test

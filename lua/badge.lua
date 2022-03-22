@@ -180,6 +180,7 @@ function M.utility_title()
 			Trouble = '',
 			DiffviewFiles = '',
 			NeogitStatus = '',
+			NvimTree = '',
 			Outline = '',
 			['lsp-installer'] = '',
 			spectre_panel = '',
