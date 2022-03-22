@@ -181,6 +181,8 @@ local function setup()
 	nmap('[d', '<cmd>lua require("user").diagnostic.goto_prev()<CR>')
 	nmap(']d', '<cmd>lua require("user").diagnostic.goto_next()<CR>')
 
+	require('nvim-lightbulb').setup({ ignore = {'null-ls'} })
+
 	vim.api.nvim_exec([[
 		augroup user_lspconfig
 			autocmd!

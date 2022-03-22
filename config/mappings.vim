@@ -496,9 +496,9 @@ if dein#tap('telescope.nvim')
 	xnoremap <localleader>da :Telescope lsp_range_code_actions<CR>
 endif
 
-if dein#tap('fern.vim')
-	nnoremap <LocalLeader>e <cmd>Fern -toggle -drawer .<CR>
-	nnoremap <LocalLeader>a <cmd>Fern -reveal=% -drawer .<CR>
+if dein#tap('nvim-tree.lua')
+	nnoremap <LocalLeader>e <cmd>NvimTreeToggle<CR>
+	nnoremap <LocalLeader>a <cmd>NvimTreeFindFile<CR>
 endif
 
 if dein#tap('symbols-outline.nvim')

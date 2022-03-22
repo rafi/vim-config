@@ -143,6 +143,8 @@ function! badge#filename(...) abort
 		elseif l:filetype ==# 'spectre_panel'
 			let l:icon = ''
 			let parts = [ 'Spectre' ]
+		elseif l:filetype ==# 'NvimTree'
+			let l:icon = ''
 		elseif get(g:, 'nvim_web_devicons')
 			let l:icon = luaeval(
 				\ 'require"nvim-web-devicons".get_icon(_A[1], _A[2], { default = true })',

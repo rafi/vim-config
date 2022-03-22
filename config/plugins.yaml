@@ -12,6 +12,7 @@
 - { repo: folke/lsp-colors.nvim, if: has('nvim-0.5') }
 - { repo: nvim-lua/plenary.nvim, if: has('nvim-0.5') }
 - { repo: kyazdani42/nvim-web-devicons, if: has('nvim-0.5') }
+- { repo: nathom/filetype.nvim, if: has('nvim-0.6') }
 
 - repo: christoomey/vim-tmux-navigator
   if: "! (has('win32') || has('win64'))"
@@ -33,6 +34,11 @@
 # ==========================================
 # Commands
 # --------
+
+- repo: kyazdani42/nvim-tree.lua
+  if: has('nvim-0.6')
+  on_cmd: [ NvimTreeOpen, NvimTreeToggle, NvimTreeFindFile ]
+  hook_post_source: lua require('plugins.tree')
 
 - { repo: mbbill/undotree, on_cmd: UndotreeToggle }
 - { repo: tweekmonster/helpful.vim, on_cmd: HelpfulVersion }
@@ -274,6 +280,12 @@
 - { repo: ray-x/lsp_signature.nvim, on_source: nvim-lspconfig }
 - { repo: folke/lua-dev.nvim, on_source: nvim-lspconfig }
 
+- repo: jose-elias-alvarez/null-ls.nvim
+  if: has('nvim-0.5')
+  on_event: VimEnter
+  depends: nvim-lspconfig
+  hook_post_source: lua require('plugins.null-ls')
+
 - repo: hrsh7th/nvim-cmp
   if: has('nvim-0.5')
   on_event: VimEnter
@@ -372,39 +384,6 @@
     let g:user_emmet_install_global = 0
     let g:user_emmet_install_command = 0
     let g:user_emmet_complete_tag = 0
-
-# ==========================================
-# File explorer
-# ------
-- repo: lambdalisue/fern.vim
-  on_cmd: Fern
-  hook_source: source $VIM_PATH/config/fern.vim
-
-- repo: lambdalisue/nerdfont.vim  # lazy by nature
-
-- repo: lambdalisue/fern-git-status.vim
-  on_source: fern.vim
-  hook_add: let g:fern_git_status_disable_startup = 1
-  hook_source: call fern_git_status#init()
-
-- { repo: lambdalisue/fern-mapping-git.vim, on_source: fern.vim }
-- { repo: yuki-yano/fern-preview.vim, on_source: fern.vim }
-
-- repo: lambdalisue/fern-bookmark.vim
-  on_source: fern.vim
-  hook_source: |-
-    let g:fern#scheme#bookmark#store#file =
-      \ expand('$VIM_DATA_PATH/fern_bookmarks.json')
-
-- repo: lambdalisue/fern-renderer-nerdfont.vim
-  on_source: fern.vim
-  hook_source: |-
-    let g:fern#renderer = 'nerdfont'
-    let g:fern#renderer#nerdfont#padding = get(g:, 'global_symbol_padding', ' ')
-
-- repo: lambdalisue/glyph-palette.vim
-  on_source: fern.vim
-  hook_source: autocmd user_events FileType fern call glyph_palette#apply()
 
 # ==========================================
 # Syntax
