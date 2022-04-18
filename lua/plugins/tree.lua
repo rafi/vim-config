@@ -158,7 +158,7 @@ require('nvim-tree').setup({
 				{ key = '<C-r>',    action = 'refresh' },
 
 				-- Search
-				{ key = 'gr', action = 'grep_tree', action_cb = grep_tree },
+				{ key = 'gR', action = 'grep_tree', action_cb = grep_tree },
 				{ key = 'gf', action = 'find_tree', action_cb = find_tree },
 
 				-- Modify

@@ -21,7 +21,7 @@ local on_attach = function(client, bufnr)
 	end
 
 	map_buf('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-	map_buf('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+	map_buf('n', 'gd', '<cmd>tab split | lua vim.lsp.buf.definition()<CR>', opts)
 	map_buf('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 	map_buf('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
 	map_buf('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
