@@ -132,7 +132,7 @@ cmp.setup {
 		end, { 'i', 's' }),
 	},
 
-	documentation = {
+	window.documentation = {
 		border = 'rounded',
 		winhighlight = 'NormalFloat:NormalFloat,FloatBorder:FloatBorder',
 	},

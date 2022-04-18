@@ -653,16 +653,16 @@ if dein#tap('neogit')
 endif
 
 if dein#tap('gina.vim')
-	nnoremap <silent> <leader>ga <cmd>Gina add %:p<CR>
-	nnoremap <silent> <leader>gd <cmd>Gina compare<CR>
-	nnoremap <silent> <leader>gc <cmd>Gina commit<CR>
-	nnoremap <silent> <leader>gb <cmd>Gina blame<CR>
-	nnoremap <silent> <leader>gs <cmd>Gina status<CR>
-	nnoremap <silent> <leader>gl <cmd>Gina log --all<CR>
-	nnoremap <silent> <leader>gF <cmd>Gina! fetch<CR>
-	nnoremap <silent> <leader>gp <cmd>Gina! push<CR>
-	nnoremap <silent> <leader>go <cmd>,Gina browse :<CR>
-	xnoremap <silent> <leader>go :Gina browse :<CR>
+	nnoremap <silent> <leader>Ga <cmd>Gina add %:p<CR>
+	nnoremap <silent> <leader>Gd <cmd>Gina compare<CR>
+	nnoremap <silent> <leader>Gc <cmd>Gina commit<CR>
+	nnoremap <silent> <leader>Gb <cmd>Gina blame<CR>
+	nnoremap <silent> <leader>Gs <cmd>Gina status<CR>
+	nnoremap <silent> <leader>Gl <cmd>Gina log --all<CR>
+	nnoremap <silent> <leader>GF <cmd>Gina! fetch<CR>
+	nnoremap <silent> <leader>Gp <cmd>Gina! push<CR>
+	nnoremap <silent> <leader>Go <cmd>,Gina browse :<CR>
+	xnoremap <silent> <leader>Go :Gina browse :<CR>
 endif
 
 if dein#tap('zen-mode.nvim')
