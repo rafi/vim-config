@@ -472,7 +472,7 @@ if dein#tap('telescope.nvim')
 
 	" Git
 	nnoremap <leader>gs <cmd>Telescope git_status<CR>
-	nnoremap <leader>gr <cmd>Telescope git_branches<CR>
+	nnoremap <leader>gB <cmd>Telescope git_branches<CR>
 	nnoremap <leader>gc <cmd>Telescope git_commits<CR>
 	nnoremap <leader>gC <cmd>Telescope git_bcommits<CR>
 	nnoremap <leader>gh <cmd>Telescope git_stash<CR>
