@@ -88,7 +88,7 @@ cmp.setup {
 	},
 
 	mapping = {
-		['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+		['<C-Space>'] = cmp.mapping.complete(),
 		['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 'c' }),
 		['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
 		-- ['<C-y>'] = cmp.config.disable,
@@ -98,15 +98,15 @@ cmp.setup {
 		}),
 		['<C-b>'] = cmp.mapping.scroll_docs(-4),
 		['<C-f>'] = cmp.mapping.scroll_docs(4),
-		['<C-u>'] = cmp.mapping.scroll_docs(-4),
-		['<C-d>'] = cmp.mapping.scroll_docs(4),
+		['<C-u>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 'c' }),
+		['<C-d>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
 		['<C-c>'] = function(fallback)
 			cmp.close()
 			fallback()
 		end,
 		['<CR>'] = cmp.mapping.confirm({
 			behavior = cmp.ConfirmBehavior.Replace,
-			select = true,
+			select = false,
 		}),
 		['<Tab>'] = cmp.mapping(function(fallback)
 			if cmp.visible() then
@@ -132,10 +132,32 @@ cmp.setup {
 		end, { 'i', 's' }),
 	},
 
-	documentation = {
-		border = 'rounded',
-		winhighlight = 'NormalFloat:NormalFloat,FloatBorder:FloatBorder',
+	window = {
+		-- completion = cmp.config.window.bordered(),
+		-- documentation = cmp.config.window.bordered(),
 	},
+
+	-- window = {
+	-- 	completion = {
+	-- 		border = { '', '', '', '', '', '', '', '' },
+	-- 		winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None',
+	-- 	},
+	-- 	documentation = {
+	-- 		max_height = math.floor(WIDE_HEIGHT * (WIDE_HEIGHT / vim.o.lines)),
+	-- 		max_width = math.floor((WIDE_HEIGHT * 2) * (vim.o.columns / (WIDE_HEIGHT * 2 * 16 / 9))),
+	-- 		border = { '', '', '', ' ', '', '', '', ' ' },
+	-- 		winhighlight = 'FloatBorder:NormalFloat',
+	-- 	},
+	-- },
+
+	-- documentation = {
+	-- 	border = 'rounded',
+	-- 	winhighlight = 'NormalFloat:NormalFloat,FloatBorder:FloatBorder',
+	-- },
+
+	-- view = {
+	-- 	entries = 'native',
+	-- },
 
 	formatting = {
 		format = function(entry, vim_item)

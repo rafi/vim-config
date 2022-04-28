@@ -11,7 +11,7 @@ interface.win = {}
 interface.win.close_plugin_owned = function()
 	-- Jump to preview window if current window is plugin owned.
 	if interface.win.is_plugin_owned(0) then
-		vim.cmd [[ wincmd p ]]
+		vim.cmd([[ wincmd p ]])
 	end
 
 	for _, win in ipairs(fn.getwininfo()) do

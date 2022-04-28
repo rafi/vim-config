@@ -75,13 +75,13 @@ custom_execute(
 --
 
 local opts = {noremap = 1, silent = 1}
-local nowait = {noremap = 1, silent = 1, nowait = 1}
+-- local nowait = {noremap = 1, silent = 1, nowait = 1}
 local nmap = vim.fn['gina#custom#mapping#nmap']
 
 -- Alias 'p'/'dp' globally
 action_alias('/.*', 'dp', 'diff:preview')
 nmap('/.*', 'dp', ":<C-u>call gina#action#call('dp')<CR>", opts)
-nmap('/.*', 'p', ":<C-u>call gina#action#call('preview')<CR>", nowait)
+-- nmap('/.*', 'p', ":<C-u>call gina#action#call('preview')<CR>", nowait)
 
 -- Preview commits
 action_alias('/\\%(blame\\|log\\)', 'preview', 'show:commit:preview')
@@ -90,6 +90,7 @@ nmap('status', 'go', '<Plug>(gina-status-browse)')
 
 -- Echo chunk info with K
 nmap('blame', 'K', '<Plug>(gina-blame-echo)')
+nmap('blame', 'p', '<cmd>call v:lua.gina_popup("Gina show HEAD --opener=split")<CR>', opts)
 
 -- Blame mappings
 vim.g['gina#command#blame#use_default_mappings'] = 0

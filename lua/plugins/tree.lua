@@ -95,7 +95,6 @@ require('nvim-tree').setup({
 	},
 
 	update_cwd = true,
-	auto_close = true,
 	open_on_setup = false,
 
 	-- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually)
@@ -129,6 +128,10 @@ require('nvim-tree').setup({
 			quit_on_open = true,
 			window_picker = {
 				enable = false,
+				exclude = {
+					filetype = { 'packer', 'qf' },
+					buftype = { 'terminal' },
+				},
 			}
 		}
 	},
@@ -192,17 +195,17 @@ require('nvim-tree').setup({
 -- Cursor hide
 --
 
-local guicursor_orig = vim.o.guicursor
+-- local guicursor_orig = vim.o.guicursor
 
 local function cursor_hide()
 	vim.wo.winhighlight = 'CursorLine:WildMenu'
-	vim.o.guicursor = guicursor_orig .. ',a:TransparentCursor/lCursor'
+	-- vim.o.guicursor = guicursor_orig .. ',a:TransparentCursor/lCursor'
 	vim.wo.cursorline = true
 end
 
 local function cursor_restore()
-	vim.o.guicursor = 'a:Cursor/lCursor'
-	vim.o.guicursor = guicursor_orig
+	-- vim.o.guicursor = 'a:Cursor/lCursor'
+	-- vim.o.guicursor = guicursor_orig
 	vim.wo.cursorline = false
 end
 
@@ -212,7 +215,6 @@ local function cursor_attach_events()
 	if not ok then
 		return
 	end
-	vim.cmd[[ highlight default TransparentCursor gui=strikethrough blend=100 ]]
 
 	vim.api.nvim_create_autocmd('FileType', {
 		pattern = 'NvimTree',
