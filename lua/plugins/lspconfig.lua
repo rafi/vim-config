@@ -32,11 +32,18 @@ local on_attach = function(client, bufnr)
 	map_buf('n', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 	map_buf('n', '<Leader>ce', '<cmd>lua require("user").diagnostic.open_float()<CR>', opts)
 
+	local server_capabilities = nil
+	if vim.fn.has('nvim-0.8') == 0 then
+		server_capabilities = client.resolved_capabilities
+	else
+		server_capabilities = client.server_capabilities
+	end
+
 	-- Set some keybinds conditional on server capabilities
-	if client.resolved_capabilities.document_formatting then
+	if server_capabilities.document_formatting then
 		map_buf('n', ',f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 	end
-	if client.resolved_capabilities.document_range_formatting then
+	if server_capabilities.document_range_formatting then
 		map_buf('x', ',f', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
 	end
 
@@ -66,7 +73,7 @@ local on_attach = function(client, bufnr)
 	end
 
 	-- Set autocommands conditional on server_capabilities
-	if client.resolved_capabilities.document_highlight then
+	if server_capabilities.document_highlight then
 		vim.api.nvim_exec([[
 			augroup lsp_document_highlight
 				autocmd! * <buffer>
