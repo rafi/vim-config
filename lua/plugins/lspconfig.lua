@@ -30,20 +30,17 @@ local on_attach = function(client, bufnr)
 	map_buf('n', ',wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
 	map_buf('n', ',rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 	map_buf('n', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-	map_buf('n', '<Leader>ce', '<cmd>lua require("user").diagnostic.open_float()<CR>', opts)
-
-	local server_capabilities = nil
-	if vim.fn.has('nvim-0.8') == 0 then
-		server_capabilities = client.resolved_capabilities
-	else
-		server_capabilities = client.server_capabilities
-	end
+	map_buf('n', '<Leader>ce', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
 
 	-- Set some keybinds conditional on server capabilities
-	if server_capabilities.document_formatting then
-		map_buf('n', ',f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+	if client.supports_method('textDocument/formatting') then
+		if vim.fn.has('nvim-0.8') == 1 then
+			map_buf('n', ',f', '<cmd>lua vim.lsp.buf.format({ timeout_ms = 2000 })<CR>', opts)
+		else
+			map_buf('n', ',f', '<cmd>lua vim.lsp.buf.formatting(nil, 2000)<CR>', opts)
+		end
 	end
-	if server_capabilities.document_range_formatting then
+	if client.supports_method('textDocument/rangeFormatting') then
 		map_buf('x', ',f', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
 	end
 
@@ -72,8 +69,8 @@ local on_attach = function(client, bufnr)
 		client.config.flags.debounce_text_changes  = vim.opt.updatetime:get()
 	end
 
-	-- Set autocommands conditional on server_capabilities
-	if server_capabilities.document_highlight then
+	-- Set autocommands conditional on server capabilities
+	if client.supports_method('textDocument/documentHighlight') then
 		vim.api.nvim_exec([[
 			augroup lsp_document_highlight
 				autocmd! * <buffer>
@@ -187,8 +184,8 @@ local function setup()
 	local args = { noremap = true, silent = true }
 	local function nmap(lhs, rhs) vim.api.nvim_set_keymap('n', lhs, rhs, args) end
 	nmap('<Leader>a', '<cmd>lua require("user").diagnostic.publish_loclist(true)<CR>')
-	nmap('[d', '<cmd>lua require("user").diagnostic.goto_prev()<CR>')
-	nmap(']d', '<cmd>lua require("user").diagnostic.goto_next()<CR>')
+	nmap('[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
+	nmap(']d', '<cmd>lua vim.diagnostic.goto_next()<CR>')
 
 	require('nvim-lightbulb').setup({ ignore = {'null-ls'} })
 

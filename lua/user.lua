@@ -1,8 +1,9 @@
 -- rafi user functions
 -- https://github.com/rafi/vim-config
 
-local legacy_api = vim.fn.has('nvim-0.6') == 0
-local diagnostic = legacy_api and vim.lsp.diagnostic or vim.diagnostic
+if vim.fn.has('nvim-0.7') == 0 then
+	return
+end
 
 local lists = {
 	qf = {
@@ -57,11 +58,7 @@ user.diagnostic = {}
 -- Set locations with diagnostics and open the list.
 user.diagnostic.publish_loclist = function(toggle)
 	if vim.api.nvim_buf_get_option(0, 'filetype') ~= 'qf' then
-		if legacy_api then
-			diagnostic.set_loclist({ open = not toggle })
-		else
-			diagnostic.setloclist({ open = not toggle })
-		end
+		vim.diagnostic.setloclist({ open = not toggle })
 	end
 	if toggle then
 		user.loclist.toggle()
@@ -69,23 +66,10 @@ user.diagnostic.publish_loclist = function(toggle)
 end
 
 user.diagnostic.disable = function(bufnr)
-	diagnostic.disable(bufnr)
-end
-
-user.diagnostic.goto_prev = function()
-	diagnostic.goto_prev()
-end
-
-user.diagnostic.goto_next = function()
-	diagnostic.goto_next()
-end
-
-user.diagnostic.open_float = function(opts)
-	if legacy_api then
-		diagnostic.show_line_diagnostics(opts)
-	else
-		vim.diagnostic.open_float(opts)
-	end
+	vim.diagnostic.disable(bufnr)
+	vim.defer_fn(function()
+		vim.diagnostic.reset(nil, bufnr)
+	end, 1000)
 end
 
 -- Git
