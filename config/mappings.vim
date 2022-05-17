@@ -501,6 +501,11 @@ if dein#tap('nvim-tree.lua')
 	nnoremap <LocalLeader>a <cmd>NvimTreeFindFile<CR>
 endif
 
+if dein#tap('kommentary')
+	nnoremap <Leader>v <Plug>kommentary_line_default
+	xnoremap <Leader>v <Plug>kommentary_visual_default<C-c>
+endif
+
 if dein#tap('symbols-outline.nvim')
 	nnoremap <Leader>o <cmd>SymbolsOutline<CR>
 endif

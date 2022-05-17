@@ -327,7 +327,7 @@ function! badge#indexing() abort
 			" Show only last progress message
 			let s:lsp_progress = s:lsp_progress[0]
 			let l:percent = get(s:lsp_progress, 'percentage')
-			if s:lsp_progress['message'] != '' && l:percent != 100
+			if ! empty(s:lsp_progress['message']) && l:percent != 100
 				let l:out .= s:lsp_progress['server'] . ':'
 					\ . s:lsp_progress['title'] . ' '
 					\ . s:lsp_progress['message']
