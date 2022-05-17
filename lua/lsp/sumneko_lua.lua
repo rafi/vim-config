@@ -12,25 +12,29 @@ local settings = {
 		diagnostics = {
 			enable = true,
 			globals = {
-				'vim', 'use', 'describe', 'it', 'assert', 'before_each', 'after_each',
+				'vim',
+				'use',
+				'describe',
+				'it',
+				'assert',
+				'before_each',
+				'after_each',
 			},
 		},
 		telemetry = {
 			enable = false,
 		},
-		workspace = {
-			maxPreload = 2000, -- 1000,
-			preloadFileSize = 1000, -- 150,
-			-- Make the server aware of Neovim runtime files
-			-- library = vim.api.nvim_get_runtime_file('', true),
-			-- library = {
-			-- 	[vim.fn.stdpath('config') .. '/lua'] = true,
-			-- 	[vim.fn.expand('$VIMRUNTIME/lua')] = true,
-			-- 	[vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-			-- 	[plugins_path .. '/nvim-lua/plenary.nvim/lua'] = true,
-			-- 	[plugins_path] = true,
-			-- },
-		},
+		-- workspace = {
+		-- 	-- Make the server aware of Neovim runtime files
+		-- 	-- library = vim.api.nvim_get_runtime_file('', true),
+		-- 	library = {
+		-- 		[vim.fn.stdpath('config') .. '/lua'] = true,
+		-- 		[vim.fn.expand('$VIMRUNTIME/lua')] = true,
+		-- 		[vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+		-- 		[plugins_path .. '/nvim-lua/plenary.nvim/lua'] = true,
+		-- 		[plugins_path] = true,
+		-- 	},
+		-- },
 	},
 }
 

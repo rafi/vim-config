@@ -180,7 +180,9 @@ local setup = function()
 			},
 
 			prompt_prefix = '❯ ',
-			selection_caret = '▷ ',
+			-- ♥ ❥ ➤ 🔭
+			selection_caret = '▍ ',
+			multi_icon = 'v',
 			set_env = { COLORTERM = 'truecolor' },
 
 			-- Flex layout swaps between horizontal and vertical strategies
@@ -255,10 +257,9 @@ local setup = function()
 					['J'] = actions.toggle_selection + actions.move_selection_next,
 					['K'] = actions.toggle_selection + actions.move_selection_previous,
 					['<Space>'] = {
-						actions.toggle_selection,
+						actions.toggle_selection + actions.move_selection_next,
 						type = 'action',
-						-- See https://github.com/nvim-telescope/telescope.nvim/pull/890
-						keymap_opts = { nowait = true },
+						opts = { nowait = true },
 					},
 
 					['gg'] = actions.move_to_top,
@@ -311,6 +312,9 @@ local setup = function()
 					'!.git',
 					'--files',
 				}
+			},
+			live_grep = {
+				dynamic_preview_title = true,
 			},
 			colorscheme = {
 				enable_preview = true,

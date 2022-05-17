@@ -3,10 +3,13 @@
 
 local config = {
 	settings = {
+		-- https://github.com/golang/tools/blob/master/gopls/doc/settings.md
 		gopls = {
 			staticcheck = true,
 			gofumpt = true,
-			linksInHover = false,
+			linksInHover = true,
+
+			-- https://github.com/golang/tools/blob/master/gopls/doc/analyzers.md
 			analyses = {
 				fillreturns = true,
 				nonewvars = true,
@@ -24,5 +27,7 @@ local config = {
 }
 
 return {
-	config = function(_) return config end,
+	config = function(_)
+		return config
+	end,
 }

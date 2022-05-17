@@ -2,7 +2,7 @@
 
 Lean mean Neovim machine, 30-45ms startup time.
 
-Works best with [Neovim] ≥0.6 ⚠️ For Vim 8.x, use the
+Works best with [Neovim] ≥0.7 ⚠️ For Vim 8.x, use the
 [`vim` git tag](https://github.com/rafi/vim-config/tree/vim).
 
 > I encourage you to fork this repo and create your own experience.
@@ -85,7 +85,7 @@ Works best with [Neovim] ≥0.6 ⚠️ For Vim 8.x, use the
 ## Prerequisites
 
 * [Neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim)
-  (`brew install neovim`) ≥ v0.6.0
+  (`brew install neovim`) ≥ v0.7.0
 * Plugins are parsed [from YAML](./config/plugins.yaml) and cached.
   Ensure **one** of these tools is installed:
   * [yj](https://github.com/sclevine/yj) (`brew install yj`)
@@ -100,7 +100,7 @@ Works best with [Neovim] ≥0.6 ⚠️ For Vim 8.x, use the
 
 ```bash
 mkdir ~/.config
-git clone git://github.com/rafi/vim-config.git ~/.config/nvim
+git clone git@github.com:rafi/vim-config.git ~/.config/nvim
 cd ~/.config/nvim
 ```
 

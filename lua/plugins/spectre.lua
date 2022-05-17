@@ -1,10 +1,10 @@
 require('spectre').setup({
 	mapping = {
-	['toggle_gitignore'] = {
-		map = 'tg',
-		cmd = '<cmd>lua require("spectre").change_options("gitignore")<CR>',
-		desc = 'toggle gitignore'
-	},
+		['toggle_gitignore'] = {
+			map = 'tg',
+			cmd = '<cmd>lua require("spectre").change_options("gitignore")<CR>',
+			desc = 'toggle gitignore',
+		},
 	},
 	find_engine = {
 		['rg'] = {
@@ -19,24 +19,24 @@ require('spectre').setup({
 				'--case-sensitive',
 				'--hidden',
 				'--no-ignore',
-			} ,
+			},
 			options = {
 				['ignore-case'] = {
 					value = '--ignore-case',
 					icon = '[I]',
-					desc = 'ignore case'
+					desc = 'ignore case',
 				},
 				['hidden'] = {
 					value = '--no-hidden',
 					icon = '[H]',
-					desc = 'hidden file'
+					desc = 'hidden file',
 				},
 				['gitignore'] = {
 					value = '--ignore',
 					icon = '[G]',
-					desc = 'gitignore'
+					desc = 'gitignore',
 				},
-			}
+			},
 		},
 	},
 })

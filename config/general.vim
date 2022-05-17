@@ -220,7 +220,7 @@ set list                " Show hidden characters
 set showtabline=2       " Always show the tabs line
 set helpheight=0        " Disable help window resizing
 set winwidth=30         " Minimum width for active window
-set winminwidth=10      " Minimum width for inactive windows
+set winminwidth=1       " Minimum width for inactive windows
 set winheight=1         " Minimum height for active window
 set winminheight=1      " Minimum height for inactive window
 

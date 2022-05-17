@@ -34,11 +34,13 @@ local config = {
 				['https://json.schemastore.org/circleciconfig'] = '.circleci/**/*.{yml,yaml}',
 				['https://json.schemastore.org/kustomization'] = 'kustomization.{yml,yaml}',
 				['https://json.schemastore.org/helmfile'] = 'helmfile.{yml,yaml}',
-			}
-		}
-	}
+			},
+		},
+	},
 }
 
 return {
-	config = function(_) return config end,
+	config = function(_)
+		return config
+	end,
 }

@@ -14,19 +14,30 @@ parser_configs.http = {
 	filetype = 'http',
 }
 
-parser_configs.org = {
-	install_info = {
-		url = 'https://github.com/milisims/tree-sitter-org',
-		revision = 'main',
-		files = {'src/parser.c', 'src/scanner.cc'},
-	},
-	filetype = 'org',
-}
+-- See https://github.com/nvim-orgmode/orgmode#setup
+-- parser_configs.org = {
+-- 	install_info = {
+-- 		url = 'https://github.com/milisims/tree-sitter-org',
+-- 		revision = 'main',
+-- 		files = {'src/parser.c', 'src/scanner.cc'},
+-- 	},
+-- 	filetype = 'org',
+-- }
 
 -- Setup treesitter
 require('nvim-treesitter.configs').setup({
 	-- all, maintained, or list of languages
-	ensure_installed = 'maintained',
+	ensure_installed = {
+		'bash', 'c', 'clojure', 'cmake', 'comment', 'commonlisp',
+		'cpp', 'css', 'dart', 'dockerfile', 'dot', 'fennel', 'fish',
+		'go', 'gomod', 'gowork', 'graphql', 'hack', 'haskell', 'hcl',
+		'help', 'html', 'http', 'java', 'javascript', 'jsdoc', 'json',
+		'json5', 'jsonc', 'julia', 'kotlin', 'latex', 'llvm', 'lua',
+		'make', 'markdown', 'ninja', 'nix', 'norg', 'perl', 'php',
+		'pug', 'python', 'query', 'r', 'regex', 'rst', 'ruby', 'rust',
+		'scala', 'scheme', 'scss', 'svelte', 'todotxt', 'toml', 'tsx',
+		'typescript', 'vala', 'vim', 'vue', 'yaml', 'zig',
+	},
 
 	highlight = {
 		enable = true,

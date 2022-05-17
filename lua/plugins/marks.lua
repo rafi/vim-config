@@ -2,7 +2,7 @@
 -- see: https://github.com/chentau/marks.nvim
 -- rafi settings
 
-require'marks'.setup({
+require('marks').setup({
 	-- whether to map keybinds or not.
 	default_mappings = true,
 	-- which builtin marks to show. default {}

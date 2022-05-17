@@ -18,7 +18,9 @@
   if: "! (has('win32') || has('win64'))"
 
 - repo: tpope/vim-sleuth
-  hook_add: let g:sleuth_no_filetype_indent_on = 1
+  hook_add: |-
+    let g:sleuth_no_filetype_indent_on = 1
+    let g:sleuth_gitcommit_heuristics = 0
 
 - repo: sgur/vim-editorconfig
   hook_add: |-
@@ -128,9 +130,9 @@
 - { repo: romainl/vim-cool, on_event: [ CursorMoved, InsertEnter ]}
 - { repo: haya14busa/vim-asterisk, on_map: { nv: <Plug> }}
 - { repo: rhysd/accelerated-jk, on_map: { n: <Plug> }, if: $SUDO_USER == '' }
-- { repo: haya14busa/vim-edgemotion, on_map: { nv: <Plug> }}
-- { repo: t9md/vim-quickhl, on_map: { nv: <Plug> }}
-- { repo: rafi/vim-sidemenu, on_map: { nv: <Plug> }}
+- { repo: haya14busa/vim-edgemotion, on_map: { nx: <Plug> }}
+- { repo: t9md/vim-quickhl, on_map: { nx: <Plug> }}
+- { repo: rafi/vim-sidemenu, on_map: { nx: <Plug> }}
 
 - repo: nvim-lualine/lualine.nvim
   if: has('nvim-0.5')
@@ -164,7 +166,7 @@
   on_event: VimEnter
   hook_post_source: lua require('plugins.gitsigns')
 
-- repo: chentau/marks.nvim
+- repo: chentoast/marks.nvim
   if: has('nvim-0.5')
   depends: gitsigns.nvim
   on_event: FileType
@@ -248,11 +250,27 @@
   on_map: { n: <Plug> }
   on_cmd: [ VimwikiIndex, VimwikiUISelect ]
   hook_add: |-
+    let g:vimwiki_global_ext = 0
     let g:vimwiki_use_calendar = 1
     let g:vimwiki_hl_headers = 1
     let g:vimwiki_hl_cb_checked = 1
     let g:vimwiki_autowriteall = 0
+    let g:vimwiki_listsym_rejected = '✗'
+    let g:vimwiki_listsyms = '✗○◐●✓'
   hook_source: |-
+    let g:vimwiki_key_mappings =
+    \ {
+    \   'all_maps': 1,
+    \   'global': 1,
+    \   'headers': 1,
+    \   'text_objs': 1,
+    \   'table_format': 1,
+    \   'table_mappings': 1,
+    \   'lists': 1,
+    \   'links': 1,
+    \   'html': 1,
+    \   'mouse': 0,
+    \ }
     let g:vimwiki_list = [
     \   { 'diary_header': 'Diary',
     \     'diary_link_fmt': '%Y-%m/%d',
@@ -277,11 +295,14 @@
 - { repo: hrsh7th/cmp-nvim-lsp, on_source: nvim-lspconfig }
 - { repo: williamboman/nvim-lsp-installer, on_source: nvim-lspconfig }
 - { repo: kosayoda/nvim-lightbulb, on_source: nvim-lspconfig }
-- { repo: ray-x/lsp_signature.nvim, on_source: nvim-lspconfig }
 - { repo: folke/lua-dev.nvim, on_source: nvim-lspconfig }
 
+- repo: ray-x/lsp_signature.nvim
+  if: has('nvim-0.6.1')
+  on_source: nvim-lspconfig
+
 - repo: jose-elias-alvarez/null-ls.nvim
-  if: has('nvim-0.5')
+  if: has('nvim-0.7')
   on_event: VimEnter
   depends: nvim-lspconfig
   hook_post_source: lua require('plugins.null-ls')
@@ -314,7 +335,6 @@
 
 - repo: windwp/nvim-autopairs
   if: has('nvim-0.5')
-  on_source: nvim-cmp
   hook_post_source: lua require('nvim-autopairs').setup()
 
 - repo: folke/todo-comments.nvim
@@ -332,7 +352,7 @@
   hook_post_source: lua require('plugins.diffview').setup()
 
 - repo: nvim-telescope/telescope.nvim
-  if: has('nvim-0.5')
+  if: has('nvim-0.7')
   depends: [ session-lens ]
   on_cmd: Telescope
   on_lua: telescope
@@ -346,7 +366,7 @@
   hook_post_source: lua require('plugins.session-lens')
 
 - repo: nvim-telescope/telescope-ui-select.nvim
-  if: has('nvim-0.5')
+  if: has('nvim-0.7')
   on_source: telescope.nvim
   hook_post_source: lua require('telescope').load_extension('ui-select')
 
@@ -362,9 +382,9 @@
 
 - repo: rmagatti/auto-session
   if: has('nvim-0.5')
-  depends: [ gitsigns.nvim, nvim-lspconfig ]
+  # depends: [ gitsigns.nvim, nvim-lspconfig ]
   on_event: VimEnter
-  hook_post_source: lua require('plugins.auto-session')
+  hook_source: lua require('plugins.auto-session')
   hook_add: |-
     autocmd user_events StdinReadPre * let g:auto_session_enabled = v:false
 
@@ -406,7 +426,7 @@
   on_source: nvim-treesitter
 
 - repo: monkoose/matchparen.nvim
-  if: has('nvim-0.5')
+  if: has('nvim-0.7')
   on_event: FileType
   hook_post_source: lua require('matchparen').setup()
 

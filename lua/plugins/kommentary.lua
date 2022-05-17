@@ -26,8 +26,4 @@ k.configure_language('lua', {
 	prefer_single_line_comments = true,
 })
 
--- Mappings
-vim.api.nvim_set_keymap('n', '<Leader>v', '<Plug>kommentary_line_default', {})
-vim.api.nvim_set_keymap('x', '<Leader>v', '<Plug>kommentary_visual_default<C-c>', {})
-
 -- vim: set ts=2 sw=0 tw=80 noet :

@@ -13,7 +13,7 @@ local function setup()
 		augroup END
 	]]
 
-	require('diffview').setup{
+	require('diffview').setup({
 		enhanced_diff_hl = true, -- See ':h diffview-config-enhanced_diff_hl'
 		key_bindings = {
 			view = {
@@ -55,7 +55,7 @@ local function setup()
 				['q']     = cb('close'),
 			},
 		}
-	}
+	})
 end
 
 return {
