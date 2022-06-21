@@ -295,7 +295,6 @@
 - { repo: hrsh7th/cmp-nvim-lsp, on_source: nvim-lspconfig }
 - { repo: williamboman/nvim-lsp-installer, on_source: nvim-lspconfig }
 - { repo: kosayoda/nvim-lightbulb, on_source: nvim-lspconfig }
-- { repo: ray-x/lsp_signature.nvim, on_source: nvim-lspconfig }
 - { repo: folke/lua-dev.nvim, on_source: nvim-lspconfig }
 
 - repo: ray-x/lsp_signature.nvim
