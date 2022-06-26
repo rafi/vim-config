@@ -2,6 +2,9 @@
 " ---
 
 " Configuration
+if ! get(g:, 'tabline_plugin_enable', 1)
+	finish
+endif
 
 let g:badge_numeric_charset =
 	\ get(g:, 'badge_numeric_charset',
