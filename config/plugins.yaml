@@ -37,10 +37,12 @@
 # Commands
 # --------
 
-- repo: kyazdani42/nvim-tree.lua
-  if: has('nvim-0.6')
-  on_cmd: [ NvimTreeOpen, NvimTreeToggle, NvimTreeFindFile ]
-  hook_post_source: lua require('plugins.tree')
+- repo: nvim-neo-tree/neo-tree.nvim
+  if: has('nvim-0.7')
+  on_cmd: Neotree
+  hook_post_source: lua require('plugins.neo-tree')
+
+- { repo: MunifTanjim/nui.nvim, on_lua: nui, on_source: neo-tree.nvim }
 
 - { repo: mbbill/undotree, on_cmd: UndotreeToggle }
 - { repo: tweekmonster/helpful.vim, on_cmd: HelpfulVersion }
