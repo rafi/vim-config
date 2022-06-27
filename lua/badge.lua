@@ -184,6 +184,7 @@ function M.utility_title()
 			Outline = '',
 			['lsp-installer'] = '',
 			spectre_panel = '',
+			['neo-tree-popup'] = ''
 		}
 		local padding = vim.g.global_symbol_padding or ' '
 		return icons[vim.bo.filetype] .. padding .. '%y'

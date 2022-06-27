@@ -496,9 +496,9 @@ if dein#tap('telescope.nvim')
 	xnoremap <localleader>da :Telescope lsp_range_code_actions<CR>
 endif
 
-if dein#tap('nvim-tree.lua')
-	nnoremap <LocalLeader>e <cmd>NvimTreeToggle<CR>
-	nnoremap <LocalLeader>a <cmd>NvimTreeFindFile<CR>
+if dein#tap('neo-tree.nvim')
+	nnoremap <LocalLeader>e <cmd>Neotree filesystem left toggle dir=./<CR>
+	nnoremap <LocalLeader>a <cmd>Neotree filesystem left reveal<CR>
 endif
 
 if dein#tap('kommentary')

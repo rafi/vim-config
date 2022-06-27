@@ -12,7 +12,6 @@
 - { repo: folke/lsp-colors.nvim, if: has('nvim-0.5') }
 - { repo: nvim-lua/plenary.nvim, if: has('nvim-0.5') }
 - { repo: kyazdani42/nvim-web-devicons, if: has('nvim-0.5') }
-- { repo: nathom/filetype.nvim, if: has('nvim-0.6') }
 
 - repo: christoomey/vim-tmux-navigator
   if: "! (has('win32') || has('win64'))"
@@ -37,10 +36,12 @@
 # Commands
 # --------
 
-- repo: kyazdani42/nvim-tree.lua
-  if: has('nvim-0.6')
-  on_cmd: [ NvimTreeOpen, NvimTreeToggle, NvimTreeFindFile ]
-  hook_post_source: lua require('plugins.tree')
+- repo: nvim-neo-tree/neo-tree.nvim
+  if: has('nvim-0.7')
+  on_cmd: Neotree
+  hook_post_source: lua require('plugins.neo-tree')
+
+- { repo: MunifTanjim/nui.nvim, on_lua: nui, on_source: neo-tree.nvim }
 
 - { repo: mbbill/undotree, on_cmd: UndotreeToggle }
 - { repo: tweekmonster/helpful.vim, on_cmd: HelpfulVersion }
@@ -241,7 +242,7 @@
   hook_add: let g:shot_f_no_default_key_mappings = 1
 
 - repo: kristijanhusak/orgmode.nvim
-  if: has('nvim-0.5')
+  if: has('nvim-0.7')
   depends: nvim-treesitter
   on_ft: org
   hook_source: lua require('plugins.orgmode')
@@ -292,8 +293,11 @@
   on_event: VimEnter
   hook_post_source: lua require('plugins.lspconfig').setup()
 
+- repo: williamboman/nvim-lsp-installer
+  if: has('nvim-0.7')
+  on_source: nvim-lspconfig
+
 - { repo: hrsh7th/cmp-nvim-lsp, on_source: nvim-lspconfig }
-- { repo: williamboman/nvim-lsp-installer, on_source: nvim-lspconfig }
 - { repo: kosayoda/nvim-lightbulb, on_source: nvim-lspconfig }
 - { repo: folke/lua-dev.nvim, on_source: nvim-lspconfig }
 

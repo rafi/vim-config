@@ -198,7 +198,9 @@ function! s:use_dein()
 
 	if has('vim_starting')
 		filetype plugin indent on
-		syntax enable
+		if ! has('nvim-0.8')
+			syntax enable
+		end
 	end
 endfunction
 
