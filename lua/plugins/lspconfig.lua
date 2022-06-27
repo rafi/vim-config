@@ -66,7 +66,7 @@ local on_attach = function(client, bufnr)
 
 	if client.config.flags then
 		client.config.flags.allow_incremental_sync = true
-		client.config.flags.debounce_text_changes  = vim.opt.updatetime:get()
+		-- client.config.flags.debounce_text_changes  = vim.opt.updatetime:get()
 	end
 
 	-- Set autocommands conditional on server capabilities
@@ -88,9 +88,6 @@ local function make_config(server_name)
 	c.on_attach = on_attach
 	local cap = vim.lsp.protocol.make_client_capabilities()
 	c.capabilities = require('cmp_nvim_lsp').update_capabilities(cap)
-	c.flags = {
-		debounce_text_changes = vim.opt.updatetime:get(),
-	}
 
 	-- Merge user-defined lsp settings.
 	-- These can be overridden locally by lua/lsp-local/<server_name>.lua
@@ -164,7 +161,7 @@ local function setup()
 	)
 
 	-- Configure signature help (,s) handler
-	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+	vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
 		vim.lsp.handlers.signature_help, { border = 'rounded' }
 	)
 
