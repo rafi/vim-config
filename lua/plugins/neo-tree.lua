@@ -25,7 +25,7 @@ end
 local function get_current_directory(state)
 	local node = state.tree:get_node()
 	local path = node.path
-	if node.type ~= 'directory' or not node.is_expanded() then
+	if node.type ~= 'directory' or not node:is_expanded() then
 		local path_separator = package.config:sub(1, 1)
 		path = path:match('(.*)' .. path_separator)
 	end
