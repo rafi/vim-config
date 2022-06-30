@@ -221,14 +221,12 @@
   hook_post_source: lua require('plugins.goto-preview')
 
 - repo: rhysd/committia.vim
-  on_event: BufWinEnter
-  hook_add: let g:loaded_committia = 1
+  on_event: BufReadPost
+  depends: nvim-treesitter
   hook_source: |-
-    let g:committia_min_window_width = 70
-    autocmd user_events BufWinEnter COMMIT_EDITMSG,MERGE_MSG
-      \  if ! exists('b:committia_opened')
-      \|   call committia#open('git')
-      \| endif
+    let g:committia_min_window_width = 30
+    let g:committia_edit_window_width = 75
+    let g:committia#git#status_cmd = '-c color.status=false status -sb'
 
 - repo: itchyny/calendar.vim
   on_cmd: Calendar
