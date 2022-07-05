@@ -268,6 +268,7 @@ local setup = function()
 					['sv'] = actions.select_horizontal,
 					['sg'] = actions.select_vertical,
 					['st'] = actions.select_tab,
+					['l'] = actions.select_default,
 
 					['w'] = myactions.smart_send_to_qflist,
 					['e'] = myactions.send_to_qflist,
