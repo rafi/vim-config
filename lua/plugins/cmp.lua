@@ -34,7 +34,6 @@ local completion_labels = {
 	path     = "[Path]",
 	-- vsnip    = "[VSnip]",
 	tmux     = "[Tmux]",
-	orgmode  = "[Org]"
 }
 
 -- Completion sources according to specific file-types.

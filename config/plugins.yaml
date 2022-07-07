@@ -239,12 +239,6 @@
   on_map: { nxo: <Plug> }
   hook_add: let g:shot_f_no_default_key_mappings = 1
 
-- repo: kristijanhusak/orgmode.nvim
-  if: has('nvim-0.7')
-  depends: nvim-treesitter
-  on_ft: org
-  hook_source: lua require('plugins.orgmode')
-
 - repo: vimwiki/vimwiki
   on_map: { n: <Plug> }
   on_cmd: [ VimwikiIndex, VimwikiUISelect ]
