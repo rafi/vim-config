@@ -30,8 +30,8 @@ else
 endif
 
 " What to save for views and sessions
-set viewoptions=folds,cursor,curdir
-set sessionoptions=curdir,help,tabpages,winsize
+set viewoptions=cursor,curdir
+set sessionoptions=blank,curdir,help,terminal,tabpages
 
 " Fast cliboard setup for macOS
 if has('mac') && executable('pbcopy') && has('vim_starting')
@@ -200,7 +200,7 @@ endif
 " Command-line completion
 if has('wildmenu')
 	set wildignorecase
-	set wildignore+=.git,.hg,.svn,.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
+	set wildignore+=.git,.hg,.svn,.stversions,*.pyc,*.spl,*.o,*.out
 	set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
 	set wildignore+=**/node_modules/**,**/bower_modules/**,*/.sass-cache/*
 	set wildignore+=__pycache__,*.egg-info,.pytest_cache,.mypy_cache/**
@@ -353,11 +353,7 @@ augroup user_plugin_filetype
 
 	autocmd FileType apache,html setlocal path+=./;/
 
-	autocmd FileType helm setlocal expandtab
-
 	autocmd FileType crontab setlocal nobackup nowritebackup
-
-	autocmd FileType yaml setlocal expandtab tabstop=2 shiftwidth=2
 
 	autocmd FileType gitcommit setlocal spell
 
@@ -365,13 +361,7 @@ augroup user_plugin_filetype
 
 	autocmd FileType php setlocal matchpairs-=<:> iskeyword+=\\
 
-	autocmd FileType terraform setlocal expandtab
-
-	" autocmd FileType python
-	" 	\ setlocal expandtab nosmartindent tabstop=4 shiftwidth=4
-
-	autocmd FileType markdown
-		\ setlocal expandtab spell formatoptions=tcroqn2 comments=n:>
+	autocmd FileType markdown setlocal spell formatoptions=tcroqn2 comments=n:>
 
 augroup END
 
