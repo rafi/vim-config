@@ -14,16 +14,6 @@ parser_configs.http = {
 	filetype = 'http',
 }
 
--- See https://github.com/nvim-orgmode/orgmode#setup
--- parser_configs.org = {
--- 	install_info = {
--- 		url = 'https://github.com/milisims/tree-sitter-org',
--- 		revision = 'main',
--- 		files = {'src/parser.c', 'src/scanner.cc'},
--- 	},
--- 	filetype = 'org',
--- }
-
 -- Setup treesitter
 require('nvim-treesitter.configs').setup({
 	-- all, maintained, or list of languages

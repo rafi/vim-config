@@ -351,7 +351,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [rhysd/committia.vim] | Pleasant editing on Git commit messages
 | [itchyny/calendar.vim] | Calendar application
 | [deris/vim-shot-f] | Highlight characters to move directly with f/t/F/T
-| [kristijanhusak/orgmode.nvim] | Orgmode clone written in Lua
 | [vimwiki/vimwiki] | Personal Wiki for Vim
 
 #### Completion & Code-Analysis
@@ -474,7 +473,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [rhysd/committia.vim]: https://github.com/rhysd/committia.vim
 [itchyny/calendar.vim]: https://github.com/itchyny/calendar.vim
 [deris/vim-shot-f]: https://github.com/deris/vim-shot-f
-[kristijanhusak/orgmode.nvim]: https://github.com/kristijanhusak/orgmode.nvim
 [vimwiki/vimwiki]: https://github.com/vimwiki/vimwiki
 
 [neovim/nvim-lspconfig]: https://github.com/neovim/nvim-lspconfig
