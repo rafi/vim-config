@@ -312,7 +312,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 
 | Name           | Description
 | -------------- | ----------------------
-| [kyazdani42/nvim-tree.lua] | File explorer written in Lua
+| [nvim-neo-tree/neo-tree.nvim] | File explorer written in Lua
 | [mbbill/undotree] | Ultimate undo history visualizer
 | [tweekmonster/helpful.vim] | Display vim version numbers in docs
 | [lambdalisue/suda.vim] | An alternative sudo.vim for Vim and Neovim
@@ -439,7 +439,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [tpope/vim-sleuth]: https://github.com/tpope/vim-sleuth
 [sgur/vim-editorconfig]: https://github.com/sgur/vim-editorconfig
 
-[kyazdani42/nvim-tree.lua]: https://github.com/kyazdani42/nvim-tree.lua
+[nvim-neo-tree/neo-tree.nvim]: https://github.com/nvim-neo-tree/neo-tree.nvim
 [mbbill/undotree]: https://github.com/mbbill/undotree
 [tweekmonster/helpful.vim]: https://github.com/tweekmonster/helpful.vim
 [lambdalisue/suda.vim]: https://github.com/lambdalisue/suda.vim
@@ -798,22 +798,17 @@ Note that,
 | <kbd>e</kbd> | 𝐍 | Send to quickfix list
 | <kbd>dd</kbd> | 𝐍 | Delete entry (buffer list)
 
-### Plugin: Nvim-Tree
+### Plugin: Neo-Tree
 
 | Key   | Mode | Action
 | ----- |:----:| ------------------
 | <kbd>;e</kbd> | 𝐍 | Open file-explorer (toggle)
 | <kbd>;a</kbd> | 𝐍 | Focus current file in file-explorer
-| **Within _Nvim-Tree_ window** ||
+| **Within _Neo-Tree_ window** ||
 | <kbd>j</kbd> or <kbd>k</kbd> | 𝐍 | Move up and down the tree
 | <kbd>J</kbd> or <kbd>K</kbd> or <kbd>Space</kbd> | 𝐍 | Select entries up/downwards
 | <kbd>l</kbd> or <kbd>Return</kbd> | 𝐍 | Toggle collapse/expand directory or open file
 | <kbd>h</kbd> | 𝐍 | Collapse directory tree
-| <kbd>Ctrl</kbd>+<kbd>Return</kbd> | 𝐍 | Choose window to edit entry
-| <kbd>a</kbd> | 𝐍 | Select entry action
-| <kbd>p</kbd> | 𝐍 | Preview entry
-| <kbd>Ctrl</kbd>+<kbd>p</kbd> | 𝐍 | Toggle auto-preview
-| <kbd>Ctrl</kbd>+<kbd>f</kbd> or <kbd>b</kbd> | 𝐍 | Preview scroll up/down
 | <kbd>gr</kbd> | 𝐍 | Grep in current position
 | <kbd>gf</kbd> | 𝐍 | Find files in current position
 | <kbd>!</kbd> | 𝐍 | Toggle hidden files
