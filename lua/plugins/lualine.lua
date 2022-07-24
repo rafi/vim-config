@@ -136,7 +136,7 @@ local extension_file_explorer = {
 		},
 		lualine_z = { function() return '%l/%L' end },
 	},
-	filetypes = {'NvimTree'},
+	filetypes = {'neo-tree'},
 }
 
 -- Extension: Only name and line-count
