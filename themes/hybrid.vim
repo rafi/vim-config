@@ -201,12 +201,6 @@ highlight! NeoTreeGitUntracked guifg=#9C9D9C
 highlight! NeoTreeModified     guifg=#C88D8D
 " }}}
 
-" Plugin: NvimTree {{{
-" ---
-highlight! link NvimTreeIndentMarker FloatBorder
-
-" }}}
-
 " Plugin: Bqf {{{
 " ---
 " hi default link BqfPreviewFloat Normal

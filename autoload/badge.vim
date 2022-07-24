@@ -143,7 +143,7 @@ function! badge#filename(...) abort
 		elseif l:filetype ==# 'spectre_panel'
 			let l:icon = ''
 			let parts = [ 'Spectre' ]
-		elseif l:filetype ==# 'NvimTree'
+		elseif l:filetype ==# 'neo-tree'
 			let l:icon = ''
 		elseif l:filetype ==# 'neo-tree-popup'
 			let l:icon = ''
