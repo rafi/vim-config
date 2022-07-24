@@ -180,11 +180,11 @@ function M.utility_title()
 			Trouble = '',
 			DiffviewFiles = '',
 			NeogitStatus = '',
-			NvimTree = '',
 			Outline = '',
 			['lsp-installer'] = '',
 			spectre_panel = '',
-			['neo-tree-popup'] = ''
+			['neo-tree'] = '',
+			['neo-tree-popup'] = '',
 		}
 		local padding = vim.g.global_symbol_padding or ' '
 		return icons[vim.bo.filetype] .. padding .. '%y'
