@@ -137,9 +137,9 @@ function! badge#filename(...) abort
 			let l:icon = ''
 		elseif l:filetype ==# 'NeogitStatus'
 			let l:icon = ''
-		elseif l:filetype ==# 'lsp-installer'
+		elseif l:filetype ==# 'mason.nvim'
 			let l:icon = ''
-			let parts = [ 'LSP Installer' ]
+			let parts = [ 'Mason' ]
 		elseif l:filetype ==# 'spectre_panel'
 			let l:icon = ''
 			let parts = [ 'Spectre' ]

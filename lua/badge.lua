@@ -181,7 +181,7 @@ function M.utility_title()
 			DiffviewFiles = '',
 			NeogitStatus = '',
 			Outline = '',
-			['lsp-installer'] = '',
+			['mason.nvim'] = '',
 			spectre_panel = '',
 			['neo-tree'] = '',
 			['neo-tree-popup'] = '',
