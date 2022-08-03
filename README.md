@@ -24,6 +24,7 @@ Works best with [Neovim] ≥0.7 ⚠️ For Vim 8.x, use the
 * [Screenshot](#screenshot)
 * [Prerequisites](#prerequisites)
 * [Install](#install)
+* [Install LSP, DAP, Linters, Formatters](#install-lsp-dap-linters-formatters)
 * [Language-Server Protocol (LSP)](#language-server-protocol-lsp)
 * [Upgrade](#upgrade)
   * [Recommended Fonts](#recommended-fonts)
@@ -38,7 +39,6 @@ Works best with [Neovim] ≥0.7 ⚠️ For Vim 8.x, use the
     * [Commands](#commands)
     * [Interface](#interface)
     * [Completion & Code-Analysis](#completion--code-analysis)
-    * [File Explorer](#file-explorer)
     * [Syntax](#syntax)
     * [Operators & Text Objects](#operators--text-objects)
 * [Custom Key-mappings](#custom-key-mappings)
@@ -55,6 +55,7 @@ Works best with [Neovim] ≥0.7 ⚠️ For Vim 8.x, use the
   * [Plugin: Gitsigns](#plugin-gitsigns)
   * [Plugin: Gina](#plugin-gina)
   * [Plugin: Telescope](#plugin-telescope)
+  * [Plugin: Neo-Tree](#plugin-neo-tree)
   * [Plugin: LSP](#plugin-lsp)
   * [Plugin: Spectre](#plugin-spectre)
   * [Plugin: Any-Jump](#plugin-any-jump)
@@ -68,11 +69,12 @@ Works best with [Neovim] ≥0.7 ⚠️ For Vim 8.x, use the
 * Fast startup time
 * Robust, yet light-weight
 * Lazy-load 95% of plugins with [Shougo/dein.vim]
-* LSP installers (`:LspInstall <server>`)
+* [telescope.nvim] centric work-flow with lists (try <kbd>;</kbd>+<kbd>f</kbd>…)
+* LSP installer (`:LspInstall <server>`)
+* DAP, linters, and formatters installer (`:Mason`)
 * Custom side-menu (try it! <kbd>Space</kbd>+<kbd>l</kbd>)
 * Auto-complete extensive setup with [nvim-lspconfig] and [nvim-cmp]
   (try <kbd>Tab</kbd> in insert-mode)
-* [telescope.nvim] centric work-flow with lists (try <kbd>;</kbd>+<kbd>f</kbd>…)
 * Structure view with [simrat39/symbols-outline.nvim]
 * Git features using [lambdalisue/gina.vim] and [lewis6991/gitsigns.nvim]
 * Auto-save and restore sessions with [rmagatti/auto-session].
@@ -114,13 +116,20 @@ cd ~/.config/nvim
 
 Enjoy! :smile:
 
+## Install LSP, DAP, Linters, Formatters
+
+Use `:Mason` for installing many packages. See [williamboman/mason.nvim] for
+more information.
+
 ## Language-Server Protocol (LSP)
 
 To leverage LSP auto-completions and other functionalities, run
-`:LspInstall <server>` to use [williamboman/nvim-lsp-installer] installation
+`:LspInstall <server>` to use [williamboman/mason.nvim] installation
 feature. Use <kbd>Tab</kbd> to list available servers.
 
-Instead, you can use the UI with ':LspInstallInfo'.
+You'll need utilities like `npm` and `curl` to install some extensions, see
+[requirements](https://github.com/williamboman/mason.nvim#requirements) for
+more information.
 
 Here's some popular servers to install:
 
@@ -129,15 +138,10 @@ Here's some popular servers to install:
 * `:LspInstall pylsp`
 * `:LspInstall bashls vimls sumneko_lua`
 * `:LspInstall tsserver`
-* and [more](https://github.com/williamboman/nvim-lsp-installer#available-lsps)…
+* and [more](https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md)…
 
 See [lua/plugins/lspconfig.lua] and [lua/lsp/*] for built-in
-mapping and configuration for some language-servers. You'll need utilities
-like `npm` and `curl` to install some extensions. For more information, see:
-
-* Plugin used for installation: [williamboman/nvim-lsp-installer] and
-  [supported language-servers].
-* Plugin used for configuration: [neovim/nvim-lspconfig]
+mapping and configuration for some language-servers.
 
 ## Upgrade
 
@@ -315,7 +319,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [nvim-neo-tree/neo-tree.nvim] | File explorer written in Lua
 | [mbbill/undotree] | Ultimate undo history visualizer
 | [tweekmonster/helpful.vim] | Display vim version numbers in docs
-| [lambdalisue/suda.vim] | An alternative sudo.vim for Vim and Neovim
+| [lambdalisue/suda.vim] | An alternative sudo for Vim and Neovim
 | [b3nj5m1n/kommentary] | Commenting plugin, written in Lua
 | [TimUntersberger/neogit] | Magit clone for Neovim
 | [lambdalisue/gina.vim] | Asynchronously control git repositories
@@ -360,13 +364,12 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | Name           | Description
 | -------------- | ----------------------
 | [neovim/nvim-lspconfig] | Quickstart configurations for the Nvim LSP client
-| [williamboman/nvim-lsp-installer] | Provides the missing :LspInstall for nvim-lspconfig
+| [williamboman/mason.nvim] | Portable package manager for Neovim
+| [williamboman/mason-lspconfig.nvim] | Mason extension for easier lspconfig integration
 | [kosayoda/nvim-lightbulb] | VSCode 💡 for neovim's built-in LSP
 | [ray-x/lsp_signature.nvim] | LSP signature hint when you type
 | [folke/lua-dev.nvim] | Dev setup for Lua
 | [jose-elias-alvarez/null-ls.nvim] | Inject LSP diagnostics, code actions, and more
-| [folke/todo-comments.nvim] | Highlight, list and search todo comments in your projects
-| [windwp/nvim-autopairs] | autopairs for neovim written by lua
 | [hrsh7th/nvim-cmp] | Completion plugin for neovim written in Lua
 | [hrsh7th/cmp-nvim-lsp] | nvim-cmp source for neovim builtin LSP client
 | [hrsh7th/cmp-nvim-lua] | nvim-cmp source for nvim lua
@@ -378,6 +381,8 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [hrsh7th/vim-vsnip] | Snippet plugin for vim/nvim that supports LSP/VSCode's snippet format
 | [hrsh7th/vim-vsnip-integ] | vim-vsnip integrations to other plugins
 | [rafamadriz/friendly-snippets] | Preconfigured snippets for different languages
+| [windwp/nvim-autopairs] | autopairs for neovim written by lua
+| [folke/todo-comments.nvim] | Highlight, list and search todo comments in your projects
 | [folke/trouble.nvim] | Pretty lists to help you solve all code diagnostics
 | [sindrets/diffview.nvim] | Tabpage interface for cycling through diffs
 | [nvim-telescope/telescope.nvim] | Find, Filter, Preview, Pick. All lua, all the time
@@ -478,13 +483,12 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [vimwiki/vimwiki]: https://github.com/vimwiki/vimwiki
 
 [neovim/nvim-lspconfig]: https://github.com/neovim/nvim-lspconfig
-[williamboman/nvim-lsp-installer]: https://github.com/williamboman/nvim-lsp-installer
+[williamboman/mason.nvim]: https://github.com/williamboman/
+[williamboman/mason-lspconfig.nvim]: https://github.com/williamboman/mason-lspconfig.nvim
 [kosayoda/nvim-lightbulb]: https://github.com/kosayoda/nvim-lightbulb
 [ray-x/lsp_signature.nvim]: https://github.com/ray-x/lsp_signature.nvim
 [folke/lua-dev.nvim]: https://github.com/folke/lua-dev.nvim
 [jose-elias-alvarez/null-ls.nvim]: https://github.com/jose-elias-alvarez/null-ls.nvim
-[folke/todo-comments.nvim]: https://github.com/folke/todo-comments.nvim
-[windwp/nvim-autopairs]: https://github.com/windwp/nvim-autopairs
 [hrsh7th/nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
 [hrsh7th/cmp-nvim-lsp]: https://github.com/hrsh7th/cmp-nvim-lsp
 [hrsh7th/cmp-nvim-lua]: https://github.com/hrsh7th/cmp-nvim-lua
@@ -496,6 +500,8 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [hrsh7th/vim-vsnip]: https://github.com/hrsh7th/vim-vsnip
 [hrsh7th/vim-vsnip-integ]: https://github.com/hrsh7th/vim-vsnip-integ
 [rafamadriz/friendly-snippets]: https://github.com/rafamadriz/friendly-snippets
+[windwp/nvim-autopairs]: https://github.com/windwp/nvim-autopairs
+[folke/todo-comments.nvim]: https://github.com/folke/todo-comments.nvim
 [folke/trouble.nvim]: https://github.com/folke/trouble.nvim
 [sindrets/diffview.nvim]: https://github.com/sindrets/diffview.nvim
 [nvim-telescope/telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
@@ -877,7 +883,6 @@ Note that,
 </details>
 
 [Neovim]: https://github.com/neovim/neovim
-[supported language-servers]: https://github.com/williamboman/nvim-lsp-installer#available-lsps
 [lua/lsp/*]: ./lua/lsp/
 [lua/plugins/lspconfig.lua]: ./lua/plugins/lspconfig.lua
 [nvim-lspconfig]: https://github.com/neovim/nvim-lspconfig
