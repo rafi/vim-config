@@ -16,7 +16,7 @@ parser_configs.http = {
 
 -- Setup treesitter
 require('nvim-treesitter.configs').setup({
-	-- all, maintained, or list of languages
+	-- https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
 	ensure_installed = {
 		'bash', 'c', 'clojure', 'cmake', 'comment', 'commonlisp',
 		'cpp', 'css', 'dart', 'dockerfile', 'dot', 'fennel', 'fish',
