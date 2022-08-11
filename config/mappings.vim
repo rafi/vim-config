@@ -479,7 +479,7 @@ if dein#tap('telescope.nvim')
 
 	" Location-specific find files/directories
 	nnoremap <localleader>n <cmd>lua require('plugins.telescope').pickers.plugin_directories()<CR>
-	nnoremap <localleader>w <cmd>lua require('plugins.telescope').pickers.notebook()<CR>
+	nnoremap <localleader>w <cmd>ZkNotes<CR>
 
 	" Navigation
 	nnoremap <leader>/ <cmd>Telescope current_buffer_fuzzy_find<CR>

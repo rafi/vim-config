@@ -325,6 +325,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [folke/which-key.nvim] | Create key bindings that stick
 | [tversteeg/registers.nvim] | Preview the contents of the registers
 | [NTBBloodbath/rest.nvim] | A fast Neovim http client written in Lua
+| [mickael-menu/zk-nvim] | Extension for the zk plain text note-taking assistant
 | [pechorin/any-jump.vim] | Jump to any definition and references without overhead
 | [windwp/nvim-spectre] | Find the enemy and replace them with dark power
 | [kana/vim-niceblock] | Make blockwise Visual mode more useful
@@ -452,6 +453,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [folke/which-key.nvim]: https://github.com/folke/which-key.nvim
 [tversteeg/registers.nvim]: https://github.com/tversteeg/registers.nvim
 [NTBBloodbath/rest.nvim]: https://github.com/NTBBloodbath/rest.nvim
+[mickael-menu/zk-nvim]: https://github.com/mickael-menu/zk-nvim
 [pechorin/any-jump.vim]: https://github.com/pechorin/any-jump.vim
 [windwp/nvim-spectre]: https://github.com/windwp/nvim-spectre
 [kana/vim-niceblock]: https://github.com/kana/vim-niceblock

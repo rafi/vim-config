@@ -90,6 +90,19 @@
       autocmd FileType httpResult nnoremap <buffer> q <cmd>quit<CR>
     augroup END
 
+- repo: mickael-menu/zk-nvim
+  if: has('nvim-0.6')
+  depends: telescope.nvim
+  on_ft: markdown
+  on_cmd:
+    - ZkIndex
+    - ZkNew
+    - ZkNewFromTitleSelection
+    - ZkNewFromContentSelection
+    - ZkNotes
+    - ZkTags
+  hook_post_source: lua require('zk').setup()
+
 - repo: pechorin/any-jump.vim
   on_cmd: [ AnyJump, AnyJumpVisual ]
   hook_add: |-
