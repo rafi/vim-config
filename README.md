@@ -324,7 +324,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [folke/zen-mode.nvim] | Distraction-free coding for Neovim
 | [folke/which-key.nvim] | Create key bindings that stick
 | [tversteeg/registers.nvim] | Preview the contents of the registers
-| [NTBBloodbath/rest.nvim] | A fast Neovim http client written in Lua
+| [rest-nvim/rest.nvim] | A fast Neovim http client written in Lua
 | [mickael-menu/zk-nvim] | Extension for the zk plain text note-taking assistant
 | [pechorin/any-jump.vim] | Jump to any definition and references without overhead
 | [windwp/nvim-spectre] | Find the enemy and replace them with dark power
@@ -425,7 +425,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | Name           | Description
 | -------------- | ----------------------
 | [machakann/vim-sandwich] | Search, select, and edit sandwich text objects
-| [mfussenegger/nvim-ts-hint-textobject] | Region selection with hints on the AST nodes
+| [mfussenegger/nvim-treehopper] | Region selection with hints on the AST nodes
 | [AndrewRadev/sideways.vim] | Match function arguments
 | [AndrewRadev/linediff.vim] | Perform diffs on blocks of code
 | [AndrewRadev/splitjoin.vim] | Transition code between multi-line and single-line
@@ -452,7 +452,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [folke/zen-mode.nvim]: https://github.com/folke/zen-mode.nvim
 [folke/which-key.nvim]: https://github.com/folke/which-key.nvim
 [tversteeg/registers.nvim]: https://github.com/tversteeg/registers.nvim
-[NTBBloodbath/rest.nvim]: https://github.com/NTBBloodbath/rest.nvim
+[rest-nvim/rest.nvim]: https://github.com/rest-nvim/rest.nvim
 [mickael-menu/zk-nvim]: https://github.com/mickael-menu/zk-nvim
 [pechorin/any-jump.vim]: https://github.com/pechorin/any-jump.vim
 [windwp/nvim-spectre]: https://github.com/windwp/nvim-spectre
@@ -538,7 +538,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [hashivim/vim-terraform]: https://github.com/hashivim/vim-terraform
 
 [machakann/vim-sandwich]: https://github.com/machakann/vim-sandwich
-[mfussenegger/nvim-ts-hint-textobject]: https://github.com/mfussenegger/nvim-ts-hint-textobject
+[mfussenegger/nvim-treehopper]: https://github.com/mfussenegger/nvim-treehopper
 [AndrewRadev/sideways.vim]: https://github.com/AndrewRadev/sideways.vim
 [AndrewRadev/linediff.vim]: https://github.com/AndrewRadev/linediff.vim
 [AndrewRadev/splitjoin.vim]: https://github.com/AndrewRadev/splitjoin.vim

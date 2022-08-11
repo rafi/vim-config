@@ -730,7 +730,7 @@ if dein#tap('vim-asterisk')
 	xmap gz# <Plug>(asterisk-gz#)
 endif
 
-if dein#tap('nvim-ts-hint-textobject')
+if dein#tap('nvim-treehopper')
 	omap              am <cmd>lua require('tsht').nodes()<CR>
 	xnoremap <silent> am :lua require('tsht').nodes()<CR>
 endif

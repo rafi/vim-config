@@ -79,7 +79,7 @@
   on_map: { i: '<C-r>', nx: '"' }
   hook_source: let g:registers_window_border = 'rounded'
 
-- repo: NTBBloodbath/rest.nvim
+- repo: rest-nvim/rest.nvim
   if: has('nvim-0.5')
   on_map: { n: <Plug>RestNvim }
   on_ft: http
@@ -522,8 +522,8 @@
     nxo: [ <Plug>(operator-sandwich-, <Plug>(textobj-sandwich- ]
   hook_add: let g:sandwich_no_default_key_mappings = 1
 
-- repo: mfussenegger/nvim-ts-hint-textobject
-  if: has('nvim-0.5')
+- repo: mfussenegger/nvim-treehopper
+  if: has('nvim-0.7.2')
   depends: nvim-treesitter
   on_lua: tsht
 
