@@ -183,6 +183,15 @@ local function setup()
 		lspconfig[ls].setup(opts)
 	end
 
+	-- Reload if files were supplied in command-line arguments
+	if vim.fn.argc() > 0
+		and vim.fn.has('vim_starting')
+		and not vim.o.modified
+	then
+		-- triggers the FileType autocmd that starts the servers
+		vim.cmd('windo e')
+	end
+
 	-- global custom location-list diagnostics window toggle.
 	local args = { noremap = true, silent = true }
 	local function nmap(lhs, rhs) vim.api.nvim_set_keymap('n', lhs, rhs, args) end
