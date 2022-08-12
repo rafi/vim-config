@@ -71,6 +71,7 @@ Works best with [Neovim] ≥0.7 ⚠️ For Vim 8.x, use the
 * LSP installer (`:LspInstall <server>`)
 * DAP, linters, and formatters installer (`:Mason`)
 * Custom side-menu (try it! <kbd>Space</kbd>+<kbd>l</kbd>)
+* Custom context-menu (try it! <kbd>;</kbd>+<kbd>c</kbd>)
 * Auto-complete extensive setup with [nvim-lspconfig] and [nvim-cmp]
   (try <kbd>Tab</kbd> in insert-mode)
 * Structure view with [simrat39/symbols-outline.nvim]
@@ -675,6 +676,7 @@ Note that,
 
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
+| <kbd>;</kbd>+<kbd>c</kbd> | 𝐍 | Open context-menu | <small>[lua/contextmenu.lua]</small>
 | <kbd>g</kbd><kbd>Ctrl</kbd>+<kbd>o</kbd> | 𝐍 | Navigate to previous file on jumplist | <small>s:jump_buffer</small>
 | <kbd>g</kbd><kbd>Ctrl</kbd>+<kbd>i</kbd> | 𝐍 | Navigate to next file on jumplist | <small>s:jump_buffer</small>
 | <kbd>-</kbd> | 𝐍 | Choose a window to edit | <small>[t9md/vim-choosewin]</small>
@@ -891,5 +893,6 @@ Note that,
 [lazy-loaded]: ./config/plugins.yaml#L35
 [config/mappings.vim]: ./config/mappings.vim
 [plugin/whitespace.vim]: ./plugin/whitespace.vim
+[lua/contextmenu.lua]: ./lua/contextmenu.lua
 [nvim-treesitter]: https://github.com/nvim-treesitter/nvim-treesitter
 [Marked 2]: https://marked2app.com
