@@ -14,4 +14,6 @@ require('auto-session').setup({
 	auto_session_suppress_dirs = { '/etc', '/tmp', HOME, HOME .. '/code' },
 
 	pre_save_cmds = { 'lua require("interface").win.close_plugin_owned()' },
+
+	cwd_change_handling = false,
 })
