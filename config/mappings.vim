@@ -28,8 +28,8 @@ endif
 nmap <Leader><Leader> V
 xmap <Leader><Leader> <Esc>
 
-" Toggle fold
-nnoremap <CR> za
+" Toggle fold or select option from popup menu
+nnoremap <expr><CR> pumvisible() ? '<CR>' : 'za'
 
 " Focus the current fold by closing all others
 nnoremap <S-Return> zMzv
@@ -275,6 +275,9 @@ nnoremap <Leader>S ^vg_y:execute @@<CR>:echo 'Sourced line.'<CR>
 nnoremap g<C-i> <cmd>call <SID>jump_buffer(-1)<CR>
 nnoremap g<C-o> <cmd>call <SID>jump_buffer(1)<CR>
 
+" Context aware menu. See lua/contextmenu.lua
+nnoremap <LocalLeader>c  <cmd>lua require'contextmenu'.show()<CR>
+
 if has('mac')
 	" Open the macOS dictionary on current word
 	nnoremap <Leader>? <cmd>silent !open dict://<cword><CR>
@@ -479,7 +482,7 @@ if dein#tap('telescope.nvim')
 
 	" Location-specific find files/directories
 	nnoremap <localleader>n <cmd>lua require('plugins.telescope').pickers.plugin_directories()<CR>
-	nnoremap <localleader>w <cmd>lua require('plugins.telescope').pickers.notebook()<CR>
+	nnoremap <localleader>w <cmd>ZkNotes<CR>
 
 	" Navigation
 	nnoremap <leader>/ <cmd>Telescope current_buffer_fuzzy_find<CR>
@@ -730,7 +733,7 @@ if dein#tap('vim-asterisk')
 	xmap gz# <Plug>(asterisk-gz#)
 endif
 
-if dein#tap('nvim-ts-hint-textobject')
+if dein#tap('nvim-treehopper')
 	omap              am <cmd>lua require('tsht').nodes()<CR>
 	xnoremap <silent> am :lua require('tsht').nodes()<CR>
 endif

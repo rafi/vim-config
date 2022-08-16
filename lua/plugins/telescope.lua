@@ -78,13 +78,6 @@ pickers.zoxide = function()
 	})
 end
 
-pickers.notebook = function()
-	require'telescope.builtin'.find_files({
-		prompt_title = '[ Notebook ]',
-		cwd = '$HOME/docs/blog',
-	})
-end
-
 pickers.plugin_directories = function(opts)
 	local utils = require('telescope.utils')
 	local dir = vim.fn.expand('$VIM_DATA_PATH/dein/repos/github.com')
