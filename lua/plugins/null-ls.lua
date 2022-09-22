@@ -2,9 +2,9 @@
 -- see: https://github.com/jose-elias-alvarez/null-ls.nvim
 -- rafi settings
 
--- install:
--- brew install stylua shellcheck vint markdownlint-cli
--- brew install shfmt shellharden hadolint proselint
+-- install formatters and linters with :Mason
+-- hadolint, markdownlint, mypy, shellcheck, shellharden, shfmt, sql-formatter,
+-- stylua, vint, yamllint, proselint
 
 local builtins = require('null-ls').builtins
 local on_attach = require('plugins.lspconfig').on_attach

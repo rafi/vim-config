@@ -3,6 +3,7 @@
 " Settings:
 " - g:disable_mappings - Set true to disable this file entirely.
 " - g:enable_universal_quit_mapping - Toggle 'q' for :quit mapping.
+" - g:elite_mode - Enable to map arrow keys to window resize.
 
 if get(g:, 'disable_mappings')
 	finish
