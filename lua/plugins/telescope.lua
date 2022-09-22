@@ -165,17 +165,19 @@ local setup = function()
 	telescope.setup{
 		defaults = {
 			sorting_strategy = 'ascending',
-			selection_strategy = 'closest',
+			-- selection_strategy = 'follow',
 			scroll_strategy = 'cycle',
 			cache_picker = {
 				num_pickers = 3,
 				limit_entries = 300,
 			},
 
-			prompt_prefix = '❯ ',
-			-- ♥ ❥ ➤ 🔭
+			prompt_prefix = "   ",
+			-- prompt_prefix = '❯ ',
 			selection_caret = '▍ ',
-			multi_icon = 'v',
+			multi_icon = '‣',
+
+			file_ignore_patterns = { 'node_modules' },
 			set_env = { COLORTERM = 'truecolor' },
 
 			-- Flex layout swaps between horizontal and vertical strategies
@@ -279,7 +281,7 @@ local setup = function()
 				sort_mru = true,
 				show_all_buffers = true,
 				ignore_current_buffer = true,
-				path_display = { shorten = 5 },
+				path_display = { truncate = 3 },
 				layout_config = {
 					width = width_for_nopreview,
 					height = height_dropdown_nopreview,
@@ -358,15 +360,15 @@ local setup = function()
 			},
 			lsp_definitions = {
 				layout_strategy = 'horizontal',
-				layout_config = { width = 0.95, height = 0.85, preview_width = 0.45 },
+				layout_config = { width = 0.7, height = 0.8, preview_width = 0.45 },
 			},
 			lsp_implementations = {
 				layout_strategy = 'horizontal',
-				layout_config = { width = 0.95, height = 0.85, preview_width = 0.45 },
+				layout_config = { width = 0.7, height = 0.8, preview_width = 0.45 },
 			},
 			lsp_references = {
 				layout_strategy = 'horizontal',
-				layout_config = { width = 0.95, height = 0.85, preview_width = 0.45 },
+				layout_config = { width = 0.7, height = 0.8, preview_width = 0.45 },
 			},
 			lsp_code_actions = {
 				theme = 'cursor',
@@ -380,11 +382,22 @@ local setup = function()
 			},
 		},
 		extensions = {
+			zoxide = {
+				prompt_title = '[ Zoxide directories ]',
+				mappings = {
+					default = {
+						action = function(selection)
+							vim.cmd.lcd(selection.path)
+						end,
+						after_action = function(_) end,
+					},
+				},
+			},
 			['ui-select'] = {
 				require('telescope.themes').get_cursor {
 					layout_config = { width = 0.35, height = 0.35 },
 				}
-			}
+			},
 		}
 	}
 
