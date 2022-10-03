@@ -101,7 +101,7 @@
     - ZkNewFromContentSelection
     - ZkNotes
     - ZkTags
-  hook_post_source: lua require('zk').setup()
+  hook_post_source: lua require('zk').setup({ picker = 'telescope' })
 
 - repo: pechorin/any-jump.vim
   on_cmd: [ AnyJump, AnyJumpVisual ]
@@ -365,8 +365,8 @@
   hook_post_source: lua require('plugins.diffview').setup()
 
 - repo: nvim-telescope/telescope.nvim
+  rev: 0.1.x
   if: has('nvim-0.7')
-  depends: [ session-lens ]
   on_cmd: Telescope
   on_lua: telescope
   hook_post_source: lua require('plugins.telescope').setup()
@@ -380,22 +380,23 @@
 
 - repo: nvim-telescope/telescope-ui-select.nvim
   if: has('nvim-0.7')
-  on_source: telescope.nvim
+  depends: telescope.nvim
+  on_lua: telescope
   hook_post_source: lua require('telescope').load_extension('ui-select')
 
 - repo: jvgrootveld/telescope-zoxide
   if: has('nvim-0.5')
-  on_source: telescope.nvim
-  hook_post_source: lua require('plugins.telescope-zoxide')
+  depends: telescope.nvim
+  on_lua: telescope
+  hook_post_source: lua require('telescope').load_extension('zoxide')
 
 - repo: simrat39/symbols-outline.nvim
-  if: has('nvim-0.5')
+  if: has('nvim-0.7')
   on_cmd: [ SymbolsOutline, SymbolsOutlineOpen ]
   hook_source: lua require('plugins.symbols-outline')
 
 - repo: rmagatti/auto-session
   if: has('nvim-0.5')
-  # depends: [ gitsigns.nvim, nvim-lspconfig ]
   on_event: VimEnter
   hook_source: lua require('plugins.auto-session')
   hook_add: |-
@@ -423,7 +424,7 @@
 # ---------
 
 - repo: nvim-treesitter/nvim-treesitter
-  if: has('nvim-0.5')
+  if: has('nvim-0.7')
   on_event: VimEnter
   on_cmd: [ TSUpdate, TSInstall, TSInstallInfo, TSModuleInfo, TSConfigInfo ]
   hook_post_update: ':TSUpdate'
@@ -435,8 +436,7 @@
 - repo: JoosepAlviste/nvim-ts-context-commentstring
   on_source: nvim-treesitter
 
-- repo: windwp/nvim-ts-autotag
-  on_source: nvim-treesitter
+- { repo: windwp/nvim-ts-autotag, on_source: nvim-treesitter }
 
 - repo: monkoose/matchparen.nvim
   if: has('nvim-0.7')

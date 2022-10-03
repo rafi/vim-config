@@ -3,12 +3,12 @@
 -- rafi settings
 
 -- :h symbols-outline.txt
-vim.g.symbols_outline = {
+require('symbols-outline').setup({
 	highlight_hovered_item = true,
 	show_guides = true,
 	auto_preview = false,
 	position = 'right',
-	width = 40,
+	width = 30,
 	keymaps = {
 		close = { '<Esc>', 'q' },
 		goto_location = '<CR>',
@@ -19,7 +19,7 @@ vim.g.symbols_outline = {
 		code_actions = 'a',
 	},
 	lsp_blacklist = {},
-}
+})
 
 vim.cmd([[
 	augroup user-symbols-outline

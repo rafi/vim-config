@@ -2,7 +2,7 @@
 -- see: https://github.com/lewis6991/gitsigns.nvim
 -- rafi settings
 
-require('gitsigns').setup {
+require('gitsigns').setup({
 	signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
 	numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
 	linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
@@ -37,4 +37,4 @@ require('gitsigns').setup {
 		['o ih'] = ':<C-U>Gitsigns select_hunk<CR>',
 		['x ih'] = ':<C-U>Gitsigns select_hunk<CR>'
 	},
-}
+})
