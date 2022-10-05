@@ -30,7 +30,7 @@ require('gitsigns').setup({
 		['n <leader>hR'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
 		['n <leader>hp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
 		['n gs']         = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-		['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line(true)<CR>',
+		['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line{full=true}<CR>',
 		['n <leader>hl'] = '<cmd>lua require("user").githunk.publish_loclist(true)<CR>',
 
 		-- Text objects
