@@ -38,18 +38,8 @@ local settings = {
 	},
 }
 
-local function config(server_config)
-	server_config.settings = settings
-
-	-- See https://github.com/folke/lua-dev.nvim
-	return require('lua-dev').setup({
-		lspconfig = server_config,
-		library = {
-			vimruntime = true, -- runtime path
-			types = true, -- full signature, docs and completion
-			plugins = false,
-		},
-	})
+local function config(_)
+	return settings
 end
 
 return {

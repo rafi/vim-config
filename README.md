@@ -368,7 +368,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [williamboman/mason-lspconfig.nvim] | Mason extension for easier lspconfig integration
 | [kosayoda/nvim-lightbulb] | VSCode 💡 for neovim's built-in LSP
 | [ray-x/lsp_signature.nvim] | LSP signature hint when you type
-| [folke/lua-dev.nvim] | Dev setup for Lua
+| [folke/neodev.nvim] | Neovim setup for init.lua and plugin development
 | [jose-elias-alvarez/null-ls.nvim] | Inject LSP diagnostics, code actions, and more
 | [hrsh7th/nvim-cmp] | Completion plugin for neovim written in Lua
 | [hrsh7th/cmp-nvim-lsp] | nvim-cmp source for neovim builtin LSP client
@@ -488,7 +488,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [williamboman/mason-lspconfig.nvim]: https://github.com/williamboman/mason-lspconfig.nvim
 [kosayoda/nvim-lightbulb]: https://github.com/kosayoda/nvim-lightbulb
 [ray-x/lsp_signature.nvim]: https://github.com/ray-x/lsp_signature.nvim
-[folke/lua-dev.nvim]: https://github.com/folke/lua-dev.nvim
+[folke/neodev.nvim]: https://github.com/folke/neodev.nvim
 [jose-elias-alvarez/null-ls.nvim]: https://github.com/jose-elias-alvarez/null-ls.nvim
 [hrsh7th/nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
 [hrsh7th/cmp-nvim-lsp]: https://github.com/hrsh7th/cmp-nvim-lsp

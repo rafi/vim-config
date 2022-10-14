@@ -168,6 +168,9 @@ local function setup()
 		vim.lsp.handlers.signature_help, { border = 'rounded' }
 	)
 
+	-- See https://github.com/folke/neodev.nvim
+	require('neodev').setup({})
+
 	-- Setup language servers using mason and mason-lspconfig
 	-- See https://github.com/williamboman/mason.nvim
 	-- and https://github.com/williamboman/mason-lspconfig.nvim
