@@ -387,7 +387,7 @@ local setup = function()
 				mappings = {
 					default = {
 						action = function(selection)
-							vim.cmd.lcd(selection.path)
+							vim.cmd('lcd '.. selection.path)
 						end,
 						after_action = function(_) end,
 					},
