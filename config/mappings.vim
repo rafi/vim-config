@@ -35,10 +35,11 @@ nnoremap <expr><CR> pumvisible() ? '<CR>' : 'za'
 " Focus the current fold by closing all others
 nnoremap <S-Return> zMzv
 
-" The plugin rhysd/accelerated-jk moves through display-lines in normal mode,
-" these mappings will move through display-lines in visual mode too.
-xnoremap j gj
-xnoremap k gk
+" Moves through display-lines, unless count is provided.
+nnoremap <expr> j v:count > 0 ? "m'" . v:count . 'j' : 'gj'
+nnoremap <expr> k v:count > 0 ? "m'" . v:count . 'k' : 'gk'
+xnoremap <expr> j v:count > 0 ? "m'" . v:count . 'j' : 'gj'
+xnoremap <expr> k v:count > 0 ? "m'" . v:count . 'k' : 'gk'
 
 " Easier line-wise movement
 nnoremap gh g^
@@ -564,11 +565,6 @@ if dein#tap('vim-niceblock')
 	silent! xmap I  <Plug>(niceblock-I)
 	silent! xmap gI <Plug>(niceblock-gI)
 	silent! xmap A  <Plug>(niceblock-A)
-endif
-
-if dein#tap('accelerated-jk')
-	nmap <silent> j <Plug>(accelerated_jk_gj)
-	nmap <silent> k <Plug>(accelerated_jk_gk)
 endif
 
 if dein#tap('vim-edgemotion')
