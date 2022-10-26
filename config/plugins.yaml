@@ -143,7 +143,6 @@
 - { repo: itchyny/vim-gitbranch, on_event: FileType }
 - { repo: romainl/vim-cool, on_event: [ CursorMoved, InsertEnter ]}
 - { repo: haya14busa/vim-asterisk, on_map: { nv: <Plug> }}
-- { repo: rhysd/accelerated-jk, on_map: { n: <Plug> }, if: $SUDO_USER == '' }
 - { repo: haya14busa/vim-edgemotion, on_map: { nx: <Plug> }}
 - { repo: t9md/vim-quickhl, on_map: { nx: <Plug> }}
 - { repo: rafi/vim-sidemenu, on_map: { nx: <Plug> }}
@@ -308,7 +307,7 @@
 
 - { repo: hrsh7th/cmp-nvim-lsp, on_source: nvim-lspconfig }
 - { repo: kosayoda/nvim-lightbulb, on_source: nvim-lspconfig }
-- { repo: folke/lua-dev.nvim, on_source: nvim-lspconfig }
+- { repo: folke/neodev.nvim, on_source: nvim-lspconfig }
 
 - repo: ray-x/lsp_signature.nvim
   if: has('nvim-0.6.1')
@@ -401,8 +400,6 @@
   hook_source: lua require('plugins.auto-session')
   hook_add: |-
     autocmd user_events StdinReadPre * let g:auto_session_enabled = v:false
-
-- { repo: sbdchd/neoformat, on_cmd: Neoformat }
 
 - repo: SmiteshP/nvim-gps
   if: has('nvim-0.5')

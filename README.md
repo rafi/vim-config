@@ -341,7 +341,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [itchyny/vim-gitbranch] | Lightweight git branch detection
 | [romainl/vim-cool] | Simple plugin that makes hlsearch more useful
 | [haya14busa/vim-asterisk] | Improved * motions
-| [rhysd/accelerated-jk] | Up/down movement acceleration
 | [haya14busa/vim-edgemotion] | Jump to the edge of block
 | [t9md/vim-quickhl] | Highlight words quickly
 | [rafi/vim-sidemenu] | Small side-menu useful for terminal users
@@ -368,7 +367,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [williamboman/mason-lspconfig.nvim] | Mason extension for easier lspconfig integration
 | [kosayoda/nvim-lightbulb] | VSCode 💡 for neovim's built-in LSP
 | [ray-x/lsp_signature.nvim] | LSP signature hint when you type
-| [folke/lua-dev.nvim] | Dev setup for Lua
+| [folke/neodev.nvim] | Neovim setup for init.lua and plugin development
 | [jose-elias-alvarez/null-ls.nvim] | Inject LSP diagnostics, code actions, and more
 | [hrsh7th/nvim-cmp] | Completion plugin for neovim written in Lua
 | [hrsh7th/cmp-nvim-lsp] | nvim-cmp source for neovim builtin LSP client
@@ -391,7 +390,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [jvgrootveld/telescope-zoxide] | Telescope extension for Zoxide
 | [simrat39/symbols-outline.nvim] | Tree like view for symbols using LSP
 | [rmagatti/auto-session] | Automated session manager for Neovim
-| [sbdchd/neoformat] | Plugin for formatting code
 | [SmiteshP/nvim-gps] | Shows context of the current cursor position in file
 | [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet
 
@@ -465,7 +463,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [itchyny/vim-gitbranch]: https://github.com/itchyny/vim-gitbranch
 [romainl/vim-cool]: https://github.com/romainl/vim-cool
 [haya14busa/vim-asterisk]: https://github.com/haya14busa/vim-asterisk
-[rhysd/accelerated-jk]: https://github.com/rhysd/accelerated-jk
 [haya14busa/vim-edgemotion]: https://github.com/haya14busa/vim-edgemotion
 [t9md/vim-quickhl]: https://github.com/t9md/vim-quickhl
 [rafi/vim-sidemenu]: https://github.com/rafi/vim-sidemenu
@@ -488,7 +485,7 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [williamboman/mason-lspconfig.nvim]: https://github.com/williamboman/mason-lspconfig.nvim
 [kosayoda/nvim-lightbulb]: https://github.com/kosayoda/nvim-lightbulb
 [ray-x/lsp_signature.nvim]: https://github.com/ray-x/lsp_signature.nvim
-[folke/lua-dev.nvim]: https://github.com/folke/lua-dev.nvim
+[folke/neodev.nvim]: https://github.com/folke/neodev.nvim
 [jose-elias-alvarez/null-ls.nvim]: https://github.com/jose-elias-alvarez/null-ls.nvim
 [hrsh7th/nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
 [hrsh7th/cmp-nvim-lsp]: https://github.com/hrsh7th/cmp-nvim-lsp
@@ -511,7 +508,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [jvgrootveld/telescope-zoxide]: https://github.com/jvgrootveld/telescope-zoxide
 [simrat39/symbols-outline.nvim]: https://github.com/simrat39/symbols-outline.nvim
 [rmagatti/auto-session]: https://github.com/rmagatti/auto-session
-[sbdchd/neoformat]: https://github.com/sbdchd/neoformat
 [SmiteshP/nvim-gps]: https://github.com/SmiteshP/nvim-gps
 [mattn/emmet-vim]: https://github.com/mattn/emmet-vim
 
