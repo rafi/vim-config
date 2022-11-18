@@ -471,7 +471,7 @@ if dein#tap('telescope.nvim')
 	nnoremap <localleader>t <cmd>Telescope lsp_dynamic_workspace_symbols<CR>
 	nnoremap <localleader>v <cmd>Telescope registers<CR>
 	nnoremap <localleader>u <cmd>Telescope spell_suggest<CR>
-	nnoremap <localleader>s <cmd>Telescope session-lens search_session<CR>
+	nnoremap <localleader>s <cmd>Telescope persisted<CR>
 	nnoremap <localleader>x <cmd>Telescope oldfiles<CR>
 	nnoremap <localleader>z <cmd>lua require('plugins.telescope').pickers.zoxide()<CR>
 	nnoremap <localleader>; <cmd>Telescope command_history<CR>
