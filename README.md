@@ -2,7 +2,7 @@
 
 Lean mean Neovim machine, 30-45ms startup time.
 
-Works best with [Neovim] ≥0.7 ⚠️ For Vim 8.x, use the
+Works best with [Neovim] ≥0.8 ⚠️ For Vim 8.x, use the
 [`vim` git tag](https://github.com/rafi/vim-config/tree/vim).
 
 > I encourage you to fork this repo and create your own experience.
@@ -88,7 +88,7 @@ Works best with [Neovim] ≥0.7 ⚠️ For Vim 8.x, use the
 ## Prerequisites
 
 * [Neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim)
-  (`brew install neovim`) ≥ v0.7.0
+  (`brew install neovim`) ≥ v0.8.0
 * Plugins are parsed [from YAML](./config/plugins.yaml) and cached.
   Ensure **one** of these tools is installed:
   * [yj](https://github.com/sclevine/yj) (`brew install yj`)
@@ -871,10 +871,10 @@ Note that,
 | <kbd>m</kbd> <kbd>a-z</kbd> | 𝐍 | Set mark
 | <kbd>dm</kbd> <kbd>a-z</kbd> | 𝐍 | Remove mark
 | <kbd>dm-</kbd> | 𝐍 | Delete all marks on the current line
-| <kbd>dm<Space></kbd>  | 𝐍 | Delete all marks in the current buffer
+| <kbd>dm\<Space></kbd>  | 𝐍 | Delete all marks in the current buffer
 | <kbd>m]</kbd>  | 𝐍 | Move to next mark
 | <kbd>m[</kbd>  | 𝐍 | Move to previous mark
-| <kbd>m:</kbd>  | 𝐍 | Preview mark, prompts you for a specific mark.
+| <kbd>m:</kbd> <kbd>a-z</kbd>  | 𝐍 | Preview mark
 
 </details>
 

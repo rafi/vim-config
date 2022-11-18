@@ -1,4 +1,5 @@
 -- plugin: nvim-cmp
+-- :h cmp
 -- see: https://github.com/hrsh7th/nvim-cmp
 -- rafi settings
 
@@ -131,11 +132,6 @@ cmp.setup {
 	-- 		border = { '', '', '', ' ', '', '', '', ' ' },
 	-- 		winhighlight = 'FloatBorder:NormalFloat',
 	-- 	},
-	-- },
-
-	-- documentation = {
-	-- 	border = 'rounded',
-	-- 	winhighlight = 'NormalFloat:NormalFloat,FloatBorder:FloatBorder',
 	-- },
 
 	-- view = {

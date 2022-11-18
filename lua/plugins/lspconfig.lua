@@ -39,7 +39,7 @@ local on_attach = function(client, bufnr)
 	map_buf('n', ',rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 	map_buf('n', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 	map_buf('x', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-	map_buf('n', '<Leader>ce', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+	map_buf('n', '<Leader>ce', '<cmd>lua vim.diagnostic.open_float({source=true})<CR>', opts)
 
 	if vim.fn.has('nvim-0.8') == 1 then
 		map_buf('n', ',f', '<cmd>lua vim.lsp.buf.format({ timeout_ms = 2000 })<CR>', opts)
@@ -197,7 +197,7 @@ local function setup()
 			autocmd!
 
 			" See https://github.com/kosayoda/nvim-lightbulb
-			autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
+			autocmd CursorHold,CursorHoldI * lua require('nvim-lightbulb').update_lightbulb()
 
 			" Update loclist with diagnostics for the current file
 			autocmd DiagnosticChanged * lua vim.diagnostic.setloclist({ open=false })
