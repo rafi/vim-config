@@ -223,6 +223,8 @@ nmap <Leader>ts <cmd>setlocal spell!<CR>
 nmap <Leader>tn <cmd>setlocal nonumber!<CR>
 nmap <Leader>tl <cmd>setlocal nolist!<CR>
 nmap <Leader>th <cmd>nohlsearch<CR>
+nmap <Leader>tp <cmd>lua require('user').diagnostic.toggle(false)<CR>
+nmap <Leader>tP <cmd>lua require('user').diagnostic.toggle(true)<CR>
 
 " Smart wrap toggle (breakindent and colorcolumn toggle as-well)
 nmap <Leader>tw <cmd>execute('setlocal wrap! breakindent! colorcolumn=' .

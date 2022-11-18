@@ -18,8 +18,13 @@ local on_attach = function(client, bufnr)
 
 	-- Short-circuit for Helm template files
 	if vim.bo[bufnr].buftype ~= '' or vim.bo[bufnr].filetype == 'helm' then
-		require('user').diagnostic.disable(bufnr)
+		require('user').diagnostic.remove(bufnr)
 		return
+	end
+
+	-- Disable diagnostics if buffer/global indicator is on
+	if vim.b[bufnr].diagnostics_disabled or vim.g.diagnostics_disabled then
+		vim.diagnostic.disable(bufnr)
 	end
 
 	map_buf('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -111,17 +116,20 @@ end
 local function setup()
 	-- Config
 	vim.diagnostic.config({
-		virtual_text = true,
 		signs = true,
 		underline = true,
 		update_in_insert = false,
 		severity_sort = true,
+		virtual_text = {
+			spacing = 4,
+			prefix = '●',
+		},
 	})
 
 	-- Diagnostics signs and highlights
 	--   Error:   ✘
-	--   Warn:  ⚠  
-	--   Hint:  
+	--   Warn:   ⚠ 
+	--   Hint:  
 	--   Info:   ⁱ
 	local signs = { Error = '✘', Warn = '', Hint = '', Info = 'ⁱ' }
 	for type, icon in pairs(signs) do
@@ -133,30 +141,6 @@ local function setup()
 	-- require('lsp_kind').init()
 
 	-- Configure LSP Handlers
-	-- ---
-
-	vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-		vim.lsp.diagnostic.on_publish_diagnostics, {
-			virtual_text = {
-				-- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#show-source-in-diagnostics-neovim-06-only
-				source = 'if_many',
-				prefix = '●',
-			},
-		})
-
-	-- Configure diagnostics publish settings
-	-- vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-	-- 	vim.lsp.diagnostic.on_publish_diagnostics, {
-	-- 		signs = true,
-	-- 		underline = true,
-	-- 		update_in_insert = false,
-	-- 		severity_sort = true,
-	-- 		virtual_text = {
-	-- 			spacing = 4,
-	-- 			-- prefix = '',
-	-- 		}
-	-- 	}
-	-- )
 
 	-- Configure help hover (normal K) handler
 	vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
@@ -167,6 +151,8 @@ local function setup()
 	vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
 		vim.lsp.handlers.signature_help, { border = 'rounded' }
 	)
+
+	-- Configuration Plugins
 
 	-- See https://github.com/folke/neodev.nvim
 	require('neodev').setup({})
