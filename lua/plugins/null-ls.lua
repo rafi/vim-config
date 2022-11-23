@@ -40,6 +40,9 @@ require('null-ls').setup({
 		builtins.diagnostics.eslint,
 
 		-- Go
+		builtins.formatting.goimports.with({
+			runtime_condition = has_exec('goimports'),
+		}),
 		builtins.formatting.gofmt.with({
 			runtime_condition = has_exec('gofmt'),
 		}),
