@@ -74,6 +74,11 @@ require('null-ls').setup({
 			extra_filetypes = { 'bash' },
 		}),
 
+		-- Proto
+		builtins.formatting.buf.with({
+			runtime_condition = has_exec('buf'),
+		}),
+
 		-- Docker
 		builtins.diagnostics.hadolint.with({
 			runtime_condition = has_exec('hadolint'),
