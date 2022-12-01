@@ -6,35 +6,34 @@
 local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
 
 parser_configs.http = {
+	filetype = 'http',
 	install_info = {
 		url = 'https://github.com/rest-nvim/tree-sitter-http',
 		files = { 'src/parser.c' },
 		branch = 'main',
 	},
-	filetype = 'http',
 }
 
 -- Setup treesitter
 require('nvim-treesitter.configs').setup({
 	-- https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
 	ensure_installed = {
-		'bash', 'c', 'clojure', 'cmake', 'comment', 'commonlisp',
-		'cpp', 'css', 'dart', 'dockerfile', 'dot', 'fennel', 'fish',
-		'go', 'gomod', 'gowork', 'graphql', 'hack', 'haskell', 'hcl',
-		'help', 'html', 'http', 'java', 'javascript', 'jsdoc', 'json',
-		'json5', 'jsonc', 'julia', 'kotlin', 'latex', 'llvm', 'lua',
-		'make', 'markdown', 'ninja', 'nix', 'norg', 'perl', 'php',
-		'pug', 'python', 'query', 'r', 'regex', 'rst', 'ruby', 'rust',
-		'scala', 'scheme', 'scss', 'svelte', 'todotxt', 'toml', 'tsx',
-		'typescript', 'vala', 'vim', 'vue', 'yaml', 'zig',
+		'bash', 'c', 'clojure', 'cmake', 'comment', 'commonlisp', 'cpp', 'css',
+		'dart', 'diff', 'dockerfile', 'dot', 'elixir', 'elm', 'erlang', 'fennel',
+		'fish', 'gitattributes', 'gitignore', 'go', 'gomod', 'gowork', 'graphql',
+		'hack', 'haskell', 'hcl', 'help', 'html', 'http', 'java', 'javascript',
+		'jsdoc', 'json', 'json5', 'jsonc', 'jsonnet', 'julia', 'kotlin', 'latex',
+		'llvm', 'lua', 'make', 'markdown', 'markdown_inline', 'ninja', 'nix',
+		'norg', 'perl', 'php', 'pug', 'python', 'query', 'r', 'regex', 'rst',
+		'ruby', 'rust', 'scala', 'scheme', 'scss', 'solidity', 'sql', 'svelte',
+		'swift', 'todotxt', 'toml', 'tsx', 'typescript', 'vala', 'vim', 'vue',
+		'yaml', 'zig',
 	},
 
 	highlight = {
 		enable = true,
-		disable = { 'vim' },
+		additional_vim_regex_highlighting = false,
 	},
-
-	additional_vim_regex_highlighting = false,
 
 	-- incremental_selection = {
 	-- 	enable = true,

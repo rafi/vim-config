@@ -77,7 +77,7 @@
   if: has('nvim-0.5')
   on_cmd: Registers
   on_map: { i: '<C-r>', nx: '"' }
-  hook_source: let g:registers_window_border = 'rounded'
+  hook_source: lua require('registers').setup({ window={border="rounded"} })
 
 - repo: rest-nvim/rest.nvim
   if: has('nvim-0.5')
@@ -153,9 +153,8 @@
   hook_post_source: lua require('plugins.lualine')
 
 - repo: rcarriga/nvim-notify
-  if: has('nvim-0.5')
-  on_lua: notify
-  hook_post_source: lua require('notify').setup()
+  if: has('nvim-0.7')
+  hook_source: lua require('notify').setup()
 
 - repo: itchyny/vim-cursorword
   on_event: FileType
@@ -297,21 +296,12 @@
   on_event: VimEnter
   hook_post_source: lua require('plugins.lspconfig').setup()
 
-- repo: williamboman/mason.nvim
-  if: has('nvim-0.7')
-  on_source: nvim-lspconfig
-
-- repo: williamboman/mason-lspconfig.nvim
-  if: has('nvim-0.7')
-  on_source: nvim-lspconfig
-
+- { repo: williamboman/mason.nvim, on_source: nvim-lspconfig }
+- { repo: williamboman/mason-lspconfig.nvim, on_source: nvim-lspconfig }
 - { repo: hrsh7th/cmp-nvim-lsp, on_source: nvim-lspconfig }
 - { repo: kosayoda/nvim-lightbulb, on_source: nvim-lspconfig }
 - { repo: folke/neodev.nvim, on_source: nvim-lspconfig }
-
-- repo: ray-x/lsp_signature.nvim
-  if: has('nvim-0.6.1')
-  on_source: nvim-lspconfig
+- { repo: ray-x/lsp_signature.nvim, on_source: nvim-lspconfig}
 
 - repo: jose-elias-alvarez/null-ls.nvim
   if: has('nvim-0.7')
@@ -370,13 +360,6 @@
   on_lua: telescope
   hook_post_source: lua require('plugins.telescope').setup()
 
-- repo: rmagatti/session-lens
-  if: has('nvim-0.5')
-  depends: auto-session
-  on_source: telescope.nvim
-  hook_add: let g:loaded_session_lens = 1
-  hook_post_source: lua require('plugins.session-lens')
-
 - repo: nvim-telescope/telescope-ui-select.nvim
   if: has('nvim-0.7')
   depends: telescope.nvim
@@ -384,7 +367,7 @@
   hook_post_source: lua require('telescope').load_extension('ui-select')
 
 - repo: jvgrootveld/telescope-zoxide
-  if: has('nvim-0.5')
+  if: has('nvim-0.7')
   depends: telescope.nvim
   on_lua: telescope
   hook_post_source: lua require('telescope').load_extension('zoxide')
@@ -394,12 +377,13 @@
   on_cmd: [ SymbolsOutline, SymbolsOutlineOpen ]
   hook_source: lua require('plugins.symbols-outline')
 
-- repo: rmagatti/auto-session
-  if: has('nvim-0.5')
+- repo: olimorris/persisted.nvim
+  if: has('nvim-0.7')
   on_event: VimEnter
-  hook_source: lua require('plugins.auto-session')
+  hook_post_source: lua require('plugins.persisted')
   hook_add: |-
-    autocmd user_events StdinReadPre * let g:auto_session_enabled = v:false
+    let g:in_pager_mode = v:false
+    autocmd user_events StdinReadPre * let g:in_pager_mode = v:true
 
 - repo: SmiteshP/nvim-gps
   if: has('nvim-0.5')

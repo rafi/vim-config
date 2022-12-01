@@ -2,7 +2,7 @@
 
 Lean mean Neovim machine, 30-45ms startup time.
 
-Works best with [Neovim] ≥0.7 ⚠️ For Vim 8.x, use the
+Works best with [Neovim] ≥0.8 ⚠️ For Vim 8.x, use the
 [`vim` git tag](https://github.com/rafi/vim-config/tree/vim).
 
 > I encourage you to fork this repo and create your own experience.
@@ -76,7 +76,7 @@ Works best with [Neovim] ≥0.7 ⚠️ For Vim 8.x, use the
   (try <kbd>Tab</kbd> in insert-mode)
 * Structure view with [simrat39/symbols-outline.nvim]
 * Git features using [lambdalisue/gina.vim] and [lewis6991/gitsigns.nvim]
-* Auto-save and restore sessions with [rmagatti/auto-session].
+* Auto-save and restore sessions with [olimorris/persisted.nvim].
 * Light-weight but informative status & tab lines
 * Easy customizable theme
 * Premium color-schemes
@@ -88,7 +88,7 @@ Works best with [Neovim] ≥0.7 ⚠️ For Vim 8.x, use the
 ## Prerequisites
 
 * [Neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim)
-  (`brew install neovim`) ≥ v0.7.0
+  (`brew install neovim`) ≥ v0.8.0
 * Plugins are parsed [from YAML](./config/plugins.yaml) and cached.
   Ensure **one** of these tools is installed:
   * [yj](https://github.com/sclevine/yj) (`brew install yj`)
@@ -385,11 +385,10 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [folke/trouble.nvim] | Pretty lists to help you solve all code diagnostics
 | [sindrets/diffview.nvim] | Tabpage interface for cycling through diffs
 | [nvim-telescope/telescope.nvim] | Find, Filter, Preview, Pick. All lua, all the time
-| [rmagatti/session-lens] | Session-switcher extension for rmagatti/auto-session
 | [nvim-telescope/telescope-ui-select.nvim] | Sets vim.ui.select to telescope
 | [jvgrootveld/telescope-zoxide] | Telescope extension for Zoxide
 | [simrat39/symbols-outline.nvim] | Tree like view for symbols using LSP
-| [rmagatti/auto-session] | Automated session manager for Neovim
+| [olimorris/persisted.nvim] | Simple session management for Neovim with git branching
 | [SmiteshP/nvim-gps] | Shows context of the current cursor position in file
 | [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet
 
@@ -503,11 +502,10 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [folke/trouble.nvim]: https://github.com/folke/trouble.nvim
 [sindrets/diffview.nvim]: https://github.com/sindrets/diffview.nvim
 [nvim-telescope/telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
-[rmagatti/session-lens]: https://github.com/rmagatti/session-lens
 [nvim-telescope/telescope-ui-select.nvim]: https://github.com/nvim-telescope/telescope-ui-select.nvim
 [jvgrootveld/telescope-zoxide]: https://github.com/jvgrootveld/telescope-zoxide
 [simrat39/symbols-outline.nvim]: https://github.com/simrat39/symbols-outline.nvim
-[rmagatti/auto-session]: https://github.com/rmagatti/auto-session
+[olimorris/persisted.nvim]: https://github.com/olimorris/persisted.nvim
 [SmiteshP/nvim-gps]: https://github.com/SmiteshP/nvim-gps
 [mattn/emmet-vim]: https://github.com/mattn/emmet-vim
 
@@ -873,10 +871,10 @@ Note that,
 | <kbd>m</kbd> <kbd>a-z</kbd> | 𝐍 | Set mark
 | <kbd>dm</kbd> <kbd>a-z</kbd> | 𝐍 | Remove mark
 | <kbd>dm-</kbd> | 𝐍 | Delete all marks on the current line
-| <kbd>dm<Space></kbd>  | 𝐍 | Delete all marks in the current buffer
+| <kbd>dm\<Space></kbd>  | 𝐍 | Delete all marks in the current buffer
 | <kbd>m]</kbd>  | 𝐍 | Move to next mark
 | <kbd>m[</kbd>  | 𝐍 | Move to previous mark
-| <kbd>m:</kbd>  | 𝐍 | Preview mark, prompts you for a specific mark.
+| <kbd>m:</kbd> <kbd>a-z</kbd>  | 𝐍 | Preview mark
 
 </details>
 

@@ -36,6 +36,7 @@ end
 local function set_cursorline()
 	vim.wo.winhighlight = 'CursorLine:WildMenu'
 	vim.wo.cursorline = true
+	vim.o.signcolumn = "auto"
 end
 
 -- Find previous neo-tree window and disable its cursorline.
@@ -154,6 +155,7 @@ require('neo-tree').setup({
 				end,
 			},
 		},
+		use_libuv_file_watcher = true,
 		follow_current_file = false,
 		group_empty_dirs = true,
 		bind_to_cwd = true, -- true creates a 2-way binding between vim's cwd and neo-tree's root
