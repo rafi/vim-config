@@ -302,6 +302,7 @@
 - { repo: kosayoda/nvim-lightbulb, on_source: nvim-lspconfig }
 - { repo: folke/neodev.nvim, on_source: nvim-lspconfig }
 - { repo: ray-x/lsp_signature.nvim, on_source: nvim-lspconfig}
+- { repo: SmiteshP/nvim-navic, on_source: nvim-lspconfig }
 
 - repo: jose-elias-alvarez/null-ls.nvim
   if: has('nvim-0.7')
@@ -384,12 +385,6 @@
   hook_add: |-
     let g:in_pager_mode = v:false
     autocmd user_events StdinReadPre * let g:in_pager_mode = v:true
-
-- repo: SmiteshP/nvim-gps
-  if: has('nvim-0.5')
-  on_event: VimEnter
-  depends: nvim-treesitter
-  hook_post_source: lua require('nvim-gps').setup()
 
 - repo: mattn/emmet-vim
   on_event: InsertEnter

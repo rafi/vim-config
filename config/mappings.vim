@@ -523,8 +523,18 @@ if dein#tap('vim-vsnip')
 	smap <expr><C-l> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
 endif
 
-if dein#tap('nvim-gps')
-	nnoremap <Leader>f <cmd>lua print(require'nvim-gps'.get_location())<CR>
+if dein#tap('nvim-navic')
+	nnoremap <Leader>f <cmd>call <SID>navic_toggle_winbar()<CR>
+
+	function! s:navic_toggle_winbar()
+		if get(b:, 'navic_winbar') == v:true
+			let b:navic_winbar = v:false
+			setlocal winbar=
+		else
+			let b:navic_winbar = v:true
+			setlocal winbar=%#TabLineSel#%#Special#%{%v:lua.require'nvim-navic'.get_location()%}
+		endif
+	endfunction
 endif
 
 if dein#tap('emmet-vim')

@@ -3,6 +3,7 @@
 --      https://github.com/williamboman/mason.nvim
 --      https://github.com/williamboman/mason-lspconfig.nvim
 --      https://github.com/ray-x/lsp_signature.nvim
+--      https://github.com/SmiteshP/nvim-navic
 --      https://github.com/kosayoda/nvim-lightbulb
 -- rafi settings
 
@@ -49,6 +50,16 @@ local on_attach = function(client, bufnr)
 
 	if client.supports_method('textDocument/rangeFormatting') then
 		map_buf('x', ',f', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
+	end
+
+	-- nvim-navic
+	-- See https://github.com/SmiteshP/nvim-navic
+	local navic = require('nvim-navic')
+	if
+		client.supports_method('textDocument/documentSymbol')
+		and not navic.is_available()
+	then
+		navic.attach(client, bufnr)
 	end
 
 	-- lspsaga.nvim
