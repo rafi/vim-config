@@ -3,16 +3,16 @@
 -- rafi settings
 
 -- disable autoloading if users piped input into nvim
-local autoload = true
+local session_autoload = true
 if vim.g.in_pager_mode then
-	autoload = false
+	session_autoload = false
 end
 
 local persisted = require('persisted')
 
 persisted.setup({
 	autosave = true,
-	autoload = autoload,
+	autoload = session_autoload,
 	follow_cwd = false,
 	use_git_branch = false,
 	ignored_dirs = { '/tmp', '~/.cache' },
@@ -25,11 +25,10 @@ persisted.setup({
 		before_source = function()
 	 		persisted.save()
 			persisted.stop()
-			-- vim.api.nvim_input("<ESC>:%bd<CR>")
 		end,
 		after_source = function(session)
 			persisted.start()
-			print("Started session "..session)
+			print('Started session ' .. session.name)
 		end
 	}
 })

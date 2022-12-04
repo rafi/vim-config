@@ -402,7 +402,8 @@ local setup = function()
 	}
 
 	-- Telescope extensions are loaded in each plugin.
-	require('telescope').load_extension('persisted')
+	-- But the persisted plugin must be immediately.
+	telescope.load_extension('persisted')
 end
 
 -- Public functions
