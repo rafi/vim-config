@@ -734,12 +734,14 @@ Note that,
 | ----- |:----:| ------------------ |
 | <kbd>]g</kbd> or <kbd>]g</kbd> | 𝐍 | Next/previous Git hunk |
 | <kbd>gs</kbd>                  | 𝐍 | Preview hunk |
-| <kbd>Space</kbd>+<kbd>hp</kbd> | 𝐍 | Preview hunk |
+| <kbd>Space</kbd>+<kbd>hp</kbd> | 𝐍 | Preview hunk inline |
 | <kbd>Space</kbd>+<kbd>hb</kbd> | 𝐍 | Blame line |
 | <kbd>Space</kbd>+<kbd>hs</kbd> | 𝐍 𝐕 | Stage hunk |
 | <kbd>Space</kbd>+<kbd>hu</kbd> | 𝐍 | Undo stage hunk |
 | <kbd>Space</kbd>+<kbd>hr</kbd> | 𝐍 𝐕 | Reset hunk |
 | <kbd>Space</kbd>+<kbd>hR</kbd> | 𝐍 | Reset buffer |
+| <kbd>Space</kbd>+<kbd>hd</kbd> | 𝐍 | Toggle deleted |
+| <kbd>Space</kbd>+<kbd>hw</kbd> | 𝐍 | Toggle word diff |
 | <kbd>Space</kbd>+<kbd>hl</kbd> | 𝐍 | Publish hunks to location-list |
 
 ### Plugin: Gina

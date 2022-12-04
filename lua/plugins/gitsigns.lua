@@ -28,9 +28,11 @@ require('gitsigns').setup({
 		['n <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
 		['x <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
 		['n <leader>hR'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
-		['n <leader>hp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
+		['n <leader>hd'] = '<cmd>lua require"gitsigns".toggle_deleted()<CR>',
+		['n <leader>hw'] = '<cmd>lua require"gitsigns".toggle_word_diff()<CR>',
+		['n <leader>hp'] = '<cmd>lua require"gitsigns".preview_hunk_inline()<CR>',
 		['n gs']         = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-		['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line(true)<CR>',
+		['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line({full=true})<CR>',
 		['n <leader>hl'] = '<cmd>lua require("user").githunk.publish_loclist(true)<CR>',
 
 		-- Text objects
