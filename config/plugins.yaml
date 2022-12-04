@@ -232,12 +232,18 @@
   hook_post_source: lua require('plugins.goto-preview')
 
 - repo: rhysd/committia.vim
+  if: has('nvim')
   on_event: BufReadPost
   depends: nvim-treesitter
-  hook_source: |-
+  hook_add: |-
+    let g:loaded_committia = 1
     let g:committia_min_window_width = 30
     let g:committia_edit_window_width = 75
-    let g:committia#git#status_cmd = '-c color.status=false status -sb'
+    autocmd BufReadPost COMMIT_EDITMSG,MERGE_MSG ++once
+      \ lua if vim.fn.has('vim_starting') then
+      \   vim.g['committia#git#status_cmd'] = '-c color.status=false status -sb'
+      \   vim.schedule(function() vim.fn['committia#open']('git') end)
+      \ end
 
 - repo: itchyny/calendar.vim
   on_cmd: Calendar

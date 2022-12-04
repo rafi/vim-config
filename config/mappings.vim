@@ -614,7 +614,8 @@ endif
 if dein#tap('committia.vim')
 	let g:committia_hooks = {}
 	function! g:committia_hooks.edit_open(info)
-		resize 10
+		write
+		resize 15
 		imap <buffer><C-d> <Plug>(committia-scroll-diff-down-half)
 		imap <buffer><C-u> <Plug>(committia-scroll-diff-up-half)
 		imap <buffer><C-f> <Plug>(committia-scroll-diff-down-page)
