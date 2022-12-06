@@ -103,9 +103,11 @@ local on_attach = function(client, bufnr)
 			group = augroup,
 			buffer = bufnr,
 			callback = function()
-				-- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
-				-- vim.lsp.buf.formatting_sync()
-				vim.lsp.buf.format({ bufnr = bufnr })
+				if vim.fn.has('nvim-0.8') == 1 then
+					vim.lsp.buf.format({ bufnr = bufnr })
+				else
+					vim.lsp.buf.formatting_sync()
+				end
 			end,
 		})
 	end
