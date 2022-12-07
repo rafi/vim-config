@@ -523,8 +523,18 @@ if dein#tap('vim-vsnip')
 	smap <expr><C-l> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
 endif
 
-if dein#tap('nvim-gps')
-	nnoremap <Leader>f <cmd>lua print(require'nvim-gps'.get_location())<CR>
+if dein#tap('nvim-navic')
+	nnoremap <Leader>f <cmd>call <SID>navic_toggle_winbar()<CR>
+
+	function! s:navic_toggle_winbar()
+		if get(b:, 'navic_winbar') == v:true
+			let b:navic_winbar = v:false
+			setlocal winbar=
+		else
+			let b:navic_winbar = v:true
+			setlocal winbar=%#TabLineSel#%#Special#%{%v:lua.require'nvim-navic'.get_location()%}
+		endif
+	endfunction
 endif
 
 if dein#tap('emmet-vim')
@@ -604,7 +614,8 @@ endif
 if dein#tap('committia.vim')
 	let g:committia_hooks = {}
 	function! g:committia_hooks.edit_open(info)
-		resize 10
+		write
+		resize 15
 		imap <buffer><C-d> <Plug>(committia-scroll-diff-down-half)
 		imap <buffer><C-u> <Plug>(committia-scroll-diff-up-half)
 		imap <buffer><C-f> <Plug>(committia-scroll-diff-down-page)

@@ -232,12 +232,18 @@
   hook_post_source: lua require('plugins.goto-preview')
 
 - repo: rhysd/committia.vim
+  if: has('nvim')
   on_event: BufReadPost
   depends: nvim-treesitter
-  hook_source: |-
+  hook_add: |-
+    let g:loaded_committia = 1
     let g:committia_min_window_width = 30
     let g:committia_edit_window_width = 75
-    let g:committia#git#status_cmd = '-c color.status=false status -sb'
+    autocmd BufReadPost COMMIT_EDITMSG,MERGE_MSG ++once
+      \ lua if vim.fn.has('vim_starting') then
+      \   vim.g['committia#git#status_cmd'] = '-c color.status=false status -sb'
+      \   vim.schedule(function() vim.fn['committia#open']('git') end)
+      \ end
 
 - repo: itchyny/calendar.vim
   on_cmd: Calendar
@@ -302,6 +308,7 @@
 - { repo: kosayoda/nvim-lightbulb, on_source: nvim-lspconfig }
 - { repo: folke/neodev.nvim, on_source: nvim-lspconfig }
 - { repo: ray-x/lsp_signature.nvim, on_source: nvim-lspconfig}
+- { repo: SmiteshP/nvim-navic, on_source: nvim-lspconfig }
 
 - repo: jose-elias-alvarez/null-ls.nvim
   if: has('nvim-0.7')
@@ -384,12 +391,6 @@
   hook_add: |-
     let g:in_pager_mode = v:false
     autocmd user_events StdinReadPre * let g:in_pager_mode = v:true
-
-- repo: SmiteshP/nvim-gps
-  if: has('nvim-0.5')
-  on_event: VimEnter
-  depends: nvim-treesitter
-  hook_post_source: lua require('nvim-gps').setup()
 
 - repo: mattn/emmet-vim
   on_event: InsertEnter
