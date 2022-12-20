@@ -2,7 +2,7 @@
 
 Lean mean Neovim machine, 30-45ms startup time.
 
-Works best with [Neovim] ≥0.7 ⚠️ For Vim 8.x, use the
+Works best with [Neovim] ≥0.8 ⚠️ For Vim 8.x, use the
 [`vim` git tag](https://github.com/rafi/vim-config/tree/vim).
 
 > I encourage you to fork this repo and create your own experience.
@@ -76,7 +76,7 @@ Works best with [Neovim] ≥0.7 ⚠️ For Vim 8.x, use the
   (try <kbd>Tab</kbd> in insert-mode)
 * Structure view with [simrat39/symbols-outline.nvim]
 * Git features using [lambdalisue/gina.vim] and [lewis6991/gitsigns.nvim]
-* Auto-save and restore sessions with [rmagatti/auto-session].
+* Auto-save and restore sessions with [olimorris/persisted.nvim].
 * Light-weight but informative status & tab lines
 * Easy customizable theme
 * Premium color-schemes
@@ -88,7 +88,7 @@ Works best with [Neovim] ≥0.7 ⚠️ For Vim 8.x, use the
 ## Prerequisites
 
 * [Neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim)
-  (`brew install neovim`) ≥ v0.7.0
+  (`brew install neovim`) ≥ v0.8.0
 * Plugins are parsed [from YAML](./config/plugins.yaml) and cached.
   Ensure **one** of these tools is installed:
   * [yj](https://github.com/sclevine/yj) (`brew install yj`)
@@ -341,7 +341,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [itchyny/vim-gitbranch] | Lightweight git branch detection
 | [romainl/vim-cool] | Simple plugin that makes hlsearch more useful
 | [haya14busa/vim-asterisk] | Improved * motions
-| [rhysd/accelerated-jk] | Up/down movement acceleration
 | [haya14busa/vim-edgemotion] | Jump to the edge of block
 | [t9md/vim-quickhl] | Highlight words quickly
 | [rafi/vim-sidemenu] | Small side-menu useful for terminal users
@@ -367,8 +366,9 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [williamboman/mason.nvim] | Portable package manager for Neovim
 | [williamboman/mason-lspconfig.nvim] | Mason extension for easier lspconfig integration
 | [kosayoda/nvim-lightbulb] | VSCode 💡 for neovim's built-in LSP
-| [ray-x/lsp_signature.nvim] | LSP signature hint when you type
 | [folke/neodev.nvim] | Neovim setup for init.lua and plugin development
+| [ray-x/lsp_signature.nvim] | LSP signature hint when you type
+| [SmiteshP/nvim-navic] | Shows your current code context in winbar/statusline
 | [jose-elias-alvarez/null-ls.nvim] | Inject LSP diagnostics, code actions, and more
 | [hrsh7th/nvim-cmp] | Completion plugin for neovim written in Lua
 | [hrsh7th/cmp-nvim-lsp] | nvim-cmp source for neovim builtin LSP client
@@ -386,13 +386,10 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 | [folke/trouble.nvim] | Pretty lists to help you solve all code diagnostics
 | [sindrets/diffview.nvim] | Tabpage interface for cycling through diffs
 | [nvim-telescope/telescope.nvim] | Find, Filter, Preview, Pick. All lua, all the time
-| [rmagatti/session-lens] | Session-switcher extension for rmagatti/auto-session
 | [nvim-telescope/telescope-ui-select.nvim] | Sets vim.ui.select to telescope
 | [jvgrootveld/telescope-zoxide] | Telescope extension for Zoxide
 | [simrat39/symbols-outline.nvim] | Tree like view for symbols using LSP
-| [rmagatti/auto-session] | Automated session manager for Neovim
-| [sbdchd/neoformat] | Plugin for formatting code
-| [SmiteshP/nvim-gps] | Shows context of the current cursor position in file
+| [olimorris/persisted.nvim] | Simple session management for Neovim with git branching
 | [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet
 
 #### Syntax
@@ -465,7 +462,6 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [itchyny/vim-gitbranch]: https://github.com/itchyny/vim-gitbranch
 [romainl/vim-cool]: https://github.com/romainl/vim-cool
 [haya14busa/vim-asterisk]: https://github.com/haya14busa/vim-asterisk
-[rhysd/accelerated-jk]: https://github.com/rhysd/accelerated-jk
 [haya14busa/vim-edgemotion]: https://github.com/haya14busa/vim-edgemotion
 [t9md/vim-quickhl]: https://github.com/t9md/vim-quickhl
 [rafi/vim-sidemenu]: https://github.com/rafi/vim-sidemenu
@@ -487,8 +483,9 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [williamboman/mason.nvim]: https://github.com/williamboman/
 [williamboman/mason-lspconfig.nvim]: https://github.com/williamboman/mason-lspconfig.nvim
 [kosayoda/nvim-lightbulb]: https://github.com/kosayoda/nvim-lightbulb
-[ray-x/lsp_signature.nvim]: https://github.com/ray-x/lsp_signature.nvim
 [folke/neodev.nvim]: https://github.com/folke/neodev.nvim
+[ray-x/lsp_signature.nvim]: https://github.com/ray-x/lsp_signature.nvim
+[SmiteshP/nvim-navic]: https://github.com/SmiteshP/nvim-navic
 [jose-elias-alvarez/null-ls.nvim]: https://github.com/jose-elias-alvarez/null-ls.nvim
 [hrsh7th/nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
 [hrsh7th/cmp-nvim-lsp]: https://github.com/hrsh7th/cmp-nvim-lsp
@@ -506,13 +503,10 @@ _Note_ that 95% of the plugins are **[lazy-loaded]**.
 [folke/trouble.nvim]: https://github.com/folke/trouble.nvim
 [sindrets/diffview.nvim]: https://github.com/sindrets/diffview.nvim
 [nvim-telescope/telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
-[rmagatti/session-lens]: https://github.com/rmagatti/session-lens
 [nvim-telescope/telescope-ui-select.nvim]: https://github.com/nvim-telescope/telescope-ui-select.nvim
 [jvgrootveld/telescope-zoxide]: https://github.com/jvgrootveld/telescope-zoxide
 [simrat39/symbols-outline.nvim]: https://github.com/simrat39/symbols-outline.nvim
-[rmagatti/auto-session]: https://github.com/rmagatti/auto-session
-[sbdchd/neoformat]: https://github.com/sbdchd/neoformat
-[SmiteshP/nvim-gps]: https://github.com/SmiteshP/nvim-gps
+[olimorris/persisted.nvim]: https://github.com/olimorris/persisted.nvim
 [mattn/emmet-vim]: https://github.com/mattn/emmet-vim
 
 [nvim-treesitter/nvim-treesitter]: https://github.com/nvim-treesitter/nvim-treesitter
@@ -683,7 +677,7 @@ Note that,
 | <kbd>Space</kbd>+<kbd>-</kbd> | 𝐍 | Switch editing window with selected | <small>[t9md/vim-choosewin]</small>
 | <kbd>Space</kbd>+<kbd>l</kbd> | 𝐍 | Open side-menu helper | <small>[rafi/vim-sidemenu]</small>
 | <kbd>Space</kbd>+<kbd>o</kbd> | 𝐍 | Open structure window | <small>[simrat39/symbols-outline.nvim]</small>
-| <kbd>Space</kbd>+<kbd>f</kbd> | 𝐍 | Show current structure scope | <small>[SmiteshP/nvim-gps]</small>
+| <kbd>Space</kbd>+<kbd>f</kbd> | 𝐍 | Show current structure scope | <small>[SmiteshP/nvim-navic]</small>
 | <kbd>Space</kbd>+<kbd>S</kbd> | 𝐍 𝐕 | Source selection | `y:execute @@`
 | <kbd>Space</kbd>+<kbd>?</kbd> | 𝐍 | Open the macOS dictionary on current word | `:!open dict://`
 | <kbd>Space</kbd>+<kbd>P</kbd> | 𝐍 | Use Marked 2 for real-time Markdown preview | <small>[Marked 2]</small>
@@ -740,12 +734,14 @@ Note that,
 | ----- |:----:| ------------------ |
 | <kbd>]g</kbd> or <kbd>]g</kbd> | 𝐍 | Next/previous Git hunk |
 | <kbd>gs</kbd>                  | 𝐍 | Preview hunk |
-| <kbd>Space</kbd>+<kbd>hp</kbd> | 𝐍 | Preview hunk |
+| <kbd>Space</kbd>+<kbd>hp</kbd> | 𝐍 | Preview hunk inline |
 | <kbd>Space</kbd>+<kbd>hb</kbd> | 𝐍 | Blame line |
 | <kbd>Space</kbd>+<kbd>hs</kbd> | 𝐍 𝐕 | Stage hunk |
 | <kbd>Space</kbd>+<kbd>hu</kbd> | 𝐍 | Undo stage hunk |
 | <kbd>Space</kbd>+<kbd>hr</kbd> | 𝐍 𝐕 | Reset hunk |
 | <kbd>Space</kbd>+<kbd>hR</kbd> | 𝐍 | Reset buffer |
+| <kbd>Space</kbd>+<kbd>hd</kbd> | 𝐍 | Toggle deleted |
+| <kbd>Space</kbd>+<kbd>hw</kbd> | 𝐍 | Toggle word diff |
 | <kbd>Space</kbd>+<kbd>hl</kbd> | 𝐍 | Publish hunks to location-list |
 
 ### Plugin: Gina
@@ -877,10 +873,10 @@ Note that,
 | <kbd>m</kbd> <kbd>a-z</kbd> | 𝐍 | Set mark
 | <kbd>dm</kbd> <kbd>a-z</kbd> | 𝐍 | Remove mark
 | <kbd>dm-</kbd> | 𝐍 | Delete all marks on the current line
-| <kbd>dm<Space></kbd>  | 𝐍 | Delete all marks in the current buffer
+| <kbd>dm\<Space></kbd>  | 𝐍 | Delete all marks in the current buffer
 | <kbd>m]</kbd>  | 𝐍 | Move to next mark
 | <kbd>m[</kbd>  | 𝐍 | Move to previous mark
-| <kbd>m:</kbd>  | 𝐍 | Preview mark, prompts you for a specific mark.
+| <kbd>m:</kbd> <kbd>a-z</kbd>  | 𝐍 | Preview mark
 
 </details>
 

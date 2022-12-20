@@ -3,6 +3,7 @@
 --      https://github.com/williamboman/mason.nvim
 --      https://github.com/williamboman/mason-lspconfig.nvim
 --      https://github.com/ray-x/lsp_signature.nvim
+--      https://github.com/SmiteshP/nvim-navic
 --      https://github.com/kosayoda/nvim-lightbulb
 -- rafi settings
 
@@ -18,8 +19,13 @@ local on_attach = function(client, bufnr)
 
 	-- Short-circuit for Helm template files
 	if vim.bo[bufnr].buftype ~= '' or vim.bo[bufnr].filetype == 'helm' then
-		require('user').diagnostic.disable(bufnr)
+		require('user').diagnostic.remove(bufnr)
 		return
+	end
+
+	-- Disable diagnostics if buffer/global indicator is on
+	if vim.b[bufnr].diagnostics_disabled or vim.g.diagnostics_disabled then
+		vim.diagnostic.disable(bufnr)
 	end
 
 	map_buf('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -34,7 +40,7 @@ local on_attach = function(client, bufnr)
 	map_buf('n', ',rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 	map_buf('n', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 	map_buf('x', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-	map_buf('n', '<Leader>ce', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+	map_buf('n', '<Leader>ce', '<cmd>lua vim.diagnostic.open_float({source=true})<CR>', opts)
 
 	if vim.fn.has('nvim-0.8') == 1 then
 		map_buf('n', ',f', '<cmd>lua vim.lsp.buf.format({ timeout_ms = 2000 })<CR>', opts)
@@ -44,6 +50,16 @@ local on_attach = function(client, bufnr)
 
 	if client.supports_method('textDocument/rangeFormatting') then
 		map_buf('x', ',f', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
+	end
+
+	-- nvim-navic
+	-- See https://github.com/SmiteshP/nvim-navic
+	local navic = require('nvim-navic')
+	if
+		client.supports_method('textDocument/documentSymbol')
+		and not navic.is_available()
+	then
+		navic.attach(client, bufnr)
 	end
 
 	-- lspsaga.nvim
@@ -87,8 +103,8 @@ local function make_config(server_name)
 	-- Setup base config for each server.
 	local c = {}
 	c.on_attach = on_attach
-	c.capabilities = require('cmp_nvim_lsp').default_capabilities()
-
+	local capabilities = require('cmp_nvim_lsp').default_capabilities()
+	c.capabilities = capabilities
 	-- Merge user-defined lsp settings.
 	-- These can be overridden locally by lua/lsp-local/<server_name>.lua
 	local exists, module = pcall(require, 'lsp-local.' .. server_name)
@@ -110,17 +126,20 @@ end
 local function setup()
 	-- Config
 	vim.diagnostic.config({
-		virtual_text = true,
 		signs = true,
 		underline = true,
 		update_in_insert = false,
 		severity_sort = true,
+		virtual_text = {
+			spacing = 4,
+			prefix = '●',
+		},
 	})
 
 	-- Diagnostics signs and highlights
 	--   Error:   ✘
-	--   Warn:  ⚠  
-	--   Hint:  
+	--   Warn:   ⚠ 
+	--   Hint:  
 	--   Info:   ⁱ
 	local signs = { Error = '✘', Warn = '', Hint = '', Info = 'ⁱ' }
 	for type, icon in pairs(signs) do
@@ -132,30 +151,6 @@ local function setup()
 	-- require('lsp_kind').init()
 
 	-- Configure LSP Handlers
-	-- ---
-
-	vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-		vim.lsp.diagnostic.on_publish_diagnostics, {
-			virtual_text = {
-				-- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#show-source-in-diagnostics-neovim-06-only
-				source = 'if_many',
-				prefix = '●',
-			},
-		})
-
-	-- Configure diagnostics publish settings
-	-- vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-	-- 	vim.lsp.diagnostic.on_publish_diagnostics, {
-	-- 		signs = true,
-	-- 		underline = true,
-	-- 		update_in_insert = false,
-	-- 		severity_sort = true,
-	-- 		virtual_text = {
-	-- 			spacing = 4,
-	-- 			-- prefix = '',
-	-- 		}
-	-- 	}
-	-- )
 
 	-- Configure help hover (normal K) handler
 	vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
@@ -166,6 +161,8 @@ local function setup()
 	vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
 		vim.lsp.handlers.signature_help, { border = 'rounded' }
 	)
+
+	-- Configuration Plugins
 
 	-- See https://github.com/folke/neodev.nvim
 	require('neodev').setup({})
@@ -210,7 +207,7 @@ local function setup()
 			autocmd!
 
 			" See https://github.com/kosayoda/nvim-lightbulb
-			autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
+			autocmd CursorHold,CursorHoldI * lua require('nvim-lightbulb').update_lightbulb()
 
 			" Update loclist with diagnostics for the current file
 			autocmd DiagnosticChanged * lua vim.diagnostic.setloclist({ open=false })

@@ -35,10 +35,11 @@ nnoremap <expr><CR> pumvisible() ? '<CR>' : 'za'
 " Focus the current fold by closing all others
 nnoremap <S-Return> zMzv
 
-" The plugin rhysd/accelerated-jk moves through display-lines in normal mode,
-" these mappings will move through display-lines in visual mode too.
-xnoremap j gj
-xnoremap k gk
+" Moves through display-lines, unless count is provided.
+nnoremap <expr> j v:count > 0 ? "m'" . v:count . 'j' : 'gj'
+nnoremap <expr> k v:count > 0 ? "m'" . v:count . 'k' : 'gk'
+xnoremap <expr> j v:count > 0 ? "m'" . v:count . 'j' : 'gj'
+xnoremap <expr> k v:count > 0 ? "m'" . v:count . 'k' : 'gk'
 
 " Easier line-wise movement
 nnoremap gh g^
@@ -222,6 +223,8 @@ nmap <Leader>ts <cmd>setlocal spell!<CR>
 nmap <Leader>tn <cmd>setlocal nonumber!<CR>
 nmap <Leader>tl <cmd>setlocal nolist!<CR>
 nmap <Leader>th <cmd>nohlsearch<CR>
+nmap <Leader>tp <cmd>lua require('user').diagnostic.toggle(false)<CR>
+nmap <Leader>tP <cmd>lua require('user').diagnostic.toggle(true)<CR>
 
 " Smart wrap toggle (breakindent and colorcolumn toggle as-well)
 nmap <Leader>tw <cmd>execute('setlocal wrap! breakindent! colorcolumn=' .
@@ -468,7 +471,7 @@ if dein#tap('telescope.nvim')
 	nnoremap <localleader>t <cmd>Telescope lsp_dynamic_workspace_symbols<CR>
 	nnoremap <localleader>v <cmd>Telescope registers<CR>
 	nnoremap <localleader>u <cmd>Telescope spell_suggest<CR>
-	nnoremap <localleader>s <cmd>Telescope session-lens search_session<CR>
+	nnoremap <localleader>s <cmd>Telescope persisted<CR>
 	nnoremap <localleader>x <cmd>Telescope oldfiles<CR>
 	nnoremap <localleader>z <cmd>lua require('plugins.telescope').pickers.zoxide()<CR>
 	nnoremap <localleader>; <cmd>Telescope command_history<CR>
@@ -520,8 +523,18 @@ if dein#tap('vim-vsnip')
 	smap <expr><C-l> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
 endif
 
-if dein#tap('nvim-gps')
-	nnoremap <Leader>f <cmd>lua print(require'nvim-gps'.get_location())<CR>
+if dein#tap('nvim-navic')
+	nnoremap <Leader>f <cmd>call <SID>navic_toggle_winbar()<CR>
+
+	function! s:navic_toggle_winbar()
+		if get(b:, 'navic_winbar') == v:true
+			let b:navic_winbar = v:false
+			setlocal winbar=
+		else
+			let b:navic_winbar = v:true
+			setlocal winbar=%#TabLineSel#%#Special#%{%v:lua.require'nvim-navic'.get_location()%}
+		endif
+	endfunction
 endif
 
 if dein#tap('emmet-vim')
@@ -566,11 +579,6 @@ if dein#tap('vim-niceblock')
 	silent! xmap A  <Plug>(niceblock-A)
 endif
 
-if dein#tap('accelerated-jk')
-	nmap <silent> j <Plug>(accelerated_jk_gj)
-	nmap <silent> k <Plug>(accelerated_jk_gk)
-endif
-
 if dein#tap('vim-edgemotion')
 	nmap gj <Plug>(edgemotion-j)
 	nmap gk <Plug>(edgemotion-k)
@@ -606,7 +614,8 @@ endif
 if dein#tap('committia.vim')
 	let g:committia_hooks = {}
 	function! g:committia_hooks.edit_open(info)
-		resize 10
+		write
+		resize 15
 		imap <buffer><C-d> <Plug>(committia-scroll-diff-down-half)
 		imap <buffer><C-u> <Plug>(committia-scroll-diff-up-half)
 		imap <buffer><C-f> <Plug>(committia-scroll-diff-down-page)

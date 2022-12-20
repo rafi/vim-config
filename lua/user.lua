@@ -65,11 +65,31 @@ user.diagnostic.publish_loclist = function(toggle)
 	end
 end
 
-user.diagnostic.disable = function(bufnr)
+user.diagnostic.remove = function(bufnr)
 	vim.diagnostic.disable(bufnr)
 	vim.defer_fn(function()
 		vim.diagnostic.reset(nil, bufnr)
 	end, 1000)
+end
+
+user.diagnostic.toggle = function(global)
+	local vars, bufnr, cmd
+	if global then
+		vars = vim.g
+		bufnr = nil
+	else
+		vars = vim.b
+		bufnr = 0
+	end
+	vars.diagnostics_disabled = not vars.diagnostics_disabled
+	if vars.diagnostics_disabled then
+		cmd = 'disable'
+		vim.api.nvim_echo({ { 'Disabling diagnostics…' } }, false, {})
+	else
+		cmd = 'enable'
+		vim.api.nvim_echo({ { 'Enabling diagnostics…' } }, false, {})
+	end
+	vim.schedule(function() vim.diagnostic[cmd](bufnr) end)
 end
 
 -- Git
