@@ -42,6 +42,6 @@ vim.api.nvim_create_autocmd({ "User" }, {
   group = group,
   callback = function(session)
 		persisted.start()
-		print('Started session ' .. session.name)
+		print('Started session ' .. session.data.name)
   end,
 })
