@@ -1,106 +1,121 @@
-" Tabline
-" ---
+-- Rafi's tabline
+-- https://github.com/rafi/vim-config
 
-" Configuration
-if ! get(g:, 'tabline_plugin_enable', 1)
-	finish
-endif
+local api = vim.api
 
-let g:badge_numeric_charset =
-	\ get(g:, 'badge_numeric_charset',
-	\ ['⁰','¹','²','³','⁴','⁵','⁶','⁷','⁸','⁹'])
-	"\ ['₀','₁','₂','₃','₄','₅','₆','₇','₈','₉'])
+if not vim.F.if_nil(vim.g.tabline_plugin_enable, true) then
+	return
+end
 
-" Limit display of directories in path
-let g:badge_tab_filename_max_dirs =
-	\ get(g:, 'badge_tab_filename_max_dirs', 1)
+---@param number integer
+---@param charset table
+local function numtr(number, charset)
+	local result = ''
+	for _, char in ipairs(vim.fn.split(tostring(number), '\zs')) do
+		result = result .. charset[tonumber(char) + 1]
+	end
+	return result
+end
 
-" Limit display of characters in each directory in path
-let g:badge_tab_dir_max_chars =
-	\ get(g:, 'badge_tab_dir_max_chars', 5)
+local numeric_charset = vim.g['badge_numeric_charset'] or
+	{'⁰','¹','²','³','⁴','⁵','⁶','⁷','⁸','⁹'}
+	-- {'₀','₁','₂','₃','₄','₅','₆','₇','₈','₉'})
 
-" Display entire tabline
-function! Tabline()
-	if exists('g:SessionLoad')
-		" Skip tabline render during session loading
+-- Limit display of directories in path
+local max_dirs = vim.g['badge_tab_filename_max_dirs'] or 1
+
+-- Limit display of characters in each directory in path
+local directory_max_chars = vim.g['badge_tab_dir_max_chars'] or 5
+
+-- Custom
+vim.api.nvim_create_autocmd('ColorScheme', {
+	callback = function()
+		vim.api.nvim_set_hl(0, 'TabLineSelEdge', {
+			fg = vim.api.nvim_get_hl_by_name('TabLineFill', true).background,
+			bg = vim.api.nvim_get_hl_by_name('TabLineSel', true).background,
+			ctermfg = vim.api.nvim_get_hl_by_name('TabLineFill', false).background,
+			ctermbg = vim.api.nvim_get_hl_by_name('TabLineSel', false).background,
+		})
+		vim.cmd [[
+			highlight TabLineAlt      ctermfg=252 ctermbg=238 guifg=#D0D0D0 guibg=#444444
+			highlight TabLineAltShade ctermfg=238 ctermbg=236 guifg=#444444 guibg=#303030
+		]]
+	end
+})
+
+function _G.rafi_tabline()
+	if vim.fn.exists('g:SessionLoad') == 1 then
+		-- Skip tabline render during session loading
 		return ''
-	endif
+	end
 
-	" Active project name
-	let l:tabline =
-		\ '%#TabLineAlt# %{badge#project()} %#TabLineAltShade#'
-	" let l:tabline =
-	"	\ '%#TabLineAlt# %{"" . get(g:, "global_symbol_padding", " ") . badge#project()} %#TabLineAltShade#'
+	local badge = require('rafi.lib.badge')
 
-	" Iterate through all tabs and collect labels
-	let l:current = tabpagenr()
-	for i in range(tabpagenr('$'))
-		let l:nr = i + 1
-		let l:bufnrlist = tabpagebuflist(l:nr)
-		let l:bufnr = l:bufnrlist[tabpagewinnr(l:nr) - 1]
+	-- Active project name
+	local line = '%#TabLineAlt# '..badge.project()..' %#TabLineAltShade#'
 
-		" Left-side of single tab
-		if l:nr == l:current
-			let l:tabline .= '%#TabLineFill#%#TabLineSel# '
+	-- Iterate through all tabs and collect labels
+	local current_tabpage = api.nvim_get_current_tabpage()
+	for _, tabnr in ipairs(api.nvim_list_tabpages()) do
+		-- Left-side of single tab
+		if tabnr == current_tabpage then
+			line = line .. '%#TabLineSelEdge#%#TabLineSel# '
 		else
-			let l:tabline .= '%#TabLine#  '
-		endif
+			line = line .. '%#TabLine#  '
+		end
 
-		" Get file-name with custom cutoff settings
-		let l:tabline .= '%' . l:nr . 'T%{badge#filename('
-			\ . l:bufnr . ', ' . g:badge_tab_filename_max_dirs . ', '
-			\ . g:badge_tab_dir_max_chars . ', "tabname")}'
+		-- Get file-name with custom cutoff settings
+		local winbuf = api.nvim_win_get_buf(api.nvim_tabpage_get_win(tabnr))
+		line = line .. '%' .. tabnr .. 'T' ..
+			badge.icon(winbuf) ..
+			(vim.g.global_symbol_padding or ' ') ..
+			badge.filepath(winbuf, max_dirs, directory_max_chars, '_tab')
 
-		" Append window count, for tabs
-		let l:win_count = tabpagewinnr(l:nr, '$')
-		for l:bufnr in l:bufnrlist
-			let l:buffiletype = getbufvar(l:bufnr, '&filetype')
-			if empty(l:buffiletype) || ! s:is_file_buffer(l:bufnr)
-				let l:win_count -= 1
-			endif
-		endfor
-		if l:win_count > 1
-			let l:tabline .= s:numtr(l:win_count, g:badge_numeric_charset)
-		endif
+		-- Count windows and look for modified buffers
+		local modified = false
+		local win_count = 0
+		local tab_windows = api.nvim_tabpage_list_wins(tabnr)
+		for _, winnr in ipairs(tab_windows) do
+			local bufnr = api.nvim_win_get_buf(winnr)
+			if api.nvim_buf_get_option(bufnr, 'buftype') == '' then
+				win_count = win_count + 1
+				if not modified and api.nvim_buf_get_option(bufnr, 'modified') then
+					modified = true
+				end
+			end
+		end
 
-		" Add '+' if one of the buffers in the tab page is modified
-		for l:bufnr in l:bufnrlist
-			if getbufvar(l:bufnr, '&modified') && s:is_file_buffer(l:bufnr)
-				let l:tabline .= (l:nr == l:current ? '%#Number#' : '%6*') . '+%*'
-				break
-			endif
-		endfor
+		if win_count > 1 then
+			line = line .. numtr(win_count, numeric_charset)
+		end
 
-		" Right-side of single tab
-		if l:nr == l:current
-			let l:tabline .= '%#TabLineSel# %#TabLineFill#'
+		-- Add '+' if one of the buffers in the tab page is modified
+		if modified then
+			if tabnr == current_tabpage then
+				line = line .. '%#Number#+%*'
+			else
+				line = line .. '%6*+%*'
+			end
+		end
+
+		-- Right-side of single tab
+		if tabnr == current_tabpage then
+			line = line .. '%#TabLineSel# %#TabLineSelEdge#'
 		else
-			let l:tabline .= '%#TabLine#  '
-		endif
-	endfor
+			line = line .. '%#TabLine#  '
+		end
+	end
 
-	let l:session_name = tr(v:this_session, '%', '/')
+	line = line .. '%#TabLineFill#%T%='
 
-	" Empty elastic space and session indicator
-	let l:tabline .=
-		\ '%#TabLineFill#%T%=%#TabLine#' .
-		\ '%{badge#session("' . fnamemodify(l:session_name, ':t:r') . '  ")}'
+	-- Empty elastic space and session indicator
+	if vim.v['this_session'] ~= '' then
+		local session_name = vim.fn.tr(vim.v['this_session'], '%', '/')
+		line = line ..
+			'%#TabLine#' .. vim.fn.fnamemodify(session_name, ':t:r') .. '  '
+	end
 
-	return l:tabline
-endfunction
+	return line
+end
 
-function! s:is_file_buffer(bufnr) abort
-	return empty(getbufvar(a:bufnr, '&buftype'))
-endfunction
-
-function! s:numtr(number, charset) abort
-	let l:result = ''
-	for l:char in split(a:number, '\zs')
-		let l:result .= a:charset[l:char]
-	endfor
-	return l:result
-endfunction
-
-let &tabline='%!Tabline()'
-
-" vim: set ts=2 sw=2 tw=80 noet :
+vim.o.tabline='%!v:lua.rafi_tabline()'

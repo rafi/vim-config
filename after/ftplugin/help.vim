@@ -38,7 +38,7 @@ function! s:setup_buffer()
 	endif
 
 	" Exit help window with 'q'
-	nnoremap <buffer> q <cmd>quit<CR>
+	nnoremap <buffer> q <cmd>bdelete<CR>
 
 	" Jump to links with enter
 	nmap <buffer> <CR> <C-]>

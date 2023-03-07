@@ -1,17 +1,7 @@
--- plugin: telescope.nvim
--- see: https://github.com/nvim-telescope/telescope.nvim
--- rafi settings
+-- Plugin: telescope.nvim
+-- https://github.com/rafi/vim-config
 
 -- Helpers
-
--- Returns visually selected text
-local visual_selection = function()
-	local save_previous = vim.fn.getreg('a')
-	vim.api.nvim_command('silent! normal! "ay')
-	local selection = vim.fn.trim(vim.fn.getreg('a'))
-	vim.fn.setreg('a', save_previous)
-	return vim.fn.substitute(selection, [[\n]], [[\\n]], 'g')
-end
 
 -- Custom actions
 
@@ -19,69 +9,26 @@ local myactions = {}
 
 function myactions.send_to_qflist(prompt_bufnr)
 	require('telescope.actions').send_to_qflist(prompt_bufnr)
-	require('user').qflist.open()
+	require('rafi.lib.list').open_qflist()
 end
 
 function myactions.smart_send_to_qflist(prompt_bufnr)
 	require('telescope.actions').smart_send_to_qflist(prompt_bufnr)
-	require('user').qflist.open()
-end
-
-function myactions.page_up(prompt_bufnr)
-	require('telescope.actions.set').shift_selection(prompt_bufnr, -5)
-end
-
-function myactions.page_down(prompt_bufnr)
-	require('telescope.actions.set').shift_selection(prompt_bufnr, 5)
+	require('rafi.lib.list').open_qflist()
 end
 
 -- Custom pickers
 
-local pickers = {}
-
-pickers.grep_string_visual = function()
-	require'telescope.builtin'.live_grep({
-		default_text = visual_selection(),
-	})
-end
-
-pickers.grep_string_cursor = function()
-	require'telescope.builtin'.live_grep({
-		default_text = vim.fn.expand('<cword>'),
-	})
-end
-
-pickers.find_files_cursor = function()
-	require'telescope.builtin'.find_files({
-		default_text = vim.fn.expand('<cword>'),
-	})
-end
-
-pickers.lsp_workspace_symbols_cursor = function()
-	require'telescope.builtin'.lsp_workspace_symbols({
-		default_text = vim.fn.expand('<cword>'),
-	})
-end
-
-pickers.zoxide = function()
-	require('telescope').extensions.zoxide.list({
-		layout_config = {
-			width = 0.5,
-			height = 0.6,
-		},
-	})
-end
-
-pickers.plugin_directories = function(opts)
+local plugin_directories = function(opts)
 	local actions = require('telescope.actions')
 	local utils = require('telescope.utils')
-	local dir = vim.fn.expand('$VIM_DATA_PATH/dein/repos/github.com')
+	local dir = vim.fn.stdpath('data') .. '/lazy'
 
 	opts = opts or {}
 	opts.cmd = vim.F.if_nil(opts.cmd, {
 		vim.o.shell,
 		'-c',
-		'find '..vim.fn.shellescape(dir)..' -mindepth 2 -maxdepth 2 -type d',
+		'find '..vim.fn.shellescape(dir)..' -mindepth 1 -maxdepth 1 -type d',
 	})
 
 	local dir_len = dir:len()
@@ -109,7 +56,7 @@ pickers.plugin_directories = function(opts)
 			actions.select_default:replace(function()
 				local entry = require('telescope.actions.state').get_selected_entry()
 				actions.close(prompt_bufnr)
-				vim.cmd.lcd(entry.value)
+				vim.defer_fn(function() vim.cmd.lcd(entry.value) end, 300)
 			end)
 			return true
 		end
@@ -148,264 +95,392 @@ vim.cmd [[
 	augroup END
 ]]
 
--- On-demand setup
-local setup = function()
-	local telescope = require('telescope')
-	local transform_mod = require('telescope.actions.mt').transform_mod
-	local actions = require('telescope.actions')
+local Util = require('rafi.lib.telescope')
 
-	-- Transform to Telescope proper actions.
-	myactions = transform_mod(myactions)
+-- Setup Telescope
+-- See telescope.nvim/lua/telescope/config.lua for defaults.
+return {
 
-	-- Setup Telescope
-	-- See telescope.nvim/lua/telescope/config.lua for defaults.
-	telescope.setup{
-		defaults = {
-			sorting_strategy = 'ascending',
-			-- selection_strategy = 'follow',
-			scroll_strategy = 'cycle',
-			cache_picker = {
-				num_pickers = 3,
-				limit_entries = 300,
+	-----------------------------------------------------------------------------
+	{
+		'nvim-telescope/telescope.nvim',
+		version = false, -- telescope did only one release, so use HEAD for now
+		cmd = 'Telescope',
+		dependencies = {
+			'nvim-lua/plenary.nvim',
+			'nvim-telescope/telescope-ui-select.nvim',
+			'jvgrootveld/telescope-zoxide',
+			'folke/todo-comments.nvim',
+		},
+		config = function(_, opts)
+			require('telescope').setup(opts)
+			require('telescope').load_extension('persisted')
+			require('telescope').load_extension('ui-select')
+		end,
+		keys = {
+			-- General pickers
+			{ '<localleader>r', '<cmd>Telescope resume initial_mode=normal<CR>' },
+			{ '<localleader>R', '<cmd>Telescope pickers<CR>' },
+			{ '<localleader>f', Util.telescope('files') },
+			{ '<localleader>g', Util.telescope('live_grep') },
+			{ '<localleader>b', '<cmd>Telescope buffers show_all_buffers=true<CR>' },
+			{ '<localleader>h', '<cmd>Telescope highlights<CR>' },
+			{ '<localleader>j', '<cmd>Telescope jumplist<CR>' },
+			{ '<localleader>m', '<cmd>Telescope marks<CR>' },
+			{ '<localleader>o', '<cmd>Telescope vim_options<CR>' },
+			{ '<localleader>t', '<cmd>Telescope lsp_dynamic_workspace_symbols<CR>' },
+			{ '<localleader>v', '<cmd>Telescope registers<CR>' },
+			{ '<localleader>u', '<cmd>Telescope spell_suggest<CR>' },
+			{ '<localleader>s', '<cmd>Telescope persisted<CR>' },
+			{ '<localleader>x', '<cmd>Telescope oldfiles<CR>' },
+			{ '<localleader>;', '<cmd>Telescope command_history<CR>' },
+			{ '<localleader>:', '<cmd>Telescope commands<CR>' },
+			{ '<localleader>/', '<cmd>Telescope search_history<CR>' },
+			{ '<leader>/', '<cmd>Telescope current_buffer_fuzzy_find<CR>' },
+
+			{ '<leader>sd', '<cmd>Telescope diagnostics<cr>', desc = 'Diagnostics' },
+			{ '<leader>sh', '<cmd>Telescope help_tags<cr>', desc = 'Help Pages' },
+			{ '<leader>sk', '<cmd>Telescope keymaps<cr>', desc = 'Key Maps' },
+			{ '<leader>sm', '<cmd>Telescope man_pages<cr>', desc = 'Man Pages' },
+			{ '<leader>sw', Util.telescope('grep_string'), desc = 'Word (root dir)' },
+			{ '<leader>sW', Util.telescope('grep_string', { cwd = false }), desc = 'Word (cwd)' },
+			{ '<leader>sc', Util.telescope('colorscheme', { enable_preview = true }), desc = 'Colorscheme with preview' },
+
+			-- LSP related
+			{ '<localleader>dd', '<cmd>Telescope lsp_definitions<CR>' },
+			{ '<localleader>di', '<cmd>Telescope lsp_implementations<CR>' },
+			{ '<localleader>dr', '<cmd>Telescope lsp_references<CR>' },
+			{ '<localleader>da', '<cmd>Telescope lsp_code_actions<CR>' },
+			{ '<localleader>da', ':Telescope lsp_range_code_actions<CR>', mode = 'x' },
+			{
+				'<leader>ss',
+				Util.telescope('lsp_document_symbols', {
+					symbols = {
+						'Class',
+						'Function',
+						'Method',
+						'Constructor',
+						'Interface',
+						'Module',
+						'Struct',
+						'Trait',
+						'Field',
+						'Property',
+					},
+				}),
+				desc = 'Goto Symbol',
+			},
+			{
+				'<leader>sS',
+				Util.telescope('lsp_workspace_symbols', {
+					symbols = {
+						'Class',
+						'Function',
+						'Method',
+						'Constructor',
+						'Interface',
+						'Module',
+						'Struct',
+						'Trait',
+						'Field',
+						'Property',
+					},
+				}),
+				desc = 'Goto Symbol (Workspace)',
 			},
 
-			prompt_prefix = "   ",
-			-- prompt_prefix = '❯ ',
-			selection_caret = '▍ ',
-			multi_icon = '‣',
+			-- Git
+			{ '<leader>gs', '<cmd>Telescope git_status<CR>' },
+			{ '<leader>gr', '<cmd>Telescope git_branches<CR>' },
+			{ '<leader>gl', '<cmd>Telescope git_commits<CR>' },
+			{ '<leader>gL', '<cmd>Telescope git_bcommits<CR>' },
+			{ '<leader>gh', '<cmd>Telescope git_stash<CR>' },
 
-			file_ignore_patterns = { 'node_modules' },
-			set_env = { COLORTERM = 'truecolor' },
+			-- Plugins
+			{ '<localleader>n', plugin_directories },
+			{ '<localleader>w', '<cmd>ZkNotes<CR>' },
 
-			-- Flex layout swaps between horizontal and vertical strategies
-			-- based on the window width. See :h telescope.layout
-			layout_strategy = 'flex',
-			layout_config = {
-				width = 0.9,
-				height = 0.85,
-				prompt_position = 'top',
-				-- center = {
-				-- 	preview_cutoff = 40
-				-- },
-				horizontal = {
-					-- width_padding = 0.1,
-					-- height_padding = 0.1,
-					-- preview_cutoff = 60,
-					preview_width = horizontal_preview_width,
-				},
-				vertical = {
-					-- width_padding = 0.05,
-					-- height_padding = 1,
-					width = 0.75,
+			{
+				'<localleader>z',
+				function()
+					require('telescope').extensions.zoxide.list({
+						layout_config = { width = 0.5, height = 0.6 },
+					})
+				end,
+			},
+
+			-- Find by...
+			{
+				'<leader>gt',
+				function()
+					require'telescope.builtin'.lsp_workspace_symbols({
+						default_text = vim.fn.expand('<cword>'),
+					})()
+				end,
+			},
+			{
+				'<leader>gf',
+				function()
+					Util.telescope('find_files', {
+						default_text = vim.fn.expand('<cword>'),
+					})()
+				end,
+			},
+			{
+				'<leader>gg', function()
+					Util.telescope('live_grep', {
+						default_text = vim.fn.expand('<cword>'),
+					})()
+				end
+			},
+			{
+				'<leader>gg',
+				function()
+					Util.telescope('live_grep', {
+						default_text = require('rafi.lib.edit').get_visual_selection(),
+					})()
+				end,
+				mode = 'x',
+			},
+
+		},
+		opts = function()
+			local transform_mod = require('telescope.actions.mt').transform_mod
+			local actions = require('telescope.actions')
+
+			-- Transform to Telescope proper actions.
+			myactions = transform_mod(myactions)
+
+			return {
+			defaults = {
+				sorting_strategy = 'ascending',
+				cache_picker = { num_pickers = 3 },
+
+				prompt_prefix = '   ',  -- ❯  
+				selection_caret = '▍ ',
+				multi_icon = ' ',
+
+				path_display = { 'truncate' },
+				file_ignore_patterns = { 'node_modules' },
+				set_env = { COLORTERM = 'truecolor' },
+
+				-- Flex layout swaps between horizontal and vertical strategies
+				-- based on the window width. See :h telescope.layout
+				layout_strategy = 'flex',
+				layout_config = {
+					width = 0.9,
 					height = 0.85,
-					preview_height = 0.4,
-					mirror = true,
-				},
-				flex = {
-					-- change to horizontal after 120 cols
-					flip_columns = 120,
-				},
-			},
-
-			mappings = {
-
-				i = {
-					['jj'] = { '<Esc>', type = 'command' },
-
-					['<Tab>'] = actions.move_selection_next,
-					['<S-Tab>'] = actions.move_selection_previous,
-					['<C-u>'] = myactions.page_up,
-					['<C-d>'] = myactions.page_down,
-
-					['<C-q>'] = myactions.smart_send_to_qflist,
-					-- ['<C-l'] = actions.complete_tag,
-
-					['<Down>'] = actions.cycle_history_next,
-					['<Up>'] = actions.cycle_history_prev,
-					['<C-n>'] = actions.cycle_history_next,
-					['<C-p>'] = actions.cycle_history_prev,
-
-					['<C-b>'] = actions.preview_scrolling_up,
-					['<C-f>'] = actions.preview_scrolling_down,
+					prompt_position = 'top',
+					horizontal = {
+						preview_width = horizontal_preview_width,
+					},
+					vertical = {
+						width = 0.75,
+						height = 0.85,
+						preview_height = 0.4,
+						mirror = true,
+					},
+					flex = {
+						-- change to horizontal after 120 cols
+						flip_columns = 120,
+					},
 				},
 
-				n = {
-					['q']     = actions.close,
-					['<Esc>'] = actions.close,
+				mappings = {
 
-					['<Tab>']   = actions.move_selection_next,
-					['<S-Tab>'] = actions.move_selection_previous,
-					['<C-u>'] = myactions.page_up,
-					['<C-d>'] = myactions.page_down,
+					i = {
+						['jj'] = { '<Esc>', type = 'command' },
 
-					['<C-b>'] = actions.preview_scrolling_up,
-					['<C-f>'] = actions.preview_scrolling_down,
+						['<Tab>'] = actions.move_selection_worse,
+						['<S-Tab>'] = actions.move_selection_better,
+						['<C-u>'] = actions.results_scrolling_up,
+						['<C-d>'] = actions.results_scrolling_down,
 
-					['<C-n>'] = actions.cycle_history_next,
-					['<C-p>'] = actions.cycle_history_prev,
+						['<C-q>'] = myactions.smart_send_to_qflist,
 
-					['*'] = actions.toggle_all,
-					['u'] = actions.drop_all,
-					['J'] = actions.toggle_selection + actions.move_selection_next,
-					['K'] = actions.toggle_selection + actions.move_selection_previous,
-					[' '] = {
-						actions.toggle_selection + actions.move_selection_next,
-						type = 'action',
-						opts = { nowait = true },
+						['<C-n>'] = actions.cycle_history_next,
+						['<C-p>'] = actions.cycle_history_prev,
+
+						['<C-b>'] = actions.preview_scrolling_up,
+						['<C-f>'] = actions.preview_scrolling_down,
 					},
 
-					['gg'] = actions.move_to_top,
-					['G'] = actions.move_to_bottom,
-
-					['sv'] = actions.select_horizontal,
-					['sg'] = actions.select_vertical,
-					['st'] = actions.select_tab,
-					['l'] = actions.select_default,
-
-					['w'] = myactions.smart_send_to_qflist,
-					['e'] = myactions.send_to_qflist,
-
-					['!'] = actions.edit_command_line,
-				},
-
-			},
-		},
-		pickers = {
-			buffers = {
-				theme = 'dropdown',
-				previewer = false,
-				sort_lastused = true,
-				sort_mru = true,
-				show_all_buffers = true,
-				ignore_current_buffer = true,
-				path_display = { truncate = 3 },
-				layout_config = {
-					width = width_for_nopreview,
-					height = height_dropdown_nopreview,
-				},
-				mappings = {
 					n = {
-						['dd'] = actions.delete_buffer,
-					}
-				}
-			},
-			find_files = {
-				theme = 'dropdown',
-				previewer = false,
-				layout_config = {
-					width = width_for_nopreview,
-					height = height_dropdown_nopreview,
-				},
-				find_command = {
-					'rg',
-					'--smart-case',
-					'--hidden',
-					'--no-ignore-vcs',
-					'--glob',
-					'!.git',
-					'--files',
-				}
-			},
-			live_grep = {
-				dynamic_preview_title = true,
-			},
-			colorscheme = {
-				enable_preview = true,
-				-- previewer = false,
-				-- theme = 'dropdown',
-				layout_config = { width = 0.45, height = 0.8 },
-			},
-			highlights = {
-				layout_strategy = 'horizontal',
-				layout_config = { preview_width = 0.80 },
-			},
-			-- jumplist = {
-			-- 	layout_strategy = 'horizontal',
-			-- 	layout_config = { preview_width = 0.60 },
-			-- },
-			vim_options = {
-				theme = 'dropdown',
-				previewer = false,
-				layout_config = { width = 0.6, height = 0.7 },
-			},
-			command_history = {
-				theme = 'dropdown',
-				previewer = false,
-				layout_config = { width = 0.5, height = 0.7 },
-			},
-			search_history = {
-				theme = 'dropdown',
-				layout_config = { width = 0.4, height = 0.6 },
-			},
-			spell_suggest = {
-				theme = 'cursor',
-				layout_config = { width = 0.27, height = 0.45 },
-			},
-			registers = {
-				theme = 'cursor',
-				previewer = false,
-				layout_config = { width = 0.45, height = 0.6 },
-			},
-			oldfiles = {
-				theme = 'dropdown',
-				previewer = false,
-				path_display= { shorten = 5 },
-				layout_config = {
-					width = width_for_nopreview,
-					height = height_dropdown_nopreview,
-				},
-			},
-			lsp_definitions = {
-				layout_strategy = 'horizontal',
-				layout_config = { width = 0.7, height = 0.8, preview_width = 0.45 },
-			},
-			lsp_implementations = {
-				layout_strategy = 'horizontal',
-				layout_config = { width = 0.7, height = 0.8, preview_width = 0.45 },
-			},
-			lsp_references = {
-				layout_strategy = 'horizontal',
-				layout_config = { width = 0.7, height = 0.8, preview_width = 0.45 },
-			},
-			lsp_code_actions = {
-				theme = 'cursor',
-				previewer = false,
-				layout_config = { width = 0.3, height = 0.4 },
-			},
-			lsp_range_code_actions = {
-				theme = 'cursor',
-				previewer = false,
-				layout_config = { width = 0.3, height = 0.4 },
-			},
-		},
-		extensions = {
-			zoxide = {
-				prompt_title = '[ Zoxide directories ]',
-				mappings = {
-					default = {
-						action = function(selection)
-							vim.cmd.lcd(selection.path)
+						['q']     = actions.close,
+						['<Esc>'] = actions.close,
+
+						['<Tab>'] = actions.move_selection_worse,
+						['<S-Tab>'] = actions.move_selection_better,
+						['<C-u>'] = actions.results_scrolling_up,
+						['<C-d>'] = actions.results_scrolling_down,
+
+						['<C-b>'] = actions.preview_scrolling_up,
+						['<C-f>'] = actions.preview_scrolling_down,
+
+						['<C-n>'] = actions.cycle_history_next,
+						['<C-p>'] = actions.cycle_history_prev,
+
+						['*'] = actions.toggle_all,
+						['u'] = actions.drop_all,
+						['J'] = actions.toggle_selection + actions.move_selection_next,
+						['K'] = actions.toggle_selection + actions.move_selection_previous,
+						[' '] = {
+							actions.toggle_selection + actions.move_selection_next,
+							type = 'action',
+							opts = { nowait = true },
+						},
+
+						['sv'] = actions.select_horizontal,
+						['sg'] = actions.select_vertical,
+						['st'] = actions.select_tab,
+
+						['w'] = myactions.smart_send_to_qflist,
+						['e'] = myactions.send_to_qflist,
+
+						['!'] = actions.edit_command_line,
+
+						['t'] = function(...)
+							return require('trouble.providers.telescope').open_with_trouble(...)
+						end,
+
+						['p'] = function()
+							local entry = require('telescope.actions.state').get_selected_entry()
+							require('rafi.lib.preview').open(entry.path)
 						end,
 					},
+
 				},
 			},
-			['ui-select'] = {
-				require('telescope.themes').get_cursor {
-					layout_config = { width = 0.35, height = 0.35 },
-				}
+			pickers = {
+				buffers = {
+					theme = 'dropdown',
+					previewer = false,
+					sort_lastused = true,
+					sort_mru = true,
+					show_all_buffers = true,
+					ignore_current_buffer = true,
+					layout_config = {
+						width = width_for_nopreview,
+						height = height_dropdown_nopreview,
+					},
+					mappings = {
+						n = {
+							['dd'] = actions.delete_buffer,
+						}
+					}
+				},
+				find_files = {
+					theme = 'dropdown',
+					previewer = false,
+					layout_config = {
+						width = width_for_nopreview,
+						height = height_dropdown_nopreview,
+					},
+					find_command = {
+						'rg',
+						'--smart-case',
+						'--hidden',
+						'--no-ignore-vcs',
+						'--glob',
+						'!.git',
+						'--files',
+					}
+				},
+				live_grep = {
+					dynamic_preview_title = true,
+				},
+				colorscheme = {
+					enable_preview = true,
+					layout_config = { width = 0.45, height = 0.8 },
+				},
+				highlights = {
+					layout_strategy = 'horizontal',
+					layout_config = { preview_width = 0.80 },
+				},
+				vim_options = {
+					theme = 'dropdown',
+					previewer = false,
+					layout_config = { width = 0.6, height = 0.7 },
+				},
+				command_history = {
+					theme = 'dropdown',
+					previewer = false,
+					layout_config = { width = 0.5, height = 0.7 },
+				},
+				search_history = {
+					theme = 'dropdown',
+					layout_config = { width = 0.4, height = 0.6 },
+				},
+				spell_suggest = {
+					theme = 'cursor',
+					layout_config = { width = 0.27, height = 0.45 },
+				},
+				registers = {
+					theme = 'cursor',
+					previewer = false,
+					layout_config = { width = 0.45, height = 0.6 },
+				},
+				oldfiles = {
+					theme = 'dropdown',
+					previewer = false,
+					layout_config = {
+						width = width_for_nopreview,
+						height = height_dropdown_nopreview,
+					},
+				},
+				lsp_definitions = {
+					layout_strategy = 'horizontal',
+					layout_config = { width = 0.7, height = 0.8, preview_width = 0.45 },
+				},
+				lsp_implementations = {
+					layout_strategy = 'horizontal',
+					layout_config = { width = 0.7, height = 0.8, preview_width = 0.45 },
+				},
+				lsp_references = {
+					layout_strategy = 'horizontal',
+					layout_config = { width = 0.7, height = 0.8, preview_width = 0.45 },
+				},
+				lsp_code_actions = {
+					theme = 'cursor',
+					previewer = false,
+					layout_config = { width = 0.3, height = 0.4 },
+				},
+				lsp_range_code_actions = {
+					theme = 'cursor',
+					previewer = false,
+					layout_config = { width = 0.3, height = 0.4 },
+				},
 			},
+			extensions = {
+				persisted = {
+					layout_config = {
+						width = 0.55, height = 0.55,
+					},
+				},
+				zoxide = {
+					prompt_title = '[ Zoxide directories ]',
+					mappings = {
+						default = {
+							action = function(selection)
+								vim.defer_fn(function() vim.cmd.lcd(selection.path) end, 300)
+							end,
+							after_action = function(selection)
+								vim.notify(
+									"Current working directory set to '"..selection.path.."'",
+									vim.log.levels.INFO
+								)
+							end
+						},
+					},
+				},
+				['ui-select'] = {
+					require('telescope.themes').get_cursor({
+						layout_config = { width = 0.35, height = 0.35 },
+					})
+				},
+			}
 		}
-	}
+		end
+	},
 
-	-- Telescope extensions are loaded in each plugin.
-	-- But the persisted plugin must be immediately.
-	telescope.load_extension('persisted')
-end
-
--- Public functions
-return {
-	setup = setup,
-	pickers = pickers,
 }
-
--- vim: set ts=2 sw=2 tw=80 noet :

@@ -14,15 +14,12 @@ endif
 let b:undo_ftplugin .=
 	\ 'setl cursorline< colorcolumn< signcolumn<'
 	\ . " | execute 'nunmap <buffer> q'"
-	\ . ' | unlet b:qf_isLoc'
 
 " Local window settings
 setlocal cursorline colorcolumn= signcolumn=yes
 
-" let s:winheight = get(g:, 'qf_winheight', 10)
-" if winheight(0) != s:winheight
-" 	execute 'resize' s:winheight
-" endif
+" Setup key-mappings
+nnoremap <buffer> q <Cmd>quit<CR>
 
 " See :h cfilter-plugin
 if ! exists(':Lfilter')
@@ -31,25 +28,11 @@ if ! exists(':Lfilter')
 	endtry
 endif
 
-" Leave behind a variable that indicates this is a location-list, or not.
-if ! exists('b:qf_isLoc')
-	if exists('*win_gettype')
-		let b:qf_isLoc = win_gettype() ==# 'loclist'
-	else
-		let b:qf_isLoc = get(get(getwininfo(win_getid()), 0, {}), 'loclist', 0)
-	endif
-endif
-
-" Setup key-mappings
-nnoremap <buffer> q <Cmd>quit<CR>
-
 if exists(':Lfilter')
-	silent! nunmap <buffer> i
-	silent! nunmap <buffer> r
 	nnoremap <buffer><expr> i
-		\ '<Cmd>' . (b:qf_isLoc == 1 ? 'L' : 'C') . "filter\<Space>//\<Left>"
+		\ ':' . (win_gettype() == 'loclist' ? 'L' : 'C') . "filter\<Space>//\<Left>"
 	nnoremap <buffer><expr> r
-		\ '<Cmd>' . (b:qf_isLoc == 1 ? 'L' : 'C'). "filter!\<Space>//\<Left>"
+		\ ':' . (win_gettype() == 'loclist' ? 'L' : 'C'). "filter!\<Space>//\<Left>"
 
 	let b:undo_ftplugin .= " | execute 'nunmap <buffer> r'"
 		\ . " | execute 'nunmap <buffer> i'"

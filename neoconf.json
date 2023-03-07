@@ -1,0 +1,115 @@
+{
+	"neodev": {
+		"library": {
+			"enabled": true,
+			"plugins": [ "plenary.nvim" ]
+		}
+	},
+
+	"lspconfig": {
+
+		"yamlls": {
+			"yaml.validate": true,
+			"yaml.completion": true,
+			"yaml.hover": true,
+			"yaml.format.enable": true,
+			"yaml.format.singleQuote": true,
+			"yaml.schemaStore.enable": true,
+			"yaml.schemaStore.url": "https://www.schemastore.org/api/json/catalog.json",
+			"yaml.schemas": {
+				"kubernetes": [
+					"helm/**/templates/**/*.yaml",
+					"kube/**/*.yaml"
+				]
+			}
+		},
+
+		"lua_ls": {
+			"Lua.telemetry.enable": false,
+			"Lua.runtime.version": "LuaJIT",
+			"Lua.completion.callSnippet": "Replace",
+			"Lua.diagnostics.enable": true,
+			"Lua.diagnostics.groupSeverity": {
+				"strong": "Warning",
+				"strict": "Warning"
+			},
+			"Lua.diagnostics.groupFileStatus": {
+				"ambiguity": "Opened",
+				"await": "Opened",
+				"codestyle": "None",
+				"duplicate": "Opened",
+				"global": "Opened",
+				"luadoc": "Opened",
+				"redefined": "Opened",
+				"strict": "Opened",
+				// "strong": "Opened",
+				"type-check": "Opened",
+				"unbalanced": "Opened",
+				"unused": "Opened"
+			},
+			"Lua.diagnostics.unusedLocalExclude": [ "_*" ],
+			"Lua.diagnostics.globals": [
+				"vim",
+				"use",
+				"describe",
+				"it",
+				"assert",
+				"before_each",
+				"after_each"
+			]
+		},
+
+		// https://github.com/golang/tools/blob/master/gopls/doc/settings.md
+		"gopls": {
+			"gopls.staticcheck": true,
+			"gopls.gofumpt": true,
+			"gopls.linksInHover": true,
+			"gopls.usePlaceholders": true,
+			"gopls.templateExtensions": [ "tmpl", "gotmpl", "tpl" ],
+
+			// https://github.com/golang/tools/blob/master/gopls/doc/analyzers.md
+			"gopls.analyses": {
+				"useany": true,
+				"fillreturns": true,
+				"nilness": true,
+				"nonewvars": true,
+				"shadow": true,
+				"undeclaredname": true,
+				"unusedparams": false,
+				"unusedvariable": true,
+				"unusedwrite": true,
+				"ST1000": false,
+				"ST1005": false
+			},
+			"gopls.annotations": {
+				"bounds": true,
+				"escape": true,
+				"inline": true,
+				"nil": true
+			},
+			"gopls.codelenses": {
+				"gc_details": true,
+				"generate": true,
+				"regenerate_cgo": false,
+				"tidy": true,
+				"upgrade_dependency": true,
+				"vendor": true
+			},
+			"gopls.hints": {
+				"assignVariableTypes": true,
+				"compositeLiteralFields": true,
+				"compositeLiteralTypes": true,
+				"constantValues": true,
+				"functionTypeParameters": true,
+				"parameterNames": true,
+				"rangeVariableTypes": true
+			}
+		},
+
+		"jsonls": {
+			"json.validate.enable": true,
+			"json.format.enable": true
+		}
+
+	}
+}

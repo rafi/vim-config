@@ -1,34 +1,76 @@
--- rafi interface functions
+-- Edit utilities
 -- https://github.com/rafi/vim-config
 
-local fn = vim.fn
-local api = vim.api
-local interface = {}
+local M = {}
 
-interface.win = {}
+-- Get visually selected lines.
+function M.get_visual_selection()
+	local s_start = vim.fn.getpos("'<")
+	local s_end = vim.fn.getpos("'>")
+	local n_lines = math.abs(s_end[2] - s_start[2]) + 1
+	local lines = vim.api.nvim_buf_get_lines(0, s_start[2] - 1, s_end[2], false)
+	lines[1] = string.sub(lines[1], s_start[3], -1)
+	if n_lines == 1 then
+		lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3] - s_start[3] + 1)
+	else
+		lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3])
+	end
+	return table.concat(lines, '\n')
+end
 
--- Close plugin owned windows.
-interface.win.close_plugin_owned = function()
-	-- Jump to preview window if current window is plugin owned.
-	if interface.win.is_plugin_owned(0) then
-		vim.cmd([[ wincmd p ]])
+-- Append modeline at end of file.
+function M.append_modeline()
+	local modeline = string.format(
+		'vim: set ts=%d sw=%d tw=%d %set :',
+		vim.bo.tabstop,
+		vim.bo.shiftwidth,
+		vim.bo.textwidth,
+		vim.bo.expandtab and '' or 'no'
+	)
+	modeline = string.gsub(vim.bo.commentstring, '%%s', modeline)
+	vim.api.nvim_buf_set_lines(0, -1, -1, false, { modeline })
+end
+
+-- Go to newer/older buffer through jumplist.
+---@param direction 1 | -1
+function M.jump_buffer(direction)
+	local jumplist, curjump = unpack(vim.fn.getjumplist())
+	if #jumplist == 0 then
+		return
+	end
+	local cur_buf = vim.api.nvim_get_current_buf()
+	local jumpcmd = direction > 0 and '<C-i>' or '<C-o>'
+	local searchrange = {}
+	curjump = curjump + 1
+	if direction > 0 then
+		searchrange = vim.fn.range(curjump + 1, #jumplist)
+	else
+		searchrange = vim.fn.range(curjump - 1, 1, -1)
 	end
 
-	for _, win in ipairs(fn.getwininfo()) do
-		if interface.win.is_plugin_owned(win.bufnr) then
-			-- Delete plugin owned window buffers.
-			api.nvim_buf_delete(win.bufnr, {})
+	for _, i in ipairs(searchrange) do
+		local nr = jumplist[i]['bufnr']
+		if nr ~= cur_buf and vim.fn.bufname(nr):find('^%w+://') == nil then
+			local n = tostring(math.abs(i - curjump))
+			vim.notify('Executing ' .. jumpcmd .. ' ' .. n .. ' times')
+			jumpcmd = vim.api.nvim_replace_termcodes(jumpcmd, true, true, true)
+			vim.cmd.normal({ n .. jumpcmd, bang = true })
+			break
 		end
 	end
 end
 
--- Detect if window is owned by plugin by checking buftype.
-interface.win.is_plugin_owned = function(bufid)
-	local origin_type = api.nvim_buf_get_option(bufid, 'buftype')
-	if origin_type == '' or origin_type == 'help' then
-		return false
+-- Jump to next/previous whitespace error.
+---@param direction 1 | -1
+function M.whitespace_jump(direction)
+	local opts = 'wz'
+	if direction < 1 then
+		opts = opts .. 'b'
 	end
-	return true
+
+	-- Whitespace pattern: Trailing whitespace or mixed tabs/spaces.
+	local pat = '\\s\\+$\\| \\+\\ze\\t'
+	vim.fn.search(pat, opts)
 end
 
-return interface
+return M

@@ -41,10 +41,6 @@ hi TabLineFill ctermfg=234 ctermbg=236 guifg=#1C1C1C guibg=#303030 cterm=NONE gu
 hi TabLine     ctermfg=243 ctermbg=236 guifg=#767676 guibg=#303030 cterm=NONE gui=NONE
 " TabLineSel: Active tab page label
 hi TabLineSel  ctermfg=241 ctermbg=234 guifg=#626262 guibg=#1C1C1C cterm=NONE gui=NONE
-" Custom
-highlight TabLineSelShade  ctermfg=235 ctermbg=234 guifg=#262626 guibg=#1C1C1C
-highlight TabLineAlt       ctermfg=252 ctermbg=238 guifg=#D0D0D0 guibg=#444444
-highlight TabLineAltShade  ctermfg=238 ctermbg=236 guifg=#444444 guibg=#303030
 " }}}
 
 " Highlights: Statusline {{{
@@ -75,12 +71,6 @@ highlight NonText cterm=NONE ctermfg=NONE
 highlight! link jsFutureKeys PreProc
 highlight! WarningMsg  ctermfg=100 guifg=#CCC566
 highlight! link QuickFixLine WildMenu
-highlight! link lspReference Visual
-
-highlight! DiagnosticError ctermfg=1   guifg=Red
-highlight! DiagnosticWarn  ctermfg=3   guifg=Orange
-highlight! DiagnosticInfo  ctermfg=4   guifg=LightBlue
-highlight! DiagnosticHint  ctermfg=143 guifg=#b5bd68
 
 " if has('nvim') || has('patch-7.4.2218')
 " 	highlight EndOfBuffer gui=NONE guifg=#303030
@@ -136,9 +126,16 @@ hi! link mkdItalic htmlItalic
 
 " LSP {{{
 " ---
+highlight! DiagnosticError ctermfg=1   guifg=Red
+highlight! DiagnosticWarn  ctermfg=3   guifg=Orange
+highlight! DiagnosticInfo  ctermfg=4   guifg=LightBlue
+highlight! DiagnosticHint  ctermfg=143 guifg=#b5bd68
+
+highlight! link lspReference Visual
 highlight! LspReferenceRead ctermbg=237 guibg=#3D3741
 highlight! LspReferenceText ctermbg=237 guibg=#373B41
 highlight! LspReferenceWrite ctermbg=237 guibg=#374137
+highlight! LspSignatureActiveParameter ctermbg=237 guibg=#4D2238
 " }}}
 
 " Plugin: IndentGuides {{{
@@ -155,6 +152,13 @@ highlight! LspReferenceWrite ctermbg=237 guibg=#374137
 " highlight! IndentBlanklineSpaceChar cterm=nocombine gui=nocombine guifg=#373b41
 " highlight! IndentBlanklineSpaceCharBlankline cterm=nocombine gui=nocombine guifg=#373b41
 " highlight! IndentBlanklineContextChar cterm=nocombine ctermbg=110 gui=nocombine guibg=#81a2be
+" }}}
+
+" Plugin: vim-illuminate {{{
+" ---
+highlight! link IlluminatedWordText LspReferenceText
+highlight! link IlluminatedWordRead LspReferenceRead
+highlight! link IlluminatedWordWrite LspReferenceWrite
 " }}}
 
 " Plugin: nvim-cmp {{{
@@ -228,26 +232,10 @@ highlight! GitSignsChangeInline ctermbg=58 guibg=#808200
 highlight! FocusedSymbol ctermbg=236 guibg=#2D3C42 cterm=NONE gui=NONE
 " }}}
 
-" Plugin: vim-shot-f {{{
-" ---
-highlight! link ShotFGraph SpellRare
-highlight! link ShotFBlank DiffAdd
-" }}}
-
 " Plugin: chentau/marks.nvim {{{
 highlight! MarkSignHL ctermfg=12 guifg=#4EA9D7
 " highlight! default link MarkSignNumHL CursorLineNr
 " highlight! default link MarkVirtTextHL Comment
-" }}}
-
-" Plugin: vim-choosewin {{{
-" ---
-let g:choosewin_color_label = {
-	\ 'cterm': [  75, 233 ], 'gui': [ '#7f99cd', '#000000' ] }
-let g:choosewin_color_label_current = {
-	\ 'cterm': [ 228, 233 ], 'gui': [ '#D7D17C', '#000000' ] }
-let g:choosewin_color_other = {
-	\ 'cterm': [ 235, 235 ], 'gui': [ '#232323', '#000000' ] }
 " }}}
 
 " vim: set foldmethod=marker ts=2 sw=0 tw=80 noet :
