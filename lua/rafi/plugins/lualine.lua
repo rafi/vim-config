@@ -64,6 +64,12 @@ local function icon_padding()
 	return vim.g.global_symbol_padding or ' '
 end
 
+-- File path
+local function filepath()
+	local fpath = require('rafi.lib.badge').filepath(0, 3, 5)
+	return fpath:gsub('%%', '%%%%')
+end
+
 return {
 
 	-----------------------------------------------------------------------------
@@ -217,11 +223,7 @@ return {
 					},
 
 					-- File path
-					{
-						function() return require('rafi.lib.badge').filepath(0, 3, 5) end,
-						color = { fg = colors.active.filepath },
-						padding = { left = 0, right = 0 },
-					},
+					{ filepath, color = { fg = colors.active.filepath }, padding = 0 },
 
 					-- Diagnostics
 					{
@@ -296,10 +298,7 @@ return {
 						function() return require('rafi.lib.badge').icon() end,
 						padding = { left = 1, right = #icon_padding() }
 					},
-					{
-						function() return require('rafi.lib.badge').filepath(0, 3, 5) end,
-						padding = { left = 0, right = 0 }
-					},
+					{ filepath, padding = 0 },
 					{
 						function() return vim.bo.modified and '+' or '' end,
 						color = { fg = colors.filemode.modified }

@@ -66,10 +66,11 @@ function _G.rafi_tabline()
 
 		-- Get file-name with custom cutoff settings
 		local winbuf = api.nvim_win_get_buf(api.nvim_tabpage_get_win(tabnr))
+		local fpath = badge.filepath(winbuf, max_dirs, directory_max_chars, '_tab')
 		line = line .. '%' .. tabnr .. 'T' ..
 			badge.icon(winbuf) ..
 			(vim.g.global_symbol_padding or ' ') ..
-			badge.filepath(winbuf, max_dirs, directory_max_chars, '_tab')
+			fpath:gsub('%%', '%%%%')
 
 		-- Count windows and look for modified buffers
 		local modified = false
