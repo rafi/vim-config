@@ -70,8 +70,17 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 	end,
 })
 
+-- Disable conceallevel for specific file-types.
+vim.api.nvim_create_autocmd('FileType', {
+	group = augroup('fix_conceallevel'),
+	pattern = { 'markdown' },
+	callback = function()
+		vim.wo.conceallevel = 0
+	end,
+})
+
 -- Resize splits if window got resized
-vim.api.nvim_create_autocmd({ 'VimResized' }, {
+vim.api.nvim_create_autocmd('VimResized', {
 	group = augroup('resize_splits'),
 	callback = function()
 		vim.cmd('wincmd =')

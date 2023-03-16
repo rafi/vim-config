@@ -259,7 +259,6 @@ return {
 	{
 		'rmagatti/goto-preview',
 		dependencies = 'nvim-telescope/telescope.nvim',
-		event = 'FileType',
 		keys = {
 			{
 				'gpd',

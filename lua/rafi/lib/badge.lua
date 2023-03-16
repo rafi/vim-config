@@ -17,13 +17,14 @@ local plugin_icons = {
 	fugitiveblame = { '', 'Blame' },
 }
 
+local root_patterns = { '.git', '_darcs', '.hg', '.bzr', '.svn' }
+
 local cache_keys = {
 	'badge_cache_filepath',
 	'badge_cache_filepath_tab',
 	'badge_cache_icon',
 }
 
-local Path = require('plenary.path')
 local augroup = vim.api.nvim_create_augroup('rafi_badge', {})
 
 -- Clear cached values that relate to buffer filename.
@@ -52,27 +53,6 @@ vim.api.nvim_create_autocmd(
 	}
 )
 
-local function _find_patterns(path)
-	local is_root = function(pathname)
-		if Path.path.sep == '\\' then
-			return string.match(pathname, '^[A-Z]:\\?$')
-		end
-		return pathname == '/'
-	end
-	local root_patterns = { '.git', '_darcs', '.hg', '.bzr', '.svn' }
-	local iterations = 0
-	repeat
-		for _, pattern in ipairs(root_patterns) do
-			if (path / pattern):exists() then
-				return path.filename
-			end
-		end
-		path = path:parent()
-		iterations = iterations + 1
-	until is_root(path.filename) or iterations > 10
-	return ''
-end
-
 local M = {}
 
 -- Find the root directory by searching for the version-control dir
@@ -89,30 +69,22 @@ function M.root()
 		end
 	end
 
-	local prefix = Path:new{ cwd }
-	local found = _find_patterns(prefix)
-	vim.api.nvim_buf_set_var(0, 'project_dir', found)
+	local root = vim.fs.find(root_patterns, { path = cwd, upward = true })[1]
+	root = root and vim.fs.dirname(root) or vim.loop.cwd()
+	vim.api.nvim_buf_set_var(0, 'project_dir', root)
 	vim.api.nvim_buf_set_var(0, 'project_dir_last_cwd', cwd)
-	return found
+	return root
 end
 
 -- Try to guess the project's name
 function M.project()
-	local root_dir = M.root()
-	if root_dir == '' then
-		local cwd = vim.loop.cwd()
-		if cwd ~= nil and cwd ~= '' then
-			root_dir = cwd
-		end
-	end
-	return vim.fn.fnamemodify(root_dir, ':t')
+	return vim.fn.fnamemodify(M.root(), ':t')
 end
 
 -- Provides relative path with limited characters in each directory name, and
 -- limits number of total directories. Caches the result for current buffer.
 function M.filepath(bufnr, max_dirs, dir_max_chars, cache_suffix)
 	local msg = ''
-	-- local ft = vim.bo.filetype
 	local cache_key = 'badge_cache_filepath' -- _'..ft
 	if cache_suffix then
 		cache_key = cache_key .. cache_suffix
@@ -133,7 +105,7 @@ function M.filepath(bufnr, max_dirs, dir_max_chars, cache_suffix)
 	bufname = vim.fn.fnamemodify(bufname, ':~:.')
 
 	-- Reduce directory count according to 'max_dirs' setting.
-	local formatter = string.format('([^%s]+)', Path.path.sep)
+	local formatter = string.format('([^%s]+)', M.path_sep)
 	local parts = {}
 	for str in string.gmatch(bufname, formatter) do
 		table.insert(parts, str)
@@ -145,7 +117,7 @@ function M.filepath(bufnr, max_dirs, dir_max_chars, cache_suffix)
 			table.insert(short_parts, 1, parts[i])
 		end
 	end
-	bufname = table.concat(short_parts, Path.path.sep)
+	bufname = table.concat(short_parts, M.path_sep)
 
 	-- Reduce each directory character count according to setting.
 	bufname = vim.fn.pathshorten(bufname, dir_max_chars + 1)
@@ -247,5 +219,19 @@ function M.trails(symbol)
 
 	return msg
 end
+
+-- Variable holds OS directory separator.
+M.path_sep = (function()
+	if jit then
+		local os = string.lower(jit.os)
+		if os ~= 'windows' then
+			return '/'
+		else
+			return '\\'
+		end
+	else
+		return package.config:sub(1, 1)
+	end
+end)()
 
 return M

@@ -17,7 +17,7 @@ end
 
 require('lazy').setup({
 	spec = spec,
-	defaults = { lazy = true },
+	defaults = { lazy = true, version = false },
 	dev = { path = config.path_join(vim.fn.stdpath('config'), 'dev') },
 	install = { missing = true, colorscheme = {} },
 	ui = { border = 'rounded' },

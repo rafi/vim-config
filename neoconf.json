@@ -47,16 +47,7 @@
 				"unbalanced": "Opened",
 				"unused": "Opened"
 			},
-			"Lua.diagnostics.unusedLocalExclude": [ "_*" ],
-			"Lua.diagnostics.globals": [
-				"vim",
-				"use",
-				"describe",
-				"it",
-				"assert",
-				"before_each",
-				"after_each"
-			]
+			"Lua.diagnostics.unusedLocalExclude": [ "_*" ]
 		},
 
 		// https://github.com/golang/tools/blob/master/gopls/doc/settings.md

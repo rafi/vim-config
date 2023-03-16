@@ -3,6 +3,8 @@
 
 local M = {}
 
+---@param client lsp.Client
+---@param buffer integer
 function M.get(client, buffer)
 	local format = require('rafi.plugins.lsp.format').format
 	local function map(mode, lhs, rhs, user_opts)
@@ -70,29 +72,24 @@ function M.diagnostic_toggle(global)
 		msg = msg .. ' globally'
 	end
 	vim.notify(msg)
-	vim.schedule(function() vim.diagnostic[cmd](bufnr) end)
+	vim.schedule(function()
+		vim.diagnostic[cmd](bufnr)
+	end)
 end
 
+---@param next boolean
+---@param severity string|nil
 function M.diagnostic_goto(next, severity)
 	local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-	severity = severity and vim.diagnostic.severity[severity] or nil
+	local severity_int = severity and vim.diagnostic.severity[severity] or nil
 	return function()
-		go({ severity = severity })
+		go({ severity = severity_int })
 	end
 end
 
+---@param client lsp.Client
+---@param buffer integer
 function M.on_attach(client, buffer)
-	-- Disable diagnostics if buffer/global indicator is on, or for Helm files.
-	if
-		vim.b[buffer].diagnostics_disabled
-		or vim.g['diagnostics_disabled']
-		or vim.bo[buffer].buftype ~= ''
-		or vim.bo[buffer].filetype == 'helm'
-	then
-		vim.diagnostic.disable(buffer)
-		return
-	end
-
 	M.get(client, buffer)
 end
 

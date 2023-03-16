@@ -90,11 +90,9 @@ return {
 				window = {
 					completion = cmp.config.window.bordered({
 						border = 'none',
-						winhighlight = 'FloatBorder:NormalFloat',
 					}),
 					documentation = cmp.config.window.bordered({
 						border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
-						winhighlight = 'FloatBorder:NormalFloat',
 					}),
 				},
 				formatting = {

@@ -41,6 +41,8 @@ function M.format()
 	}, require('rafi.config').plugin_opts('nvim-lspconfig').format or {}))
 end
 
+---@param client lsp.Client
+---@param buf integer
 function M.on_attach(client, buf)
 	if
 		client.config

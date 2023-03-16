@@ -4,7 +4,7 @@
 local M = {}
 
 ---@param method string
----@param clients (table) List of |vim.lsp.client| objects
+---@param clients lsp.Client[]
 local function supports_method(method, clients)
 	for _, client in pairs(clients) do
 		if client.supports_method(method) then
@@ -62,7 +62,6 @@ M.show = function()
 
 		vim.cmd [[
 			nmenu Context.Grep… <cmd>lua vim.schedule(function() require'telescope.builtin'.live_grep({default_text = vim.fn.expand('<cword>')}) end)<CR>
-			nmenu Context.Jump… <cmd>AnyJump<CR>
 			nmenu Context.-2-   <Nop>
 		]]
 	end

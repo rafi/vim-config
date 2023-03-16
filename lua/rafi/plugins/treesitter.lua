@@ -40,7 +40,7 @@ return {
 		build = ':TSUpdate',
 		dependencies = {
 			'nvim-treesitter/nvim-treesitter-textobjects',
-			'nvim-treesitter/nvim-treesitter-context',
+			{ 'nvim-treesitter/nvim-treesitter-context', opts = { enable = false }},
 			'JoosepAlviste/nvim-ts-context-commentstring',
 			'RRethy/nvim-treesitter-endwise',
 			'windwp/nvim-ts-autotag',
@@ -65,10 +65,10 @@ return {
 				'gitignore', 'gitattributes', 'git_rebase', 'go', 'gomod', 'gosum',
 				'gowork', 'graphql', 'hcl', 'help', 'html', 'http', 'java',
 				'javascript', 'jsdoc', 'json', 'json5', 'jsonc', 'kotlin', 'lua',
-				'make', 'markdown', 'markdown_inline', 'nix', 'perl', 'php', 'pug',
-				'python', 'regex', 'rst', 'ruby', 'rust', 'scala', 'scss', 'sql',
-				'svelte', 'terraform', 'todotxt', 'toml', 'tsx', 'typescript', 'vim',
-				'vue', 'yaml', 'zig',
+				'luap', 'make', 'markdown', 'markdown_inline', 'nix', 'perl', 'php',
+				'pug', 'python', 'regex', 'rst', 'ruby', 'rust', 'scala', 'scss',
+				'sql', 'svelte', 'terraform', 'todotxt', 'toml', 'tsx', 'typescript',
+				'vim', 'vue', 'yaml', 'zig',
 			},
 
 			highlight = {

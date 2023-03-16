@@ -71,8 +71,9 @@ end
 ---@type RafiConfig
 local options
 
-function M.setup(opts)
-	options = vim.tbl_deep_extend('force', defaults, opts or {})
+---@param user_opts table|nil
+function M.setup(user_opts)
+	options = vim.tbl_deep_extend('force', defaults, user_opts or {})
 
 	M.vim_require('.vault.vim')
 	M.load('keymaps')
@@ -93,7 +94,7 @@ function M.setup(opts)
 	})
 end
 
----@param on_attach fun(client, buffer)
+---@param on_attach fun(client:lsp.Client, buffer:integer)
 function M.on_attach(on_attach)
 	vim.api.nvim_create_autocmd('LspAttach', {
 		callback = function(args)

@@ -78,9 +78,18 @@ map('n', 'zh', 'z4h', { noremap = true })
 -- Clipboard
 -- ===
 
--- Yank buffer's relative/absolute path to clipboard
-map('n', '<Leader>y', ':let @+=expand("%:~:.")<CR>:echo "Yanked relative path"<CR>', { desc = 'Yank relative path' })
-map('n', '<Leader>Y', ':let @+=expand("%:p")<CR>:echo "Yanked absolute path"<CR>', { desc = 'Yank absolute path' })
+-- Yank buffer's relative path to clipboard
+map('n', '<Leader>y', function()
+	local path = vim.fn.expand('%:~:.')
+	vim.fn.setreg('+', path)
+	vim.notify(path, vim.log.levels.INFO, { title = 'Yanked relative path' })
+end, { silent = true, desc = 'Yank relative path' })
+-- Yank absolute path
+map('n', '<Leader>Y', function()
+	local path = vim.fn.expand('%:p')
+	vim.fn.setreg('+', path)
+	vim.notify(path, vim.log.levels.INFO, { title = 'Yanked absolute path' })
+end, { silent = true, desc = 'Yank absolute path' })
 
 -- Paste in visual-mode without pushing to register
 map('x', 'p', 'p:let @+=@0<CR>', { desc = 'Paste' })
