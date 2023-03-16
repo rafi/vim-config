@@ -117,26 +117,3 @@ vim.api.nvim_create_autocmd({'BufNewFile', 'BufReadPre'}, {
 		vim.opt_global.writebackup = false
 	end,
 })
-
--- Load custom theme overrides once colorscheme changes
-vim.api.nvim_create_autocmd('ColorScheme', {
-	group = augroup('theme'),
-	callback = function()
-		local Path = require('plenary.path')
-		local current = vim.g['colors_name']
-		if current and current ~= 'habamax' then
-			local user_theme = Path:new({
-				vim.fn.stdpath('config'),
-				'themes',
-				current .. '.vim',
-			})
-			if user_theme:exists() then
-				vim.fn.execute('source ' .. user_theme:expand())
-			end
-			-- Save colorscheme
-			local cache_file = Path:new({ vim.fn.stdpath('data'), 'theme.txt' })
-			cache_file:write(current, 'w', 432)
-			cache_file:close()
-		end
-	end,
-})

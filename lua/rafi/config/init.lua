@@ -9,15 +9,16 @@ local M = {}
 
 ---@class RafiConfig
 local defaults = {
-	colorscheme = function()
-		require('rafi.config').restore_colorscheme()
-	end,
-	-- load the default settings
+	-- Load the default settings
 	defaults = {
-		autocmds = true, -- config.autocmds
-		keymaps = true, -- config.keymaps
-		options = true, -- config.options
+		autocmds = true, -- rafi.config.autocmds
+		keymaps = true, -- rafi.config.keymaps
+		options = true, -- rafi.config.options
 	},
+	-- String like `habamax` or a function that will load the colorscheme.
+	---@type string|fun()
+	colorscheme = '',
+
 	icons = {
 		diagnostics = {
 			Error = '✘', --   ✘
@@ -76,6 +77,20 @@ function M.setup(opts)
 	M.vim_require('.vault.vim')
 	M.load('keymaps')
 	M.load('autocmds')
+
+	require('lazy.core.util').try(function()
+		if type(M.colorscheme) == 'function' then
+			M.colorscheme()
+		elseif #M.colorscheme > 0 then
+			vim.cmd.colorscheme(M.colorscheme)
+		end
+	end, {
+		msg = 'Could not load your colorscheme',
+		on_error = function(msg)
+			require('lazy.core.util').error(msg)
+			vim.cmd.colorscheme('habamax')
+		end,
+	})
 end
 
 ---@param on_attach fun(client, buffer)
@@ -117,7 +132,7 @@ end
 -- Source vim script file, if exists.
 ---@param relpath string
 function M.vim_require(relpath)
-	local abspath = vim.fn.stdpath('config') .. '/' .. relpath
+	local abspath = M.path_join(vim.fn.stdpath('config'), relpath)
 	if vim.loop.fs_stat(abspath) then
 		vim.fn.execute('source ' .. abspath)
 	end
@@ -148,38 +163,6 @@ function M.load(name)
 		-- HACK: LazyVim may have overwritten options of the Lazy ui, so reset this here
 		vim.cmd([[do VimResized]])
 	end
-end
-
--- Load colorscheme from options.
-function M.init_colorscheme()
-	require('lazy.core.util').try(function()
-		if type(M.colorscheme) == 'function' then
-			M.colorscheme()
-		else
-			vim.cmd.colorscheme(M.colorscheme)
-		end
-	end, {
-		msg = 'Could not load your colorscheme',
-		on_error = function(msg)
-			require('lazy.core.util').error(msg)
-			vim.cmd.colorscheme('habamax')
-		end,
-	})
-end
-
--- Load cached or default theme.
-function M.restore_colorscheme()
-	local Path = require('plenary.path')
-	local cache_file = Path:new({ vim.fn.stdpath('data'), 'theme.txt' })
-	local want = ''
-	if cache_file:exists() then
-		want = cache_file:head(1) or ''
-	end
-	cache_file:close()
-	if #want == 0 then
-		want = 'hybrid'
-	end
-	pcall(vim.cmd.colorscheme, want)
 end
 
 -- Ensure package manager (lazy.nvim) exists.

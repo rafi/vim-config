@@ -38,6 +38,5 @@ require('lazy').setup({
 		},
 	},
 })
-config.init_colorscheme()
 
 -- Enjoy!

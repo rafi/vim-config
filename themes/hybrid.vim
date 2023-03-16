@@ -41,6 +41,8 @@ hi TabLineFill ctermfg=234 ctermbg=236 guifg=#1C1C1C guibg=#303030 cterm=NONE gu
 hi TabLine     ctermfg=243 ctermbg=236 guifg=#767676 guibg=#303030 cterm=NONE gui=NONE
 " TabLineSel: Active tab page label
 hi TabLineSel  ctermfg=241 ctermbg=234 guifg=#626262 guibg=#1C1C1C cterm=NONE gui=NONE
+
+hi TabLineProject  ctermfg=252 ctermbg=238 guifg=#D0D0D0 guibg=#444444
 " }}}
 
 " Highlights: Statusline {{{

@@ -4,13 +4,21 @@
 return {
 
 	-----------------------------------------------------------------------------
-	{ 'nvim-tree/nvim-web-devicons' },
-	{ 'MunifTanjim/nui.nvim' },
+	{ 'nvim-tree/nvim-web-devicons', lazy = false },
+	{ 'MunifTanjim/nui.nvim', lazy = false },
+	{ 'rafi/tabstrip.nvim', lazy = false, opts = true },
+	{ 'rafi/theme-loader.nvim', lazy = false, priority = 999, opts = true },
 
 	-----------------------------------------------------------------------------
 	{
 		'folke/noice.nvim',
 		event = 'VeryLazy',
+		dependencies = {
+			'MunifTanjim/nui.nvim',
+			'rcarriga/nvim-notify',
+			'nvim-treesitter/nvim-treesitter',
+		},
+		---@type NoiceConfig
 		opts = {
 			lsp = {
 				override = {
