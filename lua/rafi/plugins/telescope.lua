@@ -65,15 +65,15 @@ end
 
 -- Custom window-sizes
 
-local horizontal_preview_width = function(_, cols, _)
+local width_small = function(_, cols, _)
 	if cols > 200 then
-		return math.floor(cols * 0.7)
-	else
 		return math.floor(cols * 0.6)
+	else
+		return math.floor(cols * 0.5)
 	end
 end
 
-local width_for_nopreview = function(_, cols, _)
+local width_medium = function(_, cols, _)
 	if cols > 200 then
 		return math.floor(cols * 0.5)
 	elseif cols > 110 then
@@ -83,7 +83,7 @@ local width_for_nopreview = function(_, cols, _)
 	end
 end
 
-local height_dropdown_nopreview = function(_, _, rows)
+local height_medium = function(_, _, rows)
 	return math.floor(rows * 0.7)
 end
 
@@ -94,8 +94,6 @@ vim.cmd [[
 		autocmd User TelescopePreviewerLoaded setlocal wrap list number
 	augroup END
 ]]
-
-local Util = require('rafi.lib.telescope')
 
 -- Setup Telescope
 -- See telescope.nvim/lua/telescope/config.lua for defaults.
@@ -121,8 +119,8 @@ return {
 			-- General pickers
 			{ '<localleader>r', '<cmd>Telescope resume initial_mode=normal<CR>' },
 			{ '<localleader>R', '<cmd>Telescope pickers<CR>' },
-			{ '<localleader>f', Util.telescope('files') },
-			{ '<localleader>g', Util.telescope('live_grep') },
+			{ '<localleader>f', '<cmd>Telescope find_files<CR>' },
+			{ '<localleader>g', '<cmd>Telescope live_grep<CR>' },
 			{ '<localleader>b', '<cmd>Telescope buffers show_all_buffers=true<CR>' },
 			{ '<localleader>h', '<cmd>Telescope highlights<CR>' },
 			{ '<localleader>j', '<cmd>Telescope jumplist<CR>' },
@@ -138,13 +136,12 @@ return {
 			{ '<localleader>/', '<cmd>Telescope search_history<CR>' },
 			{ '<leader>/', '<cmd>Telescope current_buffer_fuzzy_find<CR>' },
 
-			{ '<leader>sd', '<cmd>Telescope diagnostics<cr>', desc = 'Diagnostics' },
-			{ '<leader>sh', '<cmd>Telescope help_tags<cr>', desc = 'Help Pages' },
-			{ '<leader>sk', '<cmd>Telescope keymaps<cr>', desc = 'Key Maps' },
-			{ '<leader>sm', '<cmd>Telescope man_pages<cr>', desc = 'Man Pages' },
-			{ '<leader>sw', Util.telescope('grep_string'), desc = 'Word (root dir)' },
-			{ '<leader>sW', Util.telescope('grep_string', { cwd = false }), desc = 'Word (cwd)' },
-			{ '<leader>sc', Util.telescope('colorscheme', { enable_preview = true }), desc = 'Colorscheme with preview' },
+			{ '<leader>sd', '<cmd>Telescope diagnostics<CR>', desc = 'Diagnostics' },
+			{ '<leader>sh', '<cmd>Telescope help_tags<CR>', desc = 'Help Pages' },
+			{ '<leader>sk', '<cmd>Telescope keymaps<CR>', desc = 'Key Maps' },
+			{ '<leader>sm', '<cmd>Telescope man_pages<CR>', desc = 'Man Pages' },
+			{ '<leader>sw', '<cmd>Telescope grep_string<CR>', desc = 'Word' },
+			{ '<leader>sc', '<cmd>Telescope colorscheme<CR>', desc = 'Colorscheme' },
 
 			-- LSP related
 			{ '<localleader>dd', '<cmd>Telescope lsp_definitions<CR>' },
@@ -154,38 +151,42 @@ return {
 			{ '<localleader>da', ':Telescope lsp_range_code_actions<CR>', mode = 'x' },
 			{
 				'<leader>ss',
-				Util.telescope('lsp_document_symbols', {
-					symbols = {
-						'Class',
-						'Function',
-						'Method',
-						'Constructor',
-						'Interface',
-						'Module',
-						'Struct',
-						'Trait',
-						'Field',
-						'Property',
-					},
-				}),
+				function()
+					require('telescope.builtin').lsp_document_symbols({
+						symbols = {
+							'Class',
+							'Function',
+							'Method',
+							'Constructor',
+							'Interface',
+							'Module',
+							'Struct',
+							'Trait',
+							'Field',
+							'Property',
+						},
+					})
+				end,
 				desc = 'Goto Symbol',
 			},
 			{
 				'<leader>sS',
-				Util.telescope('lsp_workspace_symbols', {
-					symbols = {
-						'Class',
-						'Function',
-						'Method',
-						'Constructor',
-						'Interface',
-						'Module',
-						'Struct',
-						'Trait',
-						'Field',
-						'Property',
-					},
-				}),
+				function()
+					require('telescope.builtin').lsp_workspace_symbols({
+						symbols = {
+							'Class',
+							'Function',
+							'Method',
+							'Constructor',
+							'Interface',
+							'Module',
+							'Struct',
+							'Trait',
+							'Field',
+							'Property',
+						},
+					})
+				end,
 				desc = 'Goto Symbol (Workspace)',
 			},
 
@@ -213,32 +214,32 @@ return {
 			{
 				'<leader>gt',
 				function()
-					require'telescope.builtin'.lsp_workspace_symbols({
+					require('telescope.builtin').lsp_workspace_symbols({
 						default_text = vim.fn.expand('<cword>'),
-					})()
+					})
 				end,
 			},
 			{
 				'<leader>gf',
 				function()
-					Util.telescope('find_files', {
+					require('telescope.builtin').find_files({
 						default_text = vim.fn.expand('<cword>'),
-					})()
+					})
 				end,
 			},
 			{
 				'<leader>gg', function()
-					Util.telescope('live_grep', {
+					require('telescope.builtin').live_grep({
 						default_text = vim.fn.expand('<cword>'),
-					})()
+					})
 				end
 			},
 			{
 				'<leader>gg',
 				function()
-					Util.telescope('live_grep', {
+					require('telescope.builtin').live_grep({
 						default_text = require('rafi.lib.edit').get_visual_selection(),
-					})()
+					})
 				end,
 				mode = 'x',
 			},
@@ -272,7 +273,7 @@ return {
 					height = 0.85,
 					prompt_position = 'top',
 					horizontal = {
-						preview_width = horizontal_preview_width,
+						preview_width = width_small,
 					},
 					vertical = {
 						width = 0.75,
@@ -281,7 +282,7 @@ return {
 						mirror = true,
 					},
 					flex = {
-						-- change to horizontal after 120 cols
+						-- Change to horizontal after 120 cols
 						flip_columns = 120,
 					},
 				},
@@ -359,10 +360,7 @@ return {
 					sort_mru = true,
 					show_all_buffers = true,
 					ignore_current_buffer = true,
-					layout_config = {
-						width = width_for_nopreview,
-						height = height_dropdown_nopreview,
-					},
+					layout_config = { width = width_medium, height = height_medium },
 					mappings = {
 						n = {
 							['dd'] = actions.delete_buffer,
@@ -372,10 +370,7 @@ return {
 				find_files = {
 					theme = 'dropdown',
 					previewer = false,
-					layout_config = {
-						width = width_for_nopreview,
-						height = height_dropdown_nopreview,
-					},
+					layout_config = { width = width_medium, height = height_medium },
 					find_command = {
 						'rg',
 						'--smart-case',
@@ -395,17 +390,19 @@ return {
 				},
 				highlights = {
 					layout_strategy = 'horizontal',
-					layout_config = { preview_width = 0.80 },
+					layout_config = { preview_width = 0.8 },
+				},
+				jumplist = {
+					layout_strategy = 'horizontal',
 				},
 				vim_options = {
 					theme = 'dropdown',
-					previewer = false,
-					layout_config = { width = 0.6, height = 0.7 },
+					layout_config = { width = width_medium, height = height_medium },
 				},
 				command_history = {
 					theme = 'dropdown',
 					previewer = false,
-					layout_config = { width = 0.5, height = 0.7 },
+					layout_config = { width = 0.5, height = height_medium },
 				},
 				search_history = {
 					theme = 'dropdown',
@@ -418,15 +415,12 @@ return {
 				registers = {
 					theme = 'cursor',
 					previewer = false,
-					layout_config = { width = 0.45, height = 0.6 },
+					layout_config = { width = 0.35, height = 0.4 },
 				},
 				oldfiles = {
 					theme = 'dropdown',
 					previewer = false,
-					layout_config = {
-						width = width_for_nopreview,
-						height = height_dropdown_nopreview,
-					},
+					layout_config = { width = width_medium, height = height_medium },
 				},
 				lsp_definitions = {
 					layout_strategy = 'horizontal',
