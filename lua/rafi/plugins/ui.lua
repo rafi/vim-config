@@ -182,15 +182,6 @@ return {
 		ft = 'qf',
 		cmd = 'BqfAutoToggle',
 		event = 'QuickFixCmdPost',
-		keys = {
-			{
-				'<Leader>q',
-				function()
-					require('rafi.lib.list').toggle_qflist()
-				end,
-				desc = 'Open Quickfix'
-			},
-		},
 		opts = {
 			auto_resize_height = false,
 			func_map = {

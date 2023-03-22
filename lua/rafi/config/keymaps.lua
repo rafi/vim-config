@@ -306,12 +306,17 @@ if vim.F.if_nil(vim.g.enable_universal_quit_mapping, true) then
 	})
 end
 
+-- Toggle quickfix window
+map('n', '<Leader>q', function()
+	require('rafi.lib.edit').toggle_list('quickfix')
+end, { desc = 'Open Quickfix' })
+
 -- Set locations with diagnostics and open the list.
 map('n', '<Leader>a', function()
 	if vim.api.nvim_buf_get_option(0, 'filetype') ~= 'qf' then
 		vim.diagnostic.setloclist({ open = false })
 	end
-	require('rafi.lib.list').toggle_loclist()
+	require('rafi.lib.edit').toggle_list('loclist')
 end, { desc = 'Open Location List' })
 
 -- Switch with adjacent window

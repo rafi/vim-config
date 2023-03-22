@@ -9,12 +9,12 @@ local myactions = {}
 
 function myactions.send_to_qflist(prompt_bufnr)
 	require('telescope.actions').send_to_qflist(prompt_bufnr)
-	require('rafi.lib.list').open_qflist()
+	vim.api.nvim_command([[ botright copen ]])
 end
 
 function myactions.smart_send_to_qflist(prompt_bufnr)
 	require('telescope.actions').smart_send_to_qflist(prompt_bufnr)
-	require('rafi.lib.list').open_qflist()
+	vim.api.nvim_command([[ botright copen ]])
 end
 
 -- Custom pickers
