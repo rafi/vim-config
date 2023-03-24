@@ -413,7 +413,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [williamboman/mason.nvim] | Portable package manager for Neovim
 | [williamboman/mason-lspconfig.nvim] | Mason extension for easier lspconfig integration
 | [hrsh7th/cmp-nvim-lsp] | nvim-cmp source for neovim builtin LSP client
-| [kevinhwang91/nvim-ufo] | Make folds look modern and keep a high performance
 | [b0o/SchemaStore.nvim] | JSON schemas for Neovim
 | [jose-elias-alvarez/null-ls.nvim] | Inject LSP diagnostics, code actions, and more
 
@@ -557,7 +556,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [williamboman/mason.nvim]: https://github.com/williamboman/
 [williamboman/mason-lspconfig.nvim]: https://github.com/williamboman/mason-lspconfig.nvim
 [hrsh7th/cmp-nvim-lsp]: https://github.com/hrsh7th/cmp-nvim-lsp
-[kevinhwang91/nvim-ufo]: https://github.com/kevinhwang91/nvim-ufo
 [b0o/SchemaStore.nvim]: https://github.com/b0o/SchemaStore.nvim
 [jose-elias-alvarez/null-ls.nvim]: https://github.com/jose-elias-alvarez/null-ls.nvim
 

@@ -12,8 +12,12 @@ return {
 			{ 'folke/neodev.nvim', config = true },
 			'williamboman/mason.nvim',
 			'williamboman/mason-lspconfig.nvim',
-			'hrsh7th/cmp-nvim-lsp',
-			'kevinhwang91/nvim-ufo',
+			{
+				'hrsh7th/cmp-nvim-lsp',
+				cond = function()
+					return require('rafi.config').has('nvim-cmp')
+				end,
+			},
 			{ 'b0o/SchemaStore.nvim', version = false },
 		},
 		---@class PluginLspOpts
@@ -128,10 +132,12 @@ return {
 				require('lspconfig')[server_name].setup(server_opts)
 			end
 
-			-- Setup language servers using mason and mason-lspconfig
-			local mason_lspconfig = require('mason-lspconfig')
-			mason_lspconfig.setup()
-			mason_lspconfig.setup_handlers({ make_config })
+			-- Get all the servers that are available thourgh mason-lspconfig
+			local have_mason, mason_lspconfig = pcall(require, 'mason-lspconfig')
+			if have_mason then
+				mason_lspconfig.setup()
+				mason_lspconfig.setup_handlers({ make_config })
+			end
 		end,
 	},
 
@@ -151,20 +157,20 @@ return {
 		config = function(_, opts)
 			require('mason').setup(opts)
 			local mr = require('mason-registry')
-			for _, tool in ipairs(opts.ensure_installed) do
-				local p = mr.get_package(tool)
-				if not p:is_installed() then
-					p:install()
+			local function ensure_installed()
+				for _, tool in ipairs(opts.ensure_installed) do
+					local p = mr.get_package(tool)
+					if not p:is_installed() then
+						p:install()
+					end
 				end
 			end
+			if mr.refresh then
+				mr.refresh(ensure_installed)
+			else
+				ensure_installed()
+			end
 		end,
-	},
-
-	-----------------------------------------------------------------------------
-	{
-		'kevinhwang91/nvim-ufo',
-		dependencies = 'kevinhwang91/promise-async',
-		config = true,
 	},
 
 	-----------------------------------------------------------------------------
@@ -180,9 +186,12 @@ return {
 				should_attach = function(bufnr)
 					return not vim.api.nvim_buf_get_name(bufnr):match('^[a-z]+://')
 				end,
+				root_dir = require('null-ls.utils').root_pattern(
+					'.git', '_darcs', '.hg', '.bzr', '.svn',
+					'.null-ls-root', '.neoconf.json', 'Makefile'
+				),
 				sources = {
 					builtins.formatting.stylua,
-					builtins.formatting.gofmt,
 					builtins.formatting.shfmt,
 				},
 			}
