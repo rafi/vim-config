@@ -13,13 +13,11 @@ endif
 
 let b:undo_ftplugin .=
 	\ 'setl cursorline< colorcolumn< signcolumn<'
-	\ . " | execute 'nunmap <buffer> q'"
 
 " Local window settings
 setlocal cursorline colorcolumn= signcolumn=yes
 
 " Setup key-mappings
-nnoremap <buffer> q <Cmd>quit<CR>
 
 " See :h cfilter-plugin
 if ! exists(':Lfilter')

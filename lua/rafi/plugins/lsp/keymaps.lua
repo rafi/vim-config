@@ -26,9 +26,6 @@ function M.get(client, buffer)
 	map('n', 'gy', vim.lsp.buf.type_definition)
 	map('n', 'gi', vim.lsp.buf.implementation)
 
-	map({'n', 'x'}, '<Leader>ca', vim.lsp.buf.code_action, { has='codeAction' })
-	map('n', '<Leader>ce', vim.diagnostic.open_float)
-
 	map('n', ',rn', vim.lsp.buf.rename, { has = 'rename' })
 	map('n', ',s', vim.lsp.buf.signature_help, { has = 'signatureHelp' })
 	map('n', ',wa', vim.lsp.buf.add_workspace_folder)
@@ -37,6 +34,14 @@ function M.get(client, buffer)
 
 	map('n', ',f', format, { has = 'documentFormatting' })
 	map('x', ',f', format, { has = 'documentRangeFormatting' })
+
+	map(
+		{'n', 'x'},
+		'<Leader>ca',
+		vim.lsp.buf.code_action,
+		{ has = 'codeAction', desc = 'Code Action' }
+	)
+	map('n', '<Leader>ce', vim.diagnostic.open_float)
 
 	map('n', ']e', M.diagnostic_goto(true, 'ERROR'))
 	map('n', '[e', M.diagnostic_goto(false, 'ERROR'))

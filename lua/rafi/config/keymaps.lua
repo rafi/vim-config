@@ -98,6 +98,9 @@ map('x', 'P', 'P:let @+=@0<CR>', { desc = 'Paste In-place' })
 -- Edit
 -- ===
 
+-- Macros
+map('n', '<C-q>', 'q', { noremap = true, desc = 'Macro Prefix' })
+
 -- Start new line from any cursor position in insert-mode
 map('i', '<S-Return>', '<C-o>o', { noremap = true, desc = 'Start Newline' })
 
@@ -228,18 +231,12 @@ map('n', '<Leader>tw', function()
 end, { desc = 'Toggle Wrap' })
 
 -- Tabs: Many ways to navigate them
-map('n', 'g1', '<cmd>tabfirst<CR>', { desc = 'First Tab' })
-map('n', 'g5', '<cmd>tabprevious<CR>', { desc = 'Previous Tab' })
-map('n', 'g9', '<cmd>tablast<CR>', { desc = 'Last Tab' })
-
 map('n', '<A-j>', '<cmd>tabnext<CR>', { desc = 'Next Tab' })
 map('n', '<A-k>', '<cmd>tabprevious<CR>', { desc = 'Previous Tab' })
 map('n', '<A-[>', '<cmd>tabprevious<CR>', { desc = 'Previous Tab' })
 map('n', '<A-]>', '<cmd>tabnext<CR>', { desc = 'Next Tab' })
 map('n', '<C-Tab>', '<cmd>tabnext<CR>', { desc = 'Next Tab' })
 map('n', '<C-S-Tab>', '<cmd>tabprevious<CR>', { desc = 'Previous Tab' })
-map('n', '<C-S-j>', '<cmd>tabnext<CR>', { desc = 'Next Tab' })
-map('n', '<C-S-k>', '<cmd>tabprevious<CR>', { desc = 'Previous Tab' })
 
 -- Moving tabs
 map('n', '<A-{>', '<cmd>-tabmove<CR>', { desc = 'Tab Move Backwards' })

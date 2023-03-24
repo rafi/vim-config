@@ -96,6 +96,27 @@ vim.api.nvim_create_autocmd('FileType', {
 	end,
 })
 
+-- Close some filetypes with <q>
+vim.api.nvim_create_autocmd('FileType', {
+	group = augroup('close_with_q'),
+	pattern = {
+		'PlenaryTestPopup',
+		'help',
+		'lspinfo',
+		'man',
+		'notify',
+		'qf',
+		'spectre_panel',
+		'startuptime',
+		'tsplayground',
+	},
+	callback = function(event)
+		vim.bo[event.buf].buflisted = false
+		vim.keymap.set('n', 'q', '<cmd>close<CR>',
+			{ buffer = event.buf, silent = true })
+	end,
+})
+
 vim.api.nvim_create_autocmd('BufWritePre', {
 	group = augroup('undo_disable'),
 	pattern = { '/tmp/*', '*.tmp', '*.bak', 'COMMIT_EDITMSG', 'MERGE_MSG' },

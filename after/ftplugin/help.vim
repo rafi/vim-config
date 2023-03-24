@@ -22,7 +22,6 @@ function! s:setup_buffer()
 		\ . " | execute 'nunmap <buffer> <leader>j'"
 		\ . " | execute 'nunmap <buffer> <leader>k'"
 		\ . " | execute 'nunmap <buffer> <Leader>o'"
-		\ . " | execute 'nunmap <buffer> q'"
 
 	setlocal nospell
 	setlocal nolist
@@ -36,9 +35,6 @@ function! s:setup_buffer()
 	else
 		wincmd L
 	endif
-
-	" Exit help window with 'q'
-	nnoremap <buffer> q <cmd>bdelete<CR>
 
 	" Jump to links with enter
 	nmap <buffer> <CR> <C-]>
