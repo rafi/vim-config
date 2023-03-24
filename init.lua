@@ -15,6 +15,7 @@ if config.has_user_plugins() then
 	table.insert(spec, { import = 'plugins' })
 end
 
+-- Start lazy.nvim plugin manager.
 require('lazy').setup({
 	spec = spec,
 	defaults = { lazy = true, version = false },
@@ -38,5 +39,8 @@ require('lazy').setup({
 		},
 	},
 })
+
+-- Restore last used colorscheme, or set initial.
+require('theme-loader').start()
 
 -- Enjoy!
