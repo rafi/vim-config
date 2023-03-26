@@ -36,20 +36,18 @@ return {
 			})
 		end,
 		opts = {
+			autoload = true,
 			follow_cwd = false,
 			ignored_dirs = { '~/.cache', vim.env.TMPDIR or '/tmp' },
-			autoload = function()
-				-- Do not autoload if stdin has been provided, or git commit session.
-				return vim.g.in_pager_mode == false and vim.env.GIT_EXEC_PATH == nil
-			end,
 			should_autosave = function()
 				-- Do not autosave if git commit/rebase session. Causes a race-condition
 				return vim.env.GIT_EXEC_PATH == nil
 			end,
 		},
 		config = function(_, opts)
-			if type(opts.autoload) == 'function' then
-				opts.autoload	= opts.autoload()
+			-- Do not autoload if stdin has been provided, or git commit session.
+			if vim.g.in_pager_mode or vim.env.GIT_EXEC_PATH ~= nil then
+				opts.autoload = false
 			end
 			require('persisted').setup(opts)
 
@@ -472,6 +470,8 @@ return {
 	-----------------------------------------------------------------------------
 	{
 		'echasnovski/mini.bufremove',
+		main = 'mini.bufremove',
+		config = true,
 		keys = {
 			{
 				'<leader>bd', function()

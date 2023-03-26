@@ -84,6 +84,7 @@ map('n', '<Leader>y', function()
 	vim.fn.setreg('+', path)
 	vim.notify(path, vim.log.levels.INFO, { title = 'Yanked relative path' })
 end, { silent = true, desc = 'Yank relative path' })
+
 -- Yank absolute path
 map('n', '<Leader>Y', function()
 	local path = vim.fn.expand('%:p')
@@ -92,8 +93,8 @@ map('n', '<Leader>Y', function()
 end, { silent = true, desc = 'Yank absolute path' })
 
 -- Paste in visual-mode without pushing to register
-map('x', 'p', 'p:let @+=@0<CR>', { desc = 'Paste' })
-map('x', 'P', 'P:let @+=@0<CR>', { desc = 'Paste In-place' })
+map('x', 'p', 'p:let @+=@0<CR>:let @"=@0<CR>', { silent = true, desc = 'Paste' })
+map('x', 'P', 'P:let @+=@0<CR>:let @"=@0<CR>', { silent = true, desc = 'Paste In-place' })
 
 -- Edit
 -- ===
@@ -137,8 +138,9 @@ map('n', 'g*', '*', { noremap = true })
 map('n', '#', 'g#', { noremap = true })
 map('n', 'g#', '#', { noremap = true })
 
--- Clear search with <esc>
-map({ 'i', 'n' }, '<esc>', '<cmd>noh<cr><esc>', { desc = 'Clear Search Highlight' })
+-- Clear search with <Esc>
+map('n', '<Esc>', '<cmd>noh<CR>', { noremap = true, desc = 'Clear Search Highlight' })
+map('i', '<Esc>', '<cmd>noh<CR><Esc>', { noremap = true, desc = 'Clear Search Highlight' })
 
 -- Use backspace key for matching parens
 map('n', '<BS>', '%', { noremap = true, desc = 'Jump to Paren' })

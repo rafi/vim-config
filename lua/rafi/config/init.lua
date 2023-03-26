@@ -14,8 +14,8 @@ local defaults = {
 	-- Load the default settings
 	defaults = {
 		autocmds = true, -- rafi.config.autocmds
-		keymaps = true, -- rafi.config.keymaps
-		options = true, -- rafi.config.options
+		keymaps = true,  -- rafi.config.keymaps
+		options = true,  -- rafi.config.options
 	},
 	-- String like `habamax` or a function that will load the colorscheme.
 	---@type string|fun()
@@ -137,10 +137,12 @@ function M.setup(user_opts)
 	})
 end
 
+local augroup_lsp_attach = vim.api.nvim_create_augroup('rafi_lsp_attach', {})
+
 ---@param on_attach fun(client:lsp.Client, buffer:integer)
 function M.on_attach(on_attach)
 	vim.api.nvim_create_autocmd('LspAttach', {
-		group = vim.api.nvim_create_augroup('rafi_lsp_attach', {}),
+		group = augroup_lsp_attach,
 		callback = function(args)
 			local buffer = args.buf
 			local client = vim.lsp.get_client_by_id(args.data.client_id)

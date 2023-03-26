@@ -141,14 +141,19 @@ return {
 			vim.g.committia_hooks = {
 				edit_open = function()
 					vim.cmd.resize(10)
-					vim.cmd([[
-						imap <buffer><C-d> <Plug>(committia-scroll-diff-down-half)
-						imap <buffer><C-u> <Plug>(committia-scroll-diff-up-half)
-						imap <buffer><C-f> <Plug>(committia-scroll-diff-down-page)
-						imap <buffer><C-b> <Plug>(committia-scroll-diff-up-page)
-						imap <buffer><C-j> <Plug>(committia-scroll-diff-down)
-						imap <buffer><C-k> <Plug>(committia-scroll-diff-up)
-					]])
+					local opts = {
+						buffer = vim.api.nvim_get_current_buf(),
+						silent = true,
+					}
+					local function imap(lhs, rhs)
+						vim.keymap.set('i', lhs, rhs, opts)
+					end
+					imap('<C-d>', '<Plug>(committia-scroll-diff-down-half)')
+					imap('<C-u>', '<Plug>(committia-scroll-diff-up-half)')
+					imap('<C-f>', '<Plug>(committia-scroll-diff-down-page)')
+					imap('<C-b>', '<Plug>(committia-scroll-diff-up-page)')
+					imap('<C-j>', '<Plug>(committia-scroll-diff-down)')
+					imap('<C-k>', '<Plug>(committia-scroll-diff-up)')
 				end,
 			}
 		end,

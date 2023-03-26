@@ -466,6 +466,11 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [echasnovski/mini.comment] | Fast and familiar per-line commenting
 | [echasnovski/mini.trailspace] | Trailing whitespace highlight and remove
 | [echasnovski/mini.bracketed] | Go forward/backward with square brackets
+| [echasnovski/mini.ai] | Extend and create `a`/`i` textobjects
+| [AndrewRadev/sideways.vim] | Match function arguments
+| [AndrewRadev/linediff.vim] | Perform diffs on blocks of code
+| [AndrewRadev/splitjoin.vim] | Transition code between multi-line and single-line
+| [AndrewRadev/dsf.vim] | Delete surrounding function call
 
 ### Colorscheme Plugins
 
@@ -500,17 +505,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [nvim-telescope/telescope-ui-select.nvim] | Sets vim.ui.select to telescope
 | [jvgrootveld/telescope-zoxide] | Telescope extension for Zoxide
 | [nvim-lua/plenary.nvim] | Lua functions library
-
-### Operators & Text Objects
-
-| Name           | Description
-| -------------- | ----------------------
-| [echasnovski/mini.ai] | Extend and create `a`/`i` textobjects
-| [mfussenegger/nvim-treehopper] | Region selection with hints on the AST nodes
-| [AndrewRadev/sideways.vim] | Match function arguments
-| [AndrewRadev/linediff.vim] | Perform diffs on blocks of code
-| [AndrewRadev/splitjoin.vim] | Transition code between multi-line and single-line
-| [AndrewRadev/dsf.vim] | Delete surrounding function call
 
 #### Treesitter & Syntax
 
@@ -601,6 +595,11 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [echasnovski/mini.comment]: https://github.com/echasnovski/mini.comment
 [echasnovski/mini.trailspace]: https://github.com/echasnovski/mini.trailspace
 [echasnovski/mini.bracketed]: https://github.com/echasnovski/mini.bracketed
+[echasnovski/mini.ai]: https://github.com/echasnovski/mini.ai
+[AndrewRadev/sideways.vim]: https://github.com/AndrewRadev/sideways.vim
+[AndrewRadev/linediff.vim]: https://github.com/AndrewRadev/linediff.vim
+[AndrewRadev/splitjoin.vim]: https://github.com/AndrewRadev/splitjoin.vim
+[AndrewRadev/dsf.vim]: https://github.com/AndrewRadev/dsf.vim
 
 [rafi/awesome-colorschemes]: https://github.com/rafi/awesome-vim-colorschemes
 [AlexvZyl/nordic.nvim]: https://github.com/AlexvZyl/nordic.nvim
@@ -623,13 +622,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [nvim-telescope/telescope-ui-select.nvim]: https://github.com/nvim-telescope/telescope-ui-select.nvim
 [jvgrootveld/telescope-zoxide]: https://github.com/jvgrootveld/telescope-zoxide
 [nvim-lua/plenary.nvim]: https://github.com/nvim-lua/plenary.nvim
-
-[echasnovski/mini.ai]: https://github.com/echasnovski/mini.ai
-[mfussenegger/nvim-treehopper]: https://github.com/mfussenegger/nvim-treehopper
-[AndrewRadev/sideways.vim]: https://github.com/AndrewRadev/sideways.vim
-[AndrewRadev/linediff.vim]: https://github.com/AndrewRadev/linediff.vim
-[AndrewRadev/splitjoin.vim]: https://github.com/AndrewRadev/splitjoin.vim
-[AndrewRadev/dsf.vim]: https://github.com/AndrewRadev/dsf.vim
 
 [nvim-treesitter/nvim-treesitter]: https://github.com/nvim-treesitter/nvim-treesitter
 [nvim-treesitter/nvim-treesitter-textobjects]: https://github.com/nvim-treesitter/nvim-treesitter-textobjects

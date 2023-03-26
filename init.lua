@@ -21,6 +21,8 @@ require('lazy').setup({
 	defaults = { lazy = true, version = false },
 	dev = { path = config.path_join(vim.fn.stdpath('config'), 'dev') },
 	install = { missing = true, colorscheme = {} },
+	checker = { enabled = true, notify = false },
+	change_detection = { notify = false },
 	ui = { border = 'rounded' },
 	diff = { cmd = 'terminal_git' },
 	performance = {

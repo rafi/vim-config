@@ -22,7 +22,7 @@ local default_opts = {
 		highlight = 'Normal',
 		borderhighlight = 'FloatBorder',
 		titlehighlight = 'Title',
-		zindex = 10000,
+		zindex = 100,
 	},
 }
 
@@ -61,9 +61,11 @@ function M.open(path)
 	vim.api.nvim_win_set_option(winid, 'wrap', false)
 	vim.api.nvim_win_set_option(winid, 'spell', false)
 	vim.api.nvim_win_set_option(winid, 'list', false)
+	vim.api.nvim_win_set_option(winid, 'foldenable', false)
 	vim.api.nvim_win_set_option(winid, 'cursorline', false)
 	vim.api.nvim_win_set_option(winid, 'signcolumn', 'no')
 	vim.api.nvim_win_set_option(winid, 'colorcolumn', '')
+	vim.api.nvim_win_set_option(winid, 'winhighlight', 'Normal:NormalFloat')
 
 	-- Run telescope preview.
 	require('telescope.config').values.buffer_previewer_maker(path, popup_bufnr, {})

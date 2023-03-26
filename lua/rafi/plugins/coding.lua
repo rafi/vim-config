@@ -9,7 +9,6 @@ return {
 	-----------------------------------------------------------------------------
 	{
 		'hrsh7th/nvim-cmp',
-		version = false, -- last release is too old
 		event = 'InsertEnter',
 		dependencies = {
 			'hrsh7th/cmp-nvim-lsp',
@@ -148,14 +147,14 @@ return {
 	{
 		'echasnovski/mini.pairs',
 		event = 'VeryLazy',
-		config = function(_, opts)
-			require('mini.pairs').setup(opts)
-		end,
+		main = 'mini.pairs',
+		config = true,
 	},
 
 	-----------------------------------------------------------------------------
 	{
 		'echasnovski/mini.surround',
+		main = 'mini.surround',
 		keys = function(_, keys)
 			-- Populate the keys based on the user's options
 			local plugin = require('lazy.core.config').spec.plugins['mini.surround']
@@ -185,9 +184,6 @@ return {
 				update_n_lines = 'gzn', -- Update `n_lines`
 			},
 		},
-		config = function(_, opts)
-			require('mini.surround').setup(opts)
-		end,
 	},
 
 	-----------------------------------------------------------------------------
@@ -195,6 +191,7 @@ return {
 	{
 		'echasnovski/mini.comment',
 		event = 'VeryLazy',
+		main = 'mini.comment',
 		keys = {
 			{ '<Leader>v', 'gcc', remap = true, silent = true, mode = 'n' },
 			{ '<Leader>v', 'gc', remap = true, silent = true, mode = 'x' },
@@ -206,30 +203,108 @@ return {
 				end,
 			},
 		},
-		config = function(_, opts)
-			require('mini.comment').setup(opts)
-		end,
 	},
 
 	-----------------------------------------------------------------------------
 	{
 		'echasnovski/mini.trailspace',
 		event = { 'BufReadPost', 'BufNewFile' },
-		opts = {},
-		config = function(_, opts)
-			require('mini.trailspace').setup(opts)
-		end
+		main = 'mini.trailspace',
+		config = true,
 	},
 
 	-----------------------------------------------------------------------------
 	{
 		'echasnovski/mini.bracketed',
+		event = 'BufReadPost',
+		main = 'mini.bracketed',
+		config = true,
+	},
+
+	-----------------------------------------------------------------------------
+	{
+		'echasnovski/mini.ai',
 		event = 'VeryLazy',
-		version = false,
-		opts = {},
-		config = function(_, opts)
-			require('mini.bracketed').setup(opts)
+		main = 'mini.ai',
+		dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
+		opts = function()
+			local ai = require('mini.ai')
+			return {
+				n_lines = 500,
+				custom_textobjects = {
+					o = ai.gen_spec.treesitter({
+						a = { '@block.outer', '@conditional.outer', '@loop.outer' },
+						i = { '@block.inner', '@conditional.inner', '@loop.inner' },
+					}, {}),
+					f = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }, {}),
+					c = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }, {}),
+				},
+			}
+		end,
+	},
+
+	-----------------------------------------------------------------------------
+	{
+		'AndrewRadev/sideways.vim',
+		cmd = {
+			'SidewaysLeft',
+			'SidewaysRight',
+			'SidewaysJumpLeft',
+			'SidewaysJumpRight',
+		},
+		keys = {
+			{ '<,', '<cmd>SidewaysLeft<CR>', noremap = true, desc = 'Swap Left Argument' },
+			{ '>,', '<cmd>SidewaysRight<CR>', noremap = true, desc = 'Swap Right Argument' },
+			{ '[,', '<cmd>SidewaysJumpLeft<CR>', noremap = true, desc = 'Jump Left Argument' },
+			{ '],', '<cmd>SidewaysJumpRight<CR>', noremap = true, desc = 'Jump Right Argument' },
+			{ 'a,', '<Plug>SidewaysArgumentTextobjA', noremap = true, mode = { 'o', 'x' }},
+			{ 'i,', '<Plug>SidewaysArgumentTextobjI', noremap = true, mode = { 'o', 'x' }},
+		},
+	},
+
+	-----------------------------------------------------------------------------
+	{
+		'AndrewRadev/linediff.vim',
+		cmd = { 'Linediff', 'LinediffAdd' },
+		keys = {
+			{ '<Leader>mdf', ':Linediff<CR>', mode = 'x', desc = 'Line diff' },
+			{ '<Leader>mda', ':LinediffAdd<CR>', mode = 'x', desc = 'Line diff add' },
+			{ '<Leader>mds', '<cmd>LinediffShow<CR>', desc = 'Line diff show' },
+			{ '<Leader>mdr', '<cmd>LinediffReset<CR>', desc = 'Line diff reset' },
+		}
+	},
+
+	-----------------------------------------------------------------------------
+	{
+		'AndrewRadev/splitjoin.vim',
+		cmd = { 'SplitjoinJoin', 'SplitjoinSplit' },
+		keys = {
+			{ 'sj', '<cmd>SplitjoinJoin<CR>', noremap = true, desc = 'Join Arguments' },
+			{ 'sk', '<cmd>SplitjoinSplit<CR>', noremap = true, desc = 'Split Arguments' },
+		},
+		init = function()
+			vim.g.splitjoin_join_mapping = ''
+			vim.g.splitjoin_split_mapping = ''
+			vim.api.nvim_create_autocmd('FileType', {
+				group = vim.api.nvim_create_augroup('rafi_splitjoin', {}),
+				pattern = 'go',
+				callback = function()
+					vim.b.splitjoin_trailing_comma = 1
+				end
+			})
 		end
-	}
+	},
+
+	-----------------------------------------------------------------------------
+	{
+		'AndrewRadev/dsf.vim',
+		keys = {
+			{ 'dsf', '<Plug>DsfDelete', noremap = true, desc = 'Delete Surrounding Function' },
+			{ 'csf', '<Plug>DsfChange', noremap = true, desc = 'Change Surrounding Function' },
+		},
+		init = function()
+			vim.g.dsf_no_mappings = 1
+		end
+	},
 
 }

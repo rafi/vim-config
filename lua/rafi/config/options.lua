@@ -18,7 +18,9 @@ opt.confirm = true     -- Confirm to save changes before exiting modified buffer
 opt.history = 5000
 opt.shada = { "'1000", "<50", "s10", "h" }
 
+opt.conceallevel = 3
 opt.signcolumn = 'yes'
+opt.spelloptions:append('camel')
 
 -- What to save for views and sessions
 opt.viewoptions:remove('folds')
@@ -96,7 +98,7 @@ opt.startofline = false         -- Cursor in same column for few commands
 opt.splitbelow = true           -- Splits open bottom right
 opt.splitright = true
 opt.breakindentopt = { shift = 2, min = 20 }
-opt.formatoptions = 'jcroqlnt'
+opt.formatoptions = 'jcrqln1'
 
 -- Completion and Diff
 -- ===
@@ -106,12 +108,11 @@ opt.complete:append('k')
 opt.complete:remove('u')
 opt.complete:remove('t')
 
-opt.completeopt = 'menu,menuone,noinsert,noselect'
+opt.completeopt = 'menu,menuone,noinsert'
 
 opt.diffopt:append({'iwhite', 'indent-heuristic', 'algorithm:patience'})
 
 opt.wildmode = 'longest:full,full' -- Command-line completion mode
-opt.wildignorecase = true
 
 -- Editor UI
 -- ===

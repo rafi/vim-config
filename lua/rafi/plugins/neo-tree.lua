@@ -37,7 +37,8 @@ local function set_cursorline()
 	vim.o.signcolumn = 'auto'
 end
 
--- Find previous neo-tree window and disable its cursorline.
+-- Find previous neo-tree window and clear bright highlight selection.
+-- Don't hide cursorline though, so 'follow_current_file' works.
 local function reset_cursorline()
 	local winid = vim.fn.win_getid(vim.fn.winnr('#'))
 	vim.api.nvim_win_set_option(winid, 'winhighlight', '')
