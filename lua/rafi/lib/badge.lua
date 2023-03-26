@@ -44,7 +44,7 @@ vim.api.nvim_create_autocmd(
 )
 -- Clear cached values that relate to buffer content.
 vim.api.nvim_create_autocmd(
-	{'BufWritePre', 'FileChangedShellPost', 'TextChanged', 'InsertLeave'},
+	{ 'BufWritePre', 'FileChangedShellPost', 'TextChanged', 'InsertLeave' },
 	{
 		group = augroup,
 		callback = function()
@@ -130,20 +130,6 @@ function M.filepath(bufnr, max_dirs, dir_max_chars, cache_suffix)
 	end
 
 	vim.api.nvim_buf_set_var(bufnr, cache_key, msg)
-	return msg
-end
-
-function M.filemode(normal_symbol, readonly_symbol, zoom_symbol)
-	local msg = ''
-	if not (vim.bo.readonly or vim.t['zoomed']) then
-		msg = msg .. normal_symbol
-	end
-	if vim.bo.buftype == '' and vim.bo.readonly then
-		msg = msg .. readonly_symbol
-	end
-	if vim.t.zoomed then
-		msg = msg .. zoom_symbol
-	end
 	return msg
 end
 

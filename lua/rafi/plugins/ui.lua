@@ -56,7 +56,8 @@ return {
 					else
 						vim.b.navic_winbar = true
 						vim.wo.winbar =
-							"%#TabLineSel#%#Special#%{%v:lua.require'nvim-navic'.get_location()%}"
+							"%#NavicIconsFile# %t %* "
+							.. "%{%v:lua.require'nvim-navic'.get_location()%}"
 					end
 				end,
 				desc = 'Toggle structure panel',
@@ -64,6 +65,9 @@ return {
 		},
 		init = function()
 			vim.g.navic_silence = true
+
+			---@param client lsp.Client
+			---@param buffer integer
 			require('rafi.config').on_attach(function(client, buffer)
 				if client.server_capabilities.documentSymbolProvider then
 					require('nvim-navic').attach(client, buffer)
