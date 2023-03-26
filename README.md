@@ -44,9 +44,8 @@ Please read "[Extending](#extending)" to learn how to customize and modify.
   * [Colorscheme Plugins](#colorscheme-plugins)
   * [Git Plugins](#git-plugins)
   * [Misc Plugins](#misc-plugins)
-  * [Operators & Text Objects](#operators--text-objects)
-    * [Treesitter & Syntax](#treesitter--syntax)
-    * [UI Plugins](#ui-plugins)
+  * [Treesitter & Syntax](#treesitter--syntax)
+  * [UI Plugins](#ui-plugins)
 * [Extra Plugins](#extra-plugins)
   * [Extra Coding Plugins](#extra-coding-plugins)
   * [Extra Editor Plugins](#extra-editor-plugins)
@@ -57,6 +56,7 @@ Please read "[Extending](#extending)" to learn how to customize and modify.
 * [Custom Key-mappings](#custom-key-mappings)
   * [Navigation](#navigation)
   * [File Operations](#file-operations)
+  * [Auto-Completion](#auto-completion)
   * [Edit](#edit)
   * [Search & Replace](#search--replace)
   * [Clipboard](#clipboard)
@@ -64,12 +64,12 @@ Please read "[Extending](#extending)" to learn how to customize and modify.
   * [Editor UI](#editor-ui)
   * [Custom Tools & Plugins](#custom-tools--plugins)
   * [Window Management](#window-management)
-  * [Plugin: Sandwich](#plugin-sandwich)
+  * [Plugin: Mini.Bracket](#plugin-minibracket)
+  * [Plugin: Mini.Surround](#plugin-minisurround)
   * [Plugin: Gitsigns](#plugin-gitsigns)
   * [Plugin: Fugitive](#plugin-fugitive)
   * [Plugin: Telescope](#plugin-telescope)
   * [Plugin: Neo-Tree](#plugin-neo-tree)
-  * [Plugin: LSP](#plugin-lsp)
   * [Plugin: Spectre](#plugin-spectre)
   * [Plugin: Marks](#plugin-marks)
 
@@ -506,7 +506,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [jvgrootveld/telescope-zoxide] | Telescope extension for Zoxide
 | [nvim-lua/plenary.nvim] | Lua functions library
 
-#### Treesitter & Syntax
+### Treesitter & Syntax
 
 | Name           | Description
 | -------------- | ----------------------
@@ -527,7 +527,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [vmchale/just-vim] | Syntax highlighting for Justfiles
 | [pearofducks/ansible-vim] | Improved YAML support for Ansible
 
-#### UI Plugins
+### UI Plugins
 
 | Name           | Description
 | -------------- | ----------------------
@@ -780,6 +780,19 @@ Note that,
 | <kbd>Space</kbd>+<kbd>w</kbd> | 𝐍 | Write buffer to file | `:write`
 | <kbd>Ctrl</kbd>+<kbd>s</kbd> | 𝐍 𝐕 𝐂 | Write buffer to file | `:write`
 
+### Auto-Completion
+
+| Key   | Mode | Action
+| ----- |:----:| ------------------
+| <kbd>Tab</kbd> / <kbd>Shift-Tab</kbd> | 𝐈 | Navigate completion-menu
+| <kbd>Tab</kbd> / <kbd>Shift-Tab</kbd> | 𝐈 𝐒 | Navigate snippet placeholders
+| <kbd>Ctrl</kbd>+<kbd>Space</kbd> | 𝐈 | Open completion menu
+| <kbd>Enter</kbd> | 𝐈 | Select completion or expand snippet
+| <kbd>Ctrl</kbd>+<kbd>p</kbd>/<kbd>n</kbd> | 𝐈 | Movement in completion pop-up
+| <kbd>Ctrl</kbd>+<kbd>b</kbd>/<kbd>f</kbd> | 𝐈 | Scroll documentation
+| <kbd>Ctrl</kbd>+<kbd>e</kbd> | 𝐈 | Abort selection and close pop-up
+| <kbd>Ctrl</kbd>+<kbd>l</kbd> | 𝐈 | Expand snippet at cursor
+
 ### Edit
 
 | Key   | Mode | Action             | Plugin or Mapping
@@ -905,9 +918,10 @@ Note that,
 | <kbd>sz</kbd> | 𝐍 | Toggle window zoom | `:vertical resize │ resize`
 | <kbd>sh</kbd> | 𝐍 | Toggle colorscheme background=dark/light | `:set background` …
 
-### Plugin: Mini Bracket
+### Plugin: Mini.Bracket
 
-Go forward/backward with square brackets:
+Go forward/backward with square brackets. See [echasnovski/mini.bracketed] for
+more mappings and usage information.
 
 | Key                 | Target                                            | Mapping                      |
 |---------------------|-------------------------------------------------- | ---------------------------- |
@@ -926,7 +940,9 @@ Go forward/backward with square brackets:
 | `[W` `[w` `]w` `]W` | Window in current tab                             | `MiniBracketed.window()`     |
 | `[Y` `[y` `]y` `]Y` | Yank selection replacing the latest put region    | `MiniBracketed.yank()`       |
 
-### Plugin: Sandwich
+### Plugin: Mini.Surround
+
+See [echasnovski/mini.surround] for more mappings and usage information.
 
 | Key            | Mode  | Action                       |
 | -------------- |:-----:| ---------------------------- |
@@ -944,6 +960,8 @@ Go forward/backward with square brackets:
 
 ### Plugin: Gitsigns
 
+See [lewis6991/gitsigns.nvim] for more mappings and usage information.
+
 | Key   | Mode | Action             |
 | ----- |:----:| ------------------ |
 | <kbd>]g</kbd> or <kbd>]g</kbd> | 𝐍 | Next/previous Git hunk |
@@ -960,6 +978,8 @@ Go forward/backward with square brackets:
 
 ### Plugin: Fugitive
 
+See [tpope/vim-fugitive] for more mappings and usage information.
+
 | Key   | Mode | Action             |
 | ----- |:----:| ------------------ |
 | <kbd>Space</kbd>+<kbd>ga</kbd> | 𝐍 | Git add current file |
@@ -973,6 +993,8 @@ Go forward/backward with square brackets:
 | <kbd>Space</kbd>+<kbd>go</kbd> | 𝐍 𝐕 | Open SCM detailed URL in browser |
 
 ### Plugin: Telescope
+
+See [telescope.nvim] for more mappings and usage information.
 
 | Key   | Mode | Action
 | ----- |:----:| ------------------
@@ -1016,6 +1038,8 @@ Go forward/backward with square brackets:
 
 ### Plugin: Neo-Tree
 
+See [nvim-neo-tree/neo-tree.nvim] for more mappings and usage information.
+
 | Key   | Mode | Action
 | ----- |:----:| ------------------
 | <kbd>;e</kbd> | 𝐍 | Open file-explorer (toggle)
@@ -1046,27 +1070,17 @@ Go forward/backward with square brackets:
 | <kbd>w</kbd> | 𝐍 | Toggle window size
 | <kbd>x</kbd> | 𝐍 | Execute associated system application
 
-### Plugin: LSP
-
-| Key   | Mode | Action
-| ----- |:----:| ------------------
-| <kbd>Tab</kbd> / <kbd>Shift-Tab</kbd> | 𝐈 | Navigate completion-menu
-| <kbd>Tab</kbd> / <kbd>Shift-Tab</kbd> | 𝐈 𝐒 | Navigate snippet placeholders
-| <kbd>Ctrl</kbd>+<kbd>Space</kbd> | 𝐈 | Open completion menu
-| <kbd>Enter</kbd> | 𝐈 | Select completion or expand snippet
-| <kbd>Ctrl</kbd>+<kbd>p</kbd>/<kbd>n</kbd> | 𝐈 | Movement in completion pop-up
-| <kbd>Ctrl</kbd>+<kbd>b</kbd>/<kbd>f</kbd> | 𝐈 | Scroll documentation
-| <kbd>Ctrl</kbd>+<kbd>y</kbd> | 𝐈 | Expand Emmet sequence
-| <kbd>Ctrl</kbd>+<kbd>e</kbd> | 𝐈 | Abort selection and close pop-up
-| <kbd>Ctrl</kbd>+<kbd>l</kbd> | 𝐈 | Expand snippet at cursor
-
 ### Plugin: Spectre
+
+See [windwp/nvim-spectre] for more mappings and usage information.
 
 | Key   | Mode | Action
 | ----- |:----:| ------------------
 | <kbd>Space</kbd>+<kbd>so</kbd> | 𝐍 | Open spectre window
 
 ### Plugin: Marks
+
+See [chentau/marks.nvim] for more mappings and usage information.
 
 | Key   | Mode | Action
 | ----- |:----:| ------------------
@@ -1075,10 +1089,11 @@ Go forward/backward with square brackets:
 | <kbd>m</kbd> <kbd>a-z</kbd> | 𝐍 | Set mark
 | <kbd>dm</kbd> <kbd>a-z</kbd> | 𝐍 | Remove mark
 | <kbd>dm-</kbd> | 𝐍 | Delete all marks on the current line
-| <kbd>dm\<Space></kbd>  | 𝐍 | Delete all marks in the current buffer
-| <kbd>m]</kbd>  | 𝐍 | Move to next mark
-| <kbd>m[</kbd>  | 𝐍 | Move to previous mark
-| <kbd>m:</kbd> <kbd>a-z</kbd>  | 𝐍 | Preview mark
+| <kbd>dm\<Space></kbd> | 𝐍 | Delete all marks in the current buffer
+| <kbd>m]</kbd> | 𝐍 | Move to next mark
+| <kbd>m[</kbd> | 𝐍 | Move to previous mark
+| <kbd>m:</kbd> <kbd>a-z</kbd> | 𝐍 | Preview mark
+| <kbd>m/</kbd> | 𝐍 | List marks from all opened buffers
 
 </details>
 

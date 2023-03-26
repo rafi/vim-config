@@ -87,13 +87,33 @@ local height_medium = function(_, _, rows)
 	return math.floor(rows * 0.7)
 end
 
+-- Automatically hide statusline when using Telescope, if using globalstatus.
+if vim.go.laststatus < 3 then
+	vim.api.nvim_create_autocmd('FileType', {
+		pattern = 'TelescopePrompt',
+		group = vim.api.nvim_create_augroup('rafi_telescope', {}),
+		callback = function(event)
+			vim.go.laststatus = 0
+			vim.api.nvim_create_autocmd('BufWinLeave', {
+				buffer = event.buf,
+				group = 'rafi_telescope',
+				once = true,
+				callback = function() vim.go.laststatus = 3 end
+			})
+		end
+	})
+end
+
 -- Enable indent-guides in telescope preview
-vim.cmd [[
-	augroup telescope_events
-		autocmd!
-		autocmd User TelescopePreviewerLoaded setlocal wrap list number
-	augroup END
-]]
+vim.api.nvim_create_autocmd('User', {
+	pattern = 'TelescopePreviewerLoaded',
+	group = 'rafi_telescope',
+	callback = function()
+		vim.wo.wrap = true
+		vim.wo.list = true
+		vim.wo.number = true
+	end
+})
 
 -- Setup Telescope
 -- See telescope.nvim/lua/telescope/config.lua for defaults.

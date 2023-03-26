@@ -324,6 +324,7 @@ return {
 		},
 		opts = {
 			width = 30,
+			autofold_depth = 0,
 			keymaps = {
 				hover_symbol = 'K',
 				toggle_preview = 'p',
