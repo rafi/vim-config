@@ -467,7 +467,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [echasnovski/mini.trailspace] | Trailing whitespace highlight and remove
 | [echasnovski/mini.bracketed] | Go forward/backward with square brackets
 | [echasnovski/mini.ai] | Extend and create `a`/`i` textobjects
-| [AndrewRadev/sideways.vim] | Match function arguments
 | [AndrewRadev/linediff.vim] | Perform diffs on blocks of code
 | [AndrewRadev/splitjoin.vim] | Transition code between multi-line and single-line
 | [AndrewRadev/dsf.vim] | Delete surrounding function call
@@ -515,7 +514,8 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [nvim-treesitter/nvim-treesitter-context] | Show code context
 | [RRethy/nvim-treesitter-endwise] | Wisely add "end" in various filetypes
 | [windwp/nvim-ts-autotag] | Use treesitter to auto close and auto rename html tag
-| [monkoose/matchparen.nvim] | Alternative to matchparen built-in plugin
+| [andymass/vim-matchup] | Modern matchit and matchparen
+| [kevinhwang91/nvim-ufo] | Make folds look modern and keep a high performance
 | [iloginow/vim-stylus] | Better vim plugin for stylus
 | [chrisbra/csv.vim] | Handling column separated data
 | [towolf/vim-helm] | Syntax for Helm templates (yaml + gotmpl + sprig)
@@ -596,7 +596,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [echasnovski/mini.trailspace]: https://github.com/echasnovski/mini.trailspace
 [echasnovski/mini.bracketed]: https://github.com/echasnovski/mini.bracketed
 [echasnovski/mini.ai]: https://github.com/echasnovski/mini.ai
-[AndrewRadev/sideways.vim]: https://github.com/AndrewRadev/sideways.vim
 [AndrewRadev/linediff.vim]: https://github.com/AndrewRadev/linediff.vim
 [AndrewRadev/splitjoin.vim]: https://github.com/AndrewRadev/splitjoin.vim
 [AndrewRadev/dsf.vim]: https://github.com/AndrewRadev/dsf.vim
@@ -628,7 +627,8 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [nvim-treesitter/nvim-treesitter-context]: https://github.com/nvim-treesitter/nvim-treesitter-context
 [RRethy/nvim-treesitter-endwise]: https://github.com/RRethy/nvim-treesitter-endwise
 [windwp/nvim-ts-autotag]: https://github.com/windwp/nvim-ts-autotag
-[monkoose/matchparen.nvim]: https://github.com/monkoose/matchparen.nvim
+[andymass/vim-matchup]: https://github.com/andymass/vim-matchup
+[kevinhwang91/nvim-ufo]: https://github.com/kevinhwang91/nvim-ufo
 [iloginow/vim-stylus]: https://github.com/iloginow/vim-stylus
 [chrisbra/csv.vim]: https://github.com/chrisbra/csv.vim
 [towolf/vim-helm]: https://github.com/towolf/vim-helm

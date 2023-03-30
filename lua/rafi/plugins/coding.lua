@@ -245,25 +245,6 @@ return {
 
 	-----------------------------------------------------------------------------
 	{
-		'AndrewRadev/sideways.vim',
-		cmd = {
-			'SidewaysLeft',
-			'SidewaysRight',
-			'SidewaysJumpLeft',
-			'SidewaysJumpRight',
-		},
-		keys = {
-			{ '<,', '<cmd>SidewaysLeft<CR>', noremap = true, desc = 'Swap Left Argument' },
-			{ '>,', '<cmd>SidewaysRight<CR>', noremap = true, desc = 'Swap Right Argument' },
-			{ '[,', '<cmd>SidewaysJumpLeft<CR>', noremap = true, desc = 'Jump Left Argument' },
-			{ '],', '<cmd>SidewaysJumpRight<CR>', noremap = true, desc = 'Jump Right Argument' },
-			{ 'a,', '<Plug>SidewaysArgumentTextobjA', noremap = true, mode = { 'o', 'x' }},
-			{ 'i,', '<Plug>SidewaysArgumentTextobjI', noremap = true, mode = { 'o', 'x' }},
-		},
-	},
-
-	-----------------------------------------------------------------------------
-	{
 		'AndrewRadev/linediff.vim',
 		cmd = { 'Linediff', 'LinediffAdd' },
 		keys = {
