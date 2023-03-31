@@ -540,7 +540,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [lukas-reineke/indent-blankline.nvim] | Visually display indent levels
 | [t9md/vim-quickhl] | Highlight words quickly
 | [kevinhwang91/nvim-bqf] | Better quickfix window in Neovim
-| [NvChad/nvim-colorizer.lua] | The fastest Neovim colorizer
+| [uga-rosa/ccc.nvim] | Super powerful color picker/colorizer plugin
 | [rmagatti/goto-preview] | Preview definitions using floating windows
 | [itchyny/calendar.vim] | Calendar application
 
@@ -649,7 +649,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [lukas-reineke/indent-blankline.nvim]: https://github.com/lukas-reineke/indent-blankline.nvim
 [t9md/vim-quickhl]: https://github.com/t9md/vim-quickhl
 [kevinhwang91/nvim-bqf]: https://github.com/kevinhwang91/nvim-bqf
-[NvChad/nvim-colorizer.lua]: https://github.com/NvChad/nvim-colorizer.lua
+[uga-rosa/ccc.nvim]: https://github.com/uga-rosa/ccc.nvim
 [rmagatti/goto-preview]: https://github.com/rmagatti/goto-preview
 [itchyny/calendar.vim]: https://github.com/itchyny/calendar.vim
 
@@ -891,6 +891,7 @@ Note that,
 | <kbd>Space</kbd>+<kbd>f</kbd> | 𝐍 | Show current structure scope in winbar | <small>[SmiteshP/nvim-navic]</small>
 | <kbd>Space</kbd>+<kbd>?</kbd> | 𝐍 | Open the macOS dictionary on current word | `:!open dict://`
 | <kbd>Space</kbd>+<kbd>P</kbd> | 𝐍 | Use Marked 2 for real-time Markdown preview | <small>[Marked 2]</small>
+| <kbd>Space</kbd>+<kbd>cp</kbd> | 𝐍 | Open color-picker | <small>[uga-rosa/ccc.nvim]</small>
 | <kbd>Space</kbd>+<kbd>ml</kbd> | 𝐍 | Append modeline to end of buffer | <small>[lua/rafi/config/keymaps.lua]</small>
 | <kbd>Space</kbd>+<kbd>mda</kbd> | 𝐕 | Sequentially mark region for diff | <small>[AndrewRadev/linediff.vim]</small>
 | <kbd>Space</kbd>+<kbd>mdf</kbd> | 𝐕 | Mark region for diff and compare if more than one | <small>[AndrewRadev/linediff.vim]</small>
