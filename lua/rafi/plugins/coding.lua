@@ -245,6 +245,29 @@ return {
 
 	-----------------------------------------------------------------------------
 	{
+		'echasnovski/mini.splitjoin',
+		main = 'mini.splitjoin',
+		keys = {
+			{
+				'sj',
+				'<cmd>lua MiniSplitjoin.join()<CR>',
+				mode = { 'n', 'x' },
+				desc = 'Join arguments'
+			},
+			{
+				'sk',
+				'<cmd>lua MiniSplitjoin.split()<CR>',
+				mode = { 'n', 'x' },
+				desc = 'Split arguments'
+			},
+		},
+		opts = {
+			mappings = { toggle = '' },
+		},
+	},
+
+	-----------------------------------------------------------------------------
+	{
 		'AndrewRadev/linediff.vim',
 		cmd = { 'Linediff', 'LinediffAdd' },
 		keys = {
@@ -253,27 +276,6 @@ return {
 			{ '<Leader>mds', '<cmd>LinediffShow<CR>', desc = 'Line diff show' },
 			{ '<Leader>mdr', '<cmd>LinediffReset<CR>', desc = 'Line diff reset' },
 		}
-	},
-
-	-----------------------------------------------------------------------------
-	{
-		'AndrewRadev/splitjoin.vim',
-		cmd = { 'SplitjoinJoin', 'SplitjoinSplit' },
-		keys = {
-			{ 'sj', '<cmd>SplitjoinJoin<CR>', noremap = true, desc = 'Join Arguments' },
-			{ 'sk', '<cmd>SplitjoinSplit<CR>', noremap = true, desc = 'Split Arguments' },
-		},
-		init = function()
-			vim.g.splitjoin_join_mapping = ''
-			vim.g.splitjoin_split_mapping = ''
-			vim.api.nvim_create_autocmd('FileType', {
-				group = vim.api.nvim_create_augroup('rafi_splitjoin', {}),
-				pattern = 'go',
-				callback = function()
-					vim.b.splitjoin_trailing_comma = 1
-				end
-			})
-		end
 	},
 
 	-----------------------------------------------------------------------------

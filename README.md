@@ -467,8 +467,8 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [echasnovski/mini.trailspace] | Trailing whitespace highlight and remove
 | [echasnovski/mini.bracketed] | Go forward/backward with square brackets
 | [echasnovski/mini.ai] | Extend and create `a`/`i` textobjects
+| [echasnovski/mini.splitjoin] | Split and join arguments
 | [AndrewRadev/linediff.vim] | Perform diffs on blocks of code
-| [AndrewRadev/splitjoin.vim] | Transition code between multi-line and single-line
 | [AndrewRadev/dsf.vim] | Delete surrounding function call
 
 ### Colorscheme Plugins
@@ -596,8 +596,8 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [echasnovski/mini.trailspace]: https://github.com/echasnovski/mini.trailspace
 [echasnovski/mini.bracketed]: https://github.com/echasnovski/mini.bracketed
 [echasnovski/mini.ai]: https://github.com/echasnovski/mini.ai
+[echasnovski/mini.splitjoin]: https://github.com/echasnovski/mini.splitjoin
 [AndrewRadev/linediff.vim]: https://github.com/AndrewRadev/linediff.vim
-[AndrewRadev/splitjoin.vim]: https://github.com/AndrewRadev/splitjoin.vim
 [AndrewRadev/dsf.vim]: https://github.com/AndrewRadev/dsf.vim
 
 [rafi/awesome-colorschemes]: https://github.com/rafi/awesome-vim-colorschemes
@@ -809,7 +809,7 @@ Note that,
 | <kbd>Space</kbd>+<kbd>d</kbd> | 𝐍 𝐕 | Duplicate line or selection |
 | <kbd>Space</kbd>+<kbd>cp</kbd> | 𝐍 | Duplicate paragraph | `yap<S-}>p`
 | <kbd>Space</kbd>+<kbd>cw</kbd> | 𝐍 | Remove all spaces at EOL | <small>[echasnovski/mini.trailspace]</small>
-| <kbd>sj</kbd> / <kbd>sk</kbd> | 𝐍 | Join/split arguments | <small>[AndrewRadev/splitjoin.vim]</small>
+| <kbd>sj</kbd> / <kbd>sk</kbd> | 𝐍 | Join/split arguments | <small>[echasnovski/mini.splitjoin]</small>
 | <kbd>dsf</kbd> / <kbd>csf</kbd> | 𝐍 | Delete/change surrounding function call | <small>[AndrewRadev/dsf.vim]</small>
 | <kbd>I</kbd> / <kbd>gI</kbd> | 𝐕 | Blockwise insert | <small>[kana/vim-niceblock]</small>
 | <kbd>A</kbd> | 𝐕 | Blockwise append | <small>[kana/vim-niceblock]</small>
