@@ -1003,6 +1003,7 @@ See [telescope.nvim] for more mappings and usage information.
 | <kbd>;m</kbd> | 𝐍 | Marks
 | <kbd>;n</kbd> | 𝐍 | Dein plugin list
 | <kbd>;j</kbd> | 𝐍 | Jump points
+| <kbd>;k</kbd> | 𝐍 | Thesaurus
 | <kbd>;u</kbd> | 𝐍 | Spelling suggestions
 | <kbd>;o</kbd> | 𝐍 | Vim options
 | <kbd>;s</kbd> | 𝐍 | Sessions

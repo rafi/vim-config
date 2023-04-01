@@ -129,6 +129,7 @@ return {
 			'nvim-telescope/telescope-ui-select.nvim',
 			'jvgrootveld/telescope-zoxide',
 			'folke/todo-comments.nvim',
+			'rafi/telescope-thesaurus.nvim',
 		},
 		config = function(_, opts)
 			require('telescope').setup(opts)
@@ -219,6 +220,7 @@ return {
 
 			-- Plugins
 			{ '<localleader>n', plugin_directories },
+			{ '<localleader>k', '<cmd>Telescope thesaurus lookup<CR>' },
 			{ '<localleader>w', '<cmd>ZkNotes<CR>' },
 
 			{

@@ -7,7 +7,17 @@ return {
 	{ 'nvim-tree/nvim-web-devicons', lazy = false },
 	{ 'MunifTanjim/nui.nvim', lazy = false },
 	{ 'rafi/tabstrip.nvim', lazy = false, opts = true },
-	{ 'rafi/theme-loader.nvim', lazy = false, priority = 999, opts = true },
+
+	-----------------------------------------------------------------------------
+	{
+		'rafi/theme-loader.nvim',
+		lazy = false,
+		priority = 99,
+		opts = {
+			autostart = false,
+			initial_colorscheme = 'hybrid',
+		},
+	},
 
 	-----------------------------------------------------------------------------
 	{

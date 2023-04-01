@@ -19,6 +19,7 @@ return {
 				end,
 			},
 			{ 'b0o/SchemaStore.nvim', version = false },
+			'rafi/neoconf-venom.nvim',
 		},
 		---@class PluginLspOpts
 		opts = {
@@ -103,6 +104,9 @@ return {
 				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
 			end
 			vim.diagnostic.config(opts.diagnostics)
+
+			-- See https://github.com/rafi/neoconf-venom.nvim
+			require('venom').setup()
 
 			-- Initialize LSP servers and ensure Mason packages
 
