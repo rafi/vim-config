@@ -3,7 +3,7 @@
 
 return {
 
-	{ 'rafi/awesome-vim-colorschemes', priority = 1000, lazy = false },
+	{ 'rafi/awesome-vim-colorschemes', priority = 100, lazy = false },
 	{ 'AlexvZyl/nordic.nvim' },
 	{ 'folke/tokyonight.nvim', opts = { style = 'night' }},
 	{ 'rebelot/kanagawa.nvim' },

@@ -17,14 +17,14 @@ function M.get(client, buffer)
 	end
 
 	-- Keyboard mappings
-	map('n', 'K', vim.lsp.buf.hover)
+	map('n', 'K', vim.lsp.buf.hover, { has = 'hover' })
 	map('n', '<leader>cl', '<cmd>LspInfo<cr>')
 
-	map('n', 'gD', vim.lsp.buf.declaration)
-	map('n', 'gd', vim.lsp.buf.definition)
-	map('n', 'gr', vim.lsp.buf.references)
-	map('n', 'gy', vim.lsp.buf.type_definition)
-	map('n', 'gi', vim.lsp.buf.implementation)
+	map('n', 'gD', vim.lsp.buf.declaration, { has = 'declaration' })
+	map('n', 'gd', vim.lsp.buf.definition, { has = 'definition' })
+	map('n', 'gr', vim.lsp.buf.references, { has = 'references' })
+	map('n', 'gy', vim.lsp.buf.type_definition, { has = 'typeDefinition' })
+	map('n', 'gi', vim.lsp.buf.implementation, { has = 'implementation' })
 
 	map('n', ',rn', vim.lsp.buf.rename, { has = 'rename' })
 	map('n', ',s', vim.lsp.buf.signature_help, { has = 'signatureHelp' })
@@ -43,6 +43,10 @@ function M.get(client, buffer)
 	)
 	map('n', '<Leader>ce', vim.diagnostic.open_float)
 
+	if not require('rafi.config').has('mini.bracketed') then
+		map('n', ']d', M.diagnostic_goto(true))
+		map('n', '[d', M.diagnostic_goto(false))
+	end
 	map('n', ']e', M.diagnostic_goto(true, 'ERROR'))
 	map('n', '[e', M.diagnostic_goto(false, 'ERROR'))
 

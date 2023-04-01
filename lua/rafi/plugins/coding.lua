@@ -101,7 +101,7 @@ return {
 						local symbol = require('rafi.config').icons.kinds[vim_item.kind]
 						if symbol ~= nil then
 							vim_item.kind = symbol
-								.. (vim.g['global_symbol_padding'] or ' ') .. vim_item.kind
+								.. ' ' .. vim_item.kind
 						end
 						return vim_item
 					end,
@@ -218,7 +218,9 @@ return {
 		'echasnovski/mini.bracketed',
 		event = 'BufReadPost',
 		main = 'mini.bracketed',
-		config = true,
+		opts = {
+			treesitter = { suffix = '' },
+		},
 	},
 
 	-----------------------------------------------------------------------------

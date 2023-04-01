@@ -335,10 +335,8 @@ You can set & toggle **global specific features** by defining in your local
 
 ```vim
 let g:elite_mode = 1                     " Set arrow-keys to window resize
-let g:global_symbol_padding = '  '       " Padding after nerd symbols
-let g:tabline_plugin_enable = 0          " Disable built-in tabline
-let g:enable_universal_quit_mapping = 0  " Disable normal 'q' mapping
 let g:disable_mappings = 0               " Disable lua/rafi/config/keymaps.lua
+let g:enable_universal_quit_mapping = 0  " Disable normal 'q' mapping
 ```
 
 ### Extend: LSP Settings
@@ -685,8 +683,6 @@ return {
 
 | Name           | Description
 | -------------- | ----------------------
-| [ray-x/lsp_signature.nvim] | LSP signature hint when you type
-| [glepnir/lspsaga.nvim] | Lightweight LSP plugin with a highly performant UI
 | [kosayoda/nvim-lightbulb] | VSCode 💡 for neovim's built-in LSP
 
 ### Extra Org Plugins
@@ -717,8 +713,6 @@ return {
 [machakann/vim-sandwich]: https://github.com/machakann/vim-sandwich
 [pechorin/any-jump.vim]: https://github.com/pechorin/any-jump.vim
 [ziontee113/color-picker.nvim]: https://github.com/ziontee113/color-picker.nvim
-[ray-x/lsp_signature.nvim]: https://github.com/ray-x/lsp_signature.nvim
-[glepnir/lspsaga.nvim]: https://github.com/glepnir/lspsaga.nvim
 [kosayoda/nvim-lightbulb]: https://github.com/kosayoda/nvim-lightbulb
 [vimwiki/vimwiki]: https://github.com/vimwiki/vimwiki
 [Wansmer/treesj]: https://github.com/Wansmer/treesj
@@ -905,7 +899,7 @@ Note that,
 
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
-| <kbd>q</kbd> | 𝐍 | Quit window (and Vim, if last window) | `:quit`
+| <kbd>q</kbd> | 𝐍 | Quit window (if last window, quit nvim) | `:quit`
 | <kbd>Ctrl</kbd>+<kbd>x</kbd> | 𝐍 | Rotate window placement | `C-w` `x`
 | <kbd>sv</kbd> | 𝐍 | Horizontal split | `:split`
 | <kbd>sg</kbd> | 𝐍 | Vertical split | `:vsplit`

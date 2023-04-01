@@ -14,7 +14,7 @@ return {
 	{
 		'tpope/vim-sleuth',
 		lazy = false,
-		priority = 500,
+		priority = 50,
 		init = function ()
 			vim.g.sleuth_no_filetype_indent_on = 1
 			vim.g.sleuth_gitcommit_heuristics = 0
@@ -25,7 +25,7 @@ return {
 	{
 		'olimorris/persisted.nvim',
 		event = 'VimEnter',
-		priority = 10000,
+		priority = 1000,
 		init = function()
 			vim.g.in_pager_mode = false
 			vim.api.nvim_create_autocmd('StdinReadPre', {
@@ -232,6 +232,8 @@ return {
 		'folke/todo-comments.nvim',
 		dependencies = 'nvim-telescope/telescope.nvim',
 		keys = {
+			{ ']t', function() require('todo-comments').jump_next() end, desc = 'Next todo comment' },
+			{ '[t', function() require('todo-comments').jump_prev() end, desc = 'Previous todo comment' },
 			{ '<LocalLeader>dt', '<cmd>TodoTelescope<CR>', desc = 'todo' },
 			{ '<leader>xt', '<cmd>TodoTrouble<CR>', desc = 'Todo (Trouble)' },
 			{ '<leader>xT', '<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>', desc = 'Todo/Fix/Fixme (Trouble)' },

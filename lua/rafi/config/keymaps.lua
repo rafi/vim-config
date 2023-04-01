@@ -54,6 +54,10 @@ end, { expr = true, noremap = true, desc = 'Toggle Fold' })
 map('n', '<S-Return>', 'zMzv', { noremap = true, desc = 'Focus Fold' })
 
 -- Location/quickfix list movement
+if not require('rafi.config').has('mini.bracketed') then
+	map('n', ']q', '<cmd>cnext<CR>', { desc = 'Next Quickfix Item' })
+	map('n', '[q', '<cmd>cprev<CR>', { desc = 'Previous Quickfix Item' })
+end
 map('n', ']a', '<cmd>lnext<CR>', { desc = 'Next Loclist Item' })
 map('n', '[a', '<cmd>lprev<CR>', { desc = 'Previous Loclist Item' })
 
