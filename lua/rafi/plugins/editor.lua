@@ -26,7 +26,24 @@ return {
 		'olimorris/persisted.nvim',
 		event = 'VimEnter',
 		priority = 1000,
+		opts = {
+			autoload = true,
+			follow_cwd = false,
+			ignored_dirs = { '/usr', '/opt', '~/.cache', vim.env.TMPDIR or '/tmp' },
+			should_autosave = function()
+				-- Do not autosave if git commit/rebase session.
+				return vim.env.GIT_EXEC_PATH == nil
+			end,
+		},
+		config = function(_, opts)
+			if vim.g.in_pager_mode or vim.env.GIT_EXEC_PATH ~= nil then
+				-- Do not autoload if stdin has been provided, or git commit session.
+				opts.autoload = false
+			end
+			require('persisted').setup(opts)
+		end,
 		init = function()
+			-- Detect if stdin has been provided.
 			vim.g.in_pager_mode = false
 			vim.api.nvim_create_autocmd('StdinReadPre', {
 				group = vim.api.nvim_create_augroup('rafi_persisted', {}),
@@ -34,23 +51,19 @@ return {
 					vim.g.in_pager_mode = true
 				end
 			})
-		end,
-		opts = {
-			autoload = true,
-			follow_cwd = false,
-			ignored_dirs = { '~/.cache', vim.env.TMPDIR or '/tmp' },
-			should_autosave = function()
-				-- Do not autosave if git commit/rebase session. Causes a race-condition
-				return vim.env.GIT_EXEC_PATH == nil
-			end,
-		},
-		config = function(_, opts)
-			-- Do not autoload if stdin has been provided, or git commit session.
-			if vim.g.in_pager_mode or vim.env.GIT_EXEC_PATH ~= nil then
-				opts.autoload = false
-			end
-			require('persisted').setup(opts)
-
+			-- Close all floats before loading a session. (e.g. Lazy.nvim)
+			vim.api.nvim_create_autocmd('User', {
+				group = 'rafi_persisted',
+				pattern = 'PersistedLoadPre',
+				callback = function()
+					for _, win in pairs(vim.api.nvim_tabpage_list_wins(0)) do
+						if vim.api.nvim_win_get_config(win).zindex then
+							vim.api.nvim_win_close(win, false)
+						end
+					end
+				end
+			})
+			-- Close all plugin owned buffers before saving a session.
 			vim.api.nvim_create_autocmd('User', {
 				pattern = 'PersistedSavePre',
 				group = 'rafi_persisted',
@@ -70,7 +83,6 @@ return {
 					end
 				end,
 			})
-
 			-- When switching to a different session using Telescope, save and stop
 			-- current session to avoid previous session to be overwritten.
 			vim.api.nvim_create_autocmd('User', {
@@ -81,7 +93,6 @@ return {
 					require('persisted').stop()
 				end
 			})
-
 			-- When switching to a different session using Telescope, after new
 			-- session has been loaded, start it - so it will be auto-saved.
 			vim.api.nvim_create_autocmd('User', {
