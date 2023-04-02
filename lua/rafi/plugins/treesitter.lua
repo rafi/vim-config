@@ -152,7 +152,7 @@ return {
 				'gowork',
 				'graphql',
 				'hcl',
-				'help',
+				'vimdoc',
 				'html',
 				'http',
 				'java',
