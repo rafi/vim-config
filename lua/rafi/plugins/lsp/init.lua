@@ -18,7 +18,7 @@ return {
 					return require('rafi.config').has('nvim-cmp')
 				end,
 			},
-			{ 'b0o/SchemaStore.nvim', version = false },
+			'b0o/SchemaStore.nvim',
 			'rafi/neoconf-venom.nvim',
 		},
 		---@class PluginLspOpts

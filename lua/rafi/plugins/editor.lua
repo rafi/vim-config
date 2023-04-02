@@ -212,6 +212,7 @@ return {
 		opts = {
 			plugins = {
 				gitsigns = { enabled = true },
+				tmux = { enabled = vim.env.TMUX ~= nil },
 			},
 		}
 	},
