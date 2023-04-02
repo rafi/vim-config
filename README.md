@@ -78,21 +78,21 @@ Please read "[Extending](#extending)" to learn how to customize and modify.
 
 ## Features
 
-* Fast startup time
+* Fast startup time — plugins are almost entirely lazy-loaded!
 * Robust, yet light-weight
 * Plugin management with [folke/lazy.nvim]. Use with `:Lazy` or <kbd>Space</kbd>+<kbd>l</kbd>
-* Install LSP, DAP, linters, and formatters. Use with `:Mason`
-* LSP configuration with [folke/neoconf.nvim] (see [neoconf.json])
+* Install LSP, DAP, linters, and formatters. Use with `:Mason` or <kbd>Space</kbd>+<kbd>mm</kbd>
+* LSP configuration with [nvim-lspconfig] and [folke/neoconf.nvim] (see [neoconf.json])
 * [telescope.nvim] centric work-flow with lists (try <kbd>;</kbd>+<kbd>f</kbd>…)
 * Custom context-menu (try it! <kbd>;</kbd>+<kbd>c</kbd>)
-* Auto-complete extensive setup with [nvim-lspconfig] and [nvim-cmp]
-  (try <kbd>Tab</kbd> in insert-mode)
+* Auto-complete extensive setup with [nvim-cmp]
+  (try <kbd>Tab</kbd> or <kbd>Ctrl</kbd>+<kbd>Space</kbd> in insert-mode)
 * Structure view with [simrat39/symbols-outline.nvim]
 * Git features using [tpope/vim-fugitive] and [lewis6991/gitsigns.nvim]
 * Auto-save and restore sessions with [olimorris/persisted.nvim]
-* Light-weight but informative status & tab lines
+* Unobtrusive, yet informative status & tab lines
 * Premium color-schemes
-* Restores last used colorscheme
+* Remembers last-used colorscheme
 
 ## Screenshot
 
@@ -236,7 +236,21 @@ git pull --ff --ff-only
 
 There are 2 distinct ways to extend configuration:
 
-1. Create your own clean `~/.config/nvim`, and leverage [lazy.nvim] to import
+1. The second option is to fork this repository and create a directory
+   `lua/config` with one or more of these files:
+
+   * `lua/config/autocmds.lua` — Custom auto-commands
+   * `lua/config/options.lua` — Custom options
+   * `lua/config/keymaps.lua` — Custom key-mappings
+
+   Adding plugins or override existing options:
+   * `lua/plugins/*.lua` or `lua/plugins.lua` — Plugins (See [lazy.nvim] for
+     syntax)
+
+   This option is recommended if you're not planning on customizing a lot, or
+   you'd like to keep a close look of source-code.
+
+2. Create your own clean `~/.config/nvim`, and leverage [lazy.nvim] to import
    my configuration specs. You can use [LazyVim/starter] and just change
    `lua/plugins/example.lua` to:
 
@@ -272,20 +286,6 @@ There are 2 distinct ways to extend configuration:
 
    This option has the advantage of partially importing different "plugin
    specs" from various sources.
-
-2. The second option is to fork this repository and create a directory
-   `lua/config` with one or more of these files:
-
-   * `lua/config/autocmds.lua` — Custom auto-commands
-   * `lua/config/options.lua` — Custom options
-   * `lua/config/keymaps.lua` — Custom key-mappings
-
-   Adding plugins or override existing options:
-   * `lua/plugins/*.lua` or `lua/plugins.lua` — Plugins (See [lazy.nvim] for
-     syntax)
-
-   This option is recommended if you're not planning on customizing a lot, or
-   you'd like to keep a close look of source-code.
 
 ### Extend: Plugins
 
@@ -738,7 +738,7 @@ Note that,
     <small><i>(🔎 Click to expand/collapse)</i></small>
   </summary>
 
-<center>Modes: 𝐍=normal 𝐕=visual 𝐒=select 𝐈=insert 𝐂=command</center>
+<center>Modes: 𝐍=normal 𝐕=visual 𝐒=select 𝐈=insert 𝐎=operator 𝐂=command</center>
 
 ### Navigation
 
@@ -1072,7 +1072,7 @@ See [windwp/nvim-spectre] for more mappings and usage information.
 
 | Key   | Mode | Action
 | ----- |:----:| ------------------
-| <kbd>Space</kbd>+<kbd>so</kbd> | 𝐍 | Open spectre window
+| <kbd>Space</kbd>+<kbd>so</kbd> | 𝐍 | Open spectre window (search & replace)
 
 ### Plugin: Marks
 
