@@ -51,16 +51,31 @@ return {
 					{ name = 'tmux', option = { all_panes = true }},
 				},
 				mapping = cmp.mapping.preset.insert({
-					['<CR>'] = cmp.mapping.confirm({ select = false }),
+					['<CR>'] = cmp.mapping({
+						i = function(fallback)
+							if cmp.visible() and cmp.get_active_entry() then
+								cmp.confirm({ select = false })
+							else
+								fallback()
+							end
+						end,
+						s = cmp.mapping.confirm({
+							select = true,
+							behavior = cmp.ConfirmBehavior.Replace,
+						}),
+						c = cmp.mapping.confirm({ select = true }),
+					}),
 					['<S-CR>'] = cmp.mapping.confirm({
 						behavior = cmp.ConfirmBehavior.Replace,
-						select = false,
+						select = true,
 					}),
+					['<C-Space>'] = cmp.mapping.complete(),
 					['<C-n>'] = cmp.mapping.select_next_item(),
 					['<C-p>'] = cmp.mapping.select_prev_item(),
+					['<C-d>'] = cmp.mapping.select_next_item({ count = 5 }),
+					['<C-u>'] = cmp.mapping.select_prev_item({ count = 5 }),
 					['<C-f>'] = cmp.mapping.scroll_docs(4),
 					['<C-b>'] = cmp.mapping.scroll_docs(-4),
-					['<C-Space>'] = cmp.mapping.complete({}),
 					['<C-c>'] = function(fallback)
 						cmp.close()
 						fallback()
@@ -68,8 +83,8 @@ return {
 					['<Tab>'] = cmp.mapping(function(fallback)
 						if cmp.visible() then
 							cmp.select_next_item()
-						elseif luasnip.expand_or_jumpable() then
-							luasnip.expand_or_jump()
+						elseif luasnip.jumpable(1) then
+							luasnip.jump(1)
 						elseif has_words_before() then
 							cmp.complete()
 						else
@@ -86,14 +101,6 @@ return {
 						end
 					end, { 'i', 's' }),
 				}),
-				window = {
-					completion = cmp.config.window.bordered({
-						border = 'none',
-					}),
-					documentation = cmp.config.window.bordered({
-						border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
-					}),
-				},
 				formatting = {
 					format = function(_, vim_item)
 						-- Prepend with a fancy icon
@@ -120,7 +127,6 @@ return {
 			{
 				'<C-l>',
 				function() require('luasnip').expand_or_jump() end,
-				expr = true,
 				mode = { 'i', 's' }
 			}
 		},
@@ -131,7 +137,7 @@ return {
 			region_check_events = 'InsertEnter',
 			delete_check_events = 'InsertLeave',
 			ft_func = function()
-				return vim.split(vim.bo.filetype, '.', true)
+				return vim.split(vim.bo.filetype, '.', { plain = true })
 			end,
 		},
 		config = function(_, opts)
