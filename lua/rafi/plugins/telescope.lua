@@ -273,6 +273,26 @@ return {
 			-- Transform to Telescope proper actions.
 			myactions = transform_mod(myactions)
 
+			-- Clone the default Telescope configuration and enable hidden files.
+			local has_ripgrep = vim.fn.executable('rg') == 1
+			local vimgrep_args = {
+				unpack(require('telescope.config').values.vimgrep_arguments)
+			}
+			table.insert(vimgrep_args, '--hidden')
+			table.insert(vimgrep_args, '--no-ignore-vcs')
+			table.insert(vimgrep_args, '--glob')
+			table.insert(vimgrep_args, '!**/.git/*')
+
+			local find_args = {
+				'rg',
+				'--files',
+				'--smart-case',
+				'--hidden',
+				'--no-ignore-vcs',
+				'--glob',
+				'!**/.git/*',
+			}
+
 			return {
 			defaults = {
 				sorting_strategy = 'ascending',
@@ -285,6 +305,7 @@ return {
 				path_display = { 'truncate' },
 				file_ignore_patterns = { 'node_modules' },
 				set_env = { COLORTERM = 'truecolor' },
+				vimgrep_arguments = has_ripgrep and vimgrep_args or nil,
 
 				-- Flex layout swaps between horizontal and vertical strategies
 				-- based on the window width. See :h telescope.layout
@@ -392,15 +413,7 @@ return {
 					theme = 'dropdown',
 					previewer = false,
 					layout_config = { width = width_medium, height = height_medium },
-					find_command = {
-						'rg',
-						'--smart-case',
-						'--hidden',
-						'--no-ignore-vcs',
-						'--glob',
-						'!.git',
-						'--files',
-					}
+					find_command = has_ripgrep and find_args or nil,
 				},
 				live_grep = {
 					dynamic_preview_title = true,
