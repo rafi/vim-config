@@ -47,12 +47,14 @@ Please read "[Extending](#extending)" to learn how to customize and modify.
   * [Treesitter & Syntax](#treesitter--syntax)
   * [UI Plugins](#ui-plugins)
 * [Extra Plugins](#extra-plugins)
-  * [Extra Coding Plugins](#extra-coding-plugins)
-  * [Extra Editor Plugins](#extra-editor-plugins)
-  * [Extra LSP Plugins](#extra-lsp-plugins)
-  * [Extra Org Plugins](#extra-org-plugins)
-  * [Extra Treesitter Plugins](#extra-treesitter-plugins)
-  * [Extra UI Plugins](#extra-ui-plugins)
+  * [Extra Plugins: Coding](#extra-plugins-coding)
+  * [Extra Plugins: Diagnostics](#extra-plugins-diagnostics)
+  * [Extra Plugins: Editor](#extra-plugins-editor)
+  * [Extra Plugins: Formatting](#extra-plugins-formatting)
+  * [Extra Plugins: LSP](#extra-plugins-lsp)
+  * [Extra Plugins: Org](#extra-plugins-org)
+  * [Extra Plugins: Treesitter](#extra-plugins-treesitter)
+  * [Extra Plugins: UI](#extra-plugins-ui)
 * [Custom Key-mappings](#custom-key-mappings)
   * [Navigation](#navigation)
   * [File Operations](#file-operations)
@@ -61,10 +63,11 @@ Please read "[Extending](#extending)" to learn how to customize and modify.
   * [Search & Replace](#search--replace)
   * [Clipboard](#clipboard)
   * [Command & History](#command--history)
+  * [Diagnostics](#diagnostics)
   * [Editor UI](#editor-ui)
   * [Custom Tools & Plugins](#custom-tools--plugins)
   * [Window Management](#window-management)
-  * [Plugin: Mini.Bracket](#plugin-minibracket)
+  * [Plugin: Mini.Bracketed](#plugin-minibracketed)
   * [Plugin: Mini.Surround](#plugin-minisurround)
   * [Plugin: Gitsigns](#plugin-gitsigns)
   * [Plugin: Fugitive](#plugin-fugitive)
@@ -653,7 +656,9 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 
 ## Extra Plugins
 
-These plugins aren't enabled by default. You'll have to import them, e.g.:
+These plugins aren't enabled by default. You'll have to import them using specs.
+
+For example:
 
 ```lua
 return {
@@ -662,63 +667,100 @@ return {
 }
 ```
 
-### Extra Coding Plugins
+### Extra Plugins: Coding
+
+Spec: `rafi.plugins.extras.coding.<name>`
+
+| Name           | Repository     | Description
+| -------------- | -------------- | ----------------------
+| `autopairs`    | [windwp/nvim-autopairs] | Autopairs for neovim written by lua
+| `copilot`      | [zbirenbaum/copilot.lua] | Fully featured & enhanced replacement for copilot.vim
+| `editorconfig` | [sgur/vim-editorconfig] | EditorConfig plugin written entirely in Vimscript
+| `emmet`        | [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet
+| `kommentary`   | [b3nj5m1n/kommentary] | Commenting plugin, written in Lua
+| `sandwich`     | [machakann/vim-sandwich] | Search, select, and edit sandwich text objects
+
+### Extra Plugins: Diagnostics
+
+Spec: `rafi.plugins.extras.diagnostics.<name>`
 
 | Name           | Description
 | -------------- | ----------------------
-| [windwp/nvim-autopairs] | autopairs for neovim written by lua
-| [sgur/vim-editorconfig] | EditorConfig plugin written entirely in Vimscript
-| [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet
-| [b3nj5m1n/kommentary] | Commenting plugin, written in Lua
-| [machakann/vim-sandwich] | Search, select, and edit sandwich text objects
+| `proselint`    | proselint: null-ls source and mason package
+| `write-good`   | write-good: null-ls source and mason package
 
-### Extra Editor Plugins
+### Extra Plugins: Editor
 
-| Name           | Description
-| -------------- | ----------------------
-| [pechorin/any-jump.vim] | Jump to any definition and references without overhead
-| [ziontee113/color-picker.nvim] | Choose and modify RGB/HSL/HEX colors
+Spec: `rafi.plugins.extras.editor.<name>`
 
-### Extra LSP Plugins
+| Key       | Name           | Description
+| ----------| -------------- | ----------------------
+| `anyjump` | [pechorin/any-jump.vim] | Jump to any definition and references without overhead
 
-| Name           | Description
-| -------------- | ----------------------
-| [kosayoda/nvim-lightbulb] | VSCode 💡 for neovim's built-in LSP
+### Extra Plugins: Formatting
 
-### Extra Org Plugins
+Spec: `rafi.plugins.extras.formatting.<name>`
 
 | Name           | Description
 | -------------- | ----------------------
-| [vimwiki/vimwiki] | Personal Wiki for Vim
+| `prettier`     | prettier: null-ls source and mason package
 
-### Extra Treesitter Plugins
+### Extra Plugins: LSP
 
-| Name           | Description
-| -------------- | ----------------------
-| [Wansmer/treesj] | Splitting and joining blocks of code
+Spec: `rafi.plugins.extras.lsp.<name>`
 
-### Extra UI Plugins
+| Key            | Name           | Description
+| -------------- | -------------- | ----------------------
+| `lightbulb`    | [kosayoda/nvim-lightbulb] | VSCode 💡 for neovim's built-in LSP
 
-| Name           | Description
-| -------------- | ----------------------
-| [itchyny/cursorword] | Underlines word under cursor
-| [romainl/vim-cool] | Simple plugin that makes hlsearch more useful
-| [b0o/incline.nvim] | Floating statuslines
-| [luukvbaal/statuscol.nvim] | Configurable 'statuscolumn' and click handlers
+### Extra Plugins: Org
+
+Spec: `rafi.plugins.extras.org.<name>`
+
+| Key            | Name           | Description
+| -------------- | -------------- | ----------------------
+| `vimwiki`      | [vimwiki/vimwiki] | Personal Wiki for Vim
+
+### Extra Plugins: Treesitter
+
+Spec: `rafi.plugins.extras.treesitter.<name>`
+
+| Key            | Name           | Description
+| -------------- | -------------- | ----------------------
+| `treesj`       | [Wansmer/treesj] | Splitting and joining blocks of code
+
+### Extra Plugins: UI
+
+Spec: `rafi.plugins.extras.ui.<name>`
+
+| Key            | Name           | Description
+| -------------- | -------------- | ----------------------
+| `bufferline`   | [akinsho/bufferline.nvim] | Snazzy tab/bufferline
+| `cursorword`   | [itchyny/cursorword] | Underlines word under cursor
+| `cybu`         | [ghillb/cybu.nvim] | Cycle buffers with a customizable notification window
+| `deadcolumn`   | [Bekaboo/deadcolumn.nvim] | Show colorcolumn dynamically
+| `cool`         | [romainl/vim-cool] | Simple plugin that makes hlsearch more useful
+| `incline`      | [b0o/incline.nvim] | Floating statuslines
+| `minimap`      | [echasnovski/mini.map] | Window with buffer text overview, scrollbar, and highlights
+| `statuscol`    | [luukvbaal/statuscol.nvim] | Configurable 'statuscolumn' and click handlers
 
 [windwp/nvim-autopairs]: https://github.com/windwp/nvim-autopairs
+[zbirenbaum/copilot.lua]: https://github.com/zbirenbaum/copilot.lua
 [sgur/vim-editorconfig]: https://github.com/sgur/vim-editorconfig
 [mattn/emmet-vim]: https://github.com/mattn/emmet-vim
 [b3nj5m1n/kommentary]: https://github.com/b3nj5m1n/kommentary
 [machakann/vim-sandwich]: https://github.com/machakann/vim-sandwich
 [pechorin/any-jump.vim]: https://github.com/pechorin/any-jump.vim
-[ziontee113/color-picker.nvim]: https://github.com/ziontee113/color-picker.nvim
 [kosayoda/nvim-lightbulb]: https://github.com/kosayoda/nvim-lightbulb
 [vimwiki/vimwiki]: https://github.com/vimwiki/vimwiki
 [Wansmer/treesj]: https://github.com/Wansmer/treesj
+[akinsho/bufferline.nvim]: https://github.com/akinsho/bufferline.nvim
 [itchyny/cursorword]: https://github.com/itchyny/vim-cursorword
+[ghillb/cybu.nvim]: https://github.com/ghillb/cybu.nvim
+[Bekaboo/deadcolumn.nvim]: https://github.com/Bekaboo/deadcolumn.nvim
 [romainl/vim-cool]: https://github.com/romainl/vim-cool
 [b0o/incline.nvim]: https://github.com/b0o/incline.nvim
+[echasnovski/mini.map]: https://github.com/echasnovski/mini.map
 [luukvbaal/statuscol.nvim]: https://github.com/luukvbaal/statuscol.nvim
 
 </details>
@@ -729,7 +771,7 @@ Note that,
 
 * **Leader** key set as <kbd>Space</kbd>
 * **Local-Leader** key set as <kbd>;</kbd> and used for navigation and search
-  (Telescope and Tree)
+  (Telescope and Neo-tree)
 * Disable <kbd>←</kbd> <kbd>↑</kbd> <kbd>→</kbd> <kbd>↓</kbd> in normal mode by enabling `g:elite_mode` in `.vault.vim`
 
 <details open>
@@ -913,7 +955,7 @@ Note that,
 | <kbd>sz</kbd> | 𝐍 | Toggle window zoom | `:vertical resize │ resize`
 | <kbd>sh</kbd> | 𝐍 | Toggle colorscheme background=dark/light | `:set background` …
 
-### Plugin: Mini.Bracket
+### Plugin: Mini.Bracketed
 
 Go forward/backward with square brackets. See [echasnovski/mini.bracketed] for
 more mappings and usage information.
@@ -961,15 +1003,15 @@ See [lewis6991/gitsigns.nvim] for more mappings and usage information.
 | ----- |:----:| ------------------ |
 | <kbd>]g</kbd> or <kbd>]g</kbd> | 𝐍 | Next/previous Git hunk |
 | <kbd>gs</kbd>                  | 𝐍 | Preview hunk |
-| <kbd>Space</kbd>+<kbd>hp</kbd> | 𝐍 | Preview hunk inline |
-| <kbd>Space</kbd>+<kbd>hb</kbd> | 𝐍 | Blame line |
-| <kbd>Space</kbd>+<kbd>hs</kbd> | 𝐍 𝐕 | Stage hunk |
-| <kbd>Space</kbd>+<kbd>hu</kbd> | 𝐍 | Undo stage hunk |
-| <kbd>Space</kbd>+<kbd>hr</kbd> | 𝐍 𝐕 | Reset hunk |
-| <kbd>Space</kbd>+<kbd>hR</kbd> | 𝐍 | Reset buffer |
-| <kbd>Space</kbd>+<kbd>hd</kbd> | 𝐍 | Toggle deleted |
-| <kbd>Space</kbd>+<kbd>hw</kbd> | 𝐍 | Toggle word diff |
-| <kbd>Space</kbd>+<kbd>hl</kbd> | 𝐍 | Publish hunks to location-list |
+| <kbd>Space</kbd> <kbd>hp</kbd> | 𝐍 | Preview hunk inline |
+| <kbd>Space</kbd> <kbd>hb</kbd> | 𝐍 | Blame line |
+| <kbd>Space</kbd> <kbd>hs</kbd> | 𝐍 𝐕 | Stage hunk |
+| <kbd>Space</kbd> <kbd>hu</kbd> | 𝐍 | Undo stage hunk |
+| <kbd>Space</kbd> <kbd>hr</kbd> | 𝐍 𝐕 | Reset hunk |
+| <kbd>Space</kbd> <kbd>hR</kbd> | 𝐍 | Reset buffer |
+| <kbd>Space</kbd> <kbd>hd</kbd> | 𝐍 | Toggle deleted |
+| <kbd>Space</kbd> <kbd>hw</kbd> | 𝐍 | Toggle word diff |
+| <kbd>Space</kbd> <kbd>hl</kbd> | 𝐍 | Publish hunks to location-list |
 
 ### Plugin: Fugitive
 
@@ -977,15 +1019,15 @@ See [tpope/vim-fugitive] for more mappings and usage information.
 
 | Key   | Mode | Action             |
 | ----- |:----:| ------------------ |
-| <kbd>Space</kbd>+<kbd>ga</kbd> | 𝐍 | Git add current file |
-| <kbd>Space</kbd>+<kbd>gd</kbd> | 𝐍 | Git diff |
-| <kbd>Space</kbd>+<kbd>gc</kbd> | 𝐍 | Git commit |
-| <kbd>Space</kbd>+<kbd>gb</kbd> | 𝐍 | Git blame |
-| <kbd>Space</kbd>+<kbd>gs</kbd> | 𝐍 | Git status -s |
-| <kbd>Space</kbd>+<kbd>gl</kbd> | 𝐍 | Git log --graph --all |
-| <kbd>Space</kbd>+<kbd>gF</kbd> | 𝐍 | Git fetch |
-| <kbd>Space</kbd>+<kbd>gp</kbd> | 𝐍 | Git push |
-| <kbd>Space</kbd>+<kbd>go</kbd> | 𝐍 𝐕 | Open SCM detailed URL in browser |
+| <kbd>Space</kbd> <kbd>ga</kbd> | 𝐍 | Git add current file |
+| <kbd>Space</kbd> <kbd>gd</kbd> | 𝐍 | Git diff |
+| <kbd>Space</kbd> <kbd>gc</kbd> | 𝐍 | Git commit |
+| <kbd>Space</kbd> <kbd>gb</kbd> | 𝐍 | Git blame |
+| <kbd>Space</kbd> <kbd>gs</kbd> | 𝐍 | Git status -s |
+| <kbd>Space</kbd> <kbd>gl</kbd> | 𝐍 | Git log --graph --all |
+| <kbd>Space</kbd> <kbd>gF</kbd> | 𝐍 | Git fetch |
+| <kbd>Space</kbd> <kbd>gp</kbd> | 𝐍 | Git push |
+| <kbd>Space</kbd> <kbd>go</kbd> | 𝐍 𝐕 | Open SCM detailed URL in browser |
 
 ### Plugin: Telescope
 
@@ -1018,12 +1060,13 @@ See [telescope.nvim] for more mappings and usage information.
 | <kbd>Space</kbd>+<kbd>gg</kbd> | 𝐍 𝐕 | Grep word under cursor
 | **Within _Telescope_ window** ||
 | <kbd>?</kbd> | 𝐍 | Keymaps help screen
+| <kbd>Ctrl</kbd>+<kbd>Space</kbd> | 𝐍 | Move from none fuzzy search to fuzzy
 | <kbd>jj</kbd> or <kbd>Escape</kbd> | 𝐈 | Leave Insert mode
 | <kbd>i</kbd> | 𝐍 | Enter Insert mode (filter input)
 | <kbd>q</kbd> or <kbd>Escape</kbd> | 𝐍 | Exit denite window
 | <kbd>Tab</kbd> or <kbd>Shift</kbd>+<kbd>Tab</kbd> | 𝐍 𝐈 | Next/previous candidate
-| <kbd>Ctrl</kbd> <kbd>d</kbd>/<kbd>u</kbd> | 𝐍 𝐈 | Scroll down/upwards
-| <kbd>Ctrl</kbd> <kbd>f</kbd>/<kbd>b</kbd> | 𝐍 𝐈 | Scroll preview down/upwards
+| <kbd>Ctrl</kbd>+<kbd>d</kbd>/<kbd>u</kbd> | 𝐍 𝐈 | Scroll down/upwards
+| <kbd>Ctrl</kbd>+<kbd>f</kbd>/<kbd>b</kbd> | 𝐍 𝐈 | Scroll preview down/upwards
 | <kbd>J</kbd> or <kbd>K</kbd> | 𝐍 | Select candidates up/downwards
 | <kbd>st</kbd> | 𝐍 | Open in a new tab
 | <kbd>sg</kbd> | 𝐍 | Open in a vertical split
@@ -1041,30 +1084,39 @@ See [nvim-neo-tree/neo-tree.nvim] for more mappings and usage information.
 | <kbd>;e</kbd> | 𝐍 | Open file-explorer (toggle)
 | <kbd>;a</kbd> | 𝐍 | Focus current file in file-explorer
 | **Within _Neo-Tree_ window** ||
+| <kbd>g?</kbd> | 𝐍 | Show help
+| <kbd>q</kbd> | 𝐍 | Close window
 | <kbd>j</kbd> or <kbd>k</kbd> | 𝐍 | Move up and down the tree
-| <kbd>J</kbd> or <kbd>K</kbd> or <kbd>Space</kbd> | 𝐍 | Select entries up/downwards
-| <kbd>l</kbd> or <kbd>Return</kbd> | 𝐍 | Toggle collapse/expand directory or open file
+| <kbd>\></kbd> or <kbd>\<</kbd> | 𝐍 | Next or previous source
+| <kbd>]g</kbd> or <kbd>[g</kbd> | 𝐍 | Jump to next/previous git modified node
+| <kbd>l</kbd> | 𝐍 | Toggle collapse/expand directory or open file
 | <kbd>h</kbd> | 𝐍 | Collapse directory tree
+| <kbd>Return</kbd> | 𝐍 | Select window to open file
 | <kbd>gr</kbd> | 𝐍 | Grep in current position
 | <kbd>gf</kbd> | 𝐍 | Find files in current position
-| <kbd>!</kbd> | 𝐍 | Toggle hidden files
-| <kbd>^</kbd> | 𝐍 | Change into project root directory
+| <kbd>.</kbd> | 𝐍 | Set as root directory
 | <kbd>Backspace</kbd> | 𝐍 | Change into parent directory
-| <kbd>o</kbd> | 𝐍 | Open bookmarks
-| <kbd>B</kbd> | 𝐍 | Save location as bookmark
-| <kbd>st</kbd> | 𝐍 | Open file in new tab
-| <kbd>sv</kbd> | 𝐍 | Open file in a horizontal split
-| <kbd>sg</kbd> | 𝐍 | Open file in a vertical split
-| <kbd>N</kbd> | 𝐍 | Create new directories and/or files
-| <kbd>Ctrl</kbd>+<kbd>n</kbd> | 𝐍 | Create new directory
+| <kbd>sv</kbd> or <kbd>S</kbd> | 𝐍 | Open file in a horizontal split
+| <kbd>sg</kbd> or <kbd>s</kbd> | 𝐍 | Open file in a vertical split
+| <kbd>st</kbd> or <kbd>t</kbd> | 𝐍 | Open file in new tab
+| <kbd>p</kbd> | 𝐍 | Preview node
+| <kbd>a</kbd> | 𝐍 | Create new directories and/or files
+| <kbd>N</kbd> | 𝐍 | Create new directory
+| <kbd>r</kbd> | 𝐍 | Rename file or directory
+| <kbd>dd</kbd> | 𝐍 | Delete
 | <kbd>c</kbd> / <kbd>m</kbd> | 𝐍 | Copy/move
-| <kbd>C</kbd> / <kbd>M</kbd> / <kbd>P</kbd> | 𝐍 | Clipboard copy/move/paste
-| <kbd>R</kbd> | 𝐍 | Rename file or directory
-| <kbd>D</kbd> | 𝐍 | Trash selected files and directories
+| <kbd>y</kbd> / <kbd>x</kbd> / <kbd>P</kbd> | 𝐍 | Clipboard copy/cut/paste
+| <kbd>!</kbd> | 𝐍 | Filter
+| <kbd>D</kbd> | 𝐍 | Filter directories
+| <kbd>#</kbd> | 𝐍 | Fuzzy sorter
+| <kbd>/</kbd> | 𝐍 | Filter on submit
+| <kbd>Ctrl</kbd>+<kbd>c</kbd> | 𝐍 | Clear filter
+| <kbd>Ctrl</kbd>+<kbd>r</kbd> or <kbd>R</kbd> | 𝐍 | Refresh
 | <kbd>fi</kbd> / <kbd>fe</kbd> | 𝐍 | Include/exclude
-| <kbd>yy</kbd> | 𝐍 | Yank path to clipboard
-| <kbd>w</kbd> | 𝐍 | Toggle window size
-| <kbd>x</kbd> | 𝐍 | Execute associated system application
+| <kbd>H</kbd> | 𝐍 | Toggle hidden files
+| <kbd>e</kbd> | 𝐍 | Toggle auto-expand window width
+| <kbd>w</kbd> | 𝐍 | Toggle window width
+| <kbd>z</kbd> | 𝐍 | Collapse all nodes
 
 ### Plugin: Spectre
 
