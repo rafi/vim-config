@@ -42,15 +42,18 @@ return {
 						require('luasnip').lsp_expand(args.body)
 					end,
 				},
-				sources = {
-					{ name = 'buffer', keyword_length = 3 },
-					{ name = 'nvim_lsp' },
-					{ name = 'path' },
-					-- { name = 'emoji' },
-					{ name = 'luasnip' },
-					{ name = 'tmux', option = { all_panes = true }},
-				},
+				sources = cmp.config.sources({
+					{ name = 'nvim_lsp', priority = 100 },
+					{ name = 'path', priority = 90 },
+					{ name = 'luasnip', priority = 80 },
+					{ name = 'emoji', insert = true, priority = 70 },
+				}, {
+					{ name = 'buffer', priority = 50, keyword_length = 1 },
+					{ name = 'tmux', priority = 10, option = { all_panes = true }},
+				}),
 				mapping = cmp.mapping.preset.insert({
+					-- <CR> accepts currently selected item.
+					-- Set `select` to `false` to only confirm explicitly selected items.
 					['<CR>'] = cmp.mapping({
 						i = function(fallback)
 							if cmp.visible() and cmp.get_active_entry() then
@@ -103,12 +106,10 @@ return {
 				}),
 				formatting = {
 					format = function(_, vim_item)
-						-- Prepend with a fancy icon
-						-- See lua/rafi/config/init.lua
+						-- Prepend with a fancy icon from config lua/rafi/config/init.lua
 						local symbol = require('rafi.config').icons.kinds[vim_item.kind]
 						if symbol ~= nil then
-							vim_item.kind = symbol
-								.. ' ' .. vim_item.kind
+							vim_item.kind = symbol .. ' ' .. vim_item.kind
 						end
 						return vim_item
 					end,
