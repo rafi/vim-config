@@ -59,6 +59,7 @@ Please read "[Extending](#extending)" to learn how to customize and modify.
   * [Navigation](#navigation)
   * [File Operations](#file-operations)
   * [Auto-Completion](#auto-completion)
+  * [LSP](#lsp)
   * [Edit](#edit)
   * [Search & Replace](#search--replace)
   * [Clipboard](#clipboard)
@@ -674,7 +675,7 @@ Spec: `rafi.plugins.extras.coding.<name>`
 | Name           | Repository     | Description
 | -------------- | -------------- | ----------------------
 | `autopairs`    | [windwp/nvim-autopairs] | Autopairs for neovim written by lua
-| `copilot`      | [zbirenbaum/copilot.lua] | Fully featured & enhanced replacement for copilot.vim
+| `copilot`      | [zbirenbaum/copilot.lua] | Fully featured & enhanced copilot
 | `editorconfig` | [sgur/vim-editorconfig] | EditorConfig plugin written entirely in Vimscript
 | `emmet`        | [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet
 | `kommentary`   | [b3nj5m1n/kommentary] | Commenting plugin, written in Lua
@@ -742,7 +743,7 @@ Spec: `rafi.plugins.extras.ui.<name>`
 | `cool`         | [romainl/vim-cool] | Simple plugin that makes hlsearch more useful
 | `goto-preview` | [rmagatti/goto-preview] | Preview definitions using floating windows
 | `incline`      | [b0o/incline.nvim] | Floating statuslines
-| `minimap`      | [echasnovski/mini.map] | Window with buffer text overview, scrollbar, and highlights
+| `minimap`      | [echasnovski/mini.map] | Window with buffer text overview, scrollbar and highlights
 | `statuscol`    | [luukvbaal/statuscol.nvim] | Configurable 'statuscolumn' and click handlers
 
 [windwp/nvim-autopairs]: https://github.com/windwp/nvim-autopairs
@@ -788,20 +789,20 @@ Note that,
 
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
-| <kbd>j</kbd> / <kbd>k</kbd> | 𝐍 𝐕 | Cursor moves through display-lines | `g` `j/k`
+| <kbd>j</kbd> / <kbd>k</kbd> | 𝐍 𝐕 | Cursor moves through display-lines | <small>`g` `j/k`</small>
 | <kbd>g</kbd>+<kbd>j</kbd> / <kbd>k</kbd> | 𝐍 𝐕 𝐒 | Jump to edge upward/downward | <small>[haya14busa/vim-edgemotion]</small>
-| <kbd>gh</kbd> / <kbd>gl</kbd> | 𝐍 𝐕 | Easier line-wise movement | `g` `^/$`
-| <kbd>Space</kbd>+<kbd>Space</kbd> | 𝐍 𝐕 | Toggle visual-line mode | `V` / <kbd>Escape</kbd>
-| <kbd>zl</kbd> / <kbd>zh</kbd> | 𝐍 | Scroll horizontally and vertically wider | `z4` `l/h`
+| <kbd>gh</kbd> / <kbd>gl</kbd> | 𝐍 𝐕 | Easier line-wise movement | <small>`g` `^/$`</small>
+| <kbd>Space</kbd>+<kbd>Space</kbd> | 𝐍 𝐕 | Toggle visual-line mode | <small>`V` / <kbd>Escape</kbd>
+| <kbd>zl</kbd> / <kbd>zh</kbd> | 𝐍 | Scroll horizontally and vertically wider | <small>`z4` `l/h`</small>
 | <kbd>Ctrl</kbd>+<kbd>j</kbd> | 𝐍 | Move to split below | <small>[christoomey/tmux-navigator]</small>
 | <kbd>Ctrl</kbd>+<kbd>k</kbd> | 𝐍 | Move to upper split | <small>[christoomey/tmux-navigator]</small>
 | <kbd>Ctrl</kbd>+<kbd>h</kbd> | 𝐍 | Move to left split | <small>[christoomey/tmux-navigator]</small>
 | <kbd>Ctrl</kbd>+<kbd>l</kbd> | 𝐍 | Move to right split | <small>[christoomey/tmux-navigator]</small>
-| <kbd>Return</kbd> | 𝐍 | Toggle fold | `za`
-| <kbd>Shift</kbd>+<kbd>Return</kbd> | 𝐍 | Focus the current fold by closing all others | `zMzvzt`
-| <kbd>]a</kbd> or <kbd>[a</kbd> | 𝐍 | Next/previous on location-list | `:lnext` / `:lprev`
-| <kbd>]m</kbd> or <kbd>[m</kbd> | 𝐍 | Next/previous function | <small>[nvim-treesitter/nvim-treesitter-textobjects]</small>
-| <kbd>]s</kbd> or <kbd>[s</kbd> | 𝐍 | Next/previous whitespace error | <small>[lua/rafi/config/keymaps.lua]</small>
+| <kbd>Return</kbd> | 𝐍 | Toggle fold | <small>`za`</small>
+| <kbd>Shift</kbd>+<kbd>Return</kbd> | 𝐍 | Focus the current fold by closing all others | <small>`zMzvzt`</small>
+| <kbd>]a</kbd> or <kbd>[a</kbd> | 𝐍 | Next/previous on location-list | <small>`:lnext` / `:lprev`</small>
+| <kbd>]m</kbd> or <kbd>[m</kbd> | 𝐍 | Next/previous function | <small>[nvim-treesitter-textobjects]</small>
+| <kbd>]s</kbd> or <kbd>[s</kbd> | 𝐍 | Next/previous whitespace error | <small>[config/keymaps.lua]</small>
 | <kbd>]g</kbd> or <kbd>[g</kbd> | 𝐍 | Next/previous Git hunk | <small>[lewis6991/gitsigns.nvim]</small>
 | <kbd>]]</kbd> or <kbd>[[</kbd> | 𝐍 | Next/previous reference | <small>[RRethy/vim-illuminate]</small>
 | <kbd>Ctrl</kbd>+<kbd>f</kbd> | 𝐂 | Move cursor forwards in command | <kbd>Right</kbd>
@@ -813,39 +814,67 @@ Note that,
 
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
-| <kbd>Space</kbd>+<kbd>cd</kbd> | 𝐍 | Switch to the directory of opened buffer | `:lcd %:p:h`
-| <kbd>gf</kbd> | 𝐍 | Open file under the cursor in a vsplit | `:rightbelow wincmd f`
-| <kbd>Space</kbd>+<kbd>w</kbd> | 𝐍 | Write buffer to file | `:write`
-| <kbd>Ctrl</kbd>+<kbd>s</kbd> | 𝐍 𝐕 𝐂 | Write buffer to file | `:write`
+| <kbd>Space</kbd>+<kbd>cd</kbd> | 𝐍 | Switch to the directory of opened buffer | <small>`:lcd %:p:h`</small>
+| <kbd>gf</kbd> | 𝐍 | Open file under the cursor in a vsplit | <small>`:rightbelow wincmd f`</small>
+| <kbd>Space</kbd>+<kbd>w</kbd> | 𝐍 | Write buffer to file | <small>`:write`</small>
+| <kbd>Ctrl</kbd>+<kbd>s</kbd> | 𝐍 𝐕 𝐂 | Write buffer to file | <small>`:write`</small>
 
 ### Auto-Completion
 
-| Key   | Mode | Action
-| ----- |:----:| ------------------
-| <kbd>Tab</kbd> / <kbd>Shift-Tab</kbd> | 𝐈 | Navigate completion-menu
-| <kbd>Tab</kbd> / <kbd>Shift-Tab</kbd> | 𝐈 𝐒 | Navigate snippet placeholders
-| <kbd>Ctrl</kbd>+<kbd>Space</kbd> | 𝐈 | Open completion menu
-| <kbd>Enter</kbd> | 𝐈 | Select completion or expand snippet
-| <kbd>Ctrl</kbd>+<kbd>p</kbd>/<kbd>n</kbd> | 𝐈 | Movement in completion pop-up
-| <kbd>Ctrl</kbd>+<kbd>b</kbd>/<kbd>f</kbd> | 𝐈 | Scroll documentation
-| <kbd>Ctrl</kbd>+<kbd>e</kbd> | 𝐈 | Abort selection and close pop-up
-| <kbd>Ctrl</kbd>+<kbd>l</kbd> | 𝐈 | Expand snippet at cursor
+| Key   | Mode | Action             | Plugin or Mapping
+| ----- |:----:| ------------------ | ------
+| <kbd>Tab</kbd> / <kbd>Shift-Tab</kbd> | 𝐈 | Navigate/open completion-menu | <small>[nvim-cmp]</small>
+| <kbd>Tab</kbd> / <kbd>Shift-Tab</kbd> | 𝐈 𝐒 | Navigate snippet placeholders | <small>[nvim-cmp]</small>
+| <kbd>Ctrl</kbd>+<kbd>Space</kbd> | 𝐈 | Open completion menu | <small>[nvim-cmp]</small>
+| <kbd>Enter</kbd> | 𝐈 | Select completion item or expand snippet | <small>[nvim-cmp]</small>
+| <kbd>Ctrl</kbd>+<kbd>p</kbd>/<kbd>n</kbd> | 𝐈 | Movement in completion pop-up | <small>[nvim-cmp]</small>
+| <kbd>Ctrl</kbd>+<kbd>b</kbd>/<kbd>f</kbd> | 𝐈 | Scroll documentation | <small>[nvim-cmp]</small>
+| <kbd>Ctrl</kbd>+<kbd>e</kbd> | 𝐈 | Abort selection and close pop-up | <small>[nvim-cmp]</small>
+| <kbd>Ctrl</kbd>+<kbd>l</kbd> | 𝐈 | Expand snippet at cursor | <small>[L3MON4D3/LuaSnip]</small>
+| <kbd>Space</kbd> <kbd>cc</kbd> | 𝐍 | Generate annotations | <small>[danymat/neogen]</small>
+
+### LSP
+
+| Key   | Mode | Action             | Plugin or Mapping
+| ----- |:----:| ------------------ | ------
+| <kbd>K</kbd> | 𝐍 | Show hover help or collapsed fold | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>gD</kbd> | 𝐍 | Go to declaration | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>gd</kbd> | 𝐍 | Go to definition | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>gr</kbd> | 𝐍 | Go to references | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>gy</kbd> | 𝐍 | Go to type definition | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>gi</kbd> | 𝐍 | Go to implementation | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>gpd</kbd> | 𝐍 | Glance definitions | <small>[dnlhc/glance.nvim]</small>
+| <kbd>gpr</kbd> | 𝐍 | Glance references | <small>[dnlhc/glance.nvim]</small>
+| <kbd>gpy</kbd> | 𝐍 | Glance type definitions | <small>[dnlhc/glance.nvim]</small>
+| <kbd>gpi</kbd> | 𝐍 | Glance implementations | <small>[dnlhc/glance.nvim]</small>
+| <kbd>,rn</kbd> | 𝐍 | Rename | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>,s</kbd> | 𝐍 | Show signature help | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>,wa</kbd> | 𝐍 | Add workspace folder | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>,wr</kbd> | 𝐍 | Remove workspace folder | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>,wl</kbd> | 𝐍 | List workspace folders | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>,f</kbd> | 𝐍 𝐕 | Format | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>Space</kbd>+<kbd>ca</kbd> | 𝐍 𝐕 | Code action | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>Space</kbd>+<kbd>ce</kbd> | 𝐍 | Open diagnostics window | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>Space</kbd>+<kbd>cl</kbd> | 𝐍 | Open LSP info window | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>]e</kbd> or <kbd>[e</kbd> | 𝐍 | Jump to next/previous error | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>Space</kbd>+<kbd>tp</kbd> | 𝐍 | Toggle buffer diagnostics | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>Space</kbd>+<kbd>tP</kbd> | 𝐍 | Toggle global diagnostics | <small>[plugins/lsp/keymaps.lua]</small>
 
 ### Edit
 
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
-| <kbd>Shift</kbd>+<kbd>Return</kbd> | 𝐈 | Start new line from any cursor position | `<C-o>o`
-| <kbd><</kbd> | 𝐕 | Indent to left and re-select | `<gv`
-| <kbd>></kbd> | 𝐕 | Indent to right and re-select | `>gv|`
-| <kbd>Tab</kbd> | 𝐕 | Indent to right and re-select | `>gv|`
-| <kbd>Shift</kbd>+<kbd>Tab</kbd> | 𝐕 | Indent to left and re-select | `<gv`
+| <kbd>Shift</kbd>+<kbd>Return</kbd> | 𝐈 | Start new line from any cursor position | <small>`<C-o>o`</small>
+| <kbd><</kbd> | 𝐕 | Indent to left and re-select | <small>`<gv`</small>
+| <kbd>></kbd> | 𝐕 | Indent to right and re-select | <small>`>gv|`</small>
+| <kbd>Tab</kbd> | 𝐕 | Indent to right and re-select | <small>`>gv|`</small>
+| <kbd>Shift</kbd>+<kbd>Tab</kbd> | 𝐕 | Indent to left and re-select | <small>`<gv`</small>
 | <kbd>gc</kbd> | 𝐍 𝐕 | Comment prefix | <small>[echasnovski/mini.comment]</small>
 | <kbd>gcc</kbd> | 𝐍 𝐕 | Toggle comments | <small>[echasnovski/mini.comment]</small>
 | <kbd>Space</kbd>+<kbd>v</kbd> | 𝐍 𝐕 | Toggle single-line comments | <small>[echasnovski/mini.comment]</small>
-| <kbd>Space</kbd>+<kbd>j</kbd> or <kbd>k</kbd> | 𝐍 𝐕 | Move lines down/up | `:m` …
-| <kbd>Space</kbd>+<kbd>d</kbd> | 𝐍 𝐕 | Duplicate line or selection |
-| <kbd>Space</kbd>+<kbd>cp</kbd> | 𝐍 | Duplicate paragraph | `yap<S-}>p`
+| <kbd>Space</kbd>+<kbd>j</kbd> or <kbd>k</kbd> | 𝐍 𝐕 | Move lines down/up | <small>`:m` …
+| <kbd>Space</kbd>+<kbd>d</kbd> | 𝐍 𝐕 | Duplicate line or selection | <small>[config/keymaps.lua]</small>
+| <kbd>Space</kbd>+<kbd>cp</kbd> | 𝐍 | Duplicate paragraph | <small>`yap<S-}>p`</small>
 | <kbd>Space</kbd>+<kbd>cw</kbd> | 𝐍 | Remove all spaces at EOL | <small>[echasnovski/mini.trailspace]</small>
 | <kbd>sj</kbd> / <kbd>sk</kbd> | 𝐍 | Join/split arguments | <small>[echasnovski/mini.splitjoin]</small>
 | <kbd>dsf</kbd> / <kbd>csf</kbd> | 𝐍 | Delete/change surrounding function call | <small>[AndrewRadev/dsf.vim]</small>
@@ -856,12 +885,12 @@ Note that,
 
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
-| <kbd>\*</kbd> / <kbd>#</kbd> | 𝐍 𝐕 | Search partial words | `g*` / `g#`
-| <kbd>g\*</kbd> / <kbd>g#</kbd> | 𝐍 𝐕 | Search whole-word forward/backward | `*` / `#`
-| <kbd>Backspace</kbd> | 𝐍 | Match bracket | `%`
-| <kbd>gpp</kbd> | 𝐍 | Select last paste |
-| <kbd>sg</kbd> | 𝐕 | Replace within selected area | `:s/⌴/gc`
-| <kbd>Ctrl</kbd>+<kbd>r</kbd> | 𝐕 | Replace selection with step-by-step confirmation | `:%s/\V/⌴/gc`
+| <kbd>\*</kbd> / <kbd>#</kbd> | 𝐍 𝐕 | Search partial words | <small>`g*` / `g#`</small>
+| <kbd>g\*</kbd> / <kbd>g#</kbd> | 𝐍 𝐕 | Search whole-word forward/backward | <small>`*` / `#`</small>
+| <kbd>Backspace</kbd> | 𝐍 | Match bracket | <small>`%`</small>
+| <kbd>gpp</kbd> | 𝐍 | Select last paste | <small>[config/keymaps.lua]</small>
+| <kbd>sg</kbd> | 𝐕 | Replace within selected area | <small>`:s/⌴/gc`</small>
+| <kbd>Ctrl</kbd>+<kbd>r</kbd> | 𝐕 | Replace selection with step-by-step confirmation | <small>`:%s/\V/⌴/gc`</small>
 | <kbd>ss</kbd> / <kbd>SS</kbd> | 𝐍 𝐕 | Leap forward/backward | <small>[ggandor/leap.nvim]</small>
 | <kbd>f</kbd> / <kbd>F</kbd> / <kbd>t</kbd> / <kbd>T</kbd> | 𝐍 𝐕 | Enhanced motions | <small>[ggandor/flit.nvim]</small>
 
@@ -869,18 +898,18 @@ Note that,
 
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
-| <kbd>p</kbd> or <kbd>P</kbd> | 𝐕 | Paste without yank | `:let @+=@0`
-| <kbd>Space</kbd>+<kbd>y</kbd> | 𝐍 | Copy relative file-path to clipboard |
-| <kbd>Space</kbd>+<kbd>Y</kbd> | 𝐍 | Copy absolute file-path to clipboard |
+| <kbd>p</kbd> or <kbd>P</kbd> | 𝐕 | Paste without yank | <small>`:let @+=@0`</small>
+| <kbd>Space</kbd>+<kbd>y</kbd> | 𝐍 | Copy relative file-path to clipboard | <small>[config/keymaps.lua]</small>
+| <kbd>Space</kbd>+<kbd>Y</kbd> | 𝐍 | Copy absolute file-path to clipboard | <small>[config/keymaps.lua]</small>
 
 ### Command & History
 
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
-| <kbd>!</kbd> | 𝐍 | Shortcut for shell command | `:!`
-| <kbd>g!</kbd> | 𝐍 | Read vim command into buffer | `:put=execute('⌴')`
+| <kbd>!</kbd> | 𝐍 | Shortcut for shell command | <small>`:!`</small>
+| <kbd>g!</kbd> | 𝐍 | Read vim command into buffer | <small>`:put=execute('⌴')`</small>
 | <kbd>Ctrl</kbd>+<kbd>n</kbd> / <kbd>p</kbd> | 𝐂 | Switch history search pairs | <kbd>↓</kbd> / <kbd>↑</kbd>
-| <kbd>↓</kbd> / <kbd>↑</kbd> | 𝐂 | Switch history search pairs | `Ctrl` `n`/`p`
+| <kbd>↓</kbd> / <kbd>↑</kbd> | 𝐂 | Switch history search pairs | <small>`Ctrl` `n`/`p`</small>
 
 ### Diagnostics
 
@@ -904,30 +933,30 @@ Note that,
 | <kbd>Space</kbd>+<kbd>th</kbd> | 𝐍 | Toggle highlighted search | <small>`:set hlsearch!`</small>
 | <kbd>Space</kbd>+<kbd>tw</kbd> | 𝐍 | Toggle wrap | <small>`:setlocal wrap!`</small> …
 | <kbd>Space</kbd>+<kbd>ti</kbd> | 𝐍 | Toggle indentation lines | <small>[lukas-reineke/indent-blankline.nvim]</small>
-| <kbd>Space</kbd>+<kbd>tt</kbd> | 𝐍 | Show highlight groups for word |
-| <kbd>g1</kbd> | 𝐍 | Go to first tab | `:tabfirst`
-| <kbd>g9</kbd> | 𝐍 | Go to last tab | `:tablast`
-| <kbd>g5</kbd> | 𝐍 | Go to previous tab | `:tabprevious`
-| <kbd>Ctrl</kbd>+<kbd>Tab</kbd> | 𝐍 | Go to next tab | `:tabnext`
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd><kbd>Tab</kbd> | 𝐍 | Go to previous tab | `:tabprevious`
-| <kbd>Alt</kbd>+<kbd>j</kbd> | 𝐍 | Go to next tab | `:tabnext`
-| <kbd>Alt</kbd>+<kbd>k</kbd> | 𝐍 | Go to previous tab | `:tabprevious`
-| <kbd>Alt</kbd>+<kbd>{</kbd> | 𝐍 | Move tab backward | `:-tabmove`
-| <kbd>Alt</kbd>+<kbd>}</kbd> | 𝐍 | Move tab forward | `:+tabmove`
+| <kbd>Space</kbd>+<kbd>tt</kbd> | 𝐍 | Show highlight groups for word | <small>`vim.show_pos`</small>
+| <kbd>g1</kbd> | 𝐍 | Go to first tab | <small>`:tabfirst`</small>
+| <kbd>g9</kbd> | 𝐍 | Go to last tab | <small>`:tablast`</small>
+| <kbd>g5</kbd> | 𝐍 | Go to previous tab | <small>`:tabprevious`</small>
+| <kbd>Ctrl</kbd>+<kbd>Tab</kbd> | 𝐍 | Go to next tab | <small>`:tabnext`</small>
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd><kbd>Tab</kbd> | 𝐍 | Go to previous tab | <small>`:tabprevious`</small>
+| <kbd>Alt</kbd>+<kbd>j</kbd> | 𝐍 | Go to next tab | <small>`:tabnext`</small>
+| <kbd>Alt</kbd>+<kbd>k</kbd> | 𝐍 | Go to previous tab | <small>`:tabprevious`</small>
+| <kbd>Alt</kbd>+<kbd>{</kbd> | 𝐍 | Move tab backward | <small>`:-tabmove`</small>
+| <kbd>Alt</kbd>+<kbd>}</kbd> | 𝐍 | Move tab forward | <small>`:+tabmove`</small>
 
 ### Custom Tools & Plugins
 
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
 | <kbd>;</kbd>+<kbd>c</kbd> | 𝐍 | Open context-menu | <small>[lua/rafi/lib/contextmenu.lua]</small>
-| <kbd>g</kbd><kbd>Ctrl</kbd>+<kbd>o</kbd> | 𝐍 | Navigate to previous file on jumplist | <small>[lua/rafi/lib/edit.lua]</small>
-| <kbd>g</kbd><kbd>Ctrl</kbd>+<kbd>i</kbd> | 𝐍 | Navigate to next file on jumplist | <small>[lua/rafi/lib/edit.lua]</small>
+| <kbd>g</kbd><kbd>Ctrl</kbd>+<kbd>o</kbd> | 𝐍 | Navigate to previous file on jumplist | <small>[lib/edit.lua]</small>
+| <kbd>g</kbd><kbd>Ctrl</kbd>+<kbd>i</kbd> | 𝐍 | Navigate to next file on jumplist | <small>[lib/edit.lua]</small>
 | <kbd>s</kbd>+<kbd>p</kbd> | 𝐍 | Choose a window to edit | <small>[s1n7ax/nvim-window-picker]</small>
 | <kbd>s</kbd>+<kbd>w</kbd> | 𝐍 | Switch editing window with selected | <small>[s1n7ax/nvim-window-picker]</small>
 | <kbd>Space</kbd>+<kbd>l</kbd> | 𝐍 | Open Lazy | <small>[folke/lazy.nvim]</small>
 | <kbd>Space</kbd>+<kbd>o</kbd> | 𝐍 | Open structure window | <small>[simrat39/symbols-outline.nvim]</small>
 | <kbd>Space</kbd>+<kbd>f</kbd> | 𝐍 | Show current structure scope in winbar | <small>[SmiteshP/nvim-navic]</small>
-| <kbd>Space</kbd>+<kbd>?</kbd> | 𝐍 | Open the macOS dictionary on current word | `:!open dict://`
+| <kbd>Space</kbd>+<kbd>?</kbd> | 𝐍 | Open the macOS dictionary on current word | <small>`:!open dict://`</small>
 | <kbd>Space</kbd>+<kbd>P</kbd> | 𝐍 | Use Marked 2 for real-time Markdown preview | <small>[Marked 2]</small>
 | <kbd>Space</kbd>+<kbd>cp</kbd> | 𝐍 | Open color-picker | <small>[uga-rosa/ccc.nvim]</small>
 | <kbd>Space</kbd>+<kbd>ml</kbd> | 𝐍 | Append modeline to end of buffer | <small>[lua/rafi/config/keymaps.lua]</small>
@@ -943,19 +972,19 @@ Note that,
 
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
-| <kbd>q</kbd> | 𝐍 | Quit window (if last window, quit nvim) | `:quit`
-| <kbd>Ctrl</kbd>+<kbd>x</kbd> | 𝐍 | Rotate window placement | `C-w` `x`
-| <kbd>sv</kbd> | 𝐍 | Horizontal split | `:split`
-| <kbd>sg</kbd> | 𝐍 | Vertical split | `:vsplit`
-| <kbd>st</kbd> | 𝐍 | Open new tab | `:tabnew`
-| <kbd>so</kbd> | 𝐍 | Close other windows | `:only`
-| <kbd>sb</kbd> | 𝐍 | Previous buffer | `:b#`
-| <kbd>sc</kbd> | 𝐍 | Close current buffer | `:close`
-| <kbd>sd</kbd> | 𝐍 | Delete buffer | `:bdelete`
-| <kbd>sq</kbd> | 𝐍 | Quit window | `:quit`
-| <kbd>sx</kbd> | 𝐍 | Delete buffer, leave blank window | `:enew │ bdelete`
-| <kbd>sz</kbd> | 𝐍 | Toggle window zoom | `:vertical resize │ resize`
-| <kbd>sh</kbd> | 𝐍 | Toggle colorscheme background=dark/light | `:set background` …
+| <kbd>q</kbd> | 𝐍 | Quit window (if last window, quit nvim) | <small>`:quit`</small>
+| <kbd>Ctrl</kbd>+<kbd>x</kbd> | 𝐍 | Rotate window placement | <small>`C-w` `x`</small>
+| <kbd>sv</kbd> | 𝐍 | Horizontal split | <small>`:split`</small>
+| <kbd>sg</kbd> | 𝐍 | Vertical split | <small>`:vsplit`</small>
+| <kbd>st</kbd> | 𝐍 | Open new tab | <small>`:tabnew`</small>
+| <kbd>so</kbd> | 𝐍 | Close other windows | <small>`:only`</small>
+| <kbd>sb</kbd> | 𝐍 | Previous buffer | <small>`:b#`</small>
+| <kbd>sc</kbd> | 𝐍 | Close current buffer | <small>`:close`</small>
+| <kbd>sd</kbd> | 𝐍 | Delete buffer | <small>`:bdelete`</small>
+| <kbd>sq</kbd> | 𝐍 | Quit window | <small>`:quit`</small>
+| <kbd>sx</kbd> | 𝐍 | Delete buffer, leave blank window | <small>`:enew │ bdelete`</small>
+| <kbd>sz</kbd> | 𝐍 | Toggle window zoom | <small>`:vertical resize │ resize`</small>
+| <kbd>sh</kbd> | 𝐍 | Toggle colorscheme background=dark/light | <small>`:set background` …
 
 ### Plugin: Mini.Bracketed
 
@@ -1155,7 +1184,11 @@ See [chentau/marks.nvim] for more mappings and usage information.
 [nvim-lspconfig]: https://github.com/neovim/nvim-lspconfig
 [nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
 [telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
+[nvim-treesitter-textobjects]: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 [lua/rafi/config/keymaps.lua]: ./lua/rafi/config/keymaps.lua
+[config/keymaps.lua]: ./lua/rafi/config/keymaps.lua
+[lib/edit.lua]: ./lua/rafi/lib/edit.lua
+[plugins/lsp/keymaps.lua]: ./lua/rafi/plugins/lsp/keymaps.lua
 [lua/rafi/lib/contextmenu.lua]: ./lua/rafi/lib/contextmenu.lua
 [nvim-treesitter]: https://github.com/nvim-treesitter/nvim-treesitter
 [Marked 2]: https://marked2app.com
