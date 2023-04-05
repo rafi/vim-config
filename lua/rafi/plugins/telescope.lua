@@ -17,6 +17,29 @@ function myactions.smart_send_to_qflist(prompt_bufnr)
 	vim.api.nvim_command([[ botright copen ]])
 end
 
+--- Scroll the results window up
+---@param prompt_bufnr number: The prompt bufnr
+function myactions.results_scrolling_up(prompt_bufnr)
+	myactions.scroll_results(prompt_bufnr, -1)
+end
+
+--- Scroll the results window down
+---@param prompt_bufnr number: The prompt bufnr
+function myactions.results_scrolling_down(prompt_bufnr)
+	myactions.scroll_results(prompt_bufnr, 1)
+end
+
+---@param prompt_bufnr number: The prompt bufnr
+---@param direction number: 1|-1
+function myactions.scroll_results(prompt_bufnr, direction)
+	local status = require('telescope.state').get_status(prompt_bufnr)
+	local default_speed = vim.api.nvim_win_get_height(status.results_win) / 2
+	local speed = status.picker.layout_config.scroll_speed or default_speed
+
+	require('telescope.actions.set')
+		.shift_selection(prompt_bufnr, math.floor(speed) * direction)
+end
+
 -- Custom pickers
 
 local plugin_directories = function(opts)
@@ -354,8 +377,8 @@ return {
 
 						['<Tab>'] = actions.move_selection_worse,
 						['<S-Tab>'] = actions.move_selection_better,
-						['<C-u>'] = actions.results_scrolling_up,
-						['<C-d>'] = actions.results_scrolling_down,
+						['<C-u>'] = myactions.results_scrolling_up,
+						['<C-d>'] = myactions.results_scrolling_down,
 
 						['<C-b>'] = actions.preview_scrolling_up,
 						['<C-f>'] = actions.preview_scrolling_down,
