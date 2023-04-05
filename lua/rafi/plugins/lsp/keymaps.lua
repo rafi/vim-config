@@ -17,7 +17,6 @@ function M.get(client, buffer)
 	end
 
 	-- Keyboard mappings
-	map('n', 'K', vim.lsp.buf.hover, { has = 'hover' })
 	map('n', '<leader>cl', '<cmd>LspInfo<cr>')
 
 	map('n', 'gD', vim.lsp.buf.declaration, { has = 'declaration' })
@@ -34,6 +33,14 @@ function M.get(client, buffer)
 
 	map('n', ',f', format, { has = 'documentFormatting' })
 	map('x', ',f', format, { has = 'documentRangeFormatting' })
+
+	map('n', 'K', function()
+		local winid = require('rafi.config').has('nvim-ufo')
+			and require('ufo').peekFoldedLinesUnderCursor() or nil
+		if not winid then
+			vim.lsp.buf.hover()
+		end
+	end, { has = 'hover' })
 
 	map(
 		{'n', 'x'},
