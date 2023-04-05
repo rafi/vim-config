@@ -397,18 +397,9 @@ return {
 		'rest-nvim/rest.nvim',
 		ft = 'http',
 		keys = {
-			{ ',ht', '<Plug>RestNvim', desc = 'Execute HTTP request' }
+			{ ',ht', '<Plug>RestNvim', desc = 'Execute HTTP request' },
 		},
 		opts = { skip_ssl_verification = true },
-		init = function()
-			vim.api.nvim_create_autocmd('FileType', {
-				group = vim.api.nvim_create_augroup('rafi_rest', {}),
-				pattern = 'httpResult',
-				callback = function(event)
-					vim.keymap.set('n', 'q', '<cmd>quit<CR>', { buffer = event.buf })
-				end
-			})
-		end
 	},
 
 	-----------------------------------------------------------------------------
