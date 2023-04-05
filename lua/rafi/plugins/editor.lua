@@ -351,7 +351,7 @@ return {
 						vim.api.nvim_set_current_win(picked_window_id)
 					end
 				end,
-				desc = 'Jump to window with selection',
+				desc = 'Pick window',
 			},
 			{
 				'sw',
@@ -365,7 +365,7 @@ return {
 						vim.api.nvim_win_set_buf(picked_window_id, current_bufnr)
 					end
 				end,
-				desc = 'Swap window with selection',
+				desc = 'Swap picked window',
 			},
 		},
 		opts = {

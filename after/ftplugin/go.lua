@@ -1,6 +1,7 @@
 -- Go utilities
 --
 
+-- Convert a JSON string to a Go struct.
 local function json_to_struct(args)
 	local range = args.line1 .. ',' .. args.line2
 	local fname = vim.api.nvim_buf_get_name(0)

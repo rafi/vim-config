@@ -1,4 +1,5 @@
 -- Markdown utilities
+--
 
 -- Surround visual-selection or word under cursor with markdown link.
 local function link_surround()

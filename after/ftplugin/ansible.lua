@@ -1,5 +1,7 @@
 -- Ansible utilities
+--
 
+-- Open ansible-doc in a vertical split with word under cursor.
 local function open_doc()
 	vim.cmd([[
 		vertical split

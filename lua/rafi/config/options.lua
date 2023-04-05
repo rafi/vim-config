@@ -110,7 +110,7 @@ opt.complete:remove('t')
 
 opt.completeopt = 'menu,menuone,noinsert'
 
-opt.diffopt:append({'iwhite', 'indent-heuristic', 'algorithm:patience'})
+opt.diffopt:append({ 'iwhite', 'indent-heuristic', 'algorithm:patience' })
 
 opt.wildmode = 'longest:full,full' -- Command-line completion mode
 

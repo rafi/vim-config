@@ -109,11 +109,10 @@ function M.setup(user_opts)
 	options = vim.tbl_deep_extend('force', defaults, user_opts or {})
 	if not M.has_version() then
 		require('lazy.core.util').error(
-			'**LazyVim** needs **lazy.nvim** version '
-				.. M.lazy_version
-				.. ' to work properly.\n'
-				.. 'Please upgrade **lazy.nvim**',
-			{ title = 'LazyVim' }
+			string.format(
+				'**lazy.nvim** version %s is required.\n Please upgrade **lazy.nvim**',
+				M.lazy_version
+			)
 		)
 		error('Exiting')
 	end
@@ -215,7 +214,6 @@ function M.load(name)
 	end
 	_load('config.' .. name)
 	if vim.bo.filetype == 'lazy' then
-		-- HACK: LazyVim may have overwritten options of the Lazy ui, so reset this here
 		vim.cmd([[do VimResized]])
 	end
 end
@@ -240,8 +238,8 @@ end
 -- Validate if lua/plugins/ or lua/plugins.lua exist.
 function M.has_user_plugins()
 	local user_path = M.path_join(vim.fn.stdpath('config'), 'lua')
-	return vim.loop.fs_stat(M.path_join(user_path, 'plugins'))
-		or vim.loop.fs_stat(M.path_join(user_path, 'plugins.lua'))
+	return vim.loop.fs_stat(M.path_join(user_path, 'plugins')) ~= nil
+		or vim.loop.fs_stat(M.path_join(user_path, 'plugins.lua')) ~= nil
 end
 
 -- Delay notifications till vim.notify was replaced or after 500ms.

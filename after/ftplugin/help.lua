@@ -5,6 +5,7 @@ if vim.api.nvim_buf_get_option(0, 'buftype') ~= 'help' then
 	return
 end
 
+-- Count the number of file windows in current tabpage.
 ---@return integer
 local function count_windows()
 	local win_count = 0

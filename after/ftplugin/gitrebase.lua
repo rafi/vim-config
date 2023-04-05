@@ -1,4 +1,5 @@
 -- Git-rebase utilities
+--
 
 local function setup_undo()
 	vim.b.undo_ftplugin = (vim.b.undo_ftplugin or '')
