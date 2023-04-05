@@ -95,4 +95,38 @@ function M.apply_brightness(color, base_color, brightness_modifier_parameter)
 	end
 end
 
+-- Assorted highlight helpers
+--
+
+local has_nvim9 = vim.fn.has('nvim-0.9') == 1
+
+-- Retrieves color value from highlight group names.
+-- First present highlight is returned
+---@param scope string
+---@param highlights table
+---@param default string?
+---@return string|nil
+function M.get_color(scope, highlights, default)
+	for _, hl_name in ipairs(highlights) do
+		local hl
+		if has_nvim9 then
+			hl = vim.api.nvim_get_hl(0, { name = hl_name })
+		else
+			hl = vim.api.nvim_get_hl_by_name(hl_name, true)
+			hl.fg, hl.bg, hl.sp = hl.foreground, hl.background, hl.special
+		end
+		if hl.reverse then
+			if scope == 'bg' then
+				scope = 'fg'
+			elseif scope == 'fg' then
+				scope = 'bg'
+			end
+		end
+		if hl[scope] then
+			return string.format('#%06x', hl[scope])
+		end
+	end
+	return default
+end
+
 return M
