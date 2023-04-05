@@ -542,7 +542,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [t9md/vim-quickhl] | Highlight words quickly
 | [kevinhwang91/nvim-bqf] | Better quickfix window in Neovim
 | [uga-rosa/ccc.nvim] | Super powerful color picker/colorizer plugin
-| [rmagatti/goto-preview] | Preview definitions using floating windows
+| [dnlhc/glance.nvim] | Pretty window for navigating LSP locations
 | [itchyny/calendar.vim] | Calendar application
 
 [neovim/nvim-lspconfig]: https://github.com/neovim/nvim-lspconfig
@@ -651,7 +651,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [t9md/vim-quickhl]: https://github.com/t9md/vim-quickhl
 [kevinhwang91/nvim-bqf]: https://github.com/kevinhwang91/nvim-bqf
 [uga-rosa/ccc.nvim]: https://github.com/uga-rosa/ccc.nvim
-[rmagatti/goto-preview]: https://github.com/rmagatti/goto-preview
+[dnlhc/glance.nvim]: https://github.com/dnlhc/glance.nvim
 [itchyny/calendar.vim]: https://github.com/itchyny/calendar.vim
 
 ## Extra Plugins
@@ -740,6 +740,7 @@ Spec: `rafi.plugins.extras.ui.<name>`
 | `cybu`         | [ghillb/cybu.nvim] | Cycle buffers with a customizable notification window
 | `deadcolumn`   | [Bekaboo/deadcolumn.nvim] | Show colorcolumn dynamically
 | `cool`         | [romainl/vim-cool] | Simple plugin that makes hlsearch more useful
+| `goto-preview` | [rmagatti/goto-preview] | Preview definitions using floating windows
 | `incline`      | [b0o/incline.nvim] | Floating statuslines
 | `minimap`      | [echasnovski/mini.map] | Window with buffer text overview, scrollbar, and highlights
 | `statuscol`    | [luukvbaal/statuscol.nvim] | Configurable 'statuscolumn' and click handlers
@@ -759,6 +760,7 @@ Spec: `rafi.plugins.extras.ui.<name>`
 [ghillb/cybu.nvim]: https://github.com/ghillb/cybu.nvim
 [Bekaboo/deadcolumn.nvim]: https://github.com/Bekaboo/deadcolumn.nvim
 [romainl/vim-cool]: https://github.com/romainl/vim-cool
+[rmagatti/goto-preview]: https://github.com/rmagatti/goto-preview
 [b0o/incline.nvim]: https://github.com/b0o/incline.nvim
 [echasnovski/mini.map]: https://github.com/echasnovski/mini.map
 [luukvbaal/statuscol.nvim]: https://github.com/luukvbaal/statuscol.nvim
