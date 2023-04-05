@@ -201,6 +201,10 @@ return {
 		opts = {
 			show_trailing_blankline_indent = false,
 			disable_with_nolist = true,
+			show_foldtext = false,
+			char_priority = 100,
+			show_current_context = true,
+			show_current_context_start = false,
 			filetype_exclude = {
 				'lspinfo',
 				'checkhealth',

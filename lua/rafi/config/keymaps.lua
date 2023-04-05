@@ -144,7 +144,6 @@ map('n', 'g#', '#', { noremap = true })
 
 -- Clear search with <Esc>
 map('n', '<Esc>', '<cmd>noh<CR>', { noremap = true, desc = 'Clear Search Highlight' })
-map('i', '<Esc>', '<cmd>noh<CR><Esc>', { noremap = true, desc = 'Clear Search Highlight' })
 
 -- Use backspace key for matching parens
 map('n', '<BS>', '%', { noremap = true, desc = 'Jump to Paren' })
