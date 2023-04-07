@@ -13,10 +13,7 @@ return {
 		'rafi/theme-loader.nvim',
 		lazy = false,
 		priority = 99,
-		opts = {
-			autostart = false,
-			initial_colorscheme = 'hybrid',
-		},
+		opts = { initial_colorscheme = 'hybrid' },
 	},
 
 	-----------------------------------------------------------------------------

@@ -42,7 +42,4 @@ require('lazy').setup({
 	},
 })
 
--- Restore last used colorscheme, or set initial.
-require('theme-loader').start()
-
 -- Enjoy!
