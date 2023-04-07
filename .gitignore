@@ -1,11 +1,10 @@
 *~
 /benchmarks/
 /spell/
-/.vault.vim
-/.local.vimrc
 /.stignore
 /.stfolder
 /.stversions
-/config/plugins.local.yaml
-/config/local.plugins.yaml
-/config/local.vim
+/lua/config/
+/lua/lsp/
+/lua/plugins/
+/lua/plugins.lua
