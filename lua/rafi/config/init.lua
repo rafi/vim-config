@@ -111,6 +111,9 @@ local options
 
 ---@param user_opts table|nil
 function M.setup(user_opts)
+	if not M.did_init then
+		M.init()
+	end
 	options = vim.tbl_deep_extend('force', defaults, user_opts or {})
 	if not M.has_version() then
 		require('lazy.core.util').error(
@@ -131,8 +134,8 @@ function M.setup(user_opts)
 		vim.g['rafi_' .. feat_name] = feat_val
 	end
 
-	M.load('keymaps')
 	M.load('autocmds')
+	M.load('keymaps')
 
 	-- Set colorscheme
 	require('lazy.core.util').try(function()
