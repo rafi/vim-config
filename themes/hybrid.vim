@@ -27,6 +27,25 @@ highlight! WildMenu    ctermfg=NONE guifg=NONE ctermbg=97 guibg=#4D2238
 highlight! link NormalFloat Pmenu
 highlight! link FoldColumn  Comment
 
+highlight MatchParen     guifg=NONE guibg=#373b41 gui=NONE
+highlight MatchParenCur  guifg=NONE guibg=NONE    gui=NONE
+highlight MatchUpPopup   guifg=#c5c8c6 guibg=#171b21 ctermfg=250 ctermbg=237 blend=30
+
+highlight! link CopilotSuggestion Identifier
+
+highlight BufferLineBufferSelected guifg=#707880 guibg=#1d1f21
+
+highlight SpellBad   cterm=undercurl gui=undercurl guisp=#e82424 guifg=NONE guibg=NONE ctermfg=NONE ctermbg=NONE
+highlight SpellCap   cterm=undercurl gui=undercurl guisp=#ff9e3b guifg=NONE guibg=NONE ctermfg=NONE ctermbg=NONE
+highlight SpellRare  cterm=undercurl gui=undercurl guisp=#ff9e3b guifg=NONE guibg=NONE ctermfg=NONE ctermbg=NONE
+highlight SpellLocal cterm=undercurl gui=undercurl guisp=#ff9e3b guifg=NONE guibg=NONE ctermfg=NONE ctermbg=NONE
+
+highlight InclineNormal ctermfg=234 ctermbg=236 guifg=#c5c8c6 guibg=#2a2e36
+" highlight InclineNormal   ctermfg=250 ctermbg=237 guifg=#c5c8c6 guibg=#373b41
+highlight InclineNormalNC ctermfg=250 ctermbg=237 guifg=#757876 guibg=#2a2e36
+
+" highlight! link luaParenError Normal
+
 " ctermbg=236 guibg=#323232
 " #ACAFAE  #2C3237
 " #2a2e36  #525865
@@ -67,22 +86,13 @@ highlight User8 guifg=#ffb964 guibg=#30302c ctermfg=215 ctermbg=236
 
 " Highlights: General GUI {{{
 " ---
-" :h slow-terminal  " gui=NONE guifg=NONE
+highlight Conceal ctermfg=243 ctermbg=234 guifg=#476380 guibg=#1D1F21
 highlight IncSearch guifg=#222222 guibg=#99ad6a cterm=NONE gui=NONE
+" highlight! link PmenuKind Pmenu
+" highlight! link PmenuExtra Pmenu
 highlight NonText cterm=NONE ctermfg=NONE
+highlight WarningMsg  ctermfg=100 guifg=#CCC566
 highlight! link jsFutureKeys PreProc
-highlight! WarningMsg  ctermfg=100 guifg=#CCC566
-highlight! link QuickFixLine WildMenu
-
-" if has('nvim') || has('patch-7.4.2218')
-" 	highlight EndOfBuffer gui=NONE guifg=#303030
-" endif
-
-if has('nvim')
-	highlight TermCursor    gui=NONE guibg=#cc22a0
-	highlight TermCursorNC  gui=NONE guibg=#666666
-	" highlight NormalNC      gui=NONE guibg=#2c2c2c guifg=#bfbfbf
-endif
 
 highlight! link vimFunc Function
 highlight! link vimFunction Function
@@ -106,8 +116,8 @@ highlight! link VimwikiHeaderChar markdownHeadingDelimiter
 highlight! link VimwikiHR Keyword
 highlight! link VimwikiList markdownListMarker
 
-hi! link mkdBold htmlBold
-hi! link mkdItalic htmlItalic
+highlight! link mkdBold htmlBold
+highlight! link mkdItalic htmlItalic
 " hi! link mkdString Keyword
 " hi! link mkdCodeStart mkdCode
 " hi! link mkdCodeEnd mkdCode
@@ -128,32 +138,37 @@ hi! link mkdItalic htmlItalic
 
 " LSP {{{
 " ---
-highlight! DiagnosticError ctermfg=1   guifg=Red
-highlight! DiagnosticWarn  ctermfg=3   guifg=Orange
-highlight! DiagnosticInfo  ctermfg=4   guifg=LightBlue
-highlight! DiagnosticHint  ctermfg=143 guifg=#b5bd68
+highlight DiagnosticError ctermfg=1   guifg=#ec5f67
+highlight DiagnosticWarn  ctermfg=3   guifg=#ECBE7B
+highlight DiagnosticInfo  ctermfg=4   guifg=#008080
+highlight DiagnosticHint  ctermfg=143 guifg=#006080
+highlight DiagnosticOk    ctermfg=10  guifg=LightGreen
+highlight DiagnosticUnderlineHint cterm=underline gui=underline guisp=#707880
+highlight! link DiagnosticUnnecessary Comment
 
-highlight! link lspReference Visual
-highlight! LspReferenceRead ctermbg=237 guibg=#3D3741
-highlight! LspReferenceText ctermbg=237 guibg=#373B41
-highlight! LspReferenceWrite ctermbg=237 guibg=#374137
-highlight! LspSignatureActiveParameter ctermbg=237 guibg=#4D2238
+" highlight! link lspReference Visual
+highlight LspReferenceRead ctermbg=237 guibg=#3D3741
+highlight LspReferenceText ctermbg=237 guibg=#373B41
+highlight LspReferenceWrite ctermbg=237 guibg=#374137
+highlight LspSignatureActiveParameter ctermbg=237 guibg=#4D2238
+highlight LspCodeLens ctermfg=7 guifg=#5F5F5F
+highlight LspCodeLensSeparator ctermbg=8 guibg=#1C1C1C
 " }}}
 
 " Plugin: IndentGuides {{{
 " ---
-" highlight! IndentGuidesOdd  guifg=#292B2D guibg=#232527
-" highlight! IndentGuidesEven guifg=#232527 guibg=#292B2D
+" highlight IndentGuidesOdd  guifg=#292B2D guibg=#232527
+" highlight IndentGuidesEven guifg=#232527 guibg=#292B2D
 " }}}
 
 " Plugin: IndentBlankline {{{
 " ---
-" highlight! IndentBlanklineChar cterm=nocombine gui=nocombine guibg=#232527
-" highlight! IndentBlanklineCharOdd cterm=nocombine gui=nocombine guibg=#292B2D
-
-" highlight! IndentBlanklineSpaceChar cterm=nocombine gui=nocombine guifg=#373b41
-" highlight! IndentBlanklineSpaceCharBlankline cterm=nocombine gui=nocombine guifg=#373b41
-" highlight! IndentBlanklineContextChar cterm=nocombine ctermbg=110 gui=nocombine guibg=#81a2be
+" highlight IndentBlanklineChar cterm=nocombine gui=nocombine guifg=#232527
+" highlight IndentBlanklineCharOdd cterm=nocombine gui=nocombine guifg=#292B2D
+" highlight IndentBlanklineContextChar cterm=nocombine ctermfg=110 gui=nocombine guifg=#81A2BE
+" highlight IndentBlanklineContextStart cterm=underline gui=underline guisp=#81A2BE
+" highlight IndentBlanklineSpaceChar cterm=nocombine gui=nocombine guifg=#373b41
+" highlight IndentBlanklineSpaceCharBlankline cterm=nocombine gui=nocombine guifg=#373b41
 " }}}
 
 " Plugin: vim-illuminate {{{
@@ -186,8 +201,9 @@ highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
 
 " Plugin: Telescope {{{
 " ---
-highlight! TelescopeSelectionCaret ctermfg=139 guifg=#B294BB ctermbg=97 guibg=#4D2238
+highlight TelescopeSelectionCaret ctermfg=139 guifg=#B294BB ctermbg=97 guibg=#4D2238
 highlight! link TelescopeSelection WildMenu
+highlight! link TelescopeNormal NormalFloat
 highlight! link TelescopeBorder FloatBorder
 highlight! link TelescopePromptBorder FloatBorder
 highlight! link TelescopeResultsBorder FloatBorder
@@ -197,15 +213,13 @@ highlight! link TelescopePreviewLine WildMenu
 
 " Plugin: neo-tree {{{
 " ---
-" Normal ctermfg=250 ctermbg=234 guifg=#C5C8C6 guibg=#1d1f21
-highlight! NeoTreeGitAdded     guifg=#85B293
-" highlight! NeoTreeGitConflict  guifg=#C5C8C6
-highlight! NeoTreeGitDeleted   guifg=#804152
-" highlight! NeoTreeGitIgnored   guifg=#C5C8C6
-highlight! NeoTreeGitModified  guifg=#C88D8D
-highlight! NeoTreeGitUntracked guifg=#9C9D9C
-
-highlight! NeoTreeModified     guifg=#C88D8D
+highlight NeoTreeGitAdded     guifg=#85B293
+" highlight NeoTreeGitConflict  guifg=#C5C8C6
+highlight NeoTreeGitDeleted   guifg=#804152
+" highlight NeoTreeGitIgnored   guifg=#C5C8C6
+highlight NeoTreeGitModified  guifg=#C88D8D
+highlight NeoTreeGitUntracked guifg=#9C9D9C
+highlight NeoTreeModified     guifg=#C88D8D
 " }}}
 
 " Plugin: Bqf {{{
@@ -213,31 +227,51 @@ highlight! NeoTreeModified     guifg=#C88D8D
 " hi default link BqfPreviewFloat Normal
 highlight! link BqfPreviewBorder FloatBorder
 highlight! link BqfPreviewCursor TermCursor
-highlight! default link BqfPreviewRange TermCursorNC
+" highlight! link BqfPreviewRange TermCursorNC
 " hi default BqfSign ctermfg=14 guifg=Cyan
 " }}}
 
 " Plugin: gitsigns {{{
 " ---
-" highlight! SignColumn ctermbg=234 guibg=#1c1c1c
-highlight! GitSignsAdd ctermfg=22 guifg=#008500 ctermbg=234 guibg=#1c1c1c
-highlight! GitSignsChange ctermfg=58 guifg=#808200 ctermbg=234 guibg=#1c1c1c
-highlight! GitSignsDelete ctermfg=52 guifg=#800000 ctermbg=234 guibg=#1c1c1c
+highlight GitSignsAdd ctermfg=22 guifg=#008500
+highlight GitSignsChange ctermfg=58 guifg=#808200
+highlight GitSignsDelete ctermfg=52 guifg=#800000
+
 " Word diff in previews:
-highlight! GitSignsAddInline ctermbg=10 guibg=#2F5C36 guifg=#DDFFC3
-highlight! GitSignsDeleteInline ctermfg=167 guifg=#cc6666 ctermbg=97 guibg=#4D2238
-highlight! GitSignsChangeInline ctermbg=58 guibg=#808200
+highlight GitSignsAddInline ctermbg=10 guibg=#2F5C36 guifg=#DDFFC3
+highlight GitSignsDeleteInline ctermfg=167 guifg=#cc6666 ctermbg=97 guibg=#4D2238
+highlight GitSignsChangeInline ctermbg=58 guibg=#808200
 " }}}
 
+" Plugin: tpope/vim-fugitive {{{
+" ---
+highlight! link FugitiveblameAnnotation Label
+highlight! link FugitiveblameDelimiter Comment
+highlight! link FugitiveblameTime Comment
+
+" }}}
+" Plugin: folke/lazy.nvim {{{
+" ---
+highlight LazyDimmed ctermfg=243 ctermbg=234 guifg=#8E99A3 guibg=#171B21
+highlight LazyProp ctermfg=243 ctermbg=234 guifg=#8E99A3 guibg=#171B21
+
+" }}}
 " Plugin: simrat39/symbols-outline.nvim {{{
 " ---
-highlight! FocusedSymbol ctermbg=236 guibg=#2D3C42 cterm=NONE gui=NONE
-" }}}
+highlight FocusedSymbol ctermbg=236 guibg=#2D3C42 cterm=NONE gui=NONE
 
+" }}}
 " Plugin: chentau/marks.nvim {{{
-highlight! MarkSignHL ctermfg=12 guifg=#4EA9D7
+highlight MarkSignHL ctermfg=12 guifg=#4EA9D7
 " highlight! default link MarkSignNumHL CursorLineNr
 " highlight! default link MarkVirtTextHL Comment
+
+" }}}
+" Plugin: dnlhc/glance.nvim {{{
+
+highlight! link GlanceListMatch Visual
+highlight! link GlanceListFilepath Comment
+highlight GlanceListNormal guifg=#8b8e8c guibg=#2d2f31
 " }}}
 
 " vim: set foldmethod=marker ts=2 sw=0 tw=80 noet :
