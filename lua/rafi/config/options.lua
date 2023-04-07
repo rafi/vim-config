@@ -1,11 +1,15 @@
--- Rafi's Neovim settings
+-- Rafi's Neovim options
 -- github.com/rafi/vim-config
 -- ===
 
-local opt = vim.opt
+-- Keyboard leaders
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ';'
 
 -- General
 -- ===
+
+local opt = vim.opt
 
 opt.mouse = 'nv'       -- Disable mouse in command-line mode
 opt.errorbells = true  -- Trigger bell on error
@@ -32,9 +36,6 @@ opt.clipboard = 'unnamedplus'
 -- Undo
 opt.undofile = true
 opt.undolevels = 10000
-
--- Secure sensitive information, disable backup files in temp directories
-opt.backupskip:append('.vault.vim')
 
 -- If sudo, disable vim swap/backup/undo/shada writing
 local USER = vim.env.USER or ''

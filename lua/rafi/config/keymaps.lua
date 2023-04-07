@@ -1,14 +1,6 @@
--- Rafi's keymaps
+-- Rafi's Neovim keymaps
 -- github.com/rafi/vim-config
 -- ===
--- Settings:
--- + g:disable_mappings - Set true to disable this file entirely.
--- + g:enable_universal_quit_mapping - Toggle 'q' for :quit mapping.
--- + g:elite_mode - Enable to map arrow keys to window resize.
-
-if vim.g.disable_mappings then
-	return
-end
 
 local map = vim.keymap.set
 
@@ -16,12 +8,8 @@ local function augroup(name)
 	return vim.api.nvim_create_augroup('rafi_' .. name, {})
 end
 
--- Set leaders
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ';'
-
 -- Elite-mode: Arrow-keys resize window
-if vim.g.elite_mode then
+if vim.g.rafi_elite_mode then
 	map('n', '<Up>', '<cmd>resize +1<cr>', { desc = 'Resize Window' })
 	map('n', '<Down>', '<cmd>resize -1<cr>', { desc = 'Resize Window' })
 	map('n', '<Left>', '<cmd>vertical resize +1<cr>', { desc = 'Resize Window' })
@@ -296,7 +284,7 @@ end
 -- ===
 
 -- Ultimatus Quitos
-if vim.F.if_nil(vim.g.enable_universal_quit_mapping, true) then
+if vim.F.if_nil(vim.g.rafi_window_q_mapping, true) then
 	vim.api.nvim_create_autocmd({ 'BufWinEnter', 'VimEnter' }, {
 		group = augroup('quit_mapping'),
 		callback = function(event)

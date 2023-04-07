@@ -34,7 +34,7 @@ Please read "[Extending](#extending)" to learn how to customize and modify.
 * [Extending](#extending)
   * [Extend: Config](#extend-config)
   * [Extend: Plugins](#extend-plugins)
-  * [Extend: Disable some features](#extend-disable-some-features)
+  * [Extend: Defaults](#extend-defaults)
   * [Extend: LSP Settings](#extend-lsp-settings)
 * [Plugin Highlights](#plugin-highlights)
 * [Plugins Included](#plugins-included)
@@ -241,11 +241,13 @@ git pull --ff --ff-only
 There are 2 distinct ways to extend configuration:
 
 1. The second option is to fork this repository and create a directory
-   `lua/config` with one or more of these files:
+   `lua/config` with one or more of these files: (Optional)
 
    * `lua/config/autocmds.lua` — Custom auto-commands
    * `lua/config/options.lua` — Custom options
    * `lua/config/keymaps.lua` — Custom key-mappings
+   * `lua/config/setup.lua` — Override config,
+     see [extend defaults](#extend-defaults).
 
    Adding plugins or override existing options:
    * `lua/plugins/*.lua` or `lua/plugins.lua` — Plugins (See [lazy.nvim] for
@@ -262,14 +264,18 @@ There are 2 distinct ways to extend configuration:
    return {
      {
        "rafi/vim-config",      -- Will load ALL my plugins and config/*
+       import = "rafi.plugins",
        opts = true,
      },
      { import = "plugins" },   -- Your local lua/plugins*
    }
    ```
 
-   This will import and set up my `lua/config/*` and `lua/plugins/*`, and
-   then yours. You can import specific plugin bundles, for example:
+   This will import and set up my `lua/rafi/config/*`, `lua/rafi/plugins/*` and
+   then yours.
+
+   If you'd rather import only specific plugins or specs, and not the entire
+   plugin catalog, use `import` and remove `opts`. For example:
 
    ```lua
    return {
@@ -284,9 +290,10 @@ There are 2 distinct ways to extend configuration:
    }
    ```
 
-   This example will **NOT** load my `lua/config/*`, and only install plugins
-   categorically from `colorscheme.lua`, `editor.lua`, and `ui.lua`. At last,
-   it will load your plugins defined in `lua/plugins.lua` or `lua/plugins/*`.
+   This example will **NOT** load my `lua/rafi/config/*`, and only install
+   plugins categorically from `colorscheme.lua`, `editor.lua`, and `ui.lua`.
+   At last, it will load all your plugins defined in `lua/plugins.lua` or
+   `lua/plugins/*`.
 
    This option has the advantage of partially importing different "plugin
    specs" from various sources.
@@ -332,15 +339,57 @@ return {
 }
 ```
 
-### Extend: Disable some features
+### Extend: Defaults
 
-You can set & toggle **global specific features** by defining in your local
-`/.vault.vim`:
+```lua
+{
+  defaults = {
+    autocmds = true, -- Load lua/rafi/config/autocmds.lua
+    keymaps = true,  -- Load lua/rafi/config/keymaps.lua
+    options = true,  -- Load lua/rafi/config/options.lua
 
-```vim
-let g:elite_mode = 1                     " Set arrow-keys to window resize
-let g:disable_mappings = 0               " Disable lua/rafi/config/keymaps.lua
-let g:enable_universal_quit_mapping = 0  " Disable normal 'q' mapping
+    features = {
+      -- Set arrow-keys to window resize
+      elite_mode = false,
+      -- Disable regular window closing with 'q'
+      window_q_mapping = true,
+    },
+  }
+}
+```
+
+If you are using this distro as-is, and aren't importing it externally,
+create `lua/config/setup.lua` with:
+
+```lua
+local M = {}
+
+function M.override(user_opts)
+  local opts = {
+    defaults = {
+      features = { elite_mode = true }
+    }
+  }
+  return vim.tbl_deep_extend('force', user_opts or {}, opts)
+end
+
+return M
+```
+
+If you are importing this distro via lazy.nvim specs, you can:
+
+```lua
+return {
+  {
+    "rafi/vim-config",
+    import = "rafi.plugins",
+    opts = {
+      defaults = {
+        features = { elite_mode = true },
+      },
+    },
+  },
+}
 ```
 
 ### Extend: LSP Settings
@@ -376,7 +425,7 @@ To override **LSP configurations**, you can do either:
    `config` function. For example, create `lua/lsp/go.lua`:
 
    ```lua
-   local config = {
+   local opts = {
      settings = {
        gopls = {
          staticcheck = true
@@ -386,7 +435,7 @@ To override **LSP configurations**, you can do either:
 
    return {
      config = function()
-       return config
+       return opts
      end
    }
    ```
@@ -775,7 +824,7 @@ Note that,
 * **Leader** key set as <kbd>Space</kbd>
 * **Local-Leader** key set as <kbd>;</kbd> and used for navigation and search
   (Telescope and Neo-tree)
-* Disable <kbd>←</kbd> <kbd>↑</kbd> <kbd>→</kbd> <kbd>↓</kbd> in normal mode by enabling `g:elite_mode` in `.vault.vim`
+* Disable <kbd>←</kbd> <kbd>↑</kbd> <kbd>→</kbd> <kbd>↓</kbd> in normal mode by enabling `elite_mode`.
 
 <details open>
   <summary>

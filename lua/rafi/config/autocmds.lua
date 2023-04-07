@@ -1,4 +1,4 @@
--- Rafi's autocmds
+-- Rafi's Neovim autocmds
 -- github.com/rafi/vim-config
 -- ===
 
@@ -94,6 +94,7 @@ vim.api.nvim_create_autocmd('FileType', {
 	callback = function()
 		vim.opt_local.wrap = true
 		vim.opt_local.spell = true
+		vim.opt_local.conceallevel = 0
 	end,
 })
 
@@ -140,7 +141,6 @@ vim.api.nvim_create_autocmd({'BufNewFile', 'BufReadPre'}, {
 		'$TEMP/*',
 		'*/shm/*',
 		'/private/var/*',
-		'.vault.vim',
 	},
 	callback = function()
 		vim.opt_local.undofile = false
