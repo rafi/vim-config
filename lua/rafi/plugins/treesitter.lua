@@ -139,6 +139,7 @@ return {
 				'bash',
 				'comment',
 				'css',
+				'cue',
 				'diff',
 				'dockerfile',
 				'fish',
@@ -288,7 +289,7 @@ return {
 						.. (' '):rep(width - cur_width - vim.fn.strdisplaywidth(lines) - 3)
 
 					table.insert(text, { suffix, 'UfoFoldedEllipsis' })
-					table.insert(text, { lines, 'UfoCursorFoldedLine' })
+					table.insert(text, { lines, 'Folded' })
 					return text
 				end,
 			}
