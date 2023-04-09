@@ -103,7 +103,7 @@ return {
 		'SmiteshP/nvim-navic',
 		keys = {
 			{
-				'<Leader>f',
+				'<Leader>tf',
 				function()
 					if vim.b.navic_winbar then
 						vim.b.navic_winbar = false
@@ -131,9 +131,8 @@ return {
 		end,
 		opts = function()
 			return {
-				separator = ' ',
+				separator = '  ',
 				highlight = true,
-				depth_limit = 5,
 				icons = require('rafi.config').icons.kinds,
 			}
 		end,
