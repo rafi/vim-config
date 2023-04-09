@@ -68,7 +68,14 @@ return {
 					globalstatus = true,
 					always_divide_middle = false,
 					disabled_filetypes = {
-						statusline = { 'dashboard', 'lazy', 'alpha' }
+						statusline = {
+							'dashboard',
+							'lazy',
+							'alpha',
+							'mason',
+							'neo-tree-popup',
+							'whichkey',
+						}
 					},
 					component_separators = '',
 					section_separators   = '',
@@ -248,82 +255,63 @@ return {
 				extensions = {
 					'man',
 					'fugitive',
-					-- Extension: Plain ruler and buffer name.
 					{
-						filetypes = {'Trouble', 'DiffviewFiles', 'NeogitStatus', 'Outline'},
-						sections = {
-							lualine_a = {
-								{
-									function() return require('rafi.lib.badge').icon() end,
-									padding = 1
-								},
-								{ filepath },
-							},
-							lualine_z = { function() return '%l/%L' end },
+						-- Super extension: One to rule them plugins all.
+						filetypes = {
+							'DiffviewFiles',
+							'fugitiveblame',
+							'neo-tree',
+							'NeogitStatus',
+							'Outline',
+							'Trouble',
+							'qf',
 						},
-						inactive_sections = {
-							lualine_a = { function() return require('rafi.lib.badge').icon() end },
-							lualine_z = { function() return '%l/%L' end },
-						},
-					},
-					-- Extension: File-explorer
-					{
-						filetypes = {'neo-tree'},
 						sections = {
 							lualine_a = {
 								{
 									function() return '▊' end,
-									-- color = { fg = colors.active.boundary },
 									color = fg({'Directory'}, '#51afef'),
 									padding = 0,
 								},
-								{ function() return '' end, padding = 1 },
-								{ function() return '%<' end, padding = 0 },
 								{
-									function()
-										return vim.fn.fnamemodify(vim.loop.cwd(), ':~')
-									end,
-									padding = { left = 0, right = 1 },
-								}
-							},
-							lualine_z = { function() return '%l/%L' end },
-						},
-						inactive_sections = {
-							lualine_a = {
-								{ function() return '' end, padding = 1 },
-								{ function() return '%<' end, padding = { left = 1, right = 0 }},
-								{
-									function() return vim.fn.fnamemodify(vim.fn.getcwd(), ':~') end,
-									padding = { left = 0, right = 1 },
-								}
-							},
-							lualine_z = { function() return '%l/%L' end },
-						},
-					},
-					-- Extension: Quickfix or location list.
-					{
-						filetypes = {'qf'},
-						sections = {
-							lualine_a = {
-								{
-									function()
-										if vim.fn.win_gettype() == 'loclist' then
-											return ' ' .. 'Location List'
-										end
-										return ' ' .. 'Quickfix List'
-									end,
+									function() return require('rafi.lib.badge').icon() end,
 									padding = { left = 1, right = 0 },
 								},
 								{
+									filepath,
+									padding = { left = 1, right = 0 },
+									cond = function() return vim.bo.filetype ~= 'neo-tree' end,
+								},
+							},
+							lualine_b = {
+								{
+									cond = function() return vim.bo.filetype == 'qf' end,
 									function()
 										if vim.fn.win_gettype() == 'loclist' then
 											return vim.fn.getloclist(0, { title = 0 }).title
 										end
 										return vim.fn.getqflist({ title = 0 }).title
-									end
+									end,
+									padding = { left = 1, right = 0 },
 								},
+								{
+									cond = function() return vim.bo.filetype == 'neo-tree' end,
+									function()
+										return vim.fn.fnamemodify(vim.loop.cwd(), ':~')
+									end,
+									padding = { left = 1, right = 0 },
+								}
 							},
-							lualine_z = { function() return '%l/%L' end },
+							lualine_z = {
+								{ function() return '%l/%L' end, separator = { left = '' } },
+							},
+						},
+						inactive_sections = {
+							lualine_a = {
+								{ function() return require('rafi.lib.badge').icon() end },
+								{ filepath, padding = 0 },
+							},
+							lualine_z = { function() return vim.bo.filetype end }
 						},
 					},
 				},

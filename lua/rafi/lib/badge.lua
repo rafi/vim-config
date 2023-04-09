@@ -2,11 +2,12 @@
 -- https://github.com/rafi/vim-config
 
 local plugin_icons = {
-	qf = { '', 'List' },
-	['neo-tree'] = { '', 'neo-tree' },
-	['neo-tree-popup'] = { '', 'neo-tree' },
+	quickfix = { '', 'Quickfix List' }, --  
+	loclist = { '', 'Location List' },
+	['neo-tree'] = { ' ', 'Neo-tree' },
+	['neo-tree-popup'] = { '', 'Neo-tree' },
 	TelescopePrompt = { '', 'Telescope' },
-	Trouble = { '' },
+	Trouble = { '' }, --  
 	DiffviewFiles = { '' },
 	Outline = { '' },
 	mason = { '', 'Mason' },
@@ -123,8 +124,9 @@ function M.filepath(bufnr, max_dirs, dir_max_chars, cache_suffix)
 	bufname = vim.fn.pathshorten(bufname, dir_max_chars + 1)
 
 	-- Override with plugin names.
-	if plugin_icons[filetype] ~= nil and #plugin_icons[filetype] > 1 then
-		msg = msg .. plugin_icons[filetype][2]
+	local plugin_type = filetype == 'qf' and vim.fn.win_gettype() or filetype
+	if plugin_icons[plugin_type] ~= nil and #plugin_icons[plugin_type] > 1 then
+		msg = msg .. plugin_icons[plugin_type][2]
 	else
 		msg = msg .. bufname
 	end
@@ -160,8 +162,9 @@ function M.icon(bufnr)
 	local buftype = vim.api.nvim_buf_get_option(bufnr, 'buftype')
 	local bufname = vim.api.nvim_buf_get_name(bufnr)
 
-	if buftype ~= '' and plugin_icons[ft] ~= nil then
-		icon = plugin_icons[ft][1]
+	local plugin_type = ft == 'qf' and vim.fn.win_gettype() or ft
+	if buftype ~= '' and plugin_icons[plugin_type] ~= nil then
+		icon = plugin_icons[plugin_type][1]
 	else
 		-- Try nvim-tree/nvim-web-devicons
 		local ok, devicons = pcall(require, 'nvim-web-devicons')

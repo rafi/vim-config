@@ -114,7 +114,7 @@ return {
 			delay = 200,
 			under_cursor = false,
 			modes_allowlist = { 'n', 'no', 'nt' },
-			filetypes_denylist = { 'dirvish', 'fugitive', 'neo-tree', },
+			filetypes_denylist = { 'fugitive', 'neo-tree', 'SidebarNvim', 'git' },
 		},
 		keys = {
 			{ ']]', desc = 'Next Reference' },

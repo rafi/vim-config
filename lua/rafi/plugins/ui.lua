@@ -290,7 +290,7 @@ return {
 			highlighter = {
 				auto_enable = true,
 				lsp = true,
-				excludes = { 'lazy', 'mason' },
+				excludes = { 'lazy', 'mason', 'help', 'neo-tree' },
 			},
 		},
 	},
