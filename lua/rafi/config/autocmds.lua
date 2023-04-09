@@ -89,10 +89,9 @@ vim.api.nvim_create_autocmd('VimResized', {
 
 -- Wrap and enable spell-checker in text filetypes
 vim.api.nvim_create_autocmd('FileType', {
-	group = augroup('wrap_spell'),
+	group = augroup('spell_conceal'),
 	pattern = { 'gitcommit', 'markdown' },
 	callback = function()
-		vim.opt_local.wrap = true
 		vim.opt_local.spell = true
 		vim.opt_local.conceallevel = 0
 	end,
