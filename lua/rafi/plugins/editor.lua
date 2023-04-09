@@ -391,17 +391,14 @@ return {
 		'mickael-menu/zk-nvim',
 		name = 'zk',
 		ft = 'markdown',
-		cmd = {
-			'ZkIndex', 'ZkNew', 'ZkNotes', 'ZkTags',
-			'ZkNewFromTitleSelection', 'ZkNewFromContentSelection',
-		},
+		cmd = { 'ZkNew', 'ZkNotes', 'ZkTags', 'ZkMatch' },
 		keys = {
 			{ '<leader>zn', "<Cmd>ZkNew { title = vim.fn.input('Title: ') }<CR>", desc = 'Zk New' },
 			{ '<leader>zo', "<Cmd>ZkNotes { sort = { 'modified' } }<CR>", desc = 'Zk Notes' },
 			{ '<leader>zt', '<Cmd>ZkTags<CR>', desc = 'Zk Tags' },
 			{ '<leader>zf', "<Cmd>ZkNotes { sort = { 'modified' }, match = vim.fn.input('Search: ') }<CR>", desc = 'Zk Search' },
 			{ '<leader>zf', ":'<,'>ZkMatch<CR>", mode = 'x', desc = 'Zk Match' },
-			{ '<leader>zb', '<Cmd>lua vim.lsp.buf.references()<CR>', desc = 'Zk references' },
+			{ '<leader>zb', '<Cmd>ZkBacklinks<CR>', desc = 'Zk Backlinks' },
 			{ '<leader>zl', '<Cmd>ZkLinks<CR>', desc = 'Zk Links' },
 		},
 		opts = { picker = 'telescope' }
@@ -411,7 +408,17 @@ return {
 	{
 		'windwp/nvim-spectre',
 		keys = {
-			{ '<Leader>so', function() require('spectre').open() end, desc = 'Spectre' },
+			{
+				'<Leader>sp',
+				function() require('spectre').open() end,
+				desc = 'Spectre',
+			},
+			{
+				'<Leader>sp',
+				function() require('spectre').open_visual({ select_word=true }) end,
+				mode = 'x',
+				desc = 'Spectre Word',
+			},
 		},
 		opts = {
 			mapping = {

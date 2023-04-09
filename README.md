@@ -789,7 +789,6 @@ Spec: `rafi.plugins.extras.ui.<name>`
 | `cursorword`   | [itchyny/cursorword] | Underlines word under cursor
 | `cybu`         | [ghillb/cybu.nvim] | Cycle buffers with a customizable notification window
 | `deadcolumn`   | [Bekaboo/deadcolumn.nvim] | Show colorcolumn dynamically
-| `cool`         | [romainl/vim-cool] | Simple plugin that makes hlsearch more useful
 | `goto-preview` | [rmagatti/goto-preview] | Preview definitions using floating windows
 | `incline`      | [b0o/incline.nvim] | Floating statuslines
 | `minimap`      | [echasnovski/mini.map] | Window with buffer text overview, scrollbar and highlights
@@ -809,7 +808,6 @@ Spec: `rafi.plugins.extras.ui.<name>`
 [itchyny/cursorword]: https://github.com/itchyny/vim-cursorword
 [ghillb/cybu.nvim]: https://github.com/ghillb/cybu.nvim
 [Bekaboo/deadcolumn.nvim]: https://github.com/Bekaboo/deadcolumn.nvim
-[romainl/vim-cool]: https://github.com/romainl/vim-cool
 [rmagatti/goto-preview]: https://github.com/rmagatti/goto-preview
 [b0o/incline.nvim]: https://github.com/b0o/incline.nvim
 [echasnovski/mini.map]: https://github.com/echasnovski/mini.map
@@ -1198,13 +1196,29 @@ See [nvim-neo-tree/neo-tree.nvim] for more mappings and usage information.
 | <kbd>w</kbd> | 𝐍 | Toggle window width
 | <kbd>z</kbd> | 𝐍 | Collapse all nodes
 
+### Plugin: Zk
+
+See [mickael-menu/zk-nvim] and [zk](https://github.com/mickael-menu/zk) for
+more mappings and usage information.
+
+| Key   | Mode | Action
+| ----- |:----:| ------------------
+| <kbd>Space</kbd>+<kbd>zn</kbd> | 𝐍 | Ask for title and create new note
+| <kbd>Space</kbd>+<kbd>zo</kbd> | 𝐍 | Browse notes sorted by modification time
+| <kbd>Space</kbd>+<kbd>zt</kbd> | 𝐍 | Browse tags
+| <kbd>Space</kbd>+<kbd>zf</kbd> | 𝐍 | Search notes
+| <kbd>Space</kbd>+<kbd>zf</kbd> | 𝐕 | Search notes with selection
+| <kbd>Space</kbd>+<kbd>zb</kbd> | 𝐍 | Show backlinks
+| <kbd>Space</kbd>+<kbd>zl</kbd> | 𝐍 | Show links
+
 ### Plugin: Spectre
 
 See [windwp/nvim-spectre] for more mappings and usage information.
 
 | Key   | Mode | Action
 | ----- |:----:| ------------------
-| <kbd>Space</kbd>+<kbd>so</kbd> | 𝐍 | Open spectre window (search & replace)
+| <kbd>Space</kbd>+<kbd>sp</kbd> | 𝐍 | Open spectre window (search & replace)
+| <kbd>Space</kbd>+<kbd>sp</kbd> | 𝐕 | Open spectre with selection
 
 ### Plugin: Marks
 
