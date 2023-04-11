@@ -87,50 +87,36 @@ local plugin_directories = function(opts)
 end
 
 -- Custom window-sizes
-
-local width_small = function(_, cols, _)
-	if cols > 200 then
-		return math.floor(cols * 0.6)
-	else
-		return math.floor(cols * 0.5)
-	end
-end
-
-local width_medium = function(_, cols, _)
-	if cols > 200 then
-		return math.floor(cols * 0.5)
-	elseif cols > 110 then
-		return math.floor(cols * 0.6)
-	else
-		return math.floor(cols * 0.75)
-	end
-end
-
-local height_medium = function(_, _, rows)
-	return math.floor(rows * 0.7)
-end
-
--- Automatically hide statusline when using Telescope, if using globalstatus.
-if vim.go.laststatus < 3 then
-	vim.api.nvim_create_autocmd('FileType', {
-		pattern = 'TelescopePrompt',
-		group = vim.api.nvim_create_augroup('rafi_telescope', {}),
-		callback = function(event)
-			vim.go.laststatus = 0
-			vim.api.nvim_create_autocmd('BufWinLeave', {
-				buffer = event.buf,
-				group = 'rafi_telescope',
-				once = true,
-				callback = function() vim.go.laststatus = 3 end
-			})
+local function get_matched_ratio(dimensions, size)
+	for min_cols, scale in pairs(dimensions) do
+		if min_cols == 'lower' or size >= min_cols then
+			vim.print(size, scale)
+			return math.floor(size * scale)
 		end
-	})
+	end
+	return dimensions.lower
+end
+
+local function width_tiny(_, cols, _)
+	return get_matched_ratio({ [180] = 0.27, lower = 0.37 }, cols)
+end
+
+local function width_small(_, cols, _)
+	return get_matched_ratio({ [180] = 0.4, lower = 0.5 }, cols)
+end
+
+local function width_medium(_, cols, _)
+	return get_matched_ratio({ [180] = 0.5, [110] = 0.6, lower = 0.75 }, cols)
+end
+
+local function width_large(_, cols, _)
+	return get_matched_ratio({ [180] = 0.7, [110] = 0.8, lower = 0.85 }, cols)
 end
 
 -- Enable indent-guides in telescope preview
 vim.api.nvim_create_autocmd('User', {
 	pattern = 'TelescopePreviewerLoaded',
-	group = 'rafi_telescope',
+	group = vim.api.nvim_create_augroup('rafi_telescope', {}),
 	callback = function()
 		vim.wo.wrap = true
 		vim.wo.list = true
@@ -302,16 +288,19 @@ return {
 				unpack(require('telescope.config').values.vimgrep_arguments)
 			}
 			table.insert(vimgrep_args, '--hidden')
+			table.insert(vimgrep_args, '--follow')
 			table.insert(vimgrep_args, '--no-ignore-vcs')
 			table.insert(vimgrep_args, '--glob')
 			table.insert(vimgrep_args, '!**/.git/*')
 
 			local find_args = {
 				'rg',
+				'--vimgrep',
 				'--files',
-				'--smart-case',
+				'--follow',
 				'--hidden',
 				'--no-ignore-vcs',
+				'--smart-case',
 				'--glob',
 				'!**/.git/*',
 			}
@@ -321,7 +310,7 @@ return {
 				sorting_strategy = 'ascending',
 				cache_picker = { num_pickers = 3 },
 
-				prompt_prefix = '   ',  -- ❯  
+				prompt_prefix = '  ',  -- ❯  
 				selection_caret = '▍ ',
 				multi_icon = ' ',
 
@@ -330,25 +319,11 @@ return {
 				set_env = { COLORTERM = 'truecolor' },
 				vimgrep_arguments = has_ripgrep and vimgrep_args or nil,
 
-				-- Flex layout swaps between horizontal and vertical strategies
-				-- based on the window width. See :h telescope.layout
-				layout_strategy = 'flex',
+				layout_strategy = 'horizontal',
 				layout_config = {
-					width = 0.9,
-					height = 0.85,
 					prompt_position = 'top',
 					horizontal = {
-						preview_width = width_small,
-					},
-					vertical = {
-						width = 0.75,
 						height = 0.85,
-						preview_height = 0.4,
-						mirror = true,
-					},
-					flex = {
-						-- Change to horizontal after 120 cols
-						flip_columns = 120,
 					},
 				},
 
@@ -419,13 +394,11 @@ return {
 			},
 			pickers = {
 				buffers = {
-					theme = 'dropdown',
-					previewer = false,
 					sort_lastused = true,
 					sort_mru = true,
 					show_all_buffers = true,
 					ignore_current_buffer = true,
-					layout_config = { width = width_medium, height = height_medium },
+					layout_config = { width = width_large, height = 0.7 },
 					mappings = {
 						n = {
 							['dd'] = actions.delete_buffer,
@@ -433,9 +406,6 @@ return {
 					}
 				},
 				find_files = {
-					theme = 'dropdown',
-					previewer = false,
-					layout_config = { width = width_medium, height = height_medium },
 					find_command = has_ripgrep and find_args or nil,
 				},
 				live_grep = {
@@ -443,53 +413,44 @@ return {
 				},
 				colorscheme = {
 					enable_preview = true,
-					layout_config = { width = 0.45, height = 0.8 },
+					layout_config = { preview_width = 0.7 },
 				},
 				highlights = {
-					layout_strategy = 'horizontal',
-					layout_config = { preview_width = 0.8 },
-				},
-				jumplist = {
-					layout_strategy = 'horizontal',
+					layout_config = { preview_width = 0.7 },
 				},
 				vim_options = {
 					theme = 'dropdown',
-					layout_config = { width = width_medium, height = height_medium },
+					layout_config = { width = width_medium, height = 0.7 },
 				},
 				command_history = {
 					theme = 'dropdown',
-					previewer = false,
-					layout_config = { width = 0.5, height = height_medium },
+					layout_config = { width = width_medium, height = 0.7 },
 				},
 				search_history = {
 					theme = 'dropdown',
-					layout_config = { width = 0.4, height = 0.6 },
+					layout_config = { width = width_small, height = 0.6 },
 				},
 				spell_suggest = {
 					theme = 'cursor',
-					layout_config = { width = 0.27, height = 0.45 },
+					layout_config = { width = width_tiny, height = 0.45 },
 				},
 				registers = {
 					theme = 'cursor',
-					previewer = false,
 					layout_config = { width = 0.35, height = 0.4 },
 				},
 				oldfiles = {
 					theme = 'dropdown',
 					previewer = false,
-					layout_config = { width = width_medium, height = height_medium },
+					layout_config = { width = width_medium, height = 0.7 },
 				},
 				lsp_definitions = {
-					layout_strategy = 'horizontal',
-					layout_config = { width = 0.7, height = 0.8, preview_width = 0.45 },
+					layout_config = { width = width_large, preview_width = 0.55 },
 				},
 				lsp_implementations = {
-					layout_strategy = 'horizontal',
-					layout_config = { width = 0.7, height = 0.8, preview_width = 0.45 },
+					layout_config = { width = width_large, preview_width = 0.55 },
 				},
 				lsp_references = {
-					layout_strategy = 'horizontal',
-					layout_config = { width = 0.7, height = 0.8, preview_width = 0.45 },
+					layout_config = { width = width_large, preview_width = 0.55 },
 				},
 				lsp_code_actions = {
 					theme = 'cursor',
@@ -504,9 +465,7 @@ return {
 			},
 			extensions = {
 				persisted = {
-					layout_config = {
-						width = 0.55, height = 0.55,
-					},
+					layout_config = { width = 0.55, height = 0.55 },
 				},
 				zoxide = {
 					prompt_title = '[ Zoxide directories ]',
