@@ -35,30 +35,36 @@ return {
 		---@param opts cmp.ConfigSchema
 		opts = function(_, opts)
 			local cmp = require('cmp')
-
-			table.insert(opts.sources, 1, { name = 'copilot', group_index = 2 })
-
-			local fallback = opts.mapping['<CR>'].i
+			local original_cr = opts.mapping['<CR>'].i or opts.mapping['<CR>']
 			local confirm_copilot = cmp.mapping.confirm({
 				select = true,
 				behavior = cmp.ConfirmBehavior.Replace,
 			})
 
+			-- Add copilot nvim-cmp source.
+			table.insert(opts.sources, 1, {
+				name = 'copilot',
+				group_index = 2,
+			})
+
+			-- Add copilot <CR> confirm behavior.
 			opts.mapping = vim.tbl_extend('force', opts.mapping, {
 				['<CR>'] = function(...)
 					local entry = cmp.get_selected_entry()
 					if entry and entry.source.name == 'copilot' then
 						return confirm_copilot(...)
 					end
-					return fallback(...)
+					return original_cr(...)
 				end,
 			})
-			opts.sorting = {
-				priority_weight = 2,
-				comparators = {
-					require('copilot_cmp.comparators').prioritize,
 
-					-- Below is the default comparitor list and order for nvim-cmp
+			-- Prepend Copilot's cmp comparator prioritization.
+			if opts.sorting == nil then
+				opts.sorting = { priority_weight = 2 }
+			end
+			if opts.sorting.comparators == nil then
+				-- These are the default comparators in original order for nvim-cmp.
+				opts.sorting.comparators = {
 					cmp.config.compare.offset,
 					cmp.config.compare.exact,
 					-- cmp.config.compare.scopes, -- this is commented in nvim-cmp too
@@ -69,8 +75,10 @@ return {
 					-- cmp.config.compare.sort_text, -- this is commented in nvim-cmp too
 					cmp.config.compare.length,
 					cmp.config.compare.order,
-				},
-			}
+				}
+			end
+			table.insert(opts.sorting.comparators, 1,
+				require('copilot_cmp.comparators').prioritize)
 		end,
 	},
 }
