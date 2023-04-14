@@ -146,24 +146,25 @@ return {
 		end,
 		keys = {
 			-- General pickers
-			{ '<localleader>r', '<cmd>Telescope resume initial_mode=normal<CR>' },
-			{ '<localleader>R', '<cmd>Telescope pickers<CR>' },
-			{ '<localleader>f', '<cmd>Telescope find_files<CR>' },
-			{ '<localleader>g', '<cmd>Telescope live_grep<CR>' },
-			{ '<localleader>b', '<cmd>Telescope buffers show_all_buffers=true<CR>' },
-			{ '<localleader>h', '<cmd>Telescope highlights<CR>' },
-			{ '<localleader>j', '<cmd>Telescope jumplist<CR>' },
-			{ '<localleader>m', '<cmd>Telescope marks<CR>' },
-			{ '<localleader>o', '<cmd>Telescope vim_options<CR>' },
-			{ '<localleader>t', '<cmd>Telescope lsp_dynamic_workspace_symbols<CR>' },
-			{ '<localleader>v', '<cmd>Telescope registers<CR>' },
-			{ '<localleader>u', '<cmd>Telescope spell_suggest<CR>' },
-			{ '<localleader>s', '<cmd>Telescope persisted<CR>' },
-			{ '<localleader>x', '<cmd>Telescope oldfiles<CR>' },
-			{ '<localleader>;', '<cmd>Telescope command_history<CR>' },
-			{ '<localleader>:', '<cmd>Telescope commands<CR>' },
-			{ '<localleader>/', '<cmd>Telescope search_history<CR>' },
-			{ '<leader>/', '<cmd>Telescope current_buffer_fuzzy_find<CR>' },
+			{ '<localleader>r', '<cmd>Telescope resume initial_mode=normal<CR>', desc = 'Resume last' },
+			{ '<localleader>R', '<cmd>Telescope pickers<CR>', desc = 'Pickers' },
+			{ '<localleader>f', '<cmd>Telescope find_files<CR>', desc = 'Find files' },
+			{ '<localleader>g', '<cmd>Telescope live_grep<CR>', desc = 'Grep' },
+			{ '<localleader>b', '<cmd>Telescope buffers show_all_buffers=true<CR>', desc = 'Buffers' },
+			{ '<localleader>h', '<cmd>Telescope highlights<CR>', desc = 'Highlights' },
+			{ '<localleader>j', '<cmd>Telescope jumplist<CR>', desc = 'Jump list' },
+			{ '<localleader>m', '<cmd>Telescope marks<CR>', desc = 'Marks' },
+			{ '<localleader>o', '<cmd>Telescope vim_options<CR>', desc = 'Neovim options' },
+			{ '<localleader>p', '<cmd>Telescope venom virtualenvs<CR>', desc = 'Virtualenvs' },
+			{ '<localleader>t', '<cmd>Telescope lsp_dynamic_workspace_symbols<CR>', desc = 'Workspace symbols' },
+			{ '<localleader>v', '<cmd>Telescope registers<CR>', desc = 'Registers' },
+			{ '<localleader>u', '<cmd>Telescope spell_suggest<CR>', desc = 'Spell suggest' },
+			{ '<localleader>s', '<cmd>Telescope persisted<CR>', desc = 'Sessions' },
+			{ '<localleader>x', '<cmd>Telescope frecency<CR>', desc = 'Frecency' },
+			{ '<localleader>;', '<cmd>Telescope command_history<CR>', desc = 'Command history' },
+			{ '<localleader>:', '<cmd>Telescope commands<CR>', desc = 'Commands' },
+			{ '<localleader>/', '<cmd>Telescope search_history<CR>', desc = 'Search history' },
+			{ '<leader>/', '<cmd>Telescope current_buffer_fuzzy_find<CR>', desc = 'Buffer find' },
 
 			{ '<leader>sd', '<cmd>Telescope diagnostics<CR>', desc = 'Diagnostics' },
 			{ '<leader>sh', '<cmd>Telescope help_tags<CR>', desc = 'Help Pages' },
@@ -173,11 +174,11 @@ return {
 			{ '<leader>sc', '<cmd>Telescope colorscheme<CR>', desc = 'Colorscheme' },
 
 			-- LSP related
-			{ '<localleader>dd', '<cmd>Telescope lsp_definitions<CR>' },
-			{ '<localleader>di', '<cmd>Telescope lsp_implementations<CR>' },
-			{ '<localleader>dr', '<cmd>Telescope lsp_references<CR>' },
-			{ '<localleader>da', '<cmd>Telescope lsp_code_actions<CR>' },
-			{ '<localleader>da', ':Telescope lsp_range_code_actions<CR>', mode = 'x' },
+			{ '<localleader>dd', '<cmd>Telescope lsp_definitions<CR>', desc = 'Definitions' },
+			{ '<localleader>di', '<cmd>Telescope lsp_implementations<CR>', desc = 'Implementations' },
+			{ '<localleader>dr', '<cmd>Telescope lsp_references<CR>', desc = 'References' },
+			{ '<localleader>da', '<cmd>Telescope lsp_code_actions<CR>', desc = 'Code actions' },
+			{ '<localleader>da', ':Telescope lsp_range_code_actions<CR>', mode = 'x', desc = 'Code actions' },
 			{
 				'<leader>ss',
 				function()
@@ -220,16 +221,16 @@ return {
 			},
 
 			-- Git
-			{ '<leader>gs', '<cmd>Telescope git_status<CR>' },
-			{ '<leader>gr', '<cmd>Telescope git_branches<CR>' },
-			{ '<leader>gl', '<cmd>Telescope git_commits<CR>' },
-			{ '<leader>gL', '<cmd>Telescope git_bcommits<CR>' },
-			{ '<leader>gh', '<cmd>Telescope git_stash<CR>' },
+			{ '<leader>gs', '<cmd>Telescope git_status<CR>', desc = 'Git status' },
+			{ '<leader>gr', '<cmd>Telescope git_branches<CR>', desc = 'Git branches' },
+			{ '<leader>gl', '<cmd>Telescope git_commits<CR>', desc = 'Git commits' },
+			{ '<leader>gL', '<cmd>Telescope git_bcommits<CR>', desc = 'Git buffer commits' },
+			{ '<leader>gh', '<cmd>Telescope git_stash<CR>', desc = 'Git stashes' },
 
 			-- Plugins
-			{ '<localleader>n', plugin_directories },
-			{ '<localleader>k', '<cmd>Telescope thesaurus lookup<CR>' },
-			{ '<localleader>w', '<cmd>ZkNotes<CR>' },
+			{ '<localleader>n', plugin_directories, desc = 'Plugins' },
+			{ '<localleader>k', '<cmd>Telescope thesaurus lookup<CR>', desc = 'Thesaurus' },
+			{ '<localleader>w', '<cmd>ZkNotes<CR>', desc = 'Zk notes' },
 
 			{
 				'<localleader>z',
@@ -238,6 +239,7 @@ return {
 						layout_config = { width = 0.5, height = 0.6 },
 					})
 				end,
+				desc = 'Zoxide (MRU)',
 			},
 
 			-- Find by...
@@ -248,6 +250,7 @@ return {
 						default_text = vim.fn.expand('<cword>'),
 					})
 				end,
+				desc = 'Find symbol',
 			},
 			{
 				'<leader>gf',
@@ -256,13 +259,15 @@ return {
 						default_text = vim.fn.expand('<cword>'),
 					})
 				end,
+				desc = 'Find file',
 			},
 			{
 				'<leader>gg', function()
 					require('telescope.builtin').live_grep({
 						default_text = vim.fn.expand('<cword>'),
 					})
-				end
+				end,
+				desc = 'Grep cursor word',
 			},
 			{
 				'<leader>gg',
@@ -272,6 +277,7 @@ return {
 					})
 				end,
 				mode = 'x',
+				desc = 'Grep cursor word',
 			},
 
 		},
@@ -476,7 +482,7 @@ return {
 							end,
 							after_action = function(selection)
 								vim.notify(
-									"Current working directory set to '"..selection.path.."'",
+									"Current working directory set to '".. selection.path .."'",
 									vim.log.levels.INFO
 								)
 							end

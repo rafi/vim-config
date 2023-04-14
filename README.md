@@ -71,9 +71,9 @@ Please read "[Extending](#extending)" to learn how to customize and modify.
   * [Plugin: Mini.Bracketed](#plugin-minibracketed)
   * [Plugin: Mini.Surround](#plugin-minisurround)
   * [Plugin: Gitsigns](#plugin-gitsigns)
-  * [Plugin: Fugitive](#plugin-fugitive)
   * [Plugin: Telescope](#plugin-telescope)
   * [Plugin: Neo-Tree](#plugin-neo-tree)
+  * [Plugin: Zk](#plugin-zk)
   * [Plugin: Spectre](#plugin-spectre)
   * [Plugin: Marks](#plugin-marks)
 
@@ -1008,6 +1008,10 @@ Note that,
 | <kbd>Space</kbd>+<kbd>?</kbd> | 𝐍 | Open the macOS dictionary on current word | <small>`:!open dict://`</small>
 | <kbd>Space</kbd>+<kbd>P</kbd> | 𝐍 | Use Marked 2 for real-time Markdown preview | <small>[Marked 2]</small>
 | <kbd>Space</kbd>+<kbd>cp</kbd> | 𝐍 | Open color-picker | <small>[uga-rosa/ccc.nvim]</small>
+| <kbd>Space</kbd>+<kbd>gu</kbd> | 𝐍 | Open undo-tree | <small>[mbbill/undotree]</small>
+| <kbd>Space</kbd> <kbd>gd</kbd> | 𝐍 | Git diff | <small>[tpope/vim-fugitive]</small>
+| <kbd>Space</kbd> <kbd>gb</kbd> | 𝐍 | Git blame | <small>[tpope/vim-fugitive]</small>
+| <kbd>Space</kbd> <kbd>go</kbd> | 𝐍 𝐕 | Open SCM detailed URL in browser | <small>[ruifm/gitlinker.nvim]</small>
 | <kbd>Space</kbd>+<kbd>ml</kbd> | 𝐍 | Append modeline to end of buffer | <small>[lua/rafi/config/keymaps.lua]</small>
 | <kbd>Space</kbd>+<kbd>mda</kbd> | 𝐕 | Sequentially mark region for diff | <small>[AndrewRadev/linediff.vim]</small>
 | <kbd>Space</kbd>+<kbd>mdf</kbd> | 𝐕 | Mark region for diff and compare if more than one | <small>[AndrewRadev/linediff.vim]</small>
@@ -1015,7 +1019,6 @@ Note that,
 | <kbd>Space</kbd>+<kbd>mdr</kbd> | 𝐍 | Removes the signs denoting the diff regions | <small>[AndrewRadev/linediff.vim]</small>
 | <kbd>Space</kbd>+<kbd>mt</kbd> | 𝐍 𝐕 | Toggle highlighted word | <small>[t9md/vim-quickhl]</small>
 | <kbd>Space</kbd>+<kbd>zz</kbd> | 𝐍 | Toggle distraction-free writing | <small>[folke/zen-mode.nvim]</small>
-| <kbd>Space</kbd>+<kbd>gu</kbd> | 𝐍 | Open undo-tree | <small>[mbbill/undotree]</small>
 
 ### Window Management
 
@@ -1093,22 +1096,6 @@ See [lewis6991/gitsigns.nvim] for more mappings and usage information.
 | <kbd>Space</kbd> <kbd>hw</kbd> | 𝐍 | Toggle word diff |
 | <kbd>Space</kbd> <kbd>hl</kbd> | 𝐍 | Publish hunks to location-list |
 
-### Plugin: Fugitive
-
-See [tpope/vim-fugitive] for more mappings and usage information.
-
-| Key   | Mode | Action             |
-| ----- |:----:| ------------------ |
-| <kbd>Space</kbd> <kbd>ga</kbd> | 𝐍 | Git add current file |
-| <kbd>Space</kbd> <kbd>gd</kbd> | 𝐍 | Git diff |
-| <kbd>Space</kbd> <kbd>gc</kbd> | 𝐍 | Git commit |
-| <kbd>Space</kbd> <kbd>gb</kbd> | 𝐍 | Git blame |
-| <kbd>Space</kbd> <kbd>gs</kbd> | 𝐍 | Git status -s |
-| <kbd>Space</kbd> <kbd>gl</kbd> | 𝐍 | Git log --graph --all |
-| <kbd>Space</kbd> <kbd>gF</kbd> | 𝐍 | Git fetch |
-| <kbd>Space</kbd> <kbd>gp</kbd> | 𝐍 | Git push |
-| <kbd>Space</kbd> <kbd>go</kbd> | 𝐍 𝐕 | Open SCM detailed URL in browser |
-
 ### Plugin: Telescope
 
 See [telescope.nvim] for more mappings and usage information.
@@ -1123,7 +1110,7 @@ See [telescope.nvim] for more mappings and usage information.
 | <kbd>;x</kbd> | 𝐍 | Old files
 | <kbd>;v</kbd> | 𝐍 𝐕 | Yank history
 | <kbd>;m</kbd> | 𝐍 | Marks
-| <kbd>;n</kbd> | 𝐍 | Dein plugin list
+| <kbd>;n</kbd> | 𝐍 | Plugins
 | <kbd>;j</kbd> | 𝐍 | Jump points
 | <kbd>;k</kbd> | 𝐍 | Thesaurus
 | <kbd>;u</kbd> | 𝐍 | Spelling suggestions
@@ -1131,13 +1118,31 @@ See [telescope.nvim] for more mappings and usage information.
 | <kbd>;s</kbd> | 𝐍 | Sessions
 | <kbd>;t</kbd> | 𝐍 | LSP workspace symbols
 | <kbd>;h</kbd> | 𝐍 | Highlights
-| <kbd>;w</kbd> | 𝐍 | Memo list
+| <kbd>;w</kbd> | 𝐍 | Zk notes
 | <kbd>;z</kbd> | 𝐍 | Zoxide directories
 | <kbd>;;</kbd> | 𝐍 | Command history
 | <kbd>;/</kbd> | 𝐍 | Search history
+| <kbd>;dd</kbd> | 𝐍 | LSP definitions
+| <kbd>;di</kbd> | 𝐍 | LSP implementations
+| <kbd>;dr</kbd> | 𝐍 | LSP references
+| <kbd>;da</kbd> | 𝐍 𝐕 | LSP code actions
+| <kbd>Space</kbd>+<kbd>/</kbd> | 𝐍 | Buffer fuzzy find
+| <kbd>Space</kbd>+<kbd>gs</kbd> | 𝐍 | Git status
+| <kbd>Space</kbd>+<kbd>gr</kbd> | 𝐍 | Git branches
+| <kbd>Space</kbd>+<kbd>gl</kbd> | 𝐍 | Git commits
+| <kbd>Space</kbd>+<kbd>gL</kbd> | 𝐍 | Git buffer commits
+| <kbd>Space</kbd>+<kbd>gh</kbd> | 𝐍 | Git stashes
 | <kbd>Space</kbd>+<kbd>gt</kbd> | 𝐍 | Find symbols matching word under cursor
 | <kbd>Space</kbd>+<kbd>gf</kbd> | 𝐍 | Find files matching word under cursor
 | <kbd>Space</kbd>+<kbd>gg</kbd> | 𝐍 𝐕 | Grep word under cursor
+| <kbd>Space</kbd>+<kbd>sd</kbd> | 𝐍 | Diagnostics
+| <kbd>Space</kbd>+<kbd>sh</kbd> | 𝐍 | Help tags
+| <kbd>Space</kbd>+<kbd>sk</kbd> | 𝐍 | Key-maps
+| <kbd>Space</kbd>+<kbd>sm</kbd> | 𝐍 | Man pages
+| <kbd>Space</kbd>+<kbd>ss</kbd> | 𝐍 | LSP document symbols
+| <kbd>Space</kbd>+<kbd>sS</kbd> | 𝐍 | LSP workspace symbols
+| <kbd>Space</kbd>+<kbd>sw</kbd> | 𝐍 | Grep string
+| <kbd>Space</kbd>+<kbd>sc</kbd> | 𝐍 | Colorschemes
 | **Within _Telescope_ window** ||
 | <kbd>?</kbd> | 𝐍 | Keymaps help screen
 | <kbd>Ctrl</kbd>+<kbd>Space</kbd> | 𝐍 | Move from none fuzzy search to fuzzy

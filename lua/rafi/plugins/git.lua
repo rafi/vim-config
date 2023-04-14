@@ -79,7 +79,7 @@ return {
 		dependencies = { 'sindrets/diffview.nvim' },
 		cmd = 'Neogit',
 		keys = {
-			{ '<Leader>mg', '<cmd>Neogit<CR>' }
+			{ '<Leader>mg', '<cmd>Neogit<CR>', desc = 'Neogit' }
 		},
 		-- See: https://github.com/TimUntersberger/neogit#configuration
 		opts = {
