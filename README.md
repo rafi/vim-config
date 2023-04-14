@@ -543,6 +543,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [TimUntersberger/neogit] | Magit clone for Neovim
 | [tpope/vim-fugitive] | Git client
 | [junegunn/gv.vim] | Git log browser
+| [ruifm/gitlinker.nvim] | Browse git repositories
 | [rhysd/committia.vim] | Pleasant editing on Git commit messages
 
 ### Misc Plugins
@@ -664,6 +665,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [TimUntersberger/neogit]: https://github.com/TimUntersberger/neogit
 [tpope/vim-fugitive]: https://github.com/tpope/vim-fugitive
 [junegunn/gv.vim]: https://github.com/junegunn/gv.vim
+[ruifm/gitlinker.nvim]: https://github.com/ruifm/gitlinker.nvim
 [rhysd/committia.vim]: https://github.com/rhysd/committia.vim
 
 [hoob3rt/lualine.nvim]: https://github.com/hoob3rt/lualine.nvim

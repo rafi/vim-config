@@ -100,13 +100,10 @@ return {
 	-----------------------------------------------------------------------------
 	{
 		'tpope/vim-fugitive',
-		dependencies = { 'tpope/vim-rhubarb' },
 		cmd = { 'G', 'Git', 'GBrowse', 'Gfetch', 'Gpush', 'Gclog', 'Gdiffsplit' },
 		keys = {
-			{ '<leader>gd', '<cmd>Gdiffsplit<CR>' },
-			{ '<leader>gb', '<cmd>Git blame<CR>' },
-			{ '<leader>go', '<cmd>GBrowse<CR>' },
-			{ '<leader>go', ':GBrowse<CR>', mode = 'x' },
+			{ '<leader>gd', '<cmd>Gdiffsplit<CR>', desc = 'Git diff' },
+			{ '<leader>gb', '<cmd>Git blame<CR>', desc = 'Git blame' },
 		},
 		config = function()
 			vim.api.nvim_create_autocmd('FileType', {
@@ -126,6 +123,37 @@ return {
 		'junegunn/gv.vim',
 		dependencies = { 'tpope/vim-fugitive' },
 		cmd = 'GV'
+	},
+
+	-----------------------------------------------------------------------------
+	{
+		'ruifm/gitlinker.nvim',
+		keys = {
+			{
+				'<leader>go', function()
+					require('gitlinker').get_buf_range_url('n')
+				end,
+				silent = true,
+				desc = 'Git open in browser',
+			},
+			{
+				'<leader>go', function()
+					require('gitlinker').get_buf_range_url('v')
+				end,
+				mode = 'x',
+				desc = 'Git open in browser',
+			},
+		},
+		opts = {
+			mappings = nil,
+			opts = {
+				add_current_line_on_normal_mode = true,
+				print_url = false,
+				action_callback = function(...)
+					return require('gitlinker.actions').open_in_browser(...)
+				end
+			}
+		},
 	},
 
 	-----------------------------------------------------------------------------
