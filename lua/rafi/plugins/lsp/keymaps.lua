@@ -31,8 +31,7 @@ function M.get(client, buffer)
 	map('n', ',wr', vim.lsp.buf.remove_workspace_folder)
 	map('n', ',wl', '<cmd>lua =vim.lsp.buf.list_workspace_folders()<CR>')
 
-	map('n', ',f', format, { has = 'documentFormatting' })
-	map('x', ',f', format, { has = 'documentRangeFormatting' })
+	map({'n', 'x'}, ',f', format, { has = 'documentFormatting' })
 
 	map('n', 'K', function()
 		local winid = require('rafi.config').has('nvim-ufo')
@@ -48,7 +47,12 @@ function M.get(client, buffer)
 		vim.lsp.buf.code_action,
 		{ has = 'codeAction', desc = 'Code Action' }
 	)
-	map('n', '<Leader>ce', vim.diagnostic.open_float)
+	map(
+		'n',
+		'<Leader>ce',
+		vim.diagnostic.open_float,
+		{ desc = 'Open diagnostics' }
+	)
 
 	if not require('rafi.config').has('mini.bracketed') then
 		map('n', ']d', M.diagnostic_goto(true))

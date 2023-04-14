@@ -140,7 +140,6 @@ return {
 			width = winwidth,
 			mappings = {
 				['q'] = 'close_window',
-				['<Esc>'] = 'close_window',
 				['?'] = 'noop',
 				['/'] = 'noop',
 
