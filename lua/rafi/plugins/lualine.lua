@@ -68,14 +68,7 @@ return {
 					globalstatus = true,
 					always_divide_middle = false,
 					disabled_filetypes = {
-						statusline = {
-							'dashboard',
-							'lazy',
-							'alpha',
-							'mason',
-							'neo-tree-popup',
-							'whichkey',
-						}
+						statusline = { 'dashboard', 'alpha', 'neo-tree-popup' }
 					},
 					component_separators = '',
 					section_separators   = '',
@@ -260,11 +253,15 @@ return {
 						filetypes = {
 							'DiffviewFiles',
 							'fugitiveblame',
+							'lazy',
+							'mason',
 							'neo-tree',
 							'NeogitStatus',
 							'Outline',
-							'Trouble',
 							'qf',
+							'spectre_panel',
+							'TelescopePrompt',
+							'Trouble',
 						},
 						sections = {
 							lualine_a = {
@@ -303,7 +300,13 @@ return {
 								}
 							},
 							lualine_z = {
-								{ function() return '%l/%L' end, separator = { left = '' } },
+								{
+									function() return '%l/%L' end,
+									cond = function()
+										return vim.bo.filetype ~= 'TelescopePrompt'
+									end,
+									separator = { left = '' },
+								},
 							},
 						},
 						inactive_sections = {

@@ -2,20 +2,22 @@
 -- https://github.com/rafi/vim-config
 
 local plugin_icons = {
-	quickfix = { '', 'Quickfix List' }, --  
+	DiffviewFiles = { '' },
+	fugitive = { '󰊢' },
+	fugitiveblame = { '󰊢', 'Blame' },
+	lazy = { '󰒲', 'Lazy.nvim' },
 	loclist = { '', 'Location List' },
-	['neo-tree'] = { ' ', 'Neo-tree' },
+	mason = { '', 'Mason' },
+	NeogitStatus = { '󰉺' },
+	['neo-tree'] = { '', 'Neo-tree' },
 	['neo-tree-popup'] = { '', 'Neo-tree' },
-	TelescopePrompt = { '', 'Telescope' },
-	Trouble = { '' }, --  
-	DiffviewFiles = { '' },
 	Outline = { '' },
-	mason = { '', 'Mason' },
-	spectre_panel = { '', 'Spectre' },
+	quickfix = { '', 'Quickfix List' }, --  
+	spectre_panel = { '󰥩', 'Spectre' },
+	TelescopePrompt = { '', 'Telescope' },
+	terminal = { '' },
+	Trouble = { '' }, --  
 	undotree = { '' },
-	NeogitStatus = { '' },
-	fugitive = { '' },
-	fugitiveblame = { '', 'Blame' },
 }
 
 local root_patterns = { '.git', '_darcs', '.hg', '.bzr', '.svn' }
