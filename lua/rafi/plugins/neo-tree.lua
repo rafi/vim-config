@@ -38,10 +38,9 @@ local function set_cursorline()
 end
 
 -- Find previous neo-tree window and clear bright highlight selection.
--- Don't hide cursorline though, so 'follow_current_file' works.
 local function reset_cursorline()
 	local winid = vim.fn.win_getid(vim.fn.winnr('#'))
-	vim.api.nvim_win_set_option(winid, 'winhighlight', '')
+	vim.api.nvim_win_set_option(winid, 'cursorline', false)
 end
 
 return {
@@ -136,7 +135,6 @@ return {
 			},
 		},
 		window = {
-			position = 'left',
 			width = winwidth,
 			mappings = {
 				['q'] = 'close_window',
@@ -208,7 +206,6 @@ return {
 				},
 			},
 			use_libuv_file_watcher = true,
-			follow_current_file = true,
 			group_empty_dirs = true,
 			bind_to_cwd = false,
 			cwd_target = {
@@ -220,7 +217,7 @@ return {
 				visible = false,
 				show_hidden_count = true,
 				hide_dotfiles = false,
-				hide_gitignored = true,
+				hide_gitignored = false,
 				hide_by_name = {
 					'.git',
 					'.hg',
