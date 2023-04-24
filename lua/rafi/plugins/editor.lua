@@ -334,7 +334,8 @@ return {
 				group = vim.api.nvim_create_augroup('rafi_outline', {}),
 				pattern = 'Outline',
 				callback = function()
-					vim.opt_local.winhighlight = 'CursorLine:WildMenu'
+					vim.wo.winhighlight = 'CursorLine:WildMenu'
+					vim.wo.signcolumn = 'auto'
 				end
 			})
 		end

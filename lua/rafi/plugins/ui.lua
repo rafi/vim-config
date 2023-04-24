@@ -6,7 +6,7 @@ return {
 	-----------------------------------------------------------------------------
 	{ 'nvim-tree/nvim-web-devicons', lazy = false },
 	{ 'MunifTanjim/nui.nvim', lazy = false },
-	{ 'rafi/tabstrip.nvim', lazy = false, opts = true },
+	{ 'rafi/tabstrip.nvim', lazy = false, priority = 98, opts = true },
 
 	-----------------------------------------------------------------------------
 	{

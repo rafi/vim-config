@@ -90,7 +90,6 @@ end
 local function get_matched_ratio(dimensions, size)
 	for min_cols, scale in pairs(dimensions) do
 		if min_cols == 'lower' or size >= min_cols then
-			vim.print(size, scale)
 			return math.floor(size * scale)
 		end
 	end

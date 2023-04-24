@@ -15,7 +15,9 @@ local defaults = {
 	defaults = {
 		autocmds = true, -- rafi.config.autocmds
 		keymaps = true,  -- rafi.config.keymaps
-		options = true,  -- rafi.config.options
+		-- rafi.config.options can't be configured here since it's loaded premature
+		-- Disable loading options with following line at the top of your init.lua:
+		-- `package.loaded['lazyvim.config.options'] = true`
 
 		features = {
 			elite_mode = false,
@@ -217,7 +219,7 @@ function M.load(name)
 		})
 	end
 	-- always load rafi's file, then user file
-	if M.defaults[name] then
+	if M.defaults[name] or name == 'options' then
 		_load('rafi.config.' .. name)
 	end
 	_load('config.' .. name)
@@ -284,11 +286,13 @@ function M.lazy_notify()
 end
 
 -- Join paths.
+---@private
 M.path_join = function(...)
 	return table.concat({ ... }, M.path_sep)
 end
 
 -- Variable holds OS directory separator.
+---@private
 M.path_sep = (function()
 	if jit then
 		local os = string.lower(jit.os)
