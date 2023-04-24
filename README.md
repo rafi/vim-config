@@ -100,7 +100,7 @@ Please read "[Extending](#extending)" to learn how to customize and modify.
 
 ## Screenshot
 
-![Vim screenshot](http://rafi.io/static/img/project/vim-config/features.png)
+![Vim screenshot](http://rafi.io/img/project/vim-config/features.png)
 
 ## Prerequisites
 
@@ -346,7 +346,6 @@ return {
   defaults = {
     autocmds = true, -- Load lua/rafi/config/autocmds.lua
     keymaps = true,  -- Load lua/rafi/config/keymaps.lua
-    options = true,  -- Load lua/rafi/config/options.lua
 
     features = {
       -- Set arrow-keys to window resize
@@ -358,6 +357,14 @@ return {
 }
 ```
 
+**Note:** `rafi.config.options` can't be configured here since it's loaded
+prematurely. You can disable loading options with the following line at the top
+of your `lua/config/setup.lua` or `init.lua`:
+
+```lua
+package.loaded['rafi.config.options'] = true
+```
+
 If you are using this distro as-is, and aren't importing it externally,
 create `lua/config/setup.lua` with:
 
@@ -365,12 +372,12 @@ create `lua/config/setup.lua` with:
 local M = {}
 
 function M.override(user_opts)
-  local opts = {
-    defaults = {
-      features = { elite_mode = true }
+  return {
+    features = {
+      elite_mode = false,
+      window_q_mapping = true,
     }
   }
-  return vim.tbl_deep_extend('force', user_opts or {}, opts)
 end
 
 return M
@@ -384,8 +391,9 @@ return {
     "rafi/vim-config",
     import = "rafi.plugins",
     opts = {
-      defaults = {
-        features = { elite_mode = true },
+      features = {
+        elite_mode = false,
+        window_q_mapping = true,
       },
     },
   },

@@ -15,18 +15,21 @@ local defaults = {
 	defaults = {
 		autocmds = true, -- rafi.config.autocmds
 		keymaps = true,  -- rafi.config.keymaps
-		-- rafi.config.options can't be configured here since it's loaded premature
-		-- Disable loading options with following line at the top of your init.lua:
-		-- `package.loaded['lazyvim.config.options'] = true`
-
-		features = {
-			elite_mode = false,
-			window_q_mapping = true,
-		},
+		-- rafi.config.options can't be configured here since it's loaded
+		-- prematurely. You can disable loading options with the following line at
+		-- the top of your lua/config/setup.lua or init.lua:
+		-- `package.loaded['rafi.config.options'] = true`
 	},
+
 	-- String like `habamax` or a function that will load the colorscheme.
+	-- Disabled by default to allow theme-loader.nvim to manage the colorscheme.
 	---@type string|fun()
 	colorscheme = '',
+
+	features = {
+		elite_mode = false,
+		window_q_mapping = true,
+	},
 
 	icons = {
 		diagnostics = {
@@ -128,11 +131,11 @@ function M.setup(user_opts)
 	end
 
 	-- Override config with user config at lua/config/setup.lua
-	local user_setup_path = M.path_join(vim.fn.stdpath('config'), 'lua', 'config', 'setup.lua')
-	if vim.loop.fs_stat(user_setup_path) ~= nil then
-		options = require('config.setup').override(options)
+	local ok, user_setup = pcall(require, 'config.setup')
+	if ok then
+		options = vim.tbl_deep_extend('force', options, user_setup.override())
 	end
-	for feat_name, feat_val in pairs(options.defaults.features) do
+	for feat_name, feat_val in pairs(options.features) do
 		vim.g['rafi_' .. feat_name] = feat_val
 	end
 
