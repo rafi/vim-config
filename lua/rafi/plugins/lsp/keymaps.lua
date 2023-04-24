@@ -6,7 +6,9 @@ local M = {}
 ---@param client lsp.Client
 ---@param buffer integer
 function M.get(client, buffer)
-	local format = require('rafi.plugins.lsp.format').format
+	local format = function()
+		require('rafi.plugins.lsp.format').format({ force = true })
+	end
 	local function map(mode, lhs, rhs, user_opts)
 		local opts = { buffer = buffer, noremap = true, silent = true }
 		opts = vim.tbl_extend('force', opts, user_opts or {})
@@ -39,7 +41,7 @@ function M.get(client, buffer)
 		if not winid then
 			vim.lsp.buf.hover()
 		end
-	end, { has = 'hover' })
+	end)
 
 	map(
 		{'n', 'x'},
@@ -72,22 +74,23 @@ end
 -- Toggle diagnostics locally (false) or globally (true).
 ---@param global boolean
 function M.diagnostic_toggle(global)
-	local vars, bufnr, cmd, msg
+	local bufnr, cmd, msg, state
 	if global then
-		vars = vim.g
 		bufnr = nil
+		state = vim.g.diagnostics_disabled
+		vim.g.diagnostics_disabled = not state
 	else
-		vars = vim.b
 		bufnr = 0
+		if vim.fn.has('nvim-0.9') == 1 then
+			state = vim.diagnostic.is_disabled(bufnr)
+		else
+			state = vim.b.diagnostics_disabled
+			vim.b.diagnostics_disabled = not state
+		end
 	end
-	vars.diagnostics_disabled = not vars.diagnostics_disabled
-	if vars.diagnostics_disabled then
-		cmd = 'disable'
-		msg = 'Disabling diagnostics'
-	else
-		cmd = 'enable'
-		msg = 'Enabling diagnostics'
-	end
+
+	cmd = state and 'enable' or 'disable'
+	msg = cmd:gsub('^%l', string.upper) .. 'd diagnostics'
 	if global then
 		msg = msg .. ' globally'
 	end

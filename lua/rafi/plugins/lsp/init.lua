@@ -45,6 +45,15 @@ return {
 				formatting_options = nil,
 				timeout_ms = nil,
 			},
+			-- Add any global capabilities here
+			capabilities = {
+				textDocument = {
+					foldingRange = {
+						dynamicRegistration = false,
+						lineFoldingOnly = true,
+					},
+				},
+			},
 			-- LSP Server Settings
 			---@type lspconfig.options
 			servers = {
@@ -82,17 +91,13 @@ return {
 		config = function(_, opts)
 			-- Setup autoformat
 			require('rafi.plugins.lsp.format').autoformat = opts.autoformat
-			-- Setup formatting and keymaps
+			-- Setup formatting, keymaps and highlights.
 			require('rafi.config').on_attach(function(client, buffer)
 				require('rafi.plugins.lsp.format').on_attach(client, buffer)
 				require('rafi.plugins.lsp.keymaps').on_attach(client, buffer)
 				require('rafi.plugins.lsp.highlight').on_attach(client, buffer)
 
-				if
-					vim.b[buffer].diagnostics_disabled or vim.g['diagnostics_disabled']
-					or vim.bo[buffer].buftype ~= '' or vim.bo[buffer].filetype == 'helm'
-				then
-					-- Disable diagnostics if user toggled, or for Helm files.
+				if vim.diagnostic.is_disabled() or vim.bo[buffer].buftype ~= '' then
 					vim.diagnostic.disable(buffer)
 					return
 				end
@@ -103,7 +108,8 @@ return {
 				local hl = 'DiagnosticSign' .. type
 				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
 			end
-			vim.diagnostic.config(opts.diagnostics)
+
+			vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
 			-- See https://github.com/rafi/neoconf-venom.nvim
 			require('venom').setup()
@@ -112,14 +118,13 @@ return {
 
 			-- Setup base config for all servers.
 			local servers = opts.servers
-
-			local capabilities = require('cmp_nvim_lsp').default_capabilities(
-				vim.lsp.protocol.make_client_capabilities()
+			local capabilities = vim.tbl_deep_extend(
+				'force',
+				{},
+				vim.lsp.protocol.make_client_capabilities(),
+				require('cmp_nvim_lsp').default_capabilities(),
+				opts.capabilities or {}
 			)
-			capabilities.textDocument.foldingRange = {
-				dynamicRegistration = false,
-				lineFoldingOnly = true,
-			}
 
 			-- Combine base config for each server and merge user-defined settings.
 			-- These can be overridden locally by lua/lsp/<server_name>.lua
