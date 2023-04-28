@@ -48,7 +48,7 @@ local defaults = {
 				error = ' ',
 				warn = ' ',
 				info = ' ',
-				hint = ' '
+				hint = ' ',
 			},
 			filename = {
 				modified = '+',
@@ -126,6 +126,7 @@ end
 ---@type RafiConfig
 local options
 
+-- Load rafi and user config files.
 ---@param user_opts table|nil
 function M.setup(user_opts)
 	if not M.did_init then
@@ -185,6 +186,7 @@ function M.on_attach(on_attach)
 end
 
 ---@param range? string
+---@return boolean
 function M.has_version(range)
 	local Semver = require('lazy.manage.semver')
 	return Semver.range(range or M.lazy_version)
@@ -192,6 +194,7 @@ function M.has_version(range)
 end
 
 ---@param plugin string
+---@return boolean
 function M.has(plugin)
 	return require('lazy.core.config').plugins[plugin] ~= nil
 end
@@ -207,6 +210,7 @@ function M.on_very_lazy(fn)
 end
 
 ---@param name string
+---@return table
 function M.plugin_opts(name)
 	local plugin = require('lazy.core.config').plugins[name]
 	if not plugin then
@@ -261,6 +265,7 @@ function M.ensure_lazy()
 end
 
 -- Validate if lua/plugins/ or lua/plugins.lua exist.
+---@return boolean
 function M.has_user_plugins()
 	local user_path = M.path_join(vim.fn.stdpath('config'), 'lua')
 	return vim.loop.fs_stat(M.path_join(user_path, 'plugins')) ~= nil
@@ -270,7 +275,9 @@ end
 -- Delay notifications till vim.notify was replaced or after 500ms.
 function M.lazy_notify()
 	local notifs = {}
-	local function temp(...) table.insert(notifs, vim.F.pack_len(...)) end
+	local function temp(...)
+		table.insert(notifs, vim.F.pack_len(...))
+	end
 
 	local orig = vim.notify
 	vim.notify = temp
@@ -294,7 +301,9 @@ function M.lazy_notify()
 
 	-- wait till vim.notify has been replaced
 	check:start(function()
-		if vim.notify ~= temp then replay() end
+		if vim.notify ~= temp then
+			replay()
+		end
 	end)
 	-- or if it took more than 500ms, then something went wrong
 	timer:start(500, 0, replay)

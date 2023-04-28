@@ -20,6 +20,8 @@ local toggle_width = function()
 end
 
 -- Get current opened directory from state.
+---@param state table
+---@return string
 local function get_current_directory(state)
 	local node = state.tree:get_node()
 	local path = node.path

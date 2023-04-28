@@ -63,7 +63,7 @@ vim.api.nvim_create_autocmd('SwapExists', {
 vim.api.nvim_create_autocmd('BufWritePre', {
 	group = augroup('auto_create_dir'),
 	callback = function(event)
-		if event.match:match("^%w%w+://") then
+		if event.match:match('^%w%w+://') then
 			return
 		end
 		local file = vim.loop.fs_realpath(event.match) or event.match
@@ -115,8 +115,8 @@ vim.api.nvim_create_autocmd('FileType', {
 	},
 	callback = function(event)
 		vim.bo[event.buf].buflisted = false
-		vim.keymap.set('n', 'q', '<cmd>close<CR>',
-			{ buffer = event.buf, silent = true })
+		-- stylua: ignore
+		vim.keymap.set('n', 'q', '<cmd>close<CR>', { buffer = event.buf, silent = true })
 	end,
 })
 
@@ -132,7 +132,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 })
 
 -- Disable swap/undo/backup files in temp directories or shm
-vim.api.nvim_create_autocmd({'BufNewFile', 'BufReadPre'}, {
+vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufReadPre' }, {
 	group = augroup('secure'),
 	pattern = {
 		'/tmp/*',

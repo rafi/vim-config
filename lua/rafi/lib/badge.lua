@@ -32,7 +32,7 @@ local augroup = vim.api.nvim_create_augroup('rafi_badge', {})
 
 -- Clear cached values that relate to buffer filename.
 vim.api.nvim_create_autocmd(
-	{'BufReadPost', 'BufFilePost', 'BufNewFile', 'BufWritePost'},
+	{ 'BufReadPost', 'BufFilePost', 'BufNewFile', 'BufWritePost' },
 	{
 		group = augroup,
 		callback = function()
@@ -80,12 +80,18 @@ function M.root()
 end
 
 -- Try to guess the project's name
+---@return string
 function M.project()
 	return vim.fn.fnamemodify(M.root(), ':t')
 end
 
 -- Provides relative path with limited characters in each directory name, and
 -- limits number of total directories. Caches the result for current buffer.
+---@param bufnr integer buffer number
+---@param max_dirs integer max dirs to show
+---@param dir_max_chars integer max chars in dir
+---@param cache_suffix string? cache suffix
+---@return string
 function M.filepath(bufnr, max_dirs, dir_max_chars, cache_suffix)
 	local msg = ''
 	local cache_key = 'badge_cache_filepath' -- _'..ft
@@ -187,6 +193,8 @@ function M.icon(bufnr)
 end
 
 -- Detect trailing whitespace and cache result per buffer
+---@param symbol string
+---@return string
 function M.trails(symbol)
 	local cache_key = 'badge_cache_trails'
 	local cache_ok, cache = pcall(vim.api.nvim_buf_get_var, 0, cache_key)
@@ -195,11 +203,7 @@ function M.trails(symbol)
 	end
 
 	local msg = ''
-	if
-		not vim.bo.readonly
-		and vim.bo.modifiable
-		and vim.fn.line('$') < 9000
-	then
+	if not vim.bo.readonly and vim.bo.modifiable and vim.fn.line('$') < 9000 then
 		local trailing = vim.fn.search('\\s$', 'nw')
 		if trailing > 0 then
 			local label = symbol or 'WS:'

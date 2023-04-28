@@ -222,6 +222,7 @@ return {
 		opts = function()
 			-- lsp->treesitter->indent
 			---@param bufnr number
+			---@return table
 			local function customizeSelector(bufnr)
 				local function handleFallbackException(err, providerName)
 					if type(err) == 'string' and err:match('UfoFallbackException') then
@@ -276,6 +277,7 @@ return {
 				---@param lnum integer
 				---@param endLnum integer
 				---@param width integer
+				---@return table
 				fold_virt_text_handler = function(text, lnum, endLnum, width)
 					local suffix = "  "
 					local lines  = ('  %d '):format(endLnum - lnum)

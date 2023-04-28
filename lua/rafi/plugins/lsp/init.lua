@@ -63,8 +63,8 @@ return {
 				jsonls = {
 					on_new_config = function(new_config)
 						-- Lazy-load schemastore when needed
-						new_config.settings.json.schemas =
-							new_config.settings.json.schemas or {}
+						new_config.settings.json.schemas = new_config.settings.json.schemas
+							or {}
 						vim.list_extend(
 							new_config.settings.json.schemas,
 							require('schemastore').json.schemas()
@@ -196,8 +196,14 @@ return {
 					return not vim.api.nvim_buf_get_name(bufnr):match('^[a-z]+://')
 				end,
 				root_dir = require('null-ls.utils').root_pattern(
-					'.git', '_darcs', '.hg', '.bzr', '.svn',
-					'.null-ls-root', '.neoconf.json', 'Makefile'
+					'.git',
+					'_darcs',
+					'.hg',
+					'.bzr',
+					'.svn',
+					'.null-ls-root',
+					'.neoconf.json',
+					'Makefile'
 				),
 				sources = {
 					builtins.formatting.stylua,

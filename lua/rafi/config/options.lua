@@ -2,6 +2,8 @@
 -- github.com/rafi/vim-config
 -- ===
 
+-- stylua: ignore start
+
 -- Keyboard leaders
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ';'
@@ -147,7 +149,7 @@ opt.pumheight = 10      -- Maximum number of items to show in the popup menu
 opt.pumwidth = 10       -- Minimum width for the popup menu
 opt.pumblend = 10       -- Popup blend
 
-if vim.fn.has('nvim-0.9.0') == 1 then
+if vim.fn.has('nvim-0.9') == 1 then
 	opt.splitkeep = 'screen'
 	opt.shortmess:append({ C = true })
 end

@@ -5,6 +5,7 @@ local M = {}
 
 ---@param method string
 ---@param clients lsp.Client[]
+---@return boolean
 local function supports_method(method, clients)
 	for _, client in pairs(clients) do
 		if client.supports_method(method) then

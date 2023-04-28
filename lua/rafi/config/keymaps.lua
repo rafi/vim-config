@@ -19,6 +19,8 @@ end
 -- Package-manager
 map('n', '<leader>l', '<cmd>:Lazy<cr>', { desc = 'Open Lazy UI' })
 
+-- stylua: ignore start
+
 -- Navigation
 -- ===
 
@@ -34,6 +36,7 @@ map('n', '<Leader><Leader>', 'V', { desc = 'Visual Mode' })
 map('x', '<Leader><Leader>', '<Esc>', { desc = 'Exit Visual Mode' })
 
 -- Toggle fold or select option from popup menu
+---@return string
 map('n', '<CR>', function()
 	return vim.fn.pumvisible() == 1 and '<CR>' or 'za'
 end, { expr = true, noremap = true, desc = 'Toggle Fold' })
@@ -165,6 +168,7 @@ map('n', '!', ':!', { desc = 'Execute Shell Command' })
 map('n', 'g!', ":put=execute('')<Left><Left>", { desc = 'Paste Command' })
 
 -- Switch history search pairs, matching my bash shell
+---@return string
 map('c', '<C-p>', function()
 	return vim.fn.pumvisible() == 1 and '<C-p>' or '<Up>'
 end, { noremap = true, expr = true })
@@ -191,7 +195,9 @@ vim.cmd.cnoreabbrev('bD', 'bd')
 map('n', '<Leader>cd', function()
 	local bufdir = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p:h')
 	if vim.loop.fs_stat(bufdir) then
-		vim.defer_fn(function() vim.cmd.lcd(bufdir) end, 300)
+		vim.defer_fn(function()
+			vim.cmd.lcd(bufdir)
+		end, 300)
 		vim.notify(bufdir)
 	end
 end, { desc = 'Change Local Directory' })
@@ -237,7 +243,7 @@ map('n', '<A-}>', '<cmd>+tabmove<CR>', { desc = 'Tab Move Forwards' })
 
 -- Show treesitter nodes under cursor
 -- highlights under cursor
-if vim.fn.has('nvim-0.9.0') == 1 then
+if vim.fn.has('nvim-0.9') == 1 then
 	map('n', '<Leader>tt', vim.show_pos, { desc = 'Show Treesitter Node' })
 end
 
