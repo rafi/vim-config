@@ -465,7 +465,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 ## Plugins Included
 
 <details open>
-  <summary><strong>List</strong> <small><i>(🔎 Click to expand/collapse)</i></small></summary>
+  <summary><strong>List of plugins</strong> <small><i>(🔎 Click to expand/collapse)</i></small></summary>
 
 ### Completion & Code-Analysis
 
@@ -719,7 +719,12 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [dnlhc/glance.nvim]: https://github.com/dnlhc/glance.nvim
 [itchyny/calendar.vim]: https://github.com/itchyny/calendar.vim
 
+</details>
+
 ## Extra Plugins
+
+<details open>
+  <summary><strong>List of extras</strong> <small><i>(🔎 Click to expand/collapse)</i></small></summary>
 
 These plugins aren't enabled by default. You'll have to import them using specs.
 See [Extend: Plugins](#extend-plugins) on how to add plugins.
@@ -762,6 +767,8 @@ Spec: `rafi.plugins.extras.editor.<name>`
 | Key       | Name           | Description
 | ----------| -------------- | ----------------------
 | `anyjump` | [pechorin/any-jump.vim] | Jump to any definition and references without overhead
+| `flybuf`  | [glepnir/flybuf.nvim] | List buffers in a float window
+| `sidebar` | [sidebar-nvim/sidebar.nvim] | Generic and modular lua sidebar
 
 ### Extra Plugins: Formatting
 
@@ -775,9 +782,12 @@ Spec: `rafi.plugins.extras.formatting.<name>`
 
 Spec: `rafi.plugins.extras.lsp.<name>`
 
-| Key            | Name           | Description
-| -------------- | -------------- | ----------------------
-| `lightbulb`    | [kosayoda/nvim-lightbulb] | VSCode 💡 for neovim's built-in LSP
+| Key              | Name           | Description
+| ---------------- | -------------- | ----------------------
+| `gtd`            | [hrsh7th/nvim-gtd] | LSP's go-to definition plugin
+| `inlayhints`     | [lvimuser/lsp-inlayhints.nvim] | Partial implementation of LSP inlay hint
+| `lightbulb`      | [kosayoda/nvim-lightbulb] | VSCode 💡 for neovim's built-in LSP
+| `yaml-companion` | [yaml-companion.nvim] | Get, set and autodetect YAML schemas in your buffers
 
 ### Extra Plugins: Org
 
@@ -801,6 +811,7 @@ Spec: `rafi.plugins.extras.ui.<name>`
 
 | Key            | Name           | Description
 | -------------- | -------------- | ----------------------
+| `barbecue`     | [utilyre/barbecue.nvim] | VS Code like winbar
 | `bufferline`   | [akinsho/bufferline.nvim] | Snazzy tab/bufferline
 | `cursorword`   | [itchyny/cursorword] | Underlines word under cursor
 | `cybu`         | [ghillb/cybu.nvim] | Cycle buffers with a customizable notification window
@@ -817,9 +828,15 @@ Spec: `rafi.plugins.extras.ui.<name>`
 [b3nj5m1n/kommentary]: https://github.com/b3nj5m1n/kommentary
 [machakann/vim-sandwich]: https://github.com/machakann/vim-sandwich
 [pechorin/any-jump.vim]: https://github.com/pechorin/any-jump.vim
+[glepnir/flybuf.nvim]: https://github.com/glepnir/flybuf.nvim
+[sidebar-nvim/sidebar.nvim]: https://github.com/sidebar-nvim/sidebar.nvim
+[hrsh7th/nvim-gtd]: https://github.com/hrsh7th/nvim-gtd
+[lvimuser/lsp-inlayhints.nvim]: https://github.com/lvimuser/lsp-inlayhints.nvim
 [kosayoda/nvim-lightbulb]: https://github.com/kosayoda/nvim-lightbulb
+[yaml-companion.nvim]: https://github.com/someone-stole-my-name/yaml-companion.nvim
 [vimwiki/vimwiki]: https://github.com/vimwiki/vimwiki
 [Wansmer/treesj]: https://github.com/Wansmer/treesj
+[utilyre/barbecue.nvim]: https://github.com/utilyre/barbecue.nvim
 [akinsho/bufferline.nvim]: https://github.com/akinsho/bufferline.nvim
 [itchyny/cursorword]: https://github.com/itchyny/vim-cursorword
 [ghillb/cybu.nvim]: https://github.com/ghillb/cybu.nvim
