@@ -567,7 +567,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [hoob3rt/lualine.nvim] | statusline plugin written in pure lua
 | [nvim-neo-tree/neo-tree.nvim] | File explorer written in Lua
 | [nvim-telescope/telescope.nvim] | Find, Filter, Preview, Pick. All lua.
-| [nvim-telescope/telescope-ui-select.nvim] | Sets vim.ui.select to telescope
 | [jvgrootveld/telescope-zoxide] | Telescope extension for Zoxide
 | [nvim-lua/plenary.nvim] | Lua functions library
 
@@ -600,6 +599,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [nvim-tree/nvim-web-devicons] | Lua fork of vim-devicons
 | [MunifTanjim/nui.nvim] | UI Component Library
 | [folke/noice.nvim] | Replaces the UI for messages, cmdline and the popupmenu
+| [stevearc/dressing.nvim] | Improve the default vim-ui interfaces
 | [SmiteshP/nvim-navic] | Shows your current code context in winbar/statusline
 | [rcarriga/nvim-notify] | Fancy notification manager for NeoVim
 | [chentau/marks.nvim] | Interacting with and manipulating marks
@@ -686,7 +686,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [hoob3rt/lualine.nvim]: https://github.com/hoob3rt/lualine.nvim
 [nvim-neo-tree/neo-tree.nvim]: https://github.com/nvim-neo-tree/neo-tree.nvim
 [nvim-telescope/telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
-[nvim-telescope/telescope-ui-select.nvim]: https://github.com/nvim-telescope/telescope-ui-select.nvim
 [jvgrootveld/telescope-zoxide]: https://github.com/jvgrootveld/telescope-zoxide
 [nvim-lua/plenary.nvim]: https://github.com/nvim-lua/plenary.nvim
 
@@ -711,6 +710,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [nvim-tree/nvim-web-devicons]: https://github.com/nvim-tree/nvim-web-devicons
 [MunifTanjim/nui.nvim]: https://github.com/MunifTanjim/nui.nvim
 [folke/noice.nvim]: https://github.com/folke/noice.nvim
+[stevearc/dressing.nvim]: https://github.com/stevearc/dressing.nvim
 [SmiteshP/nvim-navic]: https://github.com/SmiteshP/nvim-navic
 [rcarriga/nvim-notify]: https://github.com/rcarriga/nvim-notify
 [chentau/marks.nvim]: https://github.com/chentau/marks.nvim

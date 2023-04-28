@@ -136,7 +136,6 @@ return {
 		cmd = 'Telescope',
 		dependencies = {
 			'nvim-lua/plenary.nvim',
-			'nvim-telescope/telescope-ui-select.nvim',
 			'jvgrootveld/telescope-zoxide',
 			'folke/todo-comments.nvim',
 			'rafi/telescope-thesaurus.nvim',
@@ -144,7 +143,6 @@ return {
 		config = function(_, opts)
 			require('telescope').setup(opts)
 			require('telescope').load_extension('persisted')
-			require('telescope').load_extension('ui-select')
 		end,
 		keys = {
 			-- General pickers
@@ -490,11 +488,6 @@ return {
 							end
 						},
 					},
-				},
-				['ui-select'] = {
-					require('telescope.themes').get_cursor({
-						layout_config = { width = 0.35, height = 0.35 },
-					})
 				},
 			}
 		}
