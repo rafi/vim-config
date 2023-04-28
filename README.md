@@ -92,7 +92,7 @@ Please read "[Extending](#extending)" to learn how to customize and modify.
 * Auto-complete extensive setup with [nvim-cmp]
   (try <kbd>Tab</kbd> or <kbd>Ctrl</kbd>+<kbd>Space</kbd> in insert-mode)
 * Structure view with [simrat39/symbols-outline.nvim]
-* Git features using [tpope/vim-fugitive] and [lewis6991/gitsigns.nvim]
+* Git features using [lewis6991/gitsigns.nvim] and [tpope/vim-fugitive]
 * Auto-save and restore sessions with [olimorris/persisted.nvim]
 * Unobtrusive, yet informative status & tab lines
 * Premium color-schemes
@@ -307,28 +307,30 @@ just disable them all-together. Here's an example:
 
 ```lua
 return {
-  { 'shadmansaleh/lualine.nvim', enabled = false },
+  -- Import "extras" plugins. See "Extra Plugins" in README
+  { import = 'rafi.plugins.extras.ui.incline' },
 
+  -- Disable builtin plugins
+  { 'shadmansaleh/lualine.nvim', enabled = false },
   { 'limorris/persisted.nvim', enabled = false },
 
+  -- Change builtin plugins' options
   {
     'nvim-treesitter/nvim-treesitter',
     opts = {
       ensure_installed = {
-        'bash', 'c', 'clojure', 'cmake', 'comment', 'commonlisp', 'cpp',
-        'css', 'dart', 'diff', 'dockerfile', 'dot', 'elixir', 'elm',
-        'erlang', 'fennel', 'fish', 'gitcommit', 'gitignore', 'gitattributes',
-        'git_rebase', 'go', 'gomod', 'gosum', 'gowork', 'graphql', 'hack',
-        'haskell', 'hcl', 'help', 'html', 'http', 'java', 'javascript',
-        'jsdoc', 'json', 'json5', 'jsonc', 'jsonnet', 'julia', 'kotlin',
-        'latex', 'llvm', 'lua', 'make', 'markdown', 'markdown_inline',
-        'ninja', 'nix', 'norg', 'perl', 'php', 'pug', 'python', 'query', 'r',
-        'regex', 'rst', 'ruby', 'rust', 'scala', 'scheme', 'scss', 'solidity',
-        'sql', 'svelte', 'swift', 'terraform', 'todotxt', 'toml', 'tsx',
-        'typescript', 'vala', 'vim', 'vue', 'yaml', 'zig',
+        'bash', 'comment', 'css', 'diff', 'dockerfile', 'fennel', 'fish',
+        'gitcommit', 'gitignore', 'gitattributes', 'git_rebase', 'go', 'gomod',
+        'gosum', 'gowork', 'graphql', 'hcl', 'html', 'javascript', 'jsdoc',
+        'json', 'json5', 'jsonc', 'jsonnet', 'lua', 'make', 'markdown',
+        'markdown_inline', 'nix', 'perl', 'php', 'pug', 'python', 'regex',
+        'rst', 'ruby', 'rust', 'scss', 'sql', 'svelte', 'terraform', 'toml',
+        'tsx', 'typescript', 'vim', 'vimdoc', 'vue', 'yaml', 'zig',
       },
     },
   },
+
+  -- GitHub plugins
 
   -- Choose only ONE of these statuslines ;)
   { 'itchyny/lightline.vim' },
@@ -341,49 +343,44 @@ return {
 
 ### Extend: Defaults
 
-```lua
-{
-  defaults = {
-    autocmds = true, -- Load lua/rafi/config/autocmds.lua
-    keymaps = true,  -- Load lua/rafi/config/keymaps.lua
-
-    features = {
-      -- Set arrow-keys to window resize
-      elite_mode = false,
-      -- Disable regular window closing with 'q'
-      window_q_mapping = true,
-    },
-  }
-}
-```
-
-**Note:** `rafi.config.options` can't be configured here since it's loaded
-prematurely. You can disable loading options with the following line at the top
-of your `lua/config/setup.lua` or `init.lua`:
-
-```lua
-package.loaded['rafi.config.options'] = true
-```
-
 If you are using this distro as-is, and aren't importing it externally,
-create `lua/config/setup.lua` with:
+create `lua/config/setup.lua` and return _any_ of these functions:
+
+* `override()`
+* `lazy_opts()`
+
+For example: (Default values are shown)
 
 ```lua
 local M = {}
 
-function M.override(user_opts)
+---@return table
+function M.override()
   return {
+    defaults = {
+      autocmds = true, -- Load lua/rafi/config/autocmds.lua
+      keymaps = true,  -- Load lua/rafi/config/keymaps.lua
+    },
     features = {
-      elite_mode = false,
-      window_q_mapping = true,
-    }
+      elite_mode = false,      -- Set arrow-keys to window resize
+      window_q_mapping = true, -- Disable regular window closing with 'q'
+    },
+    icons = {
+      -- See lua/rafi/config/init.lua for icon configuration…
+    },
   }
+end
+
+---@return table
+function M.lazy_opts()
+  return {}
 end
 
 return M
 ```
 
-If you are importing this distro via lazy.nvim specs, you can:
+If you are importing this distro via lazy.nvim specs, you can use `opts`.
+For example:
 
 ```lua
 return {
@@ -398,6 +395,14 @@ return {
     },
   },
 }
+```
+
+**Note:** `rafi.config.options` can't be disabled here since it's loaded
+prematurely. You can disable loading `options.lua` with the following line at
+the top of your `lua/config/setup.lua` or `init.lua`:
+
+```lua
+package.loaded['rafi.config.options'] = true
 ```
 
 ### Extend: LSP Settings
@@ -717,6 +722,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 ## Extra Plugins
 
 These plugins aren't enabled by default. You'll have to import them using specs.
+See [Extend: Plugins](#extend-plugins) on how to add plugins.
 
 For example:
 
