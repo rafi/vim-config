@@ -408,7 +408,7 @@ return {
 
 	-----------------------------------------------------------------------------
 	{
-		'windwp/nvim-spectre',
+		'nvim-pack/nvim-spectre',
 		keys = {
 			{
 				'<Leader>sp',

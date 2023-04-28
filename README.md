@@ -506,7 +506,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [s1n7ax/nvim-window-picker] | Window picker
 | [rest-nvim/rest.nvim] | Fast Neovim http client written in Lua
 | [mickael-menu/zk-nvim] | Extension for the zk plain text note-taking assistant
-| [windwp/nvim-spectre] | Find the enemy and replace them with dark power
+| [nvim-pack/nvim-spectre] | Find the enemy and replace them with dark power
 | [echasnovski/mini.bufremove] | Helper for removing buffers
 | [mzlogin/vim-markdown-toc] | Generate table of contents for Markdown files
 
@@ -641,7 +641,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [s1n7ax/nvim-window-picker]: https://github.com/s1n7ax/nvim-window-picker
 [rest-nvim/rest.nvim]: https://github.com/rest-nvim/rest.nvim
 [mickael-menu/zk-nvim]: https://github.com/mickael-menu/zk-nvim
-[windwp/nvim-spectre]: https://github.com/windwp/nvim-spectre
+[nvim-pack/nvim-spectre]: https://github.com/nvim-pack/nvim-spectre
 [echasnovski/mini.bufremove]: https://github.com/echasnovski/mini.bufremove
 [mzlogin/vim-markdown-toc]: https://github.com/mzlogin/vim-markdown-toc
 
@@ -1254,7 +1254,7 @@ more mappings and usage information.
 
 ### Plugin: Spectre
 
-See [windwp/nvim-spectre] for more mappings and usage information.
+See [nvim-pack/nvim-spectre] for more mappings and usage information.
 
 | Key   | Mode | Action
 | ----- |:----:| ------------------
