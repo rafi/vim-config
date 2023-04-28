@@ -114,6 +114,7 @@ function M.init()
 		-- carry over plugin options that their name has been changed.
 		local Plugin = require('lazy.core.plugin')
 		local add = Plugin.Spec.add
+		---@diagnostic disable-next-line: duplicate-set-field
 		Plugin.Spec.add = function(self, plugin, ...)
 			if type(plugin) == 'table' and M.renames[plugin[1]] then
 				plugin[1] = M.renames[plugin[1]]

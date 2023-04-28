@@ -3,72 +3,92 @@
 
 local M = {}
 
----@param client lsp.Client
----@param buffer integer
-function M.get(client, buffer)
+---@type PluginLspKeys
+M._keys = nil
+
+---@return (LazyKeys|{has?:string})[]
+function M.get()
+	if M._keys then
+		return M._keys
+	end
 	local format = function()
 		require('rafi.plugins.lsp.format').format({ force = true })
 	end
-	local function map(mode, lhs, rhs, user_opts)
-		local opts = { buffer = buffer, noremap = true, silent = true }
-		opts = vim.tbl_extend('force', opts, user_opts or {})
-		if not opts.has or client.server_capabilities[opts.has .. 'Provider'] then
+
+	---@class PluginLspKeys
+	-- stylua: ignore
+	M._keys =  {
+		{ 'gD', vim.lsp.buf.declaration, desc = 'Goto Declaration', has = 'declaration' },
+		{ 'gd', vim.lsp.buf.definition, desc = 'Goto Definition', has = 'definition' },
+		{ 'gr', vim.lsp.buf.references, desc = 'References', has = 'references' },
+		{ 'gy', vim.lsp.buf.type_definition, desc = 'Goto Type Definition', has = 'typeDefinition' },
+		{ 'gi', vim.lsp.buf.implementation, desc = 'Goto Implementation', has = 'implementation' },
+		{ 'gK', vim.lsp.buf.signature_help, desc = 'Signature Help', has = 'signatureHelp' },
+		{ '<C-g>h', vim.lsp.buf.signature_help, mode = 'i', desc = 'Signature Help', has = 'signatureHelp' },
+		{ ']d', M.diagnostic_goto(true), desc = 'Next Diagnostic' },
+		{ '[d', M.diagnostic_goto(false), desc = 'Prev Diagnostic' },
+		{ ']e', M.diagnostic_goto(true, 'ERROR'), desc = 'Next Error' },
+		{ '[e', M.diagnostic_goto(false, 'ERROR'), desc = 'Prev Error' },
+
+		{ ',wa', vim.lsp.buf.add_workspace_folder, desc = 'Show Workspace Folders' },
+		{ ',wr', vim.lsp.buf.remove_workspace_folder, desc = 'Remove Workspace Folder' },
+		{ ',wl', '<cmd>lua =vim.lsp.buf.list_workspace_folders()<CR>', desc = 'List Workspace Folders' },
+
+		{ 'K', function()
+			-- Show hover documentation or folded lines.
+			local winid = require('rafi.config').has('nvim-ufo')
+				and require('ufo').peekFoldedLinesUnderCursor() or nil
+			if not winid then
+				vim.lsp.buf.hover()
+			end
+		end },
+
+		{ '<Leader>tp', function() M.diagnostic_toggle(false) end, desc = 'Disable Diagnostics' },
+		{ '<Leader>tP', function() M.diagnostic_toggle(true) end, desc = 'Disable All Diagnostics' },
+
+		{ '<leader>cl', '<cmd>LspInfo<cr>' },
+		{ '<leader>cf', format, desc = 'Format Document', has = 'documentFormatting' },
+		{ '<leader>cf', format, mode = 'x', desc = 'Format Range', has = 'documentFormatting' },
+		{ '<Leader>cr', vim.lsp.buf.rename, desc = 'Rename', has = 'rename' },
+		{ '<Leader>ce', vim.diagnostic.open_float, desc = 'Open diagnostics' },
+		{ '<Leader>ca', vim.lsp.buf.code_action, mode = { 'n', 'x' }, has = 'codeAction', desc = 'Code Action' },
+		{ '<Leader>cA', function()
+			vim.lsp.buf.code_action({
+				context = {
+					only = { 'source' },
+					diagnostics = {},
+				},
+			})
+		end, desc = 'Source Action', has = 'codeAction' },
+	}
+	return M._keys
+end
+
+---@param client lsp.Client
+---@param buffer integer
+function M.on_attach(client, buffer)
+	local Keys = require('lazy.core.handler.keys')
+	local keymaps = {} ---@type table<string,LazyKeys|{has?:string}>
+
+	for _, value in ipairs(M.get()) do
+		local keys = Keys.parse(value)
+		if keys[2] == vim.NIL or keys[2] == false then
+			keymaps[keys.id] = nil
+		else
+			keymaps[keys.id] = keys
+		end
+	end
+
+	for _, keys in pairs(keymaps) do
+		if not keys.has or client.server_capabilities[keys.has .. 'Provider'] then
+			local opts = Keys.opts(keys)
+			---@diagnostic disable-next-line: no-unknown
 			opts.has = nil
-			vim.keymap.set(mode, lhs, rhs, opts)
+			opts.silent = opts.silent ~= false
+			opts.buffer = buffer
+			vim.keymap.set(keys.mode or 'n', keys[1], keys[2], opts)
 		end
 	end
-
-	-- Keyboard mappings
-	map('n', '<leader>cl', '<cmd>LspInfo<cr>')
-
-	map('n', 'gD', vim.lsp.buf.declaration, { has = 'declaration' })
-	map('n', 'gd', vim.lsp.buf.definition, { has = 'definition' })
-	map('n', 'gr', vim.lsp.buf.references, { has = 'references' })
-	map('n', 'gy', vim.lsp.buf.type_definition, { has = 'typeDefinition' })
-	map('n', 'gi', vim.lsp.buf.implementation, { has = 'implementation' })
-
-	map('n', ',rn', vim.lsp.buf.rename, { has = 'rename' })
-	map('n', ',s', vim.lsp.buf.signature_help, { has = 'signatureHelp' })
-	map('n', ',wa', vim.lsp.buf.add_workspace_folder)
-	map('n', ',wr', vim.lsp.buf.remove_workspace_folder)
-	map('n', ',wl', '<cmd>lua =vim.lsp.buf.list_workspace_folders()<CR>')
-
-	map({'n', 'x'}, ',f', format, { has = 'documentFormatting' })
-
-	map('n', 'K', function()
-		local winid = require('rafi.config').has('nvim-ufo')
-			and require('ufo').peekFoldedLinesUnderCursor() or nil
-		if not winid then
-			vim.lsp.buf.hover()
-		end
-	end)
-
-	map(
-		{'n', 'x'},
-		'<Leader>ca',
-		vim.lsp.buf.code_action,
-		{ has = 'codeAction', desc = 'Code Action' }
-	)
-	map(
-		'n',
-		'<Leader>ce',
-		vim.diagnostic.open_float,
-		{ desc = 'Open diagnostics' }
-	)
-
-	if not require('rafi.config').has('mini.bracketed') then
-		map('n', ']d', M.diagnostic_goto(true))
-		map('n', '[d', M.diagnostic_goto(false))
-	end
-	map('n', ']e', M.diagnostic_goto(true, 'ERROR'))
-	map('n', '[e', M.diagnostic_goto(false, 'ERROR'))
-
-	map('n', '<Leader>tp', function()
-		M.diagnostic_toggle(false)
-	end, { desc = 'Disable Diagnostics' })
-	map('n', '<Leader>tP', function()
-		M.diagnostic_toggle(true)
-	end, { desc = 'Disable All Diagnostics' })
 end
 
 -- Toggle diagnostics locally (false) or globally (true).
@@ -102,18 +122,13 @@ end
 
 ---@param next boolean
 ---@param severity string|nil
+---@return fun()
 function M.diagnostic_goto(next, severity)
 	local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
 	local severity_int = severity and vim.diagnostic.severity[severity] or nil
 	return function()
 		go({ severity = severity_int })
 	end
-end
-
----@param client lsp.Client
----@param buffer integer
-function M.on_attach(client, buffer)
-	M.get(client, buffer)
 end
 
 return M
