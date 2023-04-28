@@ -145,7 +145,7 @@ function M.setup(user_opts)
 
 	-- Override config with user config at lua/config/setup.lua
 	local ok, user_setup = pcall(require, 'config.setup')
-	if ok then
+	if ok and user_setup.override then
 		options = vim.tbl_deep_extend('force', options, user_setup.override())
 	end
 	for feat_name, feat_val in pairs(options.features) do
@@ -169,6 +169,15 @@ function M.setup(user_opts)
 			vim.cmd.colorscheme('habamax')
 		end,
 	})
+end
+
+---@return table
+function M.user_lazy_opts()
+	local ok, user_setup = pcall(require, 'config.setup')
+	if ok and user_setup.lazy_opts then
+		return user_setup.lazy_opts()
+	end
+	return {}
 end
 
 local augroup_lsp_attach = vim.api.nvim_create_augroup('rafi_lsp_attach', {})
