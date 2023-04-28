@@ -45,11 +45,12 @@ return {
 					return '<Ignore>'
 				end, { expr = true, desc = 'Git hunk last' })
 
-				local silent = { silent = true }
-
 				-- Actions
-				map({'n', 'x'}, '<leader>hs', ':Gitsigns stage_hunk<CR>', silent)
-				map({'n', 'x'}, '<leader>hr', ':Gitsigns reset_hunk<CR>', silent)
+				--
+				map('n', '<leader>hs', gs.stage_hunk, { silent = true, desc = 'Stage hunk' })
+				map('n', '<leader>hr', gs.reset_hunk, { silent = true, desc = 'Reset hunk' })
+				map('x', '<leader>hs', function() gs.stage_hunk({vim.fn.line('.'), vim.fn.line('v')}) end)
+				map('x', '<leader>hr', function() gs.reset_hunk({vim.fn.line('.'), vim.fn.line('v')}) end)
 				map('n', '<leader>hS', gs.stage_buffer, { silent = true, desc = 'Stage buffer' })
 				map('n', '<leader>hu', gs.undo_stage_hunk, { desc = 'Undo staged hunk' })
 				map('n', '<leader>hR', gs.reset_buffer, { desc = 'Reset buffer' })

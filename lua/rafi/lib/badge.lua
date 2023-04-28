@@ -20,8 +20,6 @@ local plugin_icons = {
 	undotree = { '' },
 }
 
-local root_patterns = { '.git', '_darcs', '.hg', '.bzr', '.svn' }
-
 local cache_keys = {
 	'badge_cache_filepath',
 	'badge_cache_filepath_tab',
@@ -58,31 +56,10 @@ vim.api.nvim_create_autocmd(
 
 local M = {}
 
--- Find the root directory by searching for the version-control dir
-function M.root()
-	local cwd = vim.loop.cwd()
-	if cwd == '' or cwd == nil then
-		return ''
-	end
-	local ok, cache = pcall(vim.api.nvim_buf_get_var, 0, 'project_dir')
-	if ok and cache then
-		local _, last_cwd = pcall(vim.api.nvim_buf_get_var, 0, 'project_dir_last_cwd')
-		if cwd == last_cwd then
-			return cache
-		end
-	end
-
-	local root = vim.fs.find(root_patterns, { path = cwd, upward = true })[1]
-	root = root and vim.fs.dirname(root) or vim.loop.cwd()
-	vim.api.nvim_buf_set_var(0, 'project_dir', root)
-	vim.api.nvim_buf_set_var(0, 'project_dir_last_cwd', cwd)
-	return root
-end
-
 -- Try to guess the project's name
 ---@return string
 function M.project()
-	return vim.fn.fnamemodify(M.root(), ':t')
+	return vim.fn.fnamemodify(require('rafi.lib.utils').get_root(), ':t')
 end
 
 -- Provides relative path with limited characters in each directory name, and

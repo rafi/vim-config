@@ -166,12 +166,14 @@ return {
 			{ '<localleader>/', '<cmd>Telescope search_history<CR>', desc = 'Search history' },
 			{ '<leader>/', '<cmd>Telescope current_buffer_fuzzy_find<CR>', desc = 'Buffer find' },
 
-			{ '<leader>sd', '<cmd>Telescope diagnostics<CR>', desc = 'Diagnostics' },
+			{ '<leader>sd', '<cmd>Telescope diagnostics bufnr=0<CR>', desc = 'Document diagnostics' },
+			{ '<leader>sD', '<cmd>Telescope diagnostics<CR>', desc = 'Workspace diagnostics' },
 			{ '<leader>sh', '<cmd>Telescope help_tags<CR>', desc = 'Help Pages' },
 			{ '<leader>sk', '<cmd>Telescope keymaps<CR>', desc = 'Key Maps' },
 			{ '<leader>sm', '<cmd>Telescope man_pages<CR>', desc = 'Man Pages' },
 			{ '<leader>sw', '<cmd>Telescope grep_string<CR>', desc = 'Word' },
 			{ '<leader>sc', '<cmd>Telescope colorscheme<CR>', desc = 'Colorscheme' },
+			{ '<leader>uC', '<cmd>Telescope colorscheme<CR>', desc = 'Colorscheme' },
 
 			-- LSP related
 			{ '<localleader>dd', '<cmd>Telescope lsp_definitions<CR>', desc = 'Definitions' },
@@ -202,7 +204,7 @@ return {
 			{
 				'<leader>sS',
 				function()
-					require('telescope.builtin').lsp_workspace_symbols({
+					require('telescope.builtin').lsp_dynamic_workspace_symbols({
 						symbols = {
 							'Class',
 							'Function',

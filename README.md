@@ -1012,13 +1012,16 @@ Note that,
 
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
-| <kbd>Space</kbd>+<kbd>ts</kbd> | 𝐍 | Toggle spell-checker | <small>`:setlocal spell!`</small>
-| <kbd>Space</kbd>+<kbd>tn</kbd> | 𝐍 | Toggle line numbers | <small>`:setlocal nonumber!`</small>
-| <kbd>Space</kbd>+<kbd>tl</kbd> | 𝐍 | Toggle hidden characters | <small>`:setlocal nolist!`</small>
-| <kbd>Space</kbd>+<kbd>th</kbd> | 𝐍 | Toggle highlighted search | <small>`:set hlsearch!`</small>
-| <kbd>Space</kbd>+<kbd>tw</kbd> | 𝐍 | Toggle wrap | <small>`:setlocal wrap!`</small> …
-| <kbd>Space</kbd>+<kbd>ti</kbd> | 𝐍 | Toggle indentation lines | <small>[lukas-reineke/indent-blankline.nvim]</small>
-| <kbd>Space</kbd>+<kbd>tt</kbd> | 𝐍 | Show highlight groups for word | <small>`vim.show_pos`</small>
+| <kbd>Space</kbd> <kbd>ts</kbd> | 𝐍 | Toggle spell-checker | <small>`:setlocal spell!`</small>
+| <kbd>Space</kbd> <kbd>tn</kbd> | 𝐍 | Toggle line numbers | <small>`:setlocal nonumber!`</small>
+| <kbd>Space</kbd> <kbd>tl</kbd> | 𝐍 | Toggle hidden characters | <small>`:setlocal nolist!`</small>
+| <kbd>Space</kbd> <kbd>th</kbd> | 𝐍 | Toggle highlighted search | <small>`:set hlsearch!`</small>
+| <kbd>Space</kbd> <kbd>tw</kbd> | 𝐍 | Toggle wrap | <small>`:setlocal wrap!`</small> …
+| <kbd>Space</kbd> <kbd>ti</kbd> | 𝐍 | Toggle indentation lines | <small>[lukas-reineke/indent-blankline.nvim]</small>
+| <kbd>Space</kbd> <kbd>ui</kbd> | 𝐍 | Show highlight groups for word | <small>`vim.show_pos`</small>
+| <kbd>Space</kbd> <kbd>uC</kbd> | 𝐍 | Select colorscheme | <small>[config/keymaps.lua]</small>
+| <kbd>Space</kbd> <kbd>un</kbd> | 𝐍 | Dismiss all notifications | <small>[rcarriga/nvim-notify]</small>
+| <kbd>Space</kbd> <kbd>ur</kbd> | 𝐍 | Redraw, clear hlsearch, and diff update | <small>[config/keymaps.lua]</small>
 | <kbd>g1</kbd> | 𝐍 | Go to first tab | <small>`:tabfirst`</small>
 | <kbd>g9</kbd> | 𝐍 | Go to last tab | <small>`:tablast`</small>
 | <kbd>g5</kbd> | 𝐍 | Go to previous tab | <small>`:tabprevious`</small>
@@ -1044,12 +1047,16 @@ Note that,
 | <kbd>Space</kbd> <kbd>?</kbd> | 𝐍 | Open the macOS dictionary on current word | <small>`:!open dict://`</small>
 | <kbd>Space</kbd> <kbd>P</kbd> | 𝐍 | Use Marked 2 for real-time Markdown preview | <small>[Marked 2]</small>
 | <kbd>Space</kbd> <kbd>cp</kbd> | 𝐍 | Open color-picker | <small>[uga-rosa/ccc.nvim]</small>
+| <kbd>Space</kbd> <kbd>tt</kbd> | 𝐍 | Open terminal (root dir) | <small>[config/keymaps.lua]</small>
+| <kbd>Space</kbd> <kbd>tT</kbd> | 𝐍 | Open terminal (cwd) | <small>[config/keymaps.lua]</small>
+| <kbd>Space</kbd> <kbd>tg</kbd> | 𝐍 | Open Lazygit (root dir) | <small>[config/keymaps.lua]</small>
+| <kbd>Space</kbd> <kbd>tG</kbd> | 𝐍 | Open Lazygit (cwd) | <small>[config/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>cc</kbd> | 𝐍 | Generate doc | <small>[danymat/neogen]</small>
 | <kbd>Space</kbd> <kbd>gu</kbd> | 𝐍 | Open undo-tree | <small>[mbbill/undotree]</small>
 | <kbd>Space</kbd> <kbd>gd</kbd> | 𝐍 | Git diff | <small>[tpope/vim-fugitive]</small>
 | <kbd>Space</kbd> <kbd>gb</kbd> | 𝐍 | Git blame | <small>[tpope/vim-fugitive]</small>
 | <kbd>Space</kbd> <kbd>go</kbd> | 𝐍 𝐕 | Open SCM detailed URL in browser | <small>[ruifm/gitlinker.nvim]</small>
-| <kbd>Space</kbd> <kbd>ml</kbd> | 𝐍 | Append modeline to end of buffer | <small>[lua/rafi/config/keymaps.lua]</small>
+| <kbd>Space</kbd> <kbd>ml</kbd> | 𝐍 | Append modeline to end of buffer | <small>[config/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>mda</kbd> | 𝐕 | Sequentially mark region for diff | <small>[AndrewRadev/linediff.vim]</small>
 | <kbd>Space</kbd> <kbd>mdf</kbd> | 𝐕 | Mark region for diff and compare if more than one | <small>[AndrewRadev/linediff.vim]</small>
 | <kbd>Space</kbd> <kbd>mds</kbd> | 𝐍 | Shows the comparison for all marked regions | <small>[AndrewRadev/linediff.vim]</small>
@@ -1163,23 +1170,26 @@ See [telescope.nvim] for more mappings and usage information.
 | <kbd>;di</kbd> | 𝐍 | LSP implementations
 | <kbd>;dr</kbd> | 𝐍 | LSP references
 | <kbd>;da</kbd> | 𝐍 𝐕 | LSP code actions
-| <kbd>Space</kbd>+<kbd>/</kbd> | 𝐍 | Buffer fuzzy find
-| <kbd>Space</kbd>+<kbd>gs</kbd> | 𝐍 | Git status
-| <kbd>Space</kbd>+<kbd>gr</kbd> | 𝐍 | Git branches
-| <kbd>Space</kbd>+<kbd>gl</kbd> | 𝐍 | Git commits
-| <kbd>Space</kbd>+<kbd>gL</kbd> | 𝐍 | Git buffer commits
-| <kbd>Space</kbd>+<kbd>gh</kbd> | 𝐍 | Git stashes
-| <kbd>Space</kbd>+<kbd>gt</kbd> | 𝐍 | Find symbols matching word under cursor
-| <kbd>Space</kbd>+<kbd>gf</kbd> | 𝐍 | Find files matching word under cursor
-| <kbd>Space</kbd>+<kbd>gg</kbd> | 𝐍 𝐕 | Grep word under cursor
-| <kbd>Space</kbd>+<kbd>sd</kbd> | 𝐍 | Diagnostics
-| <kbd>Space</kbd>+<kbd>sh</kbd> | 𝐍 | Help tags
-| <kbd>Space</kbd>+<kbd>sk</kbd> | 𝐍 | Key-maps
-| <kbd>Space</kbd>+<kbd>sm</kbd> | 𝐍 | Man pages
-| <kbd>Space</kbd>+<kbd>ss</kbd> | 𝐍 | LSP document symbols
-| <kbd>Space</kbd>+<kbd>sS</kbd> | 𝐍 | LSP workspace symbols
-| <kbd>Space</kbd>+<kbd>sw</kbd> | 𝐍 | Grep string
-| <kbd>Space</kbd>+<kbd>sc</kbd> | 𝐍 | Colorschemes
+| <kbd>Space</kbd> <kbd>/</kbd> | 𝐍 | Buffer fuzzy find
+| <kbd>Space</kbd> <kbd>gs</kbd> | 𝐍 | Git status
+| <kbd>Space</kbd> <kbd>gr</kbd> | 𝐍 | Git branches
+| <kbd>Space</kbd> <kbd>gl</kbd> | 𝐍 | Git commits
+| <kbd>Space</kbd> <kbd>gL</kbd> | 𝐍 | Git buffer commits
+| <kbd>Space</kbd> <kbd>gh</kbd> | 𝐍 | Git stashes
+| <kbd>Space</kbd> <kbd>gt</kbd> | 𝐍 | Find symbols matching word under cursor
+| <kbd>Space</kbd> <kbd>gf</kbd> | 𝐍 | Find files matching word under cursor
+| <kbd>Space</kbd> <kbd>gg</kbd> | 𝐍 𝐕 | Grep word under cursor
+| <kbd>Space</kbd> <kbd>sd</kbd> | 𝐍 | Document diagnostics
+| <kbd>Space</kbd> <kbd>sD</kbd> | 𝐍 | Workspace diagnostics
+| <kbd>Space</kbd> <kbd>sh</kbd> | 𝐍 | Help tags
+| <kbd>Space</kbd> <kbd>sk</kbd> | 𝐍 | Key-maps
+| <kbd>Space</kbd> <kbd>sm</kbd> | 𝐍 | Man pages
+| <kbd>Space</kbd> <kbd>ss</kbd> | 𝐍 | LSP document symbols
+| <kbd>Space</kbd> <kbd>sS</kbd> | 𝐍 | LSP workspace symbols
+| <kbd>Space</kbd> <kbd>st</kbd> | 𝐍 | Todo list
+| <kbd>Space</kbd> <kbd>sT</kbd> | 𝐍 | Todo/Fix/Fixme list
+| <kbd>Space</kbd> <kbd>sw</kbd> | 𝐍 | Grep string
+| <kbd>Space</kbd> <kbd>sc</kbd> | 𝐍 | Colorschemes
 | **Within _Telescope_ window** ||
 | <kbd>?</kbd> | 𝐍 | Keymaps help screen
 | <kbd>Ctrl</kbd>+<kbd>Space</kbd> | 𝐍 | Move from none fuzzy search to fuzzy
@@ -1292,7 +1302,6 @@ See [chentau/marks.nvim] for more mappings and usage information.
 [nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
 [telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
 [nvim-treesitter-textobjects]: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
-[lua/rafi/config/keymaps.lua]: ./lua/rafi/config/keymaps.lua
 [config/keymaps.lua]: ./lua/rafi/config/keymaps.lua
 [lib/edit.lua]: ./lua/rafi/lib/edit.lua
 [plugins/lsp/keymaps.lua]: ./lua/rafi/plugins/lsp/keymaps.lua
