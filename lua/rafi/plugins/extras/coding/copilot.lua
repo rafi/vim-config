@@ -12,6 +12,39 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Add copilot icon to lualine statusline
+	{
+		'nvim-lualine/lualine.nvim',
+		event = 'VeryLazy',
+		opts = function(_, opts)
+			local get_color = require('rafi.lib.color').get_color
+			local fg = function(...) return { fg = get_color('fg', ...) } end
+
+			local colors = {
+				[''] = fg({'Comment'}),
+				['Normal'] = fg({'Comment'}),
+				['Warning'] = fg({'DiagnosticError'}),
+				['InProgress'] = fg({'DiagnosticWarn'}),
+			}
+			table.insert(opts.sections.lualine_x, {
+				function()
+					local icon = require('rafi.config').icons.kinds.Copilot
+					local status = require('copilot.api').status.data
+					return icon .. (status.message or '')
+				end,
+				cond = function()
+					local ok, clients = pcall(vim.lsp.get_active_clients, { name = 'copilot', bufnr = 0 })
+					return ok and #clients > 0
+				end,
+				color = function()
+					local status = require('copilot.api').status.data
+					return colors[status.status] or colors['']
+				end,
+			})
+		end,
+	},
+
+	-----------------------------------------------------------------------------
 	{
 		'nvim-cmp',
 		dependencies = {
@@ -24,6 +57,7 @@ return {
 					copilot_cmp.setup(opts)
 					-- attach cmp source whenever copilot attaches
 					-- fixes lazy-loading issues with the copilot cmp source
+					---@param client lsp.Client
 					require('rafi.config').on_attach(function(client)
 						if client.name == 'copilot' then
 							copilot_cmp._on_insert_enter()
@@ -32,6 +66,7 @@ return {
 				end,
 			},
 		},
+		---@param _ table
 		---@param opts cmp.ConfigSchema
 		opts = function(_, opts)
 			local cmp = require('cmp')
@@ -45,6 +80,7 @@ return {
 			table.insert(opts.sources, 1, {
 				name = 'copilot',
 				group_index = 2,
+				priority = 60,
 			})
 
 			-- Add copilot <CR> confirm behavior.
