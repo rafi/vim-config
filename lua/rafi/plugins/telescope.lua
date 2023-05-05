@@ -141,10 +141,15 @@ return {
 			'jvgrootveld/telescope-zoxide',
 			'folke/todo-comments.nvim',
 			'rafi/telescope-thesaurus.nvim',
+			{
+				'nvim-telescope/telescope-frecency.nvim',
+				dependencies = 'kkharji/sqlite.lua'
+			},
 		},
 		config = function(_, opts)
 			require('telescope').setup(opts)
 			require('telescope').load_extension('persisted')
+			require('telescope').load_extension('frecency')
 		end,
 		keys = {
 			-- General pickers

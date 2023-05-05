@@ -478,6 +478,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [williamboman/mason-lspconfig.nvim] | Mason extension for easier lspconfig integration
 | [hrsh7th/cmp-nvim-lsp] | nvim-cmp source for neovim builtin LSP client
 | [b0o/SchemaStore.nvim] | JSON schemas for Neovim
+| [rafi/neoconf-venom.nvim] | Automatically set virtual-environment python runtime
 | [jose-elias-alvarez/null-ls.nvim] | Inject LSP diagnostics, code actions, and more
 
 ### Editor Plugins
@@ -568,6 +569,9 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [nvim-neo-tree/neo-tree.nvim] | File explorer written in Lua
 | [nvim-telescope/telescope.nvim] | Find, Filter, Preview, Pick. All lua.
 | [jvgrootveld/telescope-zoxide] | Telescope extension for Zoxide
+| [rafi/telescope-thesaurus.nvim] | Browse synonyms from thesaurus.com
+| [nvim-telescope/telescope-frecency.nvim] | Intelligent prioritization when selecting files from your editing history
+| [kkharji/sqlite.lua] | SQLite LuaJIT binding with a simple API
 | [nvim-lua/plenary.nvim] | Lua functions library
 
 ### Treesitter & Syntax
@@ -598,6 +602,8 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | -------------- | ----------------------
 | [nvim-tree/nvim-web-devicons] | Lua fork of vim-devicons
 | [MunifTanjim/nui.nvim] | UI Component Library
+| [rafi/tabstrip.nvim] | Minimal and opinionated tabline
+| [rafi/theme-loader.nvim] | Use last-used colorscheme
 | [folke/noice.nvim] | Replaces the UI for messages, cmdline and the popupmenu
 | [stevearc/dressing.nvim] | Improve the default vim-ui interfaces
 | [SmiteshP/nvim-navic] | Shows your current code context in winbar/statusline
@@ -618,6 +624,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [williamboman/mason-lspconfig.nvim]: https://github.com/williamboman/mason-lspconfig.nvim
 [hrsh7th/cmp-nvim-lsp]: https://github.com/hrsh7th/cmp-nvim-lsp
 [b0o/SchemaStore.nvim]: https://github.com/b0o/SchemaStore.nvim
+[rafi/neoconf-venom.nvim]: https://github.com/rafi/neoconf-venom.nvim
 [jose-elias-alvarez/null-ls.nvim]: https://github.com/jose-elias-alvarez/null-ls.nvim
 
 [folke/lazy.nvim]: https://github.com/folke/lazy.nvim
@@ -688,6 +695,9 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [nvim-neo-tree/neo-tree.nvim]: https://github.com/nvim-neo-tree/neo-tree.nvim
 [nvim-telescope/telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
 [jvgrootveld/telescope-zoxide]: https://github.com/jvgrootveld/telescope-zoxide
+[rafi/telescope-thesaurus.nvim]: https://github.com/rafi/telescope-thesaurus.nvim
+[nvim-telescope/telescope-frecency.nvim]: https://github.com/nvim-telescope/telescope-frecency.nvim
+[kkharji/sqlite.lua]: https://github.com/kkharji/sqlite.lua
 [nvim-lua/plenary.nvim]: https://github.com/nvim-lua/plenary.nvim
 
 [nvim-treesitter/nvim-treesitter]: https://github.com/nvim-treesitter/nvim-treesitter
@@ -710,6 +720,8 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 
 [nvim-tree/nvim-web-devicons]: https://github.com/nvim-tree/nvim-web-devicons
 [MunifTanjim/nui.nvim]: https://github.com/MunifTanjim/nui.nvim
+[rafi/tabstrip.nvim]: https://github.com/rafi/tabstrip.nvim
+[rafi/theme-loader.nvim]: https://github.com/rafi/theme-loader.nvim
 [folke/noice.nvim]: https://github.com/folke/noice.nvim
 [stevearc/dressing.nvim]: https://github.com/stevearc/dressing.nvim
 [SmiteshP/nvim-navic]: https://github.com/SmiteshP/nvim-navic
