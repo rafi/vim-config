@@ -6,18 +6,19 @@ local plugin_icons = {
 	fugitive = { '󰊢' },
 	fugitiveblame = { '󰊢', 'Blame' },
 	lazy = { '󰒲', 'Lazy.nvim' },
-	loclist = { '', 'Location List' },
-	mason = { '', 'Mason' },
+	loclist = { '󰂖', 'Location List' },
+	mason = { '󰈏', 'Mason' },
 	NeogitStatus = { '󰉺' },
 	['neo-tree'] = { '', 'Neo-tree' },
-	['neo-tree-popup'] = { '', 'Neo-tree' },
+	['neo-tree-popup'] = { '󰋱', 'Neo-tree' },
 	Outline = { '' },
-	quickfix = { '', 'Quickfix List' }, --  
+	quickfix = { '󰎟', 'Quickfix List' }, -- 󰎟 
 	spectre_panel = { '󰥩', 'Spectre' },
-	TelescopePrompt = { '', 'Telescope' },
+	TelescopePrompt = { '󰋱', 'Telescope' },
 	terminal = { '' },
+	toggleterm = { '', 'Terminal' },
 	Trouble = { '' }, --  
-	undotree = { '' },
+	undotree = { '󰃢' },
 }
 
 local cache_keys = {

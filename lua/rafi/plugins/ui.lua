@@ -198,7 +198,7 @@ return {
 		},
 		opts = {
 			sign_priority = { lower = 10, upper = 15, builtin = 8, bookmark = 20 },
-			bookmark_1 = { sign = '' },  -- ⚐ ⚑      
+			bookmark_1 = { sign = '󰈼' },  -- ⚐ ⚑ 󰈻 󰈼 󰈽 󰈾 󰈿 󰉀
 			mappings = {
 				annotate = 'm<Space>',
 			},

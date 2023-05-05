@@ -159,7 +159,13 @@ end
 -- icons:  ▏│ ¦ ╎ ┆ ⋮ ⦙ ┊ 
 
 opt.showbreak = '↳  '
-opt.listchars = { tab = '▏ ', extends = '⟫', precedes = '⟪', nbsp = '␣', trail = '·'}
+opt.listchars = {
+	tab = '  ', -- '▏ ',
+	extends = '⟫',
+	precedes = '⟪',
+	nbsp = '␣',
+	trail = '·'
+}
 opt.fillchars = {
 	foldopen = '',
 	foldclose = '',
@@ -167,6 +173,13 @@ opt.fillchars = {
 	foldsep = ' ',
 	diff = '╱',
 	eob = ' ',
+	horiz = '━',
+	horizup = '┻',
+	horizdown = '┳',
+	vert = '┃',
+	vertleft = '┫',
+	vertright = '┣',
+	verthoriz = '╋',
 }
 
 -- Folds

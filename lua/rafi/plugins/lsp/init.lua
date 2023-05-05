@@ -227,8 +227,8 @@ return {
 			local actions = require('glance').actions
 			return {
 				folds = {
-					fold_closed = '', --  
-					fold_open = '', --  
+					fold_closed = '󰅂', -- 󰅂 
+					fold_open = '󰅀', -- 󰅀 
 					folded = true,
 				},
 				mappings = {

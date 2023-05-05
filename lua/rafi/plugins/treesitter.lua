@@ -279,8 +279,8 @@ return {
 				---@param width integer
 				---@return table
 				fold_virt_text_handler = function(text, lnum, endLnum, width)
-					local suffix = "  "
-					local lines  = ('  %d '):format(endLnum - lnum)
+					local suffix = ' 󰇘 '
+					local lines  = (' 󰁂 %d '):format(endLnum - lnum)
 
 					local cur_width = 0
 					for _, section in ipairs(text) do

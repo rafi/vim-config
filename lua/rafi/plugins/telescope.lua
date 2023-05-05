@@ -120,6 +120,8 @@ vim.api.nvim_create_autocmd('User', {
 	pattern = 'TelescopePreviewerLoaded',
 	group = vim.api.nvim_create_augroup('rafi_telescope', {}),
 	callback = function()
+		vim.wo.listchars = vim.wo.listchars .. ',tab:▏\\ '
+		vim.wo.conceallevel = 0
 		vim.wo.wrap = true
 		vim.wo.list = true
 		vim.wo.number = true
