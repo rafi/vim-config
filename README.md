@@ -485,10 +485,10 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | Name           | Description
 | -------------- | ----------------------
 | [folke/lazy.nvim] | Modern plugin manager for Neovim
+| [nmac427/guess-indent.nvim] | Automatic indentation style detection
 | [christoomey/tmux-navigator] | Seamless navigation between tmux panes and vim splits
 | [tweekmonster/helpful.vim] | Display vim version numbers in docs
 | [lambdalisue/suda.vim] | An alternative sudo for Vim and Neovim
-| [tpope/vim-sleuth] | Heuristically set buffer indent options
 | [olimorris/persisted.nvim] | Simple session management for Neovim with git branching
 | [RRethy/vim-illuminate] | Highlights other uses of the word under the cursor
 | [mbbill/undotree] | Ultimate undo history visualizer
@@ -604,6 +604,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [rcarriga/nvim-notify] | Fancy notification manager for NeoVim
 | [chentau/marks.nvim] | Interacting with and manipulating marks
 | [lukas-reineke/indent-blankline.nvim] | Visually display indent levels
+| [tenxsoydev/tabs-vs-spaces.nvim] | Hint and fix deviating indentation
 | [t9md/vim-quickhl] | Highlight words quickly
 | [kevinhwang91/nvim-bqf] | Better quickfix window in Neovim
 | [uga-rosa/ccc.nvim] | Super powerful color picker/colorizer plugin
@@ -620,10 +621,10 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [jose-elias-alvarez/null-ls.nvim]: https://github.com/jose-elias-alvarez/null-ls.nvim
 
 [folke/lazy.nvim]: https://github.com/folke/lazy.nvim
+[nmac427/guess-indent.nvim]: https://github.com/nmac427/guess-indent.nvim
 [christoomey/tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator
 [tweekmonster/helpful.vim]: https://github.com/tweekmonster/helpful.vim
 [lambdalisue/suda.vim]: https://github.com/lambdalisue/suda.vim
-[tpope/vim-sleuth]: https://github.com/tpope/vim-sleuth
 [olimorris/persisted.nvim]: https://github.com/olimorris/persisted.nvim
 [RRethy/vim-illuminate]: https://github.com/RRethy/vim-illuminate
 [mbbill/undotree]: https://github.com/mbbill/undotree
@@ -715,6 +716,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [rcarriga/nvim-notify]: https://github.com/rcarriga/nvim-notify
 [chentau/marks.nvim]: https://github.com/chentau/marks.nvim
 [lukas-reineke/indent-blankline.nvim]: https://github.com/lukas-reineke/indent-blankline.nvim
+[tenxsoydev/tabs-vs-spaces.nvim]: https://github.com/tenxsoydev/tabs-vs-spaces.nvim
 [t9md/vim-quickhl]: https://github.com/t9md/vim-quickhl
 [kevinhwang91/nvim-bqf]: https://github.com/kevinhwang91/nvim-bqf
 [uga-rosa/ccc.nvim]: https://github.com/uga-rosa/ccc.nvim

@@ -6,20 +6,10 @@ local is_windows = vim.loop.os_uname().sysname == 'Windows_NT'
 return {
 
 	-----------------------------------------------------------------------------
+	{ 'nmac427/guess-indent.nvim', lazy = false, priority = 50, config = true },
 	{ 'christoomey/vim-tmux-navigator', lazy = false, cond = not is_windows },
 	{ 'tweekmonster/helpful.vim', cmd = 'HelpfulVersion' },
 	{ 'lambdalisue/suda.vim', event = 'BufRead' },
-
-	-----------------------------------------------------------------------------
-	{
-		'tpope/vim-sleuth',
-		lazy = false,
-		priority = 50,
-		init = function ()
-			vim.g.sleuth_no_filetype_indent_on = 1
-			vim.g.sleuth_gitcommit_heuristics = 0
-		end
-	},
 
 	-----------------------------------------------------------------------------
 	{
