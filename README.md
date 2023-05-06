@@ -503,6 +503,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [folke/todo-comments.nvim] | Highlight, list and search todo comments in your projects
 | [folke/trouble.nvim] | Pretty lists to help you solve all code diagnostics
 | [sindrets/diffview.nvim] | Tabpage interface for cycling through diffs
+| [akinsho/toggleterm.nvim] | Persist and toggle multiple terminals
 | [simrat39/symbols-outline.nvim] | Tree like view for symbols using LSP
 | [s1n7ax/nvim-window-picker] | Window picker
 | [rest-nvim/rest.nvim] | Fast Neovim http client written in Lua
@@ -645,6 +646,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [folke/todo-comments.nvim]: https://github.com/folke/todo-comments.nvim
 [folke/trouble.nvim]: https://github.com/folke/trouble.nvim
 [sindrets/diffview.nvim]: https://github.com/sindrets/diffview.nvim
+[akinsho/toggleterm.nvim]: https://github.com/akinsho/toggleterm.nvim
 [simrat39/symbols-outline.nvim]: https://github.com/simrat39/symbols-outline.nvim
 [s1n7ax/nvim-window-picker]: https://github.com/s1n7ax/nvim-window-picker
 [rest-nvim/rest.nvim]: https://github.com/rest-nvim/rest.nvim

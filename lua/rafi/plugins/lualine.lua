@@ -135,6 +135,10 @@ return {
 							padding = 1,
 						},
 						{
+							function() return '#' .. vim.b['toggle_number'] end,
+							cond = function() return vim.bo.buftype == 'terminal' end,
+						},
+						{
 							function()
 								if vim.fn.win_gettype() == 'loclist' then
 									return vim.fn.getloclist(0, { title = 0 }).title
