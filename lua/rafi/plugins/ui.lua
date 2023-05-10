@@ -10,14 +10,6 @@ return {
 
 	-----------------------------------------------------------------------------
 	{
-		'rafi/theme-loader.nvim',
-		lazy = false,
-		priority = 99,
-		opts = { initial_colorscheme = 'hybrid' },
-	},
-
-	-----------------------------------------------------------------------------
-	{
 		'folke/noice.nvim',
 		event = 'VeryLazy',
 		dependencies = {

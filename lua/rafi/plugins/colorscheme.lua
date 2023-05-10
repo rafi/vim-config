@@ -3,7 +3,15 @@
 
 return {
 
-	{ 'rafi/awesome-vim-colorschemes', priority = 100, lazy = false },
+	{
+		'rafi/theme-loader.nvim',
+		lazy = false,
+		priority = 99,
+		opts = { initial_colorscheme = 'neohybrid' },
+	},
+
+	{ 'rafi/neo-hybrid.vim', priority = 100, lazy = false },
+	{ 'rafi/awesome-vim-colorschemes', lazy = false },
 	{ 'AlexvZyl/nordic.nvim' },
 	{ 'folke/tokyonight.nvim', opts = { style = 'night' }},
 	{ 'rebelot/kanagawa.nvim' },

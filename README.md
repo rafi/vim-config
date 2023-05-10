@@ -542,6 +542,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 
 | Name           | Description
 | -------------- | ----------------------
+| [rafi/neo-hybrid.vim] | Modern dark colorscheme, hybrid improved
 | [rafi/awesome-colorschemes] | Awesome color-schemes
 | [AlexvZyl/nordic.nvim] | Nord for Neovim, but warmer and darker
 | [folke/tokyonight.nvim] | Clean, dark Neovim theme
@@ -677,6 +678,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [AndrewRadev/linediff.vim]: https://github.com/AndrewRadev/linediff.vim
 [AndrewRadev/dsf.vim]: https://github.com/AndrewRadev/dsf.vim
 
+[rafi/neo-hybrid.vim]: https://github.com/rafi/neo-hybrid.vim
 [rafi/awesome-colorschemes]: https://github.com/rafi/awesome-vim-colorschemes
 [AlexvZyl/nordic.nvim]: https://github.com/AlexvZyl/nordic.nvim
 [folke/tokyonight.nvim]: https://github.com/folke/tokyonight.nvim
