@@ -60,7 +60,7 @@ return {
 					---@param client lsp.Client
 					require('rafi.config').on_attach(function(client)
 						if client.name == 'copilot' then
-							copilot_cmp._on_insert_enter()
+							copilot_cmp._on_insert_enter({})
 						end
 					end)
 				end,
