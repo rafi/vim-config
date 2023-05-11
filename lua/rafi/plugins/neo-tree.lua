@@ -7,7 +7,7 @@ local winwidth = 25
 local toggle_width = function()
 	local max = winwidth * 2
 	local cur_width = vim.fn.winwidth(0)
-	local half = math.floor((winwidth + (max - winwidth) / 2) + 0.5)
+	local half = math.floor((winwidth + (max - winwidth) / 2) + 0.4)
 	local new_width = winwidth
 	if cur_width == winwidth then
 		new_width = half
@@ -36,7 +36,7 @@ end
 local function set_cursorline()
 	vim.wo.winhighlight = 'CursorLine:WildMenu'
 	vim.wo.cursorline = true
-	vim.o.signcolumn = 'auto'
+	vim.wo.signcolumn = 'auto'
 end
 
 -- Find previous neo-tree window and clear bright highlight selection.

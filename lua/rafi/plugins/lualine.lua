@@ -120,7 +120,7 @@ return {
 					lualine_b = {
 						{
 							function() return require('rafi.lib.badge').icon() end,
-							padding = 1,
+							padding = { left = 1, right = 0 },
 						},
 						{
 							filepath,
