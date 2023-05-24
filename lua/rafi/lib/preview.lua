@@ -36,7 +36,12 @@ local function close(popup_state, augroup)
 		pcall(vim.api.nvim_del_augroup_by_id, augroup)
 		utils.win_delete('preview_border_win', popup_state.win_id, true, true)
 		if popup_state.border and popup_state.border.win_id then
-			utils.win_delete('preview_border_win', popup_state.border.win_id, true, true)
+			utils.win_delete(
+				'preview_border_win',
+				popup_state.border.win_id,
+				true,
+				true
+			)
 		end
 	end)
 end
@@ -68,7 +73,11 @@ function M.open(path)
 	vim.api.nvim_win_set_option(winid, 'winhighlight', 'Normal:NormalFloat')
 
 	-- Run telescope preview.
-	require('telescope.config').values.buffer_previewer_maker(path, popup_bufnr, {})
+	require('telescope.config').values.buffer_previewer_maker(
+		path,
+		popup_bufnr,
+		{}
+	)
 
 	-- Setup close events
 	local augroup = vim.api.nvim_create_augroup('preview_window_' .. winid, {})

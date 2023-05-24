@@ -32,6 +32,7 @@ return {
 				end
 
 				-- Navigation
+				---@return string
 				map('n', ']g', function()
 					if vim.wo.diff then return ']c' end
 					vim.schedule(function() gs.next_hunk() end)
@@ -44,11 +45,12 @@ return {
 					return '<Ignore>'
 				end, { expr = true, desc = 'Git hunk last' })
 
-				local silent = { silent = true }
-
 				-- Actions
-				map({'n', 'x'}, '<leader>hs', ':Gitsigns stage_hunk<CR>', silent)
-				map({'n', 'x'}, '<leader>hr', ':Gitsigns reset_hunk<CR>', silent)
+				--
+				map('n', '<leader>hs', gs.stage_hunk, { silent = true, desc = 'Stage hunk' })
+				map('n', '<leader>hr', gs.reset_hunk, { silent = true, desc = 'Reset hunk' })
+				map('x', '<leader>hs', function() gs.stage_hunk({vim.fn.line('.'), vim.fn.line('v')}) end)
+				map('x', '<leader>hr', function() gs.reset_hunk({vim.fn.line('.'), vim.fn.line('v')}) end)
 				map('n', '<leader>hS', gs.stage_buffer, { silent = true, desc = 'Stage buffer' })
 				map('n', '<leader>hu', gs.undo_stage_hunk, { desc = 'Undo staged hunk' })
 				map('n', '<leader>hR', gs.reset_buffer, { desc = 'Reset buffer' })
@@ -79,7 +81,7 @@ return {
 		dependencies = { 'sindrets/diffview.nvim' },
 		cmd = 'Neogit',
 		keys = {
-			{ '<Leader>mg', '<cmd>Neogit<CR>' }
+			{ '<Leader>mg', '<cmd>Neogit<CR>', desc = 'Neogit' }
 		},
 		-- See: https://github.com/TimUntersberger/neogit#configuration
 		opts = {
@@ -100,13 +102,10 @@ return {
 	-----------------------------------------------------------------------------
 	{
 		'tpope/vim-fugitive',
-		dependencies = { 'tpope/vim-rhubarb' },
 		cmd = { 'G', 'Git', 'GBrowse', 'Gfetch', 'Gpush', 'Gclog', 'Gdiffsplit' },
 		keys = {
-			{ '<leader>gd', '<cmd>Gdiffsplit<CR>' },
-			{ '<leader>gb', '<cmd>Git blame<CR>' },
-			{ '<leader>go', '<cmd>GBrowse<CR>' },
-			{ '<leader>go', ':GBrowse<CR>', mode = 'x' },
+			{ '<leader>gd', '<cmd>Gdiffsplit<CR>', desc = 'Git diff' },
+			{ '<leader>gb', '<cmd>Git blame<CR>', desc = 'Git blame' },
 		},
 		config = function()
 			vim.api.nvim_create_autocmd('FileType', {
@@ -126,6 +125,37 @@ return {
 		'junegunn/gv.vim',
 		dependencies = { 'tpope/vim-fugitive' },
 		cmd = 'GV'
+	},
+
+	-----------------------------------------------------------------------------
+	{
+		'ruifm/gitlinker.nvim',
+		keys = {
+			{
+				'<leader>go', function()
+					require('gitlinker').get_buf_range_url('n')
+				end,
+				silent = true,
+				desc = 'Git open in browser',
+			},
+			{
+				'<leader>go', function()
+					require('gitlinker').get_buf_range_url('v')
+				end,
+				mode = 'x',
+				desc = 'Git open in browser',
+			},
+		},
+		opts = {
+			mappings = nil,
+			opts = {
+				add_current_line_on_normal_mode = true,
+				print_url = false,
+				action_callback = function(...)
+					return require('gitlinker.actions').open_in_browser(...)
+				end
+			}
+		},
 	},
 
 	-----------------------------------------------------------------------------

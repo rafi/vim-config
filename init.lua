@@ -5,19 +5,12 @@ local config = require('rafi.config')
 config.ensure_lazy()
 config.setup()
 
--- Setup Lazy.nvim with plugins specs.
-local spec = {
-	{ import = 'rafi.plugins' },
-}
-
--- Add user's specs if exist.
-if config.has_user_plugins() then
-	table.insert(spec, { import = 'plugins' })
-end
-
 -- Start lazy.nvim plugin manager.
-require('lazy').setup({
-	spec = spec,
+require('lazy').setup(vim.tbl_extend('keep', config.user_lazy_opts(), {
+	spec = {
+		{ import = 'rafi.plugins' },
+		config.has_user_plugins() and { import = 'plugins' } or nil,
+	},
 	defaults = { lazy = true, version = false },
 	dev = { path = config.path_join(vim.fn.stdpath('config'), 'dev') },
 	install = { missing = true, colorscheme = {} },
@@ -40,6 +33,6 @@ require('lazy').setup({
 			},
 		},
 	},
-})
+}))
 
 -- Enjoy!

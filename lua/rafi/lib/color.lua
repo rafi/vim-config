@@ -16,7 +16,12 @@ end
 
 -- Turns { red, green, blue } -> #rrggbb
 function M.rgb_num2str(rgb_color_num)
-	local rgb_color_str = string.format('#%02x%02x%02x', rgb_color_num.red, rgb_color_num.green, rgb_color_num.blue)
+	local rgb_color_str = string.format(
+		'#%02x%02x%02x',
+		rgb_color_num.red,
+		rgb_color_num.green,
+		rgb_color_num.blue
+	)
 	return rgb_color_str
 end
 
@@ -77,7 +82,9 @@ function M.apply_contrast(highlight, threshold)
 	-- Don't waste too much time here max 25 iteration should be more than enough
 	local iteration_count = 1
 	while
-		math.abs(M.get_color_avg(highlight.fg) - hightlight_bg_avg) < contrast_threshold_config and iteration_count < 25
+		math.abs(M.get_color_avg(highlight.fg) - hightlight_bg_avg)
+			< contrast_threshold_config
+		and iteration_count < 25
 	do
 		highlight.fg = M.contrast_modifier(highlight.fg, contranst_change_step)
 		iteration_count = iteration_count + 1

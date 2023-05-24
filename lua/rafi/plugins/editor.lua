@@ -6,18 +6,23 @@ local is_windows = vim.loop.os_uname().sysname == 'Windows_NT'
 return {
 
 	-----------------------------------------------------------------------------
-	{ 'christoomey/vim-tmux-navigator', lazy = false, cond = not is_windows },
+	{ 'nmac427/guess-indent.nvim', lazy = false, priority = 50, config = true },
 	{ 'tweekmonster/helpful.vim', cmd = 'HelpfulVersion' },
 	{ 'lambdalisue/suda.vim', event = 'BufRead' },
 
 	-----------------------------------------------------------------------------
 	{
-		'tpope/vim-sleuth',
+		'christoomey/vim-tmux-navigator',
 		lazy = false,
-		priority = 50,
-		init = function ()
-			vim.g.sleuth_no_filetype_indent_on = 1
-			vim.g.sleuth_gitcommit_heuristics = 0
+		cond = not is_windows,
+		keys = {
+			{ '<C-h>', '<cmd>TmuxNavigateLeft<CR>', mode = { 'n', 't' }, silent = true, desc = 'Jump to left pane' },
+			{ '<C-j>', '<cmd>TmuxNavigateDown<CR>', mode = { 'n', 't' }, silent = true, desc = 'Jump to lower pane' },
+			{ '<C-k>', '<cmd>TmuxNavigateUp<CR>', mode = { 'n', 't' }, silent = true, desc = 'Jump to upper pane' },
+			{ '<C-l>', '<cmd>TmuxNavigateRight<CR>', mode = { 'n', 't' }, silent = true, desc = 'Jump to right pane' },
+		},
+		init = function()
+			vim.g.tmux_navigator_no_mappings = true
 		end
 	},
 
@@ -114,7 +119,7 @@ return {
 			delay = 200,
 			under_cursor = false,
 			modes_allowlist = { 'n', 'no', 'nt' },
-			filetypes_denylist = { 'dirvish', 'fugitive', 'neo-tree', },
+			filetypes_denylist = { 'fugitive', 'neo-tree', 'SidebarNvim', 'git' },
 		},
 		keys = {
 			{ ']]', desc = 'Next Reference' },
@@ -175,7 +180,8 @@ return {
 		'ggandor/leap.nvim',
 		keys = {
 			{ 'ss', '<Plug>(leap-forward-to)', mode = { 'n', 'x', 'o' }, desc = 'Leap forward to' },
-			{ 'SS', '<Plug>(leap-backward-to)', mode = { 'n', 'x', 'o' }, desc = 'Leap backward to' },
+			{ 'sS', '<Plug>(leap-backward-to)', mode = { 'n', 'x', 'o' }, desc = 'Leap backward to' },
+			{ 'SS', '<Plug>(leap-from-window)', mode = { 'n', 'x', 'o' }, desc = 'Leap from windows' },
 		},
 		config = true,
 	},
@@ -249,6 +255,8 @@ return {
 			{ '<LocalLeader>dt', '<cmd>TodoTelescope<CR>', desc = 'todo' },
 			{ '<leader>xt', '<cmd>TodoTrouble<CR>', desc = 'Todo (Trouble)' },
 			{ '<leader>xT', '<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>', desc = 'Todo/Fix/Fixme (Trouble)' },
+			{ '<leader>st', '<cmd>TodoTelescope<cr>', desc = 'Todo' },
+			{ '<leader>sT', '<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>', desc = 'Todo/Fix/Fixme' },
 		},
 		opts = { signs = false },
 	},
@@ -315,6 +323,28 @@ return {
 
 	-----------------------------------------------------------------------------
 	{
+		'akinsho/toggleterm.nvim',
+		cmd = 'ToggleTerm',
+		keys = {
+			{ '<C-\\>', mode = { 'n', 't' }, silent = true, function()
+				local venv = vim.b['virtual_env']
+				local term = require('toggleterm.terminal').Terminal:new({
+					env = venv and { VIRTUAL_ENV = venv } or nil,
+					count = vim.v.count > 0 and vim.v.count or 1,
+				})
+				term:toggle()
+			end, desc = 'Toggle terminal' },
+		},
+		opts = {
+			open_mapping = false,
+			float_opts = {
+				border = 'curved',
+			},
+		},
+	},
+
+	-----------------------------------------------------------------------------
+	{
 		'simrat39/symbols-outline.nvim',
 		cmd = { 'SymbolsOutline', 'SymbolsOutlineOpen' },
 		keys = {
@@ -333,7 +363,8 @@ return {
 				group = vim.api.nvim_create_augroup('rafi_outline', {}),
 				pattern = 'Outline',
 				callback = function()
-					vim.opt_local.winhighlight = 'CursorLine:WildMenu'
+					vim.wo.winhighlight = 'CursorLine:WildMenu'
+					vim.wo.signcolumn = 'auto'
 				end
 			})
 		end
@@ -391,17 +422,14 @@ return {
 		'mickael-menu/zk-nvim',
 		name = 'zk',
 		ft = 'markdown',
-		cmd = {
-			'ZkIndex', 'ZkNew', 'ZkNotes', 'ZkTags',
-			'ZkNewFromTitleSelection', 'ZkNewFromContentSelection',
-		},
+		cmd = { 'ZkNew', 'ZkNotes', 'ZkTags', 'ZkMatch' },
 		keys = {
 			{ '<leader>zn', "<Cmd>ZkNew { title = vim.fn.input('Title: ') }<CR>", desc = 'Zk New' },
 			{ '<leader>zo', "<Cmd>ZkNotes { sort = { 'modified' } }<CR>", desc = 'Zk Notes' },
 			{ '<leader>zt', '<Cmd>ZkTags<CR>', desc = 'Zk Tags' },
 			{ '<leader>zf', "<Cmd>ZkNotes { sort = { 'modified' }, match = vim.fn.input('Search: ') }<CR>", desc = 'Zk Search' },
 			{ '<leader>zf', ":'<,'>ZkMatch<CR>", mode = 'x', desc = 'Zk Match' },
-			{ '<leader>zb', '<Cmd>lua vim.lsp.buf.references()<CR>', desc = 'Zk references' },
+			{ '<leader>zb', '<Cmd>ZkBacklinks<CR>', desc = 'Zk Backlinks' },
 			{ '<leader>zl', '<Cmd>ZkLinks<CR>', desc = 'Zk Links' },
 		},
 		opts = { picker = 'telescope' }
@@ -409,9 +437,19 @@ return {
 
 	-----------------------------------------------------------------------------
 	{
-		'windwp/nvim-spectre',
+		'nvim-pack/nvim-spectre',
 		keys = {
-			{ '<Leader>so', function() require('spectre').open() end, desc = 'Spectre' },
+			{
+				'<Leader>sp',
+				function() require('spectre').open() end,
+				desc = 'Spectre',
+			},
+			{
+				'<Leader>sp',
+				function() require('spectre').open_visual({ select_word=true }) end,
+				mode = 'x',
+				desc = 'Spectre Word',
+			},
 		},
 		opts = {
 			mapping = {

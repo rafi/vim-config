@@ -6,15 +6,7 @@ return {
 	-----------------------------------------------------------------------------
 	{ 'nvim-tree/nvim-web-devicons', lazy = false },
 	{ 'MunifTanjim/nui.nvim', lazy = false },
-	{ 'rafi/tabstrip.nvim', lazy = false, opts = true },
-
-	-----------------------------------------------------------------------------
-	{
-		'rafi/theme-loader.nvim',
-		lazy = false,
-		priority = 99,
-		opts = { initial_colorscheme = 'hybrid' },
-	},
+	{ 'rafi/tabstrip.nvim', lazy = false, priority = 98, opts = true },
 
 	-----------------------------------------------------------------------------
 	{
@@ -79,6 +71,7 @@ return {
 				bottom_search = true,
 				command_palette = true,
 				long_message_to_split = true,
+				lsp_doc_border = true,
 			},
 			commands = {
 				all = {
@@ -99,10 +92,27 @@ return {
 
 	-----------------------------------------------------------------------------
 	{
+		'stevearc/dressing.nvim',
+		init = function()
+			---@diagnostic disable-next-line: duplicate-set-field
+			vim.ui.select = function(...)
+				require('lazy').load({ plugins = { 'dressing.nvim' } })
+				return vim.ui.select(...)
+			end
+			---@diagnostic disable-next-line: duplicate-set-field
+			vim.ui.input = function(...)
+				require('lazy').load({ plugins = { 'dressing.nvim' } })
+				return vim.ui.input(...)
+			end
+		end,
+	},
+
+	-----------------------------------------------------------------------------
+	{
 		'SmiteshP/nvim-navic',
 		keys = {
 			{
-				'<Leader>f',
+				'<Leader>tf',
 				function()
 					if vim.b.navic_winbar then
 						vim.b.navic_winbar = false
@@ -130,9 +140,8 @@ return {
 		end,
 		opts = function()
 			return {
-				separator = ' ',
+				separator = '  ',
 				highlight = true,
-				depth_limit = 5,
 				icons = require('rafi.config').icons.kinds,
 			}
 		end,
@@ -148,7 +157,7 @@ return {
 				function()
 					require('notify').dismiss({ silent = true, pending = true })
 				end,
-				desc = 'Delete all Notifications',
+				desc = 'Dismiss all Notifications',
 			},
 		},
 		opts = {
@@ -181,7 +190,7 @@ return {
 		},
 		opts = {
 			sign_priority = { lower = 10, upper = 15, builtin = 8, bookmark = 20 },
-			bookmark_1 = { sign = '' },  -- ⚐ ⚑      
+			bookmark_1 = { sign = '󰈼' },  -- ⚐ ⚑ 󰈻 󰈼 󰈽 󰈾 󰈿 󰉀
 			mappings = {
 				annotate = 'm<Space>',
 			},
@@ -219,6 +228,13 @@ return {
 				'Trouble',
 			},
 		},
+	},
+
+	-----------------------------------------------------------------------------
+	{
+		'tenxsoydev/tabs-vs-spaces.nvim',
+		event = { 'BufReadPost', 'BufNewFile' },
+		config = true,
 	},
 
 	-----------------------------------------------------------------------------
@@ -290,7 +306,7 @@ return {
 			highlighter = {
 				auto_enable = true,
 				lsp = true,
-				excludes = { 'lazy', 'mason' },
+				excludes = { 'lazy', 'mason', 'help', 'neo-tree' },
 			},
 		},
 	},

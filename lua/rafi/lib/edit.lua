@@ -5,6 +5,7 @@ local M = {}
 
 -- Get visually selected lines.
 -- Source: https://github.com/ibhagwan/fzf-lua/blob/main/lua/fzf-lua/utils.lua
+---@return string
 function M.get_visual_selection()
 	-- this will exit visual mode
 	-- use 'gv' to reselect the text
@@ -34,7 +35,9 @@ function M.get_visual_selection()
 	local lines = vim.fn.getline(csrow, cerow)
 	-- local n = cerow-csrow+1
 	local n = #lines
-	if n <= 0 then return '' end
+	if n <= 0 then
+		return ''
+	end
 	lines[n] = string.sub(lines[n], 1, cecol)
 	lines[1] = string.sub(lines[1], cscol)
 	return table.concat(lines, '\n')
@@ -100,7 +103,8 @@ end
 M.toggle_list = function(name)
 	local win_bufs = M.get_tabpage_win_bufs(0)
 	for win, buf in pairs(win_bufs) do
-		if vim.api.nvim_buf_get_option(buf, 'filetype') == 'qf'
+		if
+			vim.api.nvim_buf_get_option(buf, 'filetype') == 'qf'
 			and vim.fn.win_gettype(win) == name
 		then
 			vim.api.nvim_win_close(win, false)
@@ -118,6 +122,7 @@ end
 -- Return a table with all window buffers from a tabpage.
 ---@private
 ---@param tabpage integer
+---@return table
 M.get_tabpage_win_bufs = function(tabpage)
 	local bufs = {}
 	for _, win in pairs(vim.api.nvim_tabpage_list_wins(tabpage)) do

@@ -19,6 +19,8 @@ end
 -- Package-manager
 map('n', '<leader>l', '<cmd>:Lazy<cr>', { desc = 'Open Lazy UI' })
 
+-- stylua: ignore start
+
 -- Navigation
 -- ===
 
@@ -34,6 +36,7 @@ map('n', '<Leader><Leader>', 'V', { desc = 'Visual Mode' })
 map('x', '<Leader><Leader>', '<Esc>', { desc = 'Exit Visual Mode' })
 
 -- Toggle fold or select option from popup menu
+---@return string
 map('n', '<CR>', function()
 	return vim.fn.pumvisible() == 1 and '<CR>' or 'za'
 end, { expr = true, noremap = true, desc = 'Toggle Fold' })
@@ -133,9 +136,16 @@ map('n', 'g#', '#', { noremap = true })
 -- Clear search with <Esc>
 map('n', '<Esc>', '<cmd>noh<CR>', { noremap = true, desc = 'Clear Search Highlight' })
 
+-- Clear search, diff update and redraw taken from runtime/lua/_editor.lua
+map(
+	'n',
+	'<leader>ur',
+	'<cmd>nohlsearch<bar>diffupdate<bar>normal! <C-L><CR>',
+	{ desc = 'Redraw / clear hlsearch / diff update' }
+)
+
 -- Use backspace key for matching parens
-map('n', '<BS>', '%', { noremap = true, desc = 'Jump to Paren' })
-map('x', '<BS>', '%', { noremap = true, desc = 'Jump to Paren' })
+map({ 'n', 'x' }, '<BS>', '%', { remap = true, desc = 'Jump to Paren' })
 
 -- Repeat latest f, t, F or T
 map('n', '\\', ';', { noremap = true, desc = 'Repeat Latest f/t' })
@@ -165,6 +175,7 @@ map('n', '!', ':!', { desc = 'Execute Shell Command' })
 map('n', 'g!', ":put=execute('')<Left><Left>", { desc = 'Paste Command' })
 
 -- Switch history search pairs, matching my bash shell
+---@return string
 map('c', '<C-p>', function()
 	return vim.fn.pumvisible() == 1 and '<C-p>' or '<Up>'
 end, { noremap = true, expr = true })
@@ -191,7 +202,9 @@ vim.cmd.cnoreabbrev('bD', 'bd')
 map('n', '<Leader>cd', function()
 	local bufdir = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p:h')
 	if vim.loop.fs_stat(bufdir) then
-		vim.defer_fn(function() vim.cmd.lcd(bufdir) end, 300)
+		vim.defer_fn(function()
+			vim.cmd.lcd(bufdir)
+		end, 300)
 		vim.notify(bufdir)
 	end
 end, { desc = 'Change Local Directory' })
@@ -237,8 +250,8 @@ map('n', '<A-}>', '<cmd>+tabmove<CR>', { desc = 'Tab Move Forwards' })
 
 -- Show treesitter nodes under cursor
 -- highlights under cursor
-if vim.fn.has('nvim-0.9.0') == 1 then
-	map('n', '<Leader>tt', vim.show_pos, { desc = 'Show Treesitter Node' })
+if vim.fn.has('nvim-0.9') == 1 then
+	map('n', '<Leader>ui', vim.show_pos, { desc = 'Show Treesitter Node' })
 end
 
 -- Custom Tools
@@ -261,6 +274,16 @@ end, { noremap = true, desc = 'Jump to older buffer' })
 map('n', '<LocalLeader>c', function()
 	require('rafi.lib.contextmenu').show()
 end, { desc = 'Content-aware menu' })
+
+-- Lazygit
+local Util = require('rafi.lib.utils')
+map('n', '<leader>tg', function() Util.float_term({ 'lazygit' }, { cwd = Util.get_root(), esc_esc = false }) end, { desc = 'Lazygit (root dir)' })
+map('n', '<leader>tG', function() Util.float_term({ 'lazygit' }, { esc_esc = false }) end, { desc = 'Lazygit (cwd)' })
+
+-- Floating terminal
+map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Enter Normal Mode' })
+map('n', '<Leader>tt', function() Util.float_term(nil, { cwd = Util.get_root() }) end, { desc = 'Terminal (root dir)' })
+map('n', '<Leader>tT', function() Util.float_term() end, { desc = 'Terminal (cwd)' })
 
 if vim.fn.has('mac') then
 	-- Open the macOS dictionary on current word

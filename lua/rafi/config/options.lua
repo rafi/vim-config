@@ -2,6 +2,8 @@
 -- github.com/rafi/vim-config
 -- ===
 
+-- stylua: ignore start
+
 -- Keyboard leaders
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ';'
@@ -119,7 +121,7 @@ opt.wildmode = 'longest:full,full' -- Command-line completion mode
 -- ===
 
 opt.termguicolors = true
-opt.shortmess:append { W = true, I = true, c = true }
+opt.shortmess:append({ W = true, I = true, c = true })
 opt.showmode = false    -- Don't show mode in cmd window
 opt.scrolloff = 2       -- Keep at least 2 lines above/below
 opt.sidescrolloff = 5   -- Keep at least 5 lines left/right
@@ -147,9 +149,9 @@ opt.pumheight = 10      -- Maximum number of items to show in the popup menu
 opt.pumwidth = 10       -- Minimum width for the popup menu
 opt.pumblend = 10       -- Popup blend
 
-if vim.fn.has('nvim-0.9.0') == 1 then
+if vim.fn.has('nvim-0.9') == 1 then
 	opt.splitkeep = 'screen'
-	opt.shortmess:append { C = true }
+	opt.shortmess:append({ C = true })
 end
 
 -- UI Symbols
@@ -157,7 +159,13 @@ end
 -- icons:  ▏│ ¦ ╎ ┆ ⋮ ⦙ ┊ 
 
 opt.showbreak = '↳  '
-opt.listchars = { tab = '▏ ', extends = '⟫', precedes = '⟪', nbsp = '␣', trail = '·'}
+opt.listchars = {
+	tab = '  ', -- '▏ ',
+	extends = '⟫',
+	precedes = '⟪',
+	nbsp = '␣',
+	trail = '·'
+}
 opt.fillchars = {
 	foldopen = '',
 	foldclose = '',
@@ -165,6 +173,13 @@ opt.fillchars = {
 	foldsep = ' ',
 	diff = '╱',
 	eob = ' ',
+	horiz = '━',
+	horizup = '┻',
+	horizdown = '┳',
+	vert = '┃',
+	vertleft = '┫',
+	vertright = '┣',
+	verthoriz = '╋',
 }
 
 -- Folds

@@ -2,22 +2,24 @@
 -- https://github.com/rafi/vim-config
 
 local plugin_icons = {
-	qf = { '', 'List' },
-	['neo-tree'] = { '', 'neo-tree' },
-	['neo-tree-popup'] = { '', 'neo-tree' },
-	TelescopePrompt = { '', 'Telescope' },
-	Trouble = { '' },
-	DiffviewFiles = { '' },
+	DiffviewFiles = { '' },
+	fugitive = { '󰊢' },
+	fugitiveblame = { '󰊢', 'Blame' },
+	lazy = { '󰒲', 'Lazy.nvim' },
+	loclist = { '󰂖', 'Location List' },
+	mason = { '󰈏', 'Mason' },
+	NeogitStatus = { '󰉺' },
+	['neo-tree'] = { '', 'Neo-tree' },
+	['neo-tree-popup'] = { '󰋱', 'Neo-tree' },
 	Outline = { '' },
-	mason = { '', 'Mason' },
-	spectre_panel = { '', 'Spectre' },
-	undotree = { '' },
-	NeogitStatus = { '' },
-	fugitive = { '' },
-	fugitiveblame = { '', 'Blame' },
+	quickfix = { '󰎟', 'Quickfix List' }, -- 󰎟 
+	spectre_panel = { '󰥩', 'Spectre' },
+	TelescopePrompt = { '󰋱', 'Telescope' },
+	terminal = { '' },
+	toggleterm = { '', 'Terminal' },
+	Trouble = { '' }, --  
+	undotree = { '󰃢' },
 }
-
-local root_patterns = { '.git', '_darcs', '.hg', '.bzr', '.svn' }
 
 local cache_keys = {
 	'badge_cache_filepath',
@@ -29,7 +31,7 @@ local augroup = vim.api.nvim_create_augroup('rafi_badge', {})
 
 -- Clear cached values that relate to buffer filename.
 vim.api.nvim_create_autocmd(
-	{'BufReadPost', 'BufFilePost', 'BufNewFile', 'BufWritePost'},
+	{ 'BufReadPost', 'BufFilePost', 'BufNewFile', 'BufWritePost' },
 	{
 		group = augroup,
 		callback = function()
@@ -55,34 +57,19 @@ vim.api.nvim_create_autocmd(
 
 local M = {}
 
--- Find the root directory by searching for the version-control dir
-function M.root()
-	local cwd = vim.loop.cwd()
-	if cwd == '' or cwd == nil then
-		return ''
-	end
-	local ok, cache = pcall(vim.api.nvim_buf_get_var, 0, 'project_dir')
-	if ok and cache then
-		local _, last_cwd = pcall(vim.api.nvim_buf_get_var, 0, 'project_dir_last_cwd')
-		if cwd == last_cwd then
-			return cache
-		end
-	end
-
-	local root = vim.fs.find(root_patterns, { path = cwd, upward = true })[1]
-	root = root and vim.fs.dirname(root) or vim.loop.cwd()
-	vim.api.nvim_buf_set_var(0, 'project_dir', root)
-	vim.api.nvim_buf_set_var(0, 'project_dir_last_cwd', cwd)
-	return root
-end
-
 -- Try to guess the project's name
+---@return string
 function M.project()
-	return vim.fn.fnamemodify(M.root(), ':t')
+	return vim.fn.fnamemodify(require('rafi.lib.utils').get_root(), ':t')
 end
 
 -- Provides relative path with limited characters in each directory name, and
 -- limits number of total directories. Caches the result for current buffer.
+---@param bufnr integer buffer number
+---@param max_dirs integer max dirs to show
+---@param dir_max_chars integer max chars in dir
+---@param cache_suffix string? cache suffix
+---@return string
 function M.filepath(bufnr, max_dirs, dir_max_chars, cache_suffix)
 	local msg = ''
 	local cache_key = 'badge_cache_filepath' -- _'..ft
@@ -123,8 +110,9 @@ function M.filepath(bufnr, max_dirs, dir_max_chars, cache_suffix)
 	bufname = vim.fn.pathshorten(bufname, dir_max_chars + 1)
 
 	-- Override with plugin names.
-	if plugin_icons[filetype] ~= nil and #plugin_icons[filetype] > 1 then
-		msg = msg .. plugin_icons[filetype][2]
+	local plugin_type = filetype == 'qf' and vim.fn.win_gettype() or filetype
+	if plugin_icons[plugin_type] ~= nil and #plugin_icons[plugin_type] > 1 then
+		msg = msg .. plugin_icons[plugin_type][2]
 	else
 		msg = msg .. bufname
 	end
@@ -160,8 +148,9 @@ function M.icon(bufnr)
 	local buftype = vim.api.nvim_buf_get_option(bufnr, 'buftype')
 	local bufname = vim.api.nvim_buf_get_name(bufnr)
 
-	if buftype ~= '' and plugin_icons[ft] ~= nil then
-		icon = plugin_icons[ft][1]
+	local plugin_type = ft == 'qf' and vim.fn.win_gettype() or ft
+	if buftype ~= '' and plugin_icons[plugin_type] ~= nil then
+		icon = plugin_icons[plugin_type][1]
 	else
 		-- Try nvim-tree/nvim-web-devicons
 		local ok, devicons = pcall(require, 'nvim-web-devicons')
@@ -182,6 +171,8 @@ function M.icon(bufnr)
 end
 
 -- Detect trailing whitespace and cache result per buffer
+---@param symbol string
+---@return string
 function M.trails(symbol)
 	local cache_key = 'badge_cache_trails'
 	local cache_ok, cache = pcall(vim.api.nvim_buf_get_var, 0, cache_key)
@@ -190,11 +181,7 @@ function M.trails(symbol)
 	end
 
 	local msg = ''
-	if
-		not vim.bo.readonly
-		and vim.bo.modifiable
-		and vim.fn.line('$') < 9000
-	then
+	if not vim.bo.readonly and vim.bo.modifiable and vim.fn.line('$') < 9000 then
 		local trailing = vim.fn.search('\\s$', 'nw')
 		if trailing > 0 then
 			local label = symbol or 'WS:'

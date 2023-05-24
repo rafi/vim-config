@@ -92,9 +92,9 @@ return {
 			incremental_selection = {
 				enable = true,
 				keymaps = {
-					init_selection = '<Nop>',
+					init_selection = false,
 					node_incremental = 'v',
-					scope_incremental = '<Nop>',
+					scope_incremental = false,
 					node_decremental = 'V',
 				},
 			},
@@ -139,6 +139,7 @@ return {
 				'bash',
 				'comment',
 				'css',
+				'cue',
 				'diff',
 				'dockerfile',
 				'fish',
@@ -199,22 +200,8 @@ return {
 	-----------------------------------------------------------------------------
 	{
 		'andymass/vim-matchup',
-		config = function()
-			-- vim.g.matchup_transmute_enabled = 1
-			vim.g.matchup_matchparen_offscreen = {
-				method = 'popup',
-				border = 'shadow',
-				highlight = 'NormalFloat',
-				fullwidth = true,
-			}
-			vim.api.nvim_create_autocmd('User', {
-				group = vim.api.nvim_create_augroup('rafi_matchup', {}),
-				pattern = 'MatchupOffscreenEnter',
-				callback = function()
-					vim.api.nvim_win_set_option(0, 'colorcolumn', '')
-					vim.api.nvim_win_set_option(0, 'number', false)
-				end,
-			})
+		init = function()
+			vim.g.matchup_matchparen_offscreen = {}
 		end
 	},
 
@@ -235,6 +222,7 @@ return {
 		opts = function()
 			-- lsp->treesitter->indent
 			---@param bufnr number
+			---@return table
 			local function customizeSelector(bufnr)
 				local function handleFallbackException(err, providerName)
 					if type(err) == 'string' and err:match('UfoFallbackException') then
@@ -289,9 +277,10 @@ return {
 				---@param lnum integer
 				---@param endLnum integer
 				---@param width integer
+				---@return table
 				fold_virt_text_handler = function(text, lnum, endLnum, width)
-					local suffix = "  "
-					local lines  = ('  %d '):format(endLnum - lnum)
+					local suffix = ' 󰇘 '
+					local lines  = (' 󰁂 %d '):format(endLnum - lnum)
 
 					local cur_width = 0
 					for _, section in ipairs(text) do
@@ -302,7 +291,7 @@ return {
 						.. (' '):rep(width - cur_width - vim.fn.strdisplaywidth(lines) - 3)
 
 					table.insert(text, { suffix, 'UfoFoldedEllipsis' })
-					table.insert(text, { lines, 'UfoCursorFoldedLine' })
+					table.insert(text, { lines, 'Folded' })
 					return text
 				end,
 			}

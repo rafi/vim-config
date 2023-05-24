@@ -7,7 +7,7 @@ local winwidth = 25
 local toggle_width = function()
 	local max = winwidth * 2
 	local cur_width = vim.fn.winwidth(0)
-	local half = math.floor((winwidth + (max - winwidth) / 2) + 0.5)
+	local half = math.floor((winwidth + (max - winwidth) / 2) + 0.4)
 	local new_width = winwidth
 	if cur_width == winwidth then
 		new_width = half
@@ -20,6 +20,8 @@ local toggle_width = function()
 end
 
 -- Get current opened directory from state.
+---@param state table
+---@return string
 local function get_current_directory(state)
 	local node = state.tree:get_node()
 	local path = node.path
@@ -34,14 +36,13 @@ end
 local function set_cursorline()
 	vim.wo.winhighlight = 'CursorLine:WildMenu'
 	vim.wo.cursorline = true
-	vim.o.signcolumn = 'auto'
+	vim.wo.signcolumn = 'auto'
 end
 
 -- Find previous neo-tree window and clear bright highlight selection.
--- Don't hide cursorline though, so 'follow_current_file' works.
 local function reset_cursorline()
 	local winid = vim.fn.win_getid(vim.fn.winnr('#'))
-	vim.api.nvim_win_set_option(winid, 'winhighlight', '')
+	vim.api.nvim_win_set_option(winid, 'cursorline', false)
 end
 
 return {
@@ -136,11 +137,9 @@ return {
 			},
 		},
 		window = {
-			position = 'left',
 			width = winwidth,
 			mappings = {
 				['q'] = 'close_window',
-				['<Esc>'] = 'close_window',
 				['?'] = 'noop',
 				['/'] = 'noop',
 
@@ -209,7 +208,6 @@ return {
 				},
 			},
 			use_libuv_file_watcher = true,
-			follow_current_file = true,
 			group_empty_dirs = true,
 			bind_to_cwd = false,
 			cwd_target = {
@@ -221,7 +219,7 @@ return {
 				visible = false,
 				show_hidden_count = true,
 				hide_dotfiles = false,
-				hide_gitignored = true,
+				hide_gitignored = false,
 				hide_by_name = {
 					'.git',
 					'.hg',

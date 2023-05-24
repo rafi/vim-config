@@ -15,23 +15,28 @@ local defaults = {
 	defaults = {
 		autocmds = true, -- rafi.config.autocmds
 		keymaps = true,  -- rafi.config.keymaps
-		options = true,  -- rafi.config.options
-
-		features = {
-			elite_mode = false,
-			window_q_mapping = true,
-		},
+		-- rafi.config.options can't be configured here since it's loaded
+		-- prematurely. You can disable loading options with the following line at
+		-- the top of your lua/config/setup.lua or init.lua:
+		-- `package.loaded['rafi.config.options'] = true`
 	},
+
 	-- String like `habamax` or a function that will load the colorscheme.
+	-- Disabled by default to allow theme-loader.nvim to manage the colorscheme.
 	---@type string|fun()
 	colorscheme = '',
+
+	features = {
+		elite_mode = false,
+		window_q_mapping = true,
+	},
 
 	icons = {
 		diagnostics = {
 			Error = '✘', --   ✘
-			Warn = '',  --    ⚠ 
-			Info = 'ⁱ',  --    ⁱ
-			Hint = '',  --   
+			Warn = '󰀪',  -- 󰀪 󰳤 󱦄 󱗓 
+			Info = 'ⁱ',  --    ⁱ 󰋼 󰋽
+			Hint = '',  --  󰌶 
 		},
 		status = {
 			git = {
@@ -43,7 +48,7 @@ local defaults = {
 				error = ' ',
 				warn = ' ',
 				info = ' ',
-				hint = ' '
+				hint = '󰌶 ',
 			},
 			filename = {
 				modified = '+',
@@ -53,44 +58,46 @@ local defaults = {
 		},
 		-- Default completion kind symbols.
 		kinds = {
-			Array = ' ',  --   󰅨 󱃶 
+			Array = '󰅪 ',  --  󰅪 󰅨 󱃶
 			Boolean = '◩ ',  --  ◩ 󰔡 󱃙 󰟡 󰨙
-			Class = ' ', --   ﴯ 𝓒
-			Color = ' ', --  
-			Constant = ' ', --   
-			Constructor = ' ', --     
+			Class = '󰌗 ', --  󰌗 󰠱 𝓒
+			Color = '󰏘 ', -- 󰸌 󰏘
+			Constant = '󰏿 ', --   󰏿
+			Constructor = '󰆧 ', --  󰆧   
 			Copilot = ' ',  -- 
-			Enum = '練 ', --  練 ℰ 
+			Enum = '󰕘 ', --  󰕘  ℰ 
 			EnumMember = ' ', --  
 			Event = ' ', --  
-			Field = ' ', --    ﴲ   
-			File = ' ', --     
-			Folder = ' ', --   
-			Function = ' ', --   
-			Interface = ' ', --  ﰮ    
+			Field = ' ', -- 󰄶  󰆨  󰀻 󰃒
+			File = ' ', --    󰈔 󰈙
+			Folder = ' ', --   󰉋
+			Function = '󰊕 ', --  󰊕 
+			Interface = ' ', --    
 			Key = ' ',  -- 
-			Keyword = ' ', --    
-			Method = ' ', --   ƒ
-			Module = ' ', --     
-			Namespace = ' ',  --   
-			Null = ' ',  --  󰟢 ﳠ
-			Number = ' ',  --   
-			Object = ' ',  --   
-			Operator = ' ', --    +
-			Package = ' ',  --    
-			Property = '襁 ', --  ﰠ  
-			Reference = ' ', --   
-			Snippet = ' ', --  ﬌  ⮡  
+			Keyword = ' ', --   󰌋 
+			Method = '󰆧 ', --  󰆧 ƒ
+			Module = ' ', --   󰅩 󰆧 󰏗
+			Namespace = ' ',  --   󰅩
+			Null = ' ',  --  󰟢
+			Number = '󰎠 ',  --  󰎠 
+			Object = ' ',  --   󰅩
+			Operator = '󰃬 ', --  󰃬 󰆕 +
+			Package = ' ',  --   󰏖 󰏗
+			Property = '󰖷 ', --  󰜢  
+			Reference = '󰈝 ', --  󰈝 󰈇
+			Snippet = ' ', --  󰘌 ⮡   
 			String = '󰅳 ',  --  󰅳
-			Struct = ' ', --   𝓢 פּ
-			Text = ' ', --    𝓐
-			TypeParameter = ' ', --   𝙏
-			Unit = ' ', --   塞
-			Value = ' ', --    
-			Variable = ' ', --    
+			Struct = ' ', --   𝓢 󰙅 󱏒
+			Text = ' ', --   󰉿 𝓐
+			TypeParameter = ' ', --  󰊄 𝙏
+			Unit = ' ', --   󰑭 
+			Value = ' ', --   󰀬 󰎠
+			Variable = ' ', --   󰀫 
 		},
 	},
 }
+
+M.renames = {}
 
 M.did_init = false
 function M.init()
@@ -103,12 +110,24 @@ function M.init()
 		-- this is needed to make sure options will be correctly applied
 		-- after installing missing plugins
 		require('rafi.config').load('options')
+
+		-- carry over plugin options that their name has been changed.
+		local Plugin = require('lazy.core.plugin')
+		local add = Plugin.Spec.add
+		---@diagnostic disable-next-line: duplicate-set-field
+		Plugin.Spec.add = function(self, plugin, ...)
+			if type(plugin) == 'table' and M.renames[plugin[1]] then
+				plugin[1] = M.renames[plugin[1]]
+			end
+			return add(self, plugin, ...)
+		end
 	end
 end
 
 ---@type RafiConfig
 local options
 
+-- Load rafi and user config files.
 ---@param user_opts table|nil
 function M.setup(user_opts)
 	if not M.did_init then
@@ -126,11 +145,11 @@ function M.setup(user_opts)
 	end
 
 	-- Override config with user config at lua/config/setup.lua
-	local user_setup_path = M.path_join(vim.fn.stdpath('config'), 'lua', 'config', 'setup.lua')
-	if vim.loop.fs_stat(user_setup_path) ~= nil then
-		options = require('config.setup').override(options)
+	local ok, user_setup = pcall(require, 'config.setup')
+	if ok and user_setup.override then
+		options = vim.tbl_deep_extend('force', options, user_setup.override())
 	end
-	for feat_name, feat_val in pairs(options.defaults.features) do
+	for feat_name, feat_val in pairs(options.features) do
 		vim.g['rafi_' .. feat_name] = feat_val
 	end
 
@@ -153,6 +172,15 @@ function M.setup(user_opts)
 	})
 end
 
+---@return table
+function M.user_lazy_opts()
+	local ok, user_setup = pcall(require, 'config.setup')
+	if ok and user_setup.lazy_opts then
+		return user_setup.lazy_opts()
+	end
+	return {}
+end
+
 local augroup_lsp_attach = vim.api.nvim_create_augroup('rafi_lsp_attach', {})
 
 ---@param on_attach fun(client:lsp.Client, buffer:integer)
@@ -168,6 +196,7 @@ function M.on_attach(on_attach)
 end
 
 ---@param range? string
+---@return boolean
 function M.has_version(range)
 	local Semver = require('lazy.manage.semver')
 	return Semver.range(range or M.lazy_version)
@@ -175,6 +204,7 @@ function M.has_version(range)
 end
 
 ---@param plugin string
+---@return boolean
 function M.has(plugin)
 	return require('lazy.core.config').plugins[plugin] ~= nil
 end
@@ -190,6 +220,7 @@ function M.on_very_lazy(fn)
 end
 
 ---@param name string
+---@return table
 function M.plugin_opts(name)
 	local plugin = require('lazy.core.config').plugins[name]
 	if not plugin then
@@ -217,7 +248,7 @@ function M.load(name)
 		})
 	end
 	-- always load rafi's file, then user file
-	if M.defaults[name] then
+	if M.defaults[name] or name == 'options' then
 		_load('rafi.config.' .. name)
 	end
 	_load('config.' .. name)
@@ -244,6 +275,7 @@ function M.ensure_lazy()
 end
 
 -- Validate if lua/plugins/ or lua/plugins.lua exist.
+---@return boolean
 function M.has_user_plugins()
 	local user_path = M.path_join(vim.fn.stdpath('config'), 'lua')
 	return vim.loop.fs_stat(M.path_join(user_path, 'plugins')) ~= nil
@@ -253,7 +285,9 @@ end
 -- Delay notifications till vim.notify was replaced or after 500ms.
 function M.lazy_notify()
 	local notifs = {}
-	local function temp(...) table.insert(notifs, vim.F.pack_len(...)) end
+	local function temp(...)
+		table.insert(notifs, vim.F.pack_len(...))
+	end
 
 	local orig = vim.notify
 	vim.notify = temp
@@ -277,18 +311,22 @@ function M.lazy_notify()
 
 	-- wait till vim.notify has been replaced
 	check:start(function()
-		if vim.notify ~= temp then replay() end
+		if vim.notify ~= temp then
+			replay()
+		end
 	end)
 	-- or if it took more than 500ms, then something went wrong
 	timer:start(500, 0, replay)
 end
 
 -- Join paths.
+---@private
 M.path_join = function(...)
 	return table.concat({ ... }, M.path_sep)
 end
 
 -- Variable holds OS directory separator.
+---@private
 M.path_sep = (function()
 	if jit then
 		local os = string.lower(jit.os)

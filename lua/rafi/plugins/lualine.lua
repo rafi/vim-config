@@ -25,6 +25,10 @@ return {
 				return fpath:gsub('%%', '%%%%')
 			end
 
+			local function is_file_window()
+				return vim.bo.buftype == ''
+			end
+
 			local function is_min_width(min)
 				if vim.o.laststatus > 2 then
 					return vim.o.columns > min
@@ -68,10 +72,14 @@ return {
 					globalstatus = true,
 					always_divide_middle = false,
 					disabled_filetypes = {
-						statusline = { 'dashboard', 'lazy', 'alpha' }
+						statusline = { 'dashboard', 'alpha', 'neo-tree-popup' }
 					},
 					component_separators = '',
 					section_separators   = '',
+				},
+				extensions = {
+					'man',
+					'fugitive',
 				},
 				sections = {
 					lualine_a = {
@@ -85,6 +93,7 @@ return {
 						-- Readonly/zoomed/hash symbol.
 						{
 							padding = { left = 1, right = 0 },
+							cond = is_file_window,
 							function()
 								if vim.bo.buftype == '' and vim.bo.readonly then
 									return icons.status.filename.readonly
@@ -96,33 +105,48 @@ return {
 						},
 
 						-- Buffer number.
-						{ function() return '%n' end, padding = 0 },
+						{ function() return '%n' end, cond = is_file_window, padding = 0 },
 
 						-- Modified symbol.
 						{
 							function()
 								return vim.bo.modified and icons.status.filename.modified or ''
 							end,
+							cond = is_file_window,
 							padding = 0,
 							color = { fg = get_color('bg', {'DiffDelete'}, '#ec5f67') },
 						},
 					},
 					lualine_b = {
 						{
-							'filetype',
-							icon_only = true,
+							function() return require('rafi.lib.badge').icon() end,
 							padding = { left = 1, right = 0 },
 						},
 						{
 							filepath,
-							padding = { left = 1, right = 1 },
+							padding = 1,
 							color = { fg = '#D7D7BC' },
-							-- separator = '',
+							separator = '',
 						},
 						{
 							'branch',
+							cond = is_file_window,
 							icon = '',
-							padding = { left = 1, right = 1 },
+							padding = 1,
+						},
+						{
+							function() return '#' .. vim.b['toggle_number'] end,
+							cond = function() return vim.bo.buftype == 'terminal' end,
+						},
+						{
+							function()
+								if vim.fn.win_gettype() == 'loclist' then
+									return vim.fn.getloclist(0, { title = 0 }).title
+								end
+								return vim.fn.getqflist({ title = 0 }).title
+							end,
+							cond = function() return vim.bo.filetype == 'qf' end,
+							padding = { left = 1, right = 0 },
 						},
 					},
 					lualine_c = {
@@ -140,6 +164,7 @@ return {
 						-- Whitespace trails
 						{
 							function() return require('rafi.lib.badge').trails('␣') end,
+							cond = is_file_window,
 							padding = { left = 1, right = 0 },
 							color = { fg = get_color('bg', {'Identifier'}, '#b294bb') },
 						},
@@ -155,7 +180,9 @@ return {
 								removed = icons.status.git.removed,
 							},
 							padding = { left = 1, right = 0 },
-							cond = function() return is_min_width(70) end,
+							cond = function()
+								return is_file_window() and is_min_width(70)
+							end,
 						},
 						-- {
 						-- 	function() return require('nvim-navic').get_location() end,
@@ -213,7 +240,15 @@ return {
 					},
 					lualine_z = {
 						{
-							function() return '%l/%2c%4p%%' end,
+							function()
+								if is_file_window() then
+									return '%l/%2c%4p%%'
+								end
+								return '%l/%L'
+							end,
+							cond = function()
+								return vim.bo.filetype ~= 'TelescopePrompt'
+							end,
 							separator = { left = '' },
 							padding = 1,
 						},
@@ -222,10 +257,8 @@ return {
 				inactive_sections = {
 					lualine_a = {
 						{
-							'filetype',
-							icon_only = true,
-							colored = false,
-							padding = { left = 1, right = 0 },
+							function() return require('rafi.lib.badge').icon() end,
+							padding = 1,
 						},
 						{ filepath, padding = { left = 1, right = 0 } },
 						{
@@ -235,6 +268,7 @@ return {
 									and icons.status.filename.modified
 									or ''
 							end,
+							cond = is_file_window,
 							padding = 1,
 							color = { fg = get_color('bg', {'DiffDelete'}, '#ec5f67') },
 						},
@@ -243,89 +277,9 @@ return {
 					lualine_c = {},
 					lualine_x = {},
 					lualine_y = {},
-					lualine_z = { { function() return vim.bo.filetype end } }
-				},
-				extensions = {
-					'man',
-					'fugitive',
-					-- Extension: Plain ruler and buffer name.
-					{
-						filetypes = {'Trouble', 'DiffviewFiles', 'NeogitStatus', 'Outline'},
-						sections = {
-							lualine_a = {
-								{
-									function() return require('rafi.lib.badge').icon() end,
-									padding = 1
-								},
-								{ filepath },
-							},
-							lualine_z = { function() return '%l/%L' end },
-						},
-						inactive_sections = {
-							lualine_a = { function() return require('rafi.lib.badge').icon() end },
-							lualine_z = { function() return '%l/%L' end },
-						},
-					},
-					-- Extension: File-explorer
-					{
-						filetypes = {'neo-tree'},
-						sections = {
-							lualine_a = {
-								{
-									function() return '▊' end,
-									-- color = { fg = colors.active.boundary },
-									color = fg({'Directory'}, '#51afef'),
-									padding = 0,
-								},
-								{ function() return '' end, padding = 1 },
-								{ function() return '%<' end, padding = 0 },
-								{
-									function()
-										return vim.fn.fnamemodify(vim.loop.cwd(), ':~')
-									end,
-									padding = { left = 0, right = 1 },
-								}
-							},
-							lualine_z = { function() return '%l/%L' end },
-						},
-						inactive_sections = {
-							lualine_a = {
-								{ function() return '' end, padding = 1 },
-								{ function() return '%<' end, padding = { left = 1, right = 0 }},
-								{
-									function() return vim.fn.fnamemodify(vim.fn.getcwd(), ':~') end,
-									padding = { left = 0, right = 1 },
-								}
-							},
-							lualine_z = { function() return '%l/%L' end },
-						},
-					},
-					-- Extension: Quickfix or location list.
-					{
-						filetypes = {'qf'},
-						sections = {
-							lualine_a = {
-								{
-									function()
-										if vim.fn.win_gettype() == 'loclist' then
-											return ' ' .. 'Location List'
-										end
-										return ' ' .. 'Quickfix List'
-									end,
-									padding = { left = 1, right = 0 },
-								},
-								{
-									function()
-										if vim.fn.win_gettype() == 'loclist' then
-											return vim.fn.getloclist(0, { title = 0 }).title
-										end
-										return vim.fn.getqflist({ title = 0 }).title
-									end
-								},
-							},
-							lualine_z = { function() return '%l/%L' end },
-						},
-					},
+					lualine_z = {
+						{ function() return vim.bo.filetype end, cond = is_file_window },
+					}
 				},
 			}
 		end,
