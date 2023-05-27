@@ -224,19 +224,19 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
-	{ 'JoosepAlviste/nvim-ts-context-commentstring', lazy = true },
 	{
 		'echasnovski/mini.comment',
 		event = 'VeryLazy',
-		main = 'mini.comment',
+		dependencies = { 'JoosepAlviste/nvim-ts-context-commentstring' },
 		keys = {
 			{ '<Leader>v', 'gcc', remap = true, silent = true, mode = 'n' },
 			{ '<Leader>v', 'gc', remap = true, silent = true, mode = 'x' },
 		},
 		opts = {
-			hooks = {
-				pre = function()
-					require('ts_context_commentstring.internal').update_commentstring({})
+			options = {
+				custom_commentstring = function()
+					return require('ts_context_commentstring.internal').calculate_commentstring()
+						or vim.bo.commentstring
 				end,
 			},
 		},
