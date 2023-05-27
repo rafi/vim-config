@@ -485,28 +485,21 @@ return {
 						'--with-filename',
 						'--line-number',
 						'--column',
-						'--max-columns=0',
-						'--case-sensitive',
-						'--hidden',
-						'--no-ignore',
+						'--ignore',
 					},
 					options = {
-						['ignore-case'] = {
-							value = '--ignore-case',
-							icon = '[I]',
-							desc = 'ignore case',
-						},
-						['hidden'] = {
-							value = '--no-hidden',
-							icon = '[H]',
-							desc = 'hidden file',
-						},
 						['gitignore'] = {
-							value = '--ignore',
+							value = '--no-ignore',
 							icon = '[G]',
 							desc = 'gitignore',
 						},
 					},
+				},
+			},
+			default = {
+				find = {
+					cmd = 'rg',
+					options = { 'ignore-case', 'hidden', 'gitignore' }
 				},
 			},
 		},
