@@ -18,13 +18,15 @@ return {
 		event = 'VeryLazy',
 		opts = function(_, opts)
 			local get_color = require('rafi.lib.color').get_color
-			local fg = function(...) return { fg = get_color('fg', ...) } end
+			local fg = function(...)
+				return { fg = get_color('fg', ...) }
+			end
 
 			local colors = {
-				[''] = fg({'Comment'}),
-				['Normal'] = fg({'Comment'}),
-				['Warning'] = fg({'DiagnosticError'}),
-				['InProgress'] = fg({'DiagnosticWarn'}),
+				[''] = fg({ 'Comment' }),
+				['Normal'] = fg({ 'Comment' }),
+				['Warning'] = fg({ 'DiagnosticError' }),
+				['InProgress'] = fg({ 'DiagnosticWarn' }),
 			}
 			-- Add copilot icon to lualine statusline
 			table.insert(opts.sections.lualine_x, {
@@ -34,7 +36,8 @@ return {
 					return icon .. (status.message or '')
 				end,
 				cond = function()
-					local ok, clients = pcall(vim.lsp.get_active_clients, { name = 'copilot', bufnr = 0 })
+					local ok, clients =
+						pcall(vim.lsp.get_active_clients, { name = 'copilot', bufnr = 0 })
 					return ok and #clients > 0
 				end,
 				color = function()
@@ -67,32 +70,15 @@ return {
 				end,
 			},
 		},
-		---@param _ table
 		---@param opts cmp.ConfigSchema
 		opts = function(_, opts)
 			local cmp = require('cmp')
-			local original_cr = opts.mapping['<CR>'].i or opts.mapping['<CR>']
-			local confirm_copilot = cmp.mapping.confirm({
-				select = true,
-				behavior = cmp.ConfirmBehavior.Replace,
-			})
 
 			-- Add copilot nvim-cmp source.
 			table.insert(opts.sources, 1, {
 				name = 'copilot',
 				group_index = 2,
 				priority = 60,
-			})
-
-			-- Add copilot <CR> confirm behavior.
-			opts.mapping = vim.tbl_extend('force', opts.mapping, {
-				['<CR>'] = function(...)
-					local entry = cmp.get_selected_entry()
-					if entry and entry.source.name == 'copilot' then
-						return confirm_copilot(...)
-					end
-					return original_cr(...)
-				end,
 			})
 
 			-- Prepend Copilot's cmp comparator prioritization.
@@ -109,13 +95,13 @@ return {
 					cmp.config.compare.recently_used,
 					cmp.config.compare.locality,
 					cmp.config.compare.kind,
-					-- cmp.config.compare.sort_text, -- this is commented in nvim-cmp too
+					cmp.config.compare.sort_text,
 					cmp.config.compare.length,
 					cmp.config.compare.order,
 				}
 			end
-			table.insert(opts.sorting.comparators, 1,
-				require('copilot_cmp.comparators').prioritize)
+			local copilot_prioritize = require('copilot_cmp.comparators').prioritize
+			table.insert(opts.sorting.comparators, 1, copilot_prioritize)
 		end,
 	},
 }
