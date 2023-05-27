@@ -82,8 +82,8 @@ function M.filepath(bufnr, max_dirs, dir_max_chars, cache_suffix)
 	end
 
 	local bufname = vim.api.nvim_buf_get_name(bufnr)
-	local buftype = vim.api.nvim_buf_get_option(bufnr, 'buftype')
-	local filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype')
+	local buftype = vim.bo[bufnr].buftype
+	local filetype = vim.bo[bufnr].filetype
 
 	-- Normalize bufname
 	if bufname:len() < 1 and buftype:len() < 1 then
@@ -144,8 +144,8 @@ function M.icon(bufnr)
 	end
 
 	local icon = ''
-	local ft = vim.api.nvim_buf_get_option(bufnr, 'filetype')
-	local buftype = vim.api.nvim_buf_get_option(bufnr, 'buftype')
+	local ft = vim.bo[bufnr].filetype
+	local buftype = vim.bo[bufnr].buftype
 	local bufname = vim.api.nvim_buf_get_name(bufnr)
 
 	local plugin_type = ft == 'qf' and vim.fn.win_gettype() or ft

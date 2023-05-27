@@ -103,10 +103,7 @@ end
 M.toggle_list = function(name)
 	local win_bufs = M.get_tabpage_win_bufs(0)
 	for win, buf in pairs(win_bufs) do
-		if
-			vim.api.nvim_buf_get_option(buf, 'filetype') == 'qf'
-			and vim.fn.win_gettype(win) == name
-		then
+		if vim.bo[buf].filetype == 'qf' and vim.fn.win_gettype(win) == name then
 			vim.api.nvim_win_close(win, false)
 			return
 		end

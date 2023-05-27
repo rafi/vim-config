@@ -63,7 +63,7 @@ return {
 				map('n', '<leader>hD', function() gs.diffthis('~') end, { desc = 'Diff against the last commit' })
 				map('n', '<leader>td', gs.toggle_deleted, { desc = 'Toggle Git deleted' })
 				map('n', '<leader>hl', function()
-					if vim.api.nvim_buf_get_option(0, 'filetype') ~= 'qf' then
+					if vim.bo.filetype ~= 'qf' then
 						require('gitsigns').setqflist(0, { use_location_list = true })
 					end
 				end, { desc = 'Send to location list' })

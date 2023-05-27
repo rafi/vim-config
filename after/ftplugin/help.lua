@@ -1,7 +1,7 @@
 -- Help utilities
 --
 
-if vim.api.nvim_buf_get_option(0, 'buftype') ~= 'help' then
+if vim.bo.buftype ~= 'help' then
 	return
 end
 
@@ -12,15 +12,15 @@ local function count_windows()
 	local tab_windows = vim.api.nvim_tabpage_list_wins(0)
 	for _, winnr in ipairs(tab_windows) do
 		local bufnr = vim.api.nvim_win_get_buf(winnr)
-		if vim.api.nvim_buf_get_option(bufnr, 'buftype') == '' then
+		if vim.bo[bufnr].buftype == '' then
 			win_count = win_count + 1
 		end
 	end
 	return win_count
 end
 
-vim.wo.spell = false
-vim.wo.list = false
+vim.opt_local.spell = false
+vim.opt_local.list = false
 
 if count_windows() > 2 then
 	vim.cmd.wincmd('K')

@@ -42,7 +42,7 @@ end
 -- Find previous neo-tree window and clear bright highlight selection.
 local function reset_cursorline()
 	local winid = vim.fn.win_getid(vim.fn.winnr('#'))
-	vim.api.nvim_win_set_option(winid, 'cursorline', false)
+	vim.wo[winid].cursorline = false
 end
 
 return {

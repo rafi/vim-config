@@ -76,7 +76,7 @@ return {
 					-- Detect if window is owned by plugin by checking buftype.
 					local current_buffer = vim.api.nvim_get_current_buf()
 					for _, win in ipairs(vim.fn.getwininfo()) do
-						local buftype = vim.api.nvim_buf_get_option(win.bufnr, 'buftype')
+						local buftype = vim.bo[win.bufnr].buftype
 						if buftype ~= '' and buftype ~= 'help' then
 							-- Delete plugin owned window buffers.
 							if win.bufnr == current_buffer then
