@@ -29,8 +29,8 @@ map({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true
 map({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
 -- Easier line-wise movement
-map('n', 'gh', 'g^', { noremap = true })
-map('n', 'gl', 'g$', { noremap = true })
+map('n', 'gh', 'g^')
+map('n', 'gl', 'g$')
 
 map('n', '<Leader><Leader>', 'V', { desc = 'Visual Mode' })
 map('x', '<Leader><Leader>', '<Esc>', { desc = 'Exit Visual Mode' })
@@ -39,10 +39,10 @@ map('x', '<Leader><Leader>', '<Esc>', { desc = 'Exit Visual Mode' })
 ---@return string
 map('n', '<CR>', function()
 	return vim.fn.pumvisible() == 1 and '<CR>' or 'za'
-end, { expr = true, noremap = true, desc = 'Toggle Fold' })
+end, { expr = true, desc = 'Toggle Fold' })
 
 -- Focus the current fold by closing all others
-map('n', '<S-Return>', 'zMzv', { noremap = true, desc = 'Focus Fold' })
+map('n', '<S-Return>', 'zMzv', { remap = true, desc = 'Focus Fold' })
 
 -- Location/quickfix list movement
 if not require('rafi.config').has('mini.bracketed') then
@@ -61,14 +61,14 @@ map('n', '[s', function()
 end, { desc = 'Previous Whitespace' })
 
 -- Navigation in command line
-map('c', '<C-h>', '<Home>', { noremap = true })
-map('c', '<C-l>', '<End>', { noremap = true })
-map('c', '<C-f>', '<Right>', { noremap = true })
-map('c', '<C-b>', '<Left>', { noremap = true })
+map('c', '<C-h>', '<Home>')
+map('c', '<C-l>', '<End>')
+map('c', '<C-f>', '<Right>')
+map('c', '<C-b>', '<Left>')
 
 -- Scroll step sideways
-map('n', 'zl', 'z4l', { noremap = true })
-map('n', 'zh', 'z4h', { noremap = true })
+map('n', 'zl', 'z4l')
+map('n', 'zh', 'z4h')
 
 -- Clipboard
 -- ===
@@ -95,31 +95,31 @@ map('x', 'P', 'P:let @+=@0<CR>:let @"=@0<CR>', { silent = true, desc = 'Paste In
 -- ===
 
 -- Macros
-map('n', '<C-q>', 'q', { noremap = true, desc = 'Macro Prefix' })
+map('n', '<C-q>', 'q', { desc = 'Macro Prefix' })
 
 -- Start new line from any cursor position in insert-mode
-map('i', '<S-Return>', '<C-o>o', { noremap = true, desc = 'Start Newline' })
+map('i', '<S-Return>', '<C-o>o', { desc = 'Start Newline' })
 
 -- Re-select blocks after indenting in visual/select mode
-map('x', '<', '<gv', { noremap = true, desc = 'Indent Right and Re-select' })
-map('x', '>', '>gv|', { noremap = true, desc = 'Indent Left and Re-select' })
+map('x', '<', '<gv', { desc = 'Indent Right and Re-select' })
+map('x', '>', '>gv|', { desc = 'Indent Left and Re-select' })
 
 -- Use tab for indenting in visual/select mode
-map('x', '<Tab>', '>gv|', { noremap = true, desc = 'Indent Left' })
-map('x', '<S-Tab>', '<gv', { noremap = true, desc = 'Indent Right' })
+map('x', '<Tab>', '>gv|', { desc = 'Indent Left' })
+map('x', '<S-Tab>', '<gv', { desc = 'Indent Right' })
 
 -- Drag current line/s vertically and auto-indent
-map('n', '<Leader>k', '<cmd>move-2<CR>==', { noremap = true, desc = 'Move line up' })
-map('n', '<Leader>j', '<cmd>move+<CR>==', { noremap = true, desc = 'Move line down' })
-map('x', '<Leader>k', ":move'<-2<CR>gv=gv", { noremap = true, desc = 'Move selection up' })
-map('x', '<Leader>j', ":move'>+<CR>gv=gv", { noremap = true, desc = 'Move selection down' })
+map('n', '<Leader>k', '<cmd>move-2<CR>==', { desc = 'Move line up' })
+map('n', '<Leader>j', '<cmd>move+<CR>==', { desc = 'Move line down' })
+map('x', '<Leader>k', ":move'<-2<CR>gv=gv", { desc = 'Move selection up' })
+map('x', '<Leader>j', ":move'>+<CR>gv=gv", { desc = 'Move selection down' })
 
 -- Duplicate lines without affecting PRIMARY and CLIPBOARD selections.
-map('n', '<Leader>d', 'm`""Y""P``', { noremap = true, desc = 'Duplicate line' })
-map('x', '<Leader>d', '""Y""Pgv', { noremap = true, desc = 'Duplicate selection' })
+map('n', '<Leader>d', 'm`""Y""P``', { desc = 'Duplicate line' })
+map('x', '<Leader>d', '""Y""Pgv', { desc = 'Duplicate selection' })
 
 -- Duplicate paragraph
-map('n', '<Leader>cp', 'yap<S-}>p', { noremap = true, desc = 'Duplicate Paragraph' })
+map('n', '<Leader>cp', 'yap<S-}>p', { desc = 'Duplicate Paragraph' })
 
 -- Remove spaces at the end of lines
 map('n', '<Leader>cw', '<cmd>lua MiniTrailspace.trim()<CR>', { desc = 'Erase Whitespace' })
@@ -128,13 +128,13 @@ map('n', '<Leader>cw', '<cmd>lua MiniTrailspace.trim()<CR>', { desc = 'Erase Whi
 -- ===
 
 -- Switch */g* and #/g#
-map('n', '*', 'g*', { noremap = true })
-map('n', 'g*', '*', { noremap = true })
-map('n', '#', 'g#', { noremap = true })
-map('n', 'g#', '#', { noremap = true })
+map('n', '*', 'g*')
+map('n', 'g*', '*')
+map('n', '#', 'g#')
+map('n', 'g#', '#')
 
 -- Clear search with <Esc>
-map('n', '<Esc>', '<cmd>noh<CR>', { noremap = true, desc = 'Clear Search Highlight' })
+map('n', '<Esc>', '<cmd>noh<CR>', { desc = 'Clear Search Highlight' })
 
 -- Clear search, diff update and redraw taken from runtime/lua/_editor.lua
 map(
@@ -146,9 +146,6 @@ map(
 
 -- Use backspace key for matching parens
 map({ 'n', 'x' }, '<BS>', '%', { remap = true, desc = 'Jump to Paren' })
-
--- Repeat latest f, t, F or T
-map('n', '\\', ';', { noremap = true, desc = 'Repeat Latest f/t' })
 
 -- Select last paste
 map('n', 'gpp', "'`['.strpart(getregtype(), 0, 1).'`]'", { expr = true, desc = 'Select Paste' })
@@ -178,11 +175,11 @@ map('n', 'g!', ":put=execute('')<Left><Left>", { desc = 'Paste Command' })
 ---@return string
 map('c', '<C-p>', function()
 	return vim.fn.pumvisible() == 1 and '<C-p>' or '<Up>'
-end, { noremap = true, expr = true })
+end, { expr = true })
 
 map('c', '<C-n>', function()
 	return vim.fn.pumvisible() == 1 and '<C-n>' or '<Down>'
-end, { noremap = true, expr = true })
+end, { expr = true })
 
 map('c', '<Up>', '<C-p>')
 map('c', '<Down>', '<C-n>')
@@ -265,10 +262,10 @@ end, { desc = 'Append Modeline' })
 -- Jump entire buffers throughout jumplist
 map('n', 'g<C-i>', function()
 	require('rafi.lib.edit').jump_buffer(1)
-end, { noremap = true, desc = 'Jump to newer buffer' })
+end, { desc = 'Jump to newer buffer' })
 map('n', 'g<C-o>', function()
 	require('rafi.lib.edit').jump_buffer(-1)
-end, { noremap = true, desc = 'Jump to older buffer' })
+end, { desc = 'Jump to older buffer' })
 
 -- Context aware menu. See lua/lib/contextmenu.lua
 map('n', '<LocalLeader>c', function()
@@ -287,7 +284,7 @@ map('n', '<Leader>tT', function() Util.float_term() end, { desc = 'Terminal (cwd
 
 if vim.fn.has('mac') then
 	-- Open the macOS dictionary on current word
-	map('n', '<Leader>?', '<cmd>silent !open dict://<cword><CR>', { noremap = true, desc = 'Dictionary' })
+	map('n', '<Leader>?', '<cmd>silent !open dict://<cword><CR>', { desc = 'Dictionary' })
 
 	-- Use Marked for real-time Markdown preview
 	-- See: https://marked2app.com/
@@ -312,7 +309,7 @@ if vim.F.if_nil(vim.g.rafi_window_q_mapping, true) then
 		group = augroup('quit_mapping'),
 		callback = function(event)
 			if vim.bo.buftype == '' and vim.fn.maparg('q', 'n') == '' then
-				local args = { buffer = event.buf, noremap = true, desc = 'Quit' }
+				local args = { buffer = event.buf, desc = 'Quit' }
 				map('n', 'q', '<cmd>quit<CR>', args)
 			end
 		end,
@@ -326,14 +323,14 @@ end, { desc = 'Open Quickfix' })
 
 -- Set locations with diagnostics and open the list.
 map('n', '<Leader>a', function()
-	if vim.api.nvim_buf_get_option(0, 'filetype') ~= 'qf' then
+	if vim.bo.filetype ~= 'qf' then
 		vim.diagnostic.setloclist({ open = false })
 	end
 	require('rafi.lib.edit').toggle_list('loclist')
 end, { desc = 'Open Location List' })
 
 -- Switch with adjacent window
-map('n', '<C-x>', '<C-w>x', { noremap = true, desc = 'Swap windows' })
+map('n', '<C-x>', '<C-w>x', { remap = true, desc = 'Swap windows' })
 
 map('n', 'sb', '<cmd>buffer#<CR>', { desc = 'Alternate buffer' })
 map('n', 'sc', '<cmd>close<CR>', { desc = 'Close window' })

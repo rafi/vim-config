@@ -152,6 +152,7 @@ return {
 				['z'] = 'close_all_nodes',
 				['<C-r>'] = 'refresh',
 
+				['s'] = 'noop',
 				['sv'] = 'open_split',
 				['sg'] = 'open_vsplit',
 				['st'] = 'open_tabnew',
