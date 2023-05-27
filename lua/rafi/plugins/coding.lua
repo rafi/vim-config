@@ -15,7 +15,7 @@ return {
 			'hrsh7th/cmp-buffer',
 			'hrsh7th/cmp-path',
 			'hrsh7th/cmp-emoji',
-			'saadparwaiz1/cmp_luasnip',
+			{ 'saadparwaiz1/cmp_luasnip', dependencies = 'L3MON4D3/LuaSnip' },
 			'andersevenrud/cmp-tmux',
 		},
 		opts = function()
@@ -186,14 +186,12 @@ return {
 	{
 		'echasnovski/mini.pairs',
 		event = 'VeryLazy',
-		main = 'mini.pairs',
-		config = true,
+		opts = {},
 	},
 
 	-----------------------------------------------------------------------------
 	{
 		'echasnovski/mini.surround',
-		main = 'mini.surround',
 		keys = function(_, keys)
 			-- Populate the keys based on the user's options
 			local plugin = require('lazy.core.config').spec.plugins['mini.surround']
@@ -248,15 +246,13 @@ return {
 	{
 		'echasnovski/mini.trailspace',
 		event = { 'BufReadPost', 'BufNewFile' },
-		main = 'mini.trailspace',
-		config = true,
+		opts = {},
 	},
 
 	-----------------------------------------------------------------------------
 	{
 		'echasnovski/mini.bracketed',
 		event = 'BufReadPost',
-		main = 'mini.bracketed',
 		opts = {
 			treesitter = { suffix = '' },
 		},
@@ -266,7 +262,6 @@ return {
 	{
 		'echasnovski/mini.ai',
 		event = 'VeryLazy',
-		main = 'mini.ai',
 		dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
 		opts = function()
 			local ai = require('mini.ai')
@@ -288,7 +283,6 @@ return {
 	-----------------------------------------------------------------------------
 	{
 		'echasnovski/mini.splitjoin',
-		main = 'mini.splitjoin',
 		keys = {
 			{
 				'sj',

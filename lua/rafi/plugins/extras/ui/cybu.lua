@@ -12,6 +12,7 @@ return {
 	},
 	{
 		'echasnovski/mini.bracketed',
+		optional = true,
 		opts = function(_, opts)
 			opts.buffer = { suffix = '' }
 			return opts

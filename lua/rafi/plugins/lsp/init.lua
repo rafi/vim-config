@@ -28,7 +28,11 @@ return {
 				signs = true,
 				underline = true,
 				update_in_insert = false,
-				virtual_text = { spacing = 4, prefix = '●' },
+				virtual_text = {
+					spacing = 4,
+					source = 'if_many',
+					prefix = '●',
+				},
 				severity_sort = true,
 				float = {
 					show_header = true,
@@ -92,6 +96,8 @@ return {
 			-- Setup autoformat
 			require('rafi.plugins.lsp.format').autoformat = opts.autoformat
 			-- Setup formatting, keymaps and highlights.
+			---@param client lsp.Client
+			---@param buffer integer
 			require('rafi.config').on_attach(function(client, buffer)
 				require('rafi.plugins.lsp.format').on_attach(client, buffer)
 				require('rafi.plugins.lsp.keymaps').on_attach(client, buffer)
@@ -128,6 +134,7 @@ return {
 
 			-- Combine base config for each server and merge user-defined settings.
 			-- These can be overridden locally by lua/lsp/<server_name>.lua
+			---@param server_name string
 			local function make_config(server_name)
 				local server_opts = vim.tbl_deep_extend('force', {
 					capabilities = vim.deepcopy(capabilities),

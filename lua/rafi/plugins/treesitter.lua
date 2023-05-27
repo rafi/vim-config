@@ -34,6 +34,14 @@ return {
 
 	-----------------------------------------------------------------------------
 	{
+		'andymass/vim-matchup',
+		init = function()
+			vim.g.matchup_matchparen_offscreen = {}
+		end,
+	},
+
+	-----------------------------------------------------------------------------
+	{
 		'nvim-treesitter/nvim-treesitter',
 		event = { 'BufReadPost', 'BufNewFile' },
 		main = 'nvim-treesitter.configs',
@@ -206,14 +214,6 @@ return {
 				'zig',
 			},
 		},
-	},
-
-	-----------------------------------------------------------------------------
-	{
-		'andymass/vim-matchup',
-		init = function()
-			vim.g.matchup_matchparen_offscreen = {}
-		end
 	},
 
 	-----------------------------------------------------------------------------

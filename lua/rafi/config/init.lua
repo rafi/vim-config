@@ -296,6 +296,9 @@ function M.lazy_notify()
 
 	local timer = vim.loop.new_timer()
 	local check = vim.loop.new_check()
+	if timer == nil or check == nil then
+		return
+	end
 
 	local replay = function()
 		timer:stop()

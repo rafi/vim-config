@@ -12,9 +12,9 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
-	-- Add copilot icon to lualine statusline
 	{
 		'nvim-lualine/lualine.nvim',
+		optional = true,
 		event = 'VeryLazy',
 		opts = function(_, opts)
 			local get_color = require('rafi.lib.color').get_color
@@ -26,6 +26,7 @@ return {
 				['Warning'] = fg({'DiagnosticError'}),
 				['InProgress'] = fg({'DiagnosticWarn'}),
 			}
+			-- Add copilot icon to lualine statusline
 			table.insert(opts.sections.lualine_x, {
 				function()
 					local icon = require('rafi.config').icons.kinds.Copilot

@@ -515,8 +515,7 @@ return {
 	-----------------------------------------------------------------------------
 	{
 		'echasnovski/mini.bufremove',
-		main = 'mini.bufremove',
-		config = true,
+		opts = {},
 		keys = {
 			{
 				'<leader>bd', function()

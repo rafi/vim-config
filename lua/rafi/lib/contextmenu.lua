@@ -75,13 +75,13 @@ M.show = function()
 	vim.cmd([[
 		nmenu Context.Diagnostics        <cmd>Trouble<CR>
 		nmenu Context.Bookmark           m;
-		nmenu Context.TODO               <cmd>TodoTrouble<CR>
+		nmenu Context.TODOs              <cmd>TodoTrouble<CR>
 		nmenu Context.Git\ diff          <cmd>Gdiffsplit<CR>
 		nmenu Context.Unsaved\ diff      <cmd>DiffOrig<CR>
-		nmenu Context.Open\ in\ browser  <cmd>GBrowse<CR>
+		nmenu Context.Open\ in\ browser  <cmd>lua require('gitlinker').get_buf_range_url('n')<CR>
 	]])
 
-	vim.cmd.popup('Context')
+	pcall(vim.cmd.popup, 'Context')
 end
 
 return M

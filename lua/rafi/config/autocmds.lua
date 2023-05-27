@@ -2,6 +2,8 @@
 -- github.com/rafi/vim-config
 -- ===
 
+-- This file is automatically loaded by rafi.config.init
+
 local function augroup(name)
 	return vim.api.nvim_create_augroup('rafi_' .. name, {})
 end

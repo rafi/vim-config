@@ -1,7 +1,6 @@
 return {
 	{
 		'echasnovski/mini.map',
-		main = 'mini.map',
 		keys = {
 			{ '<Leader>mn', '<cmd>lua MiniMap.toggle()<CR>', desc = 'Mini map' },
 		},

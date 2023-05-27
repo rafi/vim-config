@@ -6,7 +6,8 @@ return {
 			{
 				'<Leader>ub',
 				function()
-					require('barbecue.ui').toggle()
+					local off = vim.b['barbecue_entries'] == nil
+					require('barbecue.ui').toggle(off and true or nil)
 				end,
 				desc = 'Breadcrumbs toggle',
 			},
@@ -21,10 +22,6 @@ return {
 				show_modified = true,
 				kinds = kind_icons,
 				symbols = { separator = '' },
-				theme = {
-					normal = { fg = '#707880', bg = '#30302c' },
-					basename = { fg = '#707880' },
-				},
 			}
 		end,
 	},

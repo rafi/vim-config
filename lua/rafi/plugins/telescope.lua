@@ -125,7 +125,10 @@ end
 vim.api.nvim_create_autocmd('User', {
 	pattern = 'TelescopePreviewerLoaded',
 	group = vim.api.nvim_create_augroup('rafi_telescope', {}),
-	callback = function()
+	callback = function(args)
+		if args.buf ~= vim.api.nvim_win_get_buf(0) then
+			return
+		end
 		vim.wo.listchars = vim.wo.listchars .. ',tab:▏\\ '
 		vim.wo.conceallevel = 0
 		vim.wo.wrap = true
@@ -142,6 +145,7 @@ return {
 	{
 		'nvim-telescope/telescope.nvim',
 		cmd = 'Telescope',
+		commit = vim.fn.has('nvim-0.9') == 0 and '057ee0f8783' or nil,
 		dependencies = {
 			'nvim-lua/plenary.nvim',
 			'jvgrootveld/telescope-zoxide',
