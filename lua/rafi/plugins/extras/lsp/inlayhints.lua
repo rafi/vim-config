@@ -1,5 +1,4 @@
 return {
-
 	{
 		'lvimuser/lsp-inlayhints.nvim',
 		event = 'LspAttach',
@@ -18,5 +17,4 @@ return {
 			})
 		end,
 	},
-
 }

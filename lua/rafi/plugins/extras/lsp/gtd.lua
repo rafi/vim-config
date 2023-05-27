@@ -1,9 +1,9 @@
 return {
-
 	{
 		'hrsh7th/nvim-gtd',
 		event = { 'BufReadPre', 'BufNewFile' },
 		dependencies = 'neovim/nvim-lspconfig',
+		-- stylua: ignore
 		keys = {
 			{
 				'gf',
@@ -18,8 +18,11 @@ return {
 				{
 					name = 'walk',
 					root_markers = {
-						'.git', '.neoconf.json',
-						'Makefile', 'tsconfig.json', 'package.json'
+						'.git',
+						'.neoconf.json',
+						'Makefile',
+						'package.json',
+						'tsconfig.json',
 					},
 					ignore_patterns = { '/node_modules', '/.git' },
 				},
@@ -27,5 +30,4 @@ return {
 			},
 		},
 	},
-
 }

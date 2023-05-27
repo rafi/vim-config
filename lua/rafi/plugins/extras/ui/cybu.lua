@@ -1,8 +1,7 @@
 return {
-
 	{
 		'ghillb/cybu.nvim',
-		dependencies = { 'nvim-tree/nvim-web-devicons', 'nvim-lua/plenary.nvim'},
+		dependencies = { 'nvim-tree/nvim-web-devicons', 'nvim-lua/plenary.nvim' },
 		keys = {
 			{ '[b', '<Plug>(CybuPrev)' },
 			{ ']b', '<Plug>(CybuNext)' },
@@ -11,7 +10,6 @@ return {
 		},
 		config = true,
 	},
-
 	{
 		'echasnovski/mini.bracketed',
 		opts = function(_, opts)
@@ -19,5 +17,4 @@ return {
 			return opts
 		end,
 	},
-
 }

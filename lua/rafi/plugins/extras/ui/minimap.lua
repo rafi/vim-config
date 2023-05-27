@@ -1,5 +1,4 @@
 return {
-
 	{
 		'echasnovski/mini.map',
 		main = 'mini.map',
@@ -14,9 +13,8 @@ return {
 					minimap.gen_integration.builtin_search(),
 					minimap.gen_integration.gitsigns(),
 				},
-				window = { winblend = 50 }
+				window = { winblend = 50 },
 			}
 		end,
 	},
-
 }

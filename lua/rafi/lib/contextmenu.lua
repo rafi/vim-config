@@ -33,48 +33,53 @@ M.show = function()
 
 	if cword == '' then
 		-- Cursor is on blank character.
-		vim.cmd [[
+		vim.cmd([[
 			nmenu Context.Select\ All  ggVG
 			nmenu Context.-1-          <Nop>
-		]]
-
+		]])
 	else
 		-- Add LSP methods, only if one of the servers support it.
 		if supports_method('textDocument/declaration', clients) then
-			vim.cmd('nmenu Context.Declaration <cmd>lua vim.lsp.buf.declaration()<CR>')
+			vim.cmd(
+				'nmenu Context.Declaration <cmd>lua vim.lsp.buf.declaration()<CR>'
+			)
 		end
 		if supports_method('textDocument/definition', clients) then
 			vim.cmd('nmenu Context.&Definition <cmd>lua vim.lsp.buf.definition()<CR>')
 		end
 
 		if supports_method('textDocument/references', clients) then
-			vim.cmd('nmenu Context.&References… <cmd>lua vim.lsp.buf.references()<CR>')
+			vim.cmd(
+				'nmenu Context.&References… <cmd>lua vim.lsp.buf.references()<CR>'
+			)
 		end
 		if supports_method('textDocument/implementation', clients) then
-			vim.cmd('nmenu Context.Implementation <cmd>lua vim.lsp.buf.implementation()<CR>')
+			vim.cmd(
+				'nmenu Context.Implementation <cmd>lua vim.lsp.buf.implementation()<CR>'
+			)
 		end
 
 		if #clients > 0 then
-			vim.cmd [[
+			vim.cmd([[
 				nmenu Context.-1-            <Nop>
 				nmenu Context.Find\ symbol…  <cmd>lua vim.schedule(function() require'telescope.builtin'.lsp_workspace_symbols({default_text = vim.fn.expand('<cword>')}) end)<CR>
-			]]
+			]])
 		end
 
-		vim.cmd [[
+		vim.cmd([[
 			nmenu Context.Grep… <cmd>lua vim.schedule(function() require'telescope.builtin'.live_grep({default_text = vim.fn.expand('<cword>')}) end)<CR>
 			nmenu Context.-2-   <Nop>
-		]]
+		]])
 	end
 
-	vim.cmd [[
+	vim.cmd([[
 		nmenu Context.Diagnostics        <cmd>Trouble<CR>
 		nmenu Context.Bookmark           m;
 		nmenu Context.TODO               <cmd>TodoTrouble<CR>
 		nmenu Context.Git\ diff          <cmd>Gdiffsplit<CR>
 		nmenu Context.Unsaved\ diff      <cmd>DiffOrig<CR>
 		nmenu Context.Open\ in\ browser  <cmd>GBrowse<CR>
-	]]
+	]])
 
 	vim.cmd.popup('Context')
 end

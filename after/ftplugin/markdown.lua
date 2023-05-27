@@ -13,11 +13,12 @@ local function link_surround()
 		len = vim.fn.strchars(cword)
 		line = vim.fn.getline(csrow)
 		idx = vim.fn.stridx(line, cword, 0)
-
 	elseif mode == 'v' or mode == '' then
 		bufnr, csrow, cscol, off = unpack(vim.fn.getpos('.'))
 		_, cerow, cecol, _ = unpack(vim.fn.getpos('v'))
-		if cecol < cscol then cscol, cecol = cecol, cscol end
+		if cecol < cscol then
+			cscol, cecol = cecol, cscol
+		end
 		if csrow ~= cerow then
 			vim.notify('Cannot link across lines', vim.log.levels.ERROR)
 			return
@@ -34,7 +35,9 @@ local function link_surround()
 
 	-- Stich selection with link into original line and replace it.
 	local new = vim.fn.strcharpart(line, 0, idx)
-		.. '[' .. vim.fn.strcharpart(line, idx, len) .. ']()'
+		.. '['
+		.. vim.fn.strcharpart(line, idx, len)
+		.. ']()'
 		.. vim.fn.strcharpart(line, idx + len)
 	vim.fn.setline(csrow, new)
 	vim.fn.setpos('.', { bufnr, csrow, idx + len + 4, off })

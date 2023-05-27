@@ -1,5 +1,4 @@
 return {
-
 	{
 		'akinsho/bufferline.nvim',
 		event = 'VeryLazy',
@@ -13,7 +12,7 @@ return {
 				diagnostics_indicator = function(_, _, diag)
 					local icons = require('rafi.config').icons.diagnostics
 					local ret = (diag.error and icons.Error .. diag.error .. ' ' or '')
-							.. (diag.warning and icons.Warn .. diag.warning or '')
+						.. (diag.warning and icons.Warn .. diag.warning or '')
 					return vim.trim(ret)
 				end,
 				custom_areas = {
@@ -45,5 +44,4 @@ return {
 			},
 		},
 	},
-
 }

@@ -1,5 +1,4 @@
 return {
-
 	{
 		'kosayoda/nvim-lightbulb',
 		event = { 'BufReadPre', 'BufNewFile' },
@@ -16,5 +15,4 @@ return {
 			})
 		end,
 	},
-
 }

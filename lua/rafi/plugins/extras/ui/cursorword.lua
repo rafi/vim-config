@@ -1,5 +1,4 @@
 return {
-
 	{
 		'itchyny/vim-cursorword',
 		event = 'FileType',
@@ -10,7 +9,15 @@ return {
 			local augroup = vim.api.nvim_create_augroup('rafi_cursorword', {})
 			vim.api.nvim_create_autocmd('FileType', {
 				group = augroup,
-				pattern = { 'json', 'yaml', 'markdown', 'nginx', 'dosini', 'conf', 'text' },
+				pattern = {
+					'conf',
+					'dosini',
+					'json',
+					'markdown',
+					'nginx',
+					'text',
+					'yaml',
+				},
 				callback = function()
 					if vim.wo.diff or vim.wo.previewwindow then
 						vim.b.cursorword = 0
@@ -37,5 +44,4 @@ return {
 			})
 		end,
 	},
-
 }

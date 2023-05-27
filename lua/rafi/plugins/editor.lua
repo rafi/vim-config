@@ -15,6 +15,7 @@ return {
 		'christoomey/vim-tmux-navigator',
 		lazy = false,
 		cond = not is_windows,
+		-- stylua: ignore
 		keys = {
 			{ '<C-h>', '<cmd>TmuxNavigateLeft<CR>', mode = { 'n', 't' }, silent = true, desc = 'Jump to left pane' },
 			{ '<C-j>', '<cmd>TmuxNavigateDown<CR>', mode = { 'n', 't' }, silent = true, desc = 'Jump to lower pane' },
@@ -23,7 +24,7 @@ return {
 		},
 		init = function()
 			vim.g.tmux_navigator_no_mappings = true
-		end
+		end,
 	},
 
 	-----------------------------------------------------------------------------
@@ -54,7 +55,7 @@ return {
 				group = vim.api.nvim_create_augroup('rafi_persisted', {}),
 				callback = function()
 					vim.g.in_pager_mode = true
-				end
+				end,
 			})
 			-- Close all floats before loading a session. (e.g. Lazy.nvim)
 			vim.api.nvim_create_autocmd('User', {
@@ -66,7 +67,7 @@ return {
 							vim.api.nvim_win_close(win, false)
 						end
 					end
-				end
+				end,
 			})
 			-- Close all plugin owned buffers before saving a session.
 			vim.api.nvim_create_autocmd('User', {
@@ -88,7 +89,7 @@ return {
 					end
 				end,
 			})
-			-- When switching to a different session using Telescope, save and stop
+			-- Before switching to a different session using Telescope, save and stop
 			-- current session to avoid previous session to be overwritten.
 			vim.api.nvim_create_autocmd('User', {
 				pattern = 'PersistedTelescopeLoadPre',
@@ -96,17 +97,17 @@ return {
 				callback = function()
 					require('persisted').save()
 					require('persisted').stop()
-				end
+				end,
 			})
-			-- When switching to a different session using Telescope, after new
-			-- session has been loaded, start it - so it will be auto-saved.
+			-- After switching to a different session using Telescope, start it so it
+			-- will be auto-saved.
 			vim.api.nvim_create_autocmd('User', {
 				pattern = 'PersistedTelescopeLoadPost',
 				group = 'rafi_persisted',
 				callback = function(session)
 					require('persisted').start()
 					print('Started session ' .. session.data.name)
-				end
+				end,
 			})
 		end,
 	},
@@ -133,7 +134,7 @@ return {
 					require('illuminate')['goto_' .. dir .. '_reference'](false)
 				end, {
 					desc = dir:sub(1, 1):upper() .. dir:sub(2) .. ' Reference',
-					buffer = buffer
+					buffer = buffer,
 				})
 			end
 
@@ -157,8 +158,8 @@ return {
 		'mbbill/undotree',
 		cmd = 'UndotreeToggle',
 		keys = {
-			{ '<Leader>gu', '<cmd>UndotreeToggle<CR>', desc = 'Undo Tree' }
-		}
+			{ '<Leader>gu', '<cmd>UndotreeToggle<CR>', desc = 'Undo Tree' },
+		},
 	},
 
 	-----------------------------------------------------------------------------
@@ -178,6 +179,7 @@ return {
 	-----------------------------------------------------------------------------
 	{
 		'ggandor/leap.nvim',
+		-- stylua: ignore
 		keys = {
 			{ 'ss', '<Plug>(leap-forward-to)', mode = { 'n', 'x', 'o' }, desc = 'Leap forward to' },
 			{ 'sS', '<Plug>(leap-backward-to)', mode = { 'n', 'x', 'o' }, desc = 'Leap backward to' },
@@ -189,6 +191,7 @@ return {
 	-----------------------------------------------------------------------------
 	{
 		'kana/vim-niceblock',
+		-- stylua: ignore
 		keys = {
 			{ 'I',  '<Plug>(niceblock-I)',  silent = true, mode = 'x', desc = 'Blockwise Insert' },
 			{ 'gI', '<Plug>(niceblock-gI)', silent = true, mode = 'x', desc = 'Blockwise Insert' },
@@ -196,12 +199,13 @@ return {
 		},
 		init = function()
 			vim.g.niceblock_no_default_key_mappings = 0
-		end
+		end,
 	},
 
 	-----------------------------------------------------------------------------
 	{
 		'haya14busa/vim-edgemotion',
+		-- stylua: ignore
 		keys = {
 			{ 'gj', '<Plug>(edgemotion-j)', mode = { 'n', 'x' }, desc = 'Move to bottom edge' },
 			{ 'gk', '<Plug>(edgemotion-k)', mode = { 'n', 'x' }, desc = 'Move to top edge' },
@@ -220,7 +224,7 @@ return {
 				gitsigns = { enabled = true },
 				tmux = { enabled = vim.env.TMUX ~= nil },
 			},
-		}
+		},
 	},
 
 	-----------------------------------------------------------------------------
@@ -242,13 +246,14 @@ return {
 			{ '"', mode = 'n', desc = 'Reveal registers' },
 			{ '"', mode = 'x', desc = 'Reveal registers' },
 		},
-		opts = { window = { border = 'rounded' }},
+		opts = { window = { border = 'rounded' } },
 	},
 
 	-----------------------------------------------------------------------------
 	{
 		'folke/todo-comments.nvim',
 		dependencies = 'nvim-telescope/telescope.nvim',
+		-- stylua: ignore
 		keys = {
 			{ ']t', function() require('todo-comments').jump_next() end, desc = 'Next todo comment' },
 			{ '[t', function() require('todo-comments').jump_prev() end, desc = 'Previous todo comment' },
@@ -266,6 +271,7 @@ return {
 		'folke/trouble.nvim',
 		cmd = { 'Trouble', 'TroubleToggle' },
 		opts = { use_diagnostic_signs = true },
+		-- stylua: ignore
 		keys = {
 			{ '<leader>e', '<cmd>TroubleToggle document_diagnostics<CR>', noremap = true, desc = 'Document Diagnostics' },
 			{ '<leader>r', '<cmd>TroubleToggle workspace_diagnostics<CR>', noremap = true, desc = 'Workspace Diagnostics' },
@@ -279,11 +285,11 @@ return {
 		'sindrets/diffview.nvim',
 		cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
 		keys = {
-			{ '<Leader>gv', '<cmd>DiffviewOpen<CR>', desc = 'Diff View' }
+			{ '<Leader>gv', '<cmd>DiffviewOpen<CR>', desc = 'Diff View' },
 		},
 		opts = function()
 			local actions = require('diffview.actions')
-			vim.api.nvim_create_autocmd({'WinEnter', 'BufEnter'}, {
+			vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' }, {
 				group = vim.api.nvim_create_augroup('rafi_diffview', {}),
 				pattern = 'diffview:///panels/*',
 				callback = function()
@@ -295,30 +301,30 @@ return {
 				enhanced_diff_hl = true, -- See ':h diffview-config-enhanced_diff_hl'
 				keymaps = {
 					view = {
-						{ 'n', 'q',       '<cmd>DiffviewClose<CR>' },
-						{ 'n', '<Tab>',   actions.select_next_entry },
+						{ 'n', 'q', '<cmd>DiffviewClose<CR>' },
+						{ 'n', '<Tab>', actions.select_next_entry },
 						{ 'n', '<S-Tab>', actions.select_prev_entry },
 						{ 'n', '<LocalLeader>a', actions.focus_files },
 						{ 'n', '<LocalLeader>e', actions.toggle_files },
 					},
 					file_panel = {
-						{'n', 'q',     '<cmd>DiffviewClose<CR>' },
-						{'n', 'h',     actions.prev_entry },
-						{'n', 'o',     actions.focus_entry },
-						{'n', 'gf',    actions.goto_file },
-						{'n', 'sg',    actions.goto_file_split },
-						{'n', 'st',    actions.goto_file_tab },
-						{'n', '<C-r>', actions.refresh_files },
-						{'n', ';e',    actions.toggle_files },
+						{ 'n', 'q', '<cmd>DiffviewClose<CR>' },
+						{ 'n', 'h', actions.prev_entry },
+						{ 'n', 'o', actions.focus_entry },
+						{ 'n', 'gf', actions.goto_file },
+						{ 'n', 'sg', actions.goto_file_split },
+						{ 'n', 'st', actions.goto_file_tab },
+						{ 'n', '<C-r>', actions.refresh_files },
+						{ 'n', ';e', actions.toggle_files },
 					},
 					file_history_panel = {
-						{'n', 'q', '<cmd>DiffviewClose<CR>' },
-						{'n', 'o', actions.focus_entry },
-						{'n', 'O', actions.options },
+						{ 'n', 'q', '<cmd>DiffviewClose<CR>' },
+						{ 'n', 'o', actions.focus_entry },
+						{ 'n', 'O', actions.options },
 					},
-				}
+				},
 			}
-		end
+		end,
 	},
 
 	-----------------------------------------------------------------------------
@@ -326,14 +332,20 @@ return {
 		'akinsho/toggleterm.nvim',
 		cmd = 'ToggleTerm',
 		keys = {
-			{ '<C-\\>', mode = { 'n', 't' }, silent = true, function()
-				local venv = vim.b['virtual_env']
-				local term = require('toggleterm.terminal').Terminal:new({
-					env = venv and { VIRTUAL_ENV = venv } or nil,
-					count = vim.v.count > 0 and vim.v.count or 1,
-				})
-				term:toggle()
-			end, desc = 'Toggle terminal' },
+			{
+				'<C-\\>',
+				mode = { 'n', 't' },
+				silent = true,
+				function()
+					local venv = vim.b['virtual_env']
+					local term = require('toggleterm.terminal').Terminal:new({
+						env = venv and { VIRTUAL_ENV = venv } or nil,
+						count = vim.v.count > 0 and vim.v.count or 1,
+					})
+					term:toggle()
+				end,
+				desc = 'Toggle terminal',
+			},
 		},
 		opts = {
 			open_mapping = false,
@@ -365,9 +377,9 @@ return {
 				callback = function()
 					vim.wo.winhighlight = 'CursorLine:WildMenu'
 					vim.wo.signcolumn = 'auto'
-				end
+				end,
 			})
-		end
+		end,
 	},
 
 	-----------------------------------------------------------------------------
@@ -423,6 +435,7 @@ return {
 		name = 'zk',
 		ft = 'markdown',
 		cmd = { 'ZkNew', 'ZkNotes', 'ZkTags', 'ZkMatch' },
+		-- stylua: ignore
 		keys = {
 			{ '<leader>zn', "<Cmd>ZkNew { title = vim.fn.input('Title: ') }<CR>", desc = 'Zk New' },
 			{ '<leader>zo', "<Cmd>ZkNotes { sort = { 'modified' } }<CR>", desc = 'Zk Notes' },
@@ -432,7 +445,7 @@ return {
 			{ '<leader>zb', '<Cmd>ZkBacklinks<CR>', desc = 'Zk Backlinks' },
 			{ '<leader>zl', '<Cmd>ZkLinks<CR>', desc = 'Zk Links' },
 		},
-		opts = { picker = 'telescope' }
+		opts = { picker = 'telescope' },
 	},
 
 	-----------------------------------------------------------------------------
@@ -441,12 +454,16 @@ return {
 		keys = {
 			{
 				'<Leader>sp',
-				function() require('spectre').open() end,
+				function()
+					require('spectre').open()
+				end,
 				desc = 'Spectre',
 			},
 			{
 				'<Leader>sp',
-				function() require('spectre').open_visual({ select_word=true }) end,
+				function()
+					require('spectre').open_visual({ select_word = true })
+				end,
 				mode = 'x',
 				desc = 'Spectre Word',
 			},
@@ -519,5 +536,4 @@ return {
 			vim.g.vmt_auto_update_on_save = 0
 		end,
 	},
-
 }

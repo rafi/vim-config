@@ -23,15 +23,20 @@ function M.get_visual_selection()
 		vim.api.nvim_feedkeys(
 			vim.api.nvim_replace_termcodes('<Esc>', true, false, true),
 			'n',
-			true)
+			true
+		)
 	else
 		-- otherwise, use the last known visual position
 		_, csrow, cscol, _ = unpack(vim.fn.getpos("'<"))
 		_, cerow, cecol, _ = unpack(vim.fn.getpos("'>"))
 	end
 	-- swap vars if needed
-	if cerow < csrow then csrow, cerow = cerow, csrow end
-	if cecol < cscol then cscol, cecol = cecol, cscol end
+	if cerow < csrow then
+		csrow, cerow = cerow, csrow
+	end
+	if cecol < cscol then
+		cscol, cecol = cecol, cscol
+	end
 	local lines = vim.fn.getline(csrow, cerow)
 	-- local n = cerow-csrow+1
 	local n = #lines

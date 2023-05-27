@@ -84,7 +84,7 @@ return {
 		popup_border_style = 'rounded',
 
 		source_selector = {
-			winbar = false,     -- toggle to show selector on winbar
+			winbar = false, -- toggle to show selector on winbar
 			statusline = false, -- toggle to show selector on statusline
 			show_scrolled_off_parent_node = true,
 		},
@@ -156,11 +156,11 @@ return {
 				['sg'] = 'open_vsplit',
 				['st'] = 'open_tabnew',
 
-				['c'] = { 'copy', config = { show_path = 'relative' }},
-				['m'] = { 'move', config = { show_path = 'relative' }},
-				['a'] = { 'add', nowait = true, config = { show_path = 'relative' }},
+				['c'] = { 'copy', config = { show_path = 'relative' } },
+				['m'] = { 'move', config = { show_path = 'relative' } },
+				['a'] = { 'add', nowait = true, config = { show_path = 'relative' } },
 				['A'] = 'noop',
-				['N'] = { 'add_directory', config = { show_path = 'relative' }},
+				['N'] = { 'add_directory', config = { show_path = 'relative' } },
 				['d'] = 'noop',
 				['dd'] = 'delete',
 				['r'] = 'rename',
@@ -212,7 +212,7 @@ return {
 			bind_to_cwd = false,
 			cwd_target = {
 				sidebar = 'window',
-				current = 'window'
+				current = 'window',
 			},
 
 			filtered_items = {
@@ -262,5 +262,5 @@ return {
 				},
 			},
 		},
-	}
+	},
 }

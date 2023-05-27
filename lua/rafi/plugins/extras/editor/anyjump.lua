@@ -1,5 +1,4 @@
 return {
-
 	{
 		'pechorin/any-jump.vim',
 		cmd = { 'AnyJump', 'AnyJumpVisual' },
@@ -16,9 +15,8 @@ return {
 				pattern = 'any-jump',
 				callback = function()
 					vim.opt.cursorline = true
-				end
+				end,
 			})
 		end,
 	},
-
 }

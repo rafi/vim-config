@@ -3,9 +3,9 @@
 
 local function setup_undo()
 	vim.b.undo_ftplugin = (vim.b.undo_ftplugin or '')
-	.. (vim.b.undo_ftplugin ~= nil and ' | ' or '')
-	.. 'sil! nunmap <buffer> <Tab>'
-	.. ' | sil! nunmap <buffer> <S-Tab>'
+		.. (vim.b.undo_ftplugin ~= nil and ' | ' or '')
+		.. 'sil! nunmap <buffer> <Tab>'
+		.. ' | sil! nunmap <buffer> <S-Tab>'
 end
 
 -- Set key-mappings.

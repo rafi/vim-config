@@ -27,6 +27,7 @@ return {
 					return false
 				end
 				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+				-- stylua: ignore
 				return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
 			end
 
@@ -53,7 +54,7 @@ return {
 						name = 'tmux',
 						priority = 10,
 						keyword_length = 3,
-						option = { all_panes = true, label = 'tmux' }
+						option = { all_panes = true, label = 'tmux' },
 					},
 				}),
 				mapping = cmp.mapping.preset.insert({
@@ -129,12 +130,13 @@ return {
 		event = 'InsertEnter',
 		dependencies = { 'rafamadriz/friendly-snippets' },
 		build = (not jit.os:find('Windows')) and 'make install_jsregexp' or nil,
+		-- stylua: ignore
 		keys = {
 			{
 				'<C-l>',
 				function() require('luasnip').expand_or_jump() end,
-				mode = { 'i', 's' }
-			}
+				mode = { 'i', 's' },
+			},
 		},
 		opts = {
 			-- Don't store snippet history for less overhead
@@ -153,7 +155,7 @@ return {
 			vim.api.nvim_create_user_command('LuaSnipEdit', function()
 				require('luasnip.loaders.from_lua').edit_snippet_files()
 			end, {})
-		end
+		end,
 	},
 
 	-----------------------------------------------------------------------------
@@ -169,6 +171,7 @@ return {
 	-----------------------------------------------------------------------------
 	{
 		'danymat/neogen',
+		-- stylua: ignore
 		keys = {
 			{
 				'<leader>cc',
@@ -267,6 +270,7 @@ return {
 		dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
 		opts = function()
 			local ai = require('mini.ai')
+			-- stylua: ignore
 			return {
 				n_lines = 500,
 				custom_textobjects = {
@@ -290,13 +294,13 @@ return {
 				'sj',
 				'<cmd>lua MiniSplitjoin.join()<CR>',
 				mode = { 'n', 'x' },
-				desc = 'Join arguments'
+				desc = 'Join arguments',
 			},
 			{
 				'sk',
 				'<cmd>lua MiniSplitjoin.split()<CR>',
 				mode = { 'n', 'x' },
-				desc = 'Split arguments'
+				desc = 'Split arguments',
 			},
 		},
 		opts = {
@@ -313,19 +317,19 @@ return {
 			{ '<Leader>mda', ':LinediffAdd<CR>', mode = 'x', desc = 'Line diff add' },
 			{ '<Leader>mds', '<cmd>LinediffShow<CR>', desc = 'Line diff show' },
 			{ '<Leader>mdr', '<cmd>LinediffReset<CR>', desc = 'Line diff reset' },
-		}
+		},
 	},
 
 	-----------------------------------------------------------------------------
 	{
 		'AndrewRadev/dsf.vim',
+		-- stylua: ignore
 		keys = {
 			{ 'dsf', '<Plug>DsfDelete', noremap = true, desc = 'Delete Surrounding Function' },
 			{ 'csf', '<Plug>DsfChange', noremap = true, desc = 'Change Surrounding Function' },
 		},
 		init = function()
 			vim.g.dsf_no_mappings = 1
-		end
+		end,
 	},
-
 }

@@ -73,11 +73,8 @@ function M.open(path)
 	vim.wo[winid].winhighlight = 'Normal:NormalFloat'
 
 	-- Run telescope preview.
-	require('telescope.config').values.buffer_previewer_maker(
-		path,
-		popup_bufnr,
-		{}
-	)
+	local previewer = require('telescope.config').values.buffer_previewer_maker
+	previewer(path, popup_bufnr, {})
 
 	-- Setup close events
 	local augroup = vim.api.nvim_create_augroup('preview_window_' .. winid, {})
