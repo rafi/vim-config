@@ -50,14 +50,10 @@ return {
 				timeout_ms = nil,
 			},
 			-- Add any global capabilities here
-			capabilities = {
-				textDocument = {
-					foldingRange = {
-						dynamicRegistration = false,
-						lineFoldingOnly = true,
-					},
-				},
-			},
+			capabilities = {},
+			-- Enable this to show formatters used in a notification
+			-- Useful for debugging formatter issues
+			format_notify = false,
 			-- LSP Server Settings
 			---@type lspconfig.options
 			servers = {
@@ -90,16 +86,27 @@ return {
 					},
 				},
 			},
+			-- you can do any additional lsp server setup here
+			-- return true if you don't want this server to be setup with lspconfig
+			---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
+			setup = {
+				-- example to setup with typescript.nvim
+				-- tsserver = function(_, opts)
+				--   require('typescript').setup({ server = opts })
+				--   return true
+				-- end,
+				-- Specify * to use this function as a fallback for any server
+				-- ['*'] = function(server, opts) end,
+			},
 		},
 		---@param opts PluginLspOpts
 		config = function(_, opts)
 			-- Setup autoformat
-			require('rafi.plugins.lsp.format').autoformat = opts.autoformat
+			require('rafi.plugins.lsp.format').setup(opts)
 			-- Setup formatting, keymaps and highlights.
 			---@param client lsp.Client
 			---@param buffer integer
 			require('rafi.config').on_attach(function(client, buffer)
-				require('rafi.plugins.lsp.format').on_attach(client, buffer)
 				require('rafi.plugins.lsp.keymaps').on_attach(client, buffer)
 				require('rafi.plugins.lsp.highlight').on_attach(client, buffer)
 
@@ -113,6 +120,22 @@ return {
 			for type, icon in pairs(require('rafi.config').icons.diagnostics) do
 				local hl = 'DiagnosticSign' .. type
 				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
+			end
+
+			if
+				type(opts.diagnostics.virtual_text) == 'table'
+				and opts.diagnostics.virtual_text.prefix == 'icons'
+			then
+				opts.diagnostics.virtual_text.prefix = vim.fn.has('nvim-0.10') == 0
+						and '●'
+					or function(diagnostic)
+						local icons = require('rafi.config').icons.diagnostics
+						for d, icon in pairs(icons) do
+							if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
+								return icon
+							end
+						end
+					end
 			end
 
 			vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
@@ -140,6 +163,16 @@ return {
 					capabilities = vim.deepcopy(capabilities),
 				}, servers[server_name] or {})
 
+				if opts.setup[server_name] then
+					if opts.setup[server_name](server_name, server_opts) then
+						return
+					end
+				elseif opts.setup['*'] then
+					if opts.setup['*'](server_name, server_opts) then
+						return
+					end
+				end
+
 				local exists, module = pcall(require, 'lsp.' .. server_name)
 				if exists and module ~= nil then
 					local user_config = module.config(server_opts) or {}
@@ -149,10 +182,36 @@ return {
 			end
 
 			-- Get all the servers that are available thourgh mason-lspconfig
-			local have_mason, mason_lspconfig = pcall(require, 'mason-lspconfig')
+			local have_mason, mlsp = pcall(require, 'mason-lspconfig')
+			local all_mslp_servers = {}
 			if have_mason then
-				mason_lspconfig.setup()
-				mason_lspconfig.setup_handlers({ make_config })
+				all_mslp_servers = vim.tbl_keys(
+					require('mason-lspconfig.mappings.server').lspconfig_to_package
+				)
+			end
+
+			local ensure_installed = {} ---@type string[]
+			for server, server_opts in pairs(servers) do
+				if server_opts then
+					server_opts = server_opts == true and {} or server_opts
+					-- run manual setup if mason=false or if this is a server that cannot
+					-- be installed with mason-lspconfig
+					if
+						server_opts.mason == false
+						or not vim.tbl_contains(all_mslp_servers, server)
+					then
+						make_config(server)
+					else
+						ensure_installed[#ensure_installed + 1] = server
+					end
+				end
+			end
+
+			if have_mason then
+				mlsp.setup({
+					ensure_installed = ensure_installed,
+					handlers = { make_config },
+				})
 			end
 		end,
 	},
