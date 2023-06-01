@@ -1,5 +1,4 @@
 return {
-
 	{
 		'mattn/emmet-vim',
 		ft = { 'html', 'css', 'vue', 'javascript', 'javascriptreact', 'svelte' },
@@ -13,16 +12,20 @@ return {
 			vim.api.nvim_create_autocmd('FileType', {
 				group = vim.api.nvim_create_augroup('rafi_emmet', {}),
 				pattern = {
-					'html', 'css', 'vue', 'javascript', 'javascriptreact', 'svelte'
+					'css',
+					'html',
+					'javascript',
+					'javascriptreact',
+					'svelte',
+					'vue',
 				},
 				callback = function()
-					vim.cmd [[
+					vim.cmd([[
 						EmmetInstall
 						imap <silent><buffer> <C-y> <Plug>(emmet-expand-abbr)
-					]]
-				end
+					]])
+				end,
 			})
-		end
+		end,
 	},
-
 }

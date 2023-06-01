@@ -768,7 +768,6 @@ Spec: `rafi.plugins.extras.coding.<name>`
 | `copilot`      | [zbirenbaum/copilot.lua] | Fully featured & enhanced copilot
 | `editorconfig` | [sgur/vim-editorconfig] | EditorConfig plugin written entirely in Vimscript
 | `emmet`        | [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet
-| `kommentary`   | [b3nj5m1n/kommentary] | Commenting plugin, written in Lua
 | `sandwich`     | [machakann/vim-sandwich] | Search, select, and edit sandwich text objects
 
 ### Extra Plugins: Diagnostics
@@ -845,7 +844,6 @@ Spec: `rafi.plugins.extras.ui.<name>`
 [zbirenbaum/copilot.lua]: https://github.com/zbirenbaum/copilot.lua
 [sgur/vim-editorconfig]: https://github.com/sgur/vim-editorconfig
 [mattn/emmet-vim]: https://github.com/mattn/emmet-vim
-[b3nj5m1n/kommentary]: https://github.com/b3nj5m1n/kommentary
 [machakann/vim-sandwich]: https://github.com/machakann/vim-sandwich
 [pechorin/any-jump.vim]: https://github.com/pechorin/any-jump.vim
 [glepnir/flybuf.nvim]: https://github.com/glepnir/flybuf.nvim

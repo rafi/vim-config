@@ -8,8 +8,8 @@ return {
 		'neovim/nvim-lspconfig',
 		event = { 'BufReadPre', 'BufNewFile' },
 		dependencies = {
-			{ 'folke/neoconf.nvim', cmd = 'Neoconf', config = true },
-			{ 'folke/neodev.nvim', config = true },
+			{ 'folke/neoconf.nvim', cmd = 'Neoconf', opts = {} },
+			{ 'folke/neodev.nvim', opts = {} },
 			'williamboman/mason.nvim',
 			'williamboman/mason-lspconfig.nvim',
 			{
@@ -28,7 +28,11 @@ return {
 				signs = true,
 				underline = true,
 				update_in_insert = false,
-				virtual_text = { spacing = 4, prefix = '●' },
+				virtual_text = {
+					spacing = 4,
+					source = 'if_many',
+					prefix = '●',
+				},
 				severity_sort = true,
 				float = {
 					show_header = true,
@@ -46,14 +50,10 @@ return {
 				timeout_ms = nil,
 			},
 			-- Add any global capabilities here
-			capabilities = {
-				textDocument = {
-					foldingRange = {
-						dynamicRegistration = false,
-						lineFoldingOnly = true,
-					},
-				},
-			},
+			capabilities = {},
+			-- Enable this to show formatters used in a notification
+			-- Useful for debugging formatter issues
+			format_notify = false,
 			-- LSP Server Settings
 			---@type lspconfig.options
 			servers = {
@@ -86,14 +86,27 @@ return {
 					},
 				},
 			},
+			-- you can do any additional lsp server setup here
+			-- return true if you don't want this server to be setup with lspconfig
+			---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
+			setup = {
+				-- example to setup with typescript.nvim
+				-- tsserver = function(_, opts)
+				--   require('typescript').setup({ server = opts })
+				--   return true
+				-- end,
+				-- Specify * to use this function as a fallback for any server
+				-- ['*'] = function(server, opts) end,
+			},
 		},
 		---@param opts PluginLspOpts
 		config = function(_, opts)
 			-- Setup autoformat
-			require('rafi.plugins.lsp.format').autoformat = opts.autoformat
+			require('rafi.plugins.lsp.format').setup(opts)
 			-- Setup formatting, keymaps and highlights.
+			---@param client lsp.Client
+			---@param buffer integer
 			require('rafi.config').on_attach(function(client, buffer)
-				require('rafi.plugins.lsp.format').on_attach(client, buffer)
 				require('rafi.plugins.lsp.keymaps').on_attach(client, buffer)
 				require('rafi.plugins.lsp.highlight').on_attach(client, buffer)
 
@@ -107,6 +120,22 @@ return {
 			for type, icon in pairs(require('rafi.config').icons.diagnostics) do
 				local hl = 'DiagnosticSign' .. type
 				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
+			end
+
+			if
+				type(opts.diagnostics.virtual_text) == 'table'
+				and opts.diagnostics.virtual_text.prefix == 'icons'
+			then
+				opts.diagnostics.virtual_text.prefix = vim.fn.has('nvim-0.10') == 0
+						and '●'
+					or function(diagnostic)
+						local icons = require('rafi.config').icons.diagnostics
+						for d, icon in pairs(icons) do
+							if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
+								return icon
+							end
+						end
+					end
 			end
 
 			vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
@@ -128,10 +157,21 @@ return {
 
 			-- Combine base config for each server and merge user-defined settings.
 			-- These can be overridden locally by lua/lsp/<server_name>.lua
+			---@param server_name string
 			local function make_config(server_name)
 				local server_opts = vim.tbl_deep_extend('force', {
 					capabilities = vim.deepcopy(capabilities),
 				}, servers[server_name] or {})
+
+				if opts.setup[server_name] then
+					if opts.setup[server_name](server_name, server_opts) then
+						return
+					end
+				elseif opts.setup['*'] then
+					if opts.setup['*'](server_name, server_opts) then
+						return
+					end
+				end
 
 				local exists, module = pcall(require, 'lsp.' .. server_name)
 				if exists and module ~= nil then
@@ -142,10 +182,36 @@ return {
 			end
 
 			-- Get all the servers that are available thourgh mason-lspconfig
-			local have_mason, mason_lspconfig = pcall(require, 'mason-lspconfig')
+			local have_mason, mlsp = pcall(require, 'mason-lspconfig')
+			local all_mslp_servers = {}
 			if have_mason then
-				mason_lspconfig.setup()
-				mason_lspconfig.setup_handlers({ make_config })
+				all_mslp_servers = vim.tbl_keys(
+					require('mason-lspconfig.mappings.server').lspconfig_to_package
+				)
+			end
+
+			local ensure_installed = {} ---@type string[]
+			for server, server_opts in pairs(servers) do
+				if server_opts then
+					server_opts = server_opts == true and {} or server_opts
+					-- run manual setup if mason=false or if this is a server that cannot
+					-- be installed with mason-lspconfig
+					if
+						server_opts.mason == false
+						or not vim.tbl_contains(all_mslp_servers, server)
+					then
+						make_config(server)
+					else
+						ensure_installed[#ensure_installed + 1] = server
+					end
+				end
+			end
+
+			if have_mason then
+				mlsp.setup({
+					ensure_installed = ensure_installed,
+					handlers = { make_config },
+				})
 			end
 		end,
 	},
@@ -250,5 +316,4 @@ return {
 			}
 		end,
 	},
-
 }

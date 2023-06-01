@@ -15,7 +15,7 @@ return {
 			'hrsh7th/cmp-buffer',
 			'hrsh7th/cmp-path',
 			'hrsh7th/cmp-emoji',
-			'saadparwaiz1/cmp_luasnip',
+			{ 'saadparwaiz1/cmp_luasnip', dependencies = 'L3MON4D3/LuaSnip' },
 			'andersevenrud/cmp-tmux',
 		},
 		opts = function()
@@ -23,10 +23,11 @@ return {
 			local luasnip = require('luasnip')
 
 			local function has_words_before()
-				if vim.api.nvim_buf_get_option(0, 'buftype') == 'prompt' then
+				if vim.bo.buftype == 'prompt' then
 					return false
 				end
 				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+				-- stylua: ignore
 				return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
 			end
 
@@ -53,7 +54,7 @@ return {
 						name = 'tmux',
 						priority = 10,
 						keyword_length = 3,
-						option = { all_panes = true, label = 'tmux' }
+						option = { all_panes = true, label = 'tmux' },
 					},
 				}),
 				mapping = cmp.mapping.preset.insert({
@@ -129,12 +130,13 @@ return {
 		event = 'InsertEnter',
 		dependencies = { 'rafamadriz/friendly-snippets' },
 		build = (not jit.os:find('Windows')) and 'make install_jsregexp' or nil,
+		-- stylua: ignore
 		keys = {
 			{
 				'<C-l>',
 				function() require('luasnip').expand_or_jump() end,
-				mode = { 'i', 's' }
-			}
+				mode = { 'i', 's' },
+			},
 		},
 		opts = {
 			-- Don't store snippet history for less overhead
@@ -153,7 +155,7 @@ return {
 			vim.api.nvim_create_user_command('LuaSnipEdit', function()
 				require('luasnip.loaders.from_lua').edit_snippet_files()
 			end, {})
-		end
+		end,
 	},
 
 	-----------------------------------------------------------------------------
@@ -169,6 +171,7 @@ return {
 	-----------------------------------------------------------------------------
 	{
 		'danymat/neogen',
+		-- stylua: ignore
 		keys = {
 			{
 				'<leader>cc',
@@ -183,14 +186,12 @@ return {
 	{
 		'echasnovski/mini.pairs',
 		event = 'VeryLazy',
-		main = 'mini.pairs',
-		config = true,
+		opts = {},
 	},
 
 	-----------------------------------------------------------------------------
 	{
 		'echasnovski/mini.surround',
-		main = 'mini.surround',
 		keys = function(_, keys)
 			-- Populate the keys based on the user's options
 			local plugin = require('lazy.core.config').spec.plugins['mini.surround']
@@ -223,19 +224,19 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
-	{ 'JoosepAlviste/nvim-ts-context-commentstring', lazy = true },
 	{
 		'echasnovski/mini.comment',
 		event = 'VeryLazy',
-		main = 'mini.comment',
+		dependencies = { 'JoosepAlviste/nvim-ts-context-commentstring' },
 		keys = {
 			{ '<Leader>v', 'gcc', remap = true, silent = true, mode = 'n' },
 			{ '<Leader>v', 'gc', remap = true, silent = true, mode = 'x' },
 		},
 		opts = {
-			hooks = {
-				pre = function()
-					require('ts_context_commentstring.internal').update_commentstring({})
+			options = {
+				custom_commentstring = function()
+					return require('ts_context_commentstring.internal').calculate_commentstring()
+						or vim.bo.commentstring
 				end,
 			},
 		},
@@ -245,15 +246,13 @@ return {
 	{
 		'echasnovski/mini.trailspace',
 		event = { 'BufReadPost', 'BufNewFile' },
-		main = 'mini.trailspace',
-		config = true,
+		opts = {},
 	},
 
 	-----------------------------------------------------------------------------
 	{
 		'echasnovski/mini.bracketed',
 		event = 'BufReadPost',
-		main = 'mini.bracketed',
 		opts = {
 			treesitter = { suffix = '' },
 		},
@@ -263,10 +262,10 @@ return {
 	{
 		'echasnovski/mini.ai',
 		event = 'VeryLazy',
-		main = 'mini.ai',
 		dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
 		opts = function()
 			local ai = require('mini.ai')
+			-- stylua: ignore
 			return {
 				n_lines = 500,
 				custom_textobjects = {
@@ -284,19 +283,18 @@ return {
 	-----------------------------------------------------------------------------
 	{
 		'echasnovski/mini.splitjoin',
-		main = 'mini.splitjoin',
 		keys = {
 			{
 				'sj',
 				'<cmd>lua MiniSplitjoin.join()<CR>',
 				mode = { 'n', 'x' },
-				desc = 'Join arguments'
+				desc = 'Join arguments',
 			},
 			{
 				'sk',
 				'<cmd>lua MiniSplitjoin.split()<CR>',
 				mode = { 'n', 'x' },
-				desc = 'Split arguments'
+				desc = 'Split arguments',
 			},
 		},
 		opts = {
@@ -313,19 +311,19 @@ return {
 			{ '<Leader>mda', ':LinediffAdd<CR>', mode = 'x', desc = 'Line diff add' },
 			{ '<Leader>mds', '<cmd>LinediffShow<CR>', desc = 'Line diff show' },
 			{ '<Leader>mdr', '<cmd>LinediffReset<CR>', desc = 'Line diff reset' },
-		}
+		},
 	},
 
 	-----------------------------------------------------------------------------
 	{
 		'AndrewRadev/dsf.vim',
+		-- stylua: ignore
 		keys = {
 			{ 'dsf', '<Plug>DsfDelete', noremap = true, desc = 'Delete Surrounding Function' },
 			{ 'csf', '<Plug>DsfChange', noremap = true, desc = 'Change Surrounding Function' },
 		},
 		init = function()
 			vim.g.dsf_no_mappings = 1
-		end
+		end,
 	},
-
 }

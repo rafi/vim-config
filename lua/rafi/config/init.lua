@@ -12,6 +12,7 @@ M.lazy_version = '>=9.1.0'
 ---@class RafiConfig
 local defaults = {
 	-- Load the default settings
+	-- stylua: ignore
 	defaults = {
 		autocmds = true, -- rafi.config.autocmds
 		keymaps = true,  -- rafi.config.keymaps
@@ -31,6 +32,7 @@ local defaults = {
 		window_q_mapping = true,
 	},
 
+	-- stylua: ignore
 	icons = {
 		diagnostics = {
 			Error = '✘', --   ✘
@@ -294,6 +296,9 @@ function M.lazy_notify()
 
 	local timer = vim.loop.new_timer()
 	local check = vim.loop.new_check()
+	if timer == nil or check == nil then
+		return
+	end
 
 	local replay = function()
 		timer:stop()

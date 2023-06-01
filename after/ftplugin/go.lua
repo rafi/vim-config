@@ -12,5 +12,9 @@ local function json_to_struct(args)
 	vim.cmd(range .. ' ' .. table.concat(cmd, ' '))
 end
 
-vim.api.nvim_buf_create_user_command(0, 'JsonToStruct', json_to_struct,
-	{ bar = true, nargs = 0, range = true })
+vim.api.nvim_buf_create_user_command(
+	0,
+	'JsonToStruct',
+	json_to_struct,
+	{ bar = true, nargs = 0, range = true }
+)

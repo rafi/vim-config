@@ -17,6 +17,7 @@ return {
 			'rcarriga/nvim-notify',
 			'nvim-treesitter/nvim-treesitter',
 		},
+		-- stylua: ignore
 		keys = {
 			{ '<S-Enter>', function() require('noice').redirect(vim.fn.getcmdline()) end, mode = 'c', desc = 'Redirect Cmdline' },
 			{ '<leader>snl', function() require('noice').cmd('last') end, desc = 'Noice Last Message' },
@@ -119,8 +120,7 @@ return {
 						vim.wo.winbar = ''
 					else
 						vim.b.navic_winbar = true
-						vim.wo.winbar =
-							"%#NavicIconsFile# %t %* "
+						vim.wo.winbar = '%#NavicIconsFile# %t %* '
 							.. "%{%v:lua.require'nvim-navic'.get_location()%}"
 					end
 				end,
@@ -186,11 +186,11 @@ return {
 		dependencies = 'lewis6991/gitsigns.nvim',
 		event = 'FileType',
 		keys = {
-			{ 'm/', '<cmd>MarksListAll<CR>', desc = 'Marks from all opened buffers' }
+			{ 'm/', '<cmd>MarksListAll<CR>', desc = 'Marks from all opened buffers' },
 		},
 		opts = {
 			sign_priority = { lower = 10, upper = 15, builtin = 8, bookmark = 20 },
-			bookmark_1 = { sign = '󰈼' },  -- ⚐ ⚑ 󰈻 󰈼 󰈽 󰈾 󰈿 󰉀
+			bookmark_1 = { sign = '󰈼' }, -- ⚐ ⚑ 󰈻 󰈼 󰈽 󰈾 󰈿 󰉀
 			mappings = {
 				annotate = 'm<Space>',
 			},
@@ -245,7 +245,7 @@ return {
 				'<Leader>mt',
 				'<Plug>(quickhl-manual-this)',
 				mode = { 'n', 'x' },
-				desc = 'Highlight word'
+				desc = 'Highlight word',
 			},
 		},
 	},
@@ -300,7 +300,7 @@ return {
 		'uga-rosa/ccc.nvim',
 		event = 'FileType',
 		keys = {
-			{ '<Leader>cp', '<cmd>CccPick<CR>', desc = 'Color-picker' }
+			{ '<Leader>cp', '<cmd>CccPick<CR>', desc = 'Color-picker' },
 		},
 		opts = {
 			highlighter = {
@@ -321,5 +321,4 @@ return {
 			vim.g.calendar_cache_directory = vim.fn.stdpath('data') .. '/calendar'
 		end,
 	},
-
 }

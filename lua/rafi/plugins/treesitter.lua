@@ -12,7 +12,7 @@ return {
 	{ 'lifepillar/pgsql.vim', ft = 'pgsql' },
 	{ 'MTDL9/vim-log-highlighting', ft = 'log' },
 	{ 'tmux-plugins/vim-tmux', ft = 'tmux' },
-	{ 'reasonml-editor/vim-reason-plus', ft = { 'reason', 'merlin' }},
+	{ 'reasonml-editor/vim-reason-plus', ft = { 'reason', 'merlin' } },
 	{ 'vmchale/just-vim', ft = 'just' },
 
 	-----------------------------------------------------------------------------
@@ -34,13 +34,21 @@ return {
 
 	-----------------------------------------------------------------------------
 	{
+		'andymass/vim-matchup',
+		init = function()
+			vim.g.matchup_matchparen_offscreen = {}
+		end,
+	},
+
+	-----------------------------------------------------------------------------
+	{
 		'nvim-treesitter/nvim-treesitter',
 		event = { 'BufReadPost', 'BufNewFile' },
 		main = 'nvim-treesitter.configs',
 		build = ':TSUpdate',
 		dependencies = {
 			'nvim-treesitter/nvim-treesitter-textobjects',
-			{ 'nvim-treesitter/nvim-treesitter-context', opts = { enable = false }},
+			{ 'nvim-treesitter/nvim-treesitter-context', opts = { enable = false } },
 			'JoosepAlviste/nvim-ts-context-commentstring',
 			'RRethy/nvim-treesitter-endwise',
 			'windwp/nvim-ts-autotag',
@@ -80,9 +88,20 @@ return {
 				enable = true,
 				-- Removed markdown due to errors
 				filetypes = {
-					'html', 'xml', 'svelte', 'vue', 'tsx', 'jsx', 'rescript',
-					'javascript', 'typescript', 'javascriptreact', 'typescriptreact',
-					'glimmer', 'handlebars', 'hbs',
+					'glimmer',
+					'handlebars',
+					'hbs',
+					'html',
+					'javascript',
+					'javascriptreact',
+					'jsx',
+					'rescript',
+					'svelte',
+					'tsx',
+					'typescript',
+					'typescriptreact',
+					'vue',
+					'xml',
 				},
 			},
 
@@ -195,14 +214,6 @@ return {
 				'zig',
 			},
 		},
-	},
-
-	-----------------------------------------------------------------------------
-	{
-		'andymass/vim-matchup',
-		init = function()
-			vim.g.matchup_matchparen_offscreen = {}
-		end
 	},
 
 	-----------------------------------------------------------------------------

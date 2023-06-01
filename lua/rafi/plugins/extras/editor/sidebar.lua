@@ -1,5 +1,4 @@
 return {
-
 	{
 		'sidebar-nvim/sidebar.nvim',
 		main = 'sidebar-nvim',
@@ -7,9 +6,9 @@ return {
 		opts = {
 			open = true,
 			bindings = {
-				['q'] = function() require('sidebar-nvim').close() end
-			}
+				-- stylua: ignore
+				['q'] = function() require('sidebar-nvim').close() end,
+			},
 		},
 	},
-
 }

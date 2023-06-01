@@ -1,5 +1,4 @@
 return {
-
 	{
 		'rmagatti/goto-preview',
 		dependencies = 'nvim-telescope/telescope.nvim',
@@ -42,11 +41,10 @@ return {
 				vim.api.nvim_win_set_config(win, {
 					border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
 				})
-				vim.api.nvim_win_set_option(win, 'spell', false)
-				vim.api.nvim_win_set_option(win, 'signcolumn', 'no')
+				vim.wo[win].spell = false
+				vim.wo[win].signcolumn = 'no'
 				vim.keymap.set('n', '<Esc>', '<cmd>quit<CR>')
 			end,
 		},
 	},
-
 }

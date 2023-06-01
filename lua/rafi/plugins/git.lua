@@ -8,6 +8,7 @@ return {
 		'lewis6991/gitsigns.nvim',
 		event = { 'BufReadPre', 'BufNewFile' },
 		-- See: https://github.com/lewis6991/gitsigns.nvim#usage
+		-- stylua: ignore
 		opts = {
 			signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
 			numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
@@ -17,7 +18,7 @@ return {
 			attach_to_untracked = true,
 			watch_gitdir = {
 				interval = 1000,
-				follow_files = true
+				follow_files = true,
 			},
 			preview_config = {
 				border = 'rounded',
@@ -63,7 +64,7 @@ return {
 				map('n', '<leader>hD', function() gs.diffthis('~') end, { desc = 'Diff against the last commit' })
 				map('n', '<leader>td', gs.toggle_deleted, { desc = 'Toggle Git deleted' })
 				map('n', '<leader>hl', function()
-					if vim.api.nvim_buf_get_option(0, 'filetype') ~= 'qf' then
+					if vim.bo.filetype ~= 'qf' then
 						require('gitsigns').setqflist(0, { use_location_list = true })
 					end
 				end, { desc = 'Send to location list' })
@@ -81,7 +82,7 @@ return {
 		dependencies = { 'sindrets/diffview.nvim' },
 		cmd = 'Neogit',
 		keys = {
-			{ '<Leader>mg', '<cmd>Neogit<CR>', desc = 'Neogit' }
+			{ '<Leader>mg', '<cmd>Neogit<CR>', desc = 'Neogit' },
 		},
 		-- See: https://github.com/TimUntersberger/neogit#configuration
 		opts = {
@@ -102,7 +103,7 @@ return {
 	-----------------------------------------------------------------------------
 	{
 		'tpope/vim-fugitive',
-		cmd = { 'G', 'Git', 'GBrowse', 'Gfetch', 'Gpush', 'Gclog', 'Gdiffsplit' },
+		cmd = { 'G', 'Git', 'Gfetch', 'Gpush', 'Gclog', 'Gdiffsplit' },
 		keys = {
 			{ '<leader>gd', '<cmd>Gdiffsplit<CR>', desc = 'Git diff' },
 			{ '<leader>gb', '<cmd>Git blame<CR>', desc = 'Git blame' },
@@ -115,16 +116,16 @@ return {
 					vim.schedule(function()
 						vim.cmd.normal('A')
 					end)
-				end
+				end,
 			})
-		end
+		end,
 	},
 
 	-----------------------------------------------------------------------------
 	{
 		'junegunn/gv.vim',
 		dependencies = { 'tpope/vim-fugitive' },
-		cmd = 'GV'
+		cmd = 'GV',
 	},
 
 	-----------------------------------------------------------------------------
@@ -132,14 +133,16 @@ return {
 		'ruifm/gitlinker.nvim',
 		keys = {
 			{
-				'<leader>go', function()
+				'<leader>go',
+				function()
 					require('gitlinker').get_buf_range_url('n')
 				end,
 				silent = true,
 				desc = 'Git open in browser',
 			},
 			{
-				'<leader>go', function()
+				'<leader>go',
+				function()
 					require('gitlinker').get_buf_range_url('v')
 				end,
 				mode = 'x',
@@ -153,8 +156,8 @@ return {
 				print_url = false,
 				action_callback = function(...)
 					return require('gitlinker.actions').open_in_browser(...)
-				end
-			}
+				end,
+			},
 		},
 	},
 
@@ -188,5 +191,4 @@ return {
 			}
 		end,
 	},
-
 }

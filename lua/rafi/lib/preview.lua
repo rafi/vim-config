@@ -13,8 +13,8 @@ local default_opts = {
 		focusable = true,
 		noautocmd = true,
 		relative = 'cursor',
-		line = 5, -- 'cursor-4',
-		col = 32, -- 'cursor+20',
+		line = 'cursor-3',
+		col = 'cursor+27',
 		minwidth = math.ceil(vim.o.columns / 2),
 		minheight = math.ceil(vim.o.lines / 1.5),
 		border = true,
@@ -61,23 +61,20 @@ function M.open(path)
 	local popup_bufnr = vim.api.nvim_win_get_buf(winid)
 
 	-- Ensure best viewing options are toggled.
-	vim.api.nvim_win_set_option(winid, 'number', true)
-	vim.api.nvim_win_set_option(winid, 'relativenumber', false)
-	vim.api.nvim_win_set_option(winid, 'wrap', false)
-	vim.api.nvim_win_set_option(winid, 'spell', false)
-	vim.api.nvim_win_set_option(winid, 'list', false)
-	vim.api.nvim_win_set_option(winid, 'foldenable', false)
-	vim.api.nvim_win_set_option(winid, 'cursorline', false)
-	vim.api.nvim_win_set_option(winid, 'signcolumn', 'no')
-	vim.api.nvim_win_set_option(winid, 'colorcolumn', '')
-	vim.api.nvim_win_set_option(winid, 'winhighlight', 'Normal:NormalFloat')
+	vim.wo[winid].number = true
+	vim.wo[winid].relativenumber = false
+	vim.wo[winid].wrap = false
+	vim.wo[winid].spell = false
+	vim.wo[winid].list = false
+	vim.wo[winid].foldenable = false
+	vim.wo[winid].cursorline = false
+	vim.wo[winid].signcolumn = 'no'
+	vim.wo[winid].colorcolumn = ''
+	vim.wo[winid].winhighlight = 'Normal:NormalFloat'
 
 	-- Run telescope preview.
-	require('telescope.config').values.buffer_previewer_maker(
-		path,
-		popup_bufnr,
-		{}
-	)
+	local previewer = require('telescope.config').values.buffer_previewer_maker
+	previewer(path, popup_bufnr, {})
 
 	-- Setup close events
 	local augroup = vim.api.nvim_create_augroup('preview_window_' .. winid, {})

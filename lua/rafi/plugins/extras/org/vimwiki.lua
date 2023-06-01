@@ -1,5 +1,4 @@
 return {
-
 	{
 		'vimwiki/vimwiki',
 		cmd = { 'VimwikiIndex', 'VimwikiUISelect' },
@@ -42,5 +41,4 @@ return {
 			}
 		end,
 	},
-
 }
