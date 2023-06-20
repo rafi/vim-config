@@ -72,7 +72,7 @@ return {
 							select = true,
 							behavior = cmp.ConfirmBehavior.Replace,
 						}),
-						c = cmp.mapping.confirm({ select = true }),
+						-- Do not set command mode, it will interfere with noice popmenu.
 					}),
 					['<S-CR>'] = cmp.mapping.confirm({
 						behavior = cmp.ConfirmBehavior.Replace,
