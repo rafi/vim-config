@@ -336,7 +336,7 @@ return {
 					sorting_strategy = 'ascending',
 					cache_picker = { num_pickers = 3 },
 
-					prompt_prefix = '  ',  -- ❯  
+					prompt_prefix = '  ', -- ❯  
 					selection_caret = '▍ ',
 					multi_icon = ' ',
 

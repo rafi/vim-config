@@ -161,15 +161,15 @@ end
 
 opt.showbreak = '↳  '
 opt.listchars = {
-	tab = '  ', -- '▏ ',
+	tab = '  ',
 	extends = '⟫',
 	precedes = '⟪',
 	nbsp = '␣',
 	trail = '·'
 }
 opt.fillchars = {
-	foldopen = '',
-	foldclose = '',
+	foldopen = '󰅀', -- 󰅀 
+	foldclose = '󰅂', -- 󰅂 
 	fold = ' ',
 	foldsep = ' ',
 	diff = '╱',

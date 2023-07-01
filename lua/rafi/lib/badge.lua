@@ -3,20 +3,20 @@
 
 local plugin_icons = {
 	DiffviewFiles = { '' },
-	fugitive = { '󰊢' },
+	fugitive = { ' ' },
 	fugitiveblame = { '󰊢', 'Blame' },
-	lazy = { '󰒲', 'Lazy.nvim' },
+	lazy = { '󰒲 ', 'Lazy.nvim' },
 	loclist = { '󰂖', 'Location List' },
-	mason = { '󰈏', 'Mason' },
+	mason = { '󰈏 ', 'Mason' },
 	NeogitStatus = { '󰉺' },
-	['neo-tree'] = { '', 'Neo-tree' },
+	['neo-tree'] = { ' ', 'Neo-tree' },
 	['neo-tree-popup'] = { '󰋱', 'Neo-tree' },
-	Outline = { '' },
-	quickfix = { '󰎟', 'Quickfix List' }, -- 󰎟 
-	spectre_panel = { '󰥩', 'Spectre' },
+	Outline = { ' ' },
+	quickfix = { ' ', 'Quickfix List' }, -- 󰎟 
+	spectre_panel = { '󰥩 ', 'Spectre' },
 	TelescopePrompt = { '󰋱', 'Telescope' },
-	terminal = { '' },
-	toggleterm = { '', 'Terminal' },
+	terminal = { ' ' },
+	toggleterm = { ' ', 'Terminal' },
 	Trouble = { '' }, --  
 	undotree = { '󰃢' },
 }

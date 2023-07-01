@@ -111,11 +111,16 @@ return {
 					end, { 'i', 's' }),
 				}),
 				formatting = {
-					format = function(_, vim_item)
+					format = function(entry, vim_item)
 						-- Prepend with a fancy icon from config lua/rafi/config/init.lua
-						local symbol = require('rafi.config').icons.kinds[vim_item.kind]
-						if symbol ~= nil then
-							vim_item.kind = symbol .. ' ' .. vim_item.kind
+						local icons = require('rafi.config').icons
+						if entry.source.name == 'git' then
+							vim_item.kind = icons.git
+						else
+							local symbol = icons.kinds[vim_item.kind]
+							if symbol ~= nil then
+								vim_item.kind = symbol .. ' ' .. vim_item.kind
+							end
 						end
 						return vim_item
 					end,

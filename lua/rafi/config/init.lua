@@ -34,6 +34,7 @@ local defaults = {
 
 	-- stylua: ignore
 	icons = {
+		git = ' ',
 		diagnostics = {
 			Error = '✘', --   ✘
 			Warn = '󰀪',  -- 󰀪 󰳤 󱦄 󱗓 
