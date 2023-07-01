@@ -39,6 +39,7 @@ opt.clipboard = 'unnamedplus'
 -- Undo
 opt.undofile = true
 opt.undolevels = 10000
+opt.writebackup = false
 
 -- If sudo, disable vim swap/backup/undo/shada writing
 local USER = vim.env.USER or ''
@@ -72,7 +73,7 @@ opt.shiftround = true  -- Round indent to multiple of 'shiftwidth'
 opt.ttimeout = true
 opt.timeoutlen = 500  -- Time out on mappings
 opt.ttimeoutlen = 10  -- Time out on key codes
-opt.updatetime = 200  -- Idle time to write swap and trigger CursorHold
+opt.updatetime = 500  -- Idle time to write swap and trigger CursorHold
 
 -- Searching
 -- ===
@@ -102,7 +103,16 @@ opt.startofline = false         -- Cursor in same column for few commands
 opt.splitbelow = true           -- Splits open bottom right
 opt.splitright = true
 opt.breakindentopt = { shift = 2, min = 20 }
-opt.formatoptions = 'jcrqln1'
+opt.formatoptions = opt.formatoptions
+	- 'a' -- Auto formatting is BAD.
+	- 't' -- Don't auto format my code. I got linters for that.
+	+ 'c' -- In general, I like it when comments respect textwidth
+	+ 'q' -- Allow formatting comments w/ gq
+	- 'o' -- O and o, don't continue comments
+	+ 'r' -- But do continue when pressing enter.
+	+ 'n' -- Indent past the formatlistpat, not underneath it.
+	+ 'j' -- Auto-remove comments if possible.
+	- '2' -- I'm not in gradeschool anymore
 
 -- Completion and Diff
 -- ===
@@ -112,7 +122,7 @@ opt.complete:append('k')
 opt.complete:remove('u')
 opt.complete:remove('t')
 
-opt.completeopt = 'menu,menuone,noinsert'
+opt.completeopt = 'menu,menuone,noselect'
 
 opt.diffopt:append({ 'iwhite', 'indent-heuristic', 'algorithm:patience' })
 
@@ -144,6 +154,7 @@ opt.cmdwinheight = 5    -- Command-line lines
 opt.equalalways = true  -- Resize windows on split or close
 opt.colorcolumn = '+0'  -- Column highlight at textwidth's max character-limit
 
+opt.cursorline = true
 opt.cursorlineopt = { 'number', 'screenline' }
 
 opt.pumheight = 10      -- Maximum number of items to show in the popup menu
