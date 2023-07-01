@@ -68,7 +68,6 @@ Please read "[Extending](#extending)" to learn how to customize and modify.
   * [Editor UI](#editor-ui)
   * [Custom Tools & Plugins](#custom-tools--plugins)
   * [Window Management](#window-management)
-  * [Plugin: Mini.Bracketed](#plugin-minibracketed)
   * [Plugin: Mini.Surround](#plugin-minisurround)
   * [Plugin: Gitsigns](#plugin-gitsigns)
   * [Plugin: Telescope](#plugin-telescope)
@@ -532,7 +531,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [JoosepAlviste/nvim-ts-context-commentstring] | Set the commentstring based on the cursor location
 | [echasnovski/mini.comment] | Fast and familiar per-line commenting
 | [echasnovski/mini.trailspace] | Trailing whitespace highlight and remove
-| [echasnovski/mini.bracketed] | Go forward/backward with square brackets
 | [echasnovski/mini.ai] | Extend and create `a`/`i` textobjects
 | [echasnovski/mini.splitjoin] | Split and join arguments
 | [AndrewRadev/linediff.vim] | Perform diffs on blocks of code
@@ -671,7 +669,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [JoosepAlviste/nvim-ts-context-commentstring]: https://github.com/JoosepAlviste/nvim-ts-context-commentstring
 [echasnovski/mini.comment]: https://github.com/echasnovski/mini.comment
 [echasnovski/mini.trailspace]: https://github.com/echasnovski/mini.trailspace
-[echasnovski/mini.bracketed]: https://github.com/echasnovski/mini.bracketed
 [echasnovski/mini.ai]: https://github.com/echasnovski/mini.ai
 [echasnovski/mini.splitjoin]: https://github.com/echasnovski/mini.splitjoin
 [AndrewRadev/linediff.vim]: https://github.com/AndrewRadev/linediff.vim
@@ -1099,28 +1096,6 @@ Note that,
 | <kbd>sx</kbd> | 𝐍 | Delete buffer, leave blank window | <small>`:enew │ bdelete`</small>
 | <kbd>sz</kbd> | 𝐍 | Toggle window zoom | <small>`:vertical resize │ resize`</small>
 | <kbd>sh</kbd> | 𝐍 | Toggle colorscheme background=dark/light | <small>`:set background` …
-
-### Plugin: Mini.Bracketed
-
-Go forward/backward with square brackets. See [echasnovski/mini.bracketed] for
-more mappings and usage information.
-
-| Key                 | Target                                            | Mapping                      |
-|---------------------|-------------------------------------------------- | ---------------------------- |
-| `[B` `[b` `]b` `]B` | Buffer                                            | `MiniBracketed.buffer()`     |
-| `[C` `[c` `]c` `]C` | Comment block                                     | `MiniBracketed.comment()`    |
-| `[X` `[x` `]x` `]X` | Conflict marker                                   | `MiniBracketed.conflict()`   |
-| `[D` `[d` `]d` `]D` | Diagnostic                                        | `MiniBracketed.diagnostic()` |
-| `[F` `[f` `]f` `]F` | File on disk                                      | `MiniBracketed.file()`       |
-| `[I` `[i` `]i` `]I` | Indent change                                     | `MiniBracketed.indent()`     |
-| `[J` `[j` `]j` `]J` | Jump from jumplist inside current buffer          | `MiniBracketed.jump()`       |
-| `[L` `[l` `]l` `]L` | Location from location list                       | `MiniBracketed.location()`   |
-| `[O` `[o` `]o` `]O` | Old files                                         | `MiniBracketed.oldfile()`    |
-| `[Q` `[q` `]q` `]Q` | Quickfix entry from quickfix list                 | `MiniBracketed.quickfix()`   |
-| `[T` `[t` `]t` `]T` | Tree-sitter node and parents                      | `MiniBracketed.treesitter()` |
-| `[U` `[u` `]u` `]U` | Undo states from specially tracked linear history | `MiniBracketed.undo()`       |
-| `[W` `[w` `]w` `]W` | Window in current tab                             | `MiniBracketed.window()`     |
-| `[Y` `[y` `]y` `]Y` | Yank selection replacing the latest put region    | `MiniBracketed.yank()`       |
 
 ### Plugin: Mini.Surround
 

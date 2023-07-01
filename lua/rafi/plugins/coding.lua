@@ -258,15 +258,6 @@ return {
 
 	-----------------------------------------------------------------------------
 	{
-		'echasnovski/mini.bracketed',
-		event = 'BufReadPost',
-		opts = {
-			treesitter = { suffix = '' },
-		},
-	},
-
-	-----------------------------------------------------------------------------
-	{
 		'echasnovski/mini.ai',
 		event = 'VeryLazy',
 		dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
