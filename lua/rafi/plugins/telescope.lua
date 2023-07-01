@@ -129,11 +129,11 @@ vim.api.nvim_create_autocmd('User', {
 		if args.buf ~= vim.api.nvim_win_get_buf(0) then
 			return
 		end
-		vim.wo.listchars = vim.wo.listchars .. ',tab:▏\\ '
-		vim.wo.conceallevel = 0
-		vim.wo.wrap = true
-		vim.wo.list = true
-		vim.wo.number = true
+		vim.opt_local.listchars = vim.wo.listchars .. ',tab:▏\\ '
+		vim.opt_local.conceallevel = 0
+		vim.opt_local.wrap = true
+		vim.opt_local.list = true
+		vim.opt_local.number = true
 	end,
 })
 

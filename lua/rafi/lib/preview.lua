@@ -61,16 +61,17 @@ function M.open(path)
 	local popup_bufnr = vim.api.nvim_win_get_buf(winid)
 
 	-- Ensure best viewing options are toggled.
-	vim.wo[winid].number = true
-	vim.wo[winid].relativenumber = false
-	vim.wo[winid].wrap = false
-	vim.wo[winid].spell = false
-	vim.wo[winid].list = false
-	vim.wo[winid].foldenable = false
-	vim.wo[winid].cursorline = false
-	vim.wo[winid].signcolumn = 'no'
-	vim.wo[winid].colorcolumn = ''
-	vim.wo[winid].winhighlight = 'Normal:NormalFloat'
+	local scope = { scope = 'local', win = winid }
+	vim.api.nvim_set_option_value('number', true, scope)
+	vim.api.nvim_set_option_value('relativenumber', false, scope)
+	vim.api.nvim_set_option_value('wrap', false, scope)
+	vim.api.nvim_set_option_value('spell', false, scope)
+	vim.api.nvim_set_option_value('list', false, scope)
+	vim.api.nvim_set_option_value('foldenable', false, scope)
+	vim.api.nvim_set_option_value('cursorline', false, scope)
+	vim.api.nvim_set_option_value('signcolumn', 'no', scope)
+	vim.api.nvim_set_option_value('colorcolumn', '', scope)
+	vim.api.nvim_set_option_value('winhighlight', 'Normal:NormalFloat', scope)
 
 	-- Run telescope preview.
 	local previewer = require('telescope.config').values.buffer_previewer_maker

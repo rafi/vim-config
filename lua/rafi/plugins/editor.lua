@@ -293,7 +293,7 @@ return {
 				group = vim.api.nvim_create_augroup('rafi_diffview', {}),
 				pattern = 'diffview:///panels/*',
 				callback = function()
-					vim.wo.winhighlight = 'CursorLine:WildMenu'
+					vim.opt_local.winhighlight = 'CursorLine:WildMenu'
 				end,
 			})
 
@@ -375,8 +375,8 @@ return {
 				group = vim.api.nvim_create_augroup('rafi_outline', {}),
 				pattern = 'Outline',
 				callback = function()
-					vim.wo.winhighlight = 'CursorLine:WildMenu'
-					vim.wo.signcolumn = 'auto'
+					vim.opt_local.winhighlight = 'CursorLine:WildMenu'
+					vim.opt_local.signcolumn = 'auto'
 				end,
 			})
 		end,

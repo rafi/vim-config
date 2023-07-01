@@ -32,19 +32,6 @@ local function get_current_directory(state)
 	return path
 end
 
--- Enable a strong cursorline.
-local function set_cursorline()
-	vim.wo.winhighlight = 'CursorLine:WildMenu'
-	vim.wo.cursorline = true
-	vim.wo.signcolumn = 'auto'
-end
-
--- Find previous neo-tree window and clear bright highlight selection.
-local function reset_cursorline()
-	local winid = vim.fn.win_getid(vim.fn.winnr('#'))
-	vim.wo[winid].cursorline = false
-end
-
 return {
 
 	-----------------------------------------------------------------------------
@@ -97,9 +84,6 @@ return {
 					require('neo-tree').close_all()
 				end,
 			},
-			-- Toggle strong cursorline highlight
-			{ event = 'neo_tree_buffer_enter', handler = set_cursorline },
-			{ event = 'neo_tree_buffer_leave', handler = reset_cursorline },
 		},
 
 		default_component_configs = {

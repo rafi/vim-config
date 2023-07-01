@@ -2,6 +2,8 @@
 -- github.com/rafi/vim-config
 -- ===
 
+-- This file is automatically loaded by rafi.config.init
+
 local map = vim.keymap.set
 
 local function augroup(name)
@@ -224,12 +226,13 @@ map('n', '<Leader>th', '<cmd>nohlsearch<CR>', { desc = 'Hide Search Highlight' }
 
 -- Smart wrap toggle (breakindent and colorcolumn toggle as-well)
 map('n', '<Leader>tw', function()
-	vim.wo.wrap = not vim.wo.wrap
-	vim.wo.breakindent = not vim.wo.breakindent
+	vim.opt_local.wrap = not vim.wo.wrap
+	vim.opt_local.breakindent = not vim.wo.breakindent
+
 	if vim.wo.colorcolumn == '' then
-		vim.wo.colorcolumn = tostring(vim.bo.textwidth)
+		vim.opt_local.colorcolumn = tostring(vim.bo.textwidth)
 	else
-		vim.wo.colorcolumn = ''
+		vim.opt_local.colorcolumn = ''
 	end
 end, { desc = 'Toggle Wrap' })
 

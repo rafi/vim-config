@@ -2,6 +2,7 @@
 -- github.com/rafi/vim-config
 -- ===
 
+-- This file is automatically loaded by config.init or plugins.core
 -- stylua: ignore start
 
 -- Keyboard leaders
