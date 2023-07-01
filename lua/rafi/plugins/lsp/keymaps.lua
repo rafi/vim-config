@@ -43,8 +43,8 @@ function M.get()
 			end
 		end },
 
-		{ '<Leader>tp', function() M.diagnostic_toggle(false) end, desc = 'Disable Diagnostics' },
-		{ '<Leader>tP', function() M.diagnostic_toggle(true) end, desc = 'Disable All Diagnostics' },
+		{ '<Leader>ud', function() M.diagnostic_toggle(false) end, desc = 'Disable Diagnostics' },
+		{ '<Leader>uD', function() M.diagnostic_toggle(true) end, desc = 'Disable All Diagnostics' },
 
 		{ '<leader>cl', '<cmd>LspInfo<cr>' },
 		{ '<leader>cf', format, desc = 'Format Document', has = 'documentFormatting' },

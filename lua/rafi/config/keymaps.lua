@@ -19,7 +19,7 @@ if vim.g.rafi_elite_mode then
 end
 
 -- Package-manager
-map('n', '<leader>l', '<cmd>:Lazy<cr>', { desc = 'Open Lazy UI' })
+map('n', '<leader>l', '<cmd>Lazy<cr>', { desc = 'Open Lazy UI' })
 
 -- stylua: ignore start
 
@@ -47,7 +47,9 @@ end, { expr = true, desc = 'Toggle Fold' })
 map('n', '<S-Return>', 'zMzv', { remap = true, desc = 'Focus Fold' })
 
 -- Location/quickfix list movement
-if not require('rafi.config').has('mini.bracketed') then
+if not require('rafi.config').has('mini.bracketed')
+	and not require('rafi.config').has('trouble.nvim')
+then
 	map('n', ']q', '<cmd>cnext<CR>', { desc = 'Next Quickfix Item' })
 	map('n', '[q', '<cmd>cprev<CR>', { desc = 'Previous Quickfix Item' })
 end
@@ -208,9 +210,6 @@ map('n', '<Leader>cd', function()
 	end
 end, { desc = 'Change Local Directory' })
 
--- Open file under the cursor in a vsplit
-map('n', 'gf', '<cmd>vertical wincmd f<CR>', { desc = 'Find File in Split' })
-
 -- Fast saving from all modes
 map('n', '<Leader>w', '<cmd>write<CR>', { desc = 'Save' })
 map({ 'n', 'i', 'v' }, '<C-s>', '<cmd>write<CR>', { desc = 'Save' })
@@ -219,17 +218,18 @@ map({ 'n', 'i', 'v' }, '<C-s>', '<cmd>write<CR>', { desc = 'Save' })
 -- ===
 
 -- Toggle editor's visual effects
-map('n', '<Leader>ts', '<cmd>setlocal spell!<CR>', { desc = 'Toggle Spellcheck' })
-map('n', '<Leader>tn', '<cmd>setlocal nonumber!<CR>', { desc = 'Toggle Line Numbers' })
-map('n', '<Leader>tl', '<cmd>setlocal nolist!<CR>', { desc = 'Toggle Whitespace Symbols' })
-map('n', '<Leader>th', '<cmd>nohlsearch<CR>', { desc = 'Hide Search Highlight' })
+map('n', '<leader>uf', require('rafi.plugins.lsp.format').toggle, { desc = 'Toggle format on Save' })
+map('n', '<Leader>us', '<cmd>setlocal spell!<CR>', { desc = 'Toggle Spellcheck' })
+map('n', '<Leader>ul', '<cmd>setlocal nonumber!<CR>', { desc = 'Toggle Line Numbers' })
+map('n', '<Leader>uo', '<cmd>setlocal nolist!<CR>', { desc = 'Toggle Whitespace Symbols' })
+map('n', '<Leader>uu', '<cmd>nohlsearch<CR>', { desc = 'Hide Search Highlight' })
 
 if vim.lsp.inlay_hint then
 	map('n', '<leader>uh', function() vim.lsp.inlay_hint(0, nil) end, { desc = 'Toggle Inlay Hints' })
 end
 
 -- Smart wrap toggle (breakindent and colorcolumn toggle as-well)
-map('n', '<Leader>tw', function()
+map('n', '<Leader>uw', function()
 	vim.opt_local.wrap = not vim.wo.wrap
 	vim.opt_local.breakindent = not vim.wo.breakindent
 

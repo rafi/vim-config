@@ -913,7 +913,6 @@ Note that,
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
 | <kbd>Space</kbd>+<kbd>cd</kbd> | 𝐍 | Switch to the directory of opened buffer | <small>`:lcd %:p:h`</small>
-| <kbd>gf</kbd> | 𝐍 | Open file under the cursor in a vsplit | <small>`:rightbelow wincmd f`</small>
 | <kbd>Space</kbd>+<kbd>w</kbd> | 𝐍 | Write buffer to file | <small>`:write`</small>
 | <kbd>Ctrl</kbd>+<kbd>s</kbd> | 𝐍 𝐕 𝐂 | Write buffer to file | <small>`:write`</small>
 
@@ -952,8 +951,8 @@ Note that,
 | <kbd>Space</kbd> <kbd>ca</kbd> | 𝐍 𝐕 | Code action | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>cA</kbd> | 𝐍 | Source action | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>uh</kbd> | 𝐍 | Toggle inlay-hints | <small>[plugins/lsp/keymaps.lua]</small>
-| <kbd>Space</kbd> <kbd>tp</kbd> | 𝐍 | Toggle buffer diagnostics | <small>[plugins/lsp/keymaps.lua]</small>
-| <kbd>Space</kbd> <kbd>tP</kbd> | 𝐍 | Toggle global diagnostics | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>Space</kbd> <kbd>ud</kbd> | 𝐍 | Toggle buffer diagnostics | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>Space</kbd> <kbd>uD</kbd> | 𝐍 | Toggle global diagnostics | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>,wa</kbd> | 𝐍 | Add workspace folder | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>,wr</kbd> | 𝐍 | Remove workspace folder | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>,wl</kbd> | 𝐍 | List workspace folders | <small>[plugins/lsp/keymaps.lua]</small>
@@ -1020,21 +1019,22 @@ Note that,
 | <kbd>;</kbd>+<kbd>dt</kbd> | 𝐍 | Open TODO Telescope list | <small>[folke/todo-comments.nvim]</small>
 | <kbd>Space</kbd>+<kbd>xt</kbd> | 𝐍 | Open TODO list | <small>[folke/todo-comments.nvim]</small>
 | <kbd>Space</kbd>+<kbd>xT</kbd> | 𝐍 | Open TODO/FIXME list | <small>[folke/todo-comments.nvim]</small>
-| <kbd>Space</kbd>+<kbd>xq</kbd> | 𝐍 | Open Quickfix via Trouble | <small>[folke/trouble.nvim]</small>
-| <kbd>Space</kbd>+<kbd>xl</kbd> | 𝐍 | Open Locationlist via Trouble | <small>[folke/trouble.nvim]</small>
 | <kbd>Space</kbd>+<kbd>e</kbd> | 𝐍 | Open Trouble document | <small>[folke/trouble.nvim]</small>
 | <kbd>Space</kbd>+<kbd>r</kbd> | 𝐍 | Open Trouble workspace | <small>[folke/trouble.nvim]</small>
+| <kbd>Space</kbd>+<kbd>xQ</kbd> | 𝐍 | Open Quickfix via Trouble | <small>[folke/trouble.nvim]</small>
+| <kbd>Space</kbd>+<kbd>xL</kbd> | 𝐍 | Open Locationlist via Trouble | <small>[folke/trouble.nvim]</small>
 
 ### Editor UI
 
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
-| <kbd>Space</kbd> <kbd>ts</kbd> | 𝐍 | Toggle spell-checker | <small>`:setlocal spell!`</small>
-| <kbd>Space</kbd> <kbd>tn</kbd> | 𝐍 | Toggle line numbers | <small>`:setlocal nonumber!`</small>
-| <kbd>Space</kbd> <kbd>tl</kbd> | 𝐍 | Toggle hidden characters | <small>`:setlocal nolist!`</small>
-| <kbd>Space</kbd> <kbd>th</kbd> | 𝐍 | Toggle highlighted search | <small>`:set hlsearch!`</small>
-| <kbd>Space</kbd> <kbd>tw</kbd> | 𝐍 | Toggle wrap | <small>`:setlocal wrap!`</small> …
-| <kbd>Space</kbd> <kbd>ti</kbd> | 𝐍 | Toggle indentation lines | <small>[lukas-reineke/indent-blankline.nvim]</small>
+| <kbd>Space</kbd> <kbd>uf</kbd> | 𝐍 | Toggle format on Save | <small>[config/keymaps.lua]</small>
+| <kbd>Space</kbd> <kbd>us</kbd> | 𝐍 | Toggle spell-checker | <small>`:setlocal spell!`</small>
+| <kbd>Space</kbd> <kbd>ul</kbd> | 𝐍 | Toggle line numbers | <small>`:setlocal nonumber!`</small>
+| <kbd>Space</kbd> <kbd>uo</kbd> | 𝐍 | Toggle hidden characters | <small>`:setlocal nolist!`</small>
+| <kbd>Space</kbd> <kbd>uu</kbd> | 𝐍 | Toggle highlighted search | <small>`:set hlsearch!`</small>
+| <kbd>Space</kbd> <kbd>uw</kbd> | 𝐍 | Toggle wrap | <small>`:setlocal wrap!`</small> …
+| <kbd>Space</kbd> <kbd>ue</kbd> | 𝐍 | Toggle indentation lines | <small>[lukas-reineke/indent-blankline.nvim]</small>
 | <kbd>Space</kbd> <kbd>ui</kbd> | 𝐍 | Show highlight groups for word | <small>`vim.show_pos`</small>
 | <kbd>Space</kbd> <kbd>uC</kbd> | 𝐍 | Select colorscheme | <small>[config/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>un</kbd> | 𝐍 | Dismiss all notifications | <small>[rcarriga/nvim-notify]</small>
@@ -1078,6 +1078,7 @@ Note that,
 | <kbd>Space</kbd> <kbd>mdf</kbd> | 𝐕 | Mark region for diff and compare if more than one | <small>[AndrewRadev/linediff.vim]</small>
 | <kbd>Space</kbd> <kbd>mds</kbd> | 𝐍 | Shows the comparison for all marked regions | <small>[AndrewRadev/linediff.vim]</small>
 | <kbd>Space</kbd> <kbd>mdr</kbd> | 𝐍 | Removes the signs denoting the diff regions | <small>[AndrewRadev/linediff.vim]</small>
+| <kbd>Space</kbd> <kbd>mh</kbd> | 𝐍 | Open HTTP Rest UI | <small>[rest-nvim/rest.nvim]</small>
 | <kbd>Space</kbd> <kbd>mt</kbd> | 𝐍 𝐕 | Toggle highlighted word | <small>[t9md/vim-quickhl]</small>
 | <kbd>Space</kbd> <kbd>zz</kbd> | 𝐍 | Toggle distraction-free writing | <small>[folke/zen-mode.nvim]</small>
 

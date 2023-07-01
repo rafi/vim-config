@@ -275,8 +275,32 @@ return {
 		keys = {
 			{ '<leader>e', '<cmd>TroubleToggle document_diagnostics<CR>', noremap = true, desc = 'Document Diagnostics' },
 			{ '<leader>r', '<cmd>TroubleToggle workspace_diagnostics<CR>', noremap = true, desc = 'Workspace Diagnostics' },
-			{ '<leader>xq', '<cmd>TroubleToggle quickfix<CR>', noremap = true, desc = 'Trouble Quickfix' },
-			{ '<leader>xl', '<cmd>TroubleToggle loclist<CR>', noremap = true, desc = 'Trouble Loclist' },
+			{ '<leader>xx', '<cmd>TroubleToggle document_diagnostics<cr>', desc = 'Document Diagnostics (Trouble)' },
+			{ '<leader>xX', '<cmd>TroubleToggle workspace_diagnostics<cr>', desc = 'Workspace Diagnostics (Trouble)' },
+			{ '<leader>xQ', '<cmd>TroubleToggle quickfix<cr>', desc = 'Quickfix List (Trouble)' },
+			{ '<leader>xL', '<cmd>TroubleToggle loclist<cr>', desc = 'Location List (Trouble)' },
+			{
+				'[q',
+				function()
+					if require('trouble').is_open() then
+						require('trouble').previous({ skip_groups = true, jump = true })
+					else
+						vim.cmd.cprev()
+					end
+				end,
+				desc = 'Previous trouble/quickfix item',
+			},
+			{
+				']q',
+				function()
+					if require('trouble').is_open() then
+						require('trouble').next({ skip_groups = true, jump = true })
+					else
+						vim.cmd.cnext()
+					end
+				end,
+				desc = 'Next trouble/quickfix item',
+			},
 		},
 	},
 
@@ -333,7 +357,7 @@ return {
 		cmd = 'ToggleTerm',
 		keys = {
 			{
-				'<C-\\>',
+				'<C-_>',
 				mode = { 'n', 't' },
 				silent = true,
 				function()
@@ -424,7 +448,7 @@ return {
 		'rest-nvim/rest.nvim',
 		ft = 'http',
 		keys = {
-			{ ',ht', '<Plug>RestNvim', desc = 'Execute HTTP request' },
+			{ '<Leader>mh', '<Plug>RestNvim', desc = 'Execute HTTP request' },
 		},
 		opts = { skip_ssl_verification = true },
 	},

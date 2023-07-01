@@ -202,7 +202,7 @@ return {
 		'lukas-reineke/indent-blankline.nvim',
 		event = 'FileType',
 		keys = {
-			{ '<Leader>ti', '<cmd>IndentBlanklineToggle<CR>' },
+			{ '<Leader>ue', '<cmd>IndentBlanklineToggle<CR>' },
 		},
 		opts = {
 			show_trailing_blankline_indent = false,
@@ -214,6 +214,8 @@ return {
 			filetype_exclude = {
 				'lspinfo',
 				'checkhealth',
+				'git',
+				'gitcommit',
 				'help',
 				'man',
 				'lazy',
