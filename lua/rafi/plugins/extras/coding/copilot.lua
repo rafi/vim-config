@@ -1,3 +1,6 @@
+-- This is part of LazyVim's code, with my modifications.
+-- See: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/coding/copilot.lua
+
 return {
 
 	-----------------------------------------------------------------------------
@@ -70,38 +73,16 @@ return {
 				end,
 			},
 		},
-		---@param opts cmp.ConfigSchema
+		---@param opts cmp.ConfigSchema|{sources: table[]}
 		opts = function(_, opts)
-			local cmp = require('cmp')
-
 			-- Add copilot nvim-cmp source.
 			table.insert(opts.sources, 1, {
 				name = 'copilot',
 				group_index = 2,
 				priority = 60,
 			})
-
-			-- Prepend Copilot's cmp comparator prioritization.
-			if opts.sorting == nil then
-				opts.sorting = { priority_weight = 2 }
-			end
-			if opts.sorting.comparators == nil then
-				-- These are the default comparators in original order for nvim-cmp.
-				opts.sorting.comparators = {
-					cmp.config.compare.offset,
-					cmp.config.compare.exact,
-					-- cmp.config.compare.scopes, -- this is commented in nvim-cmp too
-					cmp.config.compare.score,
-					cmp.config.compare.recently_used,
-					cmp.config.compare.locality,
-					cmp.config.compare.kind,
-					cmp.config.compare.sort_text,
-					cmp.config.compare.length,
-					cmp.config.compare.order,
-				}
-			end
-			local copilot_prioritize = require('copilot_cmp.comparators').prioritize
-			table.insert(opts.sorting.comparators, 1, copilot_prioritize)
+			opts.sorting = opts.sorting or require('cmp.config.default')().sorting
+			table.insert(opts.sorting.comparators, 1, require('copilot_cmp.comparators').prioritize)
 		end,
 	},
 }

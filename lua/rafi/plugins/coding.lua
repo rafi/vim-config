@@ -20,6 +20,7 @@ return {
 		},
 		opts = function()
 			local cmp = require('cmp')
+			local defaults = require("cmp.config.default")()
 			local luasnip = require('luasnip')
 
 			local function has_words_before()
@@ -33,6 +34,7 @@ return {
 
 			return {
 				preselect = cmp.PreselectMode.None,
+				sorting = defaults.sorting,
 				experimental = {
 					ghost_text = {
 						hl_group = 'LspCodeLens',
