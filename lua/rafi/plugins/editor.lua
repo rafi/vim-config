@@ -230,11 +230,35 @@ return {
 	-----------------------------------------------------------------------------
 	{
 		'folke/which-key.nvim',
-		cmd = 'WhichKey',
+		event = 'VeryLazy',
 		opts = {
 			plugins = { marks = false, registers = false },
-			icons = { separator = '  ' },
-		}
+			icons = { separator = ' 󰁔 ' },
+			window = { winblend = 0 },
+			defaults = {
+				mode = { 'n', 'v' },
+				[';'] = { name = '+telescope' },
+				[';d'] = { name = '+lsp/todo' },
+				['g'] = { name = '+goto' },
+				['gz'] = { name = '+surround' },
+				[']'] = { name = '+next' },
+				['['] = { name = '+prev' },
+				['<leader>b'] = { name = '+buffer' },
+				['<leader>c'] = { name = '+code' },
+				['<leader>g'] = { name = '+git' },
+				['<leader>h'] = { name = '+hunks' },
+				['<leader>s'] = { name = '+search' },
+				['<leader>t'] = { name = '+toggle/tools' },
+				['<leader>u'] = { name = '+ui' },
+				['<leader>x'] = { name = '+diagnostics/quickfix' },
+				['<leader>z'] = { name = '+notes' },
+			},
+		},
+		config = function(_, opts)
+			local wk = require('which-key')
+			wk.setup(opts)
+			wk.register(opts.defaults)
+		end,
 	},
 
 	-----------------------------------------------------------------------------
