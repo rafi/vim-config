@@ -433,37 +433,44 @@ return {
 	-----------------------------------------------------------------------------
 	{
 		's1n7ax/nvim-window-picker',
-		keys = {
-			{
-				'sp',
-				function()
-					local picked_window_id = require('window-picker').pick_window()
-					if picked_window_id ~= nil then
-						vim.api.nvim_set_current_win(picked_window_id)
-					end
-				end,
-				desc = 'Pick window',
-			},
-			{
-				'sw',
-				function()
-					local picked_window_id = require('window-picker').pick_window()
-					if picked_window_id ~= nil then
-						local current_winnr = vim.api.nvim_get_current_win()
-						local current_bufnr = vim.api.nvim_get_current_buf()
-						local other_bufnr = vim.api.nvim_win_get_buf(picked_window_id)
-						vim.api.nvim_win_set_buf(current_winnr, other_bufnr)
-						vim.api.nvim_win_set_buf(picked_window_id, current_bufnr)
-					end
-				end,
-				desc = 'Swap picked window',
-			},
-		},
+		event = 'VeryLazy',
+		keys = function(_, keys)
+			local pick_window = function()
+				local picked_window_id = require('window-picker').pick_window()
+				if picked_window_id ~= nil then
+					vim.api.nvim_set_current_win(picked_window_id)
+				end
+			end
+
+			local swap_window = function()
+				local picked_window_id = require('window-picker').pick_window()
+				if picked_window_id ~= nil then
+					local current_winnr = vim.api.nvim_get_current_win()
+					local current_bufnr = vim.api.nvim_get_current_buf()
+					local other_bufnr = vim.api.nvim_win_get_buf(picked_window_id)
+					vim.api.nvim_win_set_buf(current_winnr, other_bufnr)
+					vim.api.nvim_win_set_buf(picked_window_id, current_bufnr)
+				end
+			end
+
+			local mappings = {
+				{ '-', pick_window, desc = 'Pick window' },
+				{ 'sp', pick_window, desc = 'Pick window' },
+				{ 'sw', swap_window, desc = 'Swap picked window' },
+			}
+			return vim.list_extend(mappings, keys)
+		end,
 		opts = {
-			use_winbar = 'smart',
-			fg_color = '#ededed',
-			current_win_hl_color = '#e35e4f',
-			other_win_hl_color = '#44cc41',
+			hint = 'floating-big-letter',
+			show_prompt = false,
+			filter_rules = {
+				include_current_win = true,
+				bo = {
+					filetype = { 'notify', 'noice' },
+					buftype = {},
+				},
+
+			},
 		},
 	},
 
