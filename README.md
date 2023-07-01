@@ -86,7 +86,7 @@ Please read "[Extending](#extending)" to learn how to customize and modify.
 * Robust, yet light-weight
 * Plugin management with [folke/lazy.nvim]. Use with `:Lazy` or <kbd>Space</kbd>+<kbd>l</kbd>
 * Install LSP, DAP, linters, and formatters. Use with `:Mason` or <kbd>Space</kbd>+<kbd>mm</kbd>
-* LSP configuration with [nvim-lspconfig] and [folke/neoconf.nvim] (see [neoconf.json])
+* LSP configuration with [nvim-lspconfig]
 * [telescope.nvim] centric work-flow with lists (try <kbd>;</kbd>+<kbd>f</kbd>…)
 * Custom context-menu (try it! <kbd>;</kbd>+<kbd>c</kbd>)
 * Auto-complete extensive setup with [nvim-cmp]
@@ -151,8 +151,8 @@ You'll need utilities like `npm` and `curl` to install some extensions, see
 [requirements](https://github.com/williamboman/mason.nvim#requirements)
 (or `:h mason-requirements`) for more information.
 
-See [neoconf.json] and [lua/rafi/plugins/lsp/init.lua] for custom key-mappings
-and configuration for some language-servers.
+See [lua/rafi/plugins/lsp/init.lua] for custom key-mappings and configuration
+for some language-servers.
 
 ### Recommended LSP
 
@@ -409,7 +409,7 @@ package.loaded['rafi.config.options'] = true
 
 To override **LSP configurations**, you can do either:
 
-1. Customize `neoconf.json` or per project's `.neoconf.json`
+1. Customize per project's `.neoconf.json`
 
 2. Or, override server options with nvim-lspconfig plugin, for example:
 
@@ -586,7 +586,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [RRethy/nvim-treesitter-endwise] | Wisely add "end" in various filetypes
 | [windwp/nvim-ts-autotag] | Use treesitter to auto close and auto rename html tag
 | [andymass/vim-matchup] | Modern matchit and matchparen
-| [kevinhwang91/nvim-ufo] | Make folds look modern and keep a high performance
 | [iloginow/vim-stylus] | Better vim plugin for stylus
 | [chrisbra/csv.vim] | Handling column separated data
 | [towolf/vim-helm] | Syntax for Helm templates (yaml + gotmpl + sprig)
@@ -710,7 +709,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [RRethy/nvim-treesitter-endwise]: https://github.com/RRethy/nvim-treesitter-endwise
 [windwp/nvim-ts-autotag]: https://github.com/windwp/nvim-ts-autotag
 [andymass/vim-matchup]: https://github.com/andymass/vim-matchup
-[kevinhwang91/nvim-ufo]: https://github.com/kevinhwang91/nvim-ufo
 [iloginow/vim-stylus]: https://github.com/iloginow/vim-stylus
 [chrisbra/csv.vim]: https://github.com/chrisbra/csv.vim
 [towolf/vim-helm]: https://github.com/towolf/vim-helm
@@ -788,6 +786,7 @@ Spec: `rafi.plugins.extras.editor.<name>`
 | `anyjump` | [pechorin/any-jump.vim] | Jump to any definition and references without overhead
 | `flybuf`  | [glepnir/flybuf.nvim] | List buffers in a float window
 | `sidebar` | [sidebar-nvim/sidebar.nvim] | Generic and modular lua sidebar
+| `ufo`     | [kevinhwang91/nvim-ufo] | Make folds look modern and keep a high performance
 
 ### Extra Plugins: Formatting
 
@@ -848,6 +847,7 @@ Spec: `rafi.plugins.extras.ui.<name>`
 [pechorin/any-jump.vim]: https://github.com/pechorin/any-jump.vim
 [glepnir/flybuf.nvim]: https://github.com/glepnir/flybuf.nvim
 [sidebar-nvim/sidebar.nvim]: https://github.com/sidebar-nvim/sidebar.nvim
+[kevinhwang91/nvim-ufo]: https://github.com/kevinhwang91/nvim-ufo
 [hrsh7th/nvim-gtd]: https://github.com/hrsh7th/nvim-gtd
 [lvimuser/lsp-inlayhints.nvim]: https://github.com/lvimuser/lsp-inlayhints.nvim
 [kosayoda/nvim-lightbulb]: https://github.com/kosayoda/nvim-lightbulb
@@ -1310,7 +1310,6 @@ See [chentau/marks.nvim] for more mappings and usage information.
 </details>
 
 [Neovim]: https://github.com/neovim/neovim
-[neoconf.json]: ./neoconf.json
 [lazy.nvim]: https://github.com/folke/lazy.nvim
 [LazyVim/starter]: https://github.com/LazyVim/starter
 [lua/rafi/plugins/lsp/init.lua]: ./lua/rafi/plugins/lsp/init.lua

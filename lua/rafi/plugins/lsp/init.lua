@@ -1,6 +1,9 @@
 -- LSP: Plugins
 -- https://github.com/rafi/vim-config
 
+-- This is part of LazyVim's code, with my modifications.
+-- See: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua
+
 return {
 
 	-----------------------------------------------------------------------------
@@ -18,7 +21,6 @@ return {
 					return require('rafi.config').has('nvim-cmp')
 				end,
 			},
-			'b0o/SchemaStore.nvim',
 			'rafi/neoconf-venom.nvim',
 		},
 		---@class PluginLspOpts
@@ -57,26 +59,6 @@ return {
 			-- LSP Server Settings
 			---@type lspconfig.options
 			servers = {
-				yamlls = {
-					filetypes = { 'yaml', 'yaml.ansible', 'yaml.docker-compose' },
-				},
-				jsonls = {
-					on_new_config = function(new_config)
-						-- Lazy-load schemastore when needed
-						new_config.settings.json.schemas = new_config.settings.json.schemas
-							or {}
-						vim.list_extend(
-							new_config.settings.json.schemas,
-							require('schemastore').json.schemas()
-						)
-					end,
-					settings = {
-						json = {
-							format = { enable = true },
-							validate = { enable = true },
-						},
-					},
-				},
 				lua_ls = {
 					settings = {
 						Lua = {
