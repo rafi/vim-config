@@ -224,6 +224,10 @@ map('n', '<Leader>tn', '<cmd>setlocal nonumber!<CR>', { desc = 'Toggle Line Numb
 map('n', '<Leader>tl', '<cmd>setlocal nolist!<CR>', { desc = 'Toggle Whitespace Symbols' })
 map('n', '<Leader>th', '<cmd>nohlsearch<CR>', { desc = 'Hide Search Highlight' })
 
+if vim.lsp.inlay_hint then
+	map('n', '<leader>uh', function() vim.lsp.inlay_hint(0, nil) end, { desc = 'Toggle Inlay Hints' })
+end
+
 -- Smart wrap toggle (breakindent and colorcolumn toggle as-well)
 map('n', '<Leader>tw', function()
 	vim.opt_local.wrap = not vim.wo.wrap

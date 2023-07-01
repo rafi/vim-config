@@ -951,6 +951,7 @@ Note that,
 | <kbd>Space</kbd> <kbd>ce</kbd> | 𝐍 | Open diagnostics window | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>ca</kbd> | 𝐍 𝐕 | Code action | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>cA</kbd> | 𝐍 | Source action | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>Space</kbd> <kbd>uh</kbd> | 𝐍 | Toggle inlay-hints | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>tp</kbd> | 𝐍 | Toggle buffer diagnostics | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>tP</kbd> | 𝐍 | Toggle global diagnostics | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>,wa</kbd> | 𝐍 | Add workspace folder | <small>[plugins/lsp/keymaps.lua]</small>

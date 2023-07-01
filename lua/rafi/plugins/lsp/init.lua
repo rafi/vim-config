@@ -42,6 +42,14 @@ return {
 					source = 'always',
 				},
 			},
+			-- Enable this to enable the builtin LSP inlay hints on Neovim >= 0.10.0
+			-- Be aware that you also will need to properly configure your LSP server to
+			-- provide the inlay hints.
+			inlay_hints = {
+				enabled = false,
+			},
+			-- Add any global capabilities here
+			capabilities = {},
 			-- Automatically format on save
 			autoformat = false,
 			-- Options for vim.lsp.buf.format
@@ -51,8 +59,6 @@ return {
 				formatting_options = nil,
 				timeout_ms = nil,
 			},
-			-- Add any global capabilities here
-			capabilities = {},
 			-- Enable this to show formatters used in a notification
 			-- Useful for debugging formatter issues
 			format_notify = false,
@@ -86,9 +92,10 @@ return {
 			-- Setup autoformat
 			require('rafi.plugins.lsp.format').setup(opts)
 			-- Setup formatting, keymaps and highlights.
+			local lsp_on_attach = require('rafi.config').on_attach
 			---@param client lsp.Client
 			---@param buffer integer
-			require('rafi.config').on_attach(function(client, buffer)
+			lsp_on_attach(function(client, buffer)
 				require('rafi.plugins.lsp.keymaps').on_attach(client, buffer)
 				require('rafi.plugins.lsp.highlight').on_attach(client, buffer)
 
@@ -102,6 +109,16 @@ return {
 			for type, icon in pairs(require('rafi.config').icons.diagnostics) do
 				local hl = 'DiagnosticSign' .. type
 				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
+			end
+
+			-- Setup inlay-hints
+			local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
+			if opts.inlay_hints.enabled and inlay_hint then
+				lsp_on_attach(function(client, buffer)
+					if client.server_capabilities.inlayHintProvider then
+						inlay_hint(buffer, true)
+					end
+				end)
 			end
 
 			if
@@ -195,6 +212,9 @@ return {
 					handlers = { make_config },
 				})
 			end
+
+			-- Enable rounded borders in :LspInfo window.
+			require('lspconfig.ui.windows').default_options.border = 'rounded'
 		end,
 	},
 
@@ -236,8 +256,8 @@ return {
 		event = { 'BufReadPre', 'BufNewFile' },
 		dependencies = { 'williamboman/mason.nvim' },
 		opts = function()
-			local builtins = require('null-ls').builtins
 			-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
+			local builtins = require('null-ls').builtins
 			return {
 				fallback_severity = vim.diagnostic.severity.INFO,
 				should_attach = function(bufnr)
@@ -251,6 +271,7 @@ return {
 					'.svn',
 					'.null-ls-root',
 					'.neoconf.json',
+					'.python-version',
 					'Makefile'
 				),
 				sources = {
@@ -286,8 +307,6 @@ return {
 						['sg'] = actions.jump_vsplit,
 						['sv'] = actions.jump_split,
 						['st'] = actions.jump_tab,
-						['h'] = actions.close_fold,
-						['l'] = actions.open_fold,
 						['p'] = actions.enter_win('preview'),
 					},
 					preview = {
