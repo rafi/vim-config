@@ -18,7 +18,7 @@ return {
 			{
 				'hrsh7th/cmp-nvim-lsp',
 				cond = function()
-					return require('rafi.config').has('nvim-cmp')
+					return require('rafi.lib.utils').has('nvim-cmp')
 				end,
 			},
 			'rafi/neoconf-venom.nvim',
@@ -92,7 +92,7 @@ return {
 			-- Setup autoformat
 			require('rafi.plugins.lsp.format').setup(opts)
 			-- Setup formatting, keymaps and highlights.
-			local lsp_on_attach = require('rafi.config').on_attach
+			local lsp_on_attach = require('rafi.lib.utils').on_attach
 			---@param client lsp.Client
 			---@param buffer integer
 			lsp_on_attach(function(client, buffer)

@@ -49,7 +49,7 @@ function M.format(opts)
 		filter = function(client)
 			return vim.tbl_contains(client_ids, client.id)
 		end,
-	}, require('rafi.config').plugin_opts('nvim-lspconfig').format or {}))
+	}, require('rafi.lib.utils').opts('nvim-lspconfig').format or {}))
 end
 
 ---@param formatters LazyVimFormatters

@@ -132,7 +132,7 @@ return {
 
 			---@param client lsp.Client
 			---@param buffer integer
-			require('rafi.config').on_attach(function(client, buffer)
+			require('rafi.lib.utils').on_attach(function(client, buffer)
 				if client.server_capabilities.documentSymbolProvider then
 					require('nvim-navic').attach(client, buffer)
 				end
@@ -171,7 +171,7 @@ return {
 		},
 		init = function()
 			-- When noice is not enabled, install notify on VeryLazy
-			local Util = require('rafi.config')
+			local Util = require('rafi.lib.utils')
 			if not Util.has('noice.nvim') then
 				Util.on_very_lazy(function()
 					vim.notify = require('notify')

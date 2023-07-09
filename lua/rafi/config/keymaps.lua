@@ -4,6 +4,7 @@
 
 -- This file is automatically loaded by rafi.config.init
 
+local Util = require('rafi.lib.utils')
 local map = vim.keymap.set
 
 local function augroup(name)
@@ -47,9 +48,7 @@ end, { expr = true, desc = 'Toggle Fold' })
 map('n', '<S-Return>', 'zMzv', { remap = true, desc = 'Focus Fold' })
 
 -- Location/quickfix list movement
-if not require('rafi.config').has('mini.bracketed')
-	and not require('rafi.config').has('trouble.nvim')
-then
+if not Util.has('mini.bracketed') and not Util.has('trouble.nvim') then
 	map('n', ']q', '<cmd>cnext<CR>', { desc = 'Next Quickfix Item' })
 	map('n', '[q', '<cmd>cprev<CR>', { desc = 'Previous Quickfix Item' })
 end
@@ -280,7 +279,6 @@ map('n', '<LocalLeader>c', function()
 end, { desc = 'Content-aware menu' })
 
 -- Lazygit
-local Util = require('rafi.lib.utils')
 map('n', '<leader>tg', function() Util.float_term({ 'lazygit' }, { cwd = Util.get_root(), esc_esc = false }) end, { desc = 'Lazygit (root dir)' })
 map('n', '<leader>tG', function() Util.float_term({ 'lazygit' }, { esc_esc = false }) end, { desc = 'Lazygit (cwd)' })
 

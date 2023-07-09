@@ -239,7 +239,7 @@ git pull --ff --ff-only
 
 There are 2 distinct ways to extend configuration:
 
-1. The second option is to fork this repository and create a directory
+1. The first option is to fork this repository and create a directory
    `lua/config` with one or more of these files: (Optional)
 
    * `lua/config/autocmds.lua` — Custom auto-commands

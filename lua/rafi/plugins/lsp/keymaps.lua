@@ -36,7 +36,7 @@ function M.get()
 
 		{ 'K', function()
 			-- Show hover documentation or folded lines.
-			local winid = require('rafi.config').has('nvim-ufo')
+			local winid = require('rafi.lib.utils').has('nvim-ufo')
 				and require('ufo').peekFoldedLinesUnderCursor() or nil
 			if not winid then
 				vim.lsp.buf.hover()

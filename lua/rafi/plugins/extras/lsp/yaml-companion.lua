@@ -6,7 +6,7 @@ return {
 			setup = {
 				yamlls = function(_, _)
 					local yamlls_opts = require('yaml-companion').setup(
-						require('rafi.config').plugin_opts('yaml-companion.nvim')
+						require('rafi.lib.utils').opts('yaml-companion.nvim')
 					)
 					require('lspconfig')['yamlls'].setup(yamlls_opts)
 					return true
