@@ -151,15 +151,10 @@ return {
 			'jvgrootveld/telescope-zoxide',
 			'folke/todo-comments.nvim',
 			'rafi/telescope-thesaurus.nvim',
-			{
-				'nvim-telescope/telescope-frecency.nvim',
-				dependencies = 'kkharji/sqlite.lua',
-			},
 		},
 		config = function(_, opts)
 			require('telescope').setup(opts)
 			require('telescope').load_extension('persisted')
-			require('telescope').load_extension('frecency')
 		end,
 		-- stylua: ignore
 		keys = {
@@ -177,7 +172,7 @@ return {
 			{ '<localleader>v', '<cmd>Telescope registers<CR>', desc = 'Registers' },
 			{ '<localleader>u', '<cmd>Telescope spell_suggest<CR>', desc = 'Spell suggest' },
 			{ '<localleader>s', '<cmd>Telescope persisted<CR>', desc = 'Sessions' },
-			{ '<localleader>x', '<cmd>Telescope frecency<CR>', desc = 'Frecency' },
+			{ '<localleader>x', '<cmd>Telescope oldfiles<CR>', desc = 'Old files' },
 			{ '<localleader>;', '<cmd>Telescope command_history<CR>', desc = 'Command history' },
 			{ '<localleader>:', '<cmd>Telescope commands<CR>', desc = 'Commands' },
 			{ '<localleader>/', '<cmd>Telescope search_history<CR>', desc = 'Search history' },
