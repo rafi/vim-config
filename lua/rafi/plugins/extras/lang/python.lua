@@ -40,6 +40,7 @@ return {
 		optional = true,
 		dependencies = {
 			'nvim-neotest/neotest-python',
+			optional = true,
 		},
 		opts = {
 			adapters = {
@@ -57,6 +58,7 @@ return {
 		optional = true,
 		dependencies = {
 			'mfussenegger/nvim-dap-python',
+			optional = true,
 			-- stylua: ignore
 			keys = {
 				{ '<leader>dPt', function() require('dap-python').test_method() end, desc = 'Debug Method' },

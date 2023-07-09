@@ -120,7 +120,15 @@ return {
 			delay = 200,
 			under_cursor = false,
 			modes_allowlist = { 'n', 'no', 'nt' },
-			filetypes_denylist = { 'fugitive', 'neo-tree', 'SidebarNvim', 'git' },
+			filetypes_denylist = {
+				'DiffviewFileHistory',
+				'DiffviewFiles',
+				'SidebarNvim',
+				'fugitive',
+				'git',
+				'minifiles',
+				'neo-tree',
+			},
 		},
 		keys = {
 			{ ']]', desc = 'Next Reference' },

@@ -136,7 +136,9 @@ return {
 		'L3MON4D3/LuaSnip',
 		event = 'InsertEnter',
 		dependencies = { 'rafamadriz/friendly-snippets' },
-		build = (not jit.os:find('Windows')) and 'make install_jsregexp' or nil,
+		build = (not jit.os:find('Windows'))
+			and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
+			or nil,
 		-- stylua: ignore
 		keys = {
 			{
@@ -199,6 +201,7 @@ return {
 	-----------------------------------------------------------------------------
 	{
 		'echasnovski/mini.surround',
+		-- stylua: ignore
 		keys = function(_, keys)
 			-- Populate the keys based on the user's options
 			local plugin = require('lazy.core.config').spec.plugins['mini.surround']
@@ -263,16 +266,14 @@ return {
 		dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
 		opts = function()
 			local ai = require('mini.ai')
-			-- stylua: ignore
 			return {
 				n_lines = 500,
+				-- stylua: ignore
 				custom_textobjects = {
 					o = ai.gen_spec.treesitter({
 						a = { '@block.outer', '@conditional.outer', '@loop.outer' },
 						i = { '@block.inner', '@conditional.inner', '@loop.inner' },
 					}, {}),
-					f = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }, {}),
-					c = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }, {}),
 				},
 			}
 		end,

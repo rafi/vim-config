@@ -47,8 +47,8 @@ function M.get()
 		{ '<Leader>uD', function() M.diagnostic_toggle(true) end, desc = 'Disable All Diagnostics' },
 
 		{ '<leader>cl', '<cmd>LspInfo<cr>' },
-		{ '<leader>cf', format, desc = 'Format Document', has = 'documentFormatting' },
-		{ '<leader>cf', format, mode = 'x', desc = 'Format Range', has = 'documentFormatting' },
+		{ '<leader>cf', format, desc = 'Format Document', has = 'formatting' },
+		{ '<leader>cf', format, mode = 'x', desc = 'Format Range', has = 'rangeFormatting' },
 		{ '<Leader>cr', vim.lsp.buf.rename, desc = 'Rename', has = 'rename' },
 		{ '<Leader>ce', vim.diagnostic.open_float, desc = 'Open diagnostics' },
 		{ '<Leader>ca', vim.lsp.buf.code_action, mode = { 'n', 'x' }, has = 'codeAction', desc = 'Code Action' },
@@ -64,23 +64,54 @@ function M.get()
 	return M._keys
 end
 
----@param client lsp.Client
+---@param method string
+function M.has(buffer, method)
+	method = method:find('/') and method or 'textDocument/' .. method
+	local clients = vim.lsp.get_active_clients({ bufnr = buffer })
+	for _, client in ipairs(clients) do
+		if client.supports_method(method) then
+			return true
+		end
+	end
+	return false
+end
+
 ---@param buffer integer
-function M.on_attach(client, buffer)
+function M.resolve(buffer)
 	local Keys = require('lazy.core.handler.keys')
 	local keymaps = {} ---@type table<string,LazyKeys|{has?:string}>
 
-	for _, value in ipairs(M.get()) do
-		local keys = Keys.parse(value)
-		if keys[2] == vim.NIL or keys[2] == false then
+	local function add(keymap)
+		local keys = Keys.parse(keymap)
+		if keys[2] == false then
 			keymaps[keys.id] = nil
 		else
 			keymaps[keys.id] = keys
 		end
 	end
+	for _, keymap in ipairs(M.get()) do
+		add(keymap)
+	end
+
+	local opts = require('rafi.lib.utils').opts('nvim-lspconfig')
+	local clients = vim.lsp.get_active_clients({ bufnr = buffer })
+	for _, client in ipairs(clients) do
+		local maps = opts.servers[client.name] and opts.servers[client.name].keys or {}
+		for _, keymap in ipairs(maps) do
+			add(keymap)
+		end
+	end
+	return keymaps
+end
+
+---@param client lsp.Client
+---@param buffer integer
+function M.on_attach(client, buffer)
+	local Keys = require('lazy.core.handler.keys')
+	local keymaps = M.resolve(buffer)
 
 	for _, keys in pairs(keymaps) do
-		if not keys.has or client.server_capabilities[keys.has .. 'Provider'] then
+		if not keys.has or M.has(buffer, keys.has) then
 			local opts = Keys.opts(keys)
 			---@diagnostic disable-next-line: no-unknown
 			opts.has = nil

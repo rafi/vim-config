@@ -778,7 +778,7 @@ Spec: `rafi.plugins.extras.diagnostics.<name>`
 
 Spec: `rafi.plugins.extras.editor.<name>`
 
-| Key       | Name           | Description
+| Name      | Repository     | Description
 | ----------| -------------- | ----------------------
 | `anyjump` | [pechorin/any-jump.vim] | Jump to any definition and references without overhead
 | `flybuf`  | [glepnir/flybuf.nvim] | List buffers in a float window
@@ -792,6 +792,26 @@ Spec: `rafi.plugins.extras.formatting.<name>`
 | Name           | Description
 | -------------- | ----------------------
 | `prettier`     | prettier: null-ls source and mason package
+
+
+### Extra Plugins: Lang
+
+Spec: `rafi.plugins.extras.lang.<name>`
+
+| Name           | Description
+| -------------- | ----------------------
+| `go`           | go syntax, lsp, dap and test
+| `json`         | json syntax, lsp and schemas
+| `python`       | python syntax, lsp, dap, test and [rafi/neoconf-venom.nvim]
+| `yaml`         | yaml syntax, lsp and schemas
+
+### Extra Plugins: Linting
+
+Spec: `rafi.plugins.extras.linting.<name>`
+
+| Name           | Description
+| -------------- | ----------------------
+| `ruff`         | ruff for python
 
 ### Extra Plugins: LSP
 
