@@ -21,7 +21,6 @@ return {
 					return require('rafi.lib.utils').has('nvim-cmp')
 				end,
 			},
-			'rafi/neoconf-venom.nvim',
 		},
 		---@class PluginLspOpts
 		opts = {
@@ -138,9 +137,6 @@ return {
 			end
 
 			vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
-
-			-- See https://github.com/rafi/neoconf-venom.nvim
-			require('venom').setup()
 
 			-- Initialize LSP servers and ensure Mason packages
 

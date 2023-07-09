@@ -173,7 +173,6 @@ return {
 			{ '<localleader>j', '<cmd>Telescope jumplist<CR>', desc = 'Jump list' },
 			{ '<localleader>m', '<cmd>Telescope marks<CR>', desc = 'Marks' },
 			{ '<localleader>o', '<cmd>Telescope vim_options<CR>', desc = 'Neovim options' },
-			{ '<localleader>p', '<cmd>Telescope venom virtualenvs<CR>', desc = 'Virtualenvs' },
 			{ '<localleader>t', '<cmd>Telescope lsp_dynamic_workspace_symbols<CR>', desc = 'Workspace symbols' },
 			{ '<localleader>v', '<cmd>Telescope registers<CR>', desc = 'Registers' },
 			{ '<localleader>u', '<cmd>Telescope spell_suggest<CR>', desc = 'Spell suggest' },

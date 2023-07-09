@@ -10,6 +10,7 @@ require('lazy').setup(vim.tbl_extend('keep', config.user_lazy_opts(), {
 		{ import = 'rafi.plugins' },
 		{ import = 'rafi.plugins.extras.lang.go' },
 		{ import = 'rafi.plugins.extras.lang.json' },
+		{ import = 'rafi.plugins.extras.lang.python' },
 		{ import = 'rafi.plugins.extras.lang.yaml' },
 
 		-- This will load a custom user lua/plugins.lua or lua/plugins/*
