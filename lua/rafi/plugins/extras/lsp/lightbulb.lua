@@ -3,7 +3,9 @@ return {
 		'kosayoda/nvim-lightbulb',
 		event = { 'BufReadPre', 'BufNewFile' },
 		opts = {
-			ignore = { 'null-ls' },
+			ignore = {
+				clients = { 'null-ls' },
+			},
 		},
 		config = function(_, opts)
 			require('nvim-lightbulb').setup(opts)
