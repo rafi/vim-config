@@ -19,7 +19,7 @@ return {
 		},
 		-- stylua: ignore
 		keys = {
-			{ '<S-Enter>', function() require('noice').redirect(vim.fn.getcmdline()) end, mode = 'c', desc = 'Redirect Cmdline' },
+			{ '<S-Enter>', function() require('noice').redirect(tostring(vim.fn.getcmdline())) end, mode = 'c', desc = 'Redirect Cmdline' },
 			{ '<leader>snl', function() require('noice').cmd('last') end, desc = 'Noice Last Message' },
 			{ '<leader>snh', function() require('noice').cmd('history') end, desc = 'Noice History' },
 			{ '<leader>sna', function() require('noice').cmd('all') end, desc = 'Noice All' },
@@ -39,20 +39,37 @@ return {
 				view_search = false,
 			},
 			routes = {
+				-- See :h ui-messages
 				{
-					filter = { event = 'msg_show', find = '%d+L, %d+B' },
+					filter = { event = 'msg_show', find = '%d+L, %d+B$' },
 					view = 'mini',
 				},
 				{
-					filter = { event = 'msg_show', find = 'Hunk %d+ of %d+' },
+					filter = { event = 'msg_show', find = '^Hunk %d+ of %d+$' },
 					view = 'mini',
 				},
 				{
-					filter = { event = 'msg_show', find = '%d+ more lines' },
+					filter = { event = 'notify', find = '^No code actions available$' },
+					view = 'mini',
+				},
+				{
+					filter = { event = 'notify', find = '^No information available$' },
 					opts = { skip = true },
 				},
 				{
-					filter = { event = 'msg_show', find = '%d+ lines yanked' },
+					filter = { event = 'msg_show', find = '^%d+ change;' },
+					opts = { skip = true },
+				},
+				{
+					filter = { event = 'msg_show', find = '^%d+ %a+ lines' },
+					opts = { skip = true },
+				},
+				{
+					filter = { event = 'msg_show', find = '^%d+ lines yanked$' },
+					opts = { skip = true },
+				},
+				{
+					filter = { event = 'msg_show', kind = 'emsg', find = 'E490' },
 					opts = { skip = true },
 				},
 				{
