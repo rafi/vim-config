@@ -237,7 +237,7 @@ return {
 		'folke/which-key.nvim',
 		event = 'VeryLazy',
 		opts = {
-			icols = { separator = ' 󰁔 ' },
+			icons = { separator = ' 󰁔 ' },
 			window = { winblend = 0 },
 			defaults = {
 				mode = { 'n', 'v' },

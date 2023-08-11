@@ -28,7 +28,7 @@ return {
 								enable = true,
 							},
 							schemas = {
-								kubernetes = { '*.yaml' },
+								kubernetes = { 'k8s**.yaml', 'kube*/*.yaml' },
 							},
 						},
 					},
