@@ -230,6 +230,7 @@ vim.filetype.add({
 		['.jsbeautifyrc'] = 'json',
 		['.jscsrc'] = 'json',
 		['.watchmanconfig'] = 'json',
+		['dev-requirements.txt'] = 'requirements',
 	},
 	pattern = {
 		['.*%.js%.map'] = 'json',
@@ -237,6 +238,7 @@ vim.filetype.add({
 		['Jenkinsfile.*'] = 'groovy',
 		['%.kube/config'] = 'yaml',
 		['%.config/git/users/.*'] = 'gitconfig',
+		['requirements-.*%.txt'] = 'requirements',
 		['.*/templates/.*%.ya?ml'] = 'helm',
 		['.*/templates/.*%.tpl'] = 'helm',
 		['.*/playbooks/.*%.ya?ml'] = 'yaml.ansible',
