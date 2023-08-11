@@ -498,7 +498,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [haya14busa/vim-edgemotion] | Jump to the edge of block
 | [folke/zen-mode.nvim] | Distraction-free coding for Neovim
 | [folke/which-key.nvim] | Create key bindings that stick
-| [tversteeg/registers.nvim] | Preview the contents of the registers
 | [folke/todo-comments.nvim] | Highlight, list and search todo comments in your projects
 | [folke/trouble.nvim] | Pretty lists to help you solve all code diagnostics
 | [sindrets/diffview.nvim] | Tabpage interface for cycling through diffs
@@ -638,7 +637,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [haya14busa/vim-edgemotion]: https://github.com/haya14busa/vim-edgemotion
 [folke/zen-mode.nvim]: https://github.com/folke/zen-mode.nvim
 [folke/which-key.nvim]: https://github.com/folke/which-key.nvim
-[tversteeg/registers.nvim]: https://github.com/tversteeg/registers.nvim
 [folke/todo-comments.nvim]: https://github.com/folke/todo-comments.nvim
 [folke/trouble.nvim]: https://github.com/folke/trouble.nvim
 [sindrets/diffview.nvim]: https://github.com/sindrets/diffview.nvim

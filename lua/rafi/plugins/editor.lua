@@ -237,8 +237,7 @@ return {
 		'folke/which-key.nvim',
 		event = 'VeryLazy',
 		opts = {
-			plugins = { marks = false, registers = false },
-			icons = { separator = ' 󰁔 ' },
+			icols = { separator = ' 󰁔 ' },
 			window = { winblend = 0 },
 			defaults = {
 				mode = { 'n', 'v' },
@@ -264,18 +263,6 @@ return {
 			wk.setup(opts)
 			wk.register(opts.defaults)
 		end,
-	},
-
-	-----------------------------------------------------------------------------
-	{
-		'tversteeg/registers.nvim',
-		cmd = 'Registers',
-		keys = {
-			{ '<C-r>', mode = 'i', desc = 'Reveal registers' },
-			{ '"', mode = 'n', desc = 'Reveal registers' },
-			{ '"', mode = 'x', desc = 'Reveal registers' },
-		},
-		opts = { window = { border = 'rounded' } },
 	},
 
 	-----------------------------------------------------------------------------
