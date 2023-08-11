@@ -266,38 +266,6 @@ return {
 
 	-----------------------------------------------------------------------------
 	{
-		'jose-elias-alvarez/null-ls.nvim',
-		event = { 'BufReadPre', 'BufNewFile' },
-		dependencies = { 'williamboman/mason.nvim' },
-		opts = function()
-			-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
-			local builtins = require('null-ls').builtins
-			return {
-				fallback_severity = vim.diagnostic.severity.INFO,
-				should_attach = function(bufnr)
-					return not vim.api.nvim_buf_get_name(bufnr):match('^[a-z]+://')
-				end,
-				root_dir = require('null-ls.utils').root_pattern(
-					'.git',
-					'_darcs',
-					'.hg',
-					'.bzr',
-					'.svn',
-					'.null-ls-root',
-					'.neoconf.json',
-					'.python-version',
-					'Makefile'
-				),
-				sources = {
-					builtins.formatting.stylua,
-					builtins.formatting.shfmt,
-				},
-			}
-		end,
-	},
-
-	-----------------------------------------------------------------------------
-	{
 		'dnlhc/glance.nvim',
 		cmd = 'Glance',
 		keys = {

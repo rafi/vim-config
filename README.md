@@ -478,7 +478,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [hrsh7th/cmp-nvim-lsp] | nvim-cmp source for neovim builtin LSP client
 | [b0o/SchemaStore.nvim] | JSON schemas for Neovim
 | [rafi/neoconf-venom.nvim] | Automatically set virtual-environment python runtime
-| [jose-elias-alvarez/null-ls.nvim] | Inject LSP diagnostics, code actions, and more
 
 ### Editor Plugins
 
@@ -620,7 +619,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [hrsh7th/cmp-nvim-lsp]: https://github.com/hrsh7th/cmp-nvim-lsp
 [b0o/SchemaStore.nvim]: https://github.com/b0o/SchemaStore.nvim
 [rafi/neoconf-venom.nvim]: https://github.com/rafi/neoconf-venom.nvim
-[jose-elias-alvarez/null-ls.nvim]: https://github.com/jose-elias-alvarez/null-ls.nvim
 
 [folke/lazy.nvim]: https://github.com/folke/lazy.nvim
 [nmac427/guess-indent.nvim]: https://github.com/nmac427/guess-indent.nvim
@@ -814,6 +812,7 @@ Spec: `rafi.plugins.extras.lsp.<name>`
 | `gtd`            | [hrsh7th/nvim-gtd] | LSP's go-to definition plugin
 | `inlayhints`     | [lvimuser/lsp-inlayhints.nvim] | Partial implementation of LSP inlay hint
 | `lightbulb`      | [kosayoda/nvim-lightbulb] | VSCode 💡 for neovim's built-in LSP
+| `null-ls`        | [jose-elias-alvarez/null-ls.nvim] | Inject LSP diagnostics, code actions, and more
 | `yaml-companion` | [yaml-companion.nvim] | Get, set and autodetect YAML schemas in your buffers
 
 ### Extra Plugins: Org
@@ -860,6 +859,7 @@ Spec: `rafi.plugins.extras.ui.<name>`
 [hrsh7th/nvim-gtd]: https://github.com/hrsh7th/nvim-gtd
 [lvimuser/lsp-inlayhints.nvim]: https://github.com/lvimuser/lsp-inlayhints.nvim
 [kosayoda/nvim-lightbulb]: https://github.com/kosayoda/nvim-lightbulb
+[jose-elias-alvarez/null-ls.nvim]: https://github.com/jose-elias-alvarez/null-ls.nvim
 [yaml-companion.nvim]: https://github.com/someone-stole-my-name/yaml-companion.nvim
 [vimwiki/vimwiki]: https://github.com/vimwiki/vimwiki
 [Wansmer/treesj]: https://github.com/Wansmer/treesj

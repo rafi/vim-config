@@ -39,6 +39,7 @@ return {
 
 	{
 		'jose-elias-alvarez/null-ls.nvim',
+		optional = true,
 		opts = function(_, opts)
 			if type(opts.sources) == 'table' then
 				local nls = require('null-ls')

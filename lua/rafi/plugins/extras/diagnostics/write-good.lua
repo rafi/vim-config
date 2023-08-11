@@ -7,6 +7,7 @@ return {
 	},
 	{
 		'jose-elias-alvarez/null-ls.nvim',
+		optional = true,
 		opts = function(_, opts)
 			local nls = require('null-ls')
 			local source = nls.builtins.diagnostics.write_good.with({

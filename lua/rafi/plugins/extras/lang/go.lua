@@ -105,6 +105,7 @@ return {
 
 	{
 		'jose-elias-alvarez/null-ls.nvim',
+		optional = true,
 		opts = function(_, opts)
 			local nls = require('null-ls')
 			local sources = {
@@ -113,6 +114,7 @@ return {
 				nls.builtins.formatting.gofumpt,
 				-- nls.builtins.formatting.goimports_reviser,
 			}
+			opts.sources = opts.sources or {}
 			for _, source in ipairs(sources) do
 				table.insert(opts.sources, source)
 			end
