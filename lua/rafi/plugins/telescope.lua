@@ -82,7 +82,7 @@ local plugin_directories = function(opts)
 				actions.select_default:replace(function()
 					local entry = require('telescope.actions.state').get_selected_entry()
 					actions.close(prompt_bufnr)
-					vim.cmd.lcd(entry.value)
+					vim.cmd.tcd(entry.value)
 				end)
 				return true
 			end,
@@ -491,7 +491,7 @@ return {
 						mappings = {
 							default = {
 								action = function(selection)
-									vim.cmd.lcd(selection.path)
+									vim.cmd.tcd(selection.path)
 								end,
 								after_action = function(selection)
 									vim.notify(

@@ -202,7 +202,7 @@ vim.cmd.cnoreabbrev('bD', 'bd')
 map('n', '<Leader>cd', function()
 	local bufdir = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p:h')
 	if bufdir ~= nil and vim.loop.fs_stat(bufdir) then
-		vim.cmd.lcd(bufdir)
+		vim.cmd.tcd(bufdir)
 		vim.notify(bufdir)
 	end
 end, { desc = 'Change Local Directory' })
