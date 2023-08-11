@@ -750,6 +750,7 @@ Spec: `rafi.plugins.extras.coding.<name>`
 | Name           | Repository     | Description
 | -------------- | -------------- | ----------------------
 | `autopairs`    | [windwp/nvim-autopairs] | Autopairs for neovim written by lua
+| `cmp-git`      | [petertriho/cmp-git] | Git source for nvim-cmp
 | `copilot`      | [zbirenbaum/copilot.lua] | Fully featured & enhanced copilot
 | `editorconfig` | [sgur/vim-editorconfig] | EditorConfig plugin written entirely in Vimscript
 | `emmet`        | [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet
@@ -848,6 +849,7 @@ Spec: `rafi.plugins.extras.ui.<name>`
 | `statuscol`    | [luukvbaal/statuscol.nvim] | Configurable 'statuscolumn' and click handlers
 
 [windwp/nvim-autopairs]: https://github.com/windwp/nvim-autopairs
+[petertriho/cmp-git]: https://github.com/petertriho/cmp-git
 [zbirenbaum/copilot.lua]: https://github.com/zbirenbaum/copilot.lua
 [sgur/vim-editorconfig]: https://github.com/sgur/vim-editorconfig
 [mattn/emmet-vim]: https://github.com/mattn/emmet-vim
