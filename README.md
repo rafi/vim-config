@@ -1226,7 +1226,7 @@ See [nvim-neo-tree/neo-tree.nvim] for more mappings and usage information.
 | <kbd>g?</kbd> | 𝐍 | Show help
 | <kbd>q</kbd> | 𝐍 | Close window
 | <kbd>j</kbd> or <kbd>k</kbd> | 𝐍 | Move up and down the tree
-| <kbd>\></kbd> or <kbd>\<</kbd> | 𝐍 | Next or previous source
+| <kbd>Tab</kbd> or <kbd>Shift</kbd>+<kbd>Tab</kbd> | 𝐍 | Next or previous source
 | <kbd>]g</kbd> or <kbd>[g</kbd> | 𝐍 | Jump to next/previous git modified node
 | <kbd>l</kbd> | 𝐍 | Toggle collapse/expand directory or open file
 | <kbd>h</kbd> | 𝐍 | Collapse directory tree
@@ -1238,7 +1238,7 @@ See [nvim-neo-tree/neo-tree.nvim] for more mappings and usage information.
 | <kbd>sv</kbd> or <kbd>S</kbd> | 𝐍 | Open file in a horizontal split
 | <kbd>sg</kbd> or <kbd>s</kbd> | 𝐍 | Open file in a vertical split
 | <kbd>st</kbd> or <kbd>t</kbd> | 𝐍 | Open file in new tab
-| <kbd>p</kbd> | 𝐍 | Preview node
+| <kbd>p</kbd> | 𝐍 | Preview toggle
 | <kbd>a</kbd> | 𝐍 | Create new directories and/or files
 | <kbd>N</kbd> | 𝐍 | Create new directory
 | <kbd>r</kbd> | 𝐍 | Rename file or directory
@@ -1248,7 +1248,7 @@ See [nvim-neo-tree/neo-tree.nvim] for more mappings and usage information.
 | <kbd>!</kbd> | 𝐍 | Filter
 | <kbd>D</kbd> | 𝐍 | Filter directories
 | <kbd>#</kbd> | 𝐍 | Fuzzy sorter
-| <kbd>/</kbd> | 𝐍 | Filter on submit
+| <kbd>F</kbd> | 𝐍 | Filter on submit
 | <kbd>Ctrl</kbd>+<kbd>c</kbd> | 𝐍 | Clear filter
 | <kbd>Ctrl</kbd>+<kbd>r</kbd> or <kbd>R</kbd> | 𝐍 | Refresh
 | <kbd>fi</kbd> / <kbd>fe</kbd> | 𝐍 | Include/exclude

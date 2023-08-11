@@ -1,7 +1,7 @@
 -- Plugin: Neo-tree
 -- https://github.com/rafi/vim-config
 
-local winwidth = 25
+local winwidth = 30
 
 -- Toggle width.
 local toggle_width = function()
@@ -68,12 +68,16 @@ return {
 	-- See: https://github.com/nvim-neo-tree/neo-tree.nvim
 	opts = {
 		close_if_last_window = true,
-		popup_border_style = 'rounded',
 
 		source_selector = {
-			winbar = false, -- toggle to show selector on winbar
-			statusline = false, -- toggle to show selector on statusline
+			winbar = false,
 			show_scrolled_off_parent_node = true,
+			padding = { left = 1, right = 0 },
+			sources = {
+				{ source = 'filesystem', display_name = '  Files' },   --       
+				{ source = 'buffers',    display_name = '  Buffers' }, --        
+				{ source = 'git_status', display_name = ' 󰊢 Git' },     -- 󰊢      
+			},
 		},
 
 		event_handlers = {
@@ -93,7 +97,8 @@ return {
 			icon = {
 				folder_closed = '',
 				folder_open = '',
-				folder_empty = '',
+				folder_empty = '',
+				folder_empty_open = '',
 				default = '',
 			},
 			modified = {
@@ -101,10 +106,10 @@ return {
 			},
 			name = {
 				trailing_slash = true,
+				highlight_opened_files = true, -- NeoTreeFileNameOpened
 				use_git_status_colors = false,
 			},
 			git_status = {
-				align = 'right',
 				symbols = {
 					-- Change type
 					added = 'A',
@@ -125,11 +130,11 @@ return {
 			mappings = {
 				['q'] = 'close_window',
 				['?'] = 'noop',
-				['/'] = 'noop',
+				['<Space>'] = 'noop',
 
 				['g?'] = 'show_help',
 				['<2-LeftMouse>'] = 'open',
-				['<CR>'] = 'split_with_window_picker',
+				['<CR>'] = 'open_with_window_picker',
 				['l'] = 'open_drop',
 				['h'] = 'close_node',
 				['C'] = 'close_node',
@@ -144,7 +149,6 @@ return {
 				['c'] = { 'copy', config = { show_path = 'relative' } },
 				['m'] = { 'move', config = { show_path = 'relative' } },
 				['a'] = { 'add', nowait = true, config = { show_path = 'relative' } },
-				['A'] = 'noop',
 				['N'] = { 'add_directory', config = { show_path = 'relative' } },
 				['d'] = 'noop',
 				['dd'] = 'delete',
@@ -152,26 +156,25 @@ return {
 				['y'] = 'copy_to_clipboard',
 				['x'] = 'cut_to_clipboard',
 				['P'] = 'paste_from_clipboard',
+				['<S-Tab>'] = 'prev_source',
+				['<Tab>'] = 'next_source',
 
-				['<Space>'] = {
+				['p'] = {
 					'toggle_preview',
 					nowait = true,
 					config = { use_float = true },
 				},
 
 				['w'] = toggle_width,
-				['p'] = function(state)
-					local path = state.tree:get_node().path
-					require('rafi.lib.preview').open(path)
-				end,
 			},
 		},
 		filesystem = {
 			window = {
 				mappings = {
 					['H'] = 'toggle_hidden',
+					['/'] = 'noop',
 					['f'] = 'fuzzy_finder',
-					['/'] = 'filter_on_submit',
+					['F'] = 'filter_on_submit',
 					['<C-x>'] = 'clear_filter',
 					['<C-c>'] = 'clear_filter',
 					['<BS>'] = 'navigate_up',
@@ -192,8 +195,8 @@ return {
 					end,
 				},
 			},
-			use_libuv_file_watcher = true,
 			group_empty_dirs = true,
+			use_libuv_file_watcher = true,
 			bind_to_cwd = false,
 			cwd_target = {
 				sidebar = 'window',
@@ -224,26 +227,11 @@ return {
 		},
 		buffers = {
 			bind_to_cwd = false,
-			follow_current_file = true,
-			group_empty_dirs = true,
 			window = {
 				mappings = {
 					['<BS>'] = 'navigate_up',
 					['.'] = 'set_root',
 					['dd'] = 'buffer_delete',
-				},
-			},
-		},
-		git_status = {
-			window = {
-				mappings = {
-					['A'] = 'git_add_all',
-					['gu'] = 'git_unstage_file',
-					['ga'] = 'git_add_file',
-					['gr'] = 'git_revert_file',
-					['gc'] = 'git_commit',
-					['gp'] = 'git_push',
-					['gg'] = 'git_commit_and_push',
 				},
 			},
 		},
