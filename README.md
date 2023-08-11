@@ -587,7 +587,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [mustache/vim-mustache-handlebars] | Mustache and handlebars syntax
 | [lifepillar/pgsql.vim] | PostgreSQL syntax and indent
 | [MTDL9/vim-log-highlighting] | Syntax highlighting for generic log files
-| [tmux-plugins/vim-tmux] | Plugin for tmux.conf
 | [reasonml-editor/vim-reason-plus] | Reason syntax and indent
 | [vmchale/just-vim] | Syntax highlighting for Justfiles
 | [pearofducks/ansible-vim] | Improved YAML support for Ansible
@@ -706,7 +705,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [mustache/vim-mustache-handlebars]: https://github.com/mustache/vim-mustache-handlebars
 [lifepillar/pgsql.vim]: https://github.com/lifepillar/pgsql.vim
 [MTDL9/vim-log-highlighting]: https://github.com/MTDL9/vim-log-highlighting
-[tmux-plugins/vim-tmux]: https://github.com/tmux-plugins/vim-tmux
 [reasonml-editor/vim-reason-plus]: https://github.com/reasonml-editor/vim-reason-plus
 [vmchale/just-vim]: https://github.com/vmchale/just-vim
 [pearofducks/ansible-vim]: https://github.com/pearofducks/ansible-vim

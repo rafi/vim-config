@@ -101,7 +101,6 @@
   "vim-quickhl": { "branch": "master", "commit": "be1f44169c3fdee3beab629e83380515da03835e" },
   "vim-reason-plus": { "branch": "master", "commit": "c11a2940f8f3e3915e472c366fe460b0fe008bac" },
   "vim-stylus": { "branch": "master", "commit": "0e457b09db55d3518703bb22e1555872c5c44b7a" },
-  "vim-tmux": { "branch": "master", "commit": "cfe76281efc29890548cf9eedd42ad51c7a1faf0" },
   "vim-tmux-navigator": { "branch": "master", "commit": "cdd66d6a37d991bba7997d593586fc51a5b37aa8" },
   "which-key.nvim": { "branch": "main", "commit": "38b990f6eabf62014018b4aae70a97d7a6c2eb88" },
   "zen-mode.nvim": { "branch": "main", "commit": "68f554702de63f4b7b6b6d4bcb10178f41a0acc7" },

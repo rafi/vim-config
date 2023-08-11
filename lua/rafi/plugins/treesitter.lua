@@ -11,7 +11,6 @@ return {
 	{ 'mustache/vim-mustache-handlebars', ft = { 'mustache', 'handlebars' } },
 	{ 'lifepillar/pgsql.vim', ft = 'pgsql' },
 	{ 'MTDL9/vim-log-highlighting', ft = 'log' },
-	{ 'tmux-plugins/vim-tmux', ft = 'tmux' },
 	{ 'reasonml-editor/vim-reason-plus', ft = { 'reason', 'merlin' } },
 	{ 'vmchale/just-vim', ft = 'just' },
 
