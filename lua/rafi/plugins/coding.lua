@@ -20,7 +20,7 @@ return {
 		},
 		opts = function()
 			local cmp = require('cmp')
-			local defaults = require("cmp.config.default")()
+			local defaults = require('cmp.config.default')()
 			local luasnip = require('luasnip')
 
 			local function has_words_before()
@@ -37,7 +37,7 @@ return {
 				sorting = defaults.sorting,
 				experimental = {
 					ghost_text = {
-						hl_group = 'LspCodeLens',
+						hl_group = 'Comment',
 					},
 				},
 				snippet = {
@@ -137,7 +137,7 @@ return {
 		event = 'InsertEnter',
 		dependencies = { 'rafamadriz/friendly-snippets' },
 		build = (not jit.os:find('Windows'))
-			and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
+				and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
 			or nil,
 		-- stylua: ignore
 		keys = {

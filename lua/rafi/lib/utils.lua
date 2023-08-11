@@ -14,7 +14,9 @@ function M.on_attach(on_attach)
 		callback = function(args)
 			local buffer = args.buf
 			local client = vim.lsp.get_client_by_id(args.data.client_id)
-			on_attach(client, buffer)
+			if client ~= nil then
+				on_attach(client, buffer)
+			end
 		end,
 	})
 end
@@ -64,7 +66,7 @@ function M.get_root()
 	end
 
 	local root = vim.fs.find(root_patterns, { path = cwd, upward = true })[1]
-	root = root and vim.fs.dirname(root) or vim.loop.cwd()
+	root = root and vim.fs.dirname(root) or vim.loop.cwd() or ''
 	vim.api.nvim_buf_set_var(0, 'project_dir', root)
 	vim.api.nvim_buf_set_var(0, 'project_dir_last_cwd', cwd)
 	return root
@@ -83,8 +85,12 @@ function M.float_term(cmd, opts)
 	}, opts or {}, { persistent = true })
 	---@cast opts LazyCmdOptions|{interactive?:boolean, esc_esc?:false, ctrl_hjkl?:false}
 
-	local termkey =
-		vim.inspect({ cmd = cmd or 'shell', cwd = opts.cwd, env = opts.env, count = vim.v.count1 })
+	local termkey = vim.inspect({
+		cmd = cmd or 'shell',
+		cwd = opts.cwd,
+		env = opts.env,
+		count = vim.v.count1,
+	})
 
 	if terminals[termkey] and terminals[termkey]:buf_valid() then
 		terminals[termkey]:toggle()

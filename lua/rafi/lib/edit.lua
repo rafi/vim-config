@@ -40,7 +40,7 @@ function M.get_visual_selection()
 	local lines = vim.fn.getline(csrow, cerow)
 	-- local n = cerow-csrow+1
 	local n = #lines
-	if n <= 0 then
+	if n <= 0 or type(lines) ~= 'table' then
 		return ''
 	end
 	lines[n] = string.sub(lines[n], 1, cecol)

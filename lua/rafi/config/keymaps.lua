@@ -78,14 +78,14 @@ map('n', 'zh', 'z4h')
 
 -- Yank buffer's relative path to clipboard
 map('n', '<Leader>y', function()
-	local path = vim.fn.expand('%:~:.')
+	local path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':~:.')
 	vim.fn.setreg('+', path)
 	vim.notify(path, vim.log.levels.INFO, { title = 'Yanked relative path' })
 end, { silent = true, desc = 'Yank relative path' })
 
 -- Yank absolute path
 map('n', '<Leader>Y', function()
-	local path = vim.fn.expand('%:p')
+	local path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p')
 	vim.fn.setreg('+', path)
 	vim.notify(path, vim.log.levels.INFO, { title = 'Yanked absolute path' })
 end, { silent = true, desc = 'Yank absolute path' })
@@ -201,10 +201,8 @@ vim.cmd.cnoreabbrev('bD', 'bd')
 -- Switch (window) to the directory of the current opened buffer
 map('n', '<Leader>cd', function()
 	local bufdir = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p:h')
-	if vim.loop.fs_stat(bufdir) then
-		vim.defer_fn(function()
-			vim.cmd.lcd(bufdir)
-		end, 300)
+	if bufdir ~= nil and vim.loop.fs_stat(bufdir) then
+		vim.cmd.lcd(bufdir)
 		vim.notify(bufdir)
 	end
 end, { desc = 'Change Local Directory' })

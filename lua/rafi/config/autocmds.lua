@@ -14,11 +14,11 @@ vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
 	command = 'checktime',
 })
 
--- Go to last loc when opening a buffer
+-- Go to last loc when opening a buffer, see ':h last-position-jump'
 vim.api.nvim_create_autocmd('BufReadPost', {
 	group = augroup('last_loc'),
 	callback = function()
-		local exclude = { 'gitcommit' }
+		local exclude = { 'gitcommit', 'commit', 'gitrebase' }
 		local buf = vim.api.nvim_get_current_buf()
 		if vim.tbl_contains(exclude, vim.bo[buf].filetype) then
 			return
@@ -42,7 +42,7 @@ vim.api.nvim_create_autocmd({ 'InsertLeave', 'WinEnter' }, {
 })
 vim.api.nvim_create_autocmd({ 'InsertEnter', 'WinLeave' }, {
 	group = augroup('auto_cursorline_hide'),
-	callback = function(event)
+	callback = function(_)
 		vim.opt_local.cursorline = false
 	end,
 })
@@ -107,13 +107,14 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd('FileType', {
 	group = augroup('close_with_q'),
 	pattern = {
-		'PlenaryTestPopup',
+		'checkhealth',
 		'fugitive',
 		'fugitiveblame',
 		'help',
 		'httpResult',
 		'lspinfo',
 		'notify',
+		'PlenaryTestPopup',
 		'qf',
 		'spectre_panel',
 		'startuptime',

@@ -71,9 +71,7 @@ return {
 					theme = theme,
 					globalstatus = true,
 					always_divide_middle = false,
-					disabled_filetypes = {
-						statusline = { 'dashboard', 'alpha', 'neo-tree-popup' }
-					},
+					disabled_filetypes = { statusline = { 'dashboard', 'alpha' } },
 					component_separators = '',
 					section_separators   = '',
 				},

@@ -1,3 +1,6 @@
+-- This is part of LazyVim's code, with my modifications.
+-- See: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/lang/elixir.lua
+
 return {
 
 	{

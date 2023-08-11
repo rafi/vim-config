@@ -63,7 +63,9 @@ return {
 			format_notify = false,
 			-- LSP Server Settings
 			---@type lspconfig.options
+			---@diagnostic disable: missing-fields
 			servers = {
+				-- jsonls = {},
 				lua_ls = {
 					settings = {
 						Lua = {
@@ -106,13 +108,16 @@ return {
 
 			local register_capability = vim.lsp.handlers['client/registerCapability']
 
+			---@diagnostic disable-next-line: duplicate-set-field
 			vim.lsp.handlers['client/registerCapability'] = function(err, res, ctx)
 				local ret = register_capability(err, res, ctx)
 				local client_id = ctx.client_id
-				---@type lsp.Client
+				---@type lsp.Client|nil
 				local client = vim.lsp.get_client_by_id(client_id)
 				local buffer = vim.api.nvim_get_current_buf()
-				require('rafi.plugins.lsp.keymaps').on_attach(client, buffer)
+				if client ~= nil then
+					require('rafi.plugins.lsp.keymaps').on_attach(client, buffer)
+				end
 				return ret
 			end
 
@@ -126,7 +131,7 @@ return {
 			local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
 			if opts.inlay_hints.enabled and inlay_hint then
 				lsp_on_attach(function(client, buffer)
-					if client.server_capabilities.inlayHintProvider then
+					if client.supports_method('textDocument/inlayHint') then
 						inlay_hint(buffer, true)
 					end
 				end)
@@ -154,11 +159,12 @@ return {
 
 			-- Setup base config for all servers.
 			local servers = opts.servers
+			local has_cmp, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
 			local capabilities = vim.tbl_deep_extend(
 				'force',
 				{},
 				vim.lsp.protocol.make_client_capabilities(),
-				require('cmp_nvim_lsp').default_capabilities(),
+				has_cmp and cmp_nvim_lsp.default_capabilities() or {},
 				opts.capabilities or {}
 			)
 

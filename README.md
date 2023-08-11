@@ -555,7 +555,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | Name           | Description
 | -------------- | ----------------------
 | [lewis6991/gitsigns.nvim] | Git signs written in pure lua
-| [TimUntersberger/neogit] | Magit clone for Neovim
+| [NeogitOrg/neogit] | Magit clone for Neovim
 | [tpope/vim-fugitive] | Git client
 | [junegunn/gv.vim] | Git log browser
 | [ruifm/gitlinker.nvim] | Browse git repositories
@@ -683,7 +683,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [nyoom-engineering/oxocarbon.nvim]: https://github.com/nyoom-engineering/oxocarbon.nvim
 
 [lewis6991/gitsigns.nvim]: https://github.com/lewis6991/gitsigns.nvim
-[TimUntersberger/neogit]: https://github.com/TimUntersberger/neogit
+[NeogitOrg/neogit]: https://github.com/NeogitOrg/neogit
 [tpope/vim-fugitive]: https://github.com/tpope/vim-fugitive
 [junegunn/gv.vim]: https://github.com/junegunn/gv.vim
 [ruifm/gitlinker.nvim]: https://github.com/ruifm/gitlinker.nvim

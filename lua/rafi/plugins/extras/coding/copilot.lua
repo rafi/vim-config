@@ -39,9 +39,18 @@ return {
 					return icon .. (status.message or '')
 				end,
 				cond = function()
-					local ok, clients =
-						pcall(vim.lsp.get_active_clients, { name = 'copilot', bufnr = 0 })
-					return ok and #clients > 0
+					local clients
+					local bufnr = vim.api.nvim_get_current_buf()
+					if vim.lsp.get_clients ~= nil then
+						clients = vim.lsp.get_clients({ name = 'copilot', bufnr = bufnr })
+					else
+						---@diagnostic disable-next-line: deprecated
+						clients = vim.lsp.get_active_clients({
+							name = 'copilot',
+							bufnr = bufnr,
+						})
+					end
+					return #clients > 0
 				end,
 				color = function()
 					local status = require('copilot.api').status.data
@@ -82,7 +91,11 @@ return {
 				priority = 60,
 			})
 			opts.sorting = opts.sorting or require('cmp.config.default')().sorting
-			table.insert(opts.sorting.comparators, 1, require('copilot_cmp.comparators').prioritize)
+			table.insert(
+				opts.sorting.comparators,
+				1,
+				require('copilot_cmp.comparators').prioritize
+			)
 		end,
 	},
 }

@@ -78,8 +78,11 @@ return {
 
 	-----------------------------------------------------------------------------
 	{
-		'TimUntersberger/neogit',
-		dependencies = { 'sindrets/diffview.nvim' },
+		'NeogitOrg/neogit',
+		dependencies = {
+			'sindrets/diffview.nvim',
+			'nvim-telescope/telescope.nvim'
+		},
 		cmd = 'Neogit',
 		keys = {
 			{ '<Leader>mg', '<cmd>Neogit<CR>', desc = 'Neogit' },

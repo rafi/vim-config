@@ -60,7 +60,7 @@ local M = {}
 -- Try to guess the project's name
 ---@return string
 function M.project()
-	return vim.fn.fnamemodify(require('rafi.lib.utils').get_root(), ':t')
+	return vim.fn.fnamemodify(require('rafi.lib.utils').get_root(), ':t') or ''
 end
 
 -- Provides relative path with limited characters in each directory name, and
@@ -89,7 +89,7 @@ function M.filepath(bufnr, max_dirs, dir_max_chars, cache_suffix)
 	if bufname:len() < 1 and buftype:len() < 1 then
 		return 'N/A'
 	end
-	bufname = vim.fn.fnamemodify(bufname, ':~:.')
+	bufname = vim.fn.fnamemodify(bufname, ':~:.') or ''
 
 	-- Reduce directory count according to 'max_dirs' setting.
 	local formatter = string.format('([^%s]+)', M.path_sep)

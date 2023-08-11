@@ -1,7 +1,7 @@
 return {
 	{
 		'Bekaboo/deadcolumn.nvim',
-		event = 'BufReadPost',
+		event = { 'BufReadPre', 'BufNewFile' },
 		opts = {
 			scope = 'visible',
 		},

@@ -115,8 +115,13 @@ function M.get_formatters(bufnr)
 		null_ls = null_ls,
 	}
 
-	---@type lsp.Client[]
-	local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+	local clients
+	if vim.lsp.get_clients ~= nil then
+		clients = vim.lsp.get_clients({ bufnr = bufnr })
+	else
+		---@diagnostic disable-next-line: deprecated
+		clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+	end
 	for _, client in ipairs(clients) do
 		if M.supports_format(client) then
 			if (#null_ls > 0 and client.name == 'null-ls') or #null_ls == 0 then
