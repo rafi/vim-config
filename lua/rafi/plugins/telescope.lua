@@ -238,6 +238,7 @@ return {
 			{ '<leader>gl', '<cmd>Telescope git_commits<CR>', desc = 'Git commits' },
 			{ '<leader>gL', '<cmd>Telescope git_bcommits<CR>', desc = 'Git buffer commits' },
 			{ '<leader>gh', '<cmd>Telescope git_stash<CR>', desc = 'Git stashes' },
+			{ '<leader>gc', '<cmd>Telescope git_bcommits_range<CR>', mode = { 'x', 'n' }, desc = 'Git bcommits range' },
 
 			-- Plugins
 			{ '<localleader>n', plugin_directories, desc = 'Plugins' },

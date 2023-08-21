@@ -94,7 +94,7 @@ Please read "[Extending](#extending)" to learn how to customize and modify.
 * Auto-complete extensive setup with [nvim-cmp]
   (try <kbd>Tab</kbd> or <kbd>Ctrl</kbd>+<kbd>Space</kbd> in insert-mode)
 * Structure view with [simrat39/symbols-outline.nvim]
-* Git features using [lewis6991/gitsigns.nvim] and [tpope/vim-fugitive]
+* Git features using [lewis6991/gitsigns.nvim], [sindrets/diffview.nvim], and [more](#git-plugins)
 * Auto-save and restore sessions with [olimorris/persisted.nvim]
 * Unobtrusive, yet informative status & tab lines
 * Premium color-schemes
@@ -502,7 +502,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [folke/which-key.nvim] | Create key bindings that stick
 | [folke/todo-comments.nvim] | Highlight, list and search todo comments in your projects
 | [folke/trouble.nvim] | Pretty lists to help you solve all code diagnostics
-| [sindrets/diffview.nvim] | Tabpage interface for cycling through diffs
 | [akinsho/toggleterm.nvim] | Persist and toggle multiple terminals
 | [simrat39/symbols-outline.nvim] | Tree like view for symbols using LSP
 | [s1n7ax/nvim-window-picker] | Window picker
@@ -555,9 +554,10 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | Name           | Description
 | -------------- | ----------------------
 | [lewis6991/gitsigns.nvim] | Git signs written in pure lua
+| [sindrets/diffview.nvim] | Tabpage interface for cycling through diffs
 | [NeogitOrg/neogit] | Magit clone for Neovim
-| [tpope/vim-fugitive] | Git client
-| [junegunn/gv.vim] | Git log browser
+| [FabijanZulj/blame.nvim] | Git blame visualizer
+| [rhysd/git-messenger.vim] | Reveal the commit messages under the cursor
 | [ruifm/gitlinker.nvim] | Browse git repositories
 | [rhysd/committia.vim] | Pleasant editing on Git commit messages
 
@@ -635,7 +635,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [folke/which-key.nvim]: https://github.com/folke/which-key.nvim
 [folke/todo-comments.nvim]: https://github.com/folke/todo-comments.nvim
 [folke/trouble.nvim]: https://github.com/folke/trouble.nvim
-[sindrets/diffview.nvim]: https://github.com/sindrets/diffview.nvim
 [akinsho/toggleterm.nvim]: https://github.com/akinsho/toggleterm.nvim
 [simrat39/symbols-outline.nvim]: https://github.com/simrat39/symbols-outline.nvim
 [s1n7ax/nvim-window-picker]: https://github.com/s1n7ax/nvim-window-picker
@@ -676,9 +675,10 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [nyoom-engineering/oxocarbon.nvim]: https://github.com/nyoom-engineering/oxocarbon.nvim
 
 [lewis6991/gitsigns.nvim]: https://github.com/lewis6991/gitsigns.nvim
+[sindrets/diffview.nvim]: https://github.com/sindrets/diffview.nvim
 [NeogitOrg/neogit]: https://github.com/NeogitOrg/neogit
-[tpope/vim-fugitive]: https://github.com/tpope/vim-fugitive
-[junegunn/gv.vim]: https://github.com/junegunn/gv.vim
+[FabijanZulj/blame.nvim]: https://github.com/FabijanZulj/blame.nvim
+[rhysd/git-messenger.vim]: https://github.com/rhysd/git-messenger.vim
 [ruifm/gitlinker.nvim]: https://github.com/ruifm/gitlinker.nvim
 [rhysd/committia.vim]: https://github.com/rhysd/committia.vim
 
@@ -849,17 +849,32 @@ Spec: `rafi.plugins.extras.ui.<name>`
 [sgur/vim-editorconfig]: https://github.com/sgur/vim-editorconfig
 [mattn/emmet-vim]: https://github.com/mattn/emmet-vim
 [machakann/vim-sandwich]: https://github.com/machakann/vim-sandwich
+
 [pechorin/any-jump.vim]: https://github.com/pechorin/any-jump.vim
 [glepnir/flybuf.nvim]: https://github.com/glepnir/flybuf.nvim
 [sidebar-nvim/sidebar.nvim]: https://github.com/sidebar-nvim/sidebar.nvim
 [kevinhwang91/nvim-ufo]: https://github.com/kevinhwang91/nvim-ufo
+
+[tpope/vim-fugitive]: https://github.com/tpope/vim-fugitive
+[junegunn/gv.vim]: https://github.com/junegunn/gv.vim
+
+[pearofducks/ansible-vim]: https://github.com/pearofducks/ansible-vim
+[towolf/vim-helm]: https://github.com/towolf/vim-helm
+[mfussenegger/nvim-dap-python]: https://github.com/mfussenegger/nvim-dap-python
+[rafi/neoconf-venom.nvim]: https://github.com/rafi/neoconf-venom.nvim
+[jose-elias-alvarez/typescript.nvim]: https://github.com/jose-elias-alvarez/typescript.nvim
+[b0o/SchemaStore.nvim]: https://github.com/b0o/SchemaStore.nvim
+
 [hrsh7th/nvim-gtd]: https://github.com/hrsh7th/nvim-gtd
 [lvimuser/lsp-inlayhints.nvim]: https://github.com/lvimuser/lsp-inlayhints.nvim
 [kosayoda/nvim-lightbulb]: https://github.com/kosayoda/nvim-lightbulb
 [jose-elias-alvarez/null-ls.nvim]: https://github.com/jose-elias-alvarez/null-ls.nvim
 [yaml-companion.nvim]: https://github.com/someone-stole-my-name/yaml-companion.nvim
+
 [vimwiki/vimwiki]: https://github.com/vimwiki/vimwiki
+
 [Wansmer/treesj]: https://github.com/Wansmer/treesj
+
 [utilyre/barbecue.nvim]: https://github.com/utilyre/barbecue.nvim
 [akinsho/bufferline.nvim]: https://github.com/akinsho/bufferline.nvim
 [itchyny/cursorword]: https://github.com/itchyny/vim-cursorword
@@ -918,7 +933,7 @@ Note that,
 
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
-| <kbd>Space</kbd>+<kbd>cd</kbd> | 𝐍 | Switch to the directory of opened buffer | <small>`:lcd %:p:h`</small>
+| <kbd>Space</kbd>+<kbd>cd</kbd> | 𝐍 | Switch to the directory of opened buffer | <small>`:tcd %:p:h`</small>
 | <kbd>Space</kbd>+<kbd>w</kbd> | 𝐍 | Write buffer to file | <small>`:write`</small>
 | <kbd>Ctrl</kbd>+<kbd>s</kbd> | 𝐍 𝐕 𝐂 | Write buffer to file | <small>`:write`</small>
 
@@ -1076,8 +1091,8 @@ Note that,
 | <kbd>Space</kbd> <kbd>tG</kbd> | 𝐍 | Open Lazygit (cwd) | <small>[config/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>cc</kbd> | 𝐍 | Generate doc | <small>[danymat/neogen]</small>
 | <kbd>Space</kbd> <kbd>gu</kbd> | 𝐍 | Open undo-tree | <small>[mbbill/undotree]</small>
-| <kbd>Space</kbd> <kbd>gd</kbd> | 𝐍 | Git diff | <small>[tpope/vim-fugitive]</small>
-| <kbd>Space</kbd> <kbd>gb</kbd> | 𝐍 | Git blame | <small>[tpope/vim-fugitive]</small>
+| <kbd>Space</kbd> <kbd>gd</kbd> | 𝐍 | Git diff | <small>[sindrets/diffview.nvim]</small>
+| <kbd>Space</kbd> <kbd>gb</kbd> | 𝐍 | Git blame | <small>[FabijanZulj/blame.nvim]</small>
 | <kbd>Space</kbd> <kbd>go</kbd> | 𝐍 𝐕 | Open SCM detailed URL in browser | <small>[ruifm/gitlinker.nvim]</small>
 | <kbd>Space</kbd> <kbd>ml</kbd> | 𝐍 | Append modeline to end of buffer | <small>[config/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>mda</kbd> | 𝐕 | Sequentially mark region for diff | <small>[AndrewRadev/linediff.vim]</small>

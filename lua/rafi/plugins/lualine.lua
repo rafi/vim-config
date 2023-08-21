@@ -77,7 +77,6 @@ return {
 				},
 				extensions = {
 					'man',
-					'fugitive',
 				},
 				sections = {
 					lualine_a = {
