@@ -516,7 +516,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 
 | Name           | Description
 | -------------- | ----------------------
-| [sbdchd/neoformat] | Format code with numerous tools
 | [hrsh7th/nvim-cmp] | Completion plugin for neovim written in Lua
 | [hrsh7th/cmp-buffer] | nvim-cmp source for buffer words
 | [hrsh7th/cmp-path] | nvim-cmp source for path
@@ -646,7 +645,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [echasnovski/mini.bufremove]: https://github.com/echasnovski/mini.bufremove
 [mzlogin/vim-markdown-toc]: https://github.com/mzlogin/vim-markdown-toc
 
-[sbdchd/neoformat]: https://github.com/sbdchd/neoformat
 [hrsh7th/nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
 [hrsh7th/cmp-buffer]: https://github.com/hrsh7th/cmp-buffer
 [hrsh7th/cmp-path]: https://github.com/hrsh7th/cmp-path
