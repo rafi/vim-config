@@ -1,6 +1,8 @@
+-- rafi.plugins.extras.lang.python
+--
+
 -- This is part of LazyVim's code, with my modifications.
 -- See: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/lang/python.lua
-
 return {
 
 	{
@@ -38,10 +40,7 @@ return {
 	{
 		'nvim-neotest/neotest',
 		optional = true,
-		dependencies = {
-			'nvim-neotest/neotest-python',
-			optional = true,
-		},
+		dependencies = { 'nvim-neotest/neotest-python' },
 		opts = {
 			adapters = {
 				['neotest-python'] = {
@@ -58,7 +57,6 @@ return {
 		optional = true,
 		dependencies = {
 			'mfussenegger/nvim-dap-python',
-			optional = true,
 			-- stylua: ignore
 			keys = {
 				{ '<leader>dPt', function() require('dap-python').test_method() end, desc = 'Debug Method' },

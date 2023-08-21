@@ -51,6 +51,9 @@ Please read "[Extending](#extending)" to learn how to customize and modify.
   * [Extra Plugins: Diagnostics](#extra-plugins-diagnostics)
   * [Extra Plugins: Editor](#extra-plugins-editor)
   * [Extra Plugins: Formatting](#extra-plugins-formatting)
+  * [Extra Plugins: Git](#extra-plugins-git)
+  * [Extra Plugins: Lang](#extra-plugins-lang)
+  * [Extra Plugins: Linting](#extra-plugins-linting)
   * [Extra Plugins: LSP](#extra-plugins-lsp)
   * [Extra Plugins: Org](#extra-plugins-org)
   * [Extra Plugins: Treesitter](#extra-plugins-treesitter)
@@ -582,13 +585,11 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [andymass/vim-matchup] | Modern matchit and matchparen
 | [iloginow/vim-stylus] | Better vim plugin for stylus
 | [chrisbra/csv.vim] | Handling column separated data
-| [towolf/vim-helm] | Syntax for Helm templates (yaml + gotmpl + sprig)
 | [mustache/vim-mustache-handlebars] | Mustache and handlebars syntax
 | [lifepillar/pgsql.vim] | PostgreSQL syntax and indent
 | [MTDL9/vim-log-highlighting] | Syntax highlighting for generic log files
 | [reasonml-editor/vim-reason-plus] | Reason syntax and indent
 | [vmchale/just-vim] | Syntax highlighting for Justfiles
-| [pearofducks/ansible-vim] | Improved YAML support for Ansible
 
 ### UI Plugins
 
@@ -699,13 +700,11 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [andymass/vim-matchup]: https://github.com/andymass/vim-matchup
 [iloginow/vim-stylus]: https://github.com/iloginow/vim-stylus
 [chrisbra/csv.vim]: https://github.com/chrisbra/csv.vim
-[towolf/vim-helm]: https://github.com/towolf/vim-helm
 [mustache/vim-mustache-handlebars]: https://github.com/mustache/vim-mustache-handlebars
 [lifepillar/pgsql.vim]: https://github.com/lifepillar/pgsql.vim
 [MTDL9/vim-log-highlighting]: https://github.com/MTDL9/vim-log-highlighting
 [reasonml-editor/vim-reason-plus]: https://github.com/reasonml-editor/vim-reason-plus
 [vmchale/just-vim]: https://github.com/vmchale/just-vim
-[pearofducks/ansible-vim]: https://github.com/pearofducks/ansible-vim
 
 [nvim-tree/nvim-web-devicons]: https://github.com/nvim-tree/nvim-web-devicons
 [MunifTanjim/nui.nvim]: https://github.com/MunifTanjim/nui.nvim

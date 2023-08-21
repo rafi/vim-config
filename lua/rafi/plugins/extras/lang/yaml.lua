@@ -1,5 +1,5 @@
 -- This is part of LazyVim's code, with my modifications.
--- See: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/lang/elixir.lua
+-- See: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/lang/yaml.lua
 
 return {
 
@@ -7,7 +7,7 @@ return {
 		'nvim-treesitter/nvim-treesitter',
 		opts = function(_, opts)
 			if type(opts.ensure_installed) == 'table' then
-				table.insert(opts.ensure_installed, 'yaml')
+				vim.list_extend(opts.ensure_installed, { 'yaml' })
 			end
 		end,
 	},

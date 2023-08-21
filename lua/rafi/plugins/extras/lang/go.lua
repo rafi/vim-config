@@ -14,6 +14,22 @@ return {
 					'gowork',
 				})
 			end
+
+			-- Convert a JSON string to a Go struct.
+			vim.api.nvim_buf_create_user_command(
+				0,
+				'JsonToStruct',
+				---@param args table
+				function(args)
+					local range = args.line1 .. ',' .. args.line2
+					local fname = vim.api.nvim_buf_get_name(0)
+					local cmd = { '!json-to-struct' }
+					table.insert(cmd, '-name ' .. vim.fn.fnamemodify(fname, ':t:r'))
+					table.insert(cmd, '-pkg ' .. vim.fn.fnamemodify(fname, ':h:t:r'))
+					vim.cmd(range .. ' ' .. table.concat(cmd, ' '))
+				end,
+				{ bar = true, nargs = 0, range = true }
+			)
 		end,
 	},
 
@@ -104,6 +120,20 @@ return {
 	},
 
 	{
+		'mason.nvim',
+		opts = function(_, opts)
+			opts.ensure_installed = opts.ensure_installed or {}
+			vim.list_extend(opts.ensure_installed, {
+				'gofumpt',
+				'goimports-reviser',
+				'gomodifytags',
+				'impl',
+				'json-to-struct',
+			})
+		end,
+	},
+
+	{
 		'jose-elias-alvarez/null-ls.nvim',
 		optional = true,
 		opts = function(_, opts)
@@ -129,8 +159,12 @@ return {
 				'mason.nvim',
 				opts = function(_, opts)
 					opts.ensure_installed = opts.ensure_installed or {}
-					table.insert(opts.ensure_installed, 'delve')
+					vim.list_extend(opts.ensure_installed, { 'delve' })
 				end,
+			},
+			{
+				'leoluz/nvim-dap-go',
+				config = true,
 			},
 		},
 	},
@@ -138,10 +172,7 @@ return {
 	{
 		'nvim-neotest/neotest',
 		optional = true,
-		dependencies = {
-			'nvim-neotest/neotest-go',
-			optional = true,
-		},
+		dependencies = { 'nvim-neotest/neotest-go' },
 		opts = {
 			adapters = {
 				['neotest-go'] = {

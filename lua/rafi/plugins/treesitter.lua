@@ -7,29 +7,11 @@ return {
 	-- Vimscript syntax/indent plugins
 	{ 'iloginow/vim-stylus', ft = 'stylus' },
 	{ 'chrisbra/csv.vim', ft = 'csv' },
-	{ 'towolf/vim-helm', ft = 'helm' },
 	{ 'mustache/vim-mustache-handlebars', ft = { 'mustache', 'handlebars' } },
 	{ 'lifepillar/pgsql.vim', ft = 'pgsql' },
 	{ 'MTDL9/vim-log-highlighting', ft = 'log' },
 	{ 'reasonml-editor/vim-reason-plus', ft = { 'reason', 'merlin' } },
 	{ 'vmchale/just-vim', ft = 'just' },
-
-	-----------------------------------------------------------------------------
-	{
-		'pearofducks/ansible-vim',
-		ft = { 'ansible', 'ansible_hosts', 'jinja2' },
-		init = function()
-			vim.g.ansible_extra_keywords_highlight = 1
-			vim.g.ansible_template_syntaxes = {
-				['*.json.j2'] = 'json',
-				['*.(ba)?sh.j2'] = 'sh',
-				['*.ya?ml.j2'] = 'yaml',
-				['*.xml.j2'] = 'xml',
-				['*.conf.j2'] = 'conf',
-				['*.ini.j2'] = 'ini',
-			}
-		end,
-	},
 
 	-----------------------------------------------------------------------------
 	{
@@ -161,7 +143,6 @@ return {
 				'css',
 				'cue',
 				'diff',
-				'dockerfile',
 				'fish',
 				'fennel',
 				'git_config',

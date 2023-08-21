@@ -1,4 +1,5 @@
 return {
+
 	{
 		'neovim/nvim-lspconfig',
 		opts = {
@@ -12,6 +13,7 @@ return {
 			},
 		},
 	},
+
 	{
 		'kevinhwang91/nvim-ufo',
 		event = { 'BufReadPost', 'BufNewFile' },

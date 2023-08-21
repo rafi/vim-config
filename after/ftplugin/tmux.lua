@@ -1,7 +1,7 @@
 -- Tmux utilities
 --
 
--- Open ansible-doc in a vertical split with word under cursor.
+-- Open 'man tmux' in a vertical split with word under cursor.
 local function open_doc()
 	local cword = vim.fn.expand('<cword>')
 	require('man').open_page(0, { silent = true }, { 'tmux' })
