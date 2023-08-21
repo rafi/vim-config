@@ -13,6 +13,19 @@ return {
 	},
 
 	{
+		'mhartington/formatter.nvim',
+		optional = true,
+		opts = function(_, opts)
+			opts = opts or {}
+			local filetypes = {
+				-- FIXME:add more filetypes
+				json = { require('formatter.defaults.prettierd') },
+			}
+			opts.filetype = vim.tbl_extend('keep', opts.filetype or {}, filetypes)
+		end,
+	},
+
+	{
 		'jose-elias-alvarez/null-ls.nvim',
 		optional = true,
 		opts = function(_, opts)

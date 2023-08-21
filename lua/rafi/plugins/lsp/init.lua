@@ -266,6 +266,26 @@ return {
 
 	-----------------------------------------------------------------------------
 	{
+		'mhartington/formatter.nvim',
+		event = { 'BufReadPre', 'BufNewFile' },
+		dependencies = { 'williamboman/mason.nvim', 'neovim/nvim-lspconfig' },
+		opts = function(_, opts)
+			opts = opts or {}
+			local defaults = {
+				logging = true,
+				log_level = vim.log.levels.WARN,
+				filetype = {
+					lua = { require('formatter.filetypes.lua').stylua },
+				},
+			}
+			opts = vim.tbl_extend('keep', opts, defaults)
+			return opts
+		end,
+		config = true,
+	},
+
+	-----------------------------------------------------------------------------
+	{
 		'dnlhc/glance.nvim',
 		cmd = 'Glance',
 		keys = {

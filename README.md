@@ -479,8 +479,8 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [williamboman/mason.nvim] | Portable package manager for Neovim
 | [williamboman/mason-lspconfig.nvim] | Mason extension for easier lspconfig integration
 | [hrsh7th/cmp-nvim-lsp] | nvim-cmp source for neovim builtin LSP client
-| [b0o/SchemaStore.nvim] | JSON schemas for Neovim
-| [rafi/neoconf-venom.nvim] | Automatically set virtual-environment python runtime
+| [mhartington/formatter.nvim] | Format runner
+| [dnlhc/glance.nvim] | Pretty window for navigating LSP locations
 
 ### Editor Plugins
 
@@ -609,7 +609,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [t9md/vim-quickhl] | Highlight words quickly
 | [kevinhwang91/nvim-bqf] | Better quickfix window in Neovim
 | [uga-rosa/ccc.nvim] | Super powerful color picker/colorizer plugin
-| [dnlhc/glance.nvim] | Pretty window for navigating LSP locations
 | [itchyny/calendar.vim] | Calendar application
 
 [neovim/nvim-lspconfig]: https://github.com/neovim/nvim-lspconfig
@@ -618,8 +617,8 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [williamboman/mason.nvim]: https://github.com/williamboman/
 [williamboman/mason-lspconfig.nvim]: https://github.com/williamboman/mason-lspconfig.nvim
 [hrsh7th/cmp-nvim-lsp]: https://github.com/hrsh7th/cmp-nvim-lsp
-[b0o/SchemaStore.nvim]: https://github.com/b0o/SchemaStore.nvim
-[rafi/neoconf-venom.nvim]: https://github.com/rafi/neoconf-venom.nvim
+[mhartington/formatter.nvim]: https://github.com/mhartington/formatter.nvim
+[dnlhc/glance.nvim]: https://github.com/dnlhc/glance.nvim
 
 [folke/lazy.nvim]: https://github.com/folke/lazy.nvim
 [nmac427/guess-indent.nvim]: https://github.com/nmac427/guess-indent.nvim
@@ -720,7 +719,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [t9md/vim-quickhl]: https://github.com/t9md/vim-quickhl
 [kevinhwang91/nvim-bqf]: https://github.com/kevinhwang91/nvim-bqf
 [uga-rosa/ccc.nvim]: https://github.com/uga-rosa/ccc.nvim
-[dnlhc/glance.nvim]: https://github.com/dnlhc/glance.nvim
 [itchyny/calendar.vim]: https://github.com/itchyny/calendar.vim
 
 </details>

@@ -134,6 +134,20 @@ return {
 	},
 
 	{
+		'mhartington/formatter.nvim',
+		optional = true,
+		opts = function(_, opts)
+			opts = opts or {}
+			local filetypes = {
+				go = {
+					require('formatter.filetypes.go').gofumpt,
+				},
+			}
+			opts.filetype = vim.tbl_extend('keep', opts.filetype or {}, filetypes)
+		end,
+	},
+
+	{
 		'jose-elias-alvarez/null-ls.nvim',
 		optional = true,
 		opts = function(_, opts)
