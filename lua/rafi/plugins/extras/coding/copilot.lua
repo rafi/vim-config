@@ -11,6 +11,10 @@ return {
 		opts = {
 			suggestion = { enabled = false },
 			panel = { enabled = false },
+			filetypes = {
+				markdown = true,
+				help = true,
+			},
 		},
 	},
 
@@ -40,19 +44,21 @@ return {
 				end,
 				cond = function()
 					local clients
-					local bufnr = vim.api.nvim_get_current_buf()
 					if vim.lsp.get_clients ~= nil then
-						clients = vim.lsp.get_clients({ name = 'copilot', bufnr = bufnr })
+						clients = vim.lsp.get_clients({ name = 'copilot', bufnr = 0 })
 					else
 						---@diagnostic disable-next-line: deprecated
 						clients = vim.lsp.get_active_clients({
 							name = 'copilot',
-							bufnr = bufnr,
+							bufnr = 0,
 						})
 					end
 					return #clients > 0
 				end,
 				color = function()
+					if not package.loaded["copilot"] then
+						return
+					end
 					local status = require('copilot.api').status.data
 					return colors[status.status] or colors['']
 				end,

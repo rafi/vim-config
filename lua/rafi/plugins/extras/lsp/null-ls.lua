@@ -32,4 +32,31 @@ return {
 			)
 		end,
 	},
+
+	-- You can add your own sources. Here's an example:
+	-- {
+	-- 	'jose-elias-alvarez/null-ls.nvim',
+	-- 	optional = true,
+	-- 	opts = function(_, opts)
+	-- 		local builtins = require('null-ls.builtins')
+	-- 		local sources = {
+	-- 			builtins.formatting.black,
+	-- 			builtins.formatting.fixjson,
+	-- 			builtins.formatting.golines,
+	-- 			builtins.formatting.markdownlint,
+	-- 			builtins.formatting.shellharden,
+	-- 			builtins.formatting.sql_formatter,
+	-- 			builtins.formatting.taplo,
+	-- 			builtins.diagnostics.markdownlint,
+	-- 			builtins.diagnostics.mypy,
+	-- 			builtins.diagnostics.vint,
+	-- 			builtins.diagnostics.yamllint,
+	-- 			builtins.code_actions.shellcheck,
+	-- 		}
+	-- 		opts.sources = opts.sources or {}
+	-- 		for _, source in ipairs(sources) do
+	-- 			table.insert(opts.sources, source)
+	-- 		end
+	-- 	end,
+	-- },
 }
