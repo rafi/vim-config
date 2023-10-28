@@ -47,8 +47,8 @@ function M.get()
 		{ '<Leader>uD', function() M.diagnostic_toggle(true) end, desc = 'Disable All Diagnostics' },
 
 		{ '<leader>cl', '<cmd>LspInfo<cr>' },
-		{ '<leader>cf', format, desc = 'Format Document', has = 'formatting' },
-		{ '<leader>cf', format, mode = 'x', desc = 'Format Range' },  -- , has = 'rangeFormatting'
+		{ '<leader>cf', format, desc = 'Format Document' },
+		{ '<leader>cf', format, mode = 'x', desc = 'Format Range' },
 		{ '<Leader>cr', vim.lsp.buf.rename, desc = 'Rename', has = 'rename' },
 		{ '<Leader>ce', vim.diagnostic.open_float, desc = 'Open diagnostics' },
 		{ '<Leader>ca', vim.lsp.buf.code_action, mode = { 'n', 'x' }, has = 'codeAction', desc = 'Code Action' },

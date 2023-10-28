@@ -42,8 +42,8 @@ return {
 				},
 			},
 			-- Enable this to enable the builtin LSP inlay hints on Neovim >= 0.10.0
-			-- Be aware that you also will need to properly configure your LSP server to
-			-- provide the inlay hints.
+			-- Be aware that you also will need to properly configure your LSP server
+			-- to provide the inlay hints.
 			inlay_hints = {
 				enabled = false,
 			},
@@ -51,16 +51,19 @@ return {
 			capabilities = {},
 			-- Automatically format on save
 			autoformat = false,
-			-- Options for vim.lsp.buf.format
-			-- `bufnr` and `filter` is handled by the formatter,
-			-- but can be also overridden when specified
 			format = {
-				formatting_options = nil,
-				timeout_ms = nil,
+				select = true,
+				-- If select=false, set to plugin priority.
+				priority = { 'formatter', 'lsp', 'null-ls' },
+				-- If select=false, show formatters used in a notification
+				notify = false,
+				-- Options for vim.lsp.buf.format - `bufnr` and `filter` is handled by
+				-- the formatter, but can be overridden
+				lsp = {
+					formatting_options = nil,
+					timeout_ms = nil,
+				},
 			},
-			-- Enable this to show formatters used in a notification
-			-- Useful for debugging formatter issues
-			format_notify = false,
 			-- LSP Server Settings
 			---@type lspconfig.options
 			---@diagnostic disable: missing-fields
@@ -198,7 +201,7 @@ return {
 				require('lspconfig')[server_name].setup(server_opts)
 			end
 
-			-- Get all the servers that are available thourgh mason-lspconfig
+			-- Get all the servers that are available through mason-lspconfig
 			local have_mason, mlsp = pcall(require, 'mason-lspconfig')
 			local all_mslp_servers = {}
 			if have_mason then
