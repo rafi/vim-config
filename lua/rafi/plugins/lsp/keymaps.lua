@@ -89,7 +89,7 @@ function M.resolve(buffer)
 
 	local function add(keymap)
 		local keys = Keys.parse(keymap)
-		if keys[2] == false then
+		if keys.rhs == false then
 			keymaps[keys.id] = nil
 		else
 			keymaps[keys.id] = keys
@@ -130,7 +130,7 @@ function M.on_attach(client, buffer)
 			opts.has = nil
 			opts.silent = opts.silent ~= false
 			opts.buffer = buffer
-			vim.keymap.set(keys.mode or 'n', keys[1], keys[2], opts)
+			vim.keymap.set(keys.mode or 'n', keys.lhs, keys.rhs, opts)
 		end
 	end
 end
