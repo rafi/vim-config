@@ -221,6 +221,7 @@ return {
 		keys = {
 			{ '<Leader>ue', '<cmd>IndentBlanklineToggle<CR>' },
 		},
+		main = "ibl",
 		opts = {
 			show_trailing_blankline_indent = false,
 			disable_with_nolist = true,
