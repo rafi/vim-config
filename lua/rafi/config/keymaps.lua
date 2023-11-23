@@ -2,6 +2,9 @@
 -- github.com/rafi/vim-config
 -- ===
 
+-- This file is automatically loaded by rafi.config.init
+
+local Util = require('rafi.lib.utils')
 local map = vim.keymap.set
 
 local function augroup(name)
@@ -17,7 +20,7 @@ if vim.g.rafi_elite_mode then
 end
 
 -- Package-manager
-map('n', '<leader>l', '<cmd>:Lazy<cr>', { desc = 'Open Lazy UI' })
+map('n', '<leader>l', '<cmd>Lazy<cr>', { desc = 'Open Lazy UI' })
 
 -- stylua: ignore start
 
@@ -45,7 +48,7 @@ end, { expr = true, desc = 'Toggle Fold' })
 map('n', '<S-Return>', 'zMzv', { remap = true, desc = 'Focus Fold' })
 
 -- Location/quickfix list movement
-if not require('rafi.config').has('mini.bracketed') then
+if not Util.has('mini.bracketed') and not Util.has('trouble.nvim') then
 	map('n', ']q', '<cmd>cnext<CR>', { desc = 'Next Quickfix Item' })
 	map('n', '[q', '<cmd>cprev<CR>', { desc = 'Previous Quickfix Item' })
 end
@@ -75,14 +78,14 @@ map('n', 'zh', 'z4h')
 
 -- Yank buffer's relative path to clipboard
 map('n', '<Leader>y', function()
-	local path = vim.fn.expand('%:~:.')
+	local path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':~:.')
 	vim.fn.setreg('+', path)
 	vim.notify(path, vim.log.levels.INFO, { title = 'Yanked relative path' })
 end, { silent = true, desc = 'Yank relative path' })
 
 -- Yank absolute path
 map('n', '<Leader>Y', function()
-	local path = vim.fn.expand('%:p')
+	local path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p')
 	vim.fn.setreg('+', path)
 	vim.notify(path, vim.log.levels.INFO, { title = 'Yanked absolute path' })
 end, { silent = true, desc = 'Yank absolute path' })
@@ -198,16 +201,11 @@ vim.cmd.cnoreabbrev('bD', 'bd')
 -- Switch (window) to the directory of the current opened buffer
 map('n', '<Leader>cd', function()
 	local bufdir = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p:h')
-	if vim.loop.fs_stat(bufdir) then
-		vim.defer_fn(function()
-			vim.cmd.lcd(bufdir)
-		end, 300)
+	if bufdir ~= nil and vim.loop.fs_stat(bufdir) then
+		vim.cmd.tcd(bufdir)
 		vim.notify(bufdir)
 	end
 end, { desc = 'Change Local Directory' })
-
--- Open file under the cursor in a vsplit
-map('n', 'gf', '<cmd>vertical wincmd f<CR>', { desc = 'Find File in Split' })
 
 -- Fast saving from all modes
 map('n', '<Leader>w', '<cmd>write<CR>', { desc = 'Save' })
@@ -217,19 +215,25 @@ map({ 'n', 'i', 'v' }, '<C-s>', '<cmd>write<CR>', { desc = 'Save' })
 -- ===
 
 -- Toggle editor's visual effects
-map('n', '<Leader>ts', '<cmd>setlocal spell!<CR>', { desc = 'Toggle Spellcheck' })
-map('n', '<Leader>tn', '<cmd>setlocal nonumber!<CR>', { desc = 'Toggle Line Numbers' })
-map('n', '<Leader>tl', '<cmd>setlocal nolist!<CR>', { desc = 'Toggle Whitespace Symbols' })
-map('n', '<Leader>th', '<cmd>nohlsearch<CR>', { desc = 'Hide Search Highlight' })
+map('n', '<leader>uf', require('rafi.plugins.lsp.format').toggle, { desc = 'Toggle format on Save' })
+map('n', '<Leader>us', '<cmd>setlocal spell!<CR>', { desc = 'Toggle Spellcheck' })
+map('n', '<Leader>ul', '<cmd>setlocal nonumber!<CR>', { desc = 'Toggle Line Numbers' })
+map('n', '<Leader>uo', '<cmd>setlocal nolist!<CR>', { desc = 'Toggle Whitespace Symbols' })
+map('n', '<Leader>uu', '<cmd>nohlsearch<CR>', { desc = 'Hide Search Highlight' })
+
+if vim.lsp.inlay_hint then
+	map('n', '<leader>uh', function() vim.lsp.inlay_hint(0, nil) end, { desc = 'Toggle Inlay Hints' })
+end
 
 -- Smart wrap toggle (breakindent and colorcolumn toggle as-well)
-map('n', '<Leader>tw', function()
-	vim.wo.wrap = not vim.wo.wrap
-	vim.wo.breakindent = not vim.wo.breakindent
+map('n', '<Leader>uw', function()
+	vim.opt_local.wrap = not vim.wo.wrap
+	vim.opt_local.breakindent = not vim.wo.breakindent
+
 	if vim.wo.colorcolumn == '' then
-		vim.wo.colorcolumn = tostring(vim.bo.textwidth)
+		vim.opt_local.colorcolumn = tostring(vim.bo.textwidth)
 	else
-		vim.wo.colorcolumn = ''
+		vim.opt_local.colorcolumn = ''
 	end
 end, { desc = 'Toggle Wrap' })
 
@@ -273,7 +277,6 @@ map('n', '<LocalLeader>c', function()
 end, { desc = 'Content-aware menu' })
 
 -- Lazygit
-local Util = require('rafi.lib.utils')
 map('n', '<leader>tg', function() Util.float_term({ 'lazygit' }, { cwd = Util.get_root(), esc_esc = false }) end, { desc = 'Lazygit (root dir)' })
 map('n', '<leader>tG', function() Util.float_term({ 'lazygit' }, { esc_esc = false }) end, { desc = 'Lazygit (cwd)' })
 

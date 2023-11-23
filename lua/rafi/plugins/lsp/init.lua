@@ -1,6 +1,9 @@
 -- LSP: Plugins
 -- https://github.com/rafi/vim-config
 
+-- This is part of LazyVim's code, with my modifications.
+-- See: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua
+
 return {
 
 	-----------------------------------------------------------------------------
@@ -8,18 +11,16 @@ return {
 		'neovim/nvim-lspconfig',
 		event = { 'BufReadPre', 'BufNewFile' },
 		dependencies = {
-			{ 'folke/neoconf.nvim', cmd = 'Neoconf', opts = {} },
+			{ 'folke/neoconf.nvim', cmd = 'Neoconf', config = false, dependencies = { 'nvim-lspconfig' } },
 			{ 'folke/neodev.nvim', opts = {} },
 			'williamboman/mason.nvim',
 			'williamboman/mason-lspconfig.nvim',
 			{
 				'hrsh7th/cmp-nvim-lsp',
 				cond = function()
-					return require('rafi.config').has('nvim-cmp')
+					return require('rafi.lib.utils').has('nvim-cmp')
 				end,
 			},
-			'b0o/SchemaStore.nvim',
-			'rafi/neoconf-venom.nvim',
 		},
 		---@class PluginLspOpts
 		opts = {
@@ -40,6 +41,14 @@ return {
 					source = 'always',
 				},
 			},
+			-- Enable this to enable the builtin LSP inlay hints on Neovim >= 0.10.0
+			-- Be aware that you also will need to properly configure your LSP server to
+			-- provide the inlay hints.
+			inlay_hints = {
+				enabled = false,
+			},
+			-- Add any global capabilities here
+			capabilities = {},
 			-- Automatically format on save
 			autoformat = false,
 			-- Options for vim.lsp.buf.format
@@ -49,34 +58,14 @@ return {
 				formatting_options = nil,
 				timeout_ms = nil,
 			},
-			-- Add any global capabilities here
-			capabilities = {},
 			-- Enable this to show formatters used in a notification
 			-- Useful for debugging formatter issues
 			format_notify = false,
 			-- LSP Server Settings
 			---@type lspconfig.options
+			---@diagnostic disable: missing-fields
 			servers = {
-				yamlls = {
-					filetypes = { 'yaml', 'yaml.ansible', 'yaml.docker-compose' },
-				},
-				jsonls = {
-					on_new_config = function(new_config)
-						-- Lazy-load schemastore when needed
-						new_config.settings.json.schemas = new_config.settings.json.schemas
-							or {}
-						vim.list_extend(
-							new_config.settings.json.schemas,
-							require('schemastore').json.schemas()
-						)
-					end,
-					settings = {
-						json = {
-							format = { enable = true },
-							validate = { enable = true },
-						},
-					},
-				},
+				-- jsonls = {},
 				lua_ls = {
 					settings = {
 						Lua = {
@@ -101,12 +90,17 @@ return {
 		},
 		---@param opts PluginLspOpts
 		config = function(_, opts)
+			if require('rafi.lib.utils').has('neoconf.nvim') then
+				local plugin = require('lazy.core.config').spec.plugins['neoconf.nvim']
+				require('neoconf').setup(require('lazy.core.plugin').values(plugin, 'opts', false))
+			end
 			-- Setup autoformat
 			require('rafi.plugins.lsp.format').setup(opts)
 			-- Setup formatting, keymaps and highlights.
+			local lsp_on_attach = require('rafi.lib.utils').on_attach
 			---@param client lsp.Client
 			---@param buffer integer
-			require('rafi.config').on_attach(function(client, buffer)
+			lsp_on_attach(function(client, buffer)
 				require('rafi.plugins.lsp.keymaps').on_attach(client, buffer)
 				require('rafi.plugins.lsp.highlight').on_attach(client, buffer)
 
@@ -116,10 +110,35 @@ return {
 				end
 			end)
 
+			local register_capability = vim.lsp.handlers['client/registerCapability']
+
+			---@diagnostic disable-next-line: duplicate-set-field
+			vim.lsp.handlers['client/registerCapability'] = function(err, res, ctx)
+				local ret = register_capability(err, res, ctx)
+				local client_id = ctx.client_id
+				---@type lsp.Client|nil
+				local client = vim.lsp.get_client_by_id(client_id)
+				local buffer = vim.api.nvim_get_current_buf()
+				if client ~= nil then
+					require('rafi.plugins.lsp.keymaps').on_attach(client, buffer)
+				end
+				return ret
+			end
+
 			-- Diagnostics signs and highlights
 			for type, icon in pairs(require('rafi.config').icons.diagnostics) do
 				local hl = 'DiagnosticSign' .. type
 				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
+			end
+
+			-- Setup inlay-hints
+			local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
+			if opts.inlay_hints.enabled and inlay_hint then
+				lsp_on_attach(function(client, buffer)
+					if client.supports_method('textDocument/inlayHint') then
+						inlay_hint(buffer, true)
+					end
+				end)
 			end
 
 			if
@@ -140,18 +159,16 @@ return {
 
 			vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
-			-- See https://github.com/rafi/neoconf-venom.nvim
-			require('venom').setup()
-
 			-- Initialize LSP servers and ensure Mason packages
 
 			-- Setup base config for all servers.
 			local servers = opts.servers
+			local has_cmp, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
 			local capabilities = vim.tbl_deep_extend(
 				'force',
 				{},
 				vim.lsp.protocol.make_client_capabilities(),
-				require('cmp_nvim_lsp').default_capabilities(),
+				has_cmp and cmp_nvim_lsp.default_capabilities() or {},
 				opts.capabilities or {}
 			)
 
@@ -213,6 +230,9 @@ return {
 					handlers = { make_config },
 				})
 			end
+
+			-- Enable rounded borders in :LspInfo window.
+			require('lspconfig.ui.windows').default_options.border = 'rounded'
 		end,
 	},
 
@@ -250,33 +270,22 @@ return {
 
 	-----------------------------------------------------------------------------
 	{
-		'jose-elias-alvarez/null-ls.nvim',
+		'mhartington/formatter.nvim',
 		event = { 'BufReadPre', 'BufNewFile' },
-		dependencies = { 'williamboman/mason.nvim' },
-		opts = function()
-			local builtins = require('null-ls').builtins
-			-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
-			return {
-				fallback_severity = vim.diagnostic.severity.INFO,
-				should_attach = function(bufnr)
-					return not vim.api.nvim_buf_get_name(bufnr):match('^[a-z]+://')
-				end,
-				root_dir = require('null-ls.utils').root_pattern(
-					'.git',
-					'_darcs',
-					'.hg',
-					'.bzr',
-					'.svn',
-					'.null-ls-root',
-					'.neoconf.json',
-					'Makefile'
-				),
-				sources = {
-					builtins.formatting.stylua,
-					builtins.formatting.shfmt,
+		dependencies = { 'williamboman/mason.nvim', 'neovim/nvim-lspconfig' },
+		opts = function(_, opts)
+			opts = opts or {}
+			local defaults = {
+				logging = true,
+				log_level = vim.log.levels.WARN,
+				filetype = {
+					lua = { require('formatter.filetypes.lua').stylua },
 				},
 			}
+			opts = vim.tbl_extend('keep', opts, defaults)
+			return opts
 		end,
+		config = true,
 	},
 
 	-----------------------------------------------------------------------------
@@ -304,8 +313,6 @@ return {
 						['sg'] = actions.jump_vsplit,
 						['sv'] = actions.jump_split,
 						['st'] = actions.jump_tab,
-						['h'] = actions.close_fold,
-						['l'] = actions.open_fold,
 						['p'] = actions.enter_win('preview'),
 					},
 					preview = {

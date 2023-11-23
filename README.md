@@ -51,6 +51,9 @@ Please read "[Extending](#extending)" to learn how to customize and modify.
   * [Extra Plugins: Diagnostics](#extra-plugins-diagnostics)
   * [Extra Plugins: Editor](#extra-plugins-editor)
   * [Extra Plugins: Formatting](#extra-plugins-formatting)
+  * [Extra Plugins: Git](#extra-plugins-git)
+  * [Extra Plugins: Lang](#extra-plugins-lang)
+  * [Extra Plugins: Linting](#extra-plugins-linting)
   * [Extra Plugins: LSP](#extra-plugins-lsp)
   * [Extra Plugins: Org](#extra-plugins-org)
   * [Extra Plugins: Treesitter](#extra-plugins-treesitter)
@@ -68,7 +71,6 @@ Please read "[Extending](#extending)" to learn how to customize and modify.
   * [Editor UI](#editor-ui)
   * [Custom Tools & Plugins](#custom-tools--plugins)
   * [Window Management](#window-management)
-  * [Plugin: Mini.Bracketed](#plugin-minibracketed)
   * [Plugin: Mini.Surround](#plugin-minisurround)
   * [Plugin: Gitsigns](#plugin-gitsigns)
   * [Plugin: Telescope](#plugin-telescope)
@@ -86,13 +88,13 @@ Please read "[Extending](#extending)" to learn how to customize and modify.
 * Robust, yet light-weight
 * Plugin management with [folke/lazy.nvim]. Use with `:Lazy` or <kbd>Space</kbd>+<kbd>l</kbd>
 * Install LSP, DAP, linters, and formatters. Use with `:Mason` or <kbd>Space</kbd>+<kbd>mm</kbd>
-* LSP configuration with [nvim-lspconfig] and [folke/neoconf.nvim] (see [neoconf.json])
+* LSP configuration with [nvim-lspconfig]
 * [telescope.nvim] centric work-flow with lists (try <kbd>;</kbd>+<kbd>f</kbd>…)
 * Custom context-menu (try it! <kbd>;</kbd>+<kbd>c</kbd>)
 * Auto-complete extensive setup with [nvim-cmp]
   (try <kbd>Tab</kbd> or <kbd>Ctrl</kbd>+<kbd>Space</kbd> in insert-mode)
 * Structure view with [simrat39/symbols-outline.nvim]
-* Git features using [lewis6991/gitsigns.nvim] and [tpope/vim-fugitive]
+* Git features using [lewis6991/gitsigns.nvim], [sindrets/diffview.nvim], and [more](#git-plugins)
 * Auto-save and restore sessions with [olimorris/persisted.nvim]
 * Unobtrusive, yet informative status & tab lines
 * Premium color-schemes
@@ -151,8 +153,8 @@ You'll need utilities like `npm` and `curl` to install some extensions, see
 [requirements](https://github.com/williamboman/mason.nvim#requirements)
 (or `:h mason-requirements`) for more information.
 
-See [neoconf.json] and [lua/rafi/plugins/lsp/init.lua] for custom key-mappings
-and configuration for some language-servers.
+See [lua/rafi/plugins/lsp/init.lua] for custom key-mappings and configuration
+for some language-servers.
 
 ### Recommended LSP
 
@@ -240,7 +242,7 @@ git pull --ff --ff-only
 
 There are 2 distinct ways to extend configuration:
 
-1. The second option is to fork this repository and create a directory
+1. The first option is to fork this repository and create a directory
    `lua/config` with one or more of these files: (Optional)
 
    * `lua/config/autocmds.lua` — Custom auto-commands
@@ -409,7 +411,7 @@ package.loaded['rafi.config.options'] = true
 
 To override **LSP configurations**, you can do either:
 
-1. Customize `neoconf.json` or per project's `.neoconf.json`
+1. Customize per project's `.neoconf.json`
 
 2. Or, override server options with nvim-lspconfig plugin, for example:
 
@@ -477,9 +479,8 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [williamboman/mason.nvim] | Portable package manager for Neovim
 | [williamboman/mason-lspconfig.nvim] | Mason extension for easier lspconfig integration
 | [hrsh7th/cmp-nvim-lsp] | nvim-cmp source for neovim builtin LSP client
-| [b0o/SchemaStore.nvim] | JSON schemas for Neovim
-| [rafi/neoconf-venom.nvim] | Automatically set virtual-environment python runtime
-| [jose-elias-alvarez/null-ls.nvim] | Inject LSP diagnostics, code actions, and more
+| [mhartington/formatter.nvim] | Format runner
+| [dnlhc/glance.nvim] | Pretty window for navigating LSP locations
 
 ### Editor Plugins
 
@@ -499,10 +500,8 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [haya14busa/vim-edgemotion] | Jump to the edge of block
 | [folke/zen-mode.nvim] | Distraction-free coding for Neovim
 | [folke/which-key.nvim] | Create key bindings that stick
-| [tversteeg/registers.nvim] | Preview the contents of the registers
 | [folke/todo-comments.nvim] | Highlight, list and search todo comments in your projects
 | [folke/trouble.nvim] | Pretty lists to help you solve all code diagnostics
-| [sindrets/diffview.nvim] | Tabpage interface for cycling through diffs
 | [akinsho/toggleterm.nvim] | Persist and toggle multiple terminals
 | [simrat39/symbols-outline.nvim] | Tree like view for symbols using LSP
 | [s1n7ax/nvim-window-picker] | Window picker
@@ -516,7 +515,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 
 | Name           | Description
 | -------------- | ----------------------
-| [sbdchd/neoformat] | Format code with numerous tools
 | [hrsh7th/nvim-cmp] | Completion plugin for neovim written in Lua
 | [hrsh7th/cmp-buffer] | nvim-cmp source for buffer words
 | [hrsh7th/cmp-path] | nvim-cmp source for path
@@ -532,7 +530,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [JoosepAlviste/nvim-ts-context-commentstring] | Set the commentstring based on the cursor location
 | [echasnovski/mini.comment] | Fast and familiar per-line commenting
 | [echasnovski/mini.trailspace] | Trailing whitespace highlight and remove
-| [echasnovski/mini.bracketed] | Go forward/backward with square brackets
 | [echasnovski/mini.ai] | Extend and create `a`/`i` textobjects
 | [echasnovski/mini.splitjoin] | Split and join arguments
 | [AndrewRadev/linediff.vim] | Perform diffs on blocks of code
@@ -557,9 +554,10 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | Name           | Description
 | -------------- | ----------------------
 | [lewis6991/gitsigns.nvim] | Git signs written in pure lua
-| [TimUntersberger/neogit] | Magit clone for Neovim
-| [tpope/vim-fugitive] | Git client
-| [junegunn/gv.vim] | Git log browser
+| [sindrets/diffview.nvim] | Tabpage interface for cycling through diffs
+| [NeogitOrg/neogit] | Magit clone for Neovim
+| [FabijanZulj/blame.nvim] | Git blame visualizer
+| [rhysd/git-messenger.vim] | Reveal the commit messages under the cursor
 | [ruifm/gitlinker.nvim] | Browse git repositories
 | [rhysd/committia.vim] | Pleasant editing on Git commit messages
 
@@ -572,8 +570,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [nvim-telescope/telescope.nvim] | Find, Filter, Preview, Pick. All lua.
 | [jvgrootveld/telescope-zoxide] | Telescope extension for Zoxide
 | [rafi/telescope-thesaurus.nvim] | Browse synonyms from thesaurus.com
-| [nvim-telescope/telescope-frecency.nvim] | Intelligent prioritization when selecting files from your editing history
-| [kkharji/sqlite.lua] | SQLite LuaJIT binding with a simple API
 | [nvim-lua/plenary.nvim] | Lua functions library
 
 ### Treesitter & Syntax
@@ -586,17 +582,13 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [RRethy/nvim-treesitter-endwise] | Wisely add "end" in various filetypes
 | [windwp/nvim-ts-autotag] | Use treesitter to auto close and auto rename html tag
 | [andymass/vim-matchup] | Modern matchit and matchparen
-| [kevinhwang91/nvim-ufo] | Make folds look modern and keep a high performance
 | [iloginow/vim-stylus] | Better vim plugin for stylus
 | [chrisbra/csv.vim] | Handling column separated data
-| [towolf/vim-helm] | Syntax for Helm templates (yaml + gotmpl + sprig)
 | [mustache/vim-mustache-handlebars] | Mustache and handlebars syntax
 | [lifepillar/pgsql.vim] | PostgreSQL syntax and indent
 | [MTDL9/vim-log-highlighting] | Syntax highlighting for generic log files
-| [tmux-plugins/vim-tmux] | Plugin for tmux.conf
 | [reasonml-editor/vim-reason-plus] | Reason syntax and indent
 | [vmchale/just-vim] | Syntax highlighting for Justfiles
-| [pearofducks/ansible-vim] | Improved YAML support for Ansible
 
 ### UI Plugins
 
@@ -616,7 +608,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [t9md/vim-quickhl] | Highlight words quickly
 | [kevinhwang91/nvim-bqf] | Better quickfix window in Neovim
 | [uga-rosa/ccc.nvim] | Super powerful color picker/colorizer plugin
-| [dnlhc/glance.nvim] | Pretty window for navigating LSP locations
 | [itchyny/calendar.vim] | Calendar application
 
 [neovim/nvim-lspconfig]: https://github.com/neovim/nvim-lspconfig
@@ -625,9 +616,8 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [williamboman/mason.nvim]: https://github.com/williamboman/
 [williamboman/mason-lspconfig.nvim]: https://github.com/williamboman/mason-lspconfig.nvim
 [hrsh7th/cmp-nvim-lsp]: https://github.com/hrsh7th/cmp-nvim-lsp
-[b0o/SchemaStore.nvim]: https://github.com/b0o/SchemaStore.nvim
-[rafi/neoconf-venom.nvim]: https://github.com/rafi/neoconf-venom.nvim
-[jose-elias-alvarez/null-ls.nvim]: https://github.com/jose-elias-alvarez/null-ls.nvim
+[mhartington/formatter.nvim]: https://github.com/mhartington/formatter.nvim
+[dnlhc/glance.nvim]: https://github.com/dnlhc/glance.nvim
 
 [folke/lazy.nvim]: https://github.com/folke/lazy.nvim
 [nmac427/guess-indent.nvim]: https://github.com/nmac427/guess-indent.nvim
@@ -643,10 +633,8 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [haya14busa/vim-edgemotion]: https://github.com/haya14busa/vim-edgemotion
 [folke/zen-mode.nvim]: https://github.com/folke/zen-mode.nvim
 [folke/which-key.nvim]: https://github.com/folke/which-key.nvim
-[tversteeg/registers.nvim]: https://github.com/tversteeg/registers.nvim
 [folke/todo-comments.nvim]: https://github.com/folke/todo-comments.nvim
 [folke/trouble.nvim]: https://github.com/folke/trouble.nvim
-[sindrets/diffview.nvim]: https://github.com/sindrets/diffview.nvim
 [akinsho/toggleterm.nvim]: https://github.com/akinsho/toggleterm.nvim
 [simrat39/symbols-outline.nvim]: https://github.com/simrat39/symbols-outline.nvim
 [s1n7ax/nvim-window-picker]: https://github.com/s1n7ax/nvim-window-picker
@@ -656,7 +644,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [echasnovski/mini.bufremove]: https://github.com/echasnovski/mini.bufremove
 [mzlogin/vim-markdown-toc]: https://github.com/mzlogin/vim-markdown-toc
 
-[sbdchd/neoformat]: https://github.com/sbdchd/neoformat
 [hrsh7th/nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
 [hrsh7th/cmp-buffer]: https://github.com/hrsh7th/cmp-buffer
 [hrsh7th/cmp-path]: https://github.com/hrsh7th/cmp-path
@@ -672,7 +659,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [JoosepAlviste/nvim-ts-context-commentstring]: https://github.com/JoosepAlviste/nvim-ts-context-commentstring
 [echasnovski/mini.comment]: https://github.com/echasnovski/mini.comment
 [echasnovski/mini.trailspace]: https://github.com/echasnovski/mini.trailspace
-[echasnovski/mini.bracketed]: https://github.com/echasnovski/mini.bracketed
 [echasnovski/mini.ai]: https://github.com/echasnovski/mini.ai
 [echasnovski/mini.splitjoin]: https://github.com/echasnovski/mini.splitjoin
 [AndrewRadev/linediff.vim]: https://github.com/AndrewRadev/linediff.vim
@@ -689,9 +675,10 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [nyoom-engineering/oxocarbon.nvim]: https://github.com/nyoom-engineering/oxocarbon.nvim
 
 [lewis6991/gitsigns.nvim]: https://github.com/lewis6991/gitsigns.nvim
-[TimUntersberger/neogit]: https://github.com/TimUntersberger/neogit
-[tpope/vim-fugitive]: https://github.com/tpope/vim-fugitive
-[junegunn/gv.vim]: https://github.com/junegunn/gv.vim
+[sindrets/diffview.nvim]: https://github.com/sindrets/diffview.nvim
+[NeogitOrg/neogit]: https://github.com/NeogitOrg/neogit
+[FabijanZulj/blame.nvim]: https://github.com/FabijanZulj/blame.nvim
+[rhysd/git-messenger.vim]: https://github.com/rhysd/git-messenger.vim
 [ruifm/gitlinker.nvim]: https://github.com/ruifm/gitlinker.nvim
 [rhysd/committia.vim]: https://github.com/rhysd/committia.vim
 
@@ -700,8 +687,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [nvim-telescope/telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
 [jvgrootveld/telescope-zoxide]: https://github.com/jvgrootveld/telescope-zoxide
 [rafi/telescope-thesaurus.nvim]: https://github.com/rafi/telescope-thesaurus.nvim
-[nvim-telescope/telescope-frecency.nvim]: https://github.com/nvim-telescope/telescope-frecency.nvim
-[kkharji/sqlite.lua]: https://github.com/kkharji/sqlite.lua
 [nvim-lua/plenary.nvim]: https://github.com/nvim-lua/plenary.nvim
 
 [nvim-treesitter/nvim-treesitter]: https://github.com/nvim-treesitter/nvim-treesitter
@@ -710,17 +695,13 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [RRethy/nvim-treesitter-endwise]: https://github.com/RRethy/nvim-treesitter-endwise
 [windwp/nvim-ts-autotag]: https://github.com/windwp/nvim-ts-autotag
 [andymass/vim-matchup]: https://github.com/andymass/vim-matchup
-[kevinhwang91/nvim-ufo]: https://github.com/kevinhwang91/nvim-ufo
 [iloginow/vim-stylus]: https://github.com/iloginow/vim-stylus
 [chrisbra/csv.vim]: https://github.com/chrisbra/csv.vim
-[towolf/vim-helm]: https://github.com/towolf/vim-helm
 [mustache/vim-mustache-handlebars]: https://github.com/mustache/vim-mustache-handlebars
 [lifepillar/pgsql.vim]: https://github.com/lifepillar/pgsql.vim
 [MTDL9/vim-log-highlighting]: https://github.com/MTDL9/vim-log-highlighting
-[tmux-plugins/vim-tmux]: https://github.com/tmux-plugins/vim-tmux
 [reasonml-editor/vim-reason-plus]: https://github.com/reasonml-editor/vim-reason-plus
 [vmchale/just-vim]: https://github.com/vmchale/just-vim
-[pearofducks/ansible-vim]: https://github.com/pearofducks/ansible-vim
 
 [nvim-tree/nvim-web-devicons]: https://github.com/nvim-tree/nvim-web-devicons
 [MunifTanjim/nui.nvim]: https://github.com/MunifTanjim/nui.nvim
@@ -736,7 +717,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [t9md/vim-quickhl]: https://github.com/t9md/vim-quickhl
 [kevinhwang91/nvim-bqf]: https://github.com/kevinhwang91/nvim-bqf
 [uga-rosa/ccc.nvim]: https://github.com/uga-rosa/ccc.nvim
-[dnlhc/glance.nvim]: https://github.com/dnlhc/glance.nvim
 [itchyny/calendar.vim]: https://github.com/itchyny/calendar.vim
 
 </details>
@@ -765,6 +745,7 @@ Spec: `rafi.plugins.extras.coding.<name>`
 | Name           | Repository     | Description
 | -------------- | -------------- | ----------------------
 | `autopairs`    | [windwp/nvim-autopairs] | Autopairs for neovim written by lua
+| `cmp-git`      | [petertriho/cmp-git] | Git source for nvim-cmp
 | `copilot`      | [zbirenbaum/copilot.lua] | Fully featured & enhanced copilot
 | `editorconfig` | [sgur/vim-editorconfig] | EditorConfig plugin written entirely in Vimscript
 | `emmet`        | [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet
@@ -783,11 +764,12 @@ Spec: `rafi.plugins.extras.diagnostics.<name>`
 
 Spec: `rafi.plugins.extras.editor.<name>`
 
-| Key       | Name           | Description
+| Name      | Repository     | Description
 | ----------| -------------- | ----------------------
 | `anyjump` | [pechorin/any-jump.vim] | Jump to any definition and references without overhead
 | `flybuf`  | [glepnir/flybuf.nvim] | List buffers in a float window
 | `sidebar` | [sidebar-nvim/sidebar.nvim] | Generic and modular lua sidebar
+| `ufo`     | [kevinhwang91/nvim-ufo] | Make folds look modern and keep a high performance
 
 ### Extra Plugins: Formatting
 
@@ -796,6 +778,26 @@ Spec: `rafi.plugins.extras.formatting.<name>`
 | Name           | Description
 | -------------- | ----------------------
 | `prettier`     | prettier: null-ls source and mason package
+
+
+### Extra Plugins: Lang
+
+Spec: `rafi.plugins.extras.lang.<name>`
+
+| Name           | Description
+| -------------- | ----------------------
+| `go`           | go syntax, lsp, dap and test
+| `json`         | json syntax, lsp and schemas
+| `python`       | python syntax, lsp, dap, test and [rafi/neoconf-venom.nvim]
+| `yaml`         | yaml syntax, lsp and schemas
+
+### Extra Plugins: Linting
+
+Spec: `rafi.plugins.extras.linting.<name>`
+
+| Name           | Description
+| -------------- | ----------------------
+| `ruff`         | ruff for python
 
 ### Extra Plugins: LSP
 
@@ -806,6 +808,7 @@ Spec: `rafi.plugins.extras.lsp.<name>`
 | `gtd`            | [hrsh7th/nvim-gtd] | LSP's go-to definition plugin
 | `inlayhints`     | [lvimuser/lsp-inlayhints.nvim] | Partial implementation of LSP inlay hint
 | `lightbulb`      | [kosayoda/nvim-lightbulb] | VSCode 💡 for neovim's built-in LSP
+| `null-ls`        | [jose-elias-alvarez/null-ls.nvim] | Inject LSP diagnostics, code actions, and more
 | `yaml-companion` | [yaml-companion.nvim] | Get, set and autodetect YAML schemas in your buffers
 
 ### Extra Plugins: Org
@@ -841,19 +844,37 @@ Spec: `rafi.plugins.extras.ui.<name>`
 | `statuscol`    | [luukvbaal/statuscol.nvim] | Configurable 'statuscolumn' and click handlers
 
 [windwp/nvim-autopairs]: https://github.com/windwp/nvim-autopairs
+[petertriho/cmp-git]: https://github.com/petertriho/cmp-git
 [zbirenbaum/copilot.lua]: https://github.com/zbirenbaum/copilot.lua
 [sgur/vim-editorconfig]: https://github.com/sgur/vim-editorconfig
 [mattn/emmet-vim]: https://github.com/mattn/emmet-vim
 [machakann/vim-sandwich]: https://github.com/machakann/vim-sandwich
+
 [pechorin/any-jump.vim]: https://github.com/pechorin/any-jump.vim
 [glepnir/flybuf.nvim]: https://github.com/glepnir/flybuf.nvim
 [sidebar-nvim/sidebar.nvim]: https://github.com/sidebar-nvim/sidebar.nvim
+[kevinhwang91/nvim-ufo]: https://github.com/kevinhwang91/nvim-ufo
+
+[tpope/vim-fugitive]: https://github.com/tpope/vim-fugitive
+[junegunn/gv.vim]: https://github.com/junegunn/gv.vim
+
+[pearofducks/ansible-vim]: https://github.com/pearofducks/ansible-vim
+[towolf/vim-helm]: https://github.com/towolf/vim-helm
+[mfussenegger/nvim-dap-python]: https://github.com/mfussenegger/nvim-dap-python
+[rafi/neoconf-venom.nvim]: https://github.com/rafi/neoconf-venom.nvim
+[jose-elias-alvarez/typescript.nvim]: https://github.com/jose-elias-alvarez/typescript.nvim
+[b0o/SchemaStore.nvim]: https://github.com/b0o/SchemaStore.nvim
+
 [hrsh7th/nvim-gtd]: https://github.com/hrsh7th/nvim-gtd
 [lvimuser/lsp-inlayhints.nvim]: https://github.com/lvimuser/lsp-inlayhints.nvim
 [kosayoda/nvim-lightbulb]: https://github.com/kosayoda/nvim-lightbulb
+[jose-elias-alvarez/null-ls.nvim]: https://github.com/jose-elias-alvarez/null-ls.nvim
 [yaml-companion.nvim]: https://github.com/someone-stole-my-name/yaml-companion.nvim
+
 [vimwiki/vimwiki]: https://github.com/vimwiki/vimwiki
+
 [Wansmer/treesj]: https://github.com/Wansmer/treesj
+
 [utilyre/barbecue.nvim]: https://github.com/utilyre/barbecue.nvim
 [akinsho/bufferline.nvim]: https://github.com/akinsho/bufferline.nvim
 [itchyny/cursorword]: https://github.com/itchyny/vim-cursorword
@@ -912,8 +933,7 @@ Note that,
 
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
-| <kbd>Space</kbd>+<kbd>cd</kbd> | 𝐍 | Switch to the directory of opened buffer | <small>`:lcd %:p:h`</small>
-| <kbd>gf</kbd> | 𝐍 | Open file under the cursor in a vsplit | <small>`:rightbelow wincmd f`</small>
+| <kbd>Space</kbd>+<kbd>cd</kbd> | 𝐍 | Switch to the directory of opened buffer | <small>`:tcd %:p:h`</small>
 | <kbd>Space</kbd>+<kbd>w</kbd> | 𝐍 | Write buffer to file | <small>`:write`</small>
 | <kbd>Ctrl</kbd>+<kbd>s</kbd> | 𝐍 𝐕 𝐂 | Write buffer to file | <small>`:write`</small>
 
@@ -951,8 +971,9 @@ Note that,
 | <kbd>Space</kbd> <kbd>ce</kbd> | 𝐍 | Open diagnostics window | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>ca</kbd> | 𝐍 𝐕 | Code action | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>cA</kbd> | 𝐍 | Source action | <small>[plugins/lsp/keymaps.lua]</small>
-| <kbd>Space</kbd> <kbd>tp</kbd> | 𝐍 | Toggle buffer diagnostics | <small>[plugins/lsp/keymaps.lua]</small>
-| <kbd>Space</kbd> <kbd>tP</kbd> | 𝐍 | Toggle global diagnostics | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>Space</kbd> <kbd>uh</kbd> | 𝐍 | Toggle inlay-hints | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>Space</kbd> <kbd>ud</kbd> | 𝐍 | Toggle buffer diagnostics | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>Space</kbd> <kbd>uD</kbd> | 𝐍 | Toggle global diagnostics | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>,wa</kbd> | 𝐍 | Add workspace folder | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>,wr</kbd> | 𝐍 | Remove workspace folder | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>,wl</kbd> | 𝐍 | List workspace folders | <small>[plugins/lsp/keymaps.lua]</small>
@@ -1019,21 +1040,22 @@ Note that,
 | <kbd>;</kbd>+<kbd>dt</kbd> | 𝐍 | Open TODO Telescope list | <small>[folke/todo-comments.nvim]</small>
 | <kbd>Space</kbd>+<kbd>xt</kbd> | 𝐍 | Open TODO list | <small>[folke/todo-comments.nvim]</small>
 | <kbd>Space</kbd>+<kbd>xT</kbd> | 𝐍 | Open TODO/FIXME list | <small>[folke/todo-comments.nvim]</small>
-| <kbd>Space</kbd>+<kbd>xq</kbd> | 𝐍 | Open Quickfix via Trouble | <small>[folke/trouble.nvim]</small>
-| <kbd>Space</kbd>+<kbd>xl</kbd> | 𝐍 | Open Locationlist via Trouble | <small>[folke/trouble.nvim]</small>
 | <kbd>Space</kbd>+<kbd>e</kbd> | 𝐍 | Open Trouble document | <small>[folke/trouble.nvim]</small>
 | <kbd>Space</kbd>+<kbd>r</kbd> | 𝐍 | Open Trouble workspace | <small>[folke/trouble.nvim]</small>
+| <kbd>Space</kbd>+<kbd>xQ</kbd> | 𝐍 | Open Quickfix via Trouble | <small>[folke/trouble.nvim]</small>
+| <kbd>Space</kbd>+<kbd>xL</kbd> | 𝐍 | Open Locationlist via Trouble | <small>[folke/trouble.nvim]</small>
 
 ### Editor UI
 
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
-| <kbd>Space</kbd> <kbd>ts</kbd> | 𝐍 | Toggle spell-checker | <small>`:setlocal spell!`</small>
-| <kbd>Space</kbd> <kbd>tn</kbd> | 𝐍 | Toggle line numbers | <small>`:setlocal nonumber!`</small>
-| <kbd>Space</kbd> <kbd>tl</kbd> | 𝐍 | Toggle hidden characters | <small>`:setlocal nolist!`</small>
-| <kbd>Space</kbd> <kbd>th</kbd> | 𝐍 | Toggle highlighted search | <small>`:set hlsearch!`</small>
-| <kbd>Space</kbd> <kbd>tw</kbd> | 𝐍 | Toggle wrap | <small>`:setlocal wrap!`</small> …
-| <kbd>Space</kbd> <kbd>ti</kbd> | 𝐍 | Toggle indentation lines | <small>[lukas-reineke/indent-blankline.nvim]</small>
+| <kbd>Space</kbd> <kbd>uf</kbd> | 𝐍 | Toggle format on Save | <small>[config/keymaps.lua]</small>
+| <kbd>Space</kbd> <kbd>us</kbd> | 𝐍 | Toggle spell-checker | <small>`:setlocal spell!`</small>
+| <kbd>Space</kbd> <kbd>ul</kbd> | 𝐍 | Toggle line numbers | <small>`:setlocal nonumber!`</small>
+| <kbd>Space</kbd> <kbd>uo</kbd> | 𝐍 | Toggle hidden characters | <small>`:setlocal nolist!`</small>
+| <kbd>Space</kbd> <kbd>uu</kbd> | 𝐍 | Toggle highlighted search | <small>`:set hlsearch!`</small>
+| <kbd>Space</kbd> <kbd>uw</kbd> | 𝐍 | Toggle wrap | <small>`:setlocal wrap!`</small> …
+| <kbd>Space</kbd> <kbd>ue</kbd> | 𝐍 | Toggle indentation lines | <small>[lukas-reineke/indent-blankline.nvim]</small>
 | <kbd>Space</kbd> <kbd>ui</kbd> | 𝐍 | Show highlight groups for word | <small>`vim.show_pos`</small>
 | <kbd>Space</kbd> <kbd>uC</kbd> | 𝐍 | Select colorscheme | <small>[config/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>un</kbd> | 𝐍 | Dismiss all notifications | <small>[rcarriga/nvim-notify]</small>
@@ -1069,14 +1091,15 @@ Note that,
 | <kbd>Space</kbd> <kbd>tG</kbd> | 𝐍 | Open Lazygit (cwd) | <small>[config/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>cc</kbd> | 𝐍 | Generate doc | <small>[danymat/neogen]</small>
 | <kbd>Space</kbd> <kbd>gu</kbd> | 𝐍 | Open undo-tree | <small>[mbbill/undotree]</small>
-| <kbd>Space</kbd> <kbd>gd</kbd> | 𝐍 | Git diff | <small>[tpope/vim-fugitive]</small>
-| <kbd>Space</kbd> <kbd>gb</kbd> | 𝐍 | Git blame | <small>[tpope/vim-fugitive]</small>
+| <kbd>Space</kbd> <kbd>gd</kbd> | 𝐍 | Git diff | <small>[sindrets/diffview.nvim]</small>
+| <kbd>Space</kbd> <kbd>gb</kbd> | 𝐍 | Git blame | <small>[FabijanZulj/blame.nvim]</small>
 | <kbd>Space</kbd> <kbd>go</kbd> | 𝐍 𝐕 | Open SCM detailed URL in browser | <small>[ruifm/gitlinker.nvim]</small>
 | <kbd>Space</kbd> <kbd>ml</kbd> | 𝐍 | Append modeline to end of buffer | <small>[config/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>mda</kbd> | 𝐕 | Sequentially mark region for diff | <small>[AndrewRadev/linediff.vim]</small>
 | <kbd>Space</kbd> <kbd>mdf</kbd> | 𝐕 | Mark region for diff and compare if more than one | <small>[AndrewRadev/linediff.vim]</small>
 | <kbd>Space</kbd> <kbd>mds</kbd> | 𝐍 | Shows the comparison for all marked regions | <small>[AndrewRadev/linediff.vim]</small>
 | <kbd>Space</kbd> <kbd>mdr</kbd> | 𝐍 | Removes the signs denoting the diff regions | <small>[AndrewRadev/linediff.vim]</small>
+| <kbd>Space</kbd> <kbd>mh</kbd> | 𝐍 | Open HTTP Rest UI | <small>[rest-nvim/rest.nvim]</small>
 | <kbd>Space</kbd> <kbd>mt</kbd> | 𝐍 𝐕 | Toggle highlighted word | <small>[t9md/vim-quickhl]</small>
 | <kbd>Space</kbd> <kbd>zz</kbd> | 𝐍 | Toggle distraction-free writing | <small>[folke/zen-mode.nvim]</small>
 
@@ -1097,28 +1120,6 @@ Note that,
 | <kbd>sx</kbd> | 𝐍 | Delete buffer, leave blank window | <small>`:enew │ bdelete`</small>
 | <kbd>sz</kbd> | 𝐍 | Toggle window zoom | <small>`:vertical resize │ resize`</small>
 | <kbd>sh</kbd> | 𝐍 | Toggle colorscheme background=dark/light | <small>`:set background` …
-
-### Plugin: Mini.Bracketed
-
-Go forward/backward with square brackets. See [echasnovski/mini.bracketed] for
-more mappings and usage information.
-
-| Key                 | Target                                            | Mapping                      |
-|---------------------|-------------------------------------------------- | ---------------------------- |
-| `[B` `[b` `]b` `]B` | Buffer                                            | `MiniBracketed.buffer()`     |
-| `[C` `[c` `]c` `]C` | Comment block                                     | `MiniBracketed.comment()`    |
-| `[X` `[x` `]x` `]X` | Conflict marker                                   | `MiniBracketed.conflict()`   |
-| `[D` `[d` `]d` `]D` | Diagnostic                                        | `MiniBracketed.diagnostic()` |
-| `[F` `[f` `]f` `]F` | File on disk                                      | `MiniBracketed.file()`       |
-| `[I` `[i` `]i` `]I` | Indent change                                     | `MiniBracketed.indent()`     |
-| `[J` `[j` `]j` `]J` | Jump from jumplist inside current buffer          | `MiniBracketed.jump()`       |
-| `[L` `[l` `]l` `]L` | Location from location list                       | `MiniBracketed.location()`   |
-| `[O` `[o` `]o` `]O` | Old files                                         | `MiniBracketed.oldfile()`    |
-| `[Q` `[q` `]q` `]Q` | Quickfix entry from quickfix list                 | `MiniBracketed.quickfix()`   |
-| `[T` `[t` `]t` `]T` | Tree-sitter node and parents                      | `MiniBracketed.treesitter()` |
-| `[U` `[u` `]u` `]U` | Undo states from specially tracked linear history | `MiniBracketed.undo()`       |
-| `[W` `[w` `]w` `]W` | Window in current tab                             | `MiniBracketed.window()`     |
-| `[Y` `[y` `]y` `]Y` | Yank selection replacing the latest put region    | `MiniBracketed.yank()`       |
 
 ### Plugin: Mini.Surround
 
@@ -1235,7 +1236,7 @@ See [nvim-neo-tree/neo-tree.nvim] for more mappings and usage information.
 | <kbd>g?</kbd> | 𝐍 | Show help
 | <kbd>q</kbd> | 𝐍 | Close window
 | <kbd>j</kbd> or <kbd>k</kbd> | 𝐍 | Move up and down the tree
-| <kbd>\></kbd> or <kbd>\<</kbd> | 𝐍 | Next or previous source
+| <kbd>Tab</kbd> or <kbd>Shift</kbd>+<kbd>Tab</kbd> | 𝐍 | Next or previous source
 | <kbd>]g</kbd> or <kbd>[g</kbd> | 𝐍 | Jump to next/previous git modified node
 | <kbd>l</kbd> | 𝐍 | Toggle collapse/expand directory or open file
 | <kbd>h</kbd> | 𝐍 | Collapse directory tree
@@ -1247,7 +1248,7 @@ See [nvim-neo-tree/neo-tree.nvim] for more mappings and usage information.
 | <kbd>sv</kbd> or <kbd>S</kbd> | 𝐍 | Open file in a horizontal split
 | <kbd>sg</kbd> or <kbd>s</kbd> | 𝐍 | Open file in a vertical split
 | <kbd>st</kbd> or <kbd>t</kbd> | 𝐍 | Open file in new tab
-| <kbd>p</kbd> | 𝐍 | Preview node
+| <kbd>p</kbd> | 𝐍 | Preview toggle
 | <kbd>a</kbd> | 𝐍 | Create new directories and/or files
 | <kbd>N</kbd> | 𝐍 | Create new directory
 | <kbd>r</kbd> | 𝐍 | Rename file or directory
@@ -1257,7 +1258,7 @@ See [nvim-neo-tree/neo-tree.nvim] for more mappings and usage information.
 | <kbd>!</kbd> | 𝐍 | Filter
 | <kbd>D</kbd> | 𝐍 | Filter directories
 | <kbd>#</kbd> | 𝐍 | Fuzzy sorter
-| <kbd>/</kbd> | 𝐍 | Filter on submit
+| <kbd>F</kbd> | 𝐍 | Filter on submit
 | <kbd>Ctrl</kbd>+<kbd>c</kbd> | 𝐍 | Clear filter
 | <kbd>Ctrl</kbd>+<kbd>r</kbd> or <kbd>R</kbd> | 𝐍 | Refresh
 | <kbd>fi</kbd> / <kbd>fe</kbd> | 𝐍 | Include/exclude
@@ -1310,7 +1311,6 @@ See [chentau/marks.nvim] for more mappings and usage information.
 </details>
 
 [Neovim]: https://github.com/neovim/neovim
-[neoconf.json]: ./neoconf.json
 [lazy.nvim]: https://github.com/folke/lazy.nvim
 [LazyVim/starter]: https://github.com/LazyVim/starter
 [lua/rafi/plugins/lsp/init.lua]: ./lua/rafi/plugins/lsp/init.lua

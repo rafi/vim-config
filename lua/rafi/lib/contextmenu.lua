@@ -26,7 +26,14 @@ M.show = function()
 	end
 
 	local cword = vim.fn.expand('<cword>')
-	local clients = vim.lsp.get_active_clients()
+	local bufnr = vim.api.nvim_get_current_buf()
+	local clients
+	if vim.lsp.get_clients ~= nil then
+		clients = vim.lsp.get_clients({ bufnr = bufnr })
+	else
+		---@diagnostic disable-next-line: deprecated
+		clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+	end
 
 	-- Remove all menu options
 	pcall(vim.cmd.aunmenu, 'Context')

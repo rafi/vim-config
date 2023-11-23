@@ -36,15 +36,12 @@ return {
 			autoload = true,
 			follow_cwd = false,
 			ignored_dirs = { '/usr', '/opt', '~/.cache', vim.env.TMPDIR or '/tmp' },
-			should_autosave = function()
-				-- Do not autosave if git commit/rebase session.
-				return vim.env.GIT_EXEC_PATH == nil
-			end,
 		},
 		config = function(_, opts)
 			if vim.g.in_pager_mode or vim.env.GIT_EXEC_PATH ~= nil then
 				-- Do not autoload if stdin has been provided, or git commit session.
 				opts.autoload = false
+				opts.autosave = false
 			end
 			require('persisted').setup(opts)
 		end,
@@ -120,7 +117,15 @@ return {
 			delay = 200,
 			under_cursor = false,
 			modes_allowlist = { 'n', 'no', 'nt' },
-			filetypes_denylist = { 'fugitive', 'neo-tree', 'SidebarNvim', 'git' },
+			filetypes_denylist = {
+				'DiffviewFileHistory',
+				'DiffviewFiles',
+				'SidebarNvim',
+				'fugitive',
+				'git',
+				'minifiles',
+				'neo-tree',
+			},
 		},
 		keys = {
 			{ ']]', desc = 'Next Reference' },
@@ -230,23 +235,34 @@ return {
 	-----------------------------------------------------------------------------
 	{
 		'folke/which-key.nvim',
-		cmd = 'WhichKey',
+		event = 'VeryLazy',
 		opts = {
-			plugins = { marks = false, registers = false },
-			icons = { separator = '  ' },
-		}
-	},
-
-	-----------------------------------------------------------------------------
-	{
-		'tversteeg/registers.nvim',
-		cmd = 'Registers',
-		keys = {
-			{ '<C-r>', mode = 'i', desc = 'Reveal registers' },
-			{ '"', mode = 'n', desc = 'Reveal registers' },
-			{ '"', mode = 'x', desc = 'Reveal registers' },
+			icons = { separator = ' 󰁔 ' },
+			window = { winblend = 0 },
+			defaults = {
+				mode = { 'n', 'v' },
+				[';'] = { name = '+telescope' },
+				[';d'] = { name = '+lsp/todo' },
+				['g'] = { name = '+goto' },
+				['gz'] = { name = '+surround' },
+				[']'] = { name = '+next' },
+				['['] = { name = '+prev' },
+				['<leader>b'] = { name = '+buffer' },
+				['<leader>c'] = { name = '+code' },
+				['<leader>g'] = { name = '+git' },
+				['<leader>h'] = { name = '+hunks' },
+				['<leader>s'] = { name = '+search' },
+				['<leader>t'] = { name = '+toggle/tools' },
+				['<leader>u'] = { name = '+ui' },
+				['<leader>x'] = { name = '+diagnostics/quickfix' },
+				['<leader>z'] = { name = '+notes' },
+			},
 		},
-		opts = { window = { border = 'rounded' } },
+		config = function(_, opts)
+			local wk = require('which-key')
+			wk.setup(opts)
+			wk.register(opts.defaults)
+		end,
 	},
 
 	-----------------------------------------------------------------------------
@@ -275,56 +291,33 @@ return {
 		keys = {
 			{ '<leader>e', '<cmd>TroubleToggle document_diagnostics<CR>', noremap = true, desc = 'Document Diagnostics' },
 			{ '<leader>r', '<cmd>TroubleToggle workspace_diagnostics<CR>', noremap = true, desc = 'Workspace Diagnostics' },
-			{ '<leader>xq', '<cmd>TroubleToggle quickfix<CR>', noremap = true, desc = 'Trouble Quickfix' },
-			{ '<leader>xl', '<cmd>TroubleToggle loclist<CR>', noremap = true, desc = 'Trouble Loclist' },
-		},
-	},
-
-	-----------------------------------------------------------------------------
-	{
-		'sindrets/diffview.nvim',
-		cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
-		keys = {
-			{ '<Leader>gv', '<cmd>DiffviewOpen<CR>', desc = 'Diff View' },
-		},
-		opts = function()
-			local actions = require('diffview.actions')
-			vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' }, {
-				group = vim.api.nvim_create_augroup('rafi_diffview', {}),
-				pattern = 'diffview:///panels/*',
-				callback = function()
-					vim.wo.winhighlight = 'CursorLine:WildMenu'
+			{ '<leader>xx', '<cmd>TroubleToggle document_diagnostics<cr>', desc = 'Document Diagnostics (Trouble)' },
+			{ '<leader>xX', '<cmd>TroubleToggle workspace_diagnostics<cr>', desc = 'Workspace Diagnostics (Trouble)' },
+			{ '<leader>xQ', '<cmd>TroubleToggle quickfix<cr>', desc = 'Quickfix List (Trouble)' },
+			{ '<leader>xL', '<cmd>TroubleToggle loclist<cr>', desc = 'Location List (Trouble)' },
+			{
+				'[q',
+				function()
+					if require('trouble').is_open() then
+						require('trouble').previous({ skip_groups = true, jump = true })
+					else
+						vim.cmd.cprev()
+					end
 				end,
-			})
-
-			return {
-				enhanced_diff_hl = true, -- See ':h diffview-config-enhanced_diff_hl'
-				keymaps = {
-					view = {
-						{ 'n', 'q', '<cmd>DiffviewClose<CR>' },
-						{ 'n', '<Tab>', actions.select_next_entry },
-						{ 'n', '<S-Tab>', actions.select_prev_entry },
-						{ 'n', '<LocalLeader>a', actions.focus_files },
-						{ 'n', '<LocalLeader>e', actions.toggle_files },
-					},
-					file_panel = {
-						{ 'n', 'q', '<cmd>DiffviewClose<CR>' },
-						{ 'n', 'h', actions.prev_entry },
-						{ 'n', 'o', actions.focus_entry },
-						{ 'n', 'gf', actions.goto_file },
-						{ 'n', 'sg', actions.goto_file_split },
-						{ 'n', 'st', actions.goto_file_tab },
-						{ 'n', '<C-r>', actions.refresh_files },
-						{ 'n', ';e', actions.toggle_files },
-					},
-					file_history_panel = {
-						{ 'n', 'q', '<cmd>DiffviewClose<CR>' },
-						{ 'n', 'o', actions.focus_entry },
-						{ 'n', 'O', actions.options },
-					},
-				},
-			}
-		end,
+				desc = 'Previous trouble/quickfix item',
+			},
+			{
+				']q',
+				function()
+					if require('trouble').is_open() then
+						require('trouble').next({ skip_groups = true, jump = true })
+					else
+						vim.cmd.cnext()
+					end
+				end,
+				desc = 'Next trouble/quickfix item',
+			},
+		},
 	},
 
 	-----------------------------------------------------------------------------
@@ -333,7 +326,7 @@ return {
 		cmd = 'ToggleTerm',
 		keys = {
 			{
-				'<C-\\>',
+				'<C-_>',
 				mode = { 'n', 't' },
 				silent = true,
 				function()
@@ -375,8 +368,8 @@ return {
 				group = vim.api.nvim_create_augroup('rafi_outline', {}),
 				pattern = 'Outline',
 				callback = function()
-					vim.wo.winhighlight = 'CursorLine:WildMenu'
-					vim.wo.signcolumn = 'auto'
+					vim.opt_local.winhighlight = 'CursorLine:WildMenu'
+					vim.opt_local.signcolumn = 'auto'
 				end,
 			})
 		end,
@@ -385,37 +378,43 @@ return {
 	-----------------------------------------------------------------------------
 	{
 		's1n7ax/nvim-window-picker',
-		keys = {
-			{
-				'sp',
-				function()
-					local picked_window_id = require('window-picker').pick_window()
-					if picked_window_id ~= nil then
-						vim.api.nvim_set_current_win(picked_window_id)
-					end
-				end,
-				desc = 'Pick window',
-			},
-			{
-				'sw',
-				function()
-					local picked_window_id = require('window-picker').pick_window()
-					if picked_window_id ~= nil then
-						local current_winnr = vim.api.nvim_get_current_win()
-						local current_bufnr = vim.api.nvim_get_current_buf()
-						local other_bufnr = vim.api.nvim_win_get_buf(picked_window_id)
-						vim.api.nvim_win_set_buf(current_winnr, other_bufnr)
-						vim.api.nvim_win_set_buf(picked_window_id, current_bufnr)
-					end
-				end,
-				desc = 'Swap picked window',
-			},
-		},
+		event = 'VeryLazy',
+		keys = function(_, keys)
+			local pick_window = function()
+				local picked_window_id = require('window-picker').pick_window()
+				if picked_window_id ~= nil then
+					vim.api.nvim_set_current_win(picked_window_id)
+				end
+			end
+
+			local swap_window = function()
+				local picked_window_id = require('window-picker').pick_window()
+				if picked_window_id ~= nil then
+					local current_winnr = vim.api.nvim_get_current_win()
+					local current_bufnr = vim.api.nvim_get_current_buf()
+					local other_bufnr = vim.api.nvim_win_get_buf(picked_window_id)
+					vim.api.nvim_win_set_buf(current_winnr, other_bufnr)
+					vim.api.nvim_win_set_buf(picked_window_id, current_bufnr)
+				end
+			end
+
+			local mappings = {
+				{ '-', pick_window, desc = 'Pick window' },
+				{ 'sp', pick_window, desc = 'Pick window' },
+				{ 'sw', swap_window, desc = 'Swap picked window' },
+			}
+			return vim.list_extend(mappings, keys)
+		end,
 		opts = {
-			use_winbar = 'smart',
-			fg_color = '#ededed',
-			current_win_hl_color = '#e35e4f',
-			other_win_hl_color = '#44cc41',
+			hint = 'floating-big-letter',
+			show_prompt = false,
+			filter_rules = {
+				include_current_win = true,
+				bo = {
+					filetype = { 'notify', 'noice' },
+					buftype = {},
+				},
+			},
 		},
 	},
 
@@ -424,7 +423,7 @@ return {
 		'rest-nvim/rest.nvim',
 		ft = 'http',
 		keys = {
-			{ ',ht', '<Plug>RestNvim', desc = 'Execute HTTP request' },
+			{ '<Leader>mh', '<Plug>RestNvim', desc = 'Execute HTTP request' },
 		},
 		opts = { skip_ssl_verification = true },
 	},
@@ -451,22 +450,10 @@ return {
 	-----------------------------------------------------------------------------
 	{
 		'nvim-pack/nvim-spectre',
+		-- stylua: ignore
 		keys = {
-			{
-				'<Leader>sp',
-				function()
-					require('spectre').open()
-				end,
-				desc = 'Spectre',
-			},
-			{
-				'<Leader>sp',
-				function()
-					require('spectre').open_visual({ select_word = true })
-				end,
-				mode = 'x',
-				desc = 'Spectre Word',
-			},
+			{ '<Leader>sp', function() require('spectre').toggle() end, desc = 'Spectre', },
+			{ '<Leader>sp', function() require('spectre').open_visual({ select_word = true }) end, mode = 'x', desc = 'Spectre Word' },
 		},
 		opts = {
 			mapping = {
@@ -499,7 +486,7 @@ return {
 			default = {
 				find = {
 					cmd = 'rg',
-					options = { 'ignore-case', 'hidden', 'gitignore' }
+					options = { 'ignore-case', 'hidden', 'gitignore' },
 				},
 			},
 		},
@@ -509,13 +496,9 @@ return {
 	{
 		'echasnovski/mini.bufremove',
 		opts = {},
+		-- stylua: ignore
 		keys = {
-			{
-				'<leader>bd', function()
-					require('mini.bufremove').delete(0, false)
-				end,
-				desc = 'Delete Buffer'
-			},
+			{ '<leader>bd', function() require('mini.bufremove').delete(0, false) end, desc = 'Delete Buffer', },
 		},
 	},
 

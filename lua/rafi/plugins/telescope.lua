@@ -82,9 +82,7 @@ local plugin_directories = function(opts)
 				actions.select_default:replace(function()
 					local entry = require('telescope.actions.state').get_selected_entry()
 					actions.close(prompt_bufnr)
-					vim.defer_fn(function()
-						vim.cmd.lcd(entry.value)
-					end, 300)
+					vim.cmd.tcd(entry.value)
 				end)
 				return true
 			end,
@@ -129,11 +127,11 @@ vim.api.nvim_create_autocmd('User', {
 		if args.buf ~= vim.api.nvim_win_get_buf(0) then
 			return
 		end
-		vim.wo.listchars = vim.wo.listchars .. ',tab:▏\\ '
-		vim.wo.conceallevel = 0
-		vim.wo.wrap = true
-		vim.wo.list = true
-		vim.wo.number = true
+		vim.opt_local.listchars = vim.wo.listchars .. ',tab:▏\\ '
+		vim.opt_local.conceallevel = 0
+		vim.opt_local.wrap = true
+		vim.opt_local.list = true
+		vim.opt_local.number = true
 	end,
 })
 
@@ -151,15 +149,10 @@ return {
 			'jvgrootveld/telescope-zoxide',
 			'folke/todo-comments.nvim',
 			'rafi/telescope-thesaurus.nvim',
-			{
-				'nvim-telescope/telescope-frecency.nvim',
-				dependencies = 'kkharji/sqlite.lua',
-			},
 		},
 		config = function(_, opts)
 			require('telescope').setup(opts)
 			require('telescope').load_extension('persisted')
-			require('telescope').load_extension('frecency')
 		end,
 		-- stylua: ignore
 		keys = {
@@ -173,12 +166,11 @@ return {
 			{ '<localleader>j', '<cmd>Telescope jumplist<CR>', desc = 'Jump list' },
 			{ '<localleader>m', '<cmd>Telescope marks<CR>', desc = 'Marks' },
 			{ '<localleader>o', '<cmd>Telescope vim_options<CR>', desc = 'Neovim options' },
-			{ '<localleader>p', '<cmd>Telescope venom virtualenvs<CR>', desc = 'Virtualenvs' },
 			{ '<localleader>t', '<cmd>Telescope lsp_dynamic_workspace_symbols<CR>', desc = 'Workspace symbols' },
 			{ '<localleader>v', '<cmd>Telescope registers<CR>', desc = 'Registers' },
 			{ '<localleader>u', '<cmd>Telescope spell_suggest<CR>', desc = 'Spell suggest' },
 			{ '<localleader>s', '<cmd>Telescope persisted<CR>', desc = 'Sessions' },
-			{ '<localleader>x', '<cmd>Telescope frecency<CR>', desc = 'Frecency' },
+			{ '<localleader>x', '<cmd>Telescope oldfiles<CR>', desc = 'Old files' },
 			{ '<localleader>;', '<cmd>Telescope command_history<CR>', desc = 'Command history' },
 			{ '<localleader>:', '<cmd>Telescope commands<CR>', desc = 'Commands' },
 			{ '<localleader>/', '<cmd>Telescope search_history<CR>', desc = 'Search history' },
@@ -246,6 +238,7 @@ return {
 			{ '<leader>gl', '<cmd>Telescope git_commits<CR>', desc = 'Git commits' },
 			{ '<leader>gL', '<cmd>Telescope git_bcommits<CR>', desc = 'Git buffer commits' },
 			{ '<leader>gh', '<cmd>Telescope git_stash<CR>', desc = 'Git stashes' },
+			{ '<leader>gc', '<cmd>Telescope git_bcommits_range<CR>', mode = { 'x', 'n' }, desc = 'Git bcommits range' },
 
 			-- Plugins
 			{ '<localleader>n', plugin_directories, desc = 'Plugins' },
@@ -336,7 +329,7 @@ return {
 					sorting_strategy = 'ascending',
 					cache_picker = { num_pickers = 3 },
 
-					prompt_prefix = '  ',  -- ❯  
+					prompt_prefix = '  ', -- ❯  
 					selection_caret = '▍ ',
 					multi_icon = ' ',
 
@@ -499,9 +492,7 @@ return {
 						mappings = {
 							default = {
 								action = function(selection)
-									vim.defer_fn(function()
-										vim.cmd.lcd(selection.path)
-									end, 300)
+									vim.cmd.tcd(selection.path)
 								end,
 								after_action = function(selection)
 									vim.notify(

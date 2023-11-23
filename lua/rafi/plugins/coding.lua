@@ -4,9 +4,6 @@
 return {
 
 	-----------------------------------------------------------------------------
-	{ 'sbdchd/neoformat', cmd = 'Neoformat' },
-
-	-----------------------------------------------------------------------------
 	{
 		'hrsh7th/nvim-cmp',
 		event = 'InsertEnter',
@@ -20,6 +17,7 @@ return {
 		},
 		opts = function()
 			local cmp = require('cmp')
+			local defaults = require('cmp.config.default')()
 			local luasnip = require('luasnip')
 
 			local function has_words_before()
@@ -33,9 +31,10 @@ return {
 
 			return {
 				preselect = cmp.PreselectMode.None,
+				sorting = defaults.sorting,
 				experimental = {
 					ghost_text = {
-						hl_group = 'LspCodeLens',
+						hl_group = 'Comment',
 					},
 				},
 				snippet = {
@@ -72,7 +71,7 @@ return {
 							select = true,
 							behavior = cmp.ConfirmBehavior.Replace,
 						}),
-						c = cmp.mapping.confirm({ select = true }),
+						-- Do not set command mode, it will interfere with noice popmenu.
 					}),
 					['<S-CR>'] = cmp.mapping.confirm({
 						behavior = cmp.ConfirmBehavior.Replace,
@@ -111,11 +110,16 @@ return {
 					end, { 'i', 's' }),
 				}),
 				formatting = {
-					format = function(_, vim_item)
+					format = function(entry, vim_item)
 						-- Prepend with a fancy icon from config lua/rafi/config/init.lua
-						local symbol = require('rafi.config').icons.kinds[vim_item.kind]
-						if symbol ~= nil then
-							vim_item.kind = symbol .. ' ' .. vim_item.kind
+						local icons = require('rafi.config').icons
+						if entry.source.name == 'git' then
+							vim_item.kind = icons.git
+						else
+							local symbol = icons.kinds[vim_item.kind]
+							if symbol ~= nil then
+								vim_item.kind = symbol .. ' ' .. vim_item.kind
+							end
 						end
 						return vim_item
 					end,
@@ -129,7 +133,9 @@ return {
 		'L3MON4D3/LuaSnip',
 		event = 'InsertEnter',
 		dependencies = { 'rafamadriz/friendly-snippets' },
-		build = (not jit.os:find('Windows')) and 'make install_jsregexp' or nil,
+		build = (not jit.os:find('Windows'))
+				and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
+			or nil,
 		-- stylua: ignore
 		keys = {
 			{
@@ -192,6 +198,7 @@ return {
 	-----------------------------------------------------------------------------
 	{
 		'echasnovski/mini.surround',
+		-- stylua: ignore
 		keys = function(_, keys)
 			-- Populate the keys based on the user's options
 			local plugin = require('lazy.core.config').spec.plugins['mini.surround']
@@ -251,30 +258,19 @@ return {
 
 	-----------------------------------------------------------------------------
 	{
-		'echasnovski/mini.bracketed',
-		event = 'BufReadPost',
-		opts = {
-			treesitter = { suffix = '' },
-		},
-	},
-
-	-----------------------------------------------------------------------------
-	{
 		'echasnovski/mini.ai',
 		event = 'VeryLazy',
 		dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
 		opts = function()
 			local ai = require('mini.ai')
-			-- stylua: ignore
 			return {
 				n_lines = 500,
+				-- stylua: ignore
 				custom_textobjects = {
 					o = ai.gen_spec.treesitter({
 						a = { '@block.outer', '@conditional.outer', '@loop.outer' },
 						i = { '@block.inner', '@conditional.inner', '@loop.inner' },
 					}, {}),
-					f = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }, {}),
-					c = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }, {}),
 				},
 			}
 		end,

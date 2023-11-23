@@ -119,6 +119,7 @@ function M.get_color(scope, highlights, default)
 		if has_nvim9 then
 			hl = vim.api.nvim_get_hl(0, { name = hl_name })
 		else
+			---@diagnostic disable-next-line: deprecated
 			hl = vim.api.nvim_get_hl_by_name(hl_name, true)
 			hl.fg, hl.bg, hl.sp = hl.foreground, hl.background, hl.special
 		end

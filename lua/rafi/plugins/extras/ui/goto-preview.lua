@@ -41,8 +41,9 @@ return {
 				vim.api.nvim_win_set_config(win, {
 					border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
 				})
-				vim.wo[win].spell = false
-				vim.wo[win].signcolumn = 'no'
+				local scope = { scope = 'local', win = win }
+				vim.api.nvim_set_option_value('spell', false, scope)
+				vim.api.nvim_set_option_value('signcolumn', 'no', scope)
 				vim.keymap.set('n', '<Esc>', '<cmd>quit<CR>')
 			end,
 		},

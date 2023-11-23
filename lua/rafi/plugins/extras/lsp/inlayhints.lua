@@ -1,6 +1,8 @@
 return {
+	-- Not needed anymore with nvim-0.10.0
 	{
 		'lvimuser/lsp-inlayhints.nvim',
+		branch = 'anticonceal',
 		event = 'LspAttach',
 		opts = {},
 		config = function(_, opts)

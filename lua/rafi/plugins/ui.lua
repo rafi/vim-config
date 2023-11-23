@@ -19,7 +19,7 @@ return {
 		},
 		-- stylua: ignore
 		keys = {
-			{ '<S-Enter>', function() require('noice').redirect(vim.fn.getcmdline()) end, mode = 'c', desc = 'Redirect Cmdline' },
+			{ '<S-Enter>', function() require('noice').redirect(tostring(vim.fn.getcmdline())) end, mode = 'c', desc = 'Redirect Cmdline' },
 			{ '<leader>snl', function() require('noice').cmd('last') end, desc = 'Noice Last Message' },
 			{ '<leader>snh', function() require('noice').cmd('history') end, desc = 'Noice History' },
 			{ '<leader>sna', function() require('noice').cmd('all') end, desc = 'Noice All' },
@@ -39,20 +39,37 @@ return {
 				view_search = false,
 			},
 			routes = {
+				-- See :h ui-messages
 				{
-					filter = { event = 'msg_show', find = '%d+L, %d+B' },
+					filter = { event = 'msg_show', find = '%d+L, %d+B$' },
 					view = 'mini',
 				},
 				{
-					filter = { event = 'msg_show', find = 'Hunk %d+ of %d+' },
+					filter = { event = 'msg_show', find = '^Hunk %d+ of %d+$' },
 					view = 'mini',
 				},
 				{
-					filter = { event = 'msg_show', find = '%d+ more lines' },
+					filter = { event = 'notify', find = '^No code actions available$' },
+					view = 'mini',
+				},
+				{
+					filter = { event = 'notify', find = '^No information available$' },
 					opts = { skip = true },
 				},
 				{
-					filter = { event = 'msg_show', find = '%d+ lines yanked' },
+					filter = { event = 'msg_show', find = '^%d+ change;' },
+					opts = { skip = true },
+				},
+				{
+					filter = { event = 'msg_show', find = '^%d+ %a+ lines' },
+					opts = { skip = true },
+				},
+				{
+					filter = { event = 'msg_show', find = '^%d+ lines yanked$' },
+					opts = { skip = true },
+				},
+				{
+					filter = { event = 'msg_show', kind = 'emsg', find = 'E490' },
 					opts = { skip = true },
 				},
 				{
@@ -117,10 +134,10 @@ return {
 				function()
 					if vim.b.navic_winbar then
 						vim.b.navic_winbar = false
-						vim.wo.winbar = ''
+						vim.opt_local.winbar = ''
 					else
 						vim.b.navic_winbar = true
-						vim.wo.winbar = '%#NavicIconsFile# %t %* '
+						vim.opt_local.winbar = '%#NavicIconsFile# %t %* '
 							.. "%{%v:lua.require'nvim-navic'.get_location()%}"
 					end
 				end,
@@ -132,7 +149,7 @@ return {
 
 			---@param client lsp.Client
 			---@param buffer integer
-			require('rafi.config').on_attach(function(client, buffer)
+			require('rafi.lib.utils').on_attach(function(client, buffer)
 				if client.server_capabilities.documentSymbolProvider then
 					require('nvim-navic').attach(client, buffer)
 				end
@@ -171,7 +188,7 @@ return {
 		},
 		init = function()
 			-- When noice is not enabled, install notify on VeryLazy
-			local Util = require('rafi.config')
+			local Util = require('rafi.lib.utils')
 			if not Util.has('noice.nvim') then
 				Util.on_very_lazy(function()
 					vim.notify = require('notify')
@@ -202,7 +219,7 @@ return {
 		'lukas-reineke/indent-blankline.nvim',
 		event = 'FileType',
 		keys = {
-			{ '<Leader>ti', '<cmd>IndentBlanklineToggle<CR>' },
+			{ '<Leader>ue', '<cmd>IndentBlanklineToggle<CR>' },
 		},
 		opts = {
 			show_trailing_blankline_indent = false,
@@ -214,6 +231,8 @@ return {
 			filetype_exclude = {
 				'lspinfo',
 				'checkhealth',
+				'git',
+				'gitcommit',
 				'help',
 				'man',
 				'lazy',

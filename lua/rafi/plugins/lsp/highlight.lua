@@ -9,7 +9,7 @@ local M = {}
 ---@param client lsp.Client
 ---@param bufnr integer
 function M.on_attach(client, bufnr)
-	if require('rafi.config').has('vim-illuminate') then
+	if require('rafi.lib.utils').has('vim-illuminate') then
 		-- Skipped setup for document_highlight, illuminate is installed.
 		return
 	end
