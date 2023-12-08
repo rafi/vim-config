@@ -11,7 +11,7 @@ local M = {}
 ---@field client lsp.Client|table|function
 
 ---@class PluginLspOpts
-M.opts = nil
+M.opts = {}
 
 -- Is autoformat enabled?
 function M.enabled()
