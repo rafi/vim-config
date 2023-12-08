@@ -5,17 +5,60 @@ return {
 
 	-----------------------------------------------------------------------------
 	{
+		'L3MON4D3/LuaSnip',
+		-- event = 'InsertEnter',
+		build = (not jit.os:find('Windows'))
+				and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
+			or nil,
+		dependencies = {
+			'rafamadriz/friendly-snippets',
+			config = function()
+				require('luasnip.loaders.from_vscode').lazy_load()
+				require('luasnip.loaders.from_lua').load({ paths = { './snippets' } })
+			end,
+		},
+		-- stylua: ignore
+		keys = {
+			{ '<C-l>', function() require('luasnip').expand_or_jump() end, mode = { 'i', 's' } },
+		},
+		opts = {
+			-- Don't store snippet history for less overhead
+			history = true,
+			-- Event on which to check for exiting a snippet's region
+			-- region_check_events = 'InsertEnter',
+			delete_check_events = 'TextChanged',
+			-- delete_check_events = 'InsertLeave',
+			-- ft_func = function()
+			-- 	return vim.split(vim.bo.filetype, '.', { plain = true })
+			-- end,
+		},
+		-- config = function(_, opts)
+		-- 	require('luasnip').setup(opts)
+		-- 	vim.api.nvim_create_user_command('LuaSnipEdit', function()
+		-- 		require('luasnip.loaders.from_lua').edit_snippet_files()
+		-- 	end, {})
+		-- end,
+	},
+
+	-----------------------------------------------------------------------------
+	{
 		'hrsh7th/nvim-cmp',
+		version = false, -- last release is way too old
 		event = 'InsertEnter',
 		dependencies = {
 			'hrsh7th/cmp-nvim-lsp',
 			'hrsh7th/cmp-buffer',
 			'hrsh7th/cmp-path',
 			'hrsh7th/cmp-emoji',
-			{ 'saadparwaiz1/cmp_luasnip', dependencies = 'L3MON4D3/LuaSnip' },
+			'saadparwaiz1/cmp_luasnip',
 			'andersevenrud/cmp-tmux',
 		},
 		opts = function()
+			vim.api.nvim_set_hl(
+				0,
+				'CmpGhostText',
+				{ link = 'Comment', default = true }
+			)
 			local cmp = require('cmp')
 			local defaults = require('cmp.config.default')()
 			local luasnip = require('luasnip')
@@ -110,68 +153,29 @@ return {
 					end, { 'i', 's' }),
 				}),
 				formatting = {
-					format = function(entry, vim_item)
-						-- Prepend with a fancy icon from config lua/rafi/config/init.lua
-						local icons = require('rafi.config').icons
+					format = function(entry, item)
+						-- Prepend with a fancy icon from config.
+						local icons = require('lazyvim.config').icons
 						if entry.source.name == 'git' then
-							vim_item.kind = icons.git
+							item.kind = icons.misc.git
 						else
-							local symbol = icons.kinds[vim_item.kind]
-							if symbol ~= nil then
-								vim_item.kind = symbol .. ' ' .. vim_item.kind
+							local icon = icons.kinds[item.kind]
+							if icon ~= nil then
+								item.kind = icon .. ' ' .. item.kind
 							end
 						end
-						return vim_item
+						return item
 					end,
 				},
 			}
 		end,
-	},
-
-	-----------------------------------------------------------------------------
-	{
-		'L3MON4D3/LuaSnip',
-		event = 'InsertEnter',
-		dependencies = { 'rafamadriz/friendly-snippets' },
-		build = (not jit.os:find('Windows'))
-				and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
-			or nil,
-		-- stylua: ignore
-		keys = {
-			{
-				'<C-l>',
-				function() require('luasnip').expand_or_jump() end,
-				mode = { 'i', 's' },
-			},
-		},
-		opts = {
-			-- Don't store snippet history for less overhead
-			history = false,
-			-- Event on which to check for exiting a snippet's region
-			region_check_events = 'InsertEnter',
-			delete_check_events = 'InsertLeave',
-			ft_func = function()
-				return vim.split(vim.bo.filetype, '.', { plain = true })
-			end,
-		},
+		---@param opts cmp.ConfigSchema
 		config = function(_, opts)
-			require('luasnip').setup(opts)
-			require('luasnip.loaders.from_vscode').lazy_load()
-			require('luasnip.loaders.from_lua').load({ paths = './snippets' })
-			vim.api.nvim_create_user_command('LuaSnipEdit', function()
-				require('luasnip.loaders.from_lua').edit_snippet_files()
-			end, {})
+			for _, source in ipairs(opts.sources) do
+				source.group_index = source.group_index or 1
+			end
+			require('cmp').setup(opts)
 		end,
-	},
-
-	-----------------------------------------------------------------------------
-	{
-		'ziontee113/SnippetGenie',
-		event = 'InsertEnter',
-		dependencies = 'L3MON4D3/LuaSnip',
-		opts = {
-			snippets_directory = vim.fn.stdpath('config') .. '/snippets',
-		},
 	},
 
 	-----------------------------------------------------------------------------
@@ -179,11 +183,7 @@ return {
 		'danymat/neogen',
 		-- stylua: ignore
 		keys = {
-			{
-				'<leader>cc',
-				function() require('neogen').generate({}) end,
-				desc = 'Neogen Comment',
-			},
+			{ '<leader>cc', function() require('neogen').generate({}) end, desc = 'Neogen Comment' },
 		},
 		opts = { snippet_engine = 'luasnip' },
 	},
@@ -193,6 +193,21 @@ return {
 		'echasnovski/mini.pairs',
 		event = 'VeryLazy',
 		opts = {},
+		keys = {
+			{
+				'<leader>up',
+				function()
+					local Util = require('lazy.core.util')
+					vim.g.minipairs_disable = not vim.g.minipairs_disable
+					if vim.g.minipairs_disable then
+						Util.warn('Disabled auto pairs', { title = 'Option' })
+					else
+						Util.info('Enabled auto pairs', { title = 'Option' })
+					end
+				end,
+				desc = 'Toggle auto pairs',
+			},
+		},
 	},
 
 	-----------------------------------------------------------------------------
@@ -232,6 +247,15 @@ return {
 
 	-----------------------------------------------------------------------------
 	{
+		'JoosepAlviste/nvim-ts-context-commentstring',
+		opts = {
+			enable = true,
+			enable_autocmd = false,
+		},
+	},
+
+	-----------------------------------------------------------------------------
+	{
 		'echasnovski/mini.comment',
 		event = 'VeryLazy',
 		dependencies = { 'JoosepAlviste/nvim-ts-context-commentstring' },
@@ -251,51 +275,22 @@ return {
 
 	-----------------------------------------------------------------------------
 	{
-		'echasnovski/mini.trailspace',
-		event = { 'BufReadPost', 'BufNewFile' },
-		opts = {},
-	},
-
-	-----------------------------------------------------------------------------
-	{
-		'echasnovski/mini.ai',
-		event = 'VeryLazy',
-		dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
-		opts = function()
-			local ai = require('mini.ai')
-			return {
-				n_lines = 500,
-				-- stylua: ignore
-				custom_textobjects = {
-					o = ai.gen_spec.treesitter({
-						a = { '@block.outer', '@conditional.outer', '@loop.outer' },
-						i = { '@block.inner', '@conditional.inner', '@loop.inner' },
-					}, {}),
-				},
-			}
-		end,
-	},
-
-	-----------------------------------------------------------------------------
-	{
 		'echasnovski/mini.splitjoin',
+		-- stylua: ignore
 		keys = {
-			{
-				'sj',
-				'<cmd>lua MiniSplitjoin.join()<CR>',
-				mode = { 'n', 'x' },
-				desc = 'Join arguments',
-			},
-			{
-				'sk',
-				'<cmd>lua MiniSplitjoin.split()<CR>',
-				mode = { 'n', 'x' },
-				desc = 'Split arguments',
-			},
+			{ 'sj', '<cmd>lua MiniSplitjoin.join()<CR>', mode = { 'n', 'x' }, desc = 'Join arguments' },
+			{ 'sk', '<cmd>lua MiniSplitjoin.split()<CR>', mode = { 'n', 'x' }, desc = 'Split arguments' },
 		},
 		opts = {
 			mappings = { toggle = '' },
 		},
+	},
+
+	-----------------------------------------------------------------------------
+	{
+		'echasnovski/mini.trailspace',
+		event = { 'BufReadPost', 'BufNewFile' },
+		opts = {},
 	},
 
 	-----------------------------------------------------------------------------
@@ -320,6 +315,82 @@ return {
 		},
 		init = function()
 			vim.g.dsf_no_mappings = 1
+		end,
+	},
+
+	-----------------------------------------------------------------------------
+	{
+		'echasnovski/mini.ai',
+		event = 'VeryLazy',
+		opts = function()
+			local ai = require('mini.ai')
+			return {
+				n_lines = 500,
+				-- stylua: ignore
+				custom_textobjects = {
+					o = ai.gen_spec.treesitter({
+						a = { '@block.outer', '@conditional.outer', '@loop.outer' },
+						i = { '@block.inner', '@conditional.inner', '@loop.inner' },
+					}, {}),
+					f = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }, {}),
+					c = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }, {}),
+					t = { '<([%p%w]-)%f[^<%w][^<>]->.-</%1>', '^<.->().*()</[^/]->$' },
+				},
+			}
+		end,
+		config = function(_, opts)
+			require('mini.ai').setup(opts)
+			-- register all text objects with which-key
+			require('lazyvim.util').on_load('which-key.nvim', function()
+				---@type table<string, string|table>
+				local i = {
+					[' '] = 'Whitespace',
+					['"'] = 'Balanced "',
+					["'"] = "Balanced '",
+					['`'] = 'Balanced `',
+					['('] = 'Balanced (',
+					[')'] = 'Balanced ) including white-space',
+					['>'] = 'Balanced > including white-space',
+					['<lt>'] = 'Balanced <',
+					[']'] = 'Balanced ] including white-space',
+					['['] = 'Balanced [',
+					['}'] = 'Balanced } including white-space',
+					['{'] = 'Balanced {',
+					['?'] = 'User Prompt',
+					_ = 'Underscore',
+					a = 'Argument',
+					b = 'Balanced ), ], }',
+					c = 'Class',
+					f = 'Function',
+					o = 'Block, conditional, loop',
+					q = 'Quote `, ", \'',
+					t = 'Tag',
+				}
+				local a = vim.deepcopy(i) --[[@as table]]
+				for k, v in pairs(a) do
+					a[k] = v:gsub(' including.*', '')
+				end
+
+				local ic = vim.deepcopy(i)
+				local ac = vim.deepcopy(a)
+				for key, name in pairs({ n = 'Next', l = 'Last' }) do
+					i[key] = vim.tbl_extend(
+						'force',
+						{ name = 'Inside ' .. name .. ' textobject' },
+						ic
+					)
+					a[key] = vim.tbl_extend(
+						'force',
+						{ name = 'Around ' .. name .. ' textobject' },
+						ac
+					)
+				end
+				require('which-key').register({
+					mode = { 'o', 'x' },
+					i = i,
+					a = a,
+				})
+			end)
 		end,
 	},
 }
