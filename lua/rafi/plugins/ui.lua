@@ -251,6 +251,34 @@ return {
 
 	-----------------------------------------------------------------------------
 	{
+		'folke/which-key.nvim',
+		event = 'VeryLazy',
+		opts = {
+			icons = { separator = ' 󰁔 ' },
+			-- window = { winblend = 0 },
+			defaults = {
+				mode = { 'n', 'v' },
+				-- [';'] = { name = '+telescope' },
+				-- [';d'] = { name = '+lsp/todo' },
+				-- ['g'] = { name = '+goto' },
+				-- ['gz'] = { name = '+surround' },
+				-- [']'] = { name = '+next' },
+				-- ['['] = { name = '+prev' },
+				['<leader>b'] = { name = '+buffer' },
+				['<leader>c'] = { name = '+code' },
+				['<leader>g'] = { name = '+git' },
+				['<leader>h'] = { name = '+hunks' },
+				['<leader>s'] = { name = '+search' },
+				['<leader>t'] = { name = '+toggle/tools' },
+				['<leader>u'] = { name = '+ui' },
+				['<leader>x'] = { name = '+diagnostics/quickfix' },
+				['<leader>z'] = { name = '+notes' },
+			},
+		},
+	},
+
+	-----------------------------------------------------------------------------
+	{
 		'tenxsoydev/tabs-vs-spaces.nvim',
 		event = { 'BufReadPost', 'BufNewFile' },
 		config = true,
