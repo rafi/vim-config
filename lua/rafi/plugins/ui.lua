@@ -1,111 +1,47 @@
 -- Plugins: UI
 -- https://github.com/rafi/vim-config
 
+local Util = require('lazyvim.util')
+
 return {
 
 	-----------------------------------------------------------------------------
 	{ 'nvim-tree/nvim-web-devicons', lazy = false },
 	{ 'MunifTanjim/nui.nvim', lazy = false },
-	{ 'rafi/tabstrip.nvim', lazy = false, priority = 98, opts = true },
 
 	-----------------------------------------------------------------------------
 	{
-		'folke/noice.nvim',
-		event = 'VeryLazy',
-		dependencies = {
-			'MunifTanjim/nui.nvim',
-			'rcarriga/nvim-notify',
-			'nvim-treesitter/nvim-treesitter',
-		},
-		-- stylua: ignore
+		'rcarriga/nvim-notify',
+		priority = 9000,
 		keys = {
-			{ '<S-Enter>', function() require('noice').redirect(tostring(vim.fn.getcmdline())) end, mode = 'c', desc = 'Redirect Cmdline' },
-			{ '<leader>snl', function() require('noice').cmd('last') end, desc = 'Noice Last Message' },
-			{ '<leader>snh', function() require('noice').cmd('history') end, desc = 'Noice History' },
-			{ '<leader>sna', function() require('noice').cmd('all') end, desc = 'Noice All' },
-			{ '<c-f>', function() if not require('noice.lsp').scroll(4) then return '<c-f>' end end, silent = true, expr = true, desc = 'Scroll forward', mode = {'i', 'n', 's'} },
-			{ '<c-b>', function() if not require('noice.lsp').scroll(-4) then return '<c-b>' end end, silent = true, expr = true, desc = 'Scroll backward', mode = {'i', 'n', 's'}},
+			{
+				'<leader>un',
+				function()
+					require('notify').dismiss({ silent = true, pending = true })
+				end,
+				desc = 'Dismiss all Notifications',
+			},
 		},
-		---@type NoiceConfig
 		opts = {
-			lsp = {
-				override = {
-					['vim.lsp.util.convert_input_to_markdown_lines'] = true,
-					['vim.lsp.util.stylize_markdown'] = true,
-					['cmp.entry.get_documentation'] = true,
-				},
-			},
-			messages = {
-				view_search = false,
-			},
-			routes = {
-				-- See :h ui-messages
-				{
-					filter = { event = 'msg_show', find = '%d+L, %d+B$' },
-					view = 'mini',
-				},
-				{
-					filter = { event = 'msg_show', find = '^Hunk %d+ of %d+$' },
-					view = 'mini',
-				},
-				{
-					filter = { event = 'notify', find = '^No code actions available$' },
-					view = 'mini',
-				},
-				{
-					filter = { event = 'notify', find = '^No information available$' },
-					opts = { skip = true },
-				},
-				{
-					filter = { event = 'msg_show', find = '^%d+ change;' },
-					opts = { skip = true },
-				},
-				{
-					filter = { event = 'msg_show', find = '^%d+ %a+ lines' },
-					opts = { skip = true },
-				},
-				{
-					filter = { event = 'msg_show', find = '^%d+ lines yanked$' },
-					opts = { skip = true },
-				},
-				{
-					filter = { event = 'msg_show', kind = 'emsg', find = 'E490' },
-					opts = { skip = true },
-				},
-				{
-					filter = { event = 'msg_show', kind = 'quickfix' },
-					view = 'mini',
-				},
-				{
-					filter = { event = 'msg_show', kind = 'search_count' },
-					view = 'mini',
-				},
-				{
-					filter = { event = 'msg_show', kind = 'wmsg' },
-					view = 'mini',
-				},
-			},
-			presets = {
-				bottom_search = true,
-				command_palette = true,
-				long_message_to_split = true,
-				lsp_doc_border = true,
-			},
-			commands = {
-				all = {
-					view = 'split',
-					opts = { enter = true, format = 'details' },
-					filter = {},
-				},
-			},
-			---@type NoiceConfigViews
-			views = {
-				mini = {
-					zindex = 100,
-					win_options = { winblend = 0 },
-				},
-			},
+			timeout = 3000,
+			max_height = function()
+				return math.floor(vim.o.lines * 0.75)
+			end,
+			max_width = function()
+				return math.floor(vim.o.columns * 0.75)
+			end,
+			on_open = function(win)
+				vim.api.nvim_win_set_config(win, { zindex = 100 })
+			end,
 		},
+		init = function()
+			-- When noice is not enabled, install notify on VeryLazy
+			if not Util.has('noice.nvim') then
+				Util.on_very_lazy(function()
+					vim.notify = require('notify')
+				end)
+			end
+		end,
 	},
 
 	-----------------------------------------------------------------------------
@@ -123,6 +59,160 @@ return {
 				return vim.ui.input(...)
 			end
 		end,
+	},
+
+	-----------------------------------------------------------------------------
+	{
+		'akinsho/bufferline.nvim',
+		event = 'VeryLazy',
+		enabled = not vim.g.started_by_firenvim,
+		-- stylua: ignore
+		keys = {
+			{ '<leader>bp', '<Cmd>BufferLineTogglePin<CR>', desc = 'Toggle pin' },
+			{ '<leader>bP', '<Cmd>BufferLineGroupClose ungrouped<CR>', desc = 'Delete non-pinned buffers' },
+			{ '<leader>bo', '<Cmd>BufferLineCloseOthers<CR>', desc = 'Delete other buffers' },
+			{ '<leader>br', '<Cmd>BufferLineCloseRight<CR>', desc = 'Delete buffers to the right' },
+			{ '<leader>bl', '<Cmd>BufferLineCloseLeft<CR>', desc = 'Delete buffers to the left' },
+			{ '<leader>tp', '<Cmd>BufferLinePick<CR>', desc = 'Pick' },
+			-- { '<S-h>', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev buffer' },
+			-- { '<S-l>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next buffer' },
+			{ '[b', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev buffer' },
+			{ ']b', '<cmd>BufferLineCycleNext<cr>', desc = 'Next buffer' },
+		},
+		opts = {
+			options = {
+				mode = 'tabs',
+				separator_style = 'slant',
+				show_close_icon = false,
+				show_buffer_close_icons = false,
+				diagnostics = "nvim_lsp",
+				-- show_tab_indicators = true,
+				-- enforce_regular_tabs = true,
+				always_show_bufferline = true,
+				-- indicator = {
+				-- 	style = 'underline',
+				-- },
+				diagnostics_indicator = function(_, _, diag)
+					local icons = require('lazyvim.config').icons.diagnostics
+					local ret = (diag.error and icons.Error .. diag.error .. ' ' or '')
+						.. (diag.warning and icons.Warn .. diag.warning or '')
+					return vim.trim(ret)
+				end,
+				custom_areas = {
+					right = function()
+						local result = {}
+						local root = require('lazyvim.util').root()
+						table.insert(result, {
+							text = '%#BufferLineTab# ' .. vim.fn.fnamemodify(root, ':t')
+						})
+
+						-- Session indicator
+						if vim.v.this_session ~= '' then
+							table.insert(result, { text = '%#BufferLineTab#  ' })
+						end
+						return result
+					end,
+				},
+				offsets = {
+					{
+						filetype = 'neo-tree',
+						text = 'Neo-tree',
+						highlight = 'Directory',
+						text_align = 'center',
+					},
+				},
+			},
+		},
+		config = function(_, opts)
+			require('bufferline').setup(opts)
+			-- Fix bufferline when restoring a session
+			vim.api.nvim_create_autocmd('BufAdd', {
+				callback = function()
+					vim.schedule(function()
+						---@diagnostic disable-next-line: undefined-global
+						pcall(nvim_bufferline)
+					end)
+				end,
+			})
+		end,
+	},
+
+	-----------------------------------------------------------------------------
+	{
+		'folke/noice.nvim',
+		event = 'VeryLazy',
+		enabled = not vim.g.started_by_firenvim,
+		-- stylua: ignore
+		keys = {
+			{ '<S-Enter>', function() require('noice').redirect(tostring(vim.fn.getcmdline())) end, mode = 'c', desc = 'Redirect Cmdline' },
+			{ '<leader>snl', function() require('noice').cmd('last') end, desc = 'Noice Last Message' },
+			{ '<leader>snh', function() require('noice').cmd('history') end, desc = 'Noice History' },
+			{ '<leader>sna', function() require('noice').cmd('all') end, desc = 'Noice All' },
+			{ '<C-f>', function() if not require('noice.lsp').scroll(4) then return '<c-f>' end end, silent = true, expr = true, desc = 'Scroll forward', mode = {'i', 'n', 's'} },
+			{ '<C-b>', function() if not require('noice.lsp').scroll(-4) then return '<c-b>' end end, silent = true, expr = true, desc = 'Scroll backward', mode = {'i', 'n', 's'}},
+		},
+		---@type NoiceConfig
+		opts = {
+			lsp = {
+				override = {
+					['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+					['vim.lsp.util.stylize_markdown'] = true,
+					['cmp.entry.get_documentation'] = true,
+				},
+			},
+			messages = {
+				view_search = false,
+			},
+			routes = {
+				-- See :h ui-messages
+				{
+					filter = {
+						event = 'msg_show',
+						any = {
+							{ find = '%d+L, %d+B' },
+							{ find = '^%d+ changes?; after #%d+' },
+							{ find = '^%d+ changes?; before #%d+' },
+							{ find = '^Hunk %d+ of %d+$' },
+							{ find = '^%d+ fewer lines;?' },
+							{ find = '^%d+ more lines?;?' },
+							{ find = '^%d+ line less;?' },
+							{ find = '^Already at newest change' },
+							{ kind = 'wmsg' },
+							{ kind = 'emsg', find = 'E486' },
+							{ kind = 'quickfix' },
+						},
+					},
+					view = 'mini',
+				},
+				{
+					filter = {
+						event = 'msg_show',
+						any = {
+							{ find = '^%d+ lines .ed %d+ times?$' },
+							{ find = '^%d+ lines yanked$' },
+							{ kind = 'emsg', find = 'E490' },
+							{ kind = 'search_count' },
+						},
+					},
+					opts = { skip = true },
+				},
+				{
+					filter = {
+						event = 'notify',
+						any = {
+							{ find = '^No code actions available$' },
+							{ find = '^No information available$' },
+						},
+					},
+					view = 'mini',
+				},
+			},
+			presets = {
+				command_palette = true,
+				long_message_to_split = true,
+				lsp_doc_border = true,
+			},
+		},
 	},
 
 	-----------------------------------------------------------------------------
@@ -149,7 +239,7 @@ return {
 
 			---@param client lsp.Client
 			---@param buffer integer
-			require('rafi.lib.utils').on_attach(function(client, buffer)
+			require('lazyvim.util').lsp.on_attach(function(client, buffer)
 				if client.server_capabilities.documentSymbolProvider then
 					require('nvim-navic').attach(client, buffer)
 				end
@@ -159,41 +249,8 @@ return {
 			return {
 				separator = '  ',
 				highlight = true,
-				icons = require('rafi.config').icons.kinds,
+				icons = require('lazyvim.config').icons.kinds,
 			}
-		end,
-	},
-
-	-----------------------------------------------------------------------------
-	{
-		'rcarriga/nvim-notify',
-		event = 'VeryLazy',
-		keys = {
-			{
-				'<leader>un',
-				function()
-					require('notify').dismiss({ silent = true, pending = true })
-				end,
-				desc = 'Dismiss all Notifications',
-			},
-		},
-		opts = {
-			timeout = 3000,
-			max_height = function()
-				return math.floor(vim.o.lines * 0.75)
-			end,
-			max_width = function()
-				return math.floor(vim.o.columns * 0.75)
-			end,
-		},
-		init = function()
-			-- When noice is not enabled, install notify on VeryLazy
-			local Util = require('rafi.lib.utils')
-			if not Util.has('noice.nvim') then
-				Util.on_very_lazy(function()
-					vim.notify = require('notify')
-				end)
-			end
 		end,
 	},
 
@@ -217,36 +274,80 @@ return {
 	-----------------------------------------------------------------------------
 	{
 		'lukas-reineke/indent-blankline.nvim',
-		event = 'FileType',
+		main = 'ibl',
+		event = 'LazyFile',
 		keys = {
-			{ '<Leader>ue', '<cmd>IndentBlanklineToggle<CR>' },
+			{ '<Leader>ue', '<cmd>IBLToggle<CR>' },
 		},
 		opts = {
-			show_trailing_blankline_indent = false,
-			disable_with_nolist = true,
-			show_foldtext = false,
-			char_priority = 100,
-			show_current_context = true,
-			show_current_context_start = false,
-			filetype_exclude = {
-				'lspinfo',
-				'checkhealth',
-				'git',
-				'gitcommit',
-				'help',
-				'man',
-				'lazy',
-				'alpha',
-				'dashboard',
-				'terminal',
-				'TelescopePrompt',
-				'TelescopeResults',
-				'neo-tree',
-				'Outline',
-				'mason',
-				'Trouble',
+			indent = {
+				-- See more characters at :h ibl.config.indent.char
+				char = '│',  -- ▏│
+				tab_char = '│',
+				-- priority = 100, -- Display over folded lines
 			},
+			scope = { enabled = false },
+			-- whitespace = {
+			-- 	remove_blankline_trail = false,
+			-- },
+			exclude = {
+				filetypes = {
+					'alpha',
+					'checkhealth',
+					'dashboard',
+					'git',
+					'gitcommit',
+					'help',
+					'lazy',
+					'lazyterm',
+					'lspinfo',
+					'man',
+					'mason',
+					'neo-tree',
+					'notify',
+					'Outline',
+					'TelescopePrompt',
+					'TelescopeResults',
+					'terminal',
+					'toggleterm',
+					'Trouble',
+				},
+			}
 		},
+	},
+
+	-- Active indent guide and indent text objects. When you're browsing
+	-- code, this highlights the current level of indentation, and animates
+	-- the highlighting.
+	{
+		'echasnovski/mini.indentscope',
+		version = false, -- wait till new 0.7.0 release to put it back on semver
+		event = 'LazyFile',
+		opts = {
+			symbol = '│',  -- ▏│
+			options = { try_as_border = true },
+		},
+		init = function()
+			vim.api.nvim_create_autocmd('FileType', {
+				pattern = {
+					'alpha',
+					'dashboard',
+					'help',
+					'lazy',
+					'lazyterm',
+					'man',
+					'mason',
+					'neo-tree',
+					'notify',
+					'Outline',
+					'toggleterm',
+					'Trouble',
+				},
+				callback = function()
+					vim.b.miniindentscope_disable = true
+				end,
+			})
+		end,
 	},
 
 	-----------------------------------------------------------------------------
@@ -347,7 +448,7 @@ return {
 		'uga-rosa/ccc.nvim',
 		event = 'FileType',
 		keys = {
-			{ '<Leader>cp', '<cmd>CccPick<CR>', desc = 'Color-picker' },
+			{ '<Leader>mc', '<cmd>CccPick<CR>', desc = 'Color-picker' },
 		},
 		opts = {
 			highlighter = {
