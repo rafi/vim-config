@@ -11,4 +11,4 @@ end, opts)
 vim.b.undo_ftplugin = (vim.b.undo_ftplugin or '')
 	.. (vim.b.undo_ftplugin ~= nil and ' | ' or '')
 	.. 'sil! nunmap <buffer> <Leader>o'
-	.. ' | sil! xunmap <buffer> q'
+	.. ' | sil! nunmap <buffer> q'
