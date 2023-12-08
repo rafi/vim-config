@@ -1,6 +1,7 @@
 -- Context-aware menu
 -- https://github.com/rafi/vim-config
 
+---@class rafi.util.contextmenu
 local M = {}
 
 ---@param method string
@@ -16,9 +17,9 @@ local function supports_method(method, clients)
 end
 
 M.show = function()
-	if vim.fn.has('nvim-0.8') ~= 1 then
+	if vim.fn.has('nvim-0.9') ~= 1 then
 		vim.notify(
-			'You must be running Neovim ≥8.0',
+			'You must be running Neovim ≥9.0',
 			vim.log.levels.WARN,
 			{ title = 'Contextmenu' }
 		)
@@ -36,59 +37,59 @@ M.show = function()
 	end
 
 	-- Remove all menu options
-	pcall(vim.cmd.aunmenu, 'Context')
+	pcall(vim.cmd.aunmenu, 'PopUp')
 
 	if cword == '' then
 		-- Cursor is on blank character.
 		vim.cmd([[
-			nmenu Context.Select\ All  ggVG
-			nmenu Context.-1-          <Nop>
+			nmenu PopUp.Select\ All  ggVG
+			nmenu PopUp.-1-          <Nop>
 		]])
 	else
 		-- Add LSP methods, only if one of the servers support it.
 		if supports_method('textDocument/declaration', clients) then
 			vim.cmd(
-				'nmenu Context.Declaration <cmd>lua vim.lsp.buf.declaration()<CR>'
+				'nmenu PopUp.Declaration <cmd>lua vim.lsp.buf.declaration()<CR>'
 			)
 		end
 		if supports_method('textDocument/definition', clients) then
-			vim.cmd('nmenu Context.&Definition <cmd>lua vim.lsp.buf.definition()<CR>')
+			vim.cmd('nmenu PopUp.&Definition <cmd>lua vim.lsp.buf.definition()<CR>')
 		end
 
 		if supports_method('textDocument/references', clients) then
 			vim.cmd(
-				'nmenu Context.&References… <cmd>lua vim.lsp.buf.references()<CR>'
+				'nmenu PopUp.&References… <cmd>lua vim.lsp.buf.references()<CR>'
 			)
 		end
 		if supports_method('textDocument/implementation', clients) then
 			vim.cmd(
-				'nmenu Context.Implementation <cmd>lua vim.lsp.buf.implementation()<CR>'
+				'nmenu PopUp.Implementation <cmd>lua vim.lsp.buf.implementation()<CR>'
 			)
 		end
 
 		if #clients > 0 then
 			vim.cmd([[
-				nmenu Context.-1-            <Nop>
-				nmenu Context.Find\ symbol…  <cmd>lua vim.schedule(function() require'telescope.builtin'.lsp_workspace_symbols({default_text = vim.fn.expand('<cword>')}) end)<CR>
+				nmenu PopUp.-1-            <Nop>
+				nmenu PopUp.Find\ symbol…  <cmd>lua vim.schedule(function() require'telescope.builtin'.lsp_workspace_symbols({default_text = vim.fn.expand('<cword>')}) end)<CR>
 			]])
 		end
 
 		vim.cmd([[
-			nmenu Context.Grep… <cmd>lua vim.schedule(function() require'telescope.builtin'.live_grep({default_text = vim.fn.expand('<cword>')}) end)<CR>
-			nmenu Context.-2-   <Nop>
+			nmenu PopUp.Grep… <cmd>lua vim.schedule(function() require'telescope.builtin'.live_grep({default_text = vim.fn.expand('<cword>')}) end)<CR>
+			nmenu PopUp.-2-   <Nop>
 		]])
 	end
 
 	vim.cmd([[
-		nmenu Context.Diagnostics        <cmd>Trouble<CR>
-		nmenu Context.Bookmark           m;
-		nmenu Context.TODOs              <cmd>TodoTrouble<CR>
-		nmenu Context.Git\ diff          <cmd>Gdiffsplit<CR>
-		nmenu Context.Unsaved\ diff      <cmd>DiffOrig<CR>
-		nmenu Context.Open\ in\ browser  <cmd>lua require('gitlinker').get_buf_range_url('n')<CR>
+		nmenu PopUp.Diagnostics        <cmd>Trouble<CR>
+		nmenu PopUp.Bookmark           m;
+		nmenu PopUp.TODOs              <cmd>TodoTrouble<CR>
+		nmenu PopUp.Git\ diff          <cmd>Gdiffsplit<CR>
+		nmenu PopUp.Unsaved\ diff      <cmd>DiffOrig<CR>
+		nmenu PopUp.Open\ in\ browser  <cmd>lua require('gitlinker').get_buf_range_url('n')<CR>
 	]])
 
-	pcall(vim.cmd.popup, 'Context')
+	pcall(vim.cmd.popup, 'PopUp')
 end
 
 return M

@@ -1,6 +1,7 @@
 -- Edit utilities
 -- https://github.com/rafi/vim-config
 
+---@class rafi.util.edit
 local M = {}
 
 -- Get visually selected lines.
@@ -13,8 +14,8 @@ function M.get_visual_selection()
 	local mode = vim.fn.mode()
 	if mode == 'v' or mode == 'V' or mode == '' then
 		-- if we are in visual mode use the live position
-		_, csrow, cscol, _ = unpack(vim.fn.getpos('.'))
-		_, cerow, cecol, _ = unpack(vim.fn.getpos('v'))
+		_, csrow, cscol, _ = unpack(vim.fn.getpos('.') or { 0, 0, 0, 0 })
+		_, cerow, cecol, _ = unpack(vim.fn.getpos('v') or { 0, 0, 0, 0 })
 		if mode == 'V' then
 			-- visual line doesn't provide columns
 			cscol, cecol = 0, 999
@@ -27,8 +28,8 @@ function M.get_visual_selection()
 		)
 	else
 		-- otherwise, use the last known visual position
-		_, csrow, cscol, _ = unpack(vim.fn.getpos("'<"))
-		_, cerow, cecol, _ = unpack(vim.fn.getpos("'>"))
+		_, csrow, cscol, _ = unpack(vim.fn.getpos("'<") or { 0, 0, 0, 0 })
+		_, cerow, cecol, _ = unpack(vim.fn.getpos("'>") or { 0, 0, 0, 0 })
 	end
 	-- swap vars if needed
 	if cerow < csrow then
@@ -64,7 +65,7 @@ end
 -- Go to newer/older buffer through jumplist.
 ---@param direction 1 | -1
 function M.jump_buffer(direction)
-	local jumplist, curjump = unpack(vim.fn.getjumplist())
+	local jumplist, curjump = unpack(vim.fn.getjumplist() or {0, 0})
 	if #jumplist == 0 then
 		return
 	end

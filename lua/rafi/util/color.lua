@@ -1,10 +1,15 @@
 -- Source: https://github.com/nvim-lualine/lualine.nvim/blob/master/lua/lualine/themes/auto.lua
 -- Copyright (c) 2020-2021 shadmansaleh
 -- MIT license, see LICENSE for more details.
+
+---@class rafi.util.color
 local M = {}
 
 -- Turns #rrggbb -> { red, green, blue }
 function M.rgb_str2num(rgb_color_str)
+	if rgb_color_str == nil then
+		return {}
+	end
 	if rgb_color_str:find('#') == 1 then
 		rgb_color_str = rgb_color_str:sub(2, #rgb_color_str)
 	end
@@ -53,6 +58,9 @@ end
 
 -- Changes brightness of rgb_color by percentage
 function M.brightness_modifier(rgb_color, parcentage)
+	if rgb_color == nil then
+		return {}
+	end
 	local color = M.rgb_str2num(rgb_color)
 	color.red = M.clamp(color.red + (color.red * parcentage / 100), 0, 255)
 	color.green = M.clamp(color.green + (color.green * parcentage / 100), 0, 255)
@@ -100,41 +108,6 @@ function M.apply_brightness(color, base_color, brightness_modifier_parameter)
 		end
 		return M.brightness_modifier(color, brightness_modifier_parameter)
 	end
-end
-
--- Assorted highlight helpers
---
-
-local has_nvim9 = vim.fn.has('nvim-0.9') == 1
-
--- Retrieves color value from highlight group names.
--- First present highlight is returned
----@param scope string
----@param highlights table
----@param default string?
----@return string|nil
-function M.get_color(scope, highlights, default)
-	for _, hl_name in ipairs(highlights) do
-		local hl
-		if has_nvim9 then
-			hl = vim.api.nvim_get_hl(0, { name = hl_name })
-		else
-			---@diagnostic disable-next-line: deprecated
-			hl = vim.api.nvim_get_hl_by_name(hl_name, true)
-			hl.fg, hl.bg, hl.sp = hl.foreground, hl.background, hl.special
-		end
-		if hl.reverse then
-			if scope == 'bg' then
-				scope = 'fg'
-			elseif scope == 'fg' then
-				scope = 'bg'
-			end
-		end
-		if hl[scope] then
-			return string.format('#%06x', hl[scope])
-		end
-	end
-	return default
 end
 
 return M
