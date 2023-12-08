@@ -128,8 +128,6 @@ vim.api.nvim_create_autocmd('User', {
 			return
 		end
 		vim.opt_local.listchars = vim.wo.listchars .. ',tab:▏\\ '
-		vim.opt_local.conceallevel = 0
-		vim.opt_local.wrap = true
 		vim.opt_local.list = true
 		vim.opt_local.number = true
 	end,
@@ -143,7 +141,6 @@ return {
 	{
 		'nvim-telescope/telescope.nvim',
 		cmd = 'Telescope',
-		commit = vim.fn.has('nvim-0.9') == 0 and '057ee0f8783' or nil,
 		dependencies = {
 			'nvim-lua/plenary.nvim',
 			'jvgrootveld/telescope-zoxide',
@@ -152,7 +149,6 @@ return {
 		},
 		config = function(_, opts)
 			require('telescope').setup(opts)
-			require('telescope').load_extension('persisted')
 		end,
 		-- stylua: ignore
 		keys = {
@@ -161,7 +157,7 @@ return {
 			{ '<localleader>R', '<cmd>Telescope pickers<CR>', desc = 'Pickers' },
 			{ '<localleader>f', '<cmd>Telescope find_files<CR>', desc = 'Find files' },
 			{ '<localleader>g', '<cmd>Telescope live_grep<CR>', desc = 'Grep' },
-			{ '<localleader>b', '<cmd>Telescope buffers show_all_buffers=true<CR>', desc = 'Buffers' },
+			{ '<localleader>b', '<cmd>Telescope buffers<CR>', desc = 'Buffers' },
 			{ '<localleader>h', '<cmd>Telescope highlights<CR>', desc = 'Highlights' },
 			{ '<localleader>j', '<cmd>Telescope jumplist<CR>', desc = 'Jump list' },
 			{ '<localleader>m', '<cmd>Telescope marks<CR>', desc = 'Marks' },
@@ -169,7 +165,6 @@ return {
 			{ '<localleader>t', '<cmd>Telescope lsp_dynamic_workspace_symbols<CR>', desc = 'Workspace symbols' },
 			{ '<localleader>v', '<cmd>Telescope registers<CR>', desc = 'Registers' },
 			{ '<localleader>u', '<cmd>Telescope spell_suggest<CR>', desc = 'Spell suggest' },
-			{ '<localleader>s', '<cmd>Telescope persisted<CR>', desc = 'Sessions' },
 			{ '<localleader>x', '<cmd>Telescope oldfiles<CR>', desc = 'Old files' },
 			{ '<localleader>;', '<cmd>Telescope command_history<CR>', desc = 'Command history' },
 			{ '<localleader>:', '<cmd>Telescope commands<CR>', desc = 'Commands' },
@@ -206,6 +201,8 @@ return {
 							'Trait',
 							'Field',
 							'Property',
+							'Enum',
+							'Constant',
 						},
 					})
 				end,
@@ -226,6 +223,8 @@ return {
 							'Trait',
 							'Field',
 							'Property',
+							'Enum',
+							'Constant',
 						},
 					})
 				end,
@@ -286,7 +285,7 @@ return {
 				'<leader>gg',
 				function()
 					require('telescope.builtin').live_grep({
-						default_text = require('rafi.lib.edit').get_visual_selection(),
+						default_text = require('rafi.util.edit').get_visual_selection(),
 					})
 				end,
 				mode = 'x',
@@ -406,7 +405,7 @@ return {
 
 							['p'] = function()
 								local entry = require('telescope.actions.state').get_selected_entry()
-								require('rafi.lib.preview').open(entry.path)
+								require('rafi.util.preview').open(entry.path)
 							end,
 						},
 
@@ -416,8 +415,6 @@ return {
 					buffers = {
 						sort_lastused = true,
 						sort_mru = true,
-						show_all_buffers = true,
-						ignore_current_buffer = true,
 						layout_config = { width = width_large, height = 0.7 },
 						mappings = {
 							n = {
@@ -427,6 +424,7 @@ return {
 					},
 					find_files = {
 						find_command = has_ripgrep and find_args or nil,
+						layout_config = { preview_width = 0.5 },
 					},
 					live_grep = {
 						dynamic_preview_title = true,
@@ -484,9 +482,6 @@ return {
 					},
 				},
 				extensions = {
-					persisted = {
-						layout_config = { width = 0.55, height = 0.55 },
-					},
 					zoxide = {
 						prompt_title = '[ Zoxide directories ]',
 						mappings = {
