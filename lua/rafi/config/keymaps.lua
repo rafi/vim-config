@@ -1,23 +1,11 @@
 -- Rafi's Neovim keymaps
 -- github.com/rafi/vim-config
 -- ===
-
 -- This file is automatically loaded by rafi.config.init
 
-local Util = require('rafi.lib.utils')
+local RafiUtil = require('rafi.util')
+local Util = require('lazyvim.util')
 local map = vim.keymap.set
-
-local function augroup(name)
-	return vim.api.nvim_create_augroup('rafi_' .. name, {})
-end
-
--- Elite-mode: Arrow-keys resize window
-if vim.g.rafi_elite_mode then
-	map('n', '<Up>', '<cmd>resize +1<cr>', { desc = 'Resize Window' })
-	map('n', '<Down>', '<cmd>resize -1<cr>', { desc = 'Resize Window' })
-	map('n', '<Left>', '<cmd>vertical resize +1<cr>', { desc = 'Resize Window' })
-	map('n', '<Right>', '<cmd>vertical resize -1<cr>', { desc = 'Resize Window' })
-end
 
 -- Package-manager
 map('n', '<leader>l', '<cmd>Lazy<cr>', { desc = 'Open Lazy UI' })
@@ -30,6 +18,24 @@ map('n', '<leader>l', '<cmd>Lazy<cr>', { desc = 'Open Lazy UI' })
 -- Moves through display-lines, unless count is provided
 map({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 map({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+
+if vim.g.elite_mode then
+	-- Elite-mode: Arrow-keys resize window
+	map('n', '<Up>', '<cmd>resize +1<cr>', { desc = 'Increase window height' })
+	map('n', '<Down>', '<cmd>resize -1<cr>', { desc = 'Decrease window height' })
+	map('n', '<Left>', '<cmd>vertical resize +1<cr>', { desc = 'Increase window width' })
+	map('n', '<Right>', '<cmd>vertical resize -1<cr>', { desc = 'Decrease window width' })
+else
+	-- Moves through display-lines, unless count is provided
+	map({ 'n', 'x' }, '<Down>', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+	map({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+
+	-- Resize window using <ctrl> arrow keys
+	map('n', '<C-Up>', '<cmd>resize +1<cr>', { desc = 'Increase window height' })
+	map('n', '<C-Down>', '<cmd>resize -1<cr>', { desc = 'Decrease window height' })
+	map('n', '<C-Right>', '<cmd>vertical resize +1<cr>', { desc = 'Increase window width' })
+	map('n', '<C-Left>', '<cmd>vertical resize -1<cr>', { desc = 'Decrease window width' })
+end
 
 -- Easier line-wise movement
 map('n', 'gh', 'g^')
@@ -48,20 +54,35 @@ end, { expr = true, desc = 'Toggle Fold' })
 map('n', '<S-Return>', 'zMzv', { remap = true, desc = 'Focus Fold' })
 
 -- Location/quickfix list movement
-if not Util.has('mini.bracketed') and not Util.has('trouble.nvim') then
-	map('n', ']q', '<cmd>cnext<CR>', { desc = 'Next Quickfix Item' })
-	map('n', '[q', '<cmd>cprev<CR>', { desc = 'Previous Quickfix Item' })
-end
+map('n', ']q', '<cmd>cnext<CR>', { desc = 'Next Quickfix Item' })
+map('n', '[q', '<cmd>cprev<CR>', { desc = 'Previous Quickfix Item' })
 map('n', ']a', '<cmd>lnext<CR>', { desc = 'Next Loclist Item' })
 map('n', '[a', '<cmd>lprev<CR>', { desc = 'Previous Loclist Item' })
 
+-- Diagnostic movement
+local diagnostic_goto = function(next, severity)
+	local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+	local severity_int = severity and vim.diagnostic.severity[severity] or nil
+	return function()
+		go({ severity = severity_int })
+	end
+end
+
+map('n', ']d', diagnostic_goto(true), { desc = 'Next Diagnostic' })
+map('n', '[d', diagnostic_goto(false), { desc = 'Prev Diagnostic' })
+map('n', ']e', diagnostic_goto(true, 'ERROR'), { desc = 'Next Error' })
+map('n', '[e', diagnostic_goto(false, 'ERROR'), { desc = 'Prev Error' })
+map('n', ']w', diagnostic_goto(true, 'WARN'), { desc = 'Next Warning' })
+map('n', '[w', diagnostic_goto(false, 'WARN'), { desc = 'Prev Warning' })
+
+-- Formatting
+map({ 'n', 'v' }, '<leader>cf', function()
+	Util.format({ force = true })
+end, { desc = 'Format' })
+
 -- Whitespace jump (see plugin/whitespace.vim)
-map('n', ']s', function()
-	require('rafi.lib.edit').whitespace_jump(1)
-end, { desc = 'Next Whitespace' })
-map('n', '[s', function()
-	require('rafi.lib.edit').whitespace_jump(-1)
-end, { desc = 'Previous Whitespace' })
+map('n', ']s', function() RafiUtil.edit.whitespace_jump(1) end, { desc = 'Next Whitespace' })
+map('n', '[s', function() RafiUtil.edit.whitespace_jump(-1) end, { desc = 'Previous Whitespace' })
 
 -- Navigation in command line
 map('c', '<C-h>', '<Home>')
@@ -78,14 +99,14 @@ map('n', 'zh', 'z4h')
 
 -- Yank buffer's relative path to clipboard
 map('n', '<Leader>y', function()
-	local path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':~:.')
+	local path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':~:.') or ''
 	vim.fn.setreg('+', path)
 	vim.notify(path, vim.log.levels.INFO, { title = 'Yanked relative path' })
 end, { silent = true, desc = 'Yank relative path' })
 
 -- Yank absolute path
 map('n', '<Leader>Y', function()
-	local path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p')
+	local path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p') or ''
 	vim.fn.setreg('+', path)
 	vim.notify(path, vim.log.levels.INFO, { title = 'Yanked absolute path' })
 end, { silent = true, desc = 'Yank absolute path' })
@@ -107,22 +128,38 @@ map('i', '<S-Return>', '<C-o>o', { desc = 'Start Newline' })
 map('x', '<', '<gv', { desc = 'Indent Right and Re-select' })
 map('x', '>', '>gv|', { desc = 'Indent Left and Re-select' })
 
+-- Better blockwise operations on selected area
+local blockwise_force = function(key)
+	local c_v = vim.api.nvim_replace_termcodes('<C-v>', true, false, true)
+	local keyseq = {
+		I  = { v = '<C-v>I',  V = '<C-v>^o^I', [c_v] = 'I' },
+		A  = { v = '<C-v>A',  V = '<C-v>0o$A', [c_v] = 'A' },
+		gI = { v = '<C-v>0I', V = '<C-v>0o$I', [c_v] = '0I' },
+	}
+	return function()
+		return keyseq[key][vim.fn.mode()]
+	end
+end
+map('x', 'I',  blockwise_force('I'),  { expr = true, noremap = true, desc = 'Blockwise Insert' })
+map('x', 'gI', blockwise_force('gI'), { expr = true, noremap = true, desc = 'Blockwise Insert' })
+map('x', 'A',  blockwise_force('A'),  { expr = true, noremap = true, desc = 'Blockwise Append' })
+
 -- Use tab for indenting in visual/select mode
 map('x', '<Tab>', '>gv|', { desc = 'Indent Left' })
 map('x', '<S-Tab>', '<gv', { desc = 'Indent Right' })
 
 -- Drag current line/s vertically and auto-indent
-map('n', '<Leader>k', '<cmd>move-2<CR>==', { desc = 'Move line up' })
-map('n', '<Leader>j', '<cmd>move+<CR>==', { desc = 'Move line down' })
-map('x', '<Leader>k', ":move'<-2<CR>gv=gv", { desc = 'Move selection up' })
-map('x', '<Leader>j', ":move'>+<CR>gv=gv", { desc = 'Move selection down' })
+map('n', '<Leader>k', '<cmd>move-2<CR>==', { silent = true, desc = 'Move line up' })
+map('n', '<Leader>j', '<cmd>move+<CR>==', { silent = true, desc = 'Move line down' })
+map('x', '<Leader>k', ":move'<-2<CR>gv=gv", { silent = true, desc = 'Move selection up' })
+map('x', '<Leader>j', ":move'>+<CR>gv=gv", { silent = true, desc = 'Move selection down' })
 
 -- Duplicate lines without affecting PRIMARY and CLIPBOARD selections.
 map('n', '<Leader>d', 'm`""Y""P``', { desc = 'Duplicate line' })
 map('x', '<Leader>d', '""Y""Pgv', { desc = 'Duplicate selection' })
 
 -- Duplicate paragraph
-map('n', '<Leader>cp', 'yap<S-}>p', { desc = 'Duplicate Paragraph' })
+map('n', '<Leader>p', 'yap<S-}>p', { desc = 'Duplicate Paragraph' })
 
 -- Remove spaces at the end of lines
 map('n', '<Leader>cw', '<cmd>lua MiniTrailspace.trim()<CR>', { desc = 'Erase Whitespace' })
@@ -160,7 +197,7 @@ map('x', 'sg', ':s//gc<Left><Left><Left>', { desc = 'Substitute Within Selection
 map(
 	'x',
 	'<C-r>',
-	":<C-u>%s/\\V<C-R>=v:lua.require'rafi.lib.edit'.get_visual_selection()<CR>"
+	":<C-u>%s/\\V<C-R>=v:lua.require'rafi.util.edit'.get_visual_selection()<CR>"
 		.. '//gc<Left><Left><Left>',
 	{ desc = 'Replace Selection' }
 )
@@ -215,15 +252,22 @@ map({ 'n', 'i', 'v' }, '<C-s>', '<cmd>write<CR>', { desc = 'Save' })
 -- ===
 
 -- Toggle editor's visual effects
-map('n', '<leader>uf', require('rafi.plugins.lsp.format').toggle, { desc = 'Toggle format on Save' })
-map('n', '<Leader>us', '<cmd>setlocal spell!<CR>', { desc = 'Toggle Spellcheck' })
-map('n', '<Leader>ul', '<cmd>setlocal nonumber!<CR>', { desc = 'Toggle Line Numbers' })
+map('n', '<leader>uf', function() Util.format.toggle() end, { desc = 'Toggle auto format (global)' })
+map('n', '<leader>uF', function() Util.format.toggle(true) end, { desc = 'Toggle auto format (buffer)' })
+map('n', '<leader>us', function() Util.toggle('spell') end, { desc = 'Toggle Spelling' })
+map('n', '<leader>uw', function() Util.toggle('wrap') end, { desc = 'Toggle Word Wrap' })
+map('n', '<leader>uL', function() Util.toggle('relativenumber') end, { desc = 'Toggle Relative Line Numbers' })
+map('n', '<leader>ul', function() Util.toggle.number() end, { desc = 'Toggle Line Numbers' })
+-- map("n", "<leader>ud", function() Util.toggle.diagnostics() end, { desc = "Toggle Diagnostics" })
 map('n', '<Leader>uo', '<cmd>setlocal nolist!<CR>', { desc = 'Toggle Whitespace Symbols' })
 map('n', '<Leader>uu', '<cmd>nohlsearch<CR>', { desc = 'Hide Search Highlight' })
 
-if vim.lsp.inlay_hint then
-	map('n', '<leader>uh', function() vim.lsp.inlay_hint(0, nil) end, { desc = 'Toggle Inlay Hints' })
+if vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint then
+	map( "n", "<leader>uh", function() Util.toggle.inlay_hints() end, { desc = "Toggle Inlay Hints" })
 end
+
+-- Show treesitter nodes under cursor
+map('n', '<Leader>ui', vim.show_pos, { desc = 'Show Treesitter Node' })
 
 -- Smart wrap toggle (breakindent and colorcolumn toggle as-well)
 map('n', '<Leader>uw', function()
@@ -249,41 +293,29 @@ map('n', '<C-S-Tab>', '<cmd>tabprevious<CR>', { desc = 'Previous Tab' })
 map('n', '<A-{>', '<cmd>-tabmove<CR>', { desc = 'Tab Move Backwards' })
 map('n', '<A-}>', '<cmd>+tabmove<CR>', { desc = 'Tab Move Forwards' })
 
--- Show treesitter nodes under cursor
--- highlights under cursor
-if vim.fn.has('nvim-0.9') == 1 then
-	map('n', '<Leader>ui', vim.show_pos, { desc = 'Show Treesitter Node' })
-end
-
 -- Custom Tools
 -- ===
 
 -- Append mode-line to current buffer
-map('n', '<Leader>ml', function()
-	require('rafi.lib.edit').append_modeline()
-end, { desc = 'Append Modeline' })
+map('n', '<Leader>ml', function() RafiUtil.edit.append_modeline() end, { desc = 'Append Modeline' })
 
 -- Jump entire buffers throughout jumplist
-map('n', 'g<C-i>', function()
-	require('rafi.lib.edit').jump_buffer(1)
-end, { desc = 'Jump to newer buffer' })
-map('n', 'g<C-o>', function()
-	require('rafi.lib.edit').jump_buffer(-1)
-end, { desc = 'Jump to older buffer' })
+map('n', 'g<C-i>', function() RafiUtil.edit.jump_buffer(1) end, { desc = 'Jump to newer buffer' })
+map('n', 'g<C-o>', function() RafiUtil.edit.jump_buffer(-1) end, { desc = 'Jump to older buffer' })
 
 -- Context aware menu. See lua/lib/contextmenu.lua
-map('n', '<LocalLeader>c', function()
-	require('rafi.lib.contextmenu').show()
-end, { desc = 'Content-aware menu' })
+map('n', '<RightMouse>', function() RafiUtil.contextmenu.show() end)
+map('n', '<LocalLeader>c', function() RafiUtil.contextmenu.show() end, { desc = 'Content-aware menu' })
 
 -- Lazygit
-map('n', '<leader>tg', function() Util.float_term({ 'lazygit' }, { cwd = Util.get_root(), esc_esc = false }) end, { desc = 'Lazygit (root dir)' })
-map('n', '<leader>tG', function() Util.float_term({ 'lazygit' }, { esc_esc = false }) end, { desc = 'Lazygit (cwd)' })
+map('n', '<leader>tg', function() require('lazy.util').float_term({ 'lazygit' }, { cwd = Util.root(), esc_esc = false }) end, { desc = 'Lazygit (root dir)' })
+map('n', '<leader>tG', function() require('lazy.util').float_term({ 'lazygit' }, { esc_esc = false }) end, { desc = 'Lazygit (cwd)' })
 
 -- Floating terminal
 map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Enter Normal Mode' })
-map('n', '<Leader>tt', function() Util.float_term(nil, { cwd = Util.get_root() }) end, { desc = 'Terminal (root dir)' })
-map('n', '<Leader>tT', function() Util.float_term() end, { desc = 'Terminal (cwd)' })
+local lazyterm = function() Util.terminal(nil, { cwd = Util.root() }) end
+map('n', '<leader>tt', lazyterm, { desc = 'Terminal (root dir)' })
+map('n', '<leader>tT', function() Util.terminal() end, { desc = 'Terminal (cwd)' })
 
 if vim.fn.has('mac') then
 	-- Open the macOS dictionary on current word
@@ -293,7 +325,7 @@ if vim.fn.has('mac') then
 	-- See: https://marked2app.com/
 	if vim.fn.executable('/Applications/Marked 2.app') then
 		vim.api.nvim_create_autocmd('FileType', {
-			group = augroup('marked_preview'),
+			group = vim.api.nvim_create_augroup('rafi_marked_preview', {}),
 			pattern = 'markdown',
 			callback = function()
 				local cmd = "<cmd>silent !open -a Marked\\ 2.app '%:p'<CR>"
@@ -307,29 +339,54 @@ end
 -- ===
 
 -- Ultimatus Quitos
-if vim.F.if_nil(vim.g.rafi_window_q_mapping, true) then
-	vim.api.nvim_create_autocmd({ 'BufWinEnter', 'VimEnter' }, {
-		group = augroup('quit_mapping'),
-		callback = function(event)
-			if vim.bo.buftype == '' and vim.fn.maparg('q', 'n') == '' then
-				local args = { buffer = event.buf, desc = 'Quit' }
-				map('n', 'q', '<cmd>quit<CR>', args)
+if vim.F.if_nil(vim.g.window_q_mapping, true) then
+	map('n', 'q', function()
+		local plugins = {
+			'blame',
+			'checkhealth',
+			'fugitive',
+			'fugitiveblame',
+			'help',
+			'httpResult',
+			'lspinfo',
+			'notify',
+			'PlenaryTestPopup',
+			'qf',
+			'query',
+			'spectre_panel',
+			'startuptime',
+			'tsplayground',
+		}
+		local buf = vim.api.nvim_get_current_buf()
+		if vim.tbl_contains(plugins, vim.bo[buf].filetype) then
+			vim.bo[buf].buflisted = false
+			vim.api.nvim_win_close(0, false)
+		else
+			-- if last window, quit
+			local wins = vim.fn.filter(vim.api.nvim_list_wins(), function(_, win)
+				if vim.api.nvim_win_get_config(win).zindex then
+					return nil
+				end
+				return win
+			end)
+			if #wins > 1 then
+				vim.api.nvim_win_close(0, false)
+			else
+				vim.cmd[[quit]]
 			end
-		end,
-	})
+		end
+	end, { desc = 'Close window' })
 end
 
 -- Toggle quickfix window
-map('n', '<Leader>q', function()
-	require('rafi.lib.edit').toggle_list('quickfix')
-end, { desc = 'Open Quickfix' })
+map('n', '<Leader>q', function() RafiUtil.edit.toggle_list('quickfix') end, { desc = 'Open Quickfix' })
 
 -- Set locations with diagnostics and open the list.
 map('n', '<Leader>a', function()
 	if vim.bo.filetype ~= 'qf' then
 		vim.diagnostic.setloclist({ open = false })
 	end
-	require('rafi.lib.edit').toggle_list('loclist')
+	RafiUtil.edit.toggle_list('loclist')
 end, { desc = 'Open Location List' })
 
 -- Switch with adjacent window
