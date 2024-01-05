@@ -17,7 +17,7 @@ return {
 					opts.root_dir = util.root_pattern(unpack(root_files))
 						or util.find_git_ancestor()
 
-					require('rafi.lib.utils').on_attach(function(client, _)
+					require('lazyvim.util').lsp.on_attach(function(client, _)
 						if client.name == 'ruff_lsp' then
 							client.server_capabilities.hoverProvider = false
 						end
@@ -38,7 +38,7 @@ return {
 	},
 
 	{
-		'jose-elias-alvarez/null-ls.nvim',
+		'nvimtools/none-ls.nvim',
 		optional = true,
 		opts = function(_, opts)
 			if type(opts.sources) == 'table' then

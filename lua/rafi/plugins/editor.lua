@@ -29,81 +29,55 @@ return {
 
 	-----------------------------------------------------------------------------
 	{
-		'olimorris/persisted.nvim',
+		'folke/persistence.nvim',
 		event = 'VimEnter',
-		priority = 1000,
 		opts = {
-			autoload = true,
-			follow_cwd = false,
-			ignored_dirs = { '/usr', '/opt', '~/.cache', vim.env.TMPDIR or '/tmp' },
+			options = vim.opt_global.sessionoptions:get()
 		},
-		config = function(_, opts)
-			if vim.g.in_pager_mode or vim.env.GIT_EXEC_PATH ~= nil then
-				-- Do not autoload if stdin has been provided, or git commit session.
-				opts.autoload = false
-				opts.autosave = false
-			end
-			require('persisted').setup(opts)
-		end,
 		init = function()
+			local disabled_dirs = {
+				vim.env.TMPDIR or '/tmp',
+				'/private/tmp',
+			}
 			-- Detect if stdin has been provided.
-			vim.g.in_pager_mode = false
+			vim.g.started_with_stdin = false
 			vim.api.nvim_create_autocmd('StdinReadPre', {
-				group = vim.api.nvim_create_augroup('rafi_persisted', {}),
+				group = vim.api.nvim_create_augroup('rafi_persistence', {}),
 				callback = function()
-					vim.g.in_pager_mode = true
+					vim.g.started_with_stdin = true
 				end,
 			})
-			-- Close all floats before loading a session. (e.g. Lazy.nvim)
-			vim.api.nvim_create_autocmd('User', {
-				group = 'rafi_persisted',
-				pattern = 'PersistedLoadPre',
+			-- Autoload session on startup, unless:
+			-- * neovim was started with files as arguments
+			-- * stdin has been provided
+			-- * git commit/rebase session
+			vim.api.nvim_create_autocmd('VimEnter', {
+				group = 'rafi_persistence',
+				nested = true,
 				callback = function()
+					local cwd = vim.loop.cwd() or vim.fn.getcwd()
+					if
+						cwd == nil
+						or vim.fn.argc() > 0
+						or vim.g.started_with_stdin
+						or vim.env.GIT_EXEC_PATH ~= nil
+					then
+						require('persistence').stop()
+						return
+					end
+					for _, path in pairs(disabled_dirs) do
+						if cwd:sub(1, #path) == path then
+							require('persistence').stop()
+							return
+						end
+					end
+					-- Close all floats before loading a session. (e.g. Lazy.nvim)
 					for _, win in pairs(vim.api.nvim_tabpage_list_wins(0)) do
 						if vim.api.nvim_win_get_config(win).zindex then
 							vim.api.nvim_win_close(win, false)
 						end
 					end
-				end,
-			})
-			-- Close all plugin owned buffers before saving a session.
-			vim.api.nvim_create_autocmd('User', {
-				pattern = 'PersistedSavePre',
-				group = 'rafi_persisted',
-				callback = function()
-					-- Detect if window is owned by plugin by checking buftype.
-					local current_buffer = vim.api.nvim_get_current_buf()
-					for _, win in ipairs(vim.fn.getwininfo()) do
-						local buftype = vim.bo[win.bufnr].buftype
-						if buftype ~= '' and buftype ~= 'help' then
-							-- Delete plugin owned window buffers.
-							if win.bufnr == current_buffer then
-								-- Jump to previous window if current window is not a real file
-								vim.cmd.wincmd('p')
-							end
-							vim.api.nvim_buf_delete(win.bufnr, {})
-						end
-					end
-				end,
-			})
-			-- Before switching to a different session using Telescope, save and stop
-			-- current session to avoid previous session to be overwritten.
-			vim.api.nvim_create_autocmd('User', {
-				pattern = 'PersistedTelescopeLoadPre',
-				group = 'rafi_persisted',
-				callback = function()
-					require('persisted').save()
-					require('persisted').stop()
-				end,
-			})
-			-- After switching to a different session using Telescope, start it so it
-			-- will be auto-saved.
-			vim.api.nvim_create_autocmd('User', {
-				pattern = 'PersistedTelescopeLoadPost',
-				group = 'rafi_persisted',
-				callback = function(session)
-					require('persisted').start()
-					print('Started session ' .. session.data.name)
+					require('persistence').load()
 				end,
 			})
 		end,
@@ -120,11 +94,12 @@ return {
 			filetypes_denylist = {
 				'DiffviewFileHistory',
 				'DiffviewFiles',
-				'SidebarNvim',
 				'fugitive',
 				'git',
 				'minifiles',
 				'neo-tree',
+				'Outline',
+				'SidebarNvim',
 			},
 		},
 		keys = {
@@ -169,42 +144,18 @@ return {
 
 	-----------------------------------------------------------------------------
 	{
-		'ggandor/flit.nvim',
-		keys = function()
-			---@type LazyKeys[]
-			local ret = {}
-			for _, key in ipairs({ 'f', 'F', 't', 'T' }) do
-				ret[#ret + 1] = { key, mode = { 'n', 'x', 'o' }, desc = key }
-			end
-			return ret
-		end,
-		opts = { labeled_modes = 'nx' },
-	},
-
-	-----------------------------------------------------------------------------
-	{
-		'ggandor/leap.nvim',
+		'folke/flash.nvim',
+		event = 'VeryLazy',
+		vscode = true,
+		opts = {},
 		-- stylua: ignore
 		keys = {
-			{ 'ss', '<Plug>(leap-forward-to)', mode = { 'n', 'x', 'o' }, desc = 'Leap forward to' },
-			{ 'sS', '<Plug>(leap-backward-to)', mode = { 'n', 'x', 'o' }, desc = 'Leap backward to' },
-			{ 'SS', '<Plug>(leap-from-window)', mode = { 'n', 'x', 'o' }, desc = 'Leap from windows' },
+			{ 'ss', mode = { 'n', 'x', 'o' }, function() require('flash').jump() end, desc = 'Flash' },
+			{ 'S', mode = { 'n', 'x', 'o' }, function() require('flash').treesitter() end, desc = 'Flash Treesitter' },
+			{ 'r', mode = 'o', function() require('flash').remote() end, desc = 'Remote Flash' },
+			{ 'R', mode = { 'x', 'o' }, function() require('flash').treesitter_search() end, desc = 'Treesitter Search' },
+			{ '<c-s>', mode = { 'c' }, function() require('flash').toggle() end, desc = 'Toggle Flash Search' },
 		},
-		config = true,
-	},
-
-	-----------------------------------------------------------------------------
-	{
-		'kana/vim-niceblock',
-		-- stylua: ignore
-		keys = {
-			{ 'I',  '<Plug>(niceblock-I)',  silent = true, mode = 'x', desc = 'Blockwise Insert' },
-			{ 'gI', '<Plug>(niceblock-gI)', silent = true, mode = 'x', desc = 'Blockwise Insert' },
-			{ 'A',  '<Plug>(niceblock-A)',  silent = true, mode = 'x', desc = 'Blockwise Append' },
-		},
-		init = function()
-			vim.g.niceblock_no_default_key_mappings = 0
-		end,
 	},
 
 	-----------------------------------------------------------------------------
@@ -234,40 +185,8 @@ return {
 
 	-----------------------------------------------------------------------------
 	{
-		'folke/which-key.nvim',
-		event = 'VeryLazy',
-		opts = {
-			icons = { separator = ' 󰁔 ' },
-			window = { winblend = 0 },
-			defaults = {
-				mode = { 'n', 'v' },
-				[';'] = { name = '+telescope' },
-				[';d'] = { name = '+lsp/todo' },
-				['g'] = { name = '+goto' },
-				['gz'] = { name = '+surround' },
-				[']'] = { name = '+next' },
-				['['] = { name = '+prev' },
-				['<leader>b'] = { name = '+buffer' },
-				['<leader>c'] = { name = '+code' },
-				['<leader>g'] = { name = '+git' },
-				['<leader>h'] = { name = '+hunks' },
-				['<leader>s'] = { name = '+search' },
-				['<leader>t'] = { name = '+toggle/tools' },
-				['<leader>u'] = { name = '+ui' },
-				['<leader>x'] = { name = '+diagnostics/quickfix' },
-				['<leader>z'] = { name = '+notes' },
-			},
-		},
-		config = function(_, opts)
-			local wk = require('which-key')
-			wk.setup(opts)
-			wk.register(opts.defaults)
-		end,
-	},
-
-	-----------------------------------------------------------------------------
-	{
 		'folke/todo-comments.nvim',
+		event = 'LazyFile',
 		dependencies = 'nvim-telescope/telescope.nvim',
 		-- stylua: ignore
 		keys = {
@@ -289,12 +208,12 @@ return {
 		opts = { use_diagnostic_signs = true },
 		-- stylua: ignore
 		keys = {
-			{ '<leader>e', '<cmd>TroubleToggle document_diagnostics<CR>', noremap = true, desc = 'Document Diagnostics' },
-			{ '<leader>r', '<cmd>TroubleToggle workspace_diagnostics<CR>', noremap = true, desc = 'Workspace Diagnostics' },
-			{ '<leader>xx', '<cmd>TroubleToggle document_diagnostics<cr>', desc = 'Document Diagnostics (Trouble)' },
-			{ '<leader>xX', '<cmd>TroubleToggle workspace_diagnostics<cr>', desc = 'Workspace Diagnostics (Trouble)' },
-			{ '<leader>xQ', '<cmd>TroubleToggle quickfix<cr>', desc = 'Quickfix List (Trouble)' },
-			{ '<leader>xL', '<cmd>TroubleToggle loclist<cr>', desc = 'Location List (Trouble)' },
+			{ '<leader>xx', function() require('trouble').toggle() end, desc = 'Document Diagnostics (Trouble)' },
+			{ '<leader>xw', function() require('trouble').toggle('workspace_diagnostics') end, desc = 'Workspace Diagnostics (Trouble)' },
+			{ '<leader>xd', function() require('trouble').toggle('document_diagnostics') end, desc = 'Document Diagnostics (Trouble)' },
+			{ '<leader>xq', function() require('trouble').toggle('quickfix') end, desc = 'Quickfix List (Trouble)' },
+			{ '<leader>xl', function() require('trouble').toggle('loclist') end, desc = 'Location List (Trouble)' },
+			{ 'gR', function() require('trouble').open('lsp_references') end, desc = 'LSP References (Trouble)' },
 			{
 				'[q',
 				function()
@@ -324,22 +243,21 @@ return {
 	{
 		'akinsho/toggleterm.nvim',
 		cmd = 'ToggleTerm',
-		keys = {
-			{
-				'<C-_>',
-				mode = { 'n', 't' },
-				silent = true,
-				function()
-					local venv = vim.b['virtual_env']
-					local term = require('toggleterm.terminal').Terminal:new({
-						env = venv and { VIRTUAL_ENV = venv } or nil,
-						count = vim.v.count > 0 and vim.v.count or 1,
-					})
-					term:toggle()
-				end,
-				desc = 'Toggle terminal',
-			},
-		},
+		keys = function(_, keys)
+			local function toggleterm()
+				local venv = vim.b['virtual_env']
+				local term = require('toggleterm.terminal').Terminal:new({
+					env = venv and { VIRTUAL_ENV = venv } or nil,
+					count = vim.v.count > 0 and vim.v.count or 1,
+				})
+				term:toggle()
+			end
+			local mappings = {
+				{ '<C-/>', mode = { 'n', 't' }, toggleterm, desc = 'Toggle terminal' },
+				{ '<C-_>', mode = { 'n', 't' }, toggleterm, desc = 'which_key_ignore' },
+			}
+			return vim.list_extend(mappings, keys)
+		end,
 		opts = {
 			open_mapping = false,
 			float_opts = {
@@ -350,29 +268,12 @@ return {
 
 	-----------------------------------------------------------------------------
 	{
-		'simrat39/symbols-outline.nvim',
-		cmd = { 'SymbolsOutline', 'SymbolsOutlineOpen' },
+		'hedyhli/outline.nvim',
+		opts = {},
+		cmd = { 'Outline', 'OutlineOpen' },
 		keys = {
-			{ '<Leader>o', '<cmd>SymbolsOutline<CR>', desc = 'Symbols Outline' },
+			{ '<leader>o', '<cmd>Outline<CR>', desc = 'Toggle outline' },
 		},
-		opts = {
-			width = 30,
-			autofold_depth = 0,
-			keymaps = {
-				hover_symbol = 'K',
-				toggle_preview = 'p',
-			},
-		},
-		init = function()
-			vim.api.nvim_create_autocmd('FileType', {
-				group = vim.api.nvim_create_augroup('rafi_outline', {}),
-				pattern = 'Outline',
-				callback = function()
-					vim.opt_local.winhighlight = 'CursorLine:WildMenu'
-					vim.opt_local.signcolumn = 'auto'
-				end,
-			})
-		end,
 	},
 
 	-----------------------------------------------------------------------------
@@ -412,7 +313,7 @@ return {
 				include_current_win = true,
 				bo = {
 					filetype = { 'notify', 'noice' },
-					buftype = {},
+					buftype = { 'prompt', 'nofile' },
 				},
 			},
 		},
@@ -431,7 +332,7 @@ return {
 	-----------------------------------------------------------------------------
 	{
 		'mickael-menu/zk-nvim',
-		name = 'zk',
+		main = 'zk',
 		ft = 'markdown',
 		cmd = { 'ZkNew', 'ZkNotes', 'ZkTags', 'ZkMatch' },
 		-- stylua: ignore
@@ -439,12 +340,48 @@ return {
 			{ '<leader>zn', "<Cmd>ZkNew { title = vim.fn.input('Title: ') }<CR>", desc = 'Zk New' },
 			{ '<leader>zo', "<Cmd>ZkNotes { sort = { 'modified' } }<CR>", desc = 'Zk Notes' },
 			{ '<leader>zt', '<Cmd>ZkTags<CR>', desc = 'Zk Tags' },
-			{ '<leader>zf', "<Cmd>ZkNotes { sort = { 'modified' }, match = vim.fn.input('Search: ') }<CR>", desc = 'Zk Search' },
+			{ '<leader>zf', "<Cmd>ZkNotes { sort = { 'modified' }, match = { vim.fn.input('Search: ') } }<CR>", desc = 'Zk Search' },
 			{ '<leader>zf', ":'<,'>ZkMatch<CR>", mode = 'x', desc = 'Zk Match' },
 			{ '<leader>zb', '<Cmd>ZkBacklinks<CR>', desc = 'Zk Backlinks' },
 			{ '<leader>zl', '<Cmd>ZkLinks<CR>', desc = 'Zk Links' },
 		},
 		opts = { picker = 'telescope' },
+	},
+
+	-----------------------------------------------------------------------------
+	{
+		'dnlhc/glance.nvim',
+		cmd = 'Glance',
+		keys = {
+			{ 'gpd', '<cmd>Glance definitions<CR>' },
+			{ 'gpr', '<cmd>Glance references<CR>' },
+			{ 'gpy', '<cmd>Glance type_definitions<CR>' },
+			{ 'gpi', '<cmd>Glance implementations<CR>' },
+		},
+		opts = function()
+			local actions = require('glance').actions
+			return {
+				folds = {
+					fold_closed = '󰅂', -- 󰅂 
+					fold_open = '󰅀', -- 󰅀 
+					folded = true,
+				},
+				mappings = {
+					list = {
+						['<C-u>'] = actions.preview_scroll_win(5),
+						['<C-d>'] = actions.preview_scroll_win(-5),
+						['sg'] = actions.jump_vsplit,
+						['sv'] = actions.jump_split,
+						['st'] = actions.jump_tab,
+						['p'] = actions.enter_win('preview'),
+					},
+					preview = {
+						['q'] = actions.close,
+						['p'] = actions.enter_win('list'),
+					},
+				},
+			}
+		end,
 	},
 
 	-----------------------------------------------------------------------------
@@ -456,6 +393,7 @@ return {
 			{ '<Leader>sp', function() require('spectre').open_visual({ select_word = true }) end, mode = 'x', desc = 'Spectre Word' },
 		},
 		opts = {
+			open_cmd = 'noswapfile vnew',
 			mapping = {
 				['toggle_gitignore'] = {
 					map = 'tg',
@@ -507,6 +445,9 @@ return {
 		'mzlogin/vim-markdown-toc',
 		cmd = { 'GenTocGFM', 'GenTocRedcarpet', 'GenTocGitLab', 'UpdateToc' },
 		ft = 'markdown',
+		keys = {
+			{ '<leader>mo', '<cmd>UpdateToc<CR>', desc = 'Update table of contents' },
+		},
 		init = function()
 			vim.g.vmt_auto_update_on_save = 0
 		end,

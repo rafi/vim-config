@@ -38,6 +38,10 @@ return {
 		opts = {
 			servers = {
 				gopls = {
+					keys = {
+						-- Workaround for the lack of a DAP strategy in neotest-go: https://github.com/nvim-neotest/neotest-go/issues/12
+						{ '<leader>td', "<cmd>lua require('dap-go').debug_test()<CR>", desc = 'Debug Nearest (Go)' },
+					},
 					settings = {
 						-- https://github.com/golang/tools/blob/master/gopls/doc/settings.md
 						gopls = {
@@ -95,7 +99,7 @@ return {
 				gopls = function(_, _)
 					-- workaround for gopls not supporting semanticTokensProvider
 					-- https://github.com/golang/go/issues/54531#issuecomment-1464982242
-					require('rafi.lib.utils').on_attach(function(client, _)
+					require('lazyvim.util').lsp.on_attach(function(client, _)
 						if client.name == 'gopls' then
 							if not client.server_capabilities.semanticTokensProvider then
 								local semantic =
@@ -148,7 +152,7 @@ return {
 	},
 
 	{
-		'jose-elias-alvarez/null-ls.nvim',
+		'nvimtools/none-ls.nvim',
 		optional = true,
 		opts = function(_, opts)
 			local nls = require('null-ls')
@@ -163,6 +167,16 @@ return {
 				table.insert(opts.sources, source)
 			end
 		end,
+	},
+
+	{
+		'stevearc/conform.nvim',
+		optional = true,
+		opts = {
+			formatters_by_ft = {
+				go = { 'goimports', 'gofumpt' },
+			},
+		},
 	},
 
 	{

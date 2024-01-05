@@ -8,14 +8,14 @@ local function link_surround()
 	local csrow, cscol, cerow, cecol
 
 	if mode == 'n' then
-		local cword = vim.fn.expand('<cword>')
-		bufnr, csrow, cscol, off = unpack(vim.fn.getpos('.'))
+		local cword = vim.fn.expand('<cword>') --[[@as string]]
+		bufnr, csrow, cscol, off = unpack(vim.fn.getpos('.') or { 0, 0, 0, 0 })
 		len = vim.fn.strchars(cword)
 		line = vim.fn.getline(csrow)
 		idx = vim.fn.stridx(line, cword, 0)
 	elseif mode == 'v' or mode == '' then
-		bufnr, csrow, cscol, off = unpack(vim.fn.getpos('.'))
-		_, cerow, cecol, _ = unpack(vim.fn.getpos('v'))
+		bufnr, csrow, cscol, off = unpack(vim.fn.getpos('.') or { 0, 0, 0, 0 })
+		_, cerow, cecol, _ = unpack(vim.fn.getpos('v') or { 0, 0, 0, 0 })
 		if cecol < cscol then
 			cscol, cecol = cecol, cscol
 		end
@@ -33,7 +33,7 @@ local function link_surround()
 		return
 	end
 
-	-- Stich selection with link into original line and replace it.
+	-- Stitch selection with link into original line and replace it.
 	local new = vim.fn.strcharpart(line, 0, idx)
 		.. '['
 		.. vim.fn.strcharpart(line, idx, len)

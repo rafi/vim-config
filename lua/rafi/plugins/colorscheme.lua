@@ -20,52 +20,53 @@ return {
 	{ 'nyoom-engineering/oxocarbon.nvim' },
 
 	{
+		'ribru17/bamboo.nvim',
+		config = function()
+			require('bamboo').setup({})
+			require('bamboo').load()
+		end,
+	},
+
+	{
 		'catppuccin/nvim',
 		lazy = true,
 		name = 'catppuccin',
 		opts = {
-			flavour = 'mocha', -- latte, frappe, macchiato, mocha
+			flavour = 'macchiato', -- latte, frappe, macchiato, mocha
 			dim_inactive = { enabled = false },
 			integrations = {
+				aerial = true,
 				alpha = true,
 				cmp = true,
+				dashboard = true,
 				flash = true,
 				gitsigns = true,
+				headlines = true,
 				illuminate = true,
 				indent_blankline = { enabled = true },
+				leap = true,
 				lsp_trouble = true,
-				markdown = true,
 				mason = true,
+				markdown = true,
 				mini = true,
 				native_lsp = {
 					enabled = true,
-					virtual_text = {
-						errors = { 'italic' },
-						hints = { 'italic' },
-						warnings = { 'italic' },
-						information = { 'italic' },
-					},
 					underlines = {
 						errors = { 'undercurl' },
 						hints = { 'undercurl' },
 						warnings = { 'undercurl' },
 						information = { 'undercurl' },
 					},
-					inlay_hints = {
-						background = true,
-					},
 				},
-				navic = { enabled = true },
-				neogit = true,
+				navic = { enabled = true, custom_bg = 'lualine' },
 				neotest = true,
 				neotree = true,
 				noice = true,
 				notify = true,
 				semantic_tokens = true,
-				symbols_outline = true,
-				treesitter_context = true,
-				telescope = { enabled = true },
+				telescope = true,
 				treesitter = true,
+				treesitter_context = true,
 				which_key = true,
 			},
 		},

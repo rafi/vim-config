@@ -24,43 +24,34 @@ return {
 		optional = true,
 		event = 'VeryLazy',
 		opts = function(_, opts)
-			local get_color = require('rafi.lib.color').get_color
-			local fg = function(...)
-				return { fg = get_color('fg', ...) }
-			end
-
+			local fg = require('lazyvim.util').ui.fg
 			local colors = {
-				[''] = fg({ 'Comment' }),
-				['Normal'] = fg({ 'Comment' }),
-				['Warning'] = fg({ 'DiagnosticError' }),
-				['InProgress'] = fg({ 'DiagnosticWarn' }),
+				[''] = fg('Comment'),
+				['Normal'] = fg('Comment'),
+				['Warning'] = fg('DiagnosticError'),
+				['InProgress'] = fg('DiagnosticWarn'),
 			}
 			-- Add copilot icon to lualine statusline
-			table.insert(opts.sections.lualine_x, {
+			table.insert(opts.sections.lualine_x, 2, {
 				function()
-					local icon = require('rafi.config').icons.kinds.Copilot
+					local icon = require('lazyvim.config').icons.kinds.Copilot
 					local status = require('copilot.api').status.data
 					return icon .. (status.message or '')
 				end,
 				cond = function()
-					local clients
-					if vim.lsp.get_clients ~= nil then
-						clients = vim.lsp.get_clients({ name = 'copilot', bufnr = 0 })
-					else
-						---@diagnostic disable-next-line: deprecated
-						clients = vim.lsp.get_active_clients({
-							name = 'copilot',
-							bufnr = 0,
-						})
-					end
-					return #clients > 0
+					---@diagnostic disable-next-line: deprecated
+					local get_clients = vim.lsp.get_clients or vim.lsp.get_active_clients
+					return #get_clients({ name = 'copilot', bufnr = 0 }) > 0
 				end,
 				color = function()
-					if not package.loaded["copilot"] then
+					if not package.loaded['copilot'] then
 						return
 					end
 					local status = require('copilot.api').status.data
 					return colors[status.status] or colors['']
+				end,
+				on_click = function()
+					vim.cmd[[Copilot]]
 				end,
 			})
 		end,
@@ -80,7 +71,7 @@ return {
 					-- attach cmp source whenever copilot attaches
 					-- fixes lazy-loading issues with the copilot cmp source
 					---@param client lsp.Client
-					require('rafi.lib.utils').on_attach(function(client)
+					require('lazyvim.util').lsp.on_attach(function(client)
 						if client.name == 'copilot' then
 							copilot_cmp._on_insert_enter({})
 						end
@@ -93,15 +84,9 @@ return {
 			-- Add copilot nvim-cmp source.
 			table.insert(opts.sources, 1, {
 				name = 'copilot',
-				group_index = 2,
-				priority = 60,
+				group_index = 1,
+				priority = 100,
 			})
-			opts.sorting = opts.sorting or require('cmp.config.default')().sorting
-			table.insert(
-				opts.sorting.comparators,
-				1,
-				require('copilot_cmp.comparators').prioritize
-			)
 		end,
 	},
 }

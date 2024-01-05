@@ -3,16 +3,13 @@
 
 local M = {}
 
----@type PluginLspKeys
+---@type LazyKeysLspSpec[]|nil
 M._keys = nil
 
----@return (LazyKeys|{has?:string})[]
+---@return LazyKeysLspSpec[]
 function M.get()
 	if M._keys then
 		return M._keys
-	end
-	local format = function()
-		require('rafi.plugins.lsp.format').format({ force = true })
 	end
 
 	---@class PluginLspKeys
@@ -25,10 +22,6 @@ function M.get()
 		{ 'gi', vim.lsp.buf.implementation, desc = 'Goto Implementation', has = 'implementation' },
 		{ 'gK', vim.lsp.buf.signature_help, desc = 'Signature Help', has = 'signatureHelp' },
 		{ '<C-g>h', vim.lsp.buf.signature_help, mode = 'i', desc = 'Signature Help', has = 'signatureHelp' },
-		{ ']d', M.diagnostic_goto(true), desc = 'Next Diagnostic' },
-		{ '[d', M.diagnostic_goto(false), desc = 'Prev Diagnostic' },
-		{ ']e', M.diagnostic_goto(true, 'ERROR'), desc = 'Next Error' },
-		{ '[e', M.diagnostic_goto(false, 'ERROR'), desc = 'Prev Error' },
 
 		{ ',wa', vim.lsp.buf.add_workspace_folder, desc = 'Show Workspace Folders' },
 		{ ',wr', vim.lsp.buf.remove_workspace_folder, desc = 'Remove Workspace Folder' },
@@ -36,7 +29,7 @@ function M.get()
 
 		{ 'K', function()
 			-- Show hover documentation or folded lines.
-			local winid = require('rafi.lib.utils').has('nvim-ufo')
+			local winid = require('lazyvim.util').has('nvim-ufo')
 				and require('ufo').peekFoldedLinesUnderCursor() or nil
 			if not winid then
 				vim.lsp.buf.hover()
@@ -47,9 +40,6 @@ function M.get()
 		{ '<Leader>uD', function() M.diagnostic_toggle(true) end, desc = 'Disable All Diagnostics' },
 
 		{ '<leader>cl', '<cmd>LspInfo<cr>' },
-		{ '<leader>cf', format, desc = 'Format Document', has = 'formatting' },
-		{ '<leader>cf', format, mode = 'x', desc = 'Format Range' },  -- , has = 'rangeFormatting'
-		{ '<Leader>cr', vim.lsp.buf.rename, desc = 'Rename', has = 'rename' },
 		{ '<Leader>ce', vim.diagnostic.open_float, desc = 'Open diagnostics' },
 		{ '<Leader>ca', vim.lsp.buf.code_action, mode = { 'n', 'x' }, has = 'codeAction', desc = 'Code Action' },
 		{ '<Leader>cA', function()
@@ -61,19 +51,27 @@ function M.get()
 			})
 		end, desc = 'Source Action', has = 'codeAction' },
 	}
+	if require('lazyvim.util').has('inc-rename.nvim') then
+		M._keys[#M._keys + 1] = {
+			'<leader>cr',
+			function()
+				local inc_rename = require('inc_rename')
+				return ':' .. inc_rename.config.cmd_name .. ' ' .. vim.fn.expand('<cword>')
+			end,
+			expr = true,
+			desc = 'Rename',
+			has = 'rename',
+		}
+	else
+		M._keys[#M._keys + 1] = { '<leader>cr', vim.lsp.buf.rename, desc = 'Rename', has = 'rename' }
+	end
 	return M._keys
 end
 
 ---@param method string
 function M.has(buffer, method)
 	method = method:find('/') and method or 'textDocument/' .. method
-	local clients
-	if vim.lsp.get_clients ~= nil then
-		clients = vim.lsp.get_clients({ bufnr = buffer })
-	else
-		---@diagnostic disable-next-line: deprecated
-		clients = vim.lsp.get_active_clients({ bufnr = buffer })
-	end
+	local clients = require('lazyvim.util').lsp.get_clients({ bufnr = buffer })
 	for _, client in ipairs(clients) do
 		if client.supports_method(method) then
 			return true
@@ -82,55 +80,35 @@ function M.has(buffer, method)
 	return false
 end
 
----@param buffer integer
+---@return (LazyKeys|{has?:string})[]
 function M.resolve(buffer)
 	local Keys = require('lazy.core.handler.keys')
-	local keymaps = {} ---@type table<string,LazyKeys|{has?:string}>
-
-	local function add(keymap)
-		local keys = Keys.parse(keymap)
-		if keys[2] == false then
-			keymaps[keys.id] = nil
-		else
-			keymaps[keys.id] = keys
-		end
+	if not Keys.resolve then
+		return {}
 	end
-	for _, keymap in ipairs(M.get()) do
-		add(keymap)
-	end
-
-	local opts = require('rafi.lib.utils').opts('nvim-lspconfig')
-	local clients
-	if vim.lsp.get_clients ~= nil then
-		clients = vim.lsp.get_clients({ bufnr = buffer })
-	else
-		---@diagnostic disable-next-line: deprecated
-		clients = vim.lsp.get_active_clients({ bufnr = buffer })
-	end
+	local spec = M.get()
+	local opts = require('lazyvim.util').opts('nvim-lspconfig')
+	local clients = require('lazyvim.util').lsp.get_clients({ bufnr = buffer })
 	for _, client in ipairs(clients) do
-		local maps = opts.servers[client.name] and opts.servers[client.name].keys
-			or {}
-		for _, keymap in ipairs(maps) do
-			add(keymap)
-		end
+		local maps = opts.servers[client.name] and opts.servers[client.name].keys or {}
+		vim.list_extend(spec, maps)
 	end
-	return keymaps
+	return Keys.resolve(spec)
 end
 
----@param client lsp.Client
 ---@param buffer integer
-function M.on_attach(client, buffer)
+function M.on_attach(_, buffer)
 	local Keys = require('lazy.core.handler.keys')
 	local keymaps = M.resolve(buffer)
 
 	for _, keys in pairs(keymaps) do
 		if not keys.has or M.has(buffer, keys.has) then
+			---@class LazyKeysBase
 			local opts = Keys.opts(keys)
-			---@diagnostic disable-next-line: no-unknown
 			opts.has = nil
 			opts.silent = opts.silent ~= false
 			opts.buffer = buffer
-			vim.keymap.set(keys.mode or 'n', keys[1], keys[2], opts)
+			vim.keymap.set(keys.mode or 'n', keys.lhs, keys.rhs, opts)
 		end
 	end
 end
@@ -162,17 +140,6 @@ function M.diagnostic_toggle(global)
 	vim.schedule(function()
 		vim.diagnostic[cmd](bufnr)
 	end)
-end
-
----@param next boolean
----@param severity string|nil
----@return fun()
-function M.diagnostic_goto(next, severity)
-	local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-	local severity_int = severity and vim.diagnostic.severity[severity] or nil
-	return function()
-		go({ severity = severity_int })
-	end
 end
 
 return M

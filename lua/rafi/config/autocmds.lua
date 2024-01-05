@@ -14,15 +14,37 @@ vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
 	command = 'checktime',
 })
 
+-- Highlight on yank
+vim.api.nvim_create_autocmd('TextYankPost', {
+	group = augroup('highlight_yank'),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+})
+
+-- resize splits if window got resized
+vim.api.nvim_create_autocmd({ 'VimResized' }, {
+	group = augroup('resize_splits'),
+	callback = function()
+		local current_tab = vim.fn.tabpagenr()
+		vim.cmd('tabdo wincmd =')
+		vim.cmd('tabnext ' .. current_tab)
+	end,
+})
+
 -- Go to last loc when opening a buffer, see ':h last-position-jump'
 vim.api.nvim_create_autocmd('BufReadPost', {
 	group = augroup('last_loc'),
-	callback = function()
+	callback = function(event)
 		local exclude = { 'gitcommit', 'commit', 'gitrebase' }
-		local buf = vim.api.nvim_get_current_buf()
-		if vim.tbl_contains(exclude, vim.bo[buf].filetype) then
+		local buf = event.buf
+		if
+			vim.tbl_contains(exclude, vim.bo[buf].filetype)
+			or vim.b[buf].lazyvim_last_loc
+		then
 			return
 		end
+		vim.b[buf].lazyvim_last_loc = true
 		local mark = vim.api.nvim_buf_get_mark(buf, '"')
 		local lcount = vim.api.nvim_buf_line_count(buf)
 		if mark[1] > 0 and mark[1] <= lcount then
@@ -42,25 +64,18 @@ vim.api.nvim_create_autocmd({ 'InsertLeave', 'WinEnter' }, {
 })
 vim.api.nvim_create_autocmd({ 'InsertEnter', 'WinLeave' }, {
 	group = augroup('auto_cursorline_hide'),
-	callback = function(_)
+	callback = function()
 		vim.opt_local.cursorline = false
 	end,
 })
 
--- Highlight on yank
-vim.api.nvim_create_autocmd('TextYankPost', {
-	group = augroup('highlight_yank'),
+-- wrap and check for spell in text filetypes
+vim.api.nvim_create_autocmd('FileType', {
+	group = augroup('wrap_spell'),
+	pattern = { 'gitcommit', 'markdown' },
 	callback = function()
-		vim.highlight.on_yank()
-	end,
-})
-
--- Automatically set read-only for files being edited elsewhere
-vim.api.nvim_create_autocmd('SwapExists', {
-	group = augroup('open_swap'),
-	nested = true,
-	callback = function()
-		vim.v.swapchoice = 'o'
+		vim.opt_local.wrap = true
+		vim.opt_local.spell = true
 	end,
 })
 
@@ -76,58 +91,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 	end,
 })
 
--- Disable conceallevel for specific file-types.
-vim.api.nvim_create_autocmd('FileType', {
-	group = augroup('fix_conceallevel'),
-	pattern = { 'markdown' },
-	callback = function()
-		vim.opt_local.conceallevel = 0
-	end,
-})
-
--- Resize splits if window got resized
-vim.api.nvim_create_autocmd('VimResized', {
-	group = augroup('resize_splits'),
-	callback = function()
-		vim.cmd('wincmd =')
-	end,
-})
-
--- Wrap and enable spell-checker in text filetypes
-vim.api.nvim_create_autocmd('FileType', {
-	group = augroup('spell_conceal'),
-	pattern = { 'gitcommit', 'markdown' },
-	callback = function()
-		vim.opt_local.spell = true
-		vim.opt_local.conceallevel = 0
-	end,
-})
-
--- Close some filetypes with <q>
-vim.api.nvim_create_autocmd('FileType', {
-	group = augroup('close_with_q'),
-	pattern = {
-		'blame',
-		'checkhealth',
-		'fugitive',
-		'fugitiveblame',
-		'help',
-		'httpResult',
-		'lspinfo',
-		'notify',
-		'PlenaryTestPopup',
-		'qf',
-		'spectre_panel',
-		'startuptime',
-		'tsplayground',
-	},
-	callback = function(event)
-		vim.bo[event.buf].buflisted = false
-		-- stylua: ignore
-		vim.keymap.set('n', 'q', '<cmd>close<CR>', { buffer = event.buf, silent = true })
-	end,
-})
-
+-- Disable swap/undo/backup files in temp directories or shm
 vim.api.nvim_create_autocmd('BufWritePre', {
 	group = augroup('undo_disable'),
 	pattern = { '/tmp/*', '*.tmp', '*.bak', 'COMMIT_EDITMSG', 'MERGE_MSG' },

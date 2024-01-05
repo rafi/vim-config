@@ -9,34 +9,58 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ';'
 
+-- Enable LazyVim auto format
+vim.g.autoformat = false
+
+-- Enable elite-mode (hjkl mode. arrow-keys resize window)
+vim.g.elite_mode = false
+
+-- When enabled, 'q' closes any window
+vim.g.window_q_mapping = true
+
+-- Display structure in statusline by default
+vim.g.structure_status = false
+
+-- LazyVim root dir detection
+-- Each entry can be:
+-- * the name of a detector function like `lsp` or `cwd`
+-- * a pattern or array of patterns like `.git` or `lua`.
+-- * a function with signature `function(buf) -> string|string[]`
+vim.g.root_spec = { 'lsp', { '.git', 'lua' }, 'cwd' }
+
 -- General
 -- ===
 
 local opt = vim.opt
 
-opt.mouse = 'nv'       -- Disable mouse in command-line mode
-opt.errorbells = true  -- Trigger bell on error
-opt.visualbell = true  -- Use visual bell instead of beeping
-opt.hidden = true      -- Hide buffers when abandoned instead of unload
-opt.virtualedit = 'block'  -- Position cursor anywhere in visual block
-opt.confirm = true     -- Confirm to save changes before exiting modified buffer
-
--- History and persistence
-opt.history = 5000
-opt.shada = { "'1000", "<50", "s10", "h" }
-
-opt.conceallevel = 3
-opt.signcolumn = 'yes'
+opt.title = true
+opt.titlestring = "%<%F%=%l/%L - nvim"
+opt.mouse = 'nv'               -- Disable mouse in command-line mode
+opt.virtualedit = 'block'      -- Position cursor anywhere in visual block
+opt.confirm = true             -- Confirm unsaved changes before exiting buffer
+opt.clipboard = 'unnamedplus'  -- Sync with system clipboard
+opt.conceallevel = 3           -- Hide concealed text
+opt.signcolumn = 'yes'         -- Always show signcolumn
+opt.spelllang = { 'en' }
 opt.spelloptions:append('camel')
+opt.timeoutlen = 300           -- Time out on mappings
+opt.updatetime = 200           -- Idle time to write swap and trigger CursorHold
+
+opt.completeopt = 'menu,menuone,noselect'
+opt.wildmode = 'longest:full,full'  -- Command-line completion mode
+opt.diffopt:append({ 'iwhite', 'indent-heuristic', 'algorithm:patience' })
+
+opt.textwidth = 80             -- Text width maximum chars before wrapping
+opt.tabstop = 2                -- The number of spaces a tab is
+opt.smartindent = true         -- Smart autoindenting on new lines
+opt.shiftwidth = 2             -- Number of spaces to use in auto(indent)
+opt.shiftround = true          -- Round indent to multiple of 'shiftwidth'
 
 -- What to save for views and sessions
 opt.viewoptions:remove('folds')
-opt.sessionoptions:remove({ 'buffers', 'folds' })
+opt.sessionoptions:remove({ 'blank', 'terminal' })
+opt.sessionoptions:append({ 'globals', 'skiprtp' })
 
--- Sync with system clipboard
-opt.clipboard = 'unnamedplus'
-
--- Undo
 opt.undofile = true
 opt.undolevels = 10000
 opt.writebackup = false
@@ -57,33 +81,13 @@ then
 	vim.opt_global.shadafile = 'NONE'
 end
 
--- Tabs and Indents
--- ===
-
-opt.textwidth = 80     -- Text width maximum chars before wrapping
-opt.tabstop = 2        -- The number of spaces a tab is
-opt.shiftwidth = 2     -- Number of spaces to use in auto(indent)
-opt.smarttab = true    -- Tab insert blanks according to 'shiftwidth'
-opt.autoindent = true  -- Use same indenting on new lines
-opt.smartindent = true -- Smart autoindenting on new lines
-opt.shiftround = true  -- Round indent to multiple of 'shiftwidth'
-
--- Timing
--- ===
-opt.ttimeout = true
-opt.timeoutlen = 500  -- Time out on mappings
-opt.ttimeoutlen = 10  -- Time out on key codes
-opt.updatetime = 500  -- Idle time to write swap and trigger CursorHold
-
 -- Searching
 -- ===
 opt.ignorecase = true -- Search ignoring case
 opt.smartcase = true  -- Keep case when searching with *
-opt.infercase = true  -- Adjust case in insert completion mode
-opt.incsearch = true  -- Incremental search
-opt.inccommand = 'nosplit'
+opt.inccommand = 'nosplit' -- Preview incremental substitute
 opt.grepformat = '%f:%l:%c:%m'
-opt.path:append('**') -- Find recursively
+-- opt.path:append('**') -- Find recursively
 
 if vim.fn.executable('rg') then
 	opt.grepprg = 'rg --vimgrep --no-heading'
@@ -98,11 +102,7 @@ end
 
 opt.wrap = false                -- No wrap by default
 opt.linebreak = true            -- Break long lines at 'breakat'
-opt.breakat = '\\ \\	;:,!?'    -- Long lines break chars
-opt.startofline = false         -- Cursor in same column for few commands
-opt.splitbelow = true           -- Splits open bottom right
-opt.splitright = true
-opt.breakindentopt = { shift = 2, min = 20 }
+opt.breakindent = true
 opt.formatoptions = opt.formatoptions
 	- 'a' -- Auto formatting is BAD.
 	- 't' -- Don't auto format my code. I got linters for that.
@@ -114,74 +114,48 @@ opt.formatoptions = opt.formatoptions
 	+ 'j' -- Auto-remove comments if possible.
 	- '2' -- I'm not in gradeschool anymore
 
--- Completion and Diff
--- ===
-
--- C-n completion
-opt.complete:append('k')
-opt.complete:remove('u')
-opt.complete:remove('t')
-
-opt.completeopt = 'menu,menuone,noselect'
-
-opt.diffopt:append({ 'iwhite', 'indent-heuristic', 'algorithm:patience' })
-
-opt.wildmode = 'longest:full,full' -- Command-line completion mode
-
 -- Editor UI
 -- ===
 
-opt.termguicolors = true
-opt.shortmess:append({ W = true, I = true, c = true })
-opt.showmode = false    -- Don't show mode in cmd window
-opt.scrolloff = 2       -- Keep at least 2 lines above/below
-opt.sidescrolloff = 5   -- Keep at least 5 lines left/right
-opt.numberwidth = 2     -- Minimum number of columns to use for the line number
-opt.number = false      -- Don't show line numbers
-opt.ruler = false       -- Disable default status ruler
-opt.list = true         -- Show hidden characters
+opt.termguicolors = true  -- True color support
+opt.shortmess:append({ W = true, I = true, c = true })  --  (default "ltToOCF")
+opt.showcmd = false       -- Don't show command in status line
+opt.showmode = false      -- Don't show mode in cmd window
+opt.scrolloff = 4         -- Keep at least 2 lines above/below
+opt.sidescrolloff = 8     -- Keep at least 5 lines left/right
+opt.numberwidth = 2       -- Minimum number of columns to use for the line number
+opt.number = false        -- Don't show line numbers
+opt.ruler = false         -- Disable default status ruler
+opt.list = true           -- Show hidden characters
+opt.cursorline = true     -- Highlight the text line under the cursor
+opt.splitbelow = true     -- New split at bottom
+opt.splitright = true     -- New split on right
+opt.splitkeep = 'screen'  -- New split keep the text on the same screen line
 
-opt.showtabline = 2     -- Always show the tabs line
-opt.helpheight = 0      -- Disable help window resizing
-opt.winwidth = 30       -- Minimum width for active window
-opt.winminwidth = 1     -- Minimum width for inactive windows
-opt.winheight = 1       -- Minimum height for active window
-opt.winminheight = 1    -- Minimum height for inactive window
-
-opt.showcmd = false     -- Don't show command in status line
 opt.cmdheight = 0
-opt.cmdwinheight = 5    -- Command-line lines
-opt.equalalways = true  -- Resize windows on split or close
-opt.colorcolumn = '+0'  -- Column highlight at textwidth's max character-limit
+opt.colorcolumn = '+0'    -- Align text at 'textwidth'
+opt.showtabline = 2       -- Always show the tabs line
+opt.helpheight = 0        -- Disable help window resizing
+opt.winwidth = 30         -- Minimum width for active window
+opt.winminwidth = 1       -- Minimum width for inactive windows
+opt.winheight = 1         -- Minimum height for active window
+opt.winminheight = 1      -- Minimum height for inactive window
+opt.pumblend = 10         -- Popup blend
+opt.pumheight = 10        -- Maximum number of items to show in the popup menu
 
-opt.cursorline = true
-opt.cursorlineopt = { 'number', 'screenline' }
-
-opt.pumheight = 10      -- Maximum number of items to show in the popup menu
-opt.pumwidth = 10       -- Minimum width for the popup menu
-opt.pumblend = 10       -- Popup blend
-
-if vim.fn.has('nvim-0.9') == 1 then
-	opt.splitkeep = 'screen'
-	opt.shortmess:append({ C = true })
-end
-
--- UI Symbols
--- ===
--- icons:  ▏│ ¦ ╎ ┆ ⋮ ⦙ ┊ 
-
-opt.showbreak = '↳  '
+opt.showbreak = '⤷  ' -- ↪	⤷
 opt.listchars = {
 	tab = '  ',
 	extends = '⟫',
 	precedes = '⟪',
+	conceal = '',
 	nbsp = '␣',
 	trail = '·'
 }
 opt.fillchars = {
 	foldopen = '󰅀', -- 󰅀 
-	foldclose = '󰅂', -- 󰅂 
-	fold = ' ',
+	foldclose = '', -- 󰅂 
+	fold = ' ', -- ⸱
 	foldsep = ' ',
 	diff = '╱',
 	eob = ' ',
@@ -194,13 +168,31 @@ opt.fillchars = {
 	verthoriz = '╋',
 }
 
+if vim.fn.has('nvim-0.10') == 1 then
+	opt.smoothscroll = true
+end
+
 -- Folds
 -- ===
 
 opt.foldlevel = 99
-opt.foldlevelstart = 99
-opt.foldcolumn = '0'
-opt.foldenable = true
+-- opt.foldlevelstart = 99
+
+vim.opt.foldtext = "v:lua.require'lazyvim.util'.ui.foldtext()"
+
+if vim.fn.has('nvim-0.9.0') == 1 then
+	vim.opt.statuscolumn = [[%!v:lua.require'lazyvim.util'.ui.statuscolumn()]]
+end
+
+-- HACK: causes freezes on <= 0.9, so only enable on >= 0.10 for now
+if vim.fn.has('nvim-0.10') == 1 then
+	vim.opt.foldmethod = 'expr'
+	vim.opt.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
+else
+	vim.opt.foldmethod = 'indent'
+end
+
+vim.o.formatexpr = "v:lua.require'lazyvim.util'.format.formatexpr()"
 
 -- Misc
 -- ===
@@ -210,6 +202,9 @@ vim.g.loaded_python3_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
+
+-- Fix markdown indentation settings
+vim.g.markdown_recommended_style = 0
 
 vim.g.no_gitrebase_maps = 1 -- See share/nvim/runtime/ftplugin/gitrebase.vim
 vim.g.no_man_maps = 1       -- See share/nvim/runtime/ftplugin/man.vim
@@ -231,6 +226,7 @@ vim.filetype.add({
 		['.jscsrc'] = 'json',
 		['.watchmanconfig'] = 'json',
 		['dev-requirements.txt'] = 'requirements',
+		['helmfile.yaml'] = 'yaml',
 	},
 	pattern = {
 		['.*%.js%.map'] = 'json',

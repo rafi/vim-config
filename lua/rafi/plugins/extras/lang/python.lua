@@ -11,7 +11,7 @@ return {
 			if type(opts.ensure_installed) == 'table' then
 				vim.list_extend(
 					opts.ensure_installed,
-					{ 'ninja', 'python', 'requirements', 'rst', 'toml' }
+					{ 'ninja', 'python', 'pymanifest', 'requirements', 'rst', 'toml' }
 				)
 			end
 		end,
@@ -25,6 +25,25 @@ return {
 				pyright = {},
 			},
 		},
+	},
+
+	{
+		'mhartington/formatter.nvim',
+		optional = true,
+		opts = function(_, opts)
+			opts = opts or {}
+			local fmts = require('formatter.filetypes.python')
+			local filetypes = {
+				python = {
+					fmts.black,
+					fmts.yapf,
+					fmts.pyment,
+					fmts.isort,
+					fmts.docformatter,
+				},
+			}
+			opts.filetype = vim.tbl_extend('keep', opts.filetype or {}, filetypes)
+		end,
 	},
 
 	{

@@ -9,18 +9,12 @@ return {
 	-----------------------------------------------------------------------------
 	{
 		'neovim/nvim-lspconfig',
-		event = { 'BufReadPre', 'BufNewFile' },
+		event = 'LazyFile',
 		dependencies = {
 			{ 'folke/neoconf.nvim', cmd = 'Neoconf', config = false, dependencies = { 'nvim-lspconfig' } },
 			{ 'folke/neodev.nvim', opts = {} },
 			'williamboman/mason.nvim',
 			'williamboman/mason-lspconfig.nvim',
-			{
-				'hrsh7th/cmp-nvim-lsp',
-				cond = function()
-					return require('rafi.lib.utils').has('nvim-cmp')
-				end,
-			},
 		},
 		---@class PluginLspOpts
 		opts = {
@@ -42,30 +36,31 @@ return {
 				},
 			},
 			-- Enable this to enable the builtin LSP inlay hints on Neovim >= 0.10.0
-			-- Be aware that you also will need to properly configure your LSP server to
-			-- provide the inlay hints.
+			-- Be aware that you also will need to properly configure your LSP server
+			-- to provide the inlay hints.
 			inlay_hints = {
 				enabled = false,
 			},
 			-- Add any global capabilities here
 			capabilities = {},
-			-- Automatically format on save
-			autoformat = false,
-			-- Options for vim.lsp.buf.format
-			-- `bufnr` and `filter` is handled by the formatter,
-			-- but can be also overridden when specified
+			-- Formatting options
 			format = {
-				formatting_options = nil,
-				timeout_ms = nil,
+				select = true,
+				-- If select=false, set to plugin priority.
+				priority = { 'formatter', 'lsp', 'null-ls' },
+				-- If select=false, show formatters used in a notification
+				notify = false,
+				-- Options for vim.lsp.buf.format - `bufnr` and `filter` is handled by
+				-- the formatter, but can be overridden
+				lsp = {
+					formatting_options = nil,
+					timeout_ms = nil,
+				},
 			},
-			-- Enable this to show formatters used in a notification
-			-- Useful for debugging formatter issues
-			format_notify = false,
 			-- LSP Server Settings
 			---@type lspconfig.options
 			---@diagnostic disable: missing-fields
 			servers = {
-				-- jsonls = {},
 				lua_ls = {
 					settings = {
 						Lua = {
@@ -90,17 +85,17 @@ return {
 		},
 		---@param opts PluginLspOpts
 		config = function(_, opts)
-			if require('rafi.lib.utils').has('neoconf.nvim') then
+			local Util = require('lazyvim.util')
+			if Util.has('neoconf.nvim') then
 				local plugin = require('lazy.core.config').spec.plugins['neoconf.nvim']
 				require('neoconf').setup(require('lazy.core.plugin').values(plugin, 'opts', false))
 			end
+
 			-- Setup autoformat
-			require('rafi.plugins.lsp.format').setup(opts)
+			Util.format.register(Util.lsp.formatter())
+
 			-- Setup formatting, keymaps and highlights.
-			local lsp_on_attach = require('rafi.lib.utils').on_attach
-			---@param client lsp.Client
-			---@param buffer integer
-			lsp_on_attach(function(client, buffer)
+			Util.lsp.on_attach(function(client, buffer)
 				require('rafi.plugins.lsp.keymaps').on_attach(client, buffer)
 				require('rafi.plugins.lsp.highlight').on_attach(client, buffer)
 
@@ -126,17 +121,16 @@ return {
 			end
 
 			-- Diagnostics signs and highlights
-			for type, icon in pairs(require('rafi.config').icons.diagnostics) do
+			for type, icon in pairs(require('lazyvim.config').icons.diagnostics) do
 				local hl = 'DiagnosticSign' .. type
 				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
 			end
 
 			-- Setup inlay-hints
-			local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
-			if opts.inlay_hints.enabled and inlay_hint then
-				lsp_on_attach(function(client, buffer)
+			if opts.inlay_hints.enabled then
+				Util.lsp.on_attach(function(client, buffer)
 					if client.supports_method('textDocument/inlayHint') then
-						inlay_hint(buffer, true)
+						Util.toggle.inlay_hints(buffer, true)
 					end
 				end)
 			end
@@ -148,7 +142,7 @@ return {
 				opts.diagnostics.virtual_text.prefix = vim.fn.has('nvim-0.10') == 0
 						and '●'
 					or function(diagnostic)
-						local icons = require('rafi.config').icons.diagnostics
+						local icons = require('lazyvim.config').icons.diagnostics
 						for d, icon in pairs(icons) do
 							if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
 								return icon
@@ -198,7 +192,7 @@ return {
 				require('lspconfig')[server_name].setup(server_opts)
 			end
 
-			-- Get all the servers that are available thourgh mason-lspconfig
+			-- Get all the servers that are available through mason-lspconfig
 			local have_mason, mlsp = pcall(require, 'mason-lspconfig')
 			local all_mslp_servers = {}
 			if have_mason then
@@ -233,6 +227,14 @@ return {
 
 			-- Enable rounded borders in :LspInfo window.
 			require('lspconfig.ui.windows').default_options.border = 'rounded'
+
+			if Util.lsp.get_config('denols') and Util.lsp.get_config('tsserver') then
+				local is_deno = require('lspconfig.util').root_pattern('deno.json', 'deno.jsonc')
+				Util.lsp.disable('tsserver', is_deno)
+				Util.lsp.disable('denols', function(root_dir)
+					return not is_deno(root_dir)
+				end)
+			end
 		end,
 	},
 
@@ -252,6 +254,15 @@ return {
 		config = function(_, opts)
 			require('mason').setup(opts)
 			local mr = require('mason-registry')
+			mr:on('package:install:success', function()
+				vim.defer_fn(function()
+					-- trigger FileType event to possibly load this newly installed LSP server
+					require('lazy.core.handler.event').trigger({
+						event = 'FileType',
+						buf = vim.api.nvim_get_current_buf(),
+					})
+				end, 100)
+			end)
 			local function ensure_installed()
 				for _, tool in ipairs(opts.ensure_installed) do
 					local p = mr.get_package(tool)
@@ -265,62 +276,6 @@ return {
 			else
 				ensure_installed()
 			end
-		end,
-	},
-
-	-----------------------------------------------------------------------------
-	{
-		'mhartington/formatter.nvim',
-		event = { 'BufReadPre', 'BufNewFile' },
-		dependencies = { 'williamboman/mason.nvim', 'neovim/nvim-lspconfig' },
-		opts = function(_, opts)
-			opts = opts or {}
-			local defaults = {
-				logging = true,
-				log_level = vim.log.levels.WARN,
-				filetype = {
-					lua = { require('formatter.filetypes.lua').stylua },
-				},
-			}
-			opts = vim.tbl_extend('keep', opts, defaults)
-			return opts
-		end,
-		config = true,
-	},
-
-	-----------------------------------------------------------------------------
-	{
-		'dnlhc/glance.nvim',
-		cmd = 'Glance',
-		keys = {
-			{ 'gpd', '<cmd>Glance definitions<CR>' },
-			{ 'gpr', '<cmd>Glance references<CR>' },
-			{ 'gpy', '<cmd>Glance type_definitions<CR>' },
-			{ 'gpi', '<cmd>Glance implementations<CR>' },
-		},
-		opts = function()
-			local actions = require('glance').actions
-			return {
-				folds = {
-					fold_closed = '󰅂', -- 󰅂 
-					fold_open = '󰅀', -- 󰅀 
-					folded = true,
-				},
-				mappings = {
-					list = {
-						['<C-u>'] = actions.preview_scroll_win(5),
-						['<C-d>'] = actions.preview_scroll_win(-5),
-						['sg'] = actions.jump_vsplit,
-						['sv'] = actions.jump_split,
-						['st'] = actions.jump_tab,
-						['p'] = actions.enter_win('preview'),
-					},
-					preview = {
-						['q'] = actions.close,
-						['p'] = actions.enter_win('list'),
-					},
-				},
-			}
 		end,
 	},
 }
