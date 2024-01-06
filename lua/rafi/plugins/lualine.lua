@@ -6,10 +6,7 @@ return {
 	-----------------------------------------------------------------------------
 	{
 		'nvim-lualine/lualine.nvim',
-		dependencies = {
-			'nvim-lua/plenary.nvim',
-			'nvim-tree/nvim-web-devicons',
-		},
+		dependencies = { 'nvim-tree/nvim-web-devicons' },
 		event = 'VeryLazy',
 		enabled = not vim.g.started_by_firenvim,
 		init = function()

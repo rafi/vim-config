@@ -9,10 +9,6 @@ local M = {}
 ---@param client lsp.Client
 ---@param bufnr integer
 function M.on_attach(client, bufnr)
-	if require('lazyvim.util').has('vim-illuminate') then
-		-- Skipped setup for document_highlight, illuminate is installed.
-		return
-	end
 	local status_ok, highlight_supported = pcall(function()
 		return client.supports_method('textDocument/documentHighlight')
 	end)

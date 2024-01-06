@@ -20,7 +20,6 @@ return {
 		opts = {
 			-- Options for vim.diagnostic.config()
 			diagnostics = {
-				signs = true,
 				underline = true,
 				update_in_insert = false,
 				virtual_text = {
@@ -97,7 +96,9 @@ return {
 			-- Setup formatting, keymaps and highlights.
 			Util.lsp.on_attach(function(client, buffer)
 				require('rafi.plugins.lsp.keymaps').on_attach(client, buffer)
-				require('rafi.plugins.lsp.highlight').on_attach(client, buffer)
+				if not require('lazyvim.util').has('vim-illuminate') then
+					require('rafi.plugins.lsp.highlight').on_attach(client, buffer)
+				end
 
 				if vim.diagnostic.is_disabled() or vim.bo[buffer].buftype ~= '' then
 					vim.diagnostic.disable(buffer)
@@ -152,6 +153,9 @@ return {
 			end
 
 			vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
+
+			-- Enable rounded borders in :LspInfo window.
+			require('lspconfig.ui.windows').default_options.border = 'rounded'
 
 			-- Initialize LSP servers and ensure Mason packages
 
@@ -224,9 +228,6 @@ return {
 					handlers = { make_config },
 				})
 			end
-
-			-- Enable rounded borders in :LspInfo window.
-			require('lspconfig.ui.windows').default_options.border = 'rounded'
 
 			if Util.lsp.get_config('denols') and Util.lsp.get_config('tsserver') then
 				local is_deno = require('lspconfig.util').root_pattern('deno.json', 'deno.jsonc')

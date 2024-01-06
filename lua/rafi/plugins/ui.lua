@@ -83,7 +83,7 @@ return {
 				separator_style = 'slant',
 				show_close_icon = false,
 				show_buffer_close_icons = false,
-				diagnostics = "nvim_lsp",
+				diagnostics = 'nvim_lsp',
 				-- show_tab_indicators = true,
 				-- enforce_regular_tabs = true,
 				always_show_bufferline = true,
@@ -101,7 +101,7 @@ return {
 						local result = {}
 						local root = require('lazyvim.util').root()
 						table.insert(result, {
-							text = '%#BufferLineTab# ' .. vim.fn.fnamemodify(root, ':t')
+							text = '%#BufferLineTab# ' .. vim.fn.fnamemodify(root, ':t'),
 						})
 
 						-- Session indicator
@@ -238,7 +238,7 @@ return {
 			---@param client lsp.Client
 			---@param buffer integer
 			require('lazyvim.util').lsp.on_attach(function(client, buffer)
-				if client.server_capabilities.documentSymbolProvider then
+				if client.supports_method('textDocument/documentSymbol') then
 					require('nvim-navic').attach(client, buffer)
 				end
 			end)
@@ -310,10 +310,11 @@ return {
 					'toggleterm',
 					'Trouble',
 				},
-			}
+			},
 		},
 	},
 
+	-----------------------------------------------------------------------------
 	-- Active indent guide and indent text objects. When you're browsing
 	-- code, this highlights the current level of indentation, and animates
 	-- the highlighting.
@@ -322,7 +323,7 @@ return {
 		version = false, -- wait till new 0.7.0 release to put it back on semver
 		event = 'LazyFile',
 		opts = {
-			symbol = '│',  -- ▏│
+			symbol = '│', -- ▏│
 			options = { try_as_border = true },
 		},
 		init = function()

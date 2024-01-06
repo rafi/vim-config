@@ -32,7 +32,7 @@ return {
 		'folke/persistence.nvim',
 		event = 'VimEnter',
 		opts = {
-			options = vim.opt_global.sessionoptions:get()
+			options = vim.opt_global.sessionoptions:get(),
 		},
 		init = function()
 			local disabled_dirs = {
