@@ -277,7 +277,7 @@ map('n', '<Leader>uo', '<cmd>setlocal nolist!<CR>', { desc = 'Toggle Whitespace 
 map('n', '<Leader>uu', '<cmd>nohlsearch<CR>', { desc = 'Hide Search Highlight' })
 
 if vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint then
-	map( "n", "<leader>uh", function() Util.toggle.inlay_hints() end, { desc = "Toggle Inlay Hints" })
+	map('n', '<leader>uh', function() Util.toggle.inlay_hints() end, { desc = 'Toggle Inlay Hints' })
 end
 
 -- Show treesitter nodes under cursor

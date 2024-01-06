@@ -121,10 +121,31 @@ return {
 				return ret
 			end
 
-			-- Diagnostics signs and highlights
+			-- Diagnostics signs and highlights.
+			-- Support vim.fn.sign_define legacy API, and use icons from
+			-- config/init.lua if none are set in opts.
+			local set_opts_signs = vim.fn.has('nvim-0.10') == 1
+			if set_opts_signs then
+				if type(opts.diagnostics.signs) == 'table' then
+					if table(opts.diagnostics.signs.text) == 'table' then
+						set_opts_signs = false
+					else
+						opts.diagnostics.signs.text = {}
+					end
+				else
+					opts.diagnostics.signs = { text = {} }
+				end
+			end
+			if set_opts_signs or vim.fn.has('nvim-0.10') == 0 then
 			for type, icon in pairs(require('lazyvim.config').icons.diagnostics) do
+					if set_opts_signs then
+						local severity = vim.diagnostic.severity[type:upper()]
+						opts.diagnostics.signs.text[severity] = icon
+					else
 				local hl = 'DiagnosticSign' .. type
 				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
+			end
+				end
 			end
 
 			-- Setup inlay-hints
