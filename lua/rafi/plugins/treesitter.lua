@@ -27,6 +27,11 @@ return {
 		version = false,
 		build = ':TSUpdate',
 		event = { 'LazyFile', 'VeryLazy' },
+		cmd = { 'TSInstall', 'TSUpdate', 'TSUpdateSync' },
+		keys = {
+			{ 'v', desc = 'Increment selection', mode = 'x' },
+			{ 'V', desc = 'Shrink selection', mode = 'x' },
+		},
 		dependencies = {
 			{
 				'nvim-treesitter/nvim-treesitter-textobjects',
@@ -54,13 +59,10 @@ return {
 					end
 				end,
 			},
-			'RRethy/nvim-treesitter-endwise',
+
 			'andymass/vim-matchup',
-		},
-		cmd = { 'TSInstall', 'TSUpdate', 'TSUpdateSync' },
-		keys = {
-			{ 'v', desc = 'Increment selection', mode = 'x' },
-			{ 'V', desc = 'Shrink selection', mode = 'x' },
+			-- Wisely add "end" in various filetypes
+			'RRethy/nvim-treesitter-endwise',
 		},
 		---@type TSConfig
 		---@diagnostic disable-next-line: missing-fields

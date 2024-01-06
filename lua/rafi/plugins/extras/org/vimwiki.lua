@@ -3,7 +3,7 @@ return {
 		'vimwiki/vimwiki',
 		cmd = { 'VimwikiIndex', 'VimwikiUISelect' },
 		keys = {
-			{ '<Leader>W', '<cmd>VimwikiIndex<CR>', { noremap = true } },
+			{ '<Leader>zo', '<cmd>VimwikiIndex<CR>', { noremap = true } },
 		},
 		init = function()
 			vim.g.vimwiki_global_ext = 0

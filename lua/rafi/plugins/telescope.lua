@@ -178,7 +178,6 @@ return {
 			{ '<leader>sm', '<cmd>Telescope man_pages<CR>', desc = 'Man Pages' },
 			{ '<leader>sw', '<cmd>Telescope grep_string<CR>', desc = 'Word' },
 			{ '<leader>sc', '<cmd>Telescope colorscheme<CR>', desc = 'Colorscheme' },
-			{ '<leader>uC', '<cmd>Telescope colorscheme<CR>', desc = 'Colorscheme' },
 
 			-- LSP related
 			{ '<localleader>dd', '<cmd>Telescope lsp_definitions<CR>', desc = 'Definitions' },
@@ -363,6 +362,10 @@ return {
 
 							['<C-b>'] = actions.preview_scrolling_up,
 							['<C-f>'] = actions.preview_scrolling_down,
+							['<C-h>'] = actions.preview_scrolling_left,
+							['<C-j>'] = actions.preview_scrolling_down,
+							['<C-k>'] = actions.preview_scrolling_up,
+							['<C-l>'] = actions.preview_scrolling_right,
 						},
 
 						n = {
@@ -376,6 +379,10 @@ return {
 
 							['<C-b>'] = actions.preview_scrolling_up,
 							['<C-f>'] = actions.preview_scrolling_down,
+							['<C-h>'] = actions.preview_scrolling_left,
+							['<C-j>'] = actions.preview_scrolling_down,
+							['<C-k>'] = actions.preview_scrolling_up,
+							['<C-l>'] = actions.preview_scrolling_right,
 
 							['<C-n>'] = actions.cycle_history_next,
 							['<C-p>'] = actions.cycle_history_prev,

@@ -58,16 +58,21 @@ return {
 				map('n', 'gs', gs.preview_hunk, { desc = 'Preview hunk' })
 				map('n', '<leader>hp', gs.preview_hunk_inline, { desc = 'Preview hunk inline' })
 				map('n', '<leader>hb', function() gs.blame_line({ full=true }) end, { desc = 'Show blame commit' })
-				map('n', '<leader>tb', gs.toggle_current_line_blame, { desc = 'Toggle Git line blame' })
-				-- map('n', '<leader>tw', gs.toggle_word_diff)
 				map('n', '<leader>hd', gs.diffthis, { desc = 'Diff against the index' })
 				map('n', '<leader>hD', function() gs.diffthis('~') end, { desc = 'Diff against the last commit' })
-				map('n', '<leader>td', gs.toggle_deleted, { desc = 'Toggle Git deleted' })
 				map('n', '<leader>hl', function()
 					if vim.bo.filetype ~= 'qf' then
 						require('gitsigns').setqflist(0, { use_location_list = true })
 					end
 				end, { desc = 'Send to location list' })
+
+				-- Toggles
+				map('n', '<leader>htb', gs.toggle_current_line_blame, { desc = 'Toggle Git line blame' })
+				map('n', '<leader>htd', gs.toggle_deleted, { desc = 'Toggle Git deleted' })
+				map('n', '<leader>htw', gs.toggle_word_diff, { desc = 'Toggle Git word diff' })
+				map('n', '<leader>htl', gs.toggle_linehl, { desc = 'Toggle Git line highlight' })
+				map('n', '<leader>htn', gs.toggle_numhl, { desc = 'Toggle Git number highlight' })
+				map('n', '<leader>hts', gs.toggle_signs, { desc = 'Toggle Git signs' })
 
 				-- Text object
 				map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { silent = true, desc = 'Select hunk'})
@@ -99,21 +104,21 @@ return {
 				enhanced_diff_hl = true, -- See ':h diffview-config-enhanced_diff_hl'
 				keymaps = {
 					view = {
-						{ 'n', 'q', '<cmd>DiffviewClose<CR>' },
+						{ 'n', 'q', actions.close },
 						{ 'n', '<Tab>', actions.select_next_entry },
 						{ 'n', '<S-Tab>', actions.select_prev_entry },
 						{ 'n', '<LocalLeader>a', actions.focus_files },
 						{ 'n', '<LocalLeader>e', actions.toggle_files },
 					},
 					file_panel = {
-						{ 'n', 'q', '<cmd>DiffviewClose<CR>' },
+						{ 'n', 'q', actions.close },
 						{ 'n', 'h', actions.prev_entry },
 						{ 'n', 'o', actions.focus_entry },
 						{ 'n', 'gf', actions.goto_file },
 						{ 'n', 'sg', actions.goto_file_split },
 						{ 'n', 'st', actions.goto_file_tab },
 						{ 'n', '<C-r>', actions.refresh_files },
-						{ 'n', ';e', actions.toggle_files },
+						{ 'n', '<LocalLeader>e', actions.toggle_files },
 					},
 					file_history_panel = {
 						{ 'n', 'q', '<cmd>DiffviewClose<CR>' },
@@ -171,7 +176,7 @@ return {
 		'rhysd/git-messenger.vim',
 		cmd = 'GitMessenger',
 		keys = {
-			{ '<Leader>gm', '<Plug>(git-messenger)', desc = 'Git messenger'}
+			{ '<Leader>gm', '<Plug>(git-messenger)', desc = 'Reveal commit under cursor'}
 		},
 		init = function()
 			vim.g.git_messenger_include_diff = 'current'
@@ -230,15 +235,16 @@ return {
 						buffer = vim.api.nvim_get_current_buf(),
 						silent = true,
 					}
-					local function imap(lhs, rhs)
-						vim.keymap.set('i', lhs, rhs, opts)
+					local function map(mode, lhs, rhs)
+						vim.keymap.set(mode, lhs, rhs, opts)
 					end
-					imap('<C-d>', '<Plug>(committia-scroll-diff-down-half)')
-					imap('<C-u>', '<Plug>(committia-scroll-diff-up-half)')
-					imap('<C-f>', '<Plug>(committia-scroll-diff-down-page)')
-					imap('<C-b>', '<Plug>(committia-scroll-diff-up-page)')
-					imap('<C-j>', '<Plug>(committia-scroll-diff-down)')
-					imap('<C-k>', '<Plug>(committia-scroll-diff-up)')
+					map('n', 'q', '<cmd>quit<CR>')
+					map('i', '<C-d>', '<Plug>(committia-scroll-diff-down-half)')
+					map('i', '<C-u>', '<Plug>(committia-scroll-diff-up-half)')
+					map('i', '<C-f>', '<Plug>(committia-scroll-diff-down-page)')
+					map('i', '<C-b>', '<Plug>(committia-scroll-diff-up-page)')
+					map('i', '<C-j>', '<Plug>(committia-scroll-diff-down)')
+					map('i', '<C-k>', '<Plug>(committia-scroll-diff-up)')
 				end,
 			}
 		end,

@@ -23,9 +23,9 @@ function M.get()
 		{ 'gK', vim.lsp.buf.signature_help, desc = 'Signature Help', has = 'signatureHelp' },
 		{ '<C-g>h', vim.lsp.buf.signature_help, mode = 'i', desc = 'Signature Help', has = 'signatureHelp' },
 
-		{ ',wa', vim.lsp.buf.add_workspace_folder, desc = 'Show Workspace Folders' },
-		{ ',wr', vim.lsp.buf.remove_workspace_folder, desc = 'Remove Workspace Folder' },
-		{ ',wl', '<cmd>lua =vim.lsp.buf.list_workspace_folders()<CR>', desc = 'List Workspace Folders' },
+		{ '<Leader>fwa', vim.lsp.buf.add_workspace_folder, desc = 'Show Workspace Folders' },
+		{ '<Leader>fwr', vim.lsp.buf.remove_workspace_folder, desc = 'Remove Workspace Folder' },
+		{ '<Leader>fwl', '<cmd>lua =vim.lsp.buf.list_workspace_folders()<CR>', desc = 'List Workspace Folders' },
 
 		{ 'K', function()
 			-- Show hover documentation or folded lines.

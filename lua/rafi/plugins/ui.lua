@@ -73,9 +73,7 @@ return {
 			{ '<leader>bo', '<Cmd>BufferLineCloseOthers<CR>', desc = 'Delete other buffers' },
 			{ '<leader>br', '<Cmd>BufferLineCloseRight<CR>', desc = 'Delete buffers to the right' },
 			{ '<leader>bl', '<Cmd>BufferLineCloseLeft<CR>', desc = 'Delete buffers to the left' },
-			{ '<leader>tp', '<Cmd>BufferLinePick<CR>', desc = 'Pick' },
-			-- { '<S-h>', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev buffer' },
-			-- { '<S-l>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next buffer' },
+			{ '<leader>tp', '<Cmd>BufferLinePick<CR>', desc = 'Tab Pick' },
 			{ '[b', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev buffer' },
 			{ ']b', '<cmd>BufferLineCycleNext<cr>', desc = 'Next buffer' },
 		},
@@ -148,8 +146,8 @@ return {
 			{ '<leader>snl', function() require('noice').cmd('last') end, desc = 'Noice Last Message' },
 			{ '<leader>snh', function() require('noice').cmd('history') end, desc = 'Noice History' },
 			{ '<leader>sna', function() require('noice').cmd('all') end, desc = 'Noice All' },
-			{ '<C-f>', function() if not require('noice.lsp').scroll(4) then return '<c-f>' end end, silent = true, expr = true, desc = 'Scroll forward', mode = {'i', 'n', 's'} },
-			{ '<C-b>', function() if not require('noice.lsp').scroll(-4) then return '<c-b>' end end, silent = true, expr = true, desc = 'Scroll backward', mode = {'i', 'n', 's'}},
+			{ '<C-f>', function() if not require('noice.lsp').scroll(4) then return '<C-f>' end end, silent = true, expr = true, desc = 'Scroll forward', mode = {'i', 'n', 's'} },
+			{ '<C-b>', function() if not require('noice.lsp').scroll(-4) then return '<C-b>' end end, silent = true, expr = true, desc = 'Scroll backward', mode = {'i', 'n', 's'}},
 		},
 		---@type NoiceConfig
 		opts = {
@@ -413,7 +411,6 @@ return {
 
 				stoggleup = 'K',
 				stoggledown = 'J',
-				stogglevm = '<Space>',
 
 				ptoggleitem = 'p',
 				ptoggleauto = 'P',

@@ -192,7 +192,6 @@ return {
 		keys = {
 			{ ']t', function() require('todo-comments').jump_next() end, desc = 'Next todo comment' },
 			{ '[t', function() require('todo-comments').jump_prev() end, desc = 'Previous todo comment' },
-			{ '<LocalLeader>dt', '<cmd>TodoTelescope<CR>', desc = 'todo' },
 			{ '<leader>xt', '<cmd>TodoTrouble<CR>', desc = 'Todo (Trouble)' },
 			{ '<leader>xT', '<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>', desc = 'Todo/Fix/Fixme (Trouble)' },
 			{ '<leader>st', '<cmd>TodoTelescope<cr>', desc = 'Todo' },
@@ -209,8 +208,8 @@ return {
 		-- stylua: ignore
 		keys = {
 			{ '<leader>xx', function() require('trouble').toggle() end, desc = 'Document Diagnostics (Trouble)' },
-			{ '<leader>xw', function() require('trouble').toggle('workspace_diagnostics') end, desc = 'Workspace Diagnostics (Trouble)' },
 			{ '<leader>xd', function() require('trouble').toggle('document_diagnostics') end, desc = 'Document Diagnostics (Trouble)' },
+			{ '<leader>xw', function() require('trouble').toggle('workspace_diagnostics') end, desc = 'Workspace Diagnostics (Trouble)' },
 			{ '<leader>xq', function() require('trouble').toggle('quickfix') end, desc = 'Quickfix List (Trouble)' },
 			{ '<leader>xl', function() require('trouble').toggle('loclist') end, desc = 'Location List (Trouble)' },
 			{ 'gR', function() require('trouble').open('lsp_references') end, desc = 'LSP References (Trouble)' },
@@ -300,7 +299,6 @@ return {
 			end
 
 			local mappings = {
-				{ '-', pick_window, desc = 'Pick window' },
 				{ 'sp', pick_window, desc = 'Pick window' },
 				{ 'sw', swap_window, desc = 'Swap picked window' },
 			}

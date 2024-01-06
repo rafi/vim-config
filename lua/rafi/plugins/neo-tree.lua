@@ -58,6 +58,7 @@ return {
 			end,
 			desc = 'Explorer NeoTree (cwd)',
 		},
+		{ '<LocalLeader>e', '<leader>fe', desc = 'Explorer NeoTree (root dir)', remap = true },
 		{
 			'<LocalLeader>a',
 			function()
@@ -69,7 +70,6 @@ return {
 			end,
 			desc = 'Explorer NeoTree Reveal',
 		},
-		{ '<LocalLeader>e', '<leader>fe', desc = 'Explorer NeoTree (root dir)', remap = true },
 		{ '<leader>e', '<leader>fe', desc = 'Explorer NeoTree (root dir)', remap = true },
 		{ '<leader>E', '<leader>fE', desc = 'Explorer NeoTree (cwd)', remap = true },
 		{
@@ -193,6 +193,13 @@ return {
 				['<S-Tab>'] = 'prev_source',
 				['<Tab>'] = 'next_source',
 
+				['dd'] = 'delete',
+				['c'] = { 'copy', config = { show_path = 'relative' } },
+				['m'] = { 'move', config = { show_path = 'relative' } },
+				['a'] = { 'add', nowait = true, config = { show_path = 'relative' } },
+				['N'] = { 'add_directory', config = { show_path = 'relative' } },
+
+				['P'] = 'paste_from_clipboard',
 				['p'] = {
 					'toggle_preview',
 					nowait = true,
@@ -205,26 +212,11 @@ return {
 			window = {
 				mappings = {
 					['d'] = 'noop',
-					['dd'] = 'delete',
-					['c'] = { 'copy', config = { show_path = 'relative' } },
-					['m'] = { 'move', config = { show_path = 'relative' } },
-					['a'] = { 'add', nowait = true, config = { show_path = 'relative' } },
-					['N'] = { 'add_directory', config = { show_path = 'relative' } },
-					['r'] = 'rename',
-					['y'] = 'copy_to_clipboard',
-					['x'] = 'cut_to_clipboard',
-					['P'] = 'paste_from_clipboard',
 
-					['H'] = 'toggle_hidden',
 					['/'] = 'noop',
 					['f'] = 'fuzzy_finder',
 					['F'] = 'filter_on_submit',
-					['<C-x>'] = 'clear_filter',
 					['<C-c>'] = 'clear_filter',
-					['<BS>'] = 'navigate_up',
-					['.'] = 'set_root',
-					['[g'] = 'prev_git_modified',
-					[']g'] = 'next_git_modified',
 
 					['gf'] = function(state)
 						require('telescope.builtin').find_files({
@@ -273,8 +265,6 @@ return {
 			bind_to_cwd = false,
 			window = {
 				mappings = {
-					['<BS>'] = 'navigate_up',
-					['.'] = 'set_root',
 					['dd'] = 'buffer_delete',
 				},
 			},
@@ -289,6 +279,12 @@ return {
 		},
 		document_symbols = {
 			follow_cursor = true,
+			window = {
+				mappings = {
+					['/'] = 'noop',
+					['F'] = 'filter',
+				},
+			},
 		},
 	},
 	config = function(_, opts)
