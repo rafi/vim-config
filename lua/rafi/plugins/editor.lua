@@ -14,7 +14,7 @@ return {
 	{
 		'christoomey/vim-tmux-navigator',
 		lazy = false,
-		cond = not is_windows,
+		cond = vim.env.TMUX and not is_windows,
 		-- stylua: ignore
 		keys = {
 			{ '<C-h>', '<cmd>TmuxNavigateLeft<CR>', mode = { 'n', 't' }, silent = true, desc = 'Jump to left pane' },

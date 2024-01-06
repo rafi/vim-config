@@ -58,7 +58,7 @@ opt.shiftround = true          -- Round indent to multiple of 'shiftwidth'
 
 -- What to save for views and sessions
 opt.viewoptions:remove('folds')
-opt.sessionoptions:remove({ 'blank', 'terminal' })
+opt.sessionoptions:remove({ 'blank', 'buffers', 'terminal' })
 opt.sessionoptions:append({ 'globals', 'skiprtp' })
 
 opt.undofile = true

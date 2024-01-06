@@ -325,6 +325,7 @@ return {
 		opts = {
 			symbol = '│', -- ▏│
 			options = { try_as_border = true },
+			draw = { delay = 200 },
 		},
 		init = function()
 			vim.api.nvim_create_autocmd('FileType', {
@@ -381,7 +382,7 @@ return {
 	{
 		'tenxsoydev/tabs-vs-spaces.nvim',
 		event = { 'BufReadPost', 'BufNewFile' },
-		config = true,
+		opts = {},
 	},
 
 	-----------------------------------------------------------------------------
