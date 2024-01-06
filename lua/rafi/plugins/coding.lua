@@ -6,7 +6,6 @@ return {
 	-----------------------------------------------------------------------------
 	{
 		'L3MON4D3/LuaSnip',
-		-- event = 'InsertEnter',
 		build = (not jit.os:find('Windows'))
 				and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
 			or nil,
@@ -22,22 +21,18 @@ return {
 			{ '<C-l>', function() require('luasnip').expand_or_jump() end, mode = { 'i', 's' } },
 		},
 		opts = {
-			-- Don't store snippet history for less overhead
 			history = true,
-			-- Event on which to check for exiting a snippet's region
-			-- region_check_events = 'InsertEnter',
 			delete_check_events = 'TextChanged',
-			-- delete_check_events = 'InsertLeave',
 			-- ft_func = function()
 			-- 	return vim.split(vim.bo.filetype, '.', { plain = true })
 			-- end,
 		},
-		-- config = function(_, opts)
-		-- 	require('luasnip').setup(opts)
-		-- 	vim.api.nvim_create_user_command('LuaSnipEdit', function()
-		-- 		require('luasnip.loaders.from_lua').edit_snippet_files()
-		-- 	end, {})
-		-- end,
+		config = function(_, opts)
+			require('luasnip').setup(opts)
+			vim.api.nvim_create_user_command('LuaSnipEdit', function()
+				require('luasnip.loaders').edit_snippet_files()
+			end, {})
+		end,
 	},
 
 	-----------------------------------------------------------------------------
@@ -73,7 +68,6 @@ return {
 			end
 
 			return {
-				preselect = cmp.PreselectMode.None,
 				sorting = defaults.sorting,
 				experimental = {
 					ghost_text = {
@@ -102,27 +96,18 @@ return {
 				mapping = cmp.mapping.preset.insert({
 					-- <CR> accepts currently selected item.
 					-- Set `select` to `false` to only confirm explicitly selected items.
-					['<CR>'] = cmp.mapping({
-						i = function(fallback)
-							if cmp.visible() and cmp.get_active_entry() then
-								cmp.confirm({ select = false })
-							else
-								fallback()
-							end
-						end,
-						s = cmp.mapping.confirm({
-							select = true,
-							behavior = cmp.ConfirmBehavior.Replace,
-						}),
-						-- Do not set command mode, it will interfere with noice popmenu.
-					}),
+					['<CR>'] = cmp.mapping.confirm({ select = false }),
 					['<S-CR>'] = cmp.mapping.confirm({
 						behavior = cmp.ConfirmBehavior.Replace,
-						select = true,
+						select = false,
 					}),
 					['<C-Space>'] = cmp.mapping.complete(),
-					['<C-n>'] = cmp.mapping.select_next_item(),
-					['<C-p>'] = cmp.mapping.select_prev_item(),
+					['<C-n>'] = cmp.mapping.select_next_item({
+						behavior = cmp.SelectBehavior.Insert,
+					}),
+					['<C-p>'] = cmp.mapping.select_prev_item({
+						behavior = cmp.SelectBehavior.Insert,
+					}),
 					['<C-d>'] = cmp.mapping.select_next_item({ count = 5 }),
 					['<C-u>'] = cmp.mapping.select_prev_item({ count = 5 }),
 					['<C-f>'] = cmp.mapping.scroll_docs(4),
@@ -133,8 +118,8 @@ return {
 					end,
 					['<Tab>'] = cmp.mapping(function(fallback)
 						if cmp.visible() then
-							cmp.select_next_item()
-						elseif luasnip.jumpable(1) then
+							cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+						elseif luasnip.locally_jumpable(1) then
 							luasnip.jump(1)
 						elseif has_words_before() then
 							cmp.complete()
@@ -144,8 +129,8 @@ return {
 					end, { 'i', 's' }),
 					['<S-Tab>'] = cmp.mapping(function(fallback)
 						if cmp.visible() then
-							cmp.select_prev_item()
-						elseif luasnip.jumpable(-1) then
+							cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+						elseif luasnip.locally_jumpable(-1) then
 							luasnip.jump(-1)
 						else
 							fallback()

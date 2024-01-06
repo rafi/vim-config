@@ -46,7 +46,7 @@ opt.spelloptions:append('camel')
 opt.timeoutlen = 300           -- Time out on mappings
 opt.updatetime = 200           -- Idle time to write swap and trigger CursorHold
 
-opt.completeopt = 'menu,menuone,noselect'
+opt.completeopt = 'menu,menuone,noinsert'
 opt.wildmode = 'longest:full,full'  -- Command-line completion mode
 opt.diffopt:append({ 'iwhite', 'indent-heuristic', 'algorithm:patience' })
 
