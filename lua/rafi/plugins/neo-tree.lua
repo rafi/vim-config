@@ -217,7 +217,7 @@ return {
 
 					['H'] = 'toggle_hidden',
 					['/'] = 'noop',
-					['f'] = 'fuzzy_finder',
+					['ff'] = 'fuzzy_finder',
 					['F'] = 'filter_on_submit',
 					['<C-x>'] = 'clear_filter',
 					['<C-c>'] = 'clear_filter',
