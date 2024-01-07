@@ -14,8 +14,8 @@ map('n', 'f]', '<cmd>:tabmove +1<CR>', { desc = 'Move tab right' })
 map('n', 'f[', '<cmd>:tabmove -1<CR>', { desc = 'Move tab left' })
 
 -- Scroll: Remap jk to use accelerated-jk
-vim.api.nvim_set_keymap('n', 'j', '<Plug>(accelerated_jk_gj)', {})
-vim.api.nvim_set_keymap('n', 'k', '<Plug>(accelerated_jk_gk)', {})
+map('n', 'j', '<Plug>(accelerated_jk_gj)', {})
+map('n', 'k', '<Plug>(accelerated_jk_gk)', {})
 
 -- New split with empty buffer
 map('n', 'sV', '<cmd>:new<CR>', {})
