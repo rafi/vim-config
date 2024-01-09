@@ -30,12 +30,6 @@ return {
 		lazy = false,
 	},
 
-	-- Github goto line
-	{
-		"ruanyl/vim-gh-line",
-		lazy = false,
-	},
-
 	-- Change bufferline options
 	{
 		"akinsho/bufferline.nvim",
