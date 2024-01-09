@@ -6,19 +6,19 @@ return {
   -- Accelerated jk
   {
     'rainbowhxch/accelerated-jk.nvim',
-		lazy = false,
+    lazy = false,
   },
 
   -- Waka Time coding tracker
   {
     'wakatime/vim-wakatime',
-		lazy = false,
+    lazy = false,
   },
 
   -- Github goto line
   {
     'ruanyl/vim-gh-line',
-		lazy = false,
+    lazy = false,
   },
 
   -- Change bufferline options
@@ -49,7 +49,7 @@ return {
         indicator = {
            style = 'underline',
         },
-				show_tab_indicators = true,
+        show_tab_indicators = true,
         style_preset = 'minimal',
         separator_style = 'thin',
         diagnostics_indicator = function(count, level, diagnostics_dict, context)

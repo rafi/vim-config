@@ -14,10 +14,10 @@ map('n', 'f]', '<cmd>:tabmove +1<CR>', { desc = 'Move tab right' })
 map('n', 'f[', '<cmd>:tabmove -1<CR>', { desc = 'Move tab left' })
 
 -- Scroll: Remap jk to use accelerated-jk
-map('n', 'j', '<Plug>(accelerated_jk_gj)', {})
-map('n', 'k', '<Plug>(accelerated_jk_gk)', {})
+map('n', 'j', '<Plug>(accelerated_jk_gj)', { desc = 'Move down' })
+map('n', 'k', '<Plug>(accelerated_jk_gk)', { desc = 'Move up' })
 
 -- New split with empty buffer
-map('n', 'sV', '<cmd>:new<CR>', {})
-map('n', 'sG', '<cmd>:vnew<CR>', {})
+map('n', 'sV', '<cmd>:new<CR>', { desc = 'New vertical split with empty buffer' })
+map('n', 'sG', '<cmd>:vnew<CR>', { desc = 'New horizontal split with empty buffer' })
 
