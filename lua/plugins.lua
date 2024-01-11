@@ -18,13 +18,13 @@ return {
 	-- Enable python plugins
 	{ import = "rafi.plugins.extras.lang.python" },
 
-	-- Accelerated jk
+	-- Accerelated-jk plugin
 	{
 		"rainbowhxch/accelerated-jk.nvim",
 		lazy = false,
 	},
 
-	-- Waka Time coding tracker
+	-- Waka Time coding tracker plugin
 	{
 		"wakatime/vim-wakatime",
 		lazy = false,

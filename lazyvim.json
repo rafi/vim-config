@@ -1,5 +1,6 @@
 {
   "extras": [
+    "lazyvim.plugins.extras.lang.markdown",
     "rafi.plugins.extras.coding.copilot"
   ],
   "news": [
