@@ -15,13 +15,12 @@ function M.get()
 	---@class PluginLspKeys
 	-- stylua: ignore
 	M._keys =  {
-		{ 'gD', vim.lsp.buf.declaration, desc = 'Goto Declaration', has = 'declaration' },
+		{ 'gr', vim.lsp.buf.references, desc = 'References' },
 		{ 'gd', vim.lsp.buf.definition, desc = 'Goto Definition', has = 'definition' },
-		{ 'gr', vim.lsp.buf.references, desc = 'References', has = 'references' },
-		{ 'gy', vim.lsp.buf.type_definition, desc = 'Goto Type Definition', has = 'typeDefinition' },
-		{ 'gi', vim.lsp.buf.implementation, desc = 'Goto Implementation', has = 'implementation' },
-		{ 'gK', vim.lsp.buf.signature_help, desc = 'Signature Help', has = 'signatureHelp' },
-		{ '<C-g>h', vim.lsp.buf.signature_help, mode = 'i', desc = 'Signature Help', has = 'signatureHelp' },
+		{ 'gD', vim.lsp.buf.declaration, desc = 'Goto Declaration' },
+		{ 'gI', vim.lsp.buf.implementation, desc = 'Goto Implementation' },
+		{ 'gy', vim.lsp.buf.type_definition, desc = 'Goto Type Definition' },
+		{ 'gK', vim.lsp.buf.signature_help, desc = 'Signature Help' },
 
 		{ '<Leader>fwa', vim.lsp.buf.add_workspace_folder, desc = 'Show Workspace Folders' },
 		{ '<Leader>fwr', vim.lsp.buf.remove_workspace_folder, desc = 'Remove Workspace Folder' },
@@ -41,6 +40,8 @@ function M.get()
 
 		{ '<leader>cl', '<cmd>LspInfo<cr>', desc = 'LSP info popup' },
 		{ '<leader>cs', M.formatter_select, mode = { 'n', 'x' }, desc = 'Formatter Select' },
+		{ '<Leader>chi', vim.lsp.buf.incoming_calls, desc = 'Incoming calls' },
+		{ '<Leader>cho', vim.lsp.buf.outgoing_calls, desc = 'Outgoing calls' },
 		{ '<Leader>ce', vim.diagnostic.open_float, desc = 'Open diagnostics' },
 		{ '<Leader>ca', vim.lsp.buf.code_action, mode = { 'n', 'x' }, has = 'codeAction', desc = 'Code Action' },
 		{ '<Leader>cA', function()

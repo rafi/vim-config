@@ -947,25 +947,27 @@ Note that,
 
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
-| <kbd>gD</kbd> | 𝐍 | Go to declaration | <small>[plugins/lsp/keymaps.lua]</small>
-| <kbd>gd</kbd> | 𝐍 | Go to definition | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>gr</kbd> | 𝐍 | Go to references | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>gR</kbd> | 𝐍 | List references with Trouble | <small>[folke/trouble.nvim]</small>
+| <kbd>gd</kbd> | 𝐍 | Go to definition | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>gD</kbd> | 𝐍 | Go to declaration | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>gI</kbd> | 𝐍 | Go to implementation | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>gy</kbd> | 𝐍 | Go to type definition | <small>[plugins/lsp/keymaps.lua]</small>
-| <kbd>gi</kbd> | 𝐍 | Go to implementation | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>K</kbd> | 𝐍 | Show hover help or collapsed fold | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>gK</kbd> | 𝐍 | Show signature help | <small>[plugins/lsp/keymaps.lua]</small>
-| <kbd>Ctrl</kbd>+<kbd>g</kbd> <kbd>h</kbd> | 𝐈 | Show signature help | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>cl</kbd> | 𝐍 | Open LSP info window | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>Space</kbd> <kbd>cs</kbd>  | 𝐍 | Formatter menu selection | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>cr</kbd> | 𝐍 | Rename | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>ce</kbd> | 𝐍 | Open diagnostics window | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>ca</kbd> | 𝐍 𝐕 | Code action | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>cA</kbd> | 𝐍 | Source action | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>Space</kbd> <kbd>chi</kbd>  | 𝐍 | LSP incoming calls | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>Space</kbd> <kbd>cho</kbd>  | 𝐍 | LSP outgoing calls | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>ud</kbd> | 𝐍 | Toggle buffer diagnostics | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>uD</kbd> | 𝐍 | Toggle global diagnostics | <small>[plugins/lsp/keymaps.lua]</small>
-| <kbd>,wa</kbd> | 𝐍 | Add workspace folder | <small>[plugins/lsp/keymaps.lua]</small>
-| <kbd>,wr</kbd> | 𝐍 | Remove workspace folder | <small>[plugins/lsp/keymaps.lua]</small>
-| <kbd>,wl</kbd> | 𝐍 | List workspace folders | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>Space</kbd> <kbd>fwa</kbd> | 𝐍 | Add workspace folder | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>Space</kbd> <kbd>fwr</kbd> | 𝐍 | Remove workspace folder | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>Space</kbd> <kbd>fwl</kbd> | 𝐍 | List workspace folders | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>gpd</kbd> | 𝐍 | Glance definitions | <small>[dnlhc/glance.nvim]</small>
 | <kbd>gpr</kbd> | 𝐍 | Glance references | <small>[dnlhc/glance.nvim]</small>
 | <kbd>gpy</kbd> | 𝐍 | Glance type definitions | <small>[dnlhc/glance.nvim]</small>
