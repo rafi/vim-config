@@ -22,6 +22,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Nvim Treesitter configurations and abstraction layer
 	{
 		'nvim-treesitter/nvim-treesitter',
 		version = false,
@@ -198,6 +199,7 @@ return {
 		end,
 	},
 
+	-----------------------------------------------------------------------------
 	-- Show context of the current function
 	{
 		'nvim-treesitter/nvim-treesitter-context',

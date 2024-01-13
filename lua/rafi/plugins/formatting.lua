@@ -34,6 +34,8 @@ function M.setup(_, opts)
 end
 
 return {
+
+	-- Lightweight yet powerful formatter plugin
 	{
 		'stevearc/conform.nvim',
 		dependencies = { 'mason.nvim' },

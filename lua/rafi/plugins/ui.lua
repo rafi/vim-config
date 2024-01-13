@@ -6,10 +6,15 @@ local Util = require('lazyvim.util')
 return {
 
 	-----------------------------------------------------------------------------
+	-- Lua fork of vim-devicons
 	{ 'nvim-tree/nvim-web-devicons', lazy = false },
+
+	-----------------------------------------------------------------------------
+	-- UI Component Library
 	{ 'MunifTanjim/nui.nvim', lazy = false },
 
 	-----------------------------------------------------------------------------
+	-- Fancy notification manager for NeoVim
 	{
 		'rcarriga/nvim-notify',
 		priority = 9000,
@@ -45,6 +50,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Improve the default vim-ui interfaces
 	{
 		'stevearc/dressing.nvim',
 		init = function()
@@ -62,6 +68,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Snazzy tab/bufferline
 	{
 		'akinsho/bufferline.nvim',
 		event = 'VeryLazy',
@@ -136,6 +143,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Replaces the UI for messages, cmdline and the popupmenu
 	{
 		'folke/noice.nvim',
 		event = 'VeryLazy',
@@ -214,6 +222,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Shows your current code context in winbar/statusline
 	{
 		'SmiteshP/nvim-navic',
 		keys = {
@@ -253,6 +262,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Interacting with and manipulating marks
 	{
 		'chentoast/marks.nvim',
 		dependencies = 'lewis6991/gitsigns.nvim',
@@ -270,6 +280,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Visually display indent levels
 	{
 		'lukas-reineke/indent-blankline.nvim',
 		main = 'ibl',
@@ -379,6 +390,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Hint and fix deviating indentation
 	{
 		'tenxsoydev/tabs-vs-spaces.nvim',
 		event = { 'BufReadPost', 'BufNewFile' },
@@ -386,6 +398,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Highlight words quickly
 	{
 		't9md/vim-quickhl',
 		keys = {
@@ -399,6 +412,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Better quickfix window in Neovim
 	{
 		'kevinhwang91/nvim-bqf',
 		ft = 'qf',
@@ -443,6 +457,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Super powerful color picker/colorizer plugin
 	{
 		'uga-rosa/ccc.nvim',
 		event = 'FileType',
@@ -459,6 +474,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Calendar application
 	{
 		'itchyny/calendar.vim',
 		cmd = 'Calendar',

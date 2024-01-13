@@ -6,11 +6,17 @@ local is_windows = vim.loop.os_uname().sysname == 'Windows_NT'
 return {
 
 	-----------------------------------------------------------------------------
+	-- Automatic indentation style detection
 	{ 'nmac427/guess-indent.nvim', lazy = false, priority = 50, config = true },
+
+	-- Display vim version numbers in docs
 	{ 'tweekmonster/helpful.vim', cmd = 'HelpfulVersion' },
+
+	-- An alternative sudo for Vim and Neovim
 	{ 'lambdalisue/suda.vim', event = 'BufRead' },
 
 	-----------------------------------------------------------------------------
+	-- Seamless navigation between tmux panes and vim splits
 	{
 		'christoomey/vim-tmux-navigator',
 		lazy = false,
@@ -28,6 +34,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Simple lua plugin for automated session management
 	{
 		'folke/persistence.nvim',
 		event = 'VimEnter',
@@ -84,6 +91,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Highlights other uses of the word under the cursor
 	{
 		'RRethy/vim-illuminate',
 		event = { 'BufReadPost', 'BufNewFile' },
@@ -134,6 +142,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Ultimate undo history visualizer
 	{
 		'mbbill/undotree',
 		cmd = 'UndotreeToggle',
@@ -143,6 +152,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Search labels, enhanced character motions
 	{
 		'folke/flash.nvim',
 		event = 'VeryLazy',
@@ -159,6 +169,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Jump to the edge of block
 	{
 		'haya14busa/vim-edgemotion',
 		-- stylua: ignore
@@ -169,6 +180,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Distraction-free coding for Neovim
 	{
 		'folke/zen-mode.nvim',
 		cmd = 'ZenMode',
@@ -184,6 +196,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Highlight, list and search todo comments in your projects
 	{
 		'folke/todo-comments.nvim',
 		event = 'LazyFile',
@@ -201,6 +214,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Pretty lists to help you solve all code diagnostics
 	{
 		'folke/trouble.nvim',
 		cmd = { 'Trouble', 'TroubleToggle' },
@@ -239,6 +253,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Persist and toggle multiple terminals
 	{
 		'akinsho/toggleterm.nvim',
 		cmd = 'ToggleTerm',
@@ -266,6 +281,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Code outline sidebar powered by LSP
 	{
 		'hedyhli/outline.nvim',
 		opts = {},
@@ -276,6 +292,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Fancy window picker
 	{
 		's1n7ax/nvim-window-picker',
 		event = 'VeryLazy',
@@ -318,6 +335,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Fast Neovim http client written in Lua
 	{
 		'rest-nvim/rest.nvim',
 		ft = 'http',
@@ -347,6 +365,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Pretty window for navigating LSP locations
 	{
 		'dnlhc/glance.nvim',
 		cmd = 'Glance',
@@ -383,6 +402,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Find the enemy and replace them with dark power
 	{
 		'nvim-pack/nvim-spectre',
 		-- stylua: ignore
@@ -429,6 +449,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Helper for removing buffers
 	{
 		'echasnovski/mini.bufremove',
 		opts = {},
@@ -439,6 +460,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Generate table of contents for Markdown files
 	{
 		'mzlogin/vim-markdown-toc',
 		cmd = { 'GenTocGFM', 'GenTocRedcarpet', 'GenTocGitLab', 'UpdateToc' },

@@ -138,6 +138,7 @@ vim.api.nvim_create_autocmd('User', {
 return {
 
 	-----------------------------------------------------------------------------
+	-- Find, Filter, Preview, Pick. All lua.
 	{
 		'nvim-telescope/telescope.nvim',
 		cmd = 'Telescope',

@@ -4,6 +4,7 @@
 return {
 
 	-----------------------------------------------------------------------------
+	-- Git signs written in pure lua
 	{
 		'lewis6991/gitsigns.nvim',
 		event = { 'BufReadPre', 'BufNewFile' },
@@ -82,6 +83,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Tabpage interface for cycling through diffs
 	{
 		'sindrets/diffview.nvim',
 		cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
@@ -131,6 +133,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Magit clone for Neovim
 	{
 		'NeogitOrg/neogit',
 		dependencies = {
@@ -158,6 +161,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Git blame visualizer
 	{
 		'FabijanZulj/blame.nvim',
 		cmd = 'ToggleBlame',
@@ -172,6 +176,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Reveal the commit messages under the cursor
 	{
 		'rhysd/git-messenger.vim',
 		cmd = 'GitMessenger',
@@ -186,6 +191,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Browse git repositories
 	{
 		'ruifm/gitlinker.nvim',
 		keys = {
@@ -219,6 +225,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Pleasant editing on Git commit messages
 	{
 		'rhysd/committia.vim',
 		event = 'BufReadPre COMMIT_EDITMSG',

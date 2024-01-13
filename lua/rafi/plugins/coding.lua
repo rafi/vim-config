@@ -4,12 +4,14 @@
 return {
 
 	-----------------------------------------------------------------------------
+	-- Snippet Engine written in Lua
 	{
 		'L3MON4D3/LuaSnip',
 		build = (not jit.os:find('Windows'))
 				and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
 			or nil,
 		dependencies = {
+			-- Preconfigured snippets for different languages
 			'rafamadriz/friendly-snippets',
 			config = function()
 				require('luasnip.loaders.from_vscode').lazy_load()
@@ -36,16 +38,23 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Completion plugin for neovim written in Lua
 	{
 		'hrsh7th/nvim-cmp',
 		version = false, -- last release is way too old
 		event = 'InsertEnter',
 		dependencies = {
+			-- nvim-cmp source for neovim builtin LSP client
 			'hrsh7th/cmp-nvim-lsp',
+			-- nvim-cmp source for buffer words
 			'hrsh7th/cmp-buffer',
+			-- nvim-cmp source for path
 			'hrsh7th/cmp-path',
+			-- nvim-cmp source for emoji
 			'hrsh7th/cmp-emoji',
+			-- Luasnip completion source for nvim-cmp
 			'saadparwaiz1/cmp_luasnip',
+			-- Tmux completion source for nvim-cmp
 			'andersevenrud/cmp-tmux',
 		},
 		opts = function()
@@ -164,6 +173,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Annotation generator
 	{
 		'danymat/neogen',
 		-- stylua: ignore
@@ -174,6 +184,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Automatically manage character pairs
 	{
 		'echasnovski/mini.pairs',
 		event = 'VeryLazy',
@@ -196,6 +207,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Fast and feature-rich surround actions
 	{
 		'echasnovski/mini.surround',
 		-- stylua: ignore
@@ -231,6 +243,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Set the commentstring based on the cursor location
 	{
 		'JoosepAlviste/nvim-ts-context-commentstring',
 		opts = {
@@ -240,6 +253,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Fast and familiar per-line commenting
 	{
 		'echasnovski/mini.comment',
 		event = 'VeryLazy',
@@ -259,6 +273,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Split and join arguments
 	{
 		'echasnovski/mini.splitjoin',
 		-- stylua: ignore
@@ -272,6 +287,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Trailing whitespace highlight and remove
 	{
 		'echasnovski/mini.trailspace',
 		event = { 'BufReadPost', 'BufNewFile' },
@@ -283,6 +299,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Perform diffs on blocks of code
 	{
 		'AndrewRadev/linediff.vim',
 		cmd = { 'Linediff', 'LinediffAdd' },
@@ -295,6 +312,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Delete surrounding function call
 	{
 		'AndrewRadev/dsf.vim',
 		-- stylua: ignore
@@ -308,6 +326,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Extend and create `a`/`i` textobjects
 	{
 		'echasnovski/mini.ai',
 		event = 'VeryLazy',

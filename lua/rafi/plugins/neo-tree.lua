@@ -35,6 +35,7 @@ end
 return {
 
 	-----------------------------------------------------------------------------
+	-- File explorer written in Lua
 	'nvim-neo-tree/neo-tree.nvim',
 	dependencies = {
 		'MunifTanjim/nui.nvim',
