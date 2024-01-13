@@ -111,7 +111,9 @@ return {
 	opts = {
 		close_if_last_window = true,
 		sources = { 'filesystem', 'buffers', 'git_status', 'document_symbols' },
-		open_files_do_not_replace_types = { 'terminal', 'Trouble', 'trouble', 'qf', 'Outline' },
+		open_files_do_not_replace_types = { 'terminal', 'Trouble', 'trouble', 'qf', 'edgy', 'Outline' },
+		popup_border_style = 'rounded',
+		sort_case_insensitive = true,
 
 		source_selector = {
 			winbar = false,
@@ -129,20 +131,13 @@ return {
 			{
 				event = 'file_opened',
 				handler = function()
-					require('neo-tree.command').execute({ action = 'close' })
+					require('neo-tree').close_all()
 				end,
 			},
 		},
 
 		default_component_configs = {
-			indent = {
-				expander_collapsed = '',
-				expander_expanded = '',
-				expander_highlight = 'NeoTreeExpander',
-			},
 			icon = {
-				folder_closed = '',
-				folder_open = '',
 				folder_empty = '',
 				folder_empty_open = '',
 				default = '',
@@ -233,8 +228,6 @@ return {
 					end,
 				},
 			},
-			group_empty_dirs = true,
-			use_libuv_file_watcher = true,
 			bind_to_cwd = false,
 			cwd_target = {
 				sidebar = 'window',
@@ -242,8 +235,6 @@ return {
 			},
 
 			filtered_items = {
-				visible = false,
-				show_hidden_count = false,
 				hide_dotfiles = false,
 				hide_gitignored = false,
 				hide_by_name = {
@@ -262,6 +253,8 @@ return {
 				},
 				never_show = {},
 			},
+			group_empty_dirs = true,
+			use_libuv_file_watcher = true,
 		},
 		buffers = {
 			bind_to_cwd = false,
