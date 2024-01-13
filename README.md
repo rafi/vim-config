@@ -436,7 +436,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [hedyhli/outline.nvim] | Code outline sidebar powered by LSP
 | [s1n7ax/nvim-window-picker] | Window picker
 | [rest-nvim/rest.nvim] | Fast Neovim http client written in Lua
-| [mickael-menu/zk-nvim] | Extension for the zk plain text note-taking assistant
 | [dnlhc/glance.nvim] | Pretty window for navigating LSP locations
 | [nvim-pack/nvim-spectre] | Find the enemy and replace them with dark power
 | [echasnovski/mini.bufremove] | Helper for removing buffers
@@ -498,7 +497,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 
 | Name           | Description
 | -------------- | ----------------------
-| [hoob3rt/lualine.nvim] | statusline plugin written in pure lua
+| [hoob3rt/lualine.nvim] | Statusline plugin written in pure lua
 | [nvim-neo-tree/neo-tree.nvim] | File explorer written in Lua
 | [nvim-telescope/telescope.nvim] | Find, Filter, Preview, Pick. All lua.
 | [jvgrootveld/telescope-zoxide] | Telescope extension for Zoxide
@@ -568,7 +567,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [akinsho/toggleterm.nvim]: https://github.com/akinsho/toggleterm.nvim
 [s1n7ax/nvim-window-picker]: https://github.com/s1n7ax/nvim-window-picker
 [rest-nvim/rest.nvim]: https://github.com/rest-nvim/rest.nvim
-[mickael-menu/zk-nvim]: https://github.com/mickael-menu/zk-nvim
 [dnlhc/glance.nvim]: https://github.com/dnlhc/glance.nvim
 [nvim-pack/nvim-spectre]: https://github.com/nvim-pack/nvim-spectre
 [echasnovski/mini.bufremove]: https://github.com/echasnovski/mini.bufremove
@@ -673,6 +671,7 @@ Spec: `rafi.plugins.extras.coding.<name>`
 
 | Name           | Repository     | Description
 | -------------- | -------------- | ----------------------
+| `align`        | [echasnovski/mini.align] | Align text interactively
 | `autopairs`    | [windwp/nvim-autopairs] | Autopairs for neovim written by lua
 | `cmp-git`      | [petertriho/cmp-git] | Git source for nvim-cmp
 | `copilot`      | [zbirenbaum/copilot.lua] | Fully featured & enhanced copilot
@@ -680,16 +679,33 @@ Spec: `rafi.plugins.extras.coding.<name>`
 | `emmet`        | [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet
 | `sandwich`     | [machakann/vim-sandwich] | Search, select, and edit sandwich text objects
 
+[echasnovski/mini.align]: https://github.com/echasnovski/mini.align
+[windwp/nvim-autopairs]: https://github.com/windwp/nvim-autopairs
+[petertriho/cmp-git]: https://github.com/petertriho/cmp-git
+[zbirenbaum/copilot.lua]: https://github.com/zbirenbaum/copilot.lua
+[sgur/vim-editorconfig]: https://github.com/sgur/vim-editorconfig
+[mattn/emmet-vim]: https://github.com/mattn/emmet-vim
+[machakann/vim-sandwich]: https://github.com/machakann/vim-sandwich
+
 ### Extra Plugins: Editor
 
 Spec: `rafi.plugins.extras.editor.<name>`
 
-| Name         | Repository     | Description
-| -------------| -------------- | ----------------------
-| `anyjump`    | [pechorin/any-jump.vim] | Jump to any definition and references without overhead
-| `flybuf`     | [glepnir/flybuf.nvim] | List buffers in a float window
-| `sidebar`    | [sidebar-nvim/sidebar.nvim] | Generic and modular lua sidebar
-| `ufo`        | [kevinhwang91/nvim-ufo] | Make folds look modern and keep a high performance
+| Name          | Repository     | Description
+| --------------| -------------- | ----------------------
+| `anyjump`     | [pechorin/any-jump.vim] | Jump to any definition and references without overhead
+| `flybuf`      | [glepnir/flybuf.nvim] | List buffers in a float window
+| `harpoon`     | [ThePrimeagen/harpoon] | Marks for navigating your project
+| `sidebar`     | [sidebar-nvim/sidebar.nvim] | Generic and modular lua sidebar
+| `ufo`         | [kevinhwang91/nvim-ufo] | Make folds look modern and keep a high performance
+| `visits`      | [echasnovski/mini.visits] | Track and reuse file system visits
+
+[pechorin/any-jump.vim]: https://github.com/pechorin/any-jump.vim
+[glepnir/flybuf.nvim]: https://github.com/glepnir/flybuf.nvim
+[ThePrimeagen/harpoon]: https://github.com/ThePrimeagen/harpoon
+[sidebar-nvim/sidebar.nvim]: https://github.com/sidebar-nvim/sidebar.nvim
+[kevinhwang91/nvim-ufo]: https://github.com/kevinhwang91/nvim-ufo
+[echasnovski/mini.visits]: https://github.com/echasnovski/mini.visits
 
 ### Extra Plugins: Git
 
@@ -698,6 +714,9 @@ Spec: `rafi.plugins.extras.git.<name>`
 | Name         | Repository     | Description
 | -------------| -------------- | ----------------------
 | `fugitive`   | [tpope/vim-fugitive] | Git client, including [junegunn/gv.vim]
+
+[tpope/vim-fugitive]: https://github.com/tpope/vim-fugitive
+[junegunn/gv.vim]: https://github.com/junegunn/gv.vim
 
 ### Extra Plugins: Lang
 
@@ -711,6 +730,14 @@ Spec: `rafi.plugins.extras.lang.<name>`
 | `helm`           | syntax [towolf/vim-helm], lsp
 | `python`         | syntax, lsp, dap [mfussenegger/nvim-dap-python], test, [rafi/neoconf-venom.nvim]
 | `yaml`           | syntax, lsp, schemas, [b0o/SchemaStore.nvim]
+
+[pearofducks/ansible-vim]: https://github.com/pearofducks/ansible-vim
+[leoluz/nvim-dap-go]: https://github.com/leoluz/nvim-dap-go
+[nvim-neotest/neotest-go]: https://github.com/nvim-neotest/neotest-go
+[towolf/vim-helm]: https://github.com/towolf/vim-helm
+[mfussenegger/nvim-dap-python]: https://github.com/mfussenegger/nvim-dap-python
+[rafi/neoconf-venom.nvim]: https://github.com/rafi/neoconf-venom.nvim
+[b0o/SchemaStore.nvim]: https://github.com/b0o/SchemaStore.nvim
 
 ### Extra Plugins: Linting
 
@@ -731,6 +758,11 @@ Spec: `rafi.plugins.extras.lsp.<name>`
 | `lightbulb`      | [kosayoda/nvim-lightbulb] | VSCode 💡 for neovim's built-in LSP
 | `yaml-companion` | [yaml-companion.nvim] | Get, set and autodetect YAML schemas in your buffers
 
+[hrsh7th/nvim-gtd]: https://github.com/hrsh7th/nvim-gtd
+[lvimuser/lsp-inlayhints.nvim]: https://github.com/lvimuser/lsp-inlayhints.nvim
+[kosayoda/nvim-lightbulb]: https://github.com/kosayoda/nvim-lightbulb
+[yaml-companion.nvim]: https://github.com/someone-stole-my-name/yaml-companion.nvim
+
 ### Extra Plugins: Org
 
 Spec: `rafi.plugins.extras.org.<name>`
@@ -738,7 +770,14 @@ Spec: `rafi.plugins.extras.org.<name>`
 | Key            | Name           | Description
 | -------------- | -------------- | ----------------------
 | `kiwi`         | [serenevoid/kiwi.nvim] | Stripped down VimWiki
+| `telekasten`   | [renerocksai/telekasten.nvim] | Manage text-based, markdown zettelkasten or wiki with telescope
 | `vimwiki`      | [vimwiki/vimwiki] | Personal Wiki for Vim
+| `zk-nvim`      | [zk-org/zk-nvim] | Extension for the zk plain text note-taking assistant
+
+[serenevoid/kiwi.nvim]: https://github.com/serenevoid/kiwi.nvim
+[renerocksai/telekasten.nvim]: https://github.com/renerocksai/telekasten.nvim
+[vimwiki/vimwiki]: https://github.com/vimwiki/vimwiki
+[zk-org/zk-nvim]: https://github.com/zk-org/zk-nvim
 
 ### Extra Plugins: Treesitter
 
@@ -747,6 +786,8 @@ Spec: `rafi.plugins.extras.treesitter.<name>`
 | Key            | Name           | Description
 | -------------- | -------------- | ----------------------
 | `treesj`       | [Wansmer/treesj] | Splitting and joining blocks of code
+
+[Wansmer/treesj]: https://github.com/Wansmer/treesj
 
 ### Extra Plugins: UI
 
@@ -762,6 +803,15 @@ Spec: `rafi.plugins.extras.ui.<name>`
 | `incline`      | [b0o/incline.nvim] | Floating statuslines
 | `minimap`      | [echasnovski/mini.map] | Window with buffer text overview, scrollbar and highlights
 | `symbols-outline` | [simrat39/symbols-outline.nvim] | Tree like view for symbols using LSP
+
+[utilyre/barbecue.nvim]: https://github.com/utilyre/barbecue.nvim
+[itchyny/cursorword]: https://github.com/itchyny/vim-cursorword
+[ghillb/cybu.nvim]: https://github.com/ghillb/cybu.nvim
+[Bekaboo/deadcolumn.nvim]: https://github.com/Bekaboo/deadcolumn.nvim
+[rmagatti/goto-preview]: https://github.com/rmagatti/goto-preview
+[b0o/incline.nvim]: https://github.com/b0o/incline.nvim
+[echasnovski/mini.map]: https://github.com/echasnovski/mini.map
+[simrat39/symbols-outline.nvim]: https://github.com/simrat39/symbols-outline.nvim
 
 ### LazyVim Extras
 
@@ -782,54 +832,12 @@ and documented in [lazyvim.org](https://www.lazyvim.org).
 #### DAP (Debugging)
 
 * Spec: `lazyvim.plugins.extras.dap.<name>`
-* See https://github.com/LazyVim/LazyVim/tree/main/lua/lazyvim/plugins/extras/dap
+* See [lazyvim/plugins/extras/dap](https://github.com/LazyVim/LazyVim/tree/main/lua/lazyvim/plugins/extras/dap)
 
 #### Test
 
 * Spec: `lazyvim.plugins.extras.test.<name>`
-* See https://github.com/LazyVim/LazyVim/tree/main/lua/lazyvim/plugins/extras/test
-
-[windwp/nvim-autopairs]: https://github.com/windwp/nvim-autopairs
-[petertriho/cmp-git]: https://github.com/petertriho/cmp-git
-[zbirenbaum/copilot.lua]: https://github.com/zbirenbaum/copilot.lua
-[sgur/vim-editorconfig]: https://github.com/sgur/vim-editorconfig
-[mattn/emmet-vim]: https://github.com/mattn/emmet-vim
-[machakann/vim-sandwich]: https://github.com/machakann/vim-sandwich
-
-[pechorin/any-jump.vim]: https://github.com/pechorin/any-jump.vim
-[glepnir/flybuf.nvim]: https://github.com/glepnir/flybuf.nvim
-[sidebar-nvim/sidebar.nvim]: https://github.com/sidebar-nvim/sidebar.nvim
-[kevinhwang91/nvim-ufo]: https://github.com/kevinhwang91/nvim-ufo
-
-[tpope/vim-fugitive]: https://github.com/tpope/vim-fugitive
-[junegunn/gv.vim]: https://github.com/junegunn/gv.vim
-
-[pearofducks/ansible-vim]: https://github.com/pearofducks/ansible-vim
-[leoluz/nvim-dap-go]: https://github.com/leoluz/nvim-dap-go
-[nvim-neotest/neotest-go]: https://github.com/nvim-neotest/neotest-go
-[towolf/vim-helm]: https://github.com/towolf/vim-helm
-[mfussenegger/nvim-dap-python]: https://github.com/mfussenegger/nvim-dap-python
-[rafi/neoconf-venom.nvim]: https://github.com/rafi/neoconf-venom.nvim
-[b0o/SchemaStore.nvim]: https://github.com/b0o/SchemaStore.nvim
-
-[hrsh7th/nvim-gtd]: https://github.com/hrsh7th/nvim-gtd
-[lvimuser/lsp-inlayhints.nvim]: https://github.com/lvimuser/lsp-inlayhints.nvim
-[kosayoda/nvim-lightbulb]: https://github.com/kosayoda/nvim-lightbulb
-[yaml-companion.nvim]: https://github.com/someone-stole-my-name/yaml-companion.nvim
-
-[serenevoid/kiwi.nvim]: https://github.com/serenevoid/kiwi.nvim
-[vimwiki/vimwiki]: https://github.com/vimwiki/vimwiki
-
-[Wansmer/treesj]: https://github.com/Wansmer/treesj
-
-[utilyre/barbecue.nvim]: https://github.com/utilyre/barbecue.nvim
-[itchyny/cursorword]: https://github.com/itchyny/vim-cursorword
-[ghillb/cybu.nvim]: https://github.com/ghillb/cybu.nvim
-[Bekaboo/deadcolumn.nvim]: https://github.com/Bekaboo/deadcolumn.nvim
-[rmagatti/goto-preview]: https://github.com/rmagatti/goto-preview
-[b0o/incline.nvim]: https://github.com/b0o/incline.nvim
-[echasnovski/mini.map]: https://github.com/echasnovski/mini.map
-[simrat39/symbols-outline.nvim]: https://github.com/simrat39/symbols-outline.nvim
+* See [lazyvim/plugins/extras/test](https://github.com/LazyVim/LazyVim/tree/main/lua/lazyvim/plugins/extras/test)
 
 </details>
 
@@ -953,18 +961,18 @@ Note that,
 | <kbd>gD</kbd> | 𝐍 | Go to declaration | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>gI</kbd> | 𝐍 | Go to implementation | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>gy</kbd> | 𝐍 | Go to type definition | <small>[plugins/lsp/keymaps.lua]</small>
-| <kbd>K</kbd> | 𝐍 | Show hover help or collapsed fold | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>K</kbd>  | 𝐍 | Show hover help or collapsed fold | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>gK</kbd> | 𝐍 | Show signature help | <small>[plugins/lsp/keymaps.lua]</small>
-| <kbd>Space</kbd> <kbd>cl</kbd> | 𝐍 | Open LSP info window | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>Space</kbd> <kbd>cl</kbd>  | 𝐍 | Open LSP info window | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>cs</kbd>  | 𝐍 | Formatter menu selection | <small>[plugins/lsp/keymaps.lua]</small>
-| <kbd>Space</kbd> <kbd>cr</kbd> | 𝐍 | Rename | <small>[plugins/lsp/keymaps.lua]</small>
-| <kbd>Space</kbd> <kbd>ce</kbd> | 𝐍 | Open diagnostics window | <small>[plugins/lsp/keymaps.lua]</small>
-| <kbd>Space</kbd> <kbd>ca</kbd> | 𝐍 𝐕 | Code action | <small>[plugins/lsp/keymaps.lua]</small>
-| <kbd>Space</kbd> <kbd>cA</kbd> | 𝐍 | Source action | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>Space</kbd> <kbd>cr</kbd>  | 𝐍 | Rename | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>Space</kbd> <kbd>ce</kbd>  | 𝐍 | Open diagnostics window | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>Space</kbd> <kbd>ca</kbd>  | 𝐍 𝐕 | Code action | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>Space</kbd> <kbd>cA</kbd>  | 𝐍 | Source action | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>chi</kbd>  | 𝐍 | LSP incoming calls | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>cho</kbd>  | 𝐍 | LSP outgoing calls | <small>[plugins/lsp/keymaps.lua]</small>
-| <kbd>Space</kbd> <kbd>ud</kbd> | 𝐍 | Toggle buffer diagnostics | <small>[plugins/lsp/keymaps.lua]</small>
-| <kbd>Space</kbd> <kbd>uD</kbd> | 𝐍 | Toggle global diagnostics | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>Space</kbd> <kbd>ud</kbd>  | 𝐍 | Toggle buffer diagnostics | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>Space</kbd> <kbd>uD</kbd>  | 𝐍 | Toggle global diagnostics | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>fwa</kbd> | 𝐍 | Add workspace folder | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>fwr</kbd> | 𝐍 | Remove workspace folder | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>fwl</kbd> | 𝐍 | List workspace folders | <small>[plugins/lsp/keymaps.lua]</small>
@@ -1301,21 +1309,6 @@ See [nvim-neo-tree/neo-tree.nvim] for more mappings and usage information.
 | <kbd>w</kbd> | 𝐍 | Toggle window width
 | <kbd>z</kbd> | 𝐍 | Collapse all nodes
 
-#### Plugin: Zk
-
-See [zk-org/zk-nvim] and [zk](https://github.com/zk-org/zk) for
-more mappings and usage information.
-
-| Key   | Mode | Action
-| ----- |:----:| ------------------
-| <kbd>Space</kbd>+<kbd>zn</kbd> | 𝐍 | Ask for title and create new note
-| <kbd>Space</kbd>+<kbd>zo</kbd> | 𝐍 | Browse notes sorted by modification time
-| <kbd>Space</kbd>+<kbd>zt</kbd> | 𝐍 | Browse tags
-| <kbd>Space</kbd>+<kbd>zf</kbd> | 𝐍 | Search notes
-| <kbd>Space</kbd>+<kbd>zf</kbd> | 𝐕 | Search notes with selection
-| <kbd>Space</kbd>+<kbd>zb</kbd> | 𝐍 | Show backlinks
-| <kbd>Space</kbd>+<kbd>zl</kbd> | 𝐍 | Show links
-
 #### Plugin: Spectre
 
 See [nvim-pack/nvim-spectre] for more mappings and usage information.
@@ -1341,6 +1334,21 @@ See [chentau/marks.nvim] for more mappings and usage information.
 | <kbd>m[</kbd> | 𝐍 | Move to previous mark
 | <kbd>m:</kbd> <kbd>a-z</kbd> | 𝐍 | Preview mark
 | <kbd>m/</kbd> | 𝐍 | List marks from all opened buffers
+
+#### Plugin: Zk (extra)
+
+See [zk-org/zk-nvim] and [zk](https://github.com/zk-org/zk) for
+more mappings and usage information.
+
+| Key   | Mode | Action
+| ----- |:----:| ------------------
+| <kbd>Space</kbd>+<kbd>zn</kbd> | 𝐍 | Ask for title and create new note
+| <kbd>Space</kbd>+<kbd>zo</kbd> | 𝐍 | Browse notes sorted by modification time
+| <kbd>Space</kbd>+<kbd>zt</kbd> | 𝐍 | Browse tags
+| <kbd>Space</kbd>+<kbd>zf</kbd> | 𝐍 | Search notes
+| <kbd>Space</kbd>+<kbd>zf</kbd> | 𝐕 | Search notes with selection
+| <kbd>Space</kbd>+<kbd>zb</kbd> | 𝐍 | Show backlinks
+| <kbd>Space</kbd>+<kbd>zl</kbd> | 𝐍 | Show links
 
 </details>
 

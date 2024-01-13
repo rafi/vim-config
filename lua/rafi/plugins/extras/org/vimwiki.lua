@@ -36,8 +36,11 @@ return {
 					syntax = 'markdown',
 					ext = '.md',
 				},
-				{ path = '~/docs/books/', syntax = 'markdown', ext = '.md' },
-				{ path = '~/notes/', syntax = 'markdown', ext = '.md' },
+				{
+					path = '~/docs/notes/',
+					syntax = 'markdown',
+					ext = '.md',
+				},
 			}
 		end,
 	},
