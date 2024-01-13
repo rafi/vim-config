@@ -154,11 +154,11 @@ return {
 		-- stylua: ignore
 		keys = {
 			-- General pickers
-			{ '<localleader>r', '<cmd>Telescope resume initial_mode=normal<CR>', desc = 'Resume last' },
-			{ '<localleader>R', '<cmd>Telescope pickers<CR>', desc = 'Pickers' },
+			{ '<localleader>r', '<cmd>Telescope resume<CR>', desc = 'Resume last' },
+			{ '<localleader>p', '<cmd>Telescope pickers<CR>', desc = 'Pickers' },
 			{ '<localleader>f', '<cmd>Telescope find_files<CR>', desc = 'Find files' },
 			{ '<localleader>g', '<cmd>Telescope live_grep<CR>', desc = 'Grep' },
-			{ '<localleader>b', '<cmd>Telescope buffers<CR>', desc = 'Buffers' },
+			{ '<localleader>b', '<cmd>Telescope buffers sort_mru=true sort_lastused=true<CR>', desc = 'Buffers' },
 			{ '<localleader>h', '<cmd>Telescope highlights<CR>', desc = 'Highlights' },
 			{ '<localleader>j', '<cmd>Telescope jumplist<CR>', desc = 'Jump list' },
 			{ '<localleader>m', '<cmd>Telescope marks<CR>', desc = 'Marks' },
@@ -311,6 +311,9 @@ return {
 			table.insert(vimgrep_args, '--glob')
 			table.insert(vimgrep_args, '!**/.git/*')
 
+			local path_sep = jit and (jit.os == 'Windows' and '\\' or '/')
+				or package.config:sub(1, 1)
+
 			local find_args = {
 				'rg',
 				'--vimgrep',
@@ -343,6 +346,9 @@ return {
 						horizontal = {
 							height = 0.85,
 						},
+					},
+					history = {
+						path = vim.fn.stdpath('state') .. path_sep .. 'telescope_history',
 					},
 
 					-- stylua: ignore

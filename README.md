@@ -1195,7 +1195,7 @@ See [telescope.nvim] for more mappings and usage information.
 | Key   | Mode | Action
 | ----- |:----:| ------------------
 | <kbd>;r</kbd> | 𝐍 | Results of the previous picker
-| <kbd>;R</kbd> | 𝐍 | List of the previous pickers
+| <kbd>;p</kbd> | 𝐍 | List of the previous pickers
 | <kbd>;f</kbd> | 𝐍 | File search
 | <kbd>;g</kbd> | 𝐍 | Grep search
 | <kbd>;b</kbd> | 𝐍 | Buffers
@@ -1208,7 +1208,6 @@ See [telescope.nvim] for more mappings and usage information.
 | <kbd>;n</kbd> | 𝐍 | Plugins
 | <kbd>;k</kbd> | 𝐍 | Thesaurus
 | <kbd>;u</kbd> | 𝐍 | Spelling suggestions
-| <kbd>;s</kbd> | 𝐍 | Sessions
 | <kbd>;x</kbd> | 𝐍 | Old files
 | <kbd>;w</kbd> | 𝐍 | Zk notes
 | <kbd>;z</kbd> | 𝐍 | Zoxide directories
