@@ -41,6 +41,7 @@ return {
 		dependencies = { 'mason.nvim' },
 		lazy = true,
 		cmd = 'ConformInfo',
+		-- stylua: ignore
 		keys = {
 			{
 				'<leader>cF',

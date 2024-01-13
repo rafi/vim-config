@@ -258,9 +258,10 @@ return {
 		'echasnovski/mini.comment',
 		event = 'VeryLazy',
 		dependencies = { 'JoosepAlviste/nvim-ts-context-commentstring' },
+		-- stylua: ignore
 		keys = {
-			{ '<Leader>v', 'gcc', remap = true, silent = true, mode = 'n' },
-			{ '<Leader>v', 'gc', remap = true, silent = true, mode = 'x' },
+			{ '<Leader>v', 'gcc', remap = true, silent = true, mode = 'n', desc = 'Comment' },
+			{ '<Leader>v', 'gc', remap = true, silent = true, mode = 'x', desc = 'Comment' },
 		},
 		opts = {
 			options = {

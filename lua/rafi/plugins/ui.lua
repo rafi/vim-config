@@ -1,8 +1,6 @@
 -- Plugins: UI
 -- https://github.com/rafi/vim-config
 
-local Util = require('lazyvim.util')
-
 return {
 
 	-----------------------------------------------------------------------------
@@ -41,6 +39,7 @@ return {
 		},
 		init = function()
 			-- When noice is not enabled, install notify on VeryLazy
+			local Util = require('lazyvim.util')
 			if not Util.has('noice.nvim') then
 				Util.on_very_lazy(function()
 					vim.notify = require('notify')
@@ -286,12 +285,12 @@ return {
 		main = 'ibl',
 		event = 'LazyFile',
 		keys = {
-			{ '<Leader>ue', '<cmd>IBLToggle<CR>' },
+			{ '<Leader>ue', '<cmd>IBLToggle<CR>', desc = 'Toggle indent-lines' },
 		},
 		opts = {
 			indent = {
 				-- See more characters at :h ibl.config.indent.char
-				char = '│',  -- ▏│
+				char = '│', -- ▏│
 				tab_char = '│',
 				-- priority = 100, -- Display over folded lines
 			},

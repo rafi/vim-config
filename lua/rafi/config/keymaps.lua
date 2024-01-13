@@ -37,8 +37,8 @@ else
 end
 
 -- Easier line-wise movement
-map('n', 'gh', 'g^')
-map('n', 'gl', 'g$')
+map('n', 'gh', 'g^', { desc = 'Jump to first screen character' })
+map('n', 'gl', 'g$', { desc = 'Jump to last screen character' })
 
 -- Navigation in command line
 map('c', '<C-h>', '<Home>')

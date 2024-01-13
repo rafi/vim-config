@@ -10,6 +10,7 @@ return {
 	{
 		'neovim/nvim-lspconfig',
 		event = 'LazyFile',
+		-- stylua: ignore
 		dependencies = {
 			{ 'folke/neoconf.nvim', cmd = 'Neoconf', config = false, dependencies = { 'nvim-lspconfig' } },
 			{ 'folke/neodev.nvim', opts = {} },
@@ -78,7 +79,9 @@ return {
 			local Util = require('lazyvim.util')
 			if Util.has('neoconf.nvim') then
 				local plugin = require('lazy.core.config').spec.plugins['neoconf.nvim']
-				require('neoconf').setup(require('lazy.core.plugin').values(plugin, 'opts', false))
+				require('neoconf').setup(
+					require('lazy.core.plugin').values(plugin, 'opts', false)
+				)
 			end
 
 			-- Setup autoformat
@@ -128,14 +131,14 @@ return {
 				end
 			end
 			if set_opts_signs or vim.fn.has('nvim-0.10') == 0 then
-			for type, icon in pairs(require('lazyvim.config').icons.diagnostics) do
+				for type, icon in pairs(require('lazyvim.config').icons.diagnostics) do
 					if set_opts_signs then
 						local severity = vim.diagnostic.severity[type:upper()]
 						opts.diagnostics.signs.text[severity] = icon
 					else
-				local hl = 'DiagnosticSign' .. type
-				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
-			end
+						local hl = 'DiagnosticSign' .. type
+						vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
+					end
 				end
 			end
 
@@ -242,7 +245,8 @@ return {
 			end
 
 			if Util.lsp.get_config('denols') and Util.lsp.get_config('tsserver') then
-				local is_deno = require('lspconfig.util').root_pattern('deno.json', 'deno.jsonc')
+				local is_deno =
+					require('lspconfig.util').root_pattern('deno.json', 'deno.jsonc')
 				Util.lsp.disable('tsserver', is_deno)
 				Util.lsp.disable('denols', function(root_dir)
 					return not is_deno(root_dir)

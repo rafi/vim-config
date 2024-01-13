@@ -57,14 +57,23 @@ function M.get()
 			'<leader>cr',
 			function()
 				local inc_rename = require('inc_rename')
-				return ':' .. inc_rename.config.cmd_name .. ' ' .. vim.fn.expand('<cword>')
+				return string.format(
+					':%s %s',
+					inc_rename.config.cmd_name,
+					vim.fn.expand('<cword>')
+				)
 			end,
 			expr = true,
 			desc = 'Rename',
 			has = 'rename',
 		}
 	else
-		M._keys[#M._keys + 1] = { '<leader>cr', vim.lsp.buf.rename, desc = 'Rename', has = 'rename' }
+		M._keys[#M._keys + 1] = {
+			'<leader>cr',
+			vim.lsp.buf.rename,
+			desc = 'Rename',
+			has = 'rename',
+		}
 	end
 	return M._keys
 end
@@ -91,7 +100,8 @@ function M.resolve(buffer)
 	local opts = require('lazyvim.util').opts('nvim-lspconfig')
 	local clients = require('lazyvim.util').lsp.get_clients({ bufnr = buffer })
 	for _, client in ipairs(clients) do
-		local maps = opts.servers[client.name] and opts.servers[client.name].keys or {}
+		local maps = opts.servers[client.name] and opts.servers[client.name].keys
+			or {}
 		vim.list_extend(spec, maps)
 	end
 	return Keys.resolve(spec)

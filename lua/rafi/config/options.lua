@@ -212,7 +212,6 @@ vim.g.no_man_maps = 1       -- See share/nvim/runtime/ftplugin/man.vim
 -- Filetype detection
 -- ===
 
----@diagnostic disable-next-line: missing-fields
 vim.filetype.add({
 	filename = {
 		Brewfile = 'ruby',
