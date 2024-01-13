@@ -39,7 +39,8 @@ function M.get()
 		{ '<Leader>ud', function() M.diagnostic_toggle(false) end, desc = 'Disable Diagnostics' },
 		{ '<Leader>uD', function() M.diagnostic_toggle(true) end, desc = 'Disable All Diagnostics' },
 
-		{ '<leader>cl', '<cmd>LspInfo<cr>' },
+		{ '<leader>cl', '<cmd>LspInfo<cr>', desc = 'LSP info popup' },
+		{ '<leader>cs', M.formatter_select, mode = { 'n', 'x' }, desc = 'Formatter Select' },
 		{ '<Leader>ce', vim.diagnostic.open_float, desc = 'Open diagnostics' },
 		{ '<Leader>ca', vim.lsp.buf.code_action, mode = { 'n', 'x' }, has = 'codeAction', desc = 'Code Action' },
 		{ '<Leader>cA', function()
@@ -140,6 +141,76 @@ function M.diagnostic_toggle(global)
 	vim.schedule(function()
 		vim.diagnostic[cmd](bufnr)
 	end)
+end
+
+-- Display a list of formatters and apply the selected one.
+function M.formatter_select()
+	local buf = vim.api.nvim_get_current_buf()
+	local mode = vim.fn.mode()
+	local is_visual = mode == 'v' or mode == 'V' or mode == ''
+	local cur_start, cur_end
+	if is_visual then
+		cur_start = vim.fn.getpos('.')
+		cur_end = vim.fn.getpos('v')
+	end
+
+	-- Collect various sources of formatters.
+	---@class rafi.Formatter
+	---@field kind string
+	---@field name string
+	---@field client LazyFormatter|{active:boolean,resolved:string[]}
+
+	---@type rafi.Formatter[]
+	local sources = {}
+	local fmts = require('lazyvim.util.format').resolve(buf)
+	for _, fmt in ipairs(fmts) do
+		vim.tbl_map(function(resolved)
+			table.insert(sources, {
+				kind = fmt.name,
+				name = resolved,
+				client = fmt,
+			})
+		end, fmt.resolved)
+	end
+
+	local total_sources = #sources
+
+	-- Apply formatter source on buffer.
+	---@param bufnr number
+	---@param source rafi.Formatter
+	local apply_source = function(bufnr, source)
+		if source == nil then
+			return
+		end
+		require('lazyvim.util').try(function()
+			return source.client.format(bufnr)
+		end, { msg = 'Formatter `' .. source.name .. '` failed' })
+	end
+
+	if total_sources == 1 then
+		apply_source(buf, sources[1])
+	elseif total_sources > 1 then
+		-- Display a list of sources to choose from
+		vim.ui.select(sources, {
+			prompt = 'Select a formatter',
+			format_item = function(item)
+				return item.name .. ' (' .. item.kind .. ')'
+			end,
+		}, function(selected)
+			if is_visual then
+				-- Restore visual selection
+				vim.fn.setpos('.', cur_start)
+				vim.cmd([[normal! v]])
+				vim.fn.setpos('.', cur_end)
+			end
+			apply_source(buf, selected)
+		end)
+	else
+		vim.notify(
+			'No configured formatters for this filetype.',
+			vim.log.levels.WARN
+		)
+	end
 end
 
 return M

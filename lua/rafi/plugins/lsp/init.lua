@@ -42,19 +42,10 @@ return {
 			},
 			-- Add any global capabilities here
 			capabilities = {},
-			-- Formatting options
+			-- Formatting options for vim.lsp.buf.format
 			format = {
-				select = true,
-				-- If select=false, set to plugin priority.
-				priority = { 'formatter', 'lsp', 'null-ls' },
-				-- If select=false, show formatters used in a notification
-				notify = false,
-				-- Options for vim.lsp.buf.format - `bufnr` and `filter` is handled by
-				-- the formatter, but can be overridden
-				lsp = {
-					formatting_options = nil,
-					timeout_ms = nil,
-				},
+				formatting_options = nil,
+				timeout_ms = nil,
 			},
 			-- LSP Server Settings
 			---@type lspconfig.options
