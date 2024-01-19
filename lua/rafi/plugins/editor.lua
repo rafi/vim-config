@@ -40,12 +40,13 @@ return {
 		event = 'VimEnter',
 		opts = {
 			options = vim.opt_global.sessionoptions:get(),
+			-- Enable to autoload session on startup, unless:
+			-- * neovim was started with files as arguments
+			-- * stdin has been provided
+			-- * git commit/rebase session
+			autoload = true,
 		},
 		init = function()
-			local disabled_dirs = {
-				vim.env.TMPDIR or '/tmp',
-				'/private/tmp',
-			}
 			-- Detect if stdin has been provided.
 			vim.g.started_with_stdin = false
 			vim.api.nvim_create_autocmd('StdinReadPre', {
@@ -54,14 +55,20 @@ return {
 					vim.g.started_with_stdin = true
 				end,
 			})
-			-- Autoload session on startup, unless:
-			-- * neovim was started with files as arguments
-			-- * stdin has been provided
-			-- * git commit/rebase session
+			-- Autoload session on startup.
+			local disabled_dirs = {
+				vim.env.TMPDIR or '/tmp',
+				'/private/tmp',
+			}
 			vim.api.nvim_create_autocmd('VimEnter', {
 				group = 'rafi_persistence',
+				once = true,
 				nested = true,
 				callback = function()
+					local opts = require('lazyvim.util').opts('persistence.nvim')
+					if not opts.autoload then
+						return
+					end
 					local cwd = vim.loop.cwd() or vim.fn.getcwd()
 					if
 						cwd == nil
