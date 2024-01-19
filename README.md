@@ -104,7 +104,7 @@ entire configuration has been rewritten to use [lazy.nvim] and Lua.
   (try <kbd>Tab</kbd> or <kbd>Ctrl</kbd>+<kbd>Space</kbd> in insert-mode)
 * Structure view with [hedyhli/outline.nvim]
 * Git features using [lewis6991/gitsigns.nvim], [sindrets/diffview.nvim], and [more](#git-plugins)
-* Auto-save and restore sessions with [folke/persistence.nvim]
+* Session management with [folke/persistence.nvim]
 * Unobtrusive, yet informative status & tab lines
 * Premium color-schemes
 * Remembers last-used colorscheme
@@ -794,7 +794,8 @@ Spec: `rafi.plugins.extras.treesitter.<name>`
 Spec: `rafi.plugins.extras.ui.<name>`
 
 | Key            | Name           | Description
-| -------------- | -------------- | ----------------------
+| ----------------- | -------------- | ----------------------
+| `alpha`           | [goolord/alpha-nvim] | Fast and fully programmable greeter
 | `barbecue`     | [utilyre/barbecue.nvim] | VS Code like winbar
 | `cursorword`   | [itchyny/cursorword] | Underlines word under cursor
 | `cybu`         | [ghillb/cybu.nvim] | Cycle buffers with a customizable notification window
@@ -804,6 +805,7 @@ Spec: `rafi.plugins.extras.ui.<name>`
 | `minimap`      | [echasnovski/mini.map] | Window with buffer text overview, scrollbar and highlights
 | `symbols-outline` | [simrat39/symbols-outline.nvim] | Tree like view for symbols using LSP
 
+[goolord/alpha-nvim]: https://github.com/goolord/alpha-nvim
 [utilyre/barbecue.nvim]: https://github.com/utilyre/barbecue.nvim
 [itchyny/cursorword]: https://github.com/itchyny/vim-cursorword
 [ghillb/cybu.nvim]: https://github.com/ghillb/cybu.nvim
