@@ -361,12 +361,13 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Create key bindings that stick
 	{
 		'folke/which-key.nvim',
 		event = 'VeryLazy',
 		opts = {
 			icons = { separator = ' 󰁔 ' },
-			-- window = { winblend = 0 },
+			plugins = { spelling = true },
 			defaults = {
 				mode = { 'n', 'v' },
 				-- [';'] = { name = '+telescope' },
@@ -375,10 +376,13 @@ return {
 				-- ['gz'] = { name = '+surround' },
 				-- [']'] = { name = '+next' },
 				-- ['['] = { name = '+prev' },
+
 				['<leader>b'] = { name = '+buffer' },
 				['<leader>c'] = { name = '+code' },
+				['<leader>f'] = { name = '+file/find' },
 				['<leader>g'] = { name = '+git' },
 				['<leader>h'] = { name = '+hunks' },
+				['<leader>m'] = { name = '+tools' },
 				['<leader>s'] = { name = '+search' },
 				['<leader>t'] = { name = '+toggle/tools' },
 				['<leader>u'] = { name = '+ui' },
@@ -386,6 +390,11 @@ return {
 				['<leader>z'] = { name = '+notes' },
 			},
 		},
+		config = function(_, opts)
+			local wk = require('which-key')
+			wk.setup(opts)
+			wk.register(opts.defaults)
+		end,
 	},
 
 	-----------------------------------------------------------------------------

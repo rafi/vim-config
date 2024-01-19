@@ -725,18 +725,18 @@ Spec: `rafi.plugins.extras.editor.<name>`
 | Name          | Repository     | Description
 | --------------| -------------- | ----------------------
 | `anyjump`     | [pechorin/any-jump.vim] | Jump to any definition and references without overhead
-| `flybuf`      | [glepnir/flybuf.nvim] | List buffers in a float window
-| `harpoon`     | [ThePrimeagen/harpoon] | Marks for navigating your project
+| `flybuf`      | [glepnir/flybuf.nvim]   | List buffers in a float window
+| `harpoon`     | [ThePrimeagen/harpoon]  | Marks for navigating your project
+| `minivisits`  | [echasnovski/mini.visits] | Track and reuse file system visits
 | `sidebar`     | [sidebar-nvim/sidebar.nvim] | Generic and modular lua sidebar
 | `ufo`         | [kevinhwang91/nvim-ufo] | Make folds look modern and keep a high performance
-| `visits`      | [echasnovski/mini.visits] | Track and reuse file system visits
 
 [pechorin/any-jump.vim]: https://github.com/pechorin/any-jump.vim
 [glepnir/flybuf.nvim]: https://github.com/glepnir/flybuf.nvim
 [ThePrimeagen/harpoon]: https://github.com/ThePrimeagen/harpoon
+[echasnovski/mini.visits]: https://github.com/echasnovski/mini.visits
 [sidebar-nvim/sidebar.nvim]: https://github.com/sidebar-nvim/sidebar.nvim
 [kevinhwang91/nvim-ufo]: https://github.com/kevinhwang91/nvim-ufo
-[echasnovski/mini.visits]: https://github.com/echasnovski/mini.visits
 
 ### Extra Plugins: Git
 
@@ -833,6 +833,7 @@ Spec: `rafi.plugins.extras.ui.<name>`
 | `deadcolumn`      | [Bekaboo/deadcolumn.nvim] | Show colorcolumn dynamically
 | `goto-preview`    | [rmagatti/goto-preview] | Preview definitions using floating windows
 | `incline`         | [b0o/incline.nvim] | Floating statuslines
+| `miniclue`        | [echasnovski/mini.clue] | Show next key clues
 | `minimap`         | [echasnovski/mini.map] | Window with buffer text overview, scrollbar and highlights
 | `symbols-outline` | [simrat39/symbols-outline.nvim] | Tree like view for symbols using LSP
 
@@ -843,6 +844,7 @@ Spec: `rafi.plugins.extras.ui.<name>`
 [Bekaboo/deadcolumn.nvim]: https://github.com/Bekaboo/deadcolumn.nvim
 [rmagatti/goto-preview]: https://github.com/rmagatti/goto-preview
 [b0o/incline.nvim]: https://github.com/b0o/incline.nvim
+[echasnovski/mini.clue]: https://github.com/echasnovski/mini.clue
 [echasnovski/mini.map]: https://github.com/echasnovski/mini.map
 [simrat39/symbols-outline.nvim]: https://github.com/simrat39/symbols-outline.nvim
 
