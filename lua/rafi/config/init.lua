@@ -200,7 +200,7 @@ function M.init()
 			module = 'lazyvim.plugins.extras',
 		},
 		{
-			name = 'Ʀafi ',
+			name = 'rafi.vim ',
 			desc = 'Rafi extras',
 			module = 'rafi.plugins.extras',
 		},

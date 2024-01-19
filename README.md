@@ -84,9 +84,9 @@ entire configuration has been rewritten to use [lazy.nvim] and Lua.
     * [Plugin: Diffview](#plugin-diffview)
     * [Plugin: Telescope](#plugin-telescope)
     * [Plugin: Neo-Tree](#plugin-neo-tree)
-    * [Plugin: Zk](#plugin-zk)
     * [Plugin: Spectre](#plugin-spectre)
     * [Plugin: Marks](#plugin-marks)
+    * [Plugin: Zk](#plugin-zk)
 
 <!-- vim-markdown-toc -->
 </details>
@@ -266,6 +266,37 @@ Adding plugins or override existing options:
 ### Extend: Plugins
 
 Install "extras" plugins using `:LazyExtras` and installing with <kbd>x</kbd>.
+This saves choices in `lazyvim.json` which you can also edit manually, here's a
+recommended starting point:
+
+```json
+{
+  "extras": [
+    "lazyvim.plugins.extras.dap.core",
+    "lazyvim.plugins.extras.dap.nlua",
+    "lazyvim.plugins.extras.editor.mini-files",
+    "lazyvim.plugins.extras.lang.json",
+    "lazyvim.plugins.extras.lang.markdown",
+    "lazyvim.plugins.extras.test.core",
+    "rafi.plugins.extras.coding.align",
+    "rafi.plugins.extras.coding.cmp-git",
+    "rafi.plugins.extras.coding.copilot",
+    "rafi.plugins.extras.editor.harpoon",
+    "rafi.plugins.extras.editor.miniclue",
+    "rafi.plugins.extras.lang.ansible",
+    "rafi.plugins.extras.lang.docker",
+    "rafi.plugins.extras.lang.go",
+    "rafi.plugins.extras.lang.helm",
+    "rafi.plugins.extras.lang.python",
+    "rafi.plugins.extras.lang.yaml",
+    "rafi.plugins.extras.org.zk",
+    "rafi.plugins.extras.ui.alpha",
+    "rafi.plugins.extras.ui.deadcolumn"
+  ],
+  "news": [],
+  "version": 2
+}
+```
 
 For installing/overriding/disabling plugins, create a `lua/plugins/foo.lua`
 file (or `lua/plugins/foo/bar.lua` or simply `lua/plugins.lua`) and manage your
@@ -793,16 +824,16 @@ Spec: `rafi.plugins.extras.treesitter.<name>`
 
 Spec: `rafi.plugins.extras.ui.<name>`
 
-| Key            | Name           | Description
+| Key               | Name           | Description
 | ----------------- | -------------- | ----------------------
 | `alpha`           | [goolord/alpha-nvim] | Fast and fully programmable greeter
-| `barbecue`     | [utilyre/barbecue.nvim] | VS Code like winbar
-| `cursorword`   | [itchyny/cursorword] | Underlines word under cursor
-| `cybu`         | [ghillb/cybu.nvim] | Cycle buffers with a customizable notification window
-| `deadcolumn`   | [Bekaboo/deadcolumn.nvim] | Show colorcolumn dynamically
-| `goto-preview` | [rmagatti/goto-preview] | Preview definitions using floating windows
-| `incline`      | [b0o/incline.nvim] | Floating statuslines
-| `minimap`      | [echasnovski/mini.map] | Window with buffer text overview, scrollbar and highlights
+| `barbecue`        | [utilyre/barbecue.nvim] | VS Code like winbar
+| `cursorword`      | [itchyny/cursorword] | Underlines word under cursor
+| `cybu`            | [ghillb/cybu.nvim] | Cycle buffers with a customizable notification window
+| `deadcolumn`      | [Bekaboo/deadcolumn.nvim] | Show colorcolumn dynamically
+| `goto-preview`    | [rmagatti/goto-preview] | Preview definitions using floating windows
+| `incline`         | [b0o/incline.nvim] | Floating statuslines
+| `minimap`         | [echasnovski/mini.map] | Window with buffer text overview, scrollbar and highlights
 | `symbols-outline` | [simrat39/symbols-outline.nvim] | Tree like view for symbols using LSP
 
 [goolord/alpha-nvim]: https://github.com/goolord/alpha-nvim
@@ -1336,7 +1367,7 @@ See [chentau/marks.nvim] for more mappings and usage information.
 | <kbd>m:</kbd> <kbd>a-z</kbd> | 𝐍 | Preview mark
 | <kbd>m/</kbd> | 𝐍 | List marks from all opened buffers
 
-#### Plugin: Zk (extra)
+#### Plugin: Zk
 
 See [zk-org/zk-nvim] and [zk](https://github.com/zk-org/zk) for
 more mappings and usage information.
