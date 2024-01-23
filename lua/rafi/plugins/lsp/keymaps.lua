@@ -15,17 +15,16 @@ function M.get()
 	---@class PluginLspKeys
 	-- stylua: ignore
 	M._keys =  {
-		{ 'gD', vim.lsp.buf.declaration, desc = 'Goto Declaration', has = 'declaration' },
+		{ 'gr', vim.lsp.buf.references, desc = 'References' },
 		{ 'gd', vim.lsp.buf.definition, desc = 'Goto Definition', has = 'definition' },
-		{ 'gr', vim.lsp.buf.references, desc = 'References', has = 'references' },
-		{ 'gy', vim.lsp.buf.type_definition, desc = 'Goto Type Definition', has = 'typeDefinition' },
-		{ 'gi', vim.lsp.buf.implementation, desc = 'Goto Implementation', has = 'implementation' },
-		{ 'gK', vim.lsp.buf.signature_help, desc = 'Signature Help', has = 'signatureHelp' },
-		{ '<C-g>h', vim.lsp.buf.signature_help, mode = 'i', desc = 'Signature Help', has = 'signatureHelp' },
+		{ 'gD', vim.lsp.buf.declaration, desc = 'Goto Declaration' },
+		{ 'gI', vim.lsp.buf.implementation, desc = 'Goto Implementation' },
+		{ 'gy', vim.lsp.buf.type_definition, desc = 'Goto Type Definition' },
+		{ 'gK', vim.lsp.buf.signature_help, desc = 'Signature Help' },
 
-		{ ',wa', vim.lsp.buf.add_workspace_folder, desc = 'Show Workspace Folders' },
-		{ ',wr', vim.lsp.buf.remove_workspace_folder, desc = 'Remove Workspace Folder' },
-		{ ',wl', '<cmd>lua =vim.lsp.buf.list_workspace_folders()<CR>', desc = 'List Workspace Folders' },
+		{ '<Leader>fwa', vim.lsp.buf.add_workspace_folder, desc = 'Show Workspace Folders' },
+		{ '<Leader>fwr', vim.lsp.buf.remove_workspace_folder, desc = 'Remove Workspace Folder' },
+		{ '<Leader>fwl', '<cmd>lua =vim.lsp.buf.list_workspace_folders()<CR>', desc = 'List Workspace Folders' },
 
 		{ 'K', function()
 			-- Show hover documentation or folded lines.
@@ -39,7 +38,10 @@ function M.get()
 		{ '<Leader>ud', function() M.diagnostic_toggle(false) end, desc = 'Disable Diagnostics' },
 		{ '<Leader>uD', function() M.diagnostic_toggle(true) end, desc = 'Disable All Diagnostics' },
 
-		{ '<leader>cl', '<cmd>LspInfo<cr>' },
+		{ '<leader>cl', '<cmd>LspInfo<cr>', desc = 'LSP info popup' },
+		{ '<leader>cs', M.formatter_select, mode = { 'n', 'x' }, desc = 'Formatter Select' },
+		{ '<Leader>chi', vim.lsp.buf.incoming_calls, desc = 'Incoming calls' },
+		{ '<Leader>cho', vim.lsp.buf.outgoing_calls, desc = 'Outgoing calls' },
 		{ '<Leader>ce', vim.diagnostic.open_float, desc = 'Open diagnostics' },
 		{ '<Leader>ca', vim.lsp.buf.code_action, mode = { 'n', 'x' }, has = 'codeAction', desc = 'Code Action' },
 		{ '<Leader>cA', function()
@@ -56,14 +58,23 @@ function M.get()
 			'<leader>cr',
 			function()
 				local inc_rename = require('inc_rename')
-				return ':' .. inc_rename.config.cmd_name .. ' ' .. vim.fn.expand('<cword>')
+				return string.format(
+					':%s %s',
+					inc_rename.config.cmd_name,
+					vim.fn.expand('<cword>')
+				)
 			end,
 			expr = true,
 			desc = 'Rename',
 			has = 'rename',
 		}
 	else
-		M._keys[#M._keys + 1] = { '<leader>cr', vim.lsp.buf.rename, desc = 'Rename', has = 'rename' }
+		M._keys[#M._keys + 1] = {
+			'<leader>cr',
+			vim.lsp.buf.rename,
+			desc = 'Rename',
+			has = 'rename',
+		}
 	end
 	return M._keys
 end
@@ -90,7 +101,8 @@ function M.resolve(buffer)
 	local opts = require('lazyvim.util').opts('nvim-lspconfig')
 	local clients = require('lazyvim.util').lsp.get_clients({ bufnr = buffer })
 	for _, client in ipairs(clients) do
-		local maps = opts.servers[client.name] and opts.servers[client.name].keys or {}
+		local maps = opts.servers[client.name] and opts.servers[client.name].keys
+			or {}
 		vim.list_extend(spec, maps)
 	end
 	return Keys.resolve(spec)
@@ -140,6 +152,76 @@ function M.diagnostic_toggle(global)
 	vim.schedule(function()
 		vim.diagnostic[cmd](bufnr)
 	end)
+end
+
+-- Display a list of formatters and apply the selected one.
+function M.formatter_select()
+	local buf = vim.api.nvim_get_current_buf()
+	local mode = vim.fn.mode()
+	local is_visual = mode == 'v' or mode == 'V' or mode == ''
+	local cur_start, cur_end
+	if is_visual then
+		cur_start = vim.fn.getpos('.')
+		cur_end = vim.fn.getpos('v')
+	end
+
+	-- Collect various sources of formatters.
+	---@class rafi.Formatter
+	---@field kind string
+	---@field name string
+	---@field client LazyFormatter|{active:boolean,resolved:string[]}
+
+	---@type rafi.Formatter[]
+	local sources = {}
+	local fmts = require('lazyvim.util.format').resolve(buf)
+	for _, fmt in ipairs(fmts) do
+		vim.tbl_map(function(resolved)
+			table.insert(sources, {
+				kind = fmt.name,
+				name = resolved,
+				client = fmt,
+			})
+		end, fmt.resolved)
+	end
+
+	local total_sources = #sources
+
+	-- Apply formatter source on buffer.
+	---@param bufnr number
+	---@param source rafi.Formatter
+	local apply_source = function(bufnr, source)
+		if source == nil then
+			return
+		end
+		require('lazyvim.util').try(function()
+			return source.client.format(bufnr)
+		end, { msg = 'Formatter `' .. source.name .. '` failed' })
+	end
+
+	if total_sources == 1 then
+		apply_source(buf, sources[1])
+	elseif total_sources > 1 then
+		-- Display a list of sources to choose from
+		vim.ui.select(sources, {
+			prompt = 'Select a formatter',
+			format_item = function(item)
+				return item.name .. ' (' .. item.kind .. ')'
+			end,
+		}, function(selected)
+			if is_visual then
+				-- Restore visual selection
+				vim.fn.setpos('.', cur_start)
+				vim.cmd([[normal! v]])
+				vim.fn.setpos('.', cur_end)
+			end
+			apply_source(buf, selected)
+		end)
+	else
+		vim.notify(
+			'No configured formatters for this filetype.',
+			vim.log.levels.WARN
+		)
+	end
 end
 
 return M

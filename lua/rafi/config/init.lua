@@ -174,7 +174,10 @@ function M.init()
 
 	---@diagnostic disable-next-line: duplicate-set-field
 	package.preload['lazyvim.plugins.lsp.format'] = function()
-		Util.deprecate([[require('lazyvim.plugins.lsp.format')]], [[require('lazyvim.util').format]])
+		Util.deprecate(
+			[[require('lazyvim.plugins.lsp.format')]],
+			[[require('lazyvim.util').format]]
+		)
 		return Util.format
 	end
 
@@ -196,7 +199,11 @@ function M.init()
 			desc = 'LazyVim extras',
 			module = 'lazyvim.plugins.extras',
 		},
-		{ name = 'Ʀafi ', desc = 'Rafi extras', module = 'rafi.plugins.extras' },
+		{
+			name = 'rafi.vim ',
+			desc = 'Rafi extras',
+			module = 'rafi.plugins.extras',
+		},
 		{ name = 'User ', desc = 'User extras', module = 'plugins.extras' },
 	}
 end

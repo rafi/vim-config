@@ -138,6 +138,7 @@ vim.api.nvim_create_autocmd('User', {
 return {
 
 	-----------------------------------------------------------------------------
+	-- Find, Filter, Preview, Pick. All lua.
 	{
 		'nvim-telescope/telescope.nvim',
 		cmd = 'Telescope',
@@ -153,11 +154,11 @@ return {
 		-- stylua: ignore
 		keys = {
 			-- General pickers
-			{ '<localleader>r', '<cmd>Telescope resume initial_mode=normal<CR>', desc = 'Resume last' },
-			{ '<localleader>R', '<cmd>Telescope pickers<CR>', desc = 'Pickers' },
+			{ '<localleader>r', '<cmd>Telescope resume<CR>', desc = 'Resume last' },
+			{ '<localleader>p', '<cmd>Telescope pickers<CR>', desc = 'Pickers' },
 			{ '<localleader>f', '<cmd>Telescope find_files<CR>', desc = 'Find files' },
 			{ '<localleader>g', '<cmd>Telescope live_grep<CR>', desc = 'Grep' },
-			{ '<localleader>b', '<cmd>Telescope buffers<CR>', desc = 'Buffers' },
+			{ '<localleader>b', '<cmd>Telescope buffers sort_mru=true sort_lastused=true<CR>', desc = 'Buffers' },
 			{ '<localleader>h', '<cmd>Telescope highlights<CR>', desc = 'Highlights' },
 			{ '<localleader>j', '<cmd>Telescope jumplist<CR>', desc = 'Jump list' },
 			{ '<localleader>m', '<cmd>Telescope marks<CR>', desc = 'Marks' },
@@ -178,7 +179,6 @@ return {
 			{ '<leader>sm', '<cmd>Telescope man_pages<CR>', desc = 'Man Pages' },
 			{ '<leader>sw', '<cmd>Telescope grep_string<CR>', desc = 'Word' },
 			{ '<leader>sc', '<cmd>Telescope colorscheme<CR>', desc = 'Colorscheme' },
-			{ '<leader>uC', '<cmd>Telescope colorscheme<CR>', desc = 'Colorscheme' },
 
 			-- LSP related
 			{ '<localleader>dd', '<cmd>Telescope lsp_definitions<CR>', desc = 'Definitions' },
@@ -311,6 +311,9 @@ return {
 			table.insert(vimgrep_args, '--glob')
 			table.insert(vimgrep_args, '!**/.git/*')
 
+			local path_sep = jit and (jit.os == 'Windows' and '\\' or '/')
+				or package.config:sub(1, 1)
+
 			local find_args = {
 				'rg',
 				'--vimgrep',
@@ -344,6 +347,9 @@ return {
 							height = 0.85,
 						},
 					},
+					history = {
+						path = vim.fn.stdpath('state') .. path_sep .. 'telescope_history',
+					},
 
 					-- stylua: ignore
 					mappings = {
@@ -363,6 +369,10 @@ return {
 
 							['<C-b>'] = actions.preview_scrolling_up,
 							['<C-f>'] = actions.preview_scrolling_down,
+							['<C-h>'] = actions.preview_scrolling_left,
+							['<C-j>'] = actions.preview_scrolling_down,
+							['<C-k>'] = actions.preview_scrolling_up,
+							['<C-l>'] = actions.preview_scrolling_right,
 						},
 
 						n = {
@@ -376,6 +386,10 @@ return {
 
 							['<C-b>'] = actions.preview_scrolling_up,
 							['<C-f>'] = actions.preview_scrolling_down,
+							['<C-h>'] = actions.preview_scrolling_left,
+							['<C-j>'] = actions.preview_scrolling_down,
+							['<C-k>'] = actions.preview_scrolling_up,
+							['<C-l>'] = actions.preview_scrolling_right,
 
 							['<C-n>'] = actions.cycle_history_next,
 							['<C-p>'] = actions.cycle_history_prev,

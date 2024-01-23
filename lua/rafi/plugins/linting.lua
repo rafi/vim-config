@@ -2,6 +2,8 @@
 -- See: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/linting.lua
 
 return {
+
+	-- Asynchronous linter plugin
 	{
 		'mfussenegger/nvim-lint',
 		event = 'LazyFile',

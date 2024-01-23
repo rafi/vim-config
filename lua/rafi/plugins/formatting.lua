@@ -34,11 +34,14 @@ function M.setup(_, opts)
 end
 
 return {
+
+	-- Lightweight yet powerful formatter plugin
 	{
 		'stevearc/conform.nvim',
 		dependencies = { 'mason.nvim' },
 		lazy = true,
 		cmd = 'ConformInfo',
+		-- stylua: ignore
 		keys = {
 			{
 				'<leader>cF',

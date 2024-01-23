@@ -35,6 +35,7 @@ end
 return {
 
 	-----------------------------------------------------------------------------
+	-- File explorer written in Lua
 	'nvim-neo-tree/neo-tree.nvim',
 	dependencies = {
 		'MunifTanjim/nui.nvim',
@@ -58,6 +59,7 @@ return {
 			end,
 			desc = 'Explorer NeoTree (cwd)',
 		},
+		{ '<LocalLeader>e', '<leader>fe', desc = 'Explorer NeoTree (root dir)', remap = true },
 		{
 			'<LocalLeader>a',
 			function()
@@ -69,7 +71,6 @@ return {
 			end,
 			desc = 'Explorer NeoTree Reveal',
 		},
-		{ '<LocalLeader>e', '<leader>fe', desc = 'Explorer NeoTree (root dir)', remap = true },
 		{ '<leader>e', '<leader>fe', desc = 'Explorer NeoTree (root dir)', remap = true },
 		{ '<leader>E', '<leader>fE', desc = 'Explorer NeoTree (cwd)', remap = true },
 		{
@@ -99,7 +100,8 @@ return {
 	end,
 	init = function()
 		if vim.fn.argc(-1) == 1 then
-			local stat = vim.loop.fs_stat(vim.fn.argv(0))
+			local arg = vim.fn.argv(0) --[[@as string]]
+			local stat = vim.loop.fs_stat(arg)
 			if stat and stat.type == 'directory' then
 				require('neo-tree')
 			end
@@ -109,7 +111,9 @@ return {
 	opts = {
 		close_if_last_window = true,
 		sources = { 'filesystem', 'buffers', 'git_status', 'document_symbols' },
-		open_files_do_not_replace_types = { 'terminal', 'Trouble', 'trouble', 'qf', 'Outline' },
+		open_files_do_not_replace_types = { 'terminal', 'Trouble', 'trouble', 'qf', 'edgy', 'Outline' },
+		popup_border_style = 'rounded',
+		sort_case_insensitive = true,
 
 		source_selector = {
 			winbar = false,
@@ -127,20 +131,13 @@ return {
 			{
 				event = 'file_opened',
 				handler = function()
-					require('neo-tree.command').execute({ action = 'close' })
+					require('neo-tree').close_all()
 				end,
 			},
 		},
 
 		default_component_configs = {
-			indent = {
-				expander_collapsed = '',
-				expander_expanded = '',
-				expander_highlight = 'NeoTreeExpander',
-			},
 			icon = {
-				folder_closed = '',
-				folder_open = '',
 				folder_empty = '',
 				folder_empty_open = '',
 				default = '',
@@ -193,6 +190,13 @@ return {
 				['<S-Tab>'] = 'prev_source',
 				['<Tab>'] = 'next_source',
 
+				['dd'] = 'delete',
+				['c'] = { 'copy', config = { show_path = 'relative' } },
+				['m'] = { 'move', config = { show_path = 'relative' } },
+				['a'] = { 'add', nowait = true, config = { show_path = 'relative' } },
+				['N'] = { 'add_directory', config = { show_path = 'relative' } },
+
+				['P'] = 'paste_from_clipboard',
 				['p'] = {
 					'toggle_preview',
 					nowait = true,
@@ -205,26 +209,11 @@ return {
 			window = {
 				mappings = {
 					['d'] = 'noop',
-					['dd'] = 'delete',
-					['c'] = { 'copy', config = { show_path = 'relative' } },
-					['m'] = { 'move', config = { show_path = 'relative' } },
-					['a'] = { 'add', nowait = true, config = { show_path = 'relative' } },
-					['N'] = { 'add_directory', config = { show_path = 'relative' } },
-					['r'] = 'rename',
-					['y'] = 'copy_to_clipboard',
-					['x'] = 'cut_to_clipboard',
-					['P'] = 'paste_from_clipboard',
 
-					['H'] = 'toggle_hidden',
 					['/'] = 'noop',
 					['f'] = 'fuzzy_finder',
 					['F'] = 'filter_on_submit',
-					['<C-x>'] = 'clear_filter',
 					['<C-c>'] = 'clear_filter',
-					['<BS>'] = 'navigate_up',
-					['.'] = 'set_root',
-					['[g'] = 'prev_git_modified',
-					[']g'] = 'next_git_modified',
 
 					['gf'] = function(state)
 						require('telescope.builtin').find_files({
@@ -239,8 +228,6 @@ return {
 					end,
 				},
 			},
-			group_empty_dirs = true,
-			use_libuv_file_watcher = true,
 			bind_to_cwd = false,
 			cwd_target = {
 				sidebar = 'window',
@@ -248,8 +235,6 @@ return {
 			},
 
 			filtered_items = {
-				visible = false,
-				show_hidden_count = false,
 				hide_dotfiles = false,
 				hide_gitignored = false,
 				hide_by_name = {
@@ -268,13 +253,13 @@ return {
 				},
 				never_show = {},
 			},
+			group_empty_dirs = true,
+			use_libuv_file_watcher = true,
 		},
 		buffers = {
 			bind_to_cwd = false,
 			window = {
 				mappings = {
-					['<BS>'] = 'navigate_up',
-					['.'] = 'set_root',
 					['dd'] = 'buffer_delete',
 				},
 			},
@@ -289,6 +274,12 @@ return {
 		},
 		document_symbols = {
 			follow_cursor = true,
+			window = {
+				mappings = {
+					['/'] = 'noop',
+					['F'] = 'filter',
+				},
+			},
 		},
 	},
 	config = function(_, opts)

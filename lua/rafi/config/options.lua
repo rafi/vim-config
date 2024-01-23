@@ -46,7 +46,7 @@ opt.spelloptions:append('camel')
 opt.timeoutlen = 300           -- Time out on mappings
 opt.updatetime = 200           -- Idle time to write swap and trigger CursorHold
 
-opt.completeopt = 'menu,menuone,noselect'
+opt.completeopt = 'menu,menuone,noinsert'
 opt.wildmode = 'longest:full,full'  -- Command-line completion mode
 opt.diffopt:append({ 'iwhite', 'indent-heuristic', 'algorithm:patience' })
 
@@ -58,7 +58,7 @@ opt.shiftround = true          -- Round indent to multiple of 'shiftwidth'
 
 -- What to save for views and sessions
 opt.viewoptions:remove('folds')
-opt.sessionoptions:remove({ 'blank', 'terminal' })
+opt.sessionoptions:remove({ 'blank', 'buffers', 'terminal' })
 opt.sessionoptions:append({ 'globals', 'skiprtp' })
 
 opt.undofile = true
@@ -212,7 +212,6 @@ vim.g.no_man_maps = 1       -- See share/nvim/runtime/ftplugin/man.vim
 -- Filetype detection
 -- ===
 
----@diagnostic disable-next-line: missing-fields
 vim.filetype.add({
 	filename = {
 		Brewfile = 'ruby',

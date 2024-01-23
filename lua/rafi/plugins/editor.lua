@@ -6,15 +6,21 @@ local is_windows = vim.loop.os_uname().sysname == 'Windows_NT'
 return {
 
 	-----------------------------------------------------------------------------
+	-- Automatic indentation style detection
 	{ 'nmac427/guess-indent.nvim', lazy = false, priority = 50, config = true },
+
+	-- Display vim version numbers in docs
 	{ 'tweekmonster/helpful.vim', cmd = 'HelpfulVersion' },
+
+	-- An alternative sudo for Vim and Neovim
 	{ 'lambdalisue/suda.vim', event = 'BufRead' },
 
 	-----------------------------------------------------------------------------
+	-- Seamless navigation between tmux panes and vim splits
 	{
 		'christoomey/vim-tmux-navigator',
 		lazy = false,
-		cond = not is_windows,
+		cond = vim.env.TMUX and not is_windows,
 		-- stylua: ignore
 		keys = {
 			{ '<C-h>', '<cmd>TmuxNavigateLeft<CR>', mode = { 'n', 't' }, silent = true, desc = 'Jump to left pane' },
@@ -28,17 +34,19 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Simple lua plugin for automated session management
 	{
 		'folke/persistence.nvim',
 		event = 'VimEnter',
 		opts = {
-			options = vim.opt_global.sessionoptions:get()
+			options = vim.opt_global.sessionoptions:get(),
+			-- Enable to autoload session on startup, unless:
+			-- * neovim was started with files as arguments
+			-- * stdin has been provided
+			-- * git commit/rebase session
+			autoload = true,
 		},
 		init = function()
-			local disabled_dirs = {
-				vim.env.TMPDIR or '/tmp',
-				'/private/tmp',
-			}
 			-- Detect if stdin has been provided.
 			vim.g.started_with_stdin = false
 			vim.api.nvim_create_autocmd('StdinReadPre', {
@@ -47,14 +55,20 @@ return {
 					vim.g.started_with_stdin = true
 				end,
 			})
-			-- Autoload session on startup, unless:
-			-- * neovim was started with files as arguments
-			-- * stdin has been provided
-			-- * git commit/rebase session
+			-- Autoload session on startup.
+			local disabled_dirs = {
+				vim.env.TMPDIR or '/tmp',
+				'/private/tmp',
+			}
 			vim.api.nvim_create_autocmd('VimEnter', {
 				group = 'rafi_persistence',
+				once = true,
 				nested = true,
 				callback = function()
+					local opts = require('lazyvim.util').opts('persistence.nvim')
+					if not opts.autoload then
+						return
+					end
 					local cwd = vim.loop.cwd() or vim.fn.getcwd()
 					if
 						cwd == nil
@@ -84,6 +98,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Highlights other uses of the word under the cursor
 	{
 		'RRethy/vim-illuminate',
 		event = { 'BufReadPost', 'BufNewFile' },
@@ -134,6 +149,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Ultimate undo history visualizer
 	{
 		'mbbill/undotree',
 		cmd = 'UndotreeToggle',
@@ -143,6 +159,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Search labels, enhanced character motions
 	{
 		'folke/flash.nvim',
 		event = 'VeryLazy',
@@ -159,6 +176,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Jump to the edge of block
 	{
 		'haya14busa/vim-edgemotion',
 		-- stylua: ignore
@@ -169,6 +187,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Distraction-free coding for Neovim
 	{
 		'folke/zen-mode.nvim',
 		cmd = 'ZenMode',
@@ -184,6 +203,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Highlight, list and search todo comments in your projects
 	{
 		'folke/todo-comments.nvim',
 		event = 'LazyFile',
@@ -192,7 +212,6 @@ return {
 		keys = {
 			{ ']t', function() require('todo-comments').jump_next() end, desc = 'Next todo comment' },
 			{ '[t', function() require('todo-comments').jump_prev() end, desc = 'Previous todo comment' },
-			{ '<LocalLeader>dt', '<cmd>TodoTelescope<CR>', desc = 'todo' },
 			{ '<leader>xt', '<cmd>TodoTrouble<CR>', desc = 'Todo (Trouble)' },
 			{ '<leader>xT', '<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>', desc = 'Todo/Fix/Fixme (Trouble)' },
 			{ '<leader>st', '<cmd>TodoTelescope<cr>', desc = 'Todo' },
@@ -202,6 +221,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Pretty lists to help you solve all code diagnostics
 	{
 		'folke/trouble.nvim',
 		cmd = { 'Trouble', 'TroubleToggle' },
@@ -209,8 +229,8 @@ return {
 		-- stylua: ignore
 		keys = {
 			{ '<leader>xx', function() require('trouble').toggle() end, desc = 'Document Diagnostics (Trouble)' },
-			{ '<leader>xw', function() require('trouble').toggle('workspace_diagnostics') end, desc = 'Workspace Diagnostics (Trouble)' },
 			{ '<leader>xd', function() require('trouble').toggle('document_diagnostics') end, desc = 'Document Diagnostics (Trouble)' },
+			{ '<leader>xw', function() require('trouble').toggle('workspace_diagnostics') end, desc = 'Workspace Diagnostics (Trouble)' },
 			{ '<leader>xq', function() require('trouble').toggle('quickfix') end, desc = 'Quickfix List (Trouble)' },
 			{ '<leader>xl', function() require('trouble').toggle('loclist') end, desc = 'Location List (Trouble)' },
 			{ 'gR', function() require('trouble').open('lsp_references') end, desc = 'LSP References (Trouble)' },
@@ -240,6 +260,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Persist and toggle multiple terminals
 	{
 		'akinsho/toggleterm.nvim',
 		cmd = 'ToggleTerm',
@@ -267,6 +288,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Code outline sidebar powered by LSP
 	{
 		'hedyhli/outline.nvim',
 		opts = {},
@@ -277,6 +299,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Fancy window picker
 	{
 		's1n7ax/nvim-window-picker',
 		event = 'VeryLazy',
@@ -300,7 +323,6 @@ return {
 			end
 
 			local mappings = {
-				{ '-', pick_window, desc = 'Pick window' },
 				{ 'sp', pick_window, desc = 'Pick window' },
 				{ 'sw', swap_window, desc = 'Swap picked window' },
 			}
@@ -320,6 +342,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Fast Neovim http client written in Lua
 	{
 		'rest-nvim/rest.nvim',
 		ft = 'http',
@@ -330,25 +353,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
-	{
-		'mickael-menu/zk-nvim',
-		main = 'zk',
-		ft = 'markdown',
-		cmd = { 'ZkNew', 'ZkNotes', 'ZkTags', 'ZkMatch' },
-		-- stylua: ignore
-		keys = {
-			{ '<leader>zn', "<Cmd>ZkNew { title = vim.fn.input('Title: ') }<CR>", desc = 'Zk New' },
-			{ '<leader>zo', "<Cmd>ZkNotes { sort = { 'modified' } }<CR>", desc = 'Zk Notes' },
-			{ '<leader>zt', '<Cmd>ZkTags<CR>', desc = 'Zk Tags' },
-			{ '<leader>zf', "<Cmd>ZkNotes { sort = { 'modified' }, match = { vim.fn.input('Search: ') } }<CR>", desc = 'Zk Search' },
-			{ '<leader>zf', ":'<,'>ZkMatch<CR>", mode = 'x', desc = 'Zk Match' },
-			{ '<leader>zb', '<Cmd>ZkBacklinks<CR>', desc = 'Zk Backlinks' },
-			{ '<leader>zl', '<Cmd>ZkLinks<CR>', desc = 'Zk Links' },
-		},
-		opts = { picker = 'telescope' },
-	},
-
-	-----------------------------------------------------------------------------
+	-- Pretty window for navigating LSP locations
 	{
 		'dnlhc/glance.nvim',
 		cmd = 'Glance',
@@ -385,6 +390,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Find the enemy and replace them with dark power
 	{
 		'nvim-pack/nvim-spectre',
 		-- stylua: ignore
@@ -431,6 +437,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Helper for removing buffers
 	{
 		'echasnovski/mini.bufremove',
 		opts = {},
@@ -441,6 +448,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Generate table of contents for Markdown files
 	{
 		'mzlogin/vim-markdown-toc',
 		cmd = { 'GenTocGFM', 'GenTocRedcarpet', 'GenTocGitLab', 'UpdateToc' },
