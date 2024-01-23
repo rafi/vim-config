@@ -9,9 +9,9 @@ install: create-dirs update-plugins
 update: update-repo update-plugins
 
 create-dirs:
-	@mkdir -v  ./spell
-	@mkdir -vp "$(XDG_DATA_HOME)"/nvim/sessions
-	@mkdir -vp "$(XDG_STATE_HOME)"/nvim/{shada,swap,undo}
+	@mkdir -vp "$(XDG_CONFIG_HOME)"/nvim/spell
+	@mkdir -vp "$(XDG_DATA_HOME)"/nvim/site/spell
+	@mkdir -vp "$(XDG_STATE_HOME)"/nvim/{backup,sessions,shada,swap,undo}
 
 update-repo:
 	git pull --ff --ff-only
@@ -21,7 +21,7 @@ update-plugins:
 	@echo
 
 uninstall:
-	-rm -rf "$(XDG_SHARE_HOME)"/nvim/{lazy,theme.txt}
+	-rm -rf "$(XDG_DATA_HOME)"/nvim/{lazy,theme.txt,rplugin.vim}
 	-rm -rf "$(XDG_STATE_HOME)"/nvim/lazy
 	-rm -rf "$(XDG_CACHE_HOME)"/nvim/venv
 
@@ -36,10 +36,10 @@ endif
 	"$(XDG_CACHE_HOME)/nvim/venv/bin/pip" install -U pynvim
 
 test:
-	$(info Testing for NVIM >= 0.8.0)
-	$(if $(shell nvim --version | egrep "NVIM v0\.([8-9]|10)\."),\
+	$(info Testing for NVIM >= 0.9.x)
+	$(if $(shell nvim --version | egrep 'NVIM v0\.(9|10)\.'),\
 		$(info OK),\
-		$(error   .. You need Neovim 0.8.0 or newer))
+		$(error   .. You need Neovim 0.9.x or newer))
 	@echo All tests passed, hooray!
 
 .PHONY: install update create-dirs update-repo update-plugins uninstall venv test

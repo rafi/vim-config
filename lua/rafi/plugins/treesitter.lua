@@ -14,26 +14,33 @@ return {
 	{ 'vmchale/just-vim', ft = 'just' },
 
 	-----------------------------------------------------------------------------
-	{
-		'andymass/vim-matchup',
-		init = function()
-			vim.g.matchup_matchparen_offscreen = {}
-		end,
-	},
-
-	-----------------------------------------------------------------------------
+	-- Nvim Treesitter configurations and abstraction layer
 	{
 		'nvim-treesitter/nvim-treesitter',
 		version = false,
 		build = ':TSUpdate',
 		event = { 'LazyFile', 'VeryLazy' },
+		cmd = { 'TSInstall', 'TSUpdate', 'TSUpdateSync' },
+		keys = {
+			{ 'v', desc = 'Increment selection', mode = 'x' },
+			{ 'V', desc = 'Shrink selection', mode = 'x' },
+		},
+		init = function(plugin)
+			-- PERF: add nvim-treesitter queries to the rtp and it's custom query predicates early
+			-- This is needed because a bunch of plugins no longer `require("nvim-treesitter")`, which
+			-- no longer trigger the **nvim-treeitter** module to be loaded in time.
+			-- Luckily, the only thins that those plugins need are the custom queries, which we make available
+			-- during startup.
+			require('lazy.core.loader').add_to_rtp(plugin)
+			require('nvim-treesitter.query_predicates')
+		end,
 		dependencies = {
+			-- Textobjects using treesitter queries
 			{
 				'nvim-treesitter/nvim-treesitter-textobjects',
 				config = function()
 					-- When in diff mode, we want to use the default
 					-- vim text objects c & C instead of the treesitter ones.
-					require'nvim-treesitter.install'.compilers = {'gcc-11'}
 					local move = require('nvim-treesitter.textobjects.move') ---@type table<string,fun(...)>
 					local configs = require('nvim-treesitter.configs')
 					for name, fn in pairs(move) do
@@ -54,13 +61,17 @@ return {
 					end
 				end,
 			},
+
+			-- Modern matchit and matchparen
+			{
+				'andymass/vim-matchup',
+				init = function()
+					vim.g.matchup_matchparen_offscreen = {}
+				end,
+			},
+
+			-- Wisely add "end" in various filetypes
 			'RRethy/nvim-treesitter-endwise',
-			'andymass/vim-matchup',
-		},
-		cmd = { 'TSInstall', 'TSUpdate', 'TSUpdateSync' },
-		keys = {
-			{ 'v', desc = 'Increment selection', mode = 'x' },
-			{ 'V', desc = 'Shrink selection', mode = 'x' },
 		},
 		---@type TSConfig
 		---@diagnostic disable-next-line: missing-fields
@@ -181,7 +192,8 @@ return {
 		},
 		---@param opts TSConfig
 		config = function(_, opts)
-			if type(opts.ensure_installed) == 'table' then
+			local langs = opts.ensure_installed
+			if type(langs) == 'table' then
 				---@type table<string, boolean>
 				local added = {}
 				opts.ensure_installed = vim.tbl_filter(function(lang)
@@ -190,12 +202,13 @@ return {
 					end
 					added[lang] = true
 					return true
-				end, opts.ensure_installed)
+				end, langs)
 			end
 			require('nvim-treesitter.configs').setup(opts)
 		end,
 	},
 
+	-----------------------------------------------------------------------------
 	-- Show context of the current function
 	{
 		'nvim-treesitter/nvim-treesitter-context',
@@ -222,6 +235,7 @@ return {
 		},
 	},
 
+	-----------------------------------------------------------------------------
 	-- Automatically add closing tags for HTML and JSX
 	{
 		'windwp/nvim-ts-autotag',

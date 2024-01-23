@@ -52,19 +52,21 @@ return {
 		opts = {},
 		-- stylua: ignore
 		keys = {
-			{ '<leader>cv', '<cmd>Telescope venom virtualenvs<cr>', desc = 'Select VirtualEnv' },
+			{ '<leader>cv', '<cmd>Telescope venom virtualenvs<cr>', ft = 'python', desc = 'Select VirtualEnv' },
 		},
 	},
 
 	{
 		'nvim-neotest/neotest',
 		optional = true,
-		dependencies = { 'nvim-neotest/neotest-python' },
+		dependencies = {
+			'nvim-neotest/neotest-python',
+		},
 		opts = {
 			adapters = {
 				['neotest-python'] = {
 					-- Here you can specify the settings for the adapter, i.e.
-					-- runner = "pytest",
+					-- runner = 'pytest',
 					-- python = '.venv/bin/python',
 				},
 			},
@@ -78,8 +80,8 @@ return {
 			'mfussenegger/nvim-dap-python',
 			-- stylua: ignore
 			keys = {
-				{ '<leader>dPt', function() require('dap-python').test_method() end, desc = 'Debug Method' },
-				{ '<leader>dPc', function() require('dap-python').test_class() end, desc = 'Debug Class' },
+				{ '<leader>dPt', function() require('dap-python').test_method() end, desc = 'Debug Method', ft = 'python' },
+				{ '<leader>dPc', function() require('dap-python').test_class() end, desc = 'Debug Class', ft = 'python' },
 			},
 			config = function()
 				local path =

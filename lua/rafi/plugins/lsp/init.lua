@@ -10,6 +10,7 @@ return {
 	{
 		'neovim/nvim-lspconfig',
 		event = 'LazyFile',
+		-- stylua: ignore
 		dependencies = {
 			{ 'folke/neoconf.nvim', cmd = 'Neoconf', config = false, dependencies = { 'nvim-lspconfig' } },
 			{ 'folke/neodev.nvim', opts = {} },
@@ -20,7 +21,6 @@ return {
 		opts = {
 			-- Options for vim.diagnostic.config()
 			diagnostics = {
-				signs = true,
 				underline = true,
 				update_in_insert = false,
 				virtual_text = {
@@ -43,19 +43,10 @@ return {
 			},
 			-- Add any global capabilities here
 			capabilities = {},
-			-- Formatting options
+			-- Formatting options for vim.lsp.buf.format
 			format = {
-				select = true,
-				-- If select=false, set to plugin priority.
-				priority = { 'formatter', 'lsp', 'null-ls' },
-				-- If select=false, show formatters used in a notification
-				notify = false,
-				-- Options for vim.lsp.buf.format - `bufnr` and `filter` is handled by
-				-- the formatter, but can be overridden
-				lsp = {
-					formatting_options = nil,
-					timeout_ms = nil,
-				},
+				formatting_options = nil,
+				timeout_ms = nil,
 			},
 			-- LSP Server Settings
 			---@type lspconfig.options
@@ -88,7 +79,9 @@ return {
 			local Util = require('lazyvim.util')
 			if Util.has('neoconf.nvim') then
 				local plugin = require('lazy.core.config').spec.plugins['neoconf.nvim']
-				require('neoconf').setup(require('lazy.core.plugin').values(plugin, 'opts', false))
+				require('neoconf').setup(
+					require('lazy.core.plugin').values(plugin, 'opts', false)
+				)
 			end
 
 			-- Setup autoformat
@@ -97,7 +90,9 @@ return {
 			-- Setup formatting, keymaps and highlights.
 			Util.lsp.on_attach(function(client, buffer)
 				require('rafi.plugins.lsp.keymaps').on_attach(client, buffer)
-				require('rafi.plugins.lsp.highlight').on_attach(client, buffer)
+				if not require('lazyvim.util').has('vim-illuminate') then
+					require('rafi.plugins.lsp.highlight').on_attach(client, buffer)
+				end
 
 				if vim.diagnostic.is_disabled() or vim.bo[buffer].buftype ~= '' then
 					vim.diagnostic.disable(buffer)
@@ -120,10 +115,31 @@ return {
 				return ret
 			end
 
-			-- Diagnostics signs and highlights
-			for type, icon in pairs(require('lazyvim.config').icons.diagnostics) do
-				local hl = 'DiagnosticSign' .. type
-				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
+			-- Diagnostics signs and highlights.
+			-- Support vim.fn.sign_define legacy API, and use icons from
+			-- config/init.lua if none are set in opts.
+			local set_opts_signs = vim.fn.has('nvim-0.10') == 1
+			if set_opts_signs then
+				if type(opts.diagnostics.signs) == 'table' then
+					if table(opts.diagnostics.signs.text) == 'table' then
+						set_opts_signs = false
+					else
+						opts.diagnostics.signs.text = {}
+					end
+				else
+					opts.diagnostics.signs = { text = {} }
+				end
+			end
+			if set_opts_signs or vim.fn.has('nvim-0.10') == 0 then
+				for type, icon in pairs(require('lazyvim.config').icons.diagnostics) do
+					if set_opts_signs then
+						local severity = vim.diagnostic.severity[type:upper()]
+						opts.diagnostics.signs.text[severity] = icon
+					else
+						local hl = 'DiagnosticSign' .. type
+						vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
+					end
+				end
 			end
 
 			-- Setup inlay-hints
@@ -152,6 +168,9 @@ return {
 			end
 
 			vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
+
+			-- Enable rounded borders in :LspInfo window.
+			require('lspconfig.ui.windows').default_options.border = 'rounded'
 
 			-- Initialize LSP servers and ensure Mason packages
 
@@ -225,11 +244,9 @@ return {
 				})
 			end
 
-			-- Enable rounded borders in :LspInfo window.
-			require('lspconfig.ui.windows').default_options.border = 'rounded'
-
 			if Util.lsp.get_config('denols') and Util.lsp.get_config('tsserver') then
-				local is_deno = require('lspconfig.util').root_pattern('deno.json', 'deno.jsonc')
+				local is_deno =
+					require('lspconfig.util').root_pattern('deno.json', 'deno.jsonc')
 				Util.lsp.disable('tsserver', is_deno)
 				Util.lsp.disable('denols', function(root_dir)
 					return not is_deno(root_dir)

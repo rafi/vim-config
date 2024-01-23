@@ -12,8 +12,7 @@ map('n', '<leader>l', '<cmd>Lazy<cr>', { desc = 'Open Lazy UI' })
 
 -- stylua: ignore start
 
--- Navigation
--- ===
+-- Navigation {{{
 
 -- Moves through display-lines, unless count is provided
 map({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
@@ -38,51 +37,8 @@ else
 end
 
 -- Easier line-wise movement
-map('n', 'gh', 'g^')
-map('n', 'gl', 'g$')
-
-map('n', '<Leader><Leader>', 'V', { desc = 'Visual Mode' })
-map('x', '<Leader><Leader>', '<Esc>', { desc = 'Exit Visual Mode' })
-
--- Toggle fold or select option from popup menu
----@return string
-map('n', '<CR>', function()
-	return vim.fn.pumvisible() == 1 and '<CR>' or 'za'
-end, { expr = true, desc = 'Toggle Fold' })
-
--- Focus the current fold by closing all others
-map('n', '<S-Return>', 'zMzv', { remap = true, desc = 'Focus Fold' })
-
--- Location/quickfix list movement
-map('n', ']q', '<cmd>cnext<CR>', { desc = 'Next Quickfix Item' })
-map('n', '[q', '<cmd>cprev<CR>', { desc = 'Previous Quickfix Item' })
-map('n', ']a', '<cmd>lnext<CR>', { desc = 'Next Loclist Item' })
-map('n', '[a', '<cmd>lprev<CR>', { desc = 'Previous Loclist Item' })
-
--- Diagnostic movement
-local diagnostic_goto = function(next, severity)
-	local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-	local severity_int = severity and vim.diagnostic.severity[severity] or nil
-	return function()
-		go({ severity = severity_int })
-	end
-end
-
-map('n', ']d', diagnostic_goto(true), { desc = 'Next Diagnostic' })
-map('n', '[d', diagnostic_goto(false), { desc = 'Prev Diagnostic' })
-map('n', ']e', diagnostic_goto(true, 'ERROR'), { desc = 'Next Error' })
-map('n', '[e', diagnostic_goto(false, 'ERROR'), { desc = 'Prev Error' })
-map('n', ']w', diagnostic_goto(true, 'WARN'), { desc = 'Next Warning' })
-map('n', '[w', diagnostic_goto(false, 'WARN'), { desc = 'Prev Warning' })
-
--- Formatting
-map({ 'n', 'v' }, '<leader>cf', function()
-	Util.format({ force = true })
-end, { desc = 'Format' })
-
--- Whitespace jump (see plugin/whitespace.vim)
-map('n', ']s', function() RafiUtil.edit.whitespace_jump(1) end, { desc = 'Next Whitespace' })
-map('n', '[s', function() RafiUtil.edit.whitespace_jump(-1) end, { desc = 'Previous Whitespace' })
+map('n', 'gh', 'g^', { desc = 'Jump to first screen character' })
+map('n', 'gl', 'g$', { desc = 'Jump to last screen character' })
 
 -- Navigation in command line
 map('c', '<C-h>', '<Home>')
@@ -94,98 +50,31 @@ map('c', '<C-b>', '<Left>')
 map('n', 'zl', 'z4l')
 map('n', 'zh', 'z4h')
 
--- Clipboard
--- ===
+-- Toggle fold or select option from popup menu
+map('n', '<CR>', function()
+	return vim.fn.pumvisible() == 1 and '<CR>' or 'za'
+end, { expr = true, desc = 'Toggle Fold' })
 
--- Yank buffer's relative path to clipboard
-map('n', '<Leader>y', function()
-	local path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':~:.') or ''
-	vim.fn.setreg('+', path)
-	vim.notify(path, vim.log.levels.INFO, { title = 'Yanked relative path' })
-end, { silent = true, desc = 'Yank relative path' })
+-- Focus the current fold by closing all others
+map('n', '<S-Return>', 'zMzv', { remap = true, desc = 'Focus Fold' })
 
--- Yank absolute path
-map('n', '<Leader>Y', function()
-	local path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p') or ''
-	vim.fn.setreg('+', path)
-	vim.notify(path, vim.log.levels.INFO, { title = 'Yanked absolute path' })
-end, { silent = true, desc = 'Yank absolute path' })
+-- Tabs: Many ways to navigate them
+map('n', '<A-j>', '<cmd>tabnext<CR>', { desc = 'Next Tab' })
+map('n', '<A-k>', '<cmd>tabprevious<CR>', { desc = 'Previous Tab' })
+map('n', '<A-[>', '<cmd>tabprevious<CR>', { desc = 'Previous Tab' })
+map('n', '<A-]>', '<cmd>tabnext<CR>', { desc = 'Next Tab' })
+map('n', '<C-Tab>', '<cmd>tabnext<CR>', { desc = 'Next Tab' })
+map('n', '<C-S-Tab>', '<cmd>tabprevious<CR>', { desc = 'Previous Tab' })
 
--- Paste in visual-mode without pushing to register
-map('x', 'p', 'p:let @+=@0<CR>:let @"=@0<CR>', { silent = true, desc = 'Paste' })
-map('x', 'P', 'P:let @+=@0<CR>:let @"=@0<CR>', { silent = true, desc = 'Paste In-place' })
+-- Moving tabs
+map('n', '<A-{>', '<cmd>-tabmove<CR>', { desc = 'Tab Move Backwards' })
+map('n', '<A-}>', '<cmd>+tabmove<CR>', { desc = 'Tab Move Forwards' })
 
--- Edit
--- ===
+-- }}}
+-- Selection {{{
 
--- Macros
-map('n', '<C-q>', 'q', { desc = 'Macro Prefix' })
-
--- Start new line from any cursor position in insert-mode
-map('i', '<S-Return>', '<C-o>o', { desc = 'Start Newline' })
-
--- Re-select blocks after indenting in visual/select mode
-map('x', '<', '<gv', { desc = 'Indent Right and Re-select' })
-map('x', '>', '>gv|', { desc = 'Indent Left and Re-select' })
-
--- Better blockwise operations on selected area
-local blockwise_force = function(key)
-	local c_v = vim.api.nvim_replace_termcodes('<C-v>', true, false, true)
-	local keyseq = {
-		I  = { v = '<C-v>I',  V = '<C-v>^o^I', [c_v] = 'I' },
-		A  = { v = '<C-v>A',  V = '<C-v>0o$A', [c_v] = 'A' },
-		gI = { v = '<C-v>0I', V = '<C-v>0o$I', [c_v] = '0I' },
-	}
-	return function()
-		return keyseq[key][vim.fn.mode()]
-	end
-end
-map('x', 'I',  blockwise_force('I'),  { expr = true, noremap = true, desc = 'Blockwise Insert' })
-map('x', 'gI', blockwise_force('gI'), { expr = true, noremap = true, desc = 'Blockwise Insert' })
-map('x', 'A',  blockwise_force('A'),  { expr = true, noremap = true, desc = 'Blockwise Append' })
-
--- Use tab for indenting in visual/select mode
-map('x', '<Tab>', '>gv|', { desc = 'Indent Left' })
-map('x', '<S-Tab>', '<gv', { desc = 'Indent Right' })
-
--- Drag current line/s vertically and auto-indent
-map('n', '<Leader>k', '<cmd>move-2<CR>==', { silent = true, desc = 'Move line up' })
-map('n', '<Leader>j', '<cmd>move+<CR>==', { silent = true, desc = 'Move line down' })
-map('x', '<Leader>k', ":move'<-2<CR>gv=gv", { silent = true, desc = 'Move selection up' })
-map('x', '<Leader>j', ":move'>+<CR>gv=gv", { silent = true, desc = 'Move selection down' })
-
--- Duplicate lines without affecting PRIMARY and CLIPBOARD selections.
-map('n', '<Leader>d', 'm`""Y""P``', { desc = 'Duplicate line' })
-map('x', '<Leader>d', '""Y""Pgv', { desc = 'Duplicate selection' })
-
--- Duplicate paragraph
-map('n', '<Leader>p', 'yap<S-}>p', { desc = 'Duplicate Paragraph' })
-
--- Remove spaces at the end of lines
-map('n', '<Leader>cw', '<cmd>lua MiniTrailspace.trim()<CR>', { desc = 'Erase Whitespace' })
-
--- Search & Replace
--- ===
-
--- Switch */g* and #/g#
-map('n', '*', 'g*')
-map('n', 'g*', '*')
-map('n', '#', 'g#')
-map('n', 'g#', '#')
-
--- Clear search with <Esc>
-map('n', '<Esc>', '<cmd>noh<CR>', { desc = 'Clear Search Highlight' })
-
--- Clear search, diff update and redraw taken from runtime/lua/_editor.lua
-map(
-	'n',
-	'<leader>ur',
-	'<cmd>nohlsearch<bar>diffupdate<bar>normal! <C-L><CR>',
-	{ desc = 'Redraw / clear hlsearch / diff update' }
-)
-
--- Use backspace key for matching parens
-map({ 'n', 'x' }, '<BS>', '%', { remap = true, desc = 'Jump to Paren' })
+map('n', '<Leader><Leader>', 'V', { desc = 'Visual Mode' })
+map('x', '<Leader><Leader>', '<Esc>', { desc = 'Exit Visual Mode' })
 
 -- Select last paste
 map('n', 'gpp', "'`['.strpart(getregtype(), 0, 1).'`]'", { expr = true, desc = 'Select Paste' })
@@ -202,8 +91,131 @@ map(
 	{ desc = 'Replace Selection' }
 )
 
--- Command & History
+-- Re-select blocks after indenting in visual/select mode
+map('x', '<', '<gv', { desc = 'Indent Right and Re-select' })
+map('x', '>', '>gv|', { desc = 'Indent Left and Re-select' })
+
+-- Use tab for indenting in visual/select mode
+map('x', '<Tab>', '>gv|', { desc = 'Indent Left' })
+map('x', '<S-Tab>', '<gv', { desc = 'Indent Right' })
+
+-- Better block-wise operations on selected area
+local blockwise_force = function(key)
+	local c_v = vim.api.nvim_replace_termcodes('<C-v>', true, false, true)
+	local keyseq = {
+		I  = { v = '<C-v>I',  V = '<C-v>^o^I', [c_v] = 'I' },
+		A  = { v = '<C-v>A',  V = '<C-v>0o$A', [c_v] = 'A' },
+		gI = { v = '<C-v>0I', V = '<C-v>0o$I', [c_v] = '0I' },
+	}
+	return function()
+		return keyseq[key][vim.fn.mode()]
+	end
+end
+map('x', 'I',  blockwise_force('I'),  { expr = true, noremap = true, desc = 'Blockwise Insert' })
+map('x', 'gI', blockwise_force('gI'), { expr = true, noremap = true, desc = 'Blockwise Insert' })
+map('x', 'A',  blockwise_force('A'),  { expr = true, noremap = true, desc = 'Blockwise Append' })
+
+-- }}}
+-- Jump to {{{
+
+-- map("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
+-- map("n", "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })
+
+map('n', ']q', '<cmd>cnext<CR>', { desc = 'Next Quickfix Item' })
+map('n', '[q', '<cmd>cprev<CR>', { desc = 'Previous Quickfix Item' })
+map('n', ']a', '<cmd>lnext<CR>', { desc = 'Next Loclist Item' })
+map('n', '[a', '<cmd>lprev<CR>', { desc = 'Previous Loclist Item' })
+
+-- Whitespace jump (see plugin/whitespace.vim)
+map('n', ']z', function() RafiUtil.edit.whitespace_jump(1) end, { desc = 'Next Whitespace' })
+map('n', '[z', function() RafiUtil.edit.whitespace_jump(-1) end, { desc = 'Previous Whitespace' })
+
+-- Diagnostic movement
+local diagnostic_goto = function(next, severity)
+	local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+	local severity_int = severity and vim.diagnostic.severity[severity] or nil
+	return function()
+		go({ severity = severity_int })
+	end
+end
+map('n', ']d', diagnostic_goto(true), { desc = 'Next Diagnostic' })
+map('n', '[d', diagnostic_goto(false), { desc = 'Prev Diagnostic' })
+map('n', ']e', diagnostic_goto(true, 'ERROR'), { desc = 'Next Error' })
+map('n', '[e', diagnostic_goto(false, 'ERROR'), { desc = 'Prev Error' })
+map('n', ']w', diagnostic_goto(true, 'WARN'), { desc = 'Next Warning' })
+map('n', '[w', diagnostic_goto(false, 'WARN'), { desc = 'Prev Warning' })
+
+-- }}}
+-- Clipboard {{{
 -- ===
+
+-- Paste in visual-mode without pushing to register
+map('x', 'p', 'p:let @+=@0<CR>:let @"=@0<CR>', { silent = true, desc = 'Paste' })
+map('x', 'P', 'P:let @+=@0<CR>:let @"=@0<CR>', { silent = true, desc = 'Paste In-place' })
+
+-- Yank buffer's relative path to clipboard
+map('n', '<Leader>y', function()
+	local path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':~:.') or ''
+	vim.fn.setreg('+', path)
+	vim.notify(path, vim.log.levels.INFO, { title = 'Yanked relative path' })
+end, { silent = true, desc = 'Yank relative path' })
+
+-- Yank absolute path
+map('n', '<Leader>Y', function()
+	local path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p') or ''
+	vim.fn.setreg('+', path)
+	vim.notify(path, vim.log.levels.INFO, { title = 'Yanked absolute path' })
+end, { silent = true, desc = 'Yank absolute path' })
+
+--- }}}
+-- Coding {{{
+
+-- Macros
+map('n', '<C-q>', 'q', { desc = 'Macro Prefix' })
+
+-- Formatting
+map({ 'n', 'v' }, '<leader>cf', function() Util.format({ force = true }) end, { desc = 'Format' })
+
+-- Start new line from any cursor position in insert-mode
+map('i', '<S-Return>', '<C-o>o', { desc = 'Start Newline' })
+map('n', ']<Leader>', ':set paste<CR>m`o<Esc>``:set nopaste<CR>', { silent = true, desc = 'Newline' })
+map('n', '[<Leader>', ':set paste<CR>m`O<Esc>``:set nopaste<CR>', { silent = true, desc = 'Newline' })
+
+-- Drag current line(s) vertically and auto-indent
+map('n', '<Leader>k', '<cmd>move-2<CR>==', { silent = true, desc = 'Move line up' })
+map('n', '<Leader>j', '<cmd>move+<CR>==', { silent = true, desc = 'Move line down' })
+map('x', '<Leader>k', ":move'<-2<CR>gv=gv", { silent = true, desc = 'Move selection up' })
+map('x', '<Leader>j', ":move'>+<CR>gv=gv", { silent = true, desc = 'Move selection down' })
+
+-- Duplicate lines without affecting PRIMARY and CLIPBOARD selections.
+map('n', '<Leader>dd', 'm`""Y""P``', { desc = 'Duplicate line' })
+map('x', '<Leader>dd', '""Y""Pgv', { desc = 'Duplicate selection' })
+
+-- Duplicate paragraph
+map('n', '<Leader>p', 'yap<S-}>p', { desc = 'Duplicate Paragraph' })
+
+-- }}}
+-- Search, substitute, diff {{{
+
+-- Switch */g* and #/g#
+map('n', '*', 'g*')
+map('n', 'g*', '*')
+map('n', '#', 'g#')
+map('n', 'g#', '#')
+
+-- Clear search with <Esc>
+map('n', '<Esc>', '<cmd>noh<CR>', { desc = 'Clear Search Highlight' })
+
+-- Use backspace key for matching pairs
+map({ 'n', 'x' }, '<BS>', '%', { remap = true, desc = 'Jump to Paren' })
+
+-- Toggle diff on all windows in current tab
+map('n', '<Leader>bf', function()
+	vim.cmd('windo diff' .. (vim.wo.diff and 'off' or 'this'))
+end, { desc = 'Diff Windows in Tab' })
+
+-- }}}
+-- Command & History {{{
 
 -- Start an external command with a single bang
 map('n', '!', ':!', { desc = 'Execute Shell Command' })
@@ -225,35 +237,37 @@ map('c', '<Up>', '<C-p>')
 map('c', '<Down>', '<C-n>')
 
 -- Allow misspellings
-vim.cmd.cnoreabbrev('qw', 'wq')
-vim.cmd.cnoreabbrev('Wq', 'wq')
-vim.cmd.cnoreabbrev('WQ', 'wq')
-vim.cmd.cnoreabbrev('Qa', 'qa')
-vim.cmd.cnoreabbrev('Bd', 'bd')
-vim.cmd.cnoreabbrev('bD', 'bd')
+local cabbrev = vim.cmd.cnoreabbrev
+cabbrev('qw', 'wq')
+cabbrev('Wq', 'wq')
+cabbrev('WQ', 'wq')
+cabbrev('Qa', 'qa')
+cabbrev('Bd', 'bd')
+cabbrev('bD', 'bd')
 
--- File operations
--- ===
+--- }}}
+-- File operations {{{
 
--- Switch (window) to the directory of the current opened buffer
+-- Switch (tab) to the directory of the current opened buffer
 map('n', '<Leader>cd', function()
 	local bufdir = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p:h')
 	if bufdir ~= nil and vim.loop.fs_stat(bufdir) then
 		vim.cmd.tcd(bufdir)
 		vim.notify(bufdir)
 	end
-end, { desc = 'Change Local Directory' })
+end, { desc = 'Change Tab Directory' })
 
 -- Fast saving from all modes
 map('n', '<Leader>w', '<cmd>write<CR>', { desc = 'Save' })
 map({ 'n', 'i', 'v' }, '<C-s>', '<cmd>write<CR>', { desc = 'Save' })
 
--- Editor UI
--- ===
+-- }}}
+-- Editor UI {{{
 
--- Toggle editor's visual effects
 map('n', '<leader>uf', function() Util.format.toggle() end, { desc = 'Toggle auto format (global)' })
 map('n', '<leader>uF', function() Util.format.toggle(true) end, { desc = 'Toggle auto format (buffer)' })
+
+-- Toggle editor's visual effects
 map('n', '<leader>us', function() Util.toggle('spell') end, { desc = 'Toggle Spelling' })
 map('n', '<leader>uw', function() Util.toggle('wrap') end, { desc = 'Toggle Word Wrap' })
 map('n', '<leader>uL', function() Util.toggle('relativenumber') end, { desc = 'Toggle Relative Line Numbers' })
@@ -263,11 +277,19 @@ map('n', '<Leader>uo', '<cmd>setlocal nolist!<CR>', { desc = 'Toggle Whitespace 
 map('n', '<Leader>uu', '<cmd>nohlsearch<CR>', { desc = 'Hide Search Highlight' })
 
 if vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint then
-	map( "n", "<leader>uh", function() Util.toggle.inlay_hints() end, { desc = "Toggle Inlay Hints" })
+	map('n', '<leader>uh', function() Util.toggle.inlay_hints() end, { desc = 'Toggle Inlay Hints' })
 end
 
 -- Show treesitter nodes under cursor
 map('n', '<Leader>ui', vim.show_pos, { desc = 'Show Treesitter Node' })
+
+-- Clear search, diff update and redraw taken from runtime/lua/_editor.lua
+map(
+	'n',
+	'<leader>ur',
+	'<cmd>nohlsearch<bar>diffupdate<bar>normal! <C-L><CR>',
+	{ desc = 'Redraw / clear hlsearch / diff update' }
+)
 
 -- Smart wrap toggle (breakindent and colorcolumn toggle as-well)
 map('n', '<Leader>uw', function()
@@ -281,20 +303,8 @@ map('n', '<Leader>uw', function()
 	end
 end, { desc = 'Toggle Wrap' })
 
--- Tabs: Many ways to navigate them
-map('n', '<A-j>', '<cmd>tabnext<CR>', { desc = 'Next Tab' })
-map('n', '<A-k>', '<cmd>tabprevious<CR>', { desc = 'Previous Tab' })
-map('n', '<A-[>', '<cmd>tabprevious<CR>', { desc = 'Previous Tab' })
-map('n', '<A-]>', '<cmd>tabnext<CR>', { desc = 'Next Tab' })
-map('n', '<C-Tab>', '<cmd>tabnext<CR>', { desc = 'Next Tab' })
-map('n', '<C-S-Tab>', '<cmd>tabprevious<CR>', { desc = 'Previous Tab' })
-
--- Moving tabs
-map('n', '<A-{>', '<cmd>-tabmove<CR>', { desc = 'Tab Move Backwards' })
-map('n', '<A-}>', '<cmd>+tabmove<CR>', { desc = 'Tab Move Forwards' })
-
--- Custom Tools
--- ===
+-- }}}
+-- Plugins & Tools {{{
 
 -- Append mode-line to current buffer
 map('n', '<Leader>ml', function() RafiUtil.edit.append_modeline() end, { desc = 'Append Modeline' })
@@ -311,7 +321,7 @@ map('n', '<LocalLeader>c', function() RafiUtil.contextmenu.show() end, { desc = 
 map('n', '<leader>tg', function() require('lazy.util').float_term({ 'lazygit' }, { cwd = Util.root(), esc_esc = false }) end, { desc = 'Lazygit (root dir)' })
 map('n', '<leader>tG', function() require('lazy.util').float_term({ 'lazygit' }, { esc_esc = false }) end, { desc = 'Lazygit (cwd)' })
 
--- Floating terminal
+-- Terminal
 map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Enter Normal Mode' })
 local lazyterm = function() Util.terminal(nil, { cwd = Util.root() }) end
 map('n', '<leader>tt', lazyterm, { desc = 'Terminal (root dir)' })
@@ -335,8 +345,8 @@ if vim.fn.has('mac') then
 	end
 end
 
--- Windows, buffers and tabs
--- ===
+-- }}}
+-- Windows and buffers {{{
 
 -- Ultimatus Quitos
 if vim.F.if_nil(vim.g.window_q_mapping, true) then
@@ -362,13 +372,14 @@ if vim.F.if_nil(vim.g.window_q_mapping, true) then
 			vim.bo[buf].buflisted = false
 			vim.api.nvim_win_close(0, false)
 		else
-			-- if last window, quit
+			-- Find non-floating windows
 			local wins = vim.fn.filter(vim.api.nvim_list_wins(), function(_, win)
 				if vim.api.nvim_win_get_config(win).zindex then
 					return nil
 				end
 				return win
 			end)
+			-- If last window, quit
 			if #wins > 1 then
 				vim.api.nvim_win_close(0, false)
 			else
@@ -390,7 +401,7 @@ map('n', '<Leader>a', function()
 end, { desc = 'Open Location List' })
 
 -- Switch with adjacent window
-map('n', '<C-x>', '<C-w>x', { remap = true, desc = 'Swap windows' })
+map('n', '<C-x>', '<C-w>x<C-w>w', { remap = true, desc = 'Swap adjacent windows' })
 
 map('n', 'sb', '<cmd>buffer#<CR>', { desc = 'Alternate buffer' })
 map('n', 'sc', '<cmd>close<CR>', { desc = 'Close window' })
@@ -400,11 +411,6 @@ map('n', 'sg', '<cmd>vsplit<CR>', { desc = 'Split window vertically' })
 map('n', 'st', '<cmd>tabnew<CR>', { desc = 'New tab' })
 map('n', 'so', '<cmd>only<CR>', { desc = 'Close other windows' })
 map('n', 'sq', '<cmd>quit<CR>', { desc = 'Quit' })
-map('n', 'sz', '<cmd>vertical resize | resize | normal! ze<CR>', { desc = 'Maximize' })
-map('n', 'sx', function()
-	require('mini.bufremove').delete(0, false)
-	vim.cmd.enew()
-end, { desc = 'Delete buffer and open new' })
 
 -- Background dark/light toggle
 map('n', 'sh', function()
@@ -414,3 +420,25 @@ map('n', 'sh', function()
 		vim.o.background = 'dark'
 	end
 end, { desc = 'Toggle background dark/light' })
+
+-- Empty buffer but leave window
+map('n', 'sx', function()
+	require('mini.bufremove').delete(0, false)
+	vim.cmd.enew()
+end, { desc = 'Delete buffer and open new' })
+
+-- Toggle window zoom
+map('n', 'sz', function()
+	local width = vim.o.columns - 10
+	local height = vim.o.lines - 5
+	if vim.api.nvim_win_get_width(0) >= width then
+		vim.cmd.wincmd('=')
+	else
+		vim.cmd('vertical resize ' .. width)
+		vim.cmd('resize ' .. height)
+		vim.cmd('normal! ze')
+	end
+end, { desc = 'Maximize window' })
+-- }}}
+
+-- vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :

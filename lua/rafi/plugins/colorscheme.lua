@@ -3,6 +3,7 @@
 
 return {
 
+	-- Use last-used colorscheme
 	{
 		'rafi/theme-loader.nvim',
 		lazy = false,
@@ -27,6 +28,7 @@ return {
 		end,
 	},
 
+	-- Soothing pastel theme
 	{
 		'catppuccin/nvim',
 		lazy = true,

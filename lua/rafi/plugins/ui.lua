@@ -1,15 +1,18 @@
 -- Plugins: UI
 -- https://github.com/rafi/vim-config
 
-local Util = require('lazyvim.util')
-
 return {
 
 	-----------------------------------------------------------------------------
+	-- Lua fork of vim-devicons
 	{ 'nvim-tree/nvim-web-devicons', lazy = false },
+
+	-----------------------------------------------------------------------------
+	-- UI Component Library
 	{ 'MunifTanjim/nui.nvim', lazy = false },
 
 	-----------------------------------------------------------------------------
+	-- Fancy notification manager for NeoVim
 	{
 		'rcarriga/nvim-notify',
 		priority = 9000,
@@ -36,6 +39,7 @@ return {
 		},
 		init = function()
 			-- When noice is not enabled, install notify on VeryLazy
+			local Util = require('lazyvim.util')
 			if not Util.has('noice.nvim') then
 				Util.on_very_lazy(function()
 					vim.notify = require('notify')
@@ -45,6 +49,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Improve the default vim-ui interfaces
 	{
 		'stevearc/dressing.nvim',
 		init = function()
@@ -62,6 +67,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Snazzy tab/bufferline
 	{
 		'akinsho/bufferline.nvim',
 		event = 'VeryLazy',
@@ -73,9 +79,7 @@ return {
 			{ '<leader>bo', '<Cmd>BufferLineCloseOthers<CR>', desc = 'Delete other buffers' },
 			{ '<leader>br', '<Cmd>BufferLineCloseRight<CR>', desc = 'Delete buffers to the right' },
 			{ '<leader>bl', '<Cmd>BufferLineCloseLeft<CR>', desc = 'Delete buffers to the left' },
-			{ '<leader>tp', '<Cmd>BufferLinePick<CR>', desc = 'Pick' },
-			-- { '<S-h>', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev buffer' },
-			-- { '<S-l>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next buffer' },
+			{ '<leader>tp', '<Cmd>BufferLinePick<CR>', desc = 'Tab Pick' },
 			{ '[b', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev buffer' },
 			{ ']b', '<cmd>BufferLineCycleNext<cr>', desc = 'Next buffer' },
 		},
@@ -85,7 +89,7 @@ return {
 				separator_style = 'slant',
 				show_close_icon = false,
 				show_buffer_close_icons = false,
-				diagnostics = "nvim_lsp",
+				diagnostics = 'nvim_lsp',
 				-- show_tab_indicators = true,
 				-- enforce_regular_tabs = true,
 				always_show_bufferline = true,
@@ -103,7 +107,7 @@ return {
 						local result = {}
 						local root = require('lazyvim.util').root()
 						table.insert(result, {
-							text = '%#BufferLineTab# ' .. vim.fn.fnamemodify(root, ':t')
+							text = '%#BufferLineTab# ' .. vim.fn.fnamemodify(root, ':t'),
 						})
 
 						-- Session indicator
@@ -138,6 +142,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Replaces the UI for messages, cmdline and the popupmenu
 	{
 		'folke/noice.nvim',
 		event = 'VeryLazy',
@@ -148,8 +153,8 @@ return {
 			{ '<leader>snl', function() require('noice').cmd('last') end, desc = 'Noice Last Message' },
 			{ '<leader>snh', function() require('noice').cmd('history') end, desc = 'Noice History' },
 			{ '<leader>sna', function() require('noice').cmd('all') end, desc = 'Noice All' },
-			{ '<C-f>', function() if not require('noice.lsp').scroll(4) then return '<c-f>' end end, silent = true, expr = true, desc = 'Scroll forward', mode = {'i', 'n', 's'} },
-			{ '<C-b>', function() if not require('noice.lsp').scroll(-4) then return '<c-b>' end end, silent = true, expr = true, desc = 'Scroll backward', mode = {'i', 'n', 's'}},
+			{ '<C-f>', function() if not require('noice.lsp').scroll(4) then return '<C-f>' end end, silent = true, expr = true, desc = 'Scroll forward', mode = {'i', 'n', 's'} },
+			{ '<C-b>', function() if not require('noice.lsp').scroll(-4) then return '<C-b>' end end, silent = true, expr = true, desc = 'Scroll backward', mode = {'i', 'n', 's'}},
 		},
 		---@type NoiceConfig
 		opts = {
@@ -216,6 +221,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Shows your current code context in winbar/statusline
 	{
 		'SmiteshP/nvim-navic',
 		keys = {
@@ -240,7 +246,7 @@ return {
 			---@param client lsp.Client
 			---@param buffer integer
 			require('lazyvim.util').lsp.on_attach(function(client, buffer)
-				if client.server_capabilities.documentSymbolProvider then
+				if client.supports_method('textDocument/documentSymbol') then
 					require('nvim-navic').attach(client, buffer)
 				end
 			end)
@@ -255,6 +261,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Interacting with and manipulating marks
 	{
 		'chentoast/marks.nvim',
 		dependencies = 'lewis6991/gitsigns.nvim',
@@ -272,17 +279,18 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Visually display indent levels
 	{
 		'lukas-reineke/indent-blankline.nvim',
 		main = 'ibl',
 		event = 'LazyFile',
 		keys = {
-			{ '<Leader>ue', '<cmd>IBLToggle<CR>' },
+			{ '<Leader>ue', '<cmd>IBLToggle<CR>', desc = 'Toggle indent-lines' },
 		},
 		opts = {
 			indent = {
 				-- See more characters at :h ibl.config.indent.char
-				char = '│',  -- ▏│
+				char = '│', -- ▏│
 				tab_char = '│',
 				-- priority = 100, -- Display over folded lines
 			},
@@ -312,10 +320,11 @@ return {
 					'toggleterm',
 					'Trouble',
 				},
-			}
+			},
 		},
 	},
 
+	-----------------------------------------------------------------------------
 	-- Active indent guide and indent text objects. When you're browsing
 	-- code, this highlights the current level of indentation, and animates
 	-- the highlighting.
@@ -324,8 +333,9 @@ return {
 		version = false, -- wait till new 0.7.0 release to put it back on semver
 		event = 'LazyFile',
 		opts = {
-			symbol = '│',  -- ▏│
+			symbol = '│', -- ▏│
 			options = { try_as_border = true },
+			draw = { delay = 200 },
 		},
 		init = function()
 			vim.api.nvim_create_autocmd('FileType', {
@@ -351,12 +361,13 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Create key bindings that stick
 	{
 		'folke/which-key.nvim',
 		event = 'VeryLazy',
 		opts = {
 			icons = { separator = ' 󰁔 ' },
-			-- window = { winblend = 0 },
+			plugins = { spelling = true },
 			defaults = {
 				mode = { 'n', 'v' },
 				-- [';'] = { name = '+telescope' },
@@ -365,10 +376,13 @@ return {
 				-- ['gz'] = { name = '+surround' },
 				-- [']'] = { name = '+next' },
 				-- ['['] = { name = '+prev' },
+
 				['<leader>b'] = { name = '+buffer' },
 				['<leader>c'] = { name = '+code' },
+				['<leader>f'] = { name = '+file/find' },
 				['<leader>g'] = { name = '+git' },
 				['<leader>h'] = { name = '+hunks' },
+				['<leader>m'] = { name = '+tools' },
 				['<leader>s'] = { name = '+search' },
 				['<leader>t'] = { name = '+toggle/tools' },
 				['<leader>u'] = { name = '+ui' },
@@ -376,16 +390,23 @@ return {
 				['<leader>z'] = { name = '+notes' },
 			},
 		},
+		config = function(_, opts)
+			local wk = require('which-key')
+			wk.setup(opts)
+			wk.register(opts.defaults)
+		end,
 	},
 
 	-----------------------------------------------------------------------------
+	-- Hint and fix deviating indentation
 	{
 		'tenxsoydev/tabs-vs-spaces.nvim',
 		event = { 'BufReadPost', 'BufNewFile' },
-		config = true,
+		opts = {},
 	},
 
 	-----------------------------------------------------------------------------
+	-- Highlight words quickly
 	{
 		't9md/vim-quickhl',
 		keys = {
@@ -399,6 +420,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Better quickfix window in Neovim
 	{
 		'kevinhwang91/nvim-bqf',
 		ft = 'qf',
@@ -413,7 +435,6 @@ return {
 
 				stoggleup = 'K',
 				stoggledown = 'J',
-				stogglevm = '<Space>',
 
 				ptoggleitem = 'p',
 				ptoggleauto = 'P',
@@ -444,6 +465,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Super powerful color picker/colorizer plugin
 	{
 		'uga-rosa/ccc.nvim',
 		event = 'FileType',
@@ -460,6 +482,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Calendar application
 	{
 		'itchyny/calendar.vim',
 		cmd = 'Calendar',

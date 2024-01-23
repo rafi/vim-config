@@ -19,6 +19,7 @@ return {
 
 					require('lazyvim.util').lsp.on_attach(function(client, _)
 						if client.name == 'ruff_lsp' then
+							-- Disable in favor of Pyright
 							client.server_capabilities.hoverProvider = false
 						end
 					end)
