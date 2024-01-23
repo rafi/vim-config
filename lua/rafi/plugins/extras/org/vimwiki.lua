@@ -3,7 +3,7 @@ return {
 		'vimwiki/vimwiki',
 		cmd = { 'VimwikiIndex', 'VimwikiUISelect' },
 		keys = {
-			{ '<Leader>W', '<cmd>VimwikiIndex<CR>', { noremap = true } },
+			{ '<Leader>zo', '<cmd>VimwikiIndex<CR>', { noremap = true } },
 		},
 		init = function()
 			vim.g.vimwiki_global_ext = 0
@@ -36,8 +36,11 @@ return {
 					syntax = 'markdown',
 					ext = '.md',
 				},
-				{ path = '~/docs/books/', syntax = 'markdown', ext = '.md' },
-				{ path = '~/notes/', syntax = 'markdown', ext = '.md' },
+				{
+					path = '~/docs/notes/',
+					syntax = 'markdown',
+					ext = '.md',
+				},
 			}
 		end,
 	},

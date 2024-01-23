@@ -38,9 +38,10 @@ return {
 		opts = {
 			servers = {
 				gopls = {
+					-- stylua: ignore
 					keys = {
 						-- Workaround for the lack of a DAP strategy in neotest-go: https://github.com/nvim-neotest/neotest-go/issues/12
-						{ '<leader>td', "<cmd>lua require('dap-go').debug_test()<CR>", desc = 'Debug Nearest (Go)' },
+						{ "<leader>td", "<cmd>lua require('dap-go').debug_test()<CR>", desc = "Debug Nearest (Go)" },
 					},
 					settings = {
 						-- https://github.com/golang/tools/blob/master/gopls/doc/settings.md
@@ -124,7 +125,7 @@ return {
 	},
 
 	{
-		'mason.nvim',
+		'williamboman/mason.nvim',
 		opts = function(_, opts)
 			opts.ensure_installed = opts.ensure_installed or {}
 			vim.list_extend(opts.ensure_installed, {
@@ -133,6 +134,29 @@ return {
 				'gomodifytags',
 				'impl',
 				'json-to-struct',
+			})
+		end,
+	},
+
+	{
+		'nvimtools/none-ls.nvim',
+		optional = true,
+		dependencies = {
+			{
+				'williamboman/mason.nvim',
+				opts = function(_, opts)
+					opts.ensure_installed = opts.ensure_installed or {}
+					vim.list_extend(opts.ensure_installed, { 'gomodifytags', 'impl' })
+				end,
+			},
+		},
+		opts = function(_, opts)
+			local nls = require('null-ls')
+			opts.sources = vim.list_extend(opts.sources or {}, {
+				nls.builtins.code_actions.gomodifytags,
+				nls.builtins.code_actions.impl,
+				nls.builtins.formatting.goimports,
+				nls.builtins.formatting.gofumpt,
 			})
 		end,
 	},
@@ -152,24 +176,6 @@ return {
 	},
 
 	{
-		'nvimtools/none-ls.nvim',
-		optional = true,
-		opts = function(_, opts)
-			local nls = require('null-ls')
-			local sources = {
-				nls.builtins.code_actions.gomodifytags,
-				nls.builtins.code_actions.impl,
-				nls.builtins.formatting.gofumpt,
-				-- nls.builtins.formatting.goimports_reviser,
-			}
-			opts.sources = opts.sources or {}
-			for _, source in ipairs(sources) do
-				table.insert(opts.sources, source)
-			end
-		end,
-	},
-
-	{
 		'stevearc/conform.nvim',
 		optional = true,
 		opts = {
@@ -184,7 +190,7 @@ return {
 		optional = true,
 		dependencies = {
 			{
-				'mason.nvim',
+				'williamboman/mason.nvim',
 				opts = function(_, opts)
 					opts.ensure_installed = opts.ensure_installed or {}
 					vim.list_extend(opts.ensure_installed, { 'delve' })
@@ -192,7 +198,7 @@ return {
 			},
 			{
 				'leoluz/nvim-dap-go',
-				config = true,
+				opts = {},
 			},
 		},
 	},
@@ -200,7 +206,9 @@ return {
 	{
 		'nvim-neotest/neotest',
 		optional = true,
-		dependencies = { 'nvim-neotest/neotest-go' },
+		dependencies = {
+			'nvim-neotest/neotest-go',
+		},
 		opts = {
 			adapters = {
 				['neotest-go'] = {

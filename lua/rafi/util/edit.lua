@@ -65,7 +65,7 @@ end
 -- Go to newer/older buffer through jumplist.
 ---@param direction 1 | -1
 function M.jump_buffer(direction)
-	local jumplist, curjump = unpack(vim.fn.getjumplist() or {0, 0})
+	local jumplist, curjump = unpack(vim.fn.getjumplist() or { 0, 0 })
 	if #jumplist == 0 then
 		return
 	end

@@ -17,7 +17,7 @@ if ok and user_setup.lazy_opts then
 end
 
 -- Validate if lua/plugins/ or lua/plugins.lua exist.
-local stdconfig = vim.fn.stdpath('config') --[[@as string]]
+local stdconfig = vim.fn.stdpath('config')
 local user_path = stdconfig .. '/lua'
 local has_user_plugins = vim.loop.fs_stat(user_path .. '/plugins') ~= nil
 	or vim.loop.fs_stat(user_path .. '/plugins.lua') ~= nil
