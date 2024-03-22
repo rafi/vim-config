@@ -169,7 +169,7 @@ for some language-servers.
 
 ### Recommended LSP
 
-```viml
+```vim
 :MasonInstall ansible-language-server bash-language-server css-lsp
 :MasonInstall dockerfile-language-server gopls html-lsp json-lsp
 :MasonInstall lua-language-server marksman pyright sqlls
@@ -182,14 +182,14 @@ and [more](https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/se
 
 ### Recommended Linters
 
-```viml
+```vim
 :MasonInstall vint shellcheck editorconfig-checker flake8 gitlint hadolint
 :MasonInstall markdownlint mypy selene shellharden write-good yamllint
 ```
 
 ### Recommended Formatters
 
-```viml
+```vim
 :MasonInstall black fixjson gofumpt golines isort
 :MasonInstall shfmt sql-formatter stylua
 ```
@@ -476,16 +476,15 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 
 | Name           | Description
 | -------------- | ----------------------
-| [L3MON4D3/LuaSnip] | Snippet Engine written in Lua
-| [rafamadriz/friendly-snippets] | Preconfigured snippets for different languages
 | [hrsh7th/nvim-cmp] | Completion plugin for neovim written in Lua
 | [hrsh7th/cmp-nvim-lsp] | nvim-cmp source for neovim builtin LSP client
 | [hrsh7th/cmp-buffer] | nvim-cmp source for buffer words
 | [hrsh7th/cmp-path] | nvim-cmp source for path
 | [hrsh7th/cmp-emoji] | nvim-cmp source for emoji
-| [saadparwaiz1/cmp_luasnip] | Luasnip completion source for nvim-cmp
 | [andersevenrud/cmp-tmux] | Tmux completion source for nvim-cmp
-| [danymat/neogen] | Annotation generator
+| [L3MON4D3/LuaSnip] | Snippet Engine written in Lua
+| [rafamadriz/friendly-snippets] | Preconfigured snippets for different languages
+| [saadparwaiz1/cmp_luasnip] | Luasnip completion source for nvim-cmp
 | [windwp/nvim-autopairs] | Powerful auto-pair plugin with multiple characters support
 | [echasnovski/mini.surround] | Fast and feature-rich surround actions
 | [JoosepAlviste/nvim-ts-context-commentstring] | Set the commentstring based on the cursor location
@@ -603,16 +602,15 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [echasnovski/mini.bufremove]: https://github.com/echasnovski/mini.bufremove
 [mzlogin/vim-markdown-toc]: https://github.com/mzlogin/vim-markdown-toc
 
-[L3MON4D3/LuaSnip]: https://github.com/L3MON4D3/LuaSnip
-[rafamadriz/friendly-snippets]: https://github.com/rafamadriz/friendly-snippets
 [hrsh7th/nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
 [hrsh7th/cmp-nvim-lsp]: https://github.com/hrsh7th/cmp-nvim-lsp
 [hrsh7th/cmp-buffer]: https://github.com/hrsh7th/cmp-buffer
 [hrsh7th/cmp-path]: https://github.com/hrsh7th/cmp-path
 [hrsh7th/cmp-emoji]: https://github.com/hrsh7th/cmp-emoji
-[saadparwaiz1/cmp_luasnip]: https://github.com/saadparwaiz1/cmp_luasnip
 [andersevenrud/cmp-tmux]: https://github.com/andersevenrud/cmp-tmux
-[danymat/neogen]: https://github.com/danymat/neogen
+[L3MON4D3/LuaSnip]: https://github.com/L3MON4D3/LuaSnip
+[rafamadriz/friendly-snippets]: https://github.com/rafamadriz/friendly-snippets
+[saadparwaiz1/cmp_luasnip]: https://github.com/saadparwaiz1/cmp_luasnip
 [windwp/nvim-autopairs]: https://github.com/windwp/nvim-autopairs
 [echasnovski/mini.surround]: https://github.com/echasnovski/mini.surround
 [JoosepAlviste/nvim-ts-context-commentstring]: https://github.com/JoosepAlviste/nvim-ts-context-commentstring
@@ -924,12 +922,12 @@ Note that,
 | ----- |:----:| ------------------ | ------
 | <kbd>Space</kbd>+<kbd>Space</kbd> | 𝐍 𝐕 | Toggle visual-line mode | <small>`V` / <kbd>Escape</kbd></small>
 | <kbd>v</kbd> / <kbd>V</kbd> | 𝐕 | Increment/shrink selection | <small>[nvim-treesitter]</small>
-| <kbd>gpp</kbd> | 𝐍 | Select last paste
-| <kbd>sg</kbd> | 𝐕 | Replace within selected area
-| <kbd>Ctrl</kbd>+<kbd>r</kbd> | 𝐕 | Replace selection with step-by-step confirmation
-| <kbd>></kbd> / <kbd><</kbd> | 𝐕 | Indent and re-select
-| <kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd> | 𝐕 | Indent and re-select
-| <kbd>I</kbd> / <kbd>gI</kbd> / <kbd>A</kbd> | 𝐕 | Force blockwise operation
+| <kbd>gpp</kbd> | 𝐍 | Select last paste |
+| <kbd>sg</kbd> | 𝐕 | Replace within selected area |
+| <kbd>Ctrl</kbd>+<kbd>r</kbd> | 𝐕 | Replace selection with step-by-step confirmation |
+| <kbd>></kbd> / <kbd><</kbd> | 𝐕 | Indent and re-select |
+| <kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd> | 𝐕 | Indent and re-select |
+| <kbd>I</kbd> / <kbd>gI</kbd> / <kbd>A</kbd> | 𝐕 | Force blockwise operation |
 
 ### Jump To
 
@@ -939,9 +937,9 @@ Note that,
 | <kbd>]]</kbd> or <kbd>[[</kbd> | 𝐍 | Next/previous reference | <small>[RRethy/vim-illuminate]</small>
 | <kbd>]q</kbd> or <kbd>[q</kbd> | 𝐍 | Next/previous on quick-fix | <small>`:cnext` / `:cprev`</small>
 | <kbd>]a</kbd> or <kbd>[a</kbd> | 𝐍 | Next/previous on location-list | <small>`:lnext` / `:lprev`</small>
-| <kbd>]d</kbd> or <kbd>[d</kbd> | 𝐍 | Next/previous diagnostics
-| <kbd>]e</kbd> or <kbd>[e</kbd> | 𝐍 | Next/previous error
-| <kbd>]w</kbd> or <kbd>[w</kbd> | 𝐍 | Next/previous warning
+| <kbd>]d</kbd> or <kbd>[d</kbd> | 𝐍 | Next/previous diagnostics |
+| <kbd>]e</kbd> or <kbd>[e</kbd> | 𝐍 | Next/previous error |
+| <kbd>]w</kbd> or <kbd>[w</kbd> | 𝐍 | Next/previous warning |
 | <kbd>]b</kbd> or <kbd>[b</kbd> | 𝐍 | Next/previous buffer | <small>[akinsho/bufferline.nvim]</small>
 | <kbd>]f</kbd> or <kbd>[f</kbd> | 𝐍 | Next/previous function start | <small>[echasnovski/mini.ai]</small>
 | <kbd>]F</kbd> or <kbd>[F</kbd> | 𝐍 | Next/previous function end | <small>[echasnovski/mini.ai]</small>
