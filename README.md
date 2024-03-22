@@ -363,7 +363,7 @@ return {
     -- Display structure in statusline by default
     vim.g.structure_status = false
     ```
- 
+
 1. Create `lua/config/setup.lua` and return _any_ of these functions:
 
     * `opts()` — Override RafiVim setup options
@@ -545,12 +545,10 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [windwp/nvim-ts-autotag] | Use treesitter to auto close and auto rename html tag
 | [andymass/vim-matchup] | Modern matchit and matchparen
 | [iloginow/vim-stylus] | Better vim plugin for stylus
-| [chrisbra/csv.vim] | Handling column separated data
 | [mustache/vim-mustache-handlebars] | Mustache and handlebars syntax
 | [lifepillar/pgsql.vim] | PostgreSQL syntax and indent
 | [MTDL9/vim-log-highlighting] | Syntax highlighting for generic log files
 | [reasonml-editor/vim-reason-plus] | Reason syntax and indent
-| [vmchale/just-vim] | Syntax highlighting for Justfiles
 
 ### UI Plugins
 
@@ -655,12 +653,10 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [windwp/nvim-ts-autotag]: https://github.com/windwp/nvim-ts-autotag
 [andymass/vim-matchup]: https://github.com/andymass/vim-matchup
 [iloginow/vim-stylus]: https://github.com/iloginow/vim-stylus
-[chrisbra/csv.vim]: https://github.com/chrisbra/csv.vim
 [mustache/vim-mustache-handlebars]: https://github.com/mustache/vim-mustache-handlebars
 [lifepillar/pgsql.vim]: https://github.com/lifepillar/pgsql.vim
 [MTDL9/vim-log-highlighting]: https://github.com/MTDL9/vim-log-highlighting
 [reasonml-editor/vim-reason-plus]: https://github.com/reasonml-editor/vim-reason-plus
-[vmchale/just-vim]: https://github.com/vmchale/just-vim
 
 [nvim-tree/nvim-web-devicons]: https://github.com/nvim-tree/nvim-web-devicons
 [MunifTanjim/nui.nvim]: https://github.com/MunifTanjim/nui.nvim

@@ -6,12 +6,10 @@ return {
 	-----------------------------------------------------------------------------
 	-- Vimscript syntax/indent plugins
 	{ 'iloginow/vim-stylus', ft = 'stylus' },
-	{ 'chrisbra/csv.vim', ft = 'csv' },
 	{ 'mustache/vim-mustache-handlebars', ft = { 'mustache', 'handlebars' } },
 	{ 'lifepillar/pgsql.vim', ft = 'pgsql' },
 	{ 'MTDL9/vim-log-highlighting', ft = 'log' },
 	{ 'reasonml-editor/vim-reason-plus', ft = { 'reason', 'merlin' } },
-	{ 'vmchale/just-vim', ft = 'just' },
 
 	-----------------------------------------------------------------------------
 	-- Nvim Treesitter configurations and abstraction layer
@@ -28,8 +26,8 @@ return {
 		init = function(plugin)
 			-- PERF: add nvim-treesitter queries to the rtp and it's custom query predicates early
 			-- This is needed because a bunch of plugins no longer `require("nvim-treesitter")`, which
-			-- no longer trigger the **nvim-treeitter** module to be loaded in time.
-			-- Luckily, the only thins that those plugins need are the custom queries, which we make available
+			-- no longer trigger the **nvim-treesitter** module to be loaded in time.
+			-- Luckily, the only things that those plugins need are the custom queries, which we make available
 			-- during startup.
 			require('lazy.core.loader').add_to_rtp(plugin)
 			require('nvim-treesitter.query_predicates')
@@ -148,10 +146,13 @@ return {
 			-- https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
 			ensure_installed = {
 				'bash',
+				'c',
 				'comment',
 				'css',
+				'csv',
 				'cue',
 				'diff',
+				'dtd',
 				'fish',
 				'fennel',
 				'git_config',
@@ -166,6 +167,7 @@ return {
 				'java',
 				'javascript',
 				'jsdoc',
+				'just',
 				'kotlin',
 				'lua',
 				'luadoc',
@@ -176,17 +178,24 @@ return {
 				'nix',
 				'perl',
 				'php',
+				'promql',
 				'pug',
+				'readline',
 				'regex',
 				'scala',
+				'query',
 				'scss',
 				'sql',
+				'ssh_config',
+				'starlark',
 				'svelte',
+				'tmux',
 				'todotxt',
 				'toml',
 				'vim',
 				'vimdoc',
 				'vue',
+				'xml',
 				'zig',
 			},
 		},
