@@ -184,26 +184,40 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
-	-- Automatically manage character pairs
+	-- Powerful auto-pair plugin with multiple characters support
 	{
-		'echasnovski/mini.pairs',
-		event = 'VeryLazy',
-		opts = {},
+		'windwp/nvim-autopairs',
+		event = 'InsertEnter',
+		opts = {
+			disable_filetype = { 'TelescopePrompt', 'spectre_panel' },
+		},
 		keys = {
 			{
 				'<leader>up',
 				function()
 					local Util = require('lazy.core.util')
-					vim.g.minipairs_disable = not vim.g.minipairs_disable
-					if vim.g.minipairs_disable then
+					vim.g.autopairs_disable = not vim.g.autopairs_disable
+					if vim.g.autopairs_disable then
+						require('nvim-autopairs').disable()
 						Util.warn('Disabled auto pairs', { title = 'Option' })
 					else
+						require('nvim-autopairs').enable()
 						Util.info('Enabled auto pairs', { title = 'Option' })
 					end
 				end,
 				desc = 'Toggle auto pairs',
 			},
 		},
+		config = function(_, opts)
+			local autopairs = require('nvim-autopairs')
+			autopairs.setup(opts)
+
+			if not require('lazyvim.util').has('nvim-cmp') then
+				-- Insert `(` after function or method item selection.
+				local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+				require('cmp').event:on("confirm_done", cmp_autopairs.on_confirm_done())
+			end
+		end
 	},
 
 	-----------------------------------------------------------------------------

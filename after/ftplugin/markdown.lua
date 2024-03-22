@@ -13,7 +13,7 @@ local function link_surround()
 		len = vim.fn.strchars(cword)
 		line = vim.fn.getline(csrow)
 		idx = vim.fn.stridx(line, cword, 0)
-	elseif mode == 'v' or mode == '' then
+	elseif mode == 'v' or mode == '\22' then
 		bufnr, csrow, cscol, off = unpack(vim.fn.getpos('.') or { 0, 0, 0, 0 })
 		_, cerow, cecol, _ = unpack(vim.fn.getpos('v') or { 0, 0, 0, 0 })
 		if cecol < cscol then

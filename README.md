@@ -486,7 +486,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [saadparwaiz1/cmp_luasnip] | Luasnip completion source for nvim-cmp
 | [andersevenrud/cmp-tmux] | Tmux completion source for nvim-cmp
 | [danymat/neogen] | Annotation generator
-| [echasnovski/mini.pairs] | Automatically manage character pairs
+| [windwp/nvim-autopairs] | Powerful auto-pair plugin with multiple characters support
 | [echasnovski/mini.surround] | Fast and feature-rich surround actions
 | [JoosepAlviste/nvim-ts-context-commentstring] | Set the commentstring based on the cursor location
 | [echasnovski/mini.comment] | Fast and familiar per-line commenting
@@ -613,7 +613,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [saadparwaiz1/cmp_luasnip]: https://github.com/saadparwaiz1/cmp_luasnip
 [andersevenrud/cmp-tmux]: https://github.com/andersevenrud/cmp-tmux
 [danymat/neogen]: https://github.com/danymat/neogen
-[echasnovski/mini.pairs]: https://github.com/echasnovski/mini.pairs
+[windwp/nvim-autopairs]: https://github.com/windwp/nvim-autopairs
 [echasnovski/mini.surround]: https://github.com/echasnovski/mini.surround
 [JoosepAlviste/nvim-ts-context-commentstring]: https://github.com/JoosepAlviste/nvim-ts-context-commentstring
 [echasnovski/mini.comment]: https://github.com/echasnovski/mini.comment
@@ -703,19 +703,19 @@ Spec: `rafi.plugins.extras.coding.<name>`
 | Name           | Repository     | Description
 | -------------- | -------------- | ----------------------
 | `align`        | [echasnovski/mini.align] | Align text interactively
-| `autopairs`    | [windwp/nvim-autopairs] | Autopairs for neovim written by lua
 | `cmp-git`      | [petertriho/cmp-git] | Git source for nvim-cmp
 | `copilot`      | [zbirenbaum/copilot.lua] | Fully featured & enhanced copilot
 | `editorconfig` | [sgur/vim-editorconfig] | EditorConfig plugin written entirely in Vimscript
 | `emmet`        | [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet
+| `minipairs`    | [echasnovski/mini.pairs] | Automatically manage character pairs
 | `sandwich`     | [machakann/vim-sandwich] | Search, select, and edit sandwich text objects
 
 [echasnovski/mini.align]: https://github.com/echasnovski/mini.align
-[windwp/nvim-autopairs]: https://github.com/windwp/nvim-autopairs
 [petertriho/cmp-git]: https://github.com/petertriho/cmp-git
 [zbirenbaum/copilot.lua]: https://github.com/zbirenbaum/copilot.lua
 [sgur/vim-editorconfig]: https://github.com/sgur/vim-editorconfig
 [mattn/emmet-vim]: https://github.com/mattn/emmet-vim
+[echasnovski/mini.pairs]: https://github.com/echasnovski/mini.pairs
 [machakann/vim-sandwich]: https://github.com/machakann/vim-sandwich
 
 ### Extra Plugins: Editor
@@ -1098,7 +1098,7 @@ Note that,
 | <kbd>Space</kbd> <kbd>ue</kbd> | 𝐍 | Toggle indentation lines | <small>[lukas-reineke/indent-blankline.nvim]</small>
 | <kbd>Space</kbd> <kbd>uh</kbd> | 𝐍 | Toggle inlay-hints | <small>[config/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>ui</kbd> | 𝐍 | Show highlight groups for word | <small>`vim.show_pos`</small>
-| <kbd>Space</kbd> <kbd>up</kbd> | 𝐍 | Disable auto-pairs | <small>[echasnovski/mini.pairs]</small>
+| <kbd>Space</kbd> <kbd>up</kbd> | 𝐍 | Disable auto-pairs | <small>[windwp/nvim-autopairs]</small>
 | <kbd>Space</kbd> <kbd>ur</kbd> | 𝐍 | Redraw, clear hlsearch, and diff update | <small>[config/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>un</kbd> | 𝐍 | Dismiss all notifications | <small>[rcarriga/nvim-notify]</small>
 
