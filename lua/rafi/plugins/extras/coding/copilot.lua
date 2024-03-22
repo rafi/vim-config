@@ -24,7 +24,7 @@ return {
 		optional = true,
 		event = 'VeryLazy',
 		opts = function(_, opts)
-			local fg = require('lazyvim.util').ui.fg
+			local fg = LazyVim.ui.fg
 			local colors = {
 				[''] = fg('Comment'),
 				['Normal'] = fg('Comment'),
@@ -70,8 +70,8 @@ return {
 					copilot_cmp.setup(opts)
 					-- attach cmp source whenever copilot attaches
 					-- fixes lazy-loading issues with the copilot cmp source
-					---@param client lsp.Client
-					require('lazyvim.util').lsp.on_attach(function(client)
+					---@param client vim.lsp.Client
+					LazyVim.lsp.on_attach(function(client)
 						if client.name == 'copilot' then
 							copilot_cmp._on_insert_enter({})
 						end

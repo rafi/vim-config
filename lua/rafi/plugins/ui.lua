@@ -39,9 +39,8 @@ return {
 		},
 		init = function()
 			-- When noice is not enabled, install notify on VeryLazy
-			local Util = require('lazyvim.util')
-			if not Util.has('noice.nvim') then
-				Util.on_very_lazy(function()
+			if not LazyVim.has('noice.nvim') then
+				LazyVim.on_very_lazy(function()
 					vim.notify = require('notify')
 				end)
 			end
@@ -105,7 +104,7 @@ return {
 				custom_areas = {
 					right = function()
 						local result = {}
-						local root = require('lazyvim.util').root()
+						local root = LazyVim.root()
 						table.insert(result, {
 							text = '%#BufferLineTab# ' .. vim.fn.fnamemodify(root, ':t'),
 						})
@@ -245,7 +244,7 @@ return {
 
 			---@param client lsp.Client
 			---@param buffer integer
-			require('lazyvim.util').lsp.on_attach(function(client, buffer)
+			LazyVim.lsp.on_attach(function(client, buffer)
 				if client.supports_method('textDocument/documentSymbol') then
 					require('nvim-navic').attach(client, buffer)
 				end

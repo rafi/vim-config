@@ -2,7 +2,7 @@
 -- https://github.com/rafi/vim-config
 
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
 	print('Installing lazy.nvim…')
 	-- stylua: ignore
 	vim.fn.system({ 'git', 'clone', '--filter=blob:none', '--branch=stable', 'https://github.com/folke/lazy.nvim.git', lazypath })
@@ -19,8 +19,8 @@ end
 -- Validate if lua/plugins/ or lua/plugins.lua exist.
 local stdconfig = vim.fn.stdpath('config')
 local user_path = stdconfig .. '/lua'
-local has_user_plugins = vim.loop.fs_stat(user_path .. '/plugins') ~= nil
-	or vim.loop.fs_stat(user_path .. '/plugins.lua') ~= nil
+local has_user_plugins = vim.uv.fs_stat(user_path .. '/plugins') ~= nil
+	or vim.uv.fs_stat(user_path .. '/plugins.lua') ~= nil
 
 -- Start lazy.nvim plugin manager.
 require('lazy').setup(vim.tbl_extend('keep', user_lazy_opts, {
@@ -56,7 +56,7 @@ require('lazy').setup(vim.tbl_extend('keep', user_lazy_opts, {
 		-- Load LazyExtras
 		{ import = 'lazyvim.plugins.xtras' },
 	},
-	concurrency = vim.loop.available_parallelism() * 2,
+	concurrency = vim.uv.available_parallelism() * 2,
 	defaults = { lazy = true, version = false },
 	dev = { path = vim.fn.stdpath('config') .. '/dev' },
 	install = { missing = true, colorscheme = {} },

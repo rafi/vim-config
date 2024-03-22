@@ -1,7 +1,7 @@
 -- Plugins: Editor
 -- https://github.com/rafi/vim-config
 
-local is_windows = vim.loop.os_uname().sysname == 'Windows_NT'
+local is_windows = vim.uv.os_uname().sysname == 'Windows_NT'
 
 return {
 
@@ -65,11 +65,11 @@ return {
 				once = true,
 				nested = true,
 				callback = function()
-					local opts = require('lazyvim.util').opts('persistence.nvim')
+					local opts = LazyVim.opts('persistence.nvim')
 					if not opts.autoload then
 						return
 					end
-					local cwd = vim.loop.cwd() or vim.fn.getcwd()
+					local cwd = vim.uv.cwd() or vim.fn.getcwd()
 					if
 						cwd == nil
 						or vim.fn.argc() > 0

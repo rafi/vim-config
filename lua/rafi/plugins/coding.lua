@@ -212,7 +212,7 @@ return {
 			local autopairs = require('nvim-autopairs')
 			autopairs.setup(opts)
 
-			if not require('lazyvim.util').has('nvim-cmp') then
+			if not LazyVim.has('nvim-cmp') then
 				-- Insert `(` after function or method item selection.
 				local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 				require('cmp').event:on("confirm_done", cmp_autopairs.on_confirm_done())
@@ -365,7 +365,7 @@ return {
 			require('mini.ai').setup(opts)
 
 			-- register all text objects with which-key
-			require('lazyvim.util').on_load('which-key.nvim', function()
+			LazyVim.on_load('which-key.nvim', function()
 				---@type table<string, string|table>
 				local i = {
 					[' '] = 'Whitespace',

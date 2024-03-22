@@ -47,15 +47,14 @@ return {
 		{
 			'<leader>fe',
 			function()
-				local Util = require('lazyvim.util')
-				require('neo-tree.command').execute({ toggle = true, dir = Util.root() })
+				require('neo-tree.command').execute({ toggle = true, dir = LazyVim.root() })
 			end,
 			desc = 'Explorer NeoTree (root dir)',
 		},
 		{
 			'<leader>fE',
 			function()
-				require('neo-tree.command').execute({ toggle = true, dir = vim.loop.cwd() })
+				require('neo-tree.command').execute({ toggle = true, dir = vim.uv.cwd() })
 			end,
 			desc = 'Explorer NeoTree (cwd)',
 		},
@@ -63,10 +62,9 @@ return {
 		{
 			'<LocalLeader>a',
 			function()
-				local Util = require('lazyvim.util')
 				require('neo-tree.command').execute({
 					reveal = true,
-					dir = Util.root()
+					dir = LazyVim.root()
 				})
 			end,
 			desc = 'Explorer NeoTree Reveal',
@@ -101,7 +99,7 @@ return {
 	init = function()
 		if vim.fn.argc(-1) == 1 then
 			local arg = vim.fn.argv(0) --[[@as string]]
-			local stat = vim.loop.fs_stat(arg)
+			local stat = vim.uv.fs_stat(arg)
 			if stat and stat.type == 'directory' then
 				require('neo-tree')
 			end
@@ -284,7 +282,7 @@ return {
 	},
 	config = function(_, opts)
 		local function on_move(data)
-			require('lazyvim.util').lsp.on_rename(data.source, data.destination)
+			LazyVim.lsp.on_rename(data.source, data.destination)
 		end
 
 		local events = require('neo-tree.events')

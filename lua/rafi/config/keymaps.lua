@@ -4,7 +4,6 @@
 -- This file is automatically loaded by rafi.config.init
 
 local RafiUtil = require('rafi.util')
-local Util = require('lazyvim.util')
 local map = vim.keymap.set
 
 -- Package-manager
@@ -174,7 +173,7 @@ end, { silent = true, desc = 'Yank absolute path' })
 map('n', '<C-q>', 'q', { desc = 'Macro Prefix' })
 
 -- Formatting
-map({ 'n', 'v' }, '<leader>cf', function() Util.format({ force = true }) end, { desc = 'Format' })
+map({ 'n', 'v' }, '<leader>cf', function() LazyVim.format({ force = true }) end, { desc = 'Format' })
 
 -- Start new line from any cursor position in insert-mode
 map('i', '<S-Return>', '<C-o>o', { desc = 'Start Newline' })
@@ -251,7 +250,7 @@ cabbrev('bD', 'bd')
 -- Switch (tab) to the directory of the current opened buffer
 map('n', '<Leader>cd', function()
 	local bufdir = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p:h')
-	if bufdir ~= nil and vim.loop.fs_stat(bufdir) then
+	if bufdir ~= nil and vim.uv.fs_stat(bufdir) then
 		vim.cmd.tcd(bufdir)
 		vim.notify(bufdir)
 	end
@@ -318,14 +317,18 @@ map('n', '<RightMouse>', function() RafiUtil.contextmenu.show() end)
 map('n', '<LocalLeader>c', function() RafiUtil.contextmenu.show() end, { desc = 'Content-aware menu' })
 
 -- Lazygit
-map('n', '<leader>tg', function() require('lazy.util').float_term({ 'lazygit' }, { cwd = Util.root(), esc_esc = false }) end, { desc = 'Lazygit (root dir)' })
+map('n', '<leader>tg', function() require('lazy.util').float_term({ 'lazygit' }, { cwd = LazyVim.root.git(), esc_esc = false }) end, { desc = 'Lazygit (root dir)' })
 map('n', '<leader>tG', function() require('lazy.util').float_term({ 'lazygit' }, { esc_esc = false }) end, { desc = 'Lazygit (cwd)' })
+map('n', '<leader>tf', function()
+	local git_path = vim.api.nvim_buf_get_name(0)
+	LazyVim.terminal({ 'lazygit', '-f', vim.trim(git_path) }, { esc_esc = false, ctrl_hjkl = false })
+end, { desc = 'Lazygit current file history' })
 
 -- Terminal
 map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Enter Normal Mode' })
-local lazyterm = function() Util.terminal(nil, { cwd = Util.root() }) end
+local lazyterm = function() LazyVim.terminal(nil, { cwd = LazyVim.root() }) end
 map('n', '<leader>tt', lazyterm, { desc = 'Terminal (root dir)' })
-map('n', '<leader>tT', function() Util.terminal() end, { desc = 'Terminal (cwd)' })
+map('n', '<leader>tT', function() LazyVim.terminal() end, { desc = 'Terminal (cwd)' })
 
 if vim.fn.has('mac') then
 	-- Open the macOS dictionary on current word

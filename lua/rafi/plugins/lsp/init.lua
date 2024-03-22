@@ -76,8 +76,7 @@ return {
 		},
 		---@param opts PluginLspOpts
 		config = function(_, opts)
-			local Util = require('lazyvim.util')
-			if Util.has('neoconf.nvim') then
+			if LazyVim.has('neoconf.nvim') then
 				local plugin = require('lazy.core.config').spec.plugins['neoconf.nvim']
 				require('neoconf').setup(
 					require('lazy.core.plugin').values(plugin, 'opts', false)
@@ -85,12 +84,12 @@ return {
 			end
 
 			-- Setup autoformat
-			Util.format.register(Util.lsp.formatter())
+			LazyVim.format.register(LazyVim.lsp.formatter())
 
 			-- Setup formatting, keymaps and highlights.
-			Util.lsp.on_attach(function(client, buffer)
+			LazyVim.lsp.on_attach(function(client, buffer)
 				require('rafi.plugins.lsp.keymaps').on_attach(client, buffer)
-				if not require('lazyvim.util').has('vim-illuminate') then
+				if not LazyVim.has('vim-illuminate') then
 					require('rafi.plugins.lsp.highlight').on_attach(client, buffer)
 				end
 
