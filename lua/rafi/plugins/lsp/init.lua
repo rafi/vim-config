@@ -30,15 +30,30 @@ return {
 				},
 				severity_sort = true,
 				float = {
-					show_header = true,
 					border = 'rounded',
 					source = 'always',
+					header = '',
+					prefix = '',
+				},
+				signs = {
+					text = {
+						[vim.diagnostic.severity.ERROR] = require('lazyvim.config').icons.diagnostics.Error,
+						[vim.diagnostic.severity.WARN] = require('lazyvim.config').icons.diagnostics.Warn,
+						[vim.diagnostic.severity.HINT] = require('lazyvim.config').icons.diagnostics.Hint,
+						[vim.diagnostic.severity.INFO] = require('lazyvim.config').icons.diagnostics.Info,
+					},
 				},
 			},
 			-- Enable this to enable the builtin LSP inlay hints on Neovim >= 0.10.0
 			-- Be aware that you also will need to properly configure your LSP server
 			-- to provide the inlay hints.
 			inlay_hints = {
+				enabled = false,
+			},
+			-- Enable this to enable the builtin LSP code lenses on Neovim >= 0.10.0
+			-- Be aware that you also will need to properly configure your LSP server to
+			-- provide the code lenses.
+			codelens = {
 				enabled = false,
 			},
 			-- Add any global capabilities here
@@ -56,6 +71,7 @@ return {
 					settings = {
 						Lua = {
 							workspace = { checkThirdParty = false },
+							codeLens = { enable = true },
 							completion = { callSnippet = 'Replace' },
 						},
 					},
@@ -105,7 +121,6 @@ return {
 			vim.lsp.handlers['client/registerCapability'] = function(err, res, ctx)
 				local ret = register_capability(err, res, ctx)
 				local client_id = ctx.client_id
-				---@type lsp.Client|nil
 				local client = vim.lsp.get_client_by_id(client_id)
 				local buffer = vim.api.nvim_get_current_buf()
 				if client ~= nil then
@@ -115,37 +130,30 @@ return {
 			end
 
 			-- Diagnostics signs and highlights.
-			-- Support vim.fn.sign_define legacy API, and use icons from
-			-- config/init.lua if none are set in opts.
-			local set_opts_signs = vim.fn.has('nvim-0.10') == 1
-			if set_opts_signs then
-				if type(opts.diagnostics.signs) == 'table' then
-					if table(opts.diagnostics.signs.text) == 'table' then
-						set_opts_signs = false
-					else
-						opts.diagnostics.signs.text = {}
-					end
-				else
-					opts.diagnostics.signs = { text = {} }
-				end
-			end
-			if set_opts_signs or vim.fn.has('nvim-0.10') == 0 then
-				for type, icon in pairs(require('lazyvim.config').icons.diagnostics) do
-					if set_opts_signs then
-						local severity = vim.diagnostic.severity[type:upper()]
-						opts.diagnostics.signs.text[severity] = icon
-					else
-						local hl = 'DiagnosticSign' .. type
-						vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
-					end
-				end
+			for name, icon in pairs(require('lazyvim.config').icons.diagnostics) do
+				name = 'DiagnosticSign' .. name
+				vim.fn.sign_define(name, { text = icon, texthl = name, numhl = '' })
 			end
 
 			-- Setup inlay-hints
 			if opts.inlay_hints.enabled then
-				Util.lsp.on_attach(function(client, buffer)
+				LazyVim.lsp.on_attach(function(client, buffer)
 					if client.supports_method('textDocument/inlayHint') then
-						Util.toggle.inlay_hints(buffer, true)
+						LazyVim.toggle.inlay_hints(buffer, true)
+					end
+				end)
+			end
+
+			-- code lens
+			if opts.codelens.enabled and vim.lsp.codelens then
+				LazyVim.lsp.on_attach(function(client, buffer)
+					if client.supports_method("textDocument/codeLens") then
+						vim.lsp.codelens.refresh()
+						--- autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()
+						vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+							buffer = buffer,
+							callback = vim.lsp.codelens.refresh,
+						})
 					end
 				end)
 			end
@@ -154,7 +162,7 @@ return {
 				type(opts.diagnostics.virtual_text) == 'table'
 				and opts.diagnostics.virtual_text.prefix == 'icons'
 			then
-				opts.diagnostics.virtual_text.prefix = vim.fn.has('nvim-0.10') == 0
+				opts.diagnostics.virtual_text.prefix = vim.fn.has('nvim-0.10.0') == 0
 						and '●'
 					or function(diagnostic)
 						local icons = require('lazyvim.config').icons.diagnostics
@@ -230,7 +238,7 @@ return {
 						or not vim.tbl_contains(all_mslp_servers, server)
 					then
 						make_config(server)
-					else
+					elseif server_opts.enabled ~= false then
 						ensure_installed[#ensure_installed + 1] = server
 					end
 				end
@@ -243,11 +251,11 @@ return {
 				})
 			end
 
-			if Util.lsp.get_config('denols') and Util.lsp.get_config('tsserver') then
+			if LazyVim.lsp.get_config('denols') and LazyVim.lsp.get_config('tsserver') then
 				local is_deno =
 					require('lspconfig.util').root_pattern('deno.json', 'deno.jsonc')
-				Util.lsp.disable('tsserver', is_deno)
-				Util.lsp.disable('denols', function(root_dir)
+				LazyVim.lsp.disable('tsserver', is_deno)
+				LazyVim.lsp.disable('denols', function(root_dir)
 					return not is_deno(root_dir)
 				end)
 			end

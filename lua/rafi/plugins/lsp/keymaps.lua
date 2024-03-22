@@ -159,8 +159,7 @@ end
 -- Display a list of formatters and apply the selected one.
 function M.formatter_select()
 	local buf = vim.api.nvim_get_current_buf()
-	local mode = vim.fn.mode()
-	local is_visual = mode == 'v' or mode == 'V' or mode == ''
+	local is_visual = vim.tbl_contains({ 'v', 'V', '\22' }, vim.fn.mode())
 	local cur_start, cur_end
 	if is_visual then
 		cur_start = vim.fn.getpos('.')

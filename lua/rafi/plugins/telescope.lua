@@ -93,7 +93,7 @@ end
 -- Custom window-sizes
 ---@param dimensions table
 ---@param size integer
----@return float
+---@return number
 local function get_matched_ratio(dimensions, size)
 	for min_cols, scale in pairs(dimensions) do
 		if min_cols == 'lower' or size >= min_cols then
