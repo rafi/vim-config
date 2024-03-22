@@ -14,6 +14,15 @@ return {
 					{ 'ninja', 'python', 'pymanifest', 'requirements', 'rst', 'toml' }
 				)
 			end
+
+			vim.filetype.add({
+				filename = {
+					['dev-requirements.txt'] = 'requirements',
+				},
+				pattern = {
+					['requirements-.*%.txt'] = 'requirements',
+				},
+			})
 		end,
 	},
 

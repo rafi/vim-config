@@ -11,6 +11,13 @@ return {
 			if type(opts.ensure_installed) == 'table' then
 				vim.list_extend(opts.ensure_installed, { 'yaml' })
 			end
+
+			vim.filetype.add({
+				pattern = {
+					['.*/templates/.*%.ya?ml'] = 'helm',
+					['.*/templates/.*%.tpl'] = 'helm',
+				},
+			})
 		end,
 	},
 

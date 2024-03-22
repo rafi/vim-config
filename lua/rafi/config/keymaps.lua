@@ -432,7 +432,7 @@ end, { desc = 'Delete buffer and open new' })
 
 -- Toggle window zoom
 map('n', 'sz', function()
-	local width = vim.o.columns - 10
+	local width = vim.o.columns - 15
 	local height = vim.o.lines - 5
 	if vim.api.nvim_win_get_width(0) >= width then
 		vim.cmd.wincmd('=')

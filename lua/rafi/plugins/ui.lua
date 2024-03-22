@@ -215,6 +215,14 @@ return {
 				command_palette = true,
 				long_message_to_split = true,
 				lsp_doc_border = true,
+				-- inc_rename = true,
+			},
+			commands = {
+				all = {
+					view = 'split',
+					opts = { enter = true, format = 'details' },
+					filter = {},
+				},
 			},
 		},
 	},
@@ -254,7 +262,9 @@ return {
 			return {
 				separator = '  ',
 				highlight = true,
+				depth_limit = 5,
 				icons = require('lazyvim.config').icons.kinds,
+				lazy_update_context = true,
 			}
 		end,
 	},
@@ -329,13 +339,15 @@ return {
 	-- the highlighting.
 	{
 		'echasnovski/mini.indentscope',
-		version = false, -- wait till new 0.7.0 release to put it back on semver
 		event = 'LazyFile',
-		opts = {
-			symbol = '│', -- ▏│
-			options = { try_as_border = true },
-			draw = { delay = 200 },
-		},
+		opts = function(_, opts)
+			opts.symbol = '│' -- ▏│
+			opts.options = { try_as_border = true }
+			opts.draw = {
+				delay = 0,
+				animation = require('mini.indentscope').gen_animation.none(),
+			}
+		end,
 		init = function()
 			vim.api.nvim_create_autocmd('FileType', {
 				pattern = {
@@ -353,7 +365,7 @@ return {
 					'Trouble',
 				},
 				callback = function()
-					vim.b.miniindentscope_disable = true
+					vim.b['miniindentscope_disable'] = true
 				end,
 			})
 		end,

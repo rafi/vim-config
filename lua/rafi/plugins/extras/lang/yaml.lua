@@ -9,6 +9,16 @@ return {
 			if type(opts.ensure_installed) == 'table' then
 				vim.list_extend(opts.ensure_installed, { 'yaml' })
 			end
+
+			vim.filetype.add({
+				filename = {
+					['yarn.lock'] = 'yaml',
+					['helmfile.yaml'] = 'yaml',
+				},
+				pattern = {
+					['%.kube/config'] = 'yaml',
+				},
+			})
 		end,
 	},
 

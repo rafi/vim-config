@@ -11,7 +11,7 @@ M.defaults = {
 	-- String like `habamax` or a function that will load the colorscheme.
 	-- Disabled by default to allow theme-loader.nvim to manage the colorscheme.
 	---@type string|fun()
-	colorscheme = nil,
+	colorscheme = function() end,
 
 	-- Load the default settings
 	-- stylua: ignore
@@ -40,8 +40,8 @@ M.defaults = {
 		},
 		diagnostics = {
 			Error = '✘', --   ✘
-			Warn  = '󰀪', --  󰀪 󰳤 󱦄 󱗓 
-			Info  = 'ⁱ', --    ⁱ 󰋼 󰋽
+			Warn  = '󰀪', --  󰀪 ▲󰳤 󱗓 
+			Info  = 'ⁱ', --    󰋼 󰋽 ⚑ⁱ
 			Hint  = '', --  󰌶 
 		},
 		status = {
@@ -53,8 +53,8 @@ M.defaults = {
 			diagnostics = {
 				error = ' ',
 				warn  = ' ',
-				info  = ' ',
-				hint  = '󰌶 ',
+				info  = ' ',
+				hint  = ' ',
 			},
 			filename = {
 				modified = '+',
@@ -91,7 +91,7 @@ M.defaults = {
 			Number        = '󰎠 ', --  󰎠 
 			Object        = ' ', --   󰅩
 			Operator      = '󰃬 ', --  󰃬 󰆕 +
-			Package       = ' ', --   󰏖 󰏗
+			Package       = ' ', --   󰏖 󰏗 󰆧
 			Property      = ' ', --   󰜢   󰖷
 			Reference     = '󰈝 ', --  󰈝 󰈇
 			Snippet       = ' ', --  󰘌 ⮡   

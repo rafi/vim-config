@@ -334,8 +334,8 @@ return {
 			filter_rules = {
 				include_current_win = true,
 				bo = {
-					filetype = { 'notify', 'noice' },
-					buftype = { 'prompt', 'nofile' },
+					filetype = { 'notify', 'noice', 'neo-tree-popup' },
+					buftype = { 'prompt', 'nofile', 'quickfix' },
 				},
 			},
 		},
