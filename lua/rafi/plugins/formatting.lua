@@ -42,6 +42,7 @@ return {
 		cmd = 'ConformInfo',
 		-- stylua: ignore
 		keys = {
+			{ '<leader>ci', '<cmd>LazyFormatInfo<CR>:ConformInfo<CR>', silent = true, desc = 'Formatter Info' },
 			{
 				'<leader>cF',
 				function()

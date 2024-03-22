@@ -79,8 +79,6 @@ return {
 			{ '<leader>br', '<Cmd>BufferLineCloseRight<CR>', desc = 'Delete buffers to the right' },
 			{ '<leader>bl', '<Cmd>BufferLineCloseLeft<CR>', desc = 'Delete buffers to the left' },
 			{ '<leader>tp', '<Cmd>BufferLinePick<CR>', desc = 'Tab Pick' },
-			{ '[b', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev buffer' },
-			{ ']b', '<cmd>BufferLineCycleNext<cr>', desc = 'Next buffer' },
 		},
 		opts = {
 			options = {
@@ -233,24 +231,24 @@ return {
 		'SmiteshP/nvim-navic',
 		keys = {
 			{
-				'<Leader>tf',
+				'<Leader>uB',
 				function()
 					if vim.b.navic_winbar then
-						vim.b.navic_winbar = false
+						vim.b['navic_winbar'] = false
 						vim.opt_local.winbar = ''
 					else
-						vim.b.navic_winbar = true
+						vim.b['navic_winbar'] = true
 						vim.opt_local.winbar = '%#NavicIconsFile# %t %* '
 							.. "%{%v:lua.require'nvim-navic'.get_location()%}"
 					end
 				end,
-				desc = 'Toggle structure panel',
+				desc = 'Breadcrumbs toggle',
 			},
 		},
 		init = function()
 			vim.g.navic_silence = true
 
-			---@param client lsp.Client
+			---@param client vim.lsp.Client
 			---@param buffer integer
 			LazyVim.lsp.on_attach(function(client, buffer)
 				if client.supports_method('textDocument/documentSymbol') then
@@ -376,29 +374,36 @@ return {
 	{
 		'folke/which-key.nvim',
 		event = 'VeryLazy',
+		-- stylua: ignore
 		opts = {
-			icons = { separator = ' 󰁔 ' },
-			plugins = { spelling = true },
+			icons = {
+				separator = ' 󰁔 ',
+			},
 			defaults = {
 				mode = { 'n', 'v' },
-				-- [';'] = { name = '+telescope' },
-				-- [';d'] = { name = '+lsp/todo' },
-				-- ['g'] = { name = '+goto' },
-				-- ['gz'] = { name = '+surround' },
-				-- [']'] = { name = '+next' },
-				-- ['['] = { name = '+prev' },
+				[';'] = { name = '+telescope' },
+				[';d'] = { name = '+lsp' },
+				['g'] = { name = '+goto' },
+				['gz'] = { name = '+surround' },
+				[']'] = { name = '+next' },
+				['['] = { name = '+prev' },
 
-				['<leader>b'] = { name = '+buffer' },
-				['<leader>c'] = { name = '+code' },
-				['<leader>f'] = { name = '+file/find' },
-				['<leader>g'] = { name = '+git' },
-				['<leader>h'] = { name = '+hunks' },
-				['<leader>m'] = { name = '+tools' },
-				['<leader>s'] = { name = '+search' },
-				['<leader>t'] = { name = '+toggle/tools' },
-				['<leader>u'] = { name = '+ui' },
-				['<leader>x'] = { name = '+diagnostics/quickfix' },
-				['<leader>z'] = { name = '+notes' },
+				['<leader>b']  = { name = '+buffer' },
+				['<leader>c']  = { name = '+code' },
+				['<leader>ch'] = { name = '+calls' },
+				['<leader>f']  = { name = '+file/find' },
+				['<leader>fw'] = { name = '+workspace' },
+				['<leader>g']  = { name = '+git' },
+				['<leader>h']  = { name = '+hunks' },
+				['<leader>ht'] = { name = '+toggle' },
+				['<leader>m']  = { name = '+tools' },
+				['<leader>md'] = { name = '+diff' },
+				['<leader>s']  = { name = '+search' },
+				['<leader>sn'] = { name = '+noice' },
+				['<leader>t']  = { name = '+toggle/tools' },
+				['<leader>u']  = { name = '+ui' },
+				['<leader>x']  = { name = '+diagnostics/quickfix' },
+				['<leader>z']  = { name = '+notes' },
 			},
 		},
 		config = function(_, opts)

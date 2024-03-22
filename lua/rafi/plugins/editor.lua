@@ -46,6 +46,12 @@ return {
 			-- * git commit/rebase session
 			autoload = true,
 		},
+		-- stylua: ignore
+		keys = {
+			{ '<leader>qs', function() require('persistence').load() end, desc = 'Restore Session' },
+			{ '<leader>ql', function() require('persistence').load({ last = true }) end, desc = 'Restore Last Session' },
+			{ '<leader>qd', function() require('persistence').stop() end, desc = 'Don\'t Save Current Session' },
+		},
 		init = function()
 			-- Detect if stdin has been provided.
 			vim.g.started_with_stdin = false
@@ -228,11 +234,10 @@ return {
 		opts = { use_diagnostic_signs = true },
 		-- stylua: ignore
 		keys = {
-			{ '<leader>xx', function() require('trouble').toggle() end, desc = 'Document Diagnostics (Trouble)' },
-			{ '<leader>xd', function() require('trouble').toggle('document_diagnostics') end, desc = 'Document Diagnostics (Trouble)' },
-			{ '<leader>xw', function() require('trouble').toggle('workspace_diagnostics') end, desc = 'Workspace Diagnostics (Trouble)' },
-			{ '<leader>xq', function() require('trouble').toggle('quickfix') end, desc = 'Quickfix List (Trouble)' },
-			{ '<leader>xl', function() require('trouble').toggle('loclist') end, desc = 'Location List (Trouble)' },
+			{ '<leader>xx', function() require('trouble').toggle('document_diagnostics') end, desc = 'Document Diagnostics (Trouble)' },
+			{ '<leader>xX', function() require('trouble').toggle('workspace_diagnostics') end, desc = 'Workspace Diagnostics (Trouble)' },
+			{ '<leader>xL', function() require('trouble').toggle('loclist') end, desc = 'Location List (Trouble)' },
+			{ '<leader>xQ', function() require('trouble').toggle('quickfix') end, desc = 'Quickfix List (Trouble)' },
 			{ 'gR', function() require('trouble').open('lsp_references') end, desc = 'LSP References (Trouble)' },
 			{
 				'[q',

@@ -3,33 +3,12 @@
 
 local winwidth = 30
 
--- Toggle width.
-local toggle_width = function()
-	local max = winwidth * 2
-	local cur_width = vim.fn.winwidth(0)
-	local half = math.floor((winwidth + (max - winwidth) / 2) + 0.4)
-	local new_width = winwidth
-	if cur_width == winwidth then
-		new_width = half
-	elseif cur_width == half then
-		new_width = max
-	else
-		new_width = winwidth
-	end
-	vim.cmd(new_width .. ' wincmd |')
-end
-
--- Get current opened directory from state.
----@param state table
----@return string
 local function get_current_directory(state)
 	local node = state.tree:get_node()
-	local path = node.path
 	if node.type ~= 'directory' or not node:is_expanded() then
-		local path_separator = package.config:sub(1, 1)
-		path = path:match('(.*)' .. path_separator)
+		node = state.tree:get_node(node:get_parent_id())
 	end
-	return path
+	return node.path
 end
 
 return {
@@ -200,25 +179,55 @@ return {
 					nowait = true,
 					config = { use_float = true },
 				},
-				['w'] = toggle_width,
+
+				-- Custom commands
+				['w'] = 'toggle_width',
+				['K'] = function(state)
+					local node = state.tree:get_node()
+					local path = node:get_id()
+					require('rafi.util').preview.open(path)
+				end,
+				['Y'] = {
+					function(state)
+						local node = state.tree:get_node()
+						local path = node:get_id()
+						vim.fn.setreg('+', path, 'c')
+					end,
+					desc = 'copy path to clipboard',
+				},
 			},
 		},
 		filesystem = {
+			commands = {
+				toggle_width = function()
+					local max = winwidth * 2
+					local cur_width = vim.fn.winwidth(0)
+					local half = math.floor((winwidth + (max - winwidth) / 2) + 0.4)
+					local new_width = winwidth
+					if cur_width == winwidth then
+						new_width = half
+					elseif cur_width == half then
+						new_width = max
+					else
+						new_width = winwidth
+					end
+					vim.cmd(new_width .. ' wincmd |')
+				end
+			},
 			window = {
 				mappings = {
 					['d'] = 'noop',
-
 					['/'] = 'noop',
-					['f'] = 'fuzzy_finder',
-					['F'] = 'filter_on_submit',
+					['f'] = 'filter_on_submit',
+					['F'] = 'fuzzy_finder',
 					['<C-c>'] = 'clear_filter',
 
+					-- Custom commands
 					['gf'] = function(state)
 						require('telescope.builtin').find_files({
 							cwd = get_current_directory(state),
 						})
 					end,
-
 					['gr'] = function(state)
 						require('telescope.builtin').live_grep({
 							cwd = get_current_directory(state),
