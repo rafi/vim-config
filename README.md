@@ -756,14 +756,13 @@ Spec: `rafi.plugins.extras.lang.<name>`
 | `ansible`        | syntax [pearofducks/ansible-vim], lsp, lint
 | `docker`         | syntax, lsp, lint
 | `go`             | syntax, lsp, formatter, dap [leoluz/nvim-dap-go], test [nvim-neotest/neotest-go]
-| `helm`           | syntax [towolf/vim-helm], lsp
+| `helm`           | syntax, lsp
 | `python`         | syntax, lsp, dap [mfussenegger/nvim-dap-python], test, [rafi/neoconf-venom.nvim]
 | `yaml`           | syntax, lsp, schemas, [b0o/SchemaStore.nvim]
 
 [pearofducks/ansible-vim]: https://github.com/pearofducks/ansible-vim
 [leoluz/nvim-dap-go]: https://github.com/leoluz/nvim-dap-go
 [nvim-neotest/neotest-go]: https://github.com/nvim-neotest/neotest-go
-[towolf/vim-helm]: https://github.com/towolf/vim-helm
 [mfussenegger/nvim-dap-python]: https://github.com/mfussenegger/nvim-dap-python
 [rafi/neoconf-venom.nvim]: https://github.com/rafi/neoconf-venom.nvim
 [b0o/SchemaStore.nvim]: https://github.com/b0o/SchemaStore.nvim
