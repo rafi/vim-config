@@ -11,6 +11,7 @@ return {
 					'go',
 					'gomod',
 					'gosum',
+					'gotmpl',
 					'gowork',
 				})
 			end
@@ -79,16 +80,13 @@ return {
 							},
 							-- https://github.com/golang/tools/blob/master/gopls/doc/analyzers.md
 							analyses = {
-								fieldalignment = true,
+								-- fieldalignment = true,
 								nilness = true,
 								unusedparams = true,
 								unusedwrite = true,
 								useany = true,
-								-- fillreturns = true,
-								-- nonewvars = true,
+								unusedvariable = true,
 								-- shadow = true,
-								-- undeclaredname = true,
-								-- unusedvariable = true,
 								-- ST1000 = false,
 								-- ST1005 = false,
 							},
@@ -100,7 +98,7 @@ return {
 				gopls = function(_, _)
 					-- workaround for gopls not supporting semanticTokensProvider
 					-- https://github.com/golang/go/issues/54531#issuecomment-1464982242
-					require('lazyvim.util').lsp.on_attach(function(client, _)
+					LazyVim.lsp.on_attach(function(client, _)
 						if client.name == 'gopls' then
 							if not client.server_capabilities.semanticTokensProvider then
 								local semantic =
@@ -214,6 +212,7 @@ return {
 				['neotest-go'] = {
 					-- Here we can set options for neotest-go, e.g.
 					-- args = { '-tags=integration' }
+					recursive_run = true,
 				},
 			},
 		},

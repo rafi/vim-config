@@ -5,7 +5,7 @@
 local M = {}
 
 ---@param method string
----@param clients lsp.Client[]
+---@param clients vim.lsp.Client[]
 ---@return boolean
 local function supports_method(method, clients)
 	for _, client in pairs(clients) do

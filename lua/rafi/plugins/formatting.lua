@@ -5,14 +5,13 @@ local M = {}
 
 ---@param opts ConformOpts
 function M.setup(_, opts)
-	local Util = require('lazyvim.util')
 	for name, formatter in pairs(opts.formatters or {}) do
 		if type(formatter) == 'table' then
 			---@diagnostic disable-next-line: undefined-field
 			if formatter.extra_args then
 				---@diagnostic disable-next-line: undefined-field
 				formatter.prepend_args = formatter.extra_args
-				Util.deprecate(
+				LazyVim.deprecate(
 					('opts.formatters.%s.extra_args'):format(name),
 					('opts.formatters.%s.prepend_args'):format(name)
 				)
@@ -22,7 +21,7 @@ function M.setup(_, opts)
 
 	for _, key in ipairs({ 'format_on_save', 'format_after_save' }) do
 		if opts[key] then
-			Util.warn(
+			LazyVim.warn(
 				("Don't set `opts.%s` for `conform.nvim`,\nit is configured automatically."):format(
 					key
 				)
@@ -43,10 +42,11 @@ return {
 		cmd = 'ConformInfo',
 		-- stylua: ignore
 		keys = {
+			{ '<leader>ci', '<cmd>LazyFormatInfo<CR>:ConformInfo<CR>', silent = true, desc = 'Formatter Info' },
 			{
 				'<leader>cF',
 				function()
-					require('conform').format({ formatters = { 'injected' } })
+					require('conform').format({ formatters = { 'injected' }, timeout_ms = 3000 })
 				end,
 				mode = { 'n', 'v' },
 				desc = 'Format Injected Langs',
@@ -54,9 +54,8 @@ return {
 		},
 		init = function()
 			-- Install the conform formatter on VeryLazy
-			local Util = require('lazyvim.util')
-			Util.on_very_lazy(function()
-				Util.format.register({
+			LazyVim.on_very_lazy(function()
+				LazyVim.format.register({
 					name = 'conform.nvim',
 					priority = 100,
 					primary = true,
@@ -64,7 +63,9 @@ return {
 						local plugin = require('lazy.core.config').plugins['conform.nvim']
 						local Plugin = require('lazy.core.plugin')
 						local opts = Plugin.values(plugin, 'opts', false)
-						require('conform').format(Util.merge(opts.format, { bufnr = buf }))
+						require('conform').format(
+							LazyVim.merge({}, opts.format, { bufnr = buf })
+						)
 					end,
 					sources = function(buf)
 						local ret = require('conform').list_formatters(buf)
@@ -79,7 +80,7 @@ return {
 		opts = function()
 			local plugin = require('lazy.core.config').plugins['conform.nvim']
 			if plugin.config ~= M.setup then
-				require('lazyvim.util').error({
+				LazyVim.error({
 					"Don't set `plugin.config` for `conform.nvim`.\n",
 					'This will break formatting.',
 				}, { title = 'Formatter' })
@@ -91,6 +92,7 @@ return {
 					timeout_ms = 3000,
 					async = false, -- not recommended to change
 					quiet = false, -- not recommended to change
+					lsp_fallback = true, -- not recommended to change
 				},
 				---@type table<string, conform.FormatterUnit[]>
 				formatters_by_ft = {

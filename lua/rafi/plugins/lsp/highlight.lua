@@ -6,7 +6,7 @@
 
 local M = {}
 
----@param client lsp.Client
+---@param client vim.lsp.Client
 ---@param bufnr integer
 function M.on_attach(client, bufnr)
 	local status_ok, highlight_supported = pcall(function()

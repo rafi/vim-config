@@ -11,7 +11,6 @@ return {
 		opts = {},
 		config = function()
 			local cmp = require('cmp')
-			---@diagnostic disable-next-line: missing-fields
 			cmp.setup.filetype('gitcommit', {
 				sources = cmp.config.sources({
 					{ name = 'git', priority = 50 },

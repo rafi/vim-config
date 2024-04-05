@@ -14,6 +14,15 @@ return {
 				vim.list_extend(opts.ensure_installed, { 'yaml' })
 			end
 
+			vim.filetype.add({
+				pattern = {
+					['.*/playbooks/.*%.ya?ml'] = 'yaml.ansible',
+					['.*/roles/.*/tasks/.*%.ya?ml'] = 'yaml.ansible',
+					['.*/roles/.*/handlers/.*%.ya?ml'] = 'yaml.ansible',
+					['.*/inventory/.*%.ini'] = 'ansible_hosts',
+				},
+			})
+
 			vim.g.ansible_extra_keywords_highlight = 1
 			vim.g.ansible_template_syntaxes = {
 				['*.json.j2'] = 'json',

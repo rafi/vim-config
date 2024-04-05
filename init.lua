@@ -5,7 +5,9 @@ local stdconfig = vim.fn.stdpath('config')
 local lazy_override = stdconfig .. '/lua/config/lazy.lua'
 --local lazy_override = vim.fs.joinpath(stdconfig, 'lua', 'config', 'lazy.lua')
 
-if vim.loop.fs_stat(lazy_override) then
+vim.uv = vim.uv or vim.loop
+
+if vim.uv.fs_stat(lazy_override) then
 	-- Override RafiVim default config.
 	require('config.lazy')
 else
