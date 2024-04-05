@@ -12,7 +12,8 @@ function M.get_visual_selection()
 	-- use 'gv' to reselect the text
 	local _, csrow, cscol, cerow, cecol
 	local mode = vim.fn.mode()
-	if mode == 'v' or mode == 'V' or mode == '' then
+	local is_visual = vim.tbl_contains({ 'v', 'V', '\22' }, mode)
+	if is_visual then
 		-- if we are in visual mode use the live position
 		_, csrow, cscol, _ = unpack(vim.fn.getpos('.') or { 0, 0, 0, 0 })
 		_, cerow, cecol, _ = unpack(vim.fn.getpos('v') or { 0, 0, 0, 0 })

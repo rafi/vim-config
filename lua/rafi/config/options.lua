@@ -3,7 +3,6 @@
 -- ===
 
 -- This file is automatically loaded by config.init or plugins.core
--- stylua: ignore start
 
 -- Keyboard leaders
 vim.g.mapleader = ' '
@@ -30,25 +29,32 @@ vim.g.root_spec = { 'lsp', { '.git', 'lua' }, 'cwd' }
 
 -- General
 -- ===
+-- stylua: ignore start
 
 local opt = vim.opt
 
 opt.title = true
-opt.titlestring = "%<%F%=%l/%L - nvim"
-opt.mouse = 'nv'               -- Disable mouse in command-line mode
+opt.titlestring = '%<%F%=%l/%L - nvim'
+opt.mouse = 'nv'               -- Enable mouse in normal and visual modes only
 opt.virtualedit = 'block'      -- Position cursor anywhere in visual block
 opt.confirm = true             -- Confirm unsaved changes before exiting buffer
-opt.clipboard = 'unnamedplus'  -- Sync with system clipboard
-opt.conceallevel = 3           -- Hide concealed text
+opt.conceallevel = 2           -- Hide * markup for bold and italic, but not markers with substitutions
 opt.signcolumn = 'yes'         -- Always show signcolumn
 opt.spelllang = { 'en' }
 opt.spelloptions:append('camel')
-opt.timeoutlen = 300           -- Time out on mappings
 opt.updatetime = 200           -- Idle time to write swap and trigger CursorHold
+if not vim.g.vscode then
+	opt.timeoutlen = 300         -- Time out on mappings
+end
+if not vim.env.SSH_TTY then
+	-- only set clipboard if not in ssh, to make sure the OSC 52
+	-- integration works automatically. Requires Neovim >= 0.10.0
+	opt.clipboard = 'unnamedplus' -- Sync with system clipboard
+end
 
 opt.completeopt = 'menu,menuone,noinsert'
-opt.wildmode = 'longest:full,full'  -- Command-line completion mode
-opt.diffopt:append({ 'iwhite', 'indent-heuristic', 'algorithm:patience' })
+opt.wildmode = 'longest:full,full'
+opt.diffopt:append({ 'indent-heuristic', 'algorithm:patience' })
 
 opt.textwidth = 80             -- Text width maximum chars before wrapping
 opt.tabstop = 2                -- The number of spaces a tab is
@@ -57,7 +63,6 @@ opt.shiftwidth = 2             -- Number of spaces to use in auto(indent)
 opt.shiftround = true          -- Round indent to multiple of 'shiftwidth'
 
 -- What to save for views and sessions
-opt.viewoptions:remove('folds')
 opt.sessionoptions:remove({ 'blank', 'buffers', 'terminal' })
 opt.sessionoptions:append({ 'globals', 'skiprtp' })
 
@@ -87,7 +92,6 @@ opt.ignorecase = true -- Search ignoring case
 opt.smartcase = true  -- Keep case when searching with *
 opt.inccommand = 'nosplit' -- Preview incremental substitute
 opt.grepformat = '%f:%l:%c:%m'
--- opt.path:append('**') -- Find recursively
 
 if vim.fn.executable('rg') then
 	opt.grepprg = 'rg --vimgrep --no-heading'
@@ -176,8 +180,6 @@ end
 -- ===
 
 opt.foldlevel = 99
--- opt.foldlevelstart = 99
-
 vim.opt.foldtext = "v:lua.require'lazyvim.util'.ui.foldtext()"
 
 if vim.fn.has('nvim-0.9.0') == 1 then
@@ -205,6 +207,7 @@ vim.g.loaded_node_provider = 0
 
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
+vim.g.yaml_indent_multiline_scalar = 1
 
 vim.g.no_gitrebase_maps = 1 -- See share/nvim/runtime/ftplugin/gitrebase.vim
 vim.g.no_man_maps = 1       -- See share/nvim/runtime/ftplugin/man.vim
@@ -218,28 +221,17 @@ vim.filetype.add({
 		justfile = 'just',
 		Justfile = 'just',
 		Tmuxfile = 'tmux',
-		['yarn.lock'] = 'yaml',
 		['.buckconfig'] = 'toml',
 		['.flowconfig'] = 'ini',
 		['.jsbeautifyrc'] = 'json',
 		['.jscsrc'] = 'json',
 		['.watchmanconfig'] = 'json',
-		['dev-requirements.txt'] = 'requirements',
-		['helmfile.yaml'] = 'yaml',
 	},
 	pattern = {
 		['.*%.js%.map'] = 'json',
 		['.*%.postman_collection'] = 'json',
 		['Jenkinsfile.*'] = 'groovy',
-		['%.kube/config'] = 'yaml',
 		['%.config/git/users/.*'] = 'gitconfig',
-		['requirements-.*%.txt'] = 'requirements',
-		['.*/templates/.*%.ya?ml'] = 'helm',
-		['.*/templates/.*%.tpl'] = 'helm',
-		['.*/playbooks/.*%.ya?ml'] = 'yaml.ansible',
-		['.*/roles/.*/tasks/.*%.ya?ml'] = 'yaml.ansible',
-		['.*/roles/.*/handlers/.*%.ya?ml'] = 'yaml.ansible',
-		['.*/inventory/.*%.ini'] = 'ansible_hosts',
 	},
 })
 

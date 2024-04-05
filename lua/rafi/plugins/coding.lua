@@ -4,44 +4,9 @@
 return {
 
 	-----------------------------------------------------------------------------
-	-- Snippet Engine written in Lua
-	{
-		'L3MON4D3/LuaSnip',
-		build = (not jit.os:find('Windows'))
-				and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
-			or nil,
-		dependencies = {
-			-- Preconfigured snippets for different languages
-			'rafamadriz/friendly-snippets',
-			config = function()
-				require('luasnip.loaders.from_vscode').lazy_load()
-				require('luasnip.loaders.from_lua').load({ paths = { './snippets' } })
-			end,
-		},
-		-- stylua: ignore
-		keys = {
-			{ '<C-l>', function() require('luasnip').expand_or_jump() end, mode = { 'i', 's' } },
-		},
-		opts = {
-			history = true,
-			delete_check_events = 'TextChanged',
-			-- ft_func = function()
-			-- 	return vim.split(vim.bo.filetype, '.', { plain = true })
-			-- end,
-		},
-		config = function(_, opts)
-			require('luasnip').setup(opts)
-			vim.api.nvim_create_user_command('LuaSnipEdit', function()
-				require('luasnip.loaders').edit_snippet_files()
-			end, {})
-		end,
-	},
-
-	-----------------------------------------------------------------------------
 	-- Completion plugin for neovim written in Lua
 	{
 		'hrsh7th/nvim-cmp',
-		version = false, -- last release is way too old
 		event = 'InsertEnter',
 		dependencies = {
 			-- nvim-cmp source for neovim builtin LSP client
@@ -52,9 +17,7 @@ return {
 			'hrsh7th/cmp-path',
 			-- nvim-cmp source for emoji
 			'hrsh7th/cmp-emoji',
-			-- Luasnip completion source for nvim-cmp
-			'saadparwaiz1/cmp_luasnip',
-			-- Tmux completion source for nvim-cmp
+			-- nvim-cmp source for tmux
 			'andersevenrud/cmp-tmux',
 		},
 		opts = function()
@@ -65,16 +28,6 @@ return {
 			)
 			local cmp = require('cmp')
 			local defaults = require('cmp.config.default')()
-			local luasnip = require('luasnip')
-
-			local function has_words_before()
-				if vim.bo.buftype == 'prompt' then
-					return false
-				end
-				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-				-- stylua: ignore
-				return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
-			end
 
 			return {
 				sorting = defaults.sorting,
@@ -83,15 +36,9 @@ return {
 						hl_group = 'Comment',
 					},
 				},
-				snippet = {
-					expand = function(args)
-						require('luasnip').lsp_expand(args.body)
-					end,
-				},
 				sources = cmp.config.sources({
 					{ name = 'nvim_lsp', priority = 50 },
 					{ name = 'path', priority = 40 },
-					{ name = 'luasnip', priority = 30 },
 				}, {
 					{ name = 'buffer', priority = 50, keyword_length = 3 },
 					{ name = 'emoji', insert = true, priority = 20 },
@@ -125,26 +72,13 @@ return {
 						cmp.close()
 						fallback()
 					end,
-					['<Tab>'] = cmp.mapping(function(fallback)
+					['<C-e>'] = cmp.mapping(function()
 						if cmp.visible() then
-							cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-						elseif luasnip.locally_jumpable(1) then
-							luasnip.jump(1)
-						elseif has_words_before() then
+							cmp.abort()
+						else
 							cmp.complete()
-						else
-							fallback()
 						end
-					end, { 'i', 's' }),
-					['<S-Tab>'] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-						elseif luasnip.locally_jumpable(-1) then
-							luasnip.jump(-1)
-						else
-							fallback()
-						end
-					end, { 'i', 's' }),
+					end),
 				}),
 				formatting = {
 					format = function(entry, item)
@@ -173,37 +107,98 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
-	-- Annotation generator
+	-- Snippet Engine written in Lua
 	{
-		'danymat/neogen',
+		'L3MON4D3/LuaSnip',
+		event = 'InsertEnter',
+		build = (not jit.os:find('Windows'))
+				and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
+			or nil,
+		dependencies = {
+			-- Preconfigured snippets for different languages
+			{
+				'rafamadriz/friendly-snippets',
+				config = function()
+					require('luasnip.loaders.from_vscode').lazy_load()
+					require('luasnip.loaders.from_lua').load({ paths = { './snippets' } })
+				end,
+			},
+			{
+				'nvim-cmp',
+				dependencies = {
+					{ 'saadparwaiz1/cmp_luasnip' },
+				},
+				opts = function(_, opts)
+					opts.snippet = {
+						expand = function(args)
+							require('luasnip').lsp_expand(args.body)
+						end,
+					}
+					table.insert(opts.sources, { name = 'luasnip', keyword_length = 2 })
+
+					local Util = require('rafi.util')
+					local behavior = { behavior = require('cmp').SelectBehavior.Select }
+					opts.mapping['<Tab>'] = Util.cmp.luasnip_supertab(behavior)
+					opts.mapping['<S-Tab>'] = Util.cmp.luasnip_shift_supertab(behavior)
+					opts.mapping['<C-j>'] = Util.cmp.luasnip_jump_forward()
+					opts.mapping['<C-b>'] = Util.cmp.luasnip_jump_backward()
+				end,
+			},
+		},
 		-- stylua: ignore
 		keys = {
-			{ '<leader>cc', function() require('neogen').generate({}) end, desc = 'Neogen Comment' },
+			{ '<C-l>', function() require('luasnip').expand_or_jump() end, mode = { 'i', 's' } },
 		},
-		opts = { snippet_engine = 'luasnip' },
+		opts = {
+			history = true,
+			delete_check_events = 'TextChanged',
+			-- ft_func = function()
+			-- 	return vim.split(vim.bo.filetype, '.', { plain = true })
+			-- end,
+		},
+		config = function(_, opts)
+			require('luasnip').setup(opts)
+			vim.api.nvim_create_user_command('LuaSnipEdit', function()
+				require('luasnip.loaders').edit_snippet_files()
+			end, {})
+		end,
 	},
 
 	-----------------------------------------------------------------------------
-	-- Automatically manage character pairs
+	-- Powerful auto-pair plugin with multiple characters support
 	{
-		'echasnovski/mini.pairs',
-		event = 'VeryLazy',
-		opts = {},
+		'windwp/nvim-autopairs',
+		event = 'InsertEnter',
+		opts = {
+			disable_filetype = { 'TelescopePrompt', 'spectre_panel' },
+		},
 		keys = {
 			{
 				'<leader>up',
 				function()
 					local Util = require('lazy.core.util')
-					vim.g.minipairs_disable = not vim.g.minipairs_disable
-					if vim.g.minipairs_disable then
+					vim.g.autopairs_disable = not vim.g.autopairs_disable
+					if vim.g.autopairs_disable then
+						require('nvim-autopairs').disable()
 						Util.warn('Disabled auto pairs', { title = 'Option' })
 					else
+						require('nvim-autopairs').enable()
 						Util.info('Enabled auto pairs', { title = 'Option' })
 					end
 				end,
 				desc = 'Toggle auto pairs',
 			},
 		},
+		config = function(_, opts)
+			local autopairs = require('nvim-autopairs')
+			autopairs.setup(opts)
+
+			if not LazyVim.has('nvim-cmp') then
+				-- Insert `(` after function or method item selection.
+				local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+				require('cmp').event:on("confirm_done", cmp_autopairs.on_confirm_done())
+			end
+		end
 	},
 
 	-----------------------------------------------------------------------------
@@ -351,7 +346,7 @@ return {
 			require('mini.ai').setup(opts)
 
 			-- register all text objects with which-key
-			require('lazyvim.util').on_load('which-key.nvim', function()
+			LazyVim.on_load('which-key.nvim', function()
 				---@type table<string, string|table>
 				local i = {
 					[' '] = 'Whitespace',

@@ -28,21 +28,23 @@ function M.get()
 
 		{ 'K', function()
 			-- Show hover documentation or folded lines.
-			local winid = require('lazyvim.util').has('nvim-ufo')
+			local winid = LazyVim.has('nvim-ufo')
 				and require('ufo').peekFoldedLinesUnderCursor() or nil
 			if not winid then
 				vim.lsp.buf.hover()
 			end
 		end },
 
-		{ '<Leader>ud', function() M.diagnostic_toggle(false) end, desc = 'Disable Diagnostics' },
-		{ '<Leader>uD', function() M.diagnostic_toggle(true) end, desc = 'Disable All Diagnostics' },
+		-- { '<Leader>ud', function() M.diagnostic_toggle(false) end, desc = 'Disable Diagnostics' },
+		-- { '<Leader>uD', function() M.diagnostic_toggle(true) end, desc = 'Disable All Diagnostics' },
 
 		{ '<leader>cl', '<cmd>LspInfo<cr>', desc = 'LSP info popup' },
 		{ '<leader>cs', M.formatter_select, mode = { 'n', 'x' }, desc = 'Formatter Select' },
 		{ '<Leader>chi', vim.lsp.buf.incoming_calls, desc = 'Incoming calls' },
 		{ '<Leader>cho', vim.lsp.buf.outgoing_calls, desc = 'Outgoing calls' },
 		{ '<Leader>ce', vim.diagnostic.open_float, desc = 'Open diagnostics' },
+		{ '<leader>cc', vim.lsp.codelens.run, desc = 'Run Codelens', mode = { 'n', 'v' }, has = 'codeLens' },
+		{ '<leader>cC', vim.lsp.codelens.refresh, desc = 'Refresh & Display Codelens', mode = { 'n' }, has = 'codeLens' },
 		{ '<Leader>ca', vim.lsp.buf.code_action, mode = { 'n', 'x' }, has = 'codeAction', desc = 'Code Action' },
 		{ '<Leader>cA', function()
 			vim.lsp.buf.code_action({
@@ -53,7 +55,7 @@ function M.get()
 			})
 		end, desc = 'Source Action', has = 'codeAction' },
 	}
-	if require('lazyvim.util').has('inc-rename.nvim') then
+	if LazyVim.has('inc-rename.nvim') then
 		M._keys[#M._keys + 1] = {
 			'<leader>cr',
 			function()
@@ -82,7 +84,7 @@ end
 ---@param method string
 function M.has(buffer, method)
 	method = method:find('/') and method or 'textDocument/' .. method
-	local clients = require('lazyvim.util').lsp.get_clients({ bufnr = buffer })
+	local clients = LazyVim.lsp.get_clients({ bufnr = buffer })
 	for _, client in ipairs(clients) do
 		if client.supports_method(method) then
 			return true
@@ -98,8 +100,8 @@ function M.resolve(buffer)
 		return {}
 	end
 	local spec = M.get()
-	local opts = require('lazyvim.util').opts('nvim-lspconfig')
-	local clients = require('lazyvim.util').lsp.get_clients({ bufnr = buffer })
+	local opts = LazyVim.opts('nvim-lspconfig')
+	local clients = LazyVim.lsp.get_clients({ bufnr = buffer })
 	for _, client in ipairs(clients) do
 		local maps = opts.servers[client.name] and opts.servers[client.name].keys
 			or {}
@@ -157,8 +159,7 @@ end
 -- Display a list of formatters and apply the selected one.
 function M.formatter_select()
 	local buf = vim.api.nvim_get_current_buf()
-	local mode = vim.fn.mode()
-	local is_visual = mode == 'v' or mode == 'V' or mode == ''
+	local is_visual = vim.tbl_contains({ 'v', 'V', '\22' }, vim.fn.mode())
 	local cur_start, cur_end
 	if is_visual then
 		cur_start = vim.fn.getpos('.')
@@ -193,7 +194,7 @@ function M.formatter_select()
 		if source == nil then
 			return
 		end
-		require('lazyvim.util').try(function()
+		LazyVim.try(function()
 			return source.client.format(bufnr)
 		end, { msg = 'Formatter `' .. source.name .. '` failed' })
 	end

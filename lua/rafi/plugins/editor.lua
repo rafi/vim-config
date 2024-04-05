@@ -1,7 +1,7 @@
 -- Plugins: Editor
 -- https://github.com/rafi/vim-config
 
-local is_windows = vim.loop.os_uname().sysname == 'Windows_NT'
+local is_windows = vim.uv.os_uname().sysname == 'Windows_NT'
 
 return {
 
@@ -46,6 +46,12 @@ return {
 			-- * git commit/rebase session
 			autoload = true,
 		},
+		-- stylua: ignore
+		keys = {
+			{ '<leader>qs', function() require('persistence').load() end, desc = 'Restore Session' },
+			{ '<leader>ql', function() require('persistence').load({ last = true }) end, desc = 'Restore Last Session' },
+			{ '<leader>qd', function() require('persistence').stop() end, desc = 'Don\'t Save Current Session' },
+		},
 		init = function()
 			-- Detect if stdin has been provided.
 			vim.g.started_with_stdin = false
@@ -65,11 +71,11 @@ return {
 				once = true,
 				nested = true,
 				callback = function()
-					local opts = require('lazyvim.util').opts('persistence.nvim')
+					local opts = LazyVim.opts('persistence.nvim')
 					if not opts.autoload then
 						return
 					end
-					local cwd = vim.loop.cwd() or vim.fn.getcwd()
+					local cwd = vim.uv.cwd() or vim.fn.getcwd()
 					if
 						cwd == nil
 						or vim.fn.argc() > 0
@@ -228,11 +234,10 @@ return {
 		opts = { use_diagnostic_signs = true },
 		-- stylua: ignore
 		keys = {
-			{ '<leader>xx', function() require('trouble').toggle() end, desc = 'Document Diagnostics (Trouble)' },
-			{ '<leader>xd', function() require('trouble').toggle('document_diagnostics') end, desc = 'Document Diagnostics (Trouble)' },
-			{ '<leader>xw', function() require('trouble').toggle('workspace_diagnostics') end, desc = 'Workspace Diagnostics (Trouble)' },
-			{ '<leader>xq', function() require('trouble').toggle('quickfix') end, desc = 'Quickfix List (Trouble)' },
-			{ '<leader>xl', function() require('trouble').toggle('loclist') end, desc = 'Location List (Trouble)' },
+			{ '<leader>xx', function() require('trouble').toggle('document_diagnostics') end, desc = 'Document Diagnostics (Trouble)' },
+			{ '<leader>xX', function() require('trouble').toggle('workspace_diagnostics') end, desc = 'Workspace Diagnostics (Trouble)' },
+			{ '<leader>xL', function() require('trouble').toggle('loclist') end, desc = 'Location List (Trouble)' },
+			{ '<leader>xQ', function() require('trouble').toggle('quickfix') end, desc = 'Quickfix List (Trouble)' },
 			{ 'gR', function() require('trouble').open('lsp_references') end, desc = 'LSP References (Trouble)' },
 			{
 				'[q',
@@ -291,11 +296,35 @@ return {
 	-- Code outline sidebar powered by LSP
 	{
 		'hedyhli/outline.nvim',
-		opts = {},
 		cmd = { 'Outline', 'OutlineOpen' },
 		keys = {
 			{ '<leader>o', '<cmd>Outline<CR>', desc = 'Toggle outline' },
 		},
+		opts = function()
+			local Config = require('lazyvim.config')
+			local defaults = require('outline.config').defaults
+			local opts = {
+				symbols = {},
+				symbol_blacklist = {},
+			}
+			local filter = Config.kind_filter
+
+			if type(filter) == 'table' then
+				filter = filter.default
+				if type(filter) == 'table' then
+					for kind, symbol in pairs(defaults.symbols) do
+						opts.symbols[kind] = {
+							icon = Config.icons.kinds[kind] or symbol.icon,
+							hl = symbol.hl,
+						}
+						if not vim.tbl_contains(filter, kind) then
+							table.insert(opts.symbol_blacklist, kind)
+						end
+					end
+				end
+			end
+			return opts
+		end,
 	},
 
 	-----------------------------------------------------------------------------
@@ -334,8 +363,8 @@ return {
 			filter_rules = {
 				include_current_win = true,
 				bo = {
-					filetype = { 'notify', 'noice' },
-					buftype = { 'prompt', 'nofile' },
+					filetype = { 'notify', 'noice', 'neo-tree-popup' },
+					buftype = { 'prompt', 'nofile', 'quickfix' },
 				},
 			},
 		},
@@ -345,9 +374,11 @@ return {
 	-- Fast Neovim http client written in Lua
 	{
 		'rest-nvim/rest.nvim',
+		main = 'rest-nvim',
 		ft = 'http',
+		cmd = 'Rest',
 		keys = {
-			{ '<Leader>mh', '<Plug>RestNvim', desc = 'Execute HTTP request' },
+			{ '<Leader>mh', '<cmd>Rest run<CR>', desc = 'Execute HTTP request' },
 		},
 		opts = { skip_ssl_verification = true },
 	},

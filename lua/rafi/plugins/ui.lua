@@ -39,9 +39,8 @@ return {
 		},
 		init = function()
 			-- When noice is not enabled, install notify on VeryLazy
-			local Util = require('lazyvim.util')
-			if not Util.has('noice.nvim') then
-				Util.on_very_lazy(function()
+			if not LazyVim.has('noice.nvim') then
+				LazyVim.on_very_lazy(function()
 					vim.notify = require('notify')
 				end)
 			end
@@ -80,8 +79,6 @@ return {
 			{ '<leader>br', '<Cmd>BufferLineCloseRight<CR>', desc = 'Delete buffers to the right' },
 			{ '<leader>bl', '<Cmd>BufferLineCloseLeft<CR>', desc = 'Delete buffers to the left' },
 			{ '<leader>tp', '<Cmd>BufferLinePick<CR>', desc = 'Tab Pick' },
-			{ '[b', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev buffer' },
-			{ ']b', '<cmd>BufferLineCycleNext<cr>', desc = 'Next buffer' },
 		},
 		opts = {
 			options = {
@@ -105,7 +102,7 @@ return {
 				custom_areas = {
 					right = function()
 						local result = {}
-						local root = require('lazyvim.util').root()
+						local root = LazyVim.root()
 						table.insert(result, {
 							text = '%#BufferLineTab# ' .. vim.fn.fnamemodify(root, ':t'),
 						})
@@ -216,6 +213,14 @@ return {
 				command_palette = true,
 				long_message_to_split = true,
 				lsp_doc_border = true,
+				-- inc_rename = true,
+			},
+			commands = {
+				all = {
+					view = 'split',
+					opts = { enter = true, format = 'details' },
+					filter = {},
+				},
 			},
 		},
 	},
@@ -226,26 +231,26 @@ return {
 		'SmiteshP/nvim-navic',
 		keys = {
 			{
-				'<Leader>tf',
+				'<Leader>uB',
 				function()
 					if vim.b.navic_winbar then
-						vim.b.navic_winbar = false
+						vim.b['navic_winbar'] = false
 						vim.opt_local.winbar = ''
 					else
-						vim.b.navic_winbar = true
+						vim.b['navic_winbar'] = true
 						vim.opt_local.winbar = '%#NavicIconsFile# %t %* '
 							.. "%{%v:lua.require'nvim-navic'.get_location()%}"
 					end
 				end,
-				desc = 'Toggle structure panel',
+				desc = 'Breadcrumbs toggle',
 			},
 		},
 		init = function()
 			vim.g.navic_silence = true
 
-			---@param client lsp.Client
+			---@param client vim.lsp.Client
 			---@param buffer integer
-			require('lazyvim.util').lsp.on_attach(function(client, buffer)
+			LazyVim.lsp.on_attach(function(client, buffer)
 				if client.supports_method('textDocument/documentSymbol') then
 					require('nvim-navic').attach(client, buffer)
 				end
@@ -255,7 +260,9 @@ return {
 			return {
 				separator = '  ',
 				highlight = true,
+				depth_limit = 5,
 				icons = require('lazyvim.config').icons.kinds,
+				lazy_update_context = true,
 			}
 		end,
 	},
@@ -330,13 +337,15 @@ return {
 	-- the highlighting.
 	{
 		'echasnovski/mini.indentscope',
-		version = false, -- wait till new 0.7.0 release to put it back on semver
 		event = 'LazyFile',
-		opts = {
-			symbol = '│', -- ▏│
-			options = { try_as_border = true },
-			draw = { delay = 200 },
-		},
+		opts = function(_, opts)
+			opts.symbol = '│' -- ▏│
+			opts.options = { try_as_border = true }
+			opts.draw = {
+				delay = 0,
+				animation = require('mini.indentscope').gen_animation.none(),
+			}
+		end,
 		init = function()
 			vim.api.nvim_create_autocmd('FileType', {
 				pattern = {
@@ -354,7 +363,7 @@ return {
 					'Trouble',
 				},
 				callback = function()
-					vim.b.miniindentscope_disable = true
+					vim.b['miniindentscope_disable'] = true
 				end,
 			})
 		end,
@@ -365,29 +374,36 @@ return {
 	{
 		'folke/which-key.nvim',
 		event = 'VeryLazy',
+		-- stylua: ignore
 		opts = {
-			icons = { separator = ' 󰁔 ' },
-			plugins = { spelling = true },
+			icons = {
+				separator = ' 󰁔 ',
+			},
 			defaults = {
 				mode = { 'n', 'v' },
-				-- [';'] = { name = '+telescope' },
-				-- [';d'] = { name = '+lsp/todo' },
-				-- ['g'] = { name = '+goto' },
-				-- ['gz'] = { name = '+surround' },
-				-- [']'] = { name = '+next' },
-				-- ['['] = { name = '+prev' },
+				[';'] = { name = '+telescope' },
+				[';d'] = { name = '+lsp' },
+				['g'] = { name = '+goto' },
+				['gz'] = { name = '+surround' },
+				[']'] = { name = '+next' },
+				['['] = { name = '+prev' },
 
-				['<leader>b'] = { name = '+buffer' },
-				['<leader>c'] = { name = '+code' },
-				['<leader>f'] = { name = '+file/find' },
-				['<leader>g'] = { name = '+git' },
-				['<leader>h'] = { name = '+hunks' },
-				['<leader>m'] = { name = '+tools' },
-				['<leader>s'] = { name = '+search' },
-				['<leader>t'] = { name = '+toggle/tools' },
-				['<leader>u'] = { name = '+ui' },
-				['<leader>x'] = { name = '+diagnostics/quickfix' },
-				['<leader>z'] = { name = '+notes' },
+				['<leader>b']  = { name = '+buffer' },
+				['<leader>c']  = { name = '+code' },
+				['<leader>ch'] = { name = '+calls' },
+				['<leader>f']  = { name = '+file/find' },
+				['<leader>fw'] = { name = '+workspace' },
+				['<leader>g']  = { name = '+git' },
+				['<leader>h']  = { name = '+hunks' },
+				['<leader>ht'] = { name = '+toggle' },
+				['<leader>m']  = { name = '+tools' },
+				['<leader>md'] = { name = '+diff' },
+				['<leader>s']  = { name = '+search' },
+				['<leader>sn'] = { name = '+noice' },
+				['<leader>t']  = { name = '+toggle/tools' },
+				['<leader>u']  = { name = '+ui' },
+				['<leader>x']  = { name = '+diagnostics/quickfix' },
+				['<leader>z']  = { name = '+notes' },
 			},
 		},
 		config = function(_, opts)

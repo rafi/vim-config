@@ -11,7 +11,7 @@ M.defaults = {
 	-- String like `habamax` or a function that will load the colorscheme.
 	-- Disabled by default to allow theme-loader.nvim to manage the colorscheme.
 	---@type string|fun()
-	colorscheme = nil,
+	colorscheme = function() end,
 
 	-- Load the default settings
 	-- stylua: ignore
@@ -40,8 +40,8 @@ M.defaults = {
 		},
 		diagnostics = {
 			Error = '✘', --   ✘
-			Warn  = '󰀪', --  󰀪 󰳤 󱦄 󱗓 
-			Info  = 'ⁱ', --    ⁱ 󰋼 󰋽
+			Warn  = '󰀪', --  󰀪 ▲󰳤 󱗓 
+			Info  = 'ⁱ', --    󰋼 󰋽 ⚑ⁱ
 			Hint  = '', --  󰌶 
 		},
 		status = {
@@ -53,8 +53,8 @@ M.defaults = {
 			diagnostics = {
 				error = ' ',
 				warn  = ' ',
-				info  = ' ',
-				hint  = '󰌶 ',
+				info  = ' ',
+				hint  = ' ',
 			},
 			filename = {
 				modified = '+',
@@ -91,7 +91,7 @@ M.defaults = {
 			Number        = '󰎠 ', --  󰎠 
 			Object        = ' ', --   󰅩
 			Operator      = '󰃬 ', --  󰃬 󰆕 +
-			Package       = ' ', --   󰏖 󰏗
+			Package       = ' ', --   󰏖 󰏗 󰆧
 			Property      = ' ', --   󰜢   󰖷
 			Reference     = '󰈝 ', --  󰈝 󰈇
 			Snippet       = ' ', --  󰘌 ⮡   
@@ -142,7 +142,7 @@ end
 function M.load(name)
 	local function _load(mod)
 		if require('lazy.core.cache').find(mod)[1] then
-			require('lazyvim.util').try(function()
+			LazyVim.try(function()
 				require(mod)
 			end, { msg = 'Failed loading ' .. mod })
 		end
@@ -170,41 +170,37 @@ function M.init()
 		vim.opt.rtp:append(plugin.dir)
 	end
 
-	local Util = require('lazyvim.util')
-
-	---@diagnostic disable-next-line: duplicate-set-field
-	package.preload['lazyvim.plugins.lsp.format'] = function()
-		Util.deprecate(
-			[[require('lazyvim.plugins.lsp.format')]],
-			[[require('lazyvim.util').format]]
-		)
-		return Util.format
-	end
+	-- This is premature by purpose, to load the LazyVim global.
+	local LazyVimConfig = require('lazyvim.config')
 
 	-- Delay notifications till vim.notify was replaced or after 500ms
-	Util.lazy_notify()
+	LazyVim.lazy_notify()
 
 	-- Load options here, before lazy init while sourcing plugin modules
 	-- this is needed to make sure options will be correctly applied
 	-- after installing missing plugins
 	M.load('options')
 
-	Util.plugin.setup()
-	require('lazyvim.config').json.load()
+	LazyVim.plugin.setup()
+	LazyVimConfig.json.load()
 
-	-- Add lua/rafi/plugins/extras/* to list of "extra" sources
-	Util.extras.sources = {
+	-- Add lua/*/plugins/extras as list of "extra" sources
+	LazyVim.extras.sources = {
 		{
 			name = 'LazyVim ',
 			desc = 'LazyVim extras',
 			module = 'lazyvim.plugins.extras',
 		},
 		{
-			name = 'rafi.vim ',
+			name = 'Rafi ',
 			desc = 'Rafi extras',
 			module = 'rafi.plugins.extras',
 		},
-		{ name = 'User ', desc = 'User extras', module = 'plugins.extras' },
+		{
+			name = 'User ',
+			desc = 'User extras',
+			module = 'plugins.extras'
+		},
 	}
 end
 
