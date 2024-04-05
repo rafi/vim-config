@@ -16,7 +16,9 @@ function M.get()
 	-- stylua: ignore
 	M._keys =  {
 		{ 'gr', vim.lsp.buf.references, desc = 'References' },
-		{ 'gd', vim.lsp.buf.definition, desc = 'Goto Definition', has = 'definition' },
+		-- { 'gd', vim.lsp.buf.definition, desc = 'Goto Definition', has = 'definition' },
+		-- open in new tab instead
+		{ 'gd', '<cmd>tab split | lua vim.lsp.buf.definition()<CR>', desc = 'Goto Definition', has = 'definition' },
 		{ 'gD', vim.lsp.buf.declaration, desc = 'Goto Declaration' },
 		{ 'gI', vim.lsp.buf.implementation, desc = 'Goto Implementation' },
 		{ 'gy', vim.lsp.buf.type_definition, desc = 'Goto Type Definition' },

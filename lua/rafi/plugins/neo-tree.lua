@@ -218,7 +218,7 @@ return {
 				mappings = {
 					['d'] = 'noop',
 					['/'] = 'noop',
-					['f'] = 'filter_on_submit',
+					['ff'] = 'filter_on_submit',
 					['F'] = 'fuzzy_finder',
 					['<C-c>'] = 'clear_filter',
 
