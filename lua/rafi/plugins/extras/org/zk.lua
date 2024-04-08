@@ -16,6 +16,16 @@ return {
 			{ '<leader>zb', '<Cmd>ZkBacklinks<CR>', desc = 'Zk Backlinks' },
 			{ '<leader>zl', '<Cmd>ZkLinks<CR>', desc = 'Zk Links' },
 		},
-		opts = { picker = 'telescope' },
+		opts = {
+			picker = 'telescope',
+		},
+	},
+
+	{
+		'nvim-telescope/telescope.nvim',
+		optional = true,
+		keys = {
+			{ '<localleader>w', '<cmd>ZkNotes<CR>', desc = 'Zk notes' },
+		},
 	},
 }

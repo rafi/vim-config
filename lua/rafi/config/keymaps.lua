@@ -4,11 +4,11 @@
 -- This file is automatically loaded by rafi.config.init
 
 local RafiUtil = require('rafi.util')
-local Util = require('lazyvim.util')
 local map = vim.keymap.set
 
 -- Package-manager
 map('n', '<leader>l', '<cmd>Lazy<cr>', { desc = 'Open Lazy UI' })
+map('n', '<leader>mx', '<cmd>LazyExtras<CR>', { desc = 'Open Plugin Extras' })
 
 -- stylua: ignore start
 
@@ -70,6 +70,10 @@ map('n', '<C-S-Tab>', '<cmd>tabprevious<CR>', { desc = 'Previous Tab' })
 map('n', '<A-{>', '<cmd>-tabmove<CR>', { desc = 'Tab Move Backwards' })
 map('n', '<A-}>', '<cmd>+tabmove<CR>', { desc = 'Tab Move Forwards' })
 
+-- buffers
+map('n', '<leader>bb', '<cmd>e #<CR>', { desc = 'Switch to Other Buffer' })
+map('n', '<leader>`', '<cmd>e #<CR>', { desc = 'Switch to Other Buffer' })
+
 -- }}}
 -- Selection {{{
 
@@ -118,11 +122,10 @@ map('x', 'A',  blockwise_force('A'),  { expr = true, noremap = true, desc = 'Blo
 -- }}}
 -- Jump to {{{
 
--- map("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
--- map("n", "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })
-
-map('n', ']q', '<cmd>cnext<CR>', { desc = 'Next Quickfix Item' })
-map('n', '[q', '<cmd>cprev<CR>', { desc = 'Previous Quickfix Item' })
+map('n', '[b', '<cmd>bprev<CR>', { desc = 'Prev buffer' })
+map('n', ']b', '<cmd>bnext<CR>', { desc = 'Next buffer' })
+map('n', ']q', vim.cmd.cnext, { desc = 'Next Quickfix Item' })
+map('n', '[q', vim.cmd.cprev, { desc = 'Previous Quickfix Item' })
 map('n', ']a', '<cmd>lnext<CR>', { desc = 'Next Loclist Item' })
 map('n', '[a', '<cmd>lprev<CR>', { desc = 'Previous Loclist Item' })
 
@@ -174,7 +177,7 @@ end, { silent = true, desc = 'Yank absolute path' })
 map('n', '<C-q>', 'q', { desc = 'Macro Prefix' })
 
 -- Formatting
-map({ 'n', 'v' }, '<leader>cf', function() Util.format({ force = true }) end, { desc = 'Format' })
+map({ 'n', 'v' }, '<leader>cf', function() LazyVim.format({ force = true }) end, { desc = 'Format' })
 
 -- Start new line from any cursor position in insert-mode
 map('i', '<S-Return>', '<C-o>o', { desc = 'Start Newline' })
@@ -251,7 +254,7 @@ cabbrev('bD', 'bd')
 -- Switch (tab) to the directory of the current opened buffer
 map('n', '<Leader>cd', function()
 	local bufdir = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p:h')
-	if bufdir ~= nil and vim.loop.fs_stat(bufdir) then
+	if bufdir ~= nil and vim.uv.fs_stat(bufdir) then
 		vim.cmd.tcd(bufdir)
 		vim.notify(bufdir)
 	end
@@ -264,21 +267,34 @@ map({ 'n', 'i', 'v' }, '<C-s>', '<cmd>write<CR>', { desc = 'Save' })
 -- }}}
 -- Editor UI {{{
 
-map('n', '<leader>uf', function() Util.format.toggle() end, { desc = 'Toggle auto format (global)' })
-map('n', '<leader>uF', function() Util.format.toggle(true) end, { desc = 'Toggle auto format (buffer)' })
+-- Toggle list windows
+map('n', '<leader>xl', function() RafiUtil.edit.toggle_list('loclist') end, { desc = 'Toggle Location List' })
+map('n', '<leader>xq', function() RafiUtil.edit.toggle_list('quickfix') end, { desc = 'Toggle Quickfix List' })
 
--- Toggle editor's visual effects
-map('n', '<leader>us', function() Util.toggle('spell') end, { desc = 'Toggle Spelling' })
-map('n', '<leader>uw', function() Util.toggle('wrap') end, { desc = 'Toggle Word Wrap' })
-map('n', '<leader>uL', function() Util.toggle('relativenumber') end, { desc = 'Toggle Relative Line Numbers' })
-map('n', '<leader>ul', function() Util.toggle.number() end, { desc = 'Toggle Line Numbers' })
--- map("n", "<leader>ud", function() Util.toggle.diagnostics() end, { desc = "Toggle Diagnostics" })
+-- Set locations with diagnostics and open the list.
+map('n', '<Leader>a', function()
+	if vim.bo.filetype ~= 'qf' then
+		vim.diagnostic.setloclist({ open = false })
+	end
+	RafiUtil.edit.toggle_list('loclist')
+end, { desc = 'Open Location List' })
+
+map('n', '<leader>uf', function() LazyVim.format.toggle() end, { desc = 'Toggle auto format (global)' })
+map('n', '<leader>uF', function() LazyVim.format.toggle(true) end, { desc = 'Toggle auto format (buffer)' })
+map('n', '<leader>us', function() LazyVim.toggle('spell') end, { desc = 'Toggle Spelling' })
+map('n', '<leader>uw', function() LazyVim.toggle('wrap') end, { desc = 'Toggle Word Wrap' })
+map('n', '<leader>uL', function() LazyVim.toggle('relativenumber') end, { desc = 'Toggle Relative Line Numbers' })
+map('n', '<leader>ul', function() LazyVim.toggle.number() end, { desc = 'Toggle Line Numbers' })
+map("n", "<leader>ud", function() LazyVim.toggle.diagnostics() end, { desc = "Toggle Diagnostics" })
 map('n', '<Leader>uo', '<cmd>setlocal nolist!<CR>', { desc = 'Toggle Whitespace Symbols' })
 map('n', '<Leader>uu', '<cmd>nohlsearch<CR>', { desc = 'Hide Search Highlight' })
-
+local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
+map('n', '<leader>uc', function() LazyVim.toggle('conceallevel', false, { 0, conceallevel }) end, { desc = 'Toggle Conceal' })
 if vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint then
-	map('n', '<leader>uh', function() Util.toggle.inlay_hints() end, { desc = 'Toggle Inlay Hints' })
+	map('n', '<leader>uh', function() LazyVim.toggle.inlay_hints() end, { desc = 'Toggle Inlay Hints' })
 end
+map('n', '<leader>uT', function() if vim.b.ts_highlight then vim.treesitter.stop() else vim.treesitter.start() end end, { desc = 'Toggle Treesitter Highlight' })
+map('n', '<leader>ub', function() LazyVim.toggle('background', false, {'light', 'dark'}) end, { desc = 'Toggle Background' })
 
 -- Show treesitter nodes under cursor
 map('n', '<Leader>ui', vim.show_pos, { desc = 'Show Treesitter Node' })
@@ -318,14 +334,18 @@ map('n', '<RightMouse>', function() RafiUtil.contextmenu.show() end)
 map('n', '<LocalLeader>c', function() RafiUtil.contextmenu.show() end, { desc = 'Content-aware menu' })
 
 -- Lazygit
-map('n', '<leader>tg', function() require('lazy.util').float_term({ 'lazygit' }, { cwd = Util.root(), esc_esc = false }) end, { desc = 'Lazygit (root dir)' })
+map('n', '<leader>tg', function() require('lazy.util').float_term({ 'lazygit' }, { cwd = LazyVim.root.git(), esc_esc = false }) end, { desc = 'Lazygit (root dir)' })
 map('n', '<leader>tG', function() require('lazy.util').float_term({ 'lazygit' }, { esc_esc = false }) end, { desc = 'Lazygit (cwd)' })
+map('n', '<leader>tf', function()
+	local git_path = vim.api.nvim_buf_get_name(0)
+	LazyVim.terminal({ 'lazygit', '-f', vim.trim(git_path) }, { esc_esc = false, ctrl_hjkl = false })
+end, { desc = 'Lazygit current file history' })
 
 -- Terminal
 map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Enter Normal Mode' })
-local lazyterm = function() Util.terminal(nil, { cwd = Util.root() }) end
+local lazyterm = function() LazyVim.terminal(nil, { cwd = LazyVim.root() }) end
 map('n', '<leader>tt', lazyterm, { desc = 'Terminal (root dir)' })
-map('n', '<leader>tT', function() Util.terminal() end, { desc = 'Terminal (cwd)' })
+map('n', '<leader>tT', function() LazyVim.terminal() end, { desc = 'Terminal (cwd)' })
 
 if vim.fn.has('mac') then
 	-- Open the macOS dictionary on current word
@@ -389,16 +409,7 @@ if vim.F.if_nil(vim.g.window_q_mapping, true) then
 	end, { desc = 'Close window' })
 end
 
--- Toggle quickfix window
-map('n', '<Leader>q', function() RafiUtil.edit.toggle_list('quickfix') end, { desc = 'Open Quickfix' })
-
--- Set locations with diagnostics and open the list.
-map('n', '<Leader>a', function()
-	if vim.bo.filetype ~= 'qf' then
-		vim.diagnostic.setloclist({ open = false })
-	end
-	RafiUtil.edit.toggle_list('loclist')
-end, { desc = 'Open Location List' })
+map('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit all' })
 
 -- Switch with adjacent window
 map('n', '<C-x>', '<C-w>x<C-w>w', { remap = true, desc = 'Swap adjacent windows' })
@@ -412,15 +423,6 @@ map('n', 'st', '<cmd>tabnew<CR>', { desc = 'New tab' })
 map('n', 'so', '<cmd>only<CR>', { desc = 'Close other windows' })
 map('n', 'sq', '<cmd>quit<CR>', { desc = 'Quit' })
 
--- Background dark/light toggle
-map('n', 'sh', function()
-	if vim.o.background == 'dark' then
-		vim.o.background = 'light'
-	else
-		vim.o.background = 'dark'
-	end
-end, { desc = 'Toggle background dark/light' })
-
 -- Empty buffer but leave window
 map('n', 'sx', function()
 	require('mini.bufremove').delete(0, false)
@@ -429,7 +431,7 @@ end, { desc = 'Delete buffer and open new' })
 
 -- Toggle window zoom
 map('n', 'sz', function()
-	local width = vim.o.columns - 10
+	local width = vim.o.columns - 15
 	local height = vim.o.lines - 5
 	if vim.api.nvim_win_get_width(0) >= width then
 		vim.cmd.wincmd('=')

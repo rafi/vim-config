@@ -31,11 +31,9 @@ setmetatable(M, {
 				[[require("rafi.util").]] .. k,
 				[[require("rafi.util").]] .. mod .. '.' .. key
 			)
-			---@diagnostic disable-next-line: no-unknown
 			t[mod] = require('rafi.util.' .. mod) -- load here to prevent loops
 			return t[mod][key]
 		end
-		---@diagnostic disable-next-line: no-unknown
 		t[k] = require('rafi.util.' .. k)
 		return t[k]
 	end,

@@ -93,7 +93,7 @@ end
 -- Custom window-sizes
 ---@param dimensions table
 ---@param size integer
----@return float
+---@return number
 local function get_matched_ratio(dimensions, size)
 	for min_cols, scale in pairs(dimensions) do
 		if min_cols == 'lower' or size >= min_cols then
@@ -172,6 +172,9 @@ return {
 			{ '<localleader>/', '<cmd>Telescope search_history<CR>', desc = 'Search history' },
 			{ '<leader>/', '<cmd>Telescope current_buffer_fuzzy_find<CR>', desc = 'Buffer find' },
 
+			{ '<leader>ff', '<cmd>Telescope find_files<CR>', desc = 'Find files' },
+			{ '<leader>fg', '<cmd>Telescope live_grep<CR>', desc = 'Grep' },
+
 			{ '<leader>sd', '<cmd>Telescope diagnostics bufnr=0<CR>', desc = 'Document diagnostics' },
 			{ '<leader>sD', '<cmd>Telescope diagnostics<CR>', desc = 'Workspace diagnostics' },
 			{ '<leader>sh', '<cmd>Telescope help_tags<CR>', desc = 'Help Pages' },
@@ -242,7 +245,6 @@ return {
 			-- Plugins
 			{ '<localleader>n', plugin_directories, desc = 'Plugins' },
 			{ '<localleader>k', '<cmd>Telescope thesaurus lookup<CR>', desc = 'Thesaurus' },
-			{ '<localleader>w', '<cmd>ZkNotes<CR>', desc = 'Zk notes' },
 
 			{
 				'<localleader>z',

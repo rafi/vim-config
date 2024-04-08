@@ -17,7 +17,7 @@ return {
 					opts.root_dir = util.root_pattern(unpack(root_files))
 						or util.find_git_ancestor()
 
-					require('lazyvim.util').lsp.on_attach(function(client, _)
+					LazyVim.lsp.on_attach(function(client, _)
 						if client.name == 'ruff_lsp' then
 							-- Disable in favor of Pyright
 							client.server_capabilities.hoverProvider = false

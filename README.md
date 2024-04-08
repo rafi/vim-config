@@ -169,7 +169,7 @@ for some language-servers.
 
 ### Recommended LSP
 
-```viml
+```vim
 :MasonInstall ansible-language-server bash-language-server css-lsp
 :MasonInstall dockerfile-language-server gopls html-lsp json-lsp
 :MasonInstall lua-language-server marksman pyright sqlls
@@ -182,14 +182,14 @@ and [more](https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/se
 
 ### Recommended Linters
 
-```viml
+```vim
 :MasonInstall vint shellcheck editorconfig-checker flake8 gitlint hadolint
 :MasonInstall markdownlint mypy selene shellharden write-good yamllint
 ```
 
 ### Recommended Formatters
 
-```viml
+```vim
 :MasonInstall black fixjson gofumpt golines isort
 :MasonInstall shfmt sql-formatter stylua
 ```
@@ -363,7 +363,7 @@ return {
     -- Display structure in statusline by default
     vim.g.structure_status = false
     ```
- 
+
 1. Create `lua/config/setup.lua` and return _any_ of these functions:
 
     * `opts()` — Override RafiVim setup options
@@ -476,17 +476,16 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 
 | Name           | Description
 | -------------- | ----------------------
-| [L3MON4D3/LuaSnip] | Snippet Engine written in Lua
-| [rafamadriz/friendly-snippets] | Preconfigured snippets for different languages
 | [hrsh7th/nvim-cmp] | Completion plugin for neovim written in Lua
 | [hrsh7th/cmp-nvim-lsp] | nvim-cmp source for neovim builtin LSP client
 | [hrsh7th/cmp-buffer] | nvim-cmp source for buffer words
 | [hrsh7th/cmp-path] | nvim-cmp source for path
 | [hrsh7th/cmp-emoji] | nvim-cmp source for emoji
-| [saadparwaiz1/cmp_luasnip] | Luasnip completion source for nvim-cmp
 | [andersevenrud/cmp-tmux] | Tmux completion source for nvim-cmp
-| [danymat/neogen] | Annotation generator
-| [echasnovski/mini.pairs] | Automatically manage character pairs
+| [L3MON4D3/LuaSnip] | Snippet Engine written in Lua
+| [rafamadriz/friendly-snippets] | Preconfigured snippets for different languages
+| [saadparwaiz1/cmp_luasnip] | Luasnip completion source for nvim-cmp
+| [windwp/nvim-autopairs] | Powerful auto-pair plugin with multiple characters support
 | [echasnovski/mini.surround] | Fast and feature-rich surround actions
 | [JoosepAlviste/nvim-ts-context-commentstring] | Set the commentstring based on the cursor location
 | [echasnovski/mini.comment] | Fast and familiar per-line commenting
@@ -546,12 +545,10 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [windwp/nvim-ts-autotag] | Use treesitter to auto close and auto rename html tag
 | [andymass/vim-matchup] | Modern matchit and matchparen
 | [iloginow/vim-stylus] | Better vim plugin for stylus
-| [chrisbra/csv.vim] | Handling column separated data
 | [mustache/vim-mustache-handlebars] | Mustache and handlebars syntax
 | [lifepillar/pgsql.vim] | PostgreSQL syntax and indent
 | [MTDL9/vim-log-highlighting] | Syntax highlighting for generic log files
 | [reasonml-editor/vim-reason-plus] | Reason syntax and indent
-| [vmchale/just-vim] | Syntax highlighting for Justfiles
 
 ### UI Plugins
 
@@ -603,17 +600,16 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [echasnovski/mini.bufremove]: https://github.com/echasnovski/mini.bufremove
 [mzlogin/vim-markdown-toc]: https://github.com/mzlogin/vim-markdown-toc
 
-[L3MON4D3/LuaSnip]: https://github.com/L3MON4D3/LuaSnip
-[rafamadriz/friendly-snippets]: https://github.com/rafamadriz/friendly-snippets
 [hrsh7th/nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
 [hrsh7th/cmp-nvim-lsp]: https://github.com/hrsh7th/cmp-nvim-lsp
 [hrsh7th/cmp-buffer]: https://github.com/hrsh7th/cmp-buffer
 [hrsh7th/cmp-path]: https://github.com/hrsh7th/cmp-path
 [hrsh7th/cmp-emoji]: https://github.com/hrsh7th/cmp-emoji
-[saadparwaiz1/cmp_luasnip]: https://github.com/saadparwaiz1/cmp_luasnip
 [andersevenrud/cmp-tmux]: https://github.com/andersevenrud/cmp-tmux
-[danymat/neogen]: https://github.com/danymat/neogen
-[echasnovski/mini.pairs]: https://github.com/echasnovski/mini.pairs
+[L3MON4D3/LuaSnip]: https://github.com/L3MON4D3/LuaSnip
+[rafamadriz/friendly-snippets]: https://github.com/rafamadriz/friendly-snippets
+[saadparwaiz1/cmp_luasnip]: https://github.com/saadparwaiz1/cmp_luasnip
+[windwp/nvim-autopairs]: https://github.com/windwp/nvim-autopairs
 [echasnovski/mini.surround]: https://github.com/echasnovski/mini.surround
 [JoosepAlviste/nvim-ts-context-commentstring]: https://github.com/JoosepAlviste/nvim-ts-context-commentstring
 [echasnovski/mini.comment]: https://github.com/echasnovski/mini.comment
@@ -657,12 +653,10 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [windwp/nvim-ts-autotag]: https://github.com/windwp/nvim-ts-autotag
 [andymass/vim-matchup]: https://github.com/andymass/vim-matchup
 [iloginow/vim-stylus]: https://github.com/iloginow/vim-stylus
-[chrisbra/csv.vim]: https://github.com/chrisbra/csv.vim
 [mustache/vim-mustache-handlebars]: https://github.com/mustache/vim-mustache-handlebars
 [lifepillar/pgsql.vim]: https://github.com/lifepillar/pgsql.vim
 [MTDL9/vim-log-highlighting]: https://github.com/MTDL9/vim-log-highlighting
 [reasonml-editor/vim-reason-plus]: https://github.com/reasonml-editor/vim-reason-plus
-[vmchale/just-vim]: https://github.com/vmchale/just-vim
 
 [nvim-tree/nvim-web-devicons]: https://github.com/nvim-tree/nvim-web-devicons
 [MunifTanjim/nui.nvim]: https://github.com/MunifTanjim/nui.nvim
@@ -703,19 +697,19 @@ Spec: `rafi.plugins.extras.coding.<name>`
 | Name           | Repository     | Description
 | -------------- | -------------- | ----------------------
 | `align`        | [echasnovski/mini.align] | Align text interactively
-| `autopairs`    | [windwp/nvim-autopairs] | Autopairs for neovim written by lua
 | `cmp-git`      | [petertriho/cmp-git] | Git source for nvim-cmp
 | `copilot`      | [zbirenbaum/copilot.lua] | Fully featured & enhanced copilot
 | `editorconfig` | [sgur/vim-editorconfig] | EditorConfig plugin written entirely in Vimscript
 | `emmet`        | [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet
+| `minipairs`    | [echasnovski/mini.pairs] | Automatically manage character pairs
 | `sandwich`     | [machakann/vim-sandwich] | Search, select, and edit sandwich text objects
 
 [echasnovski/mini.align]: https://github.com/echasnovski/mini.align
-[windwp/nvim-autopairs]: https://github.com/windwp/nvim-autopairs
 [petertriho/cmp-git]: https://github.com/petertriho/cmp-git
 [zbirenbaum/copilot.lua]: https://github.com/zbirenbaum/copilot.lua
 [sgur/vim-editorconfig]: https://github.com/sgur/vim-editorconfig
 [mattn/emmet-vim]: https://github.com/mattn/emmet-vim
+[echasnovski/mini.pairs]: https://github.com/echasnovski/mini.pairs
 [machakann/vim-sandwich]: https://github.com/machakann/vim-sandwich
 
 ### Extra Plugins: Editor
@@ -758,14 +752,13 @@ Spec: `rafi.plugins.extras.lang.<name>`
 | `ansible`        | syntax [pearofducks/ansible-vim], lsp, lint
 | `docker`         | syntax, lsp, lint
 | `go`             | syntax, lsp, formatter, dap [leoluz/nvim-dap-go], test [nvim-neotest/neotest-go]
-| `helm`           | syntax [towolf/vim-helm], lsp
+| `helm`           | syntax, lsp
 | `python`         | syntax, lsp, dap [mfussenegger/nvim-dap-python], test, [rafi/neoconf-venom.nvim]
 | `yaml`           | syntax, lsp, schemas, [b0o/SchemaStore.nvim]
 
 [pearofducks/ansible-vim]: https://github.com/pearofducks/ansible-vim
 [leoluz/nvim-dap-go]: https://github.com/leoluz/nvim-dap-go
 [nvim-neotest/neotest-go]: https://github.com/nvim-neotest/neotest-go
-[towolf/vim-helm]: https://github.com/towolf/vim-helm
 [mfussenegger/nvim-dap-python]: https://github.com/mfussenegger/nvim-dap-python
 [rafi/neoconf-venom.nvim]: https://github.com/rafi/neoconf-venom.nvim
 [b0o/SchemaStore.nvim]: https://github.com/b0o/SchemaStore.nvim
@@ -924,12 +917,12 @@ Note that,
 | ----- |:----:| ------------------ | ------
 | <kbd>Space</kbd>+<kbd>Space</kbd> | 𝐍 𝐕 | Toggle visual-line mode | <small>`V` / <kbd>Escape</kbd></small>
 | <kbd>v</kbd> / <kbd>V</kbd> | 𝐕 | Increment/shrink selection | <small>[nvim-treesitter]</small>
-| <kbd>gpp</kbd> | 𝐍 | Select last paste
-| <kbd>sg</kbd> | 𝐕 | Replace within selected area
-| <kbd>Ctrl</kbd>+<kbd>r</kbd> | 𝐕 | Replace selection with step-by-step confirmation
-| <kbd>></kbd> / <kbd><</kbd> | 𝐕 | Indent and re-select
-| <kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd> | 𝐕 | Indent and re-select
-| <kbd>I</kbd> / <kbd>gI</kbd> / <kbd>A</kbd> | 𝐕 | Force blockwise operation
+| <kbd>gpp</kbd> | 𝐍 | Select last paste |
+| <kbd>sg</kbd> | 𝐕 | Replace within selected area |
+| <kbd>Ctrl</kbd>+<kbd>r</kbd> | 𝐕 | Replace selection with step-by-step confirmation |
+| <kbd>></kbd> / <kbd><</kbd> | 𝐕 | Indent and re-select |
+| <kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd> | 𝐕 | Indent and re-select |
+| <kbd>I</kbd> / <kbd>gI</kbd> / <kbd>A</kbd> | 𝐕 | Force blockwise operation |
 
 ### Jump To
 
@@ -939,9 +932,9 @@ Note that,
 | <kbd>]]</kbd> or <kbd>[[</kbd> | 𝐍 | Next/previous reference | <small>[RRethy/vim-illuminate]</small>
 | <kbd>]q</kbd> or <kbd>[q</kbd> | 𝐍 | Next/previous on quick-fix | <small>`:cnext` / `:cprev`</small>
 | <kbd>]a</kbd> or <kbd>[a</kbd> | 𝐍 | Next/previous on location-list | <small>`:lnext` / `:lprev`</small>
-| <kbd>]d</kbd> or <kbd>[d</kbd> | 𝐍 | Next/previous diagnostics
-| <kbd>]e</kbd> or <kbd>[e</kbd> | 𝐍 | Next/previous error
-| <kbd>]w</kbd> or <kbd>[w</kbd> | 𝐍 | Next/previous warning
+| <kbd>]d</kbd> or <kbd>[d</kbd> | 𝐍 | Next/previous diagnostics |
+| <kbd>]e</kbd> or <kbd>[e</kbd> | 𝐍 | Next/previous error |
+| <kbd>]w</kbd> or <kbd>[w</kbd> | 𝐍 | Next/previous warning |
 | <kbd>]b</kbd> or <kbd>[b</kbd> | 𝐍 | Next/previous buffer | <small>[akinsho/bufferline.nvim]</small>
 | <kbd>]f</kbd> or <kbd>[f</kbd> | 𝐍 | Next/previous function start | <small>[echasnovski/mini.ai]</small>
 | <kbd>]F</kbd> or <kbd>[F</kbd> | 𝐍 | Next/previous function end | <small>[echasnovski/mini.ai]</small>
@@ -1098,7 +1091,7 @@ Note that,
 | <kbd>Space</kbd> <kbd>ue</kbd> | 𝐍 | Toggle indentation lines | <small>[lukas-reineke/indent-blankline.nvim]</small>
 | <kbd>Space</kbd> <kbd>uh</kbd> | 𝐍 | Toggle inlay-hints | <small>[config/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>ui</kbd> | 𝐍 | Show highlight groups for word | <small>`vim.show_pos`</small>
-| <kbd>Space</kbd> <kbd>up</kbd> | 𝐍 | Disable auto-pairs | <small>[echasnovski/mini.pairs]</small>
+| <kbd>Space</kbd> <kbd>up</kbd> | 𝐍 | Disable auto-pairs | <small>[windwp/nvim-autopairs]</small>
 | <kbd>Space</kbd> <kbd>ur</kbd> | 𝐍 | Redraw, clear hlsearch, and diff update | <small>[config/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>un</kbd> | 𝐍 | Dismiss all notifications | <small>[rcarriga/nvim-notify]</small>
 

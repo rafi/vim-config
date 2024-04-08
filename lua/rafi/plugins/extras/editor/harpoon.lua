@@ -19,7 +19,7 @@ return {
 
 			{ '<LocalLeader>l', function()
 				local harpoon = require('harpoon')
-				if not require('lazyvim.util').has('telescope.nvim') then
+				if not LazyVim.has('telescope.nvim') then
 					harpoon.ui:toggle_quick_menu(harpoon:list())
 					return
 				end

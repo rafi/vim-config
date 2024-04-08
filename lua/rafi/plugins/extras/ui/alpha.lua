@@ -1,7 +1,7 @@
 return {
 
-	{ 'nvimdev/dashboard-nvim', enabled = false },
-	{ 'echasnovski/mini.starter', enabled = false },
+	{ 'nvimdev/dashboard-nvim', optional = true, enabled = false },
+	{ 'echasnovski/mini.starter', optional = true, enabled = false },
 	{
 		'folke/persistence.nvim',
 		opts = { autoload = false },
@@ -47,12 +47,12 @@ return {
 				{ type = 'text', val = 'Quick links', opts = { hl = 'SpecialComment', position = 'center' } },
 				{ type = 'padding', val = 1 },
 				dashboard.button('f', '󰱽 ' .. ' Find file',       '<cmd> Telescope find_files <CR>'),
-				dashboard.button('n', '󰈤 ' .. ' New file',        '<cmd> ene <CR>'),
-				dashboard.button('r', ' ' .. ' Recent files',    '<cmd> Telescope oldfiles <CR>'),
 				dashboard.button('g', '󱩾 ' .. ' Find text',       '<cmd> Telescope live_grep <CR>'),
+				dashboard.button('n', ' ' .. ' New file',        '<cmd> ene <CR>'),
+				dashboard.button('r', ' ' .. ' Recent files',    '<cmd> Telescope oldfiles <CR>'),
+				{ type = 'text', val = '-------', opts = { hl = 'Comment', position = 'center' } },
 				dashboard.button('c', ' ' .. ' Config',          '<cmd> lua require("lazyvim.util").telescope.config_files()() <CR>'),
-				dashboard.button('s', ' ' .. ' Restore Session', '<cmd> lua require("persistence").load() <CR>'),
-				{ type = 'text', val = '-------', opts = { hl = 'LineNr', position = 'center' } },
+				dashboard.button('s', '󰁯 ' .. ' Restore Session', '<cmd> lua require("persistence").load() <CR>'),
 				dashboard.button('u', ' ' .. ' Update plugins' , '<cmd> Lazy sync <CR>'),
 				dashboard.button('x', ' ' .. ' Lazy Extras',     '<cmd> LazyExtras <CR>'),
 				dashboard.button('l', '󰒲 ' .. ' Lazy',            '<cmd> Lazy <CR>'),
