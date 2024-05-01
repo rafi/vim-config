@@ -20,8 +20,8 @@ return {
 		event = { 'LazyFile', 'VeryLazy' },
 		cmd = { 'TSInstall', 'TSUpdate', 'TSUpdateSync' },
 		keys = {
-			{ 'v', desc = 'Increment selection', mode = 'x' },
-			{ 'V', desc = 'Shrink selection', mode = 'x' },
+			{ 'v', desc = 'Increment Selection', mode = 'x' },
+			{ 'V', desc = 'Shrink Selection', mode = 'x' },
 		},
 		init = function(plugin)
 			-- PERF: add nvim-treesitter queries to the rtp and it's custom query predicates early

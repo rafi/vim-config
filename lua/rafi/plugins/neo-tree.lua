@@ -16,6 +16,7 @@ return {
 	-----------------------------------------------------------------------------
 	-- File explorer written in Lua
 	'nvim-neo-tree/neo-tree.nvim',
+	branch = 'v3.x',
 	dependencies = {
 		'MunifTanjim/nui.nvim',
 		's1n7ax/nvim-window-picker',
@@ -28,7 +29,7 @@ return {
 			function()
 				require('neo-tree.command').execute({ toggle = true, dir = LazyVim.root() })
 			end,
-			desc = 'Explorer NeoTree (root dir)',
+			desc = 'Explorer NeoTree (Root Dir)',
 		},
 		{
 			'<leader>fE',
@@ -37,7 +38,7 @@ return {
 			end,
 			desc = 'Explorer NeoTree (cwd)',
 		},
-		{ '<LocalLeader>e', '<leader>fe', desc = 'Explorer NeoTree (root dir)', remap = true },
+		{ '<LocalLeader>e', '<leader>fe', desc = 'Explorer NeoTree (Root Dir)', remap = true },
 		{
 			'<LocalLeader>a',
 			function()
@@ -48,28 +49,28 @@ return {
 			end,
 			desc = 'Explorer NeoTree Reveal',
 		},
-		{ '<leader>e', '<leader>fe', desc = 'Explorer NeoTree (root dir)', remap = true },
+		{ '<leader>e', '<leader>fe', desc = 'Explorer NeoTree (Root Dir)', remap = true },
 		{ '<leader>E', '<leader>fE', desc = 'Explorer NeoTree (cwd)', remap = true },
 		{
 			'<leader>ge',
 			function()
 				require('neo-tree.command').execute({ source = 'git_status', toggle = true })
 			end,
-			desc = 'Git explorer',
+			desc = 'Git Explorer',
 		},
 		{
 			'<leader>be',
 			function()
 				require('neo-tree.command').execute({ source = 'buffers', toggle = true })
 			end,
-			desc = 'Buffer explorer',
+			desc = 'Buffer Explorer',
 		},
 		{
 			'<leader>xe',
 			function()
 				require('neo-tree.command').execute({ source = 'document_symbols', toggle = true })
 			end,
-			desc = 'Document explorer',
+			desc = 'Document Explorer',
 		},
 	},
 	deactivate = function()
@@ -193,7 +194,13 @@ return {
 						local path = node:get_id()
 						vim.fn.setreg('+', path, 'c')
 					end,
-					desc = 'copy path to clipboard',
+					desc = 'Copy Path to Clipboard',
+				},
+				['O'] = {
+					function(state)
+						require('lazy.util').open(state.tree:get_node().path, { system = true })
+					end,
+					desc = 'Open with System Application',
 				},
 			},
 		},
@@ -235,11 +242,13 @@ return {
 					end,
 				},
 			},
-			bind_to_cwd = false,
-			cwd_target = {
-				sidebar = 'window',
-				current = 'window',
-			},
+
+			-- See `:h neo-tree-cwd`
+			-- bind_to_cwd = false,
+			-- cwd_target = {
+			-- 	sidebar = 'window',
+			-- 	current = 'window',
+			-- },
 
 			filtered_items = {
 				hide_dotfiles = false,
@@ -260,11 +269,11 @@ return {
 				},
 				never_show = {},
 			},
+			find_by_full_path_words = true,
 			group_empty_dirs = true,
 			use_libuv_file_watcher = true,
 		},
 		buffers = {
-			bind_to_cwd = false,
 			window = {
 				mappings = {
 					['dd'] = 'buffer_delete',
