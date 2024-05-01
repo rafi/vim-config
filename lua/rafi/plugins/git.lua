@@ -37,15 +37,15 @@ return {
 				---@return string
 				map('n', ']g', function()
 					if vim.wo.diff then return ']c' end
-					vim.schedule(function() gs.next_hunk() end)
+					vim.schedule(function() gs.nav_hunk('next') end)
 					return '<Ignore>'
-				end, { expr = true, desc = 'Git hunk forward'  })
+				end, { expr = true, desc = 'Next git hunk'  })
 
 				map('n', '[g', function()
 					if vim.wo.diff then return '[c' end
-					vim.schedule(function() gs.prev_hunk() end)
+					vim.schedule(function() gs.nav_hunk('prev') end)
 					return '<Ignore>'
-				end, { expr = true, desc = 'Git hunk last' })
+				end, { expr = true, desc = 'Previous git hunk' })
 
 				-- Actions
 				--
@@ -138,7 +138,7 @@ return {
 		'NeogitOrg/neogit',
 		dependencies = {
 			'sindrets/diffview.nvim',
-			'nvim-telescope/telescope.nvim'
+			'nvim-telescope/telescope.nvim',
 		},
 		cmd = 'Neogit',
 		keys = {
@@ -167,11 +167,20 @@ return {
 		cmd = 'ToggleBlame',
 		-- stylua: ignore
 		keys = {
-			{ '<leader>gb', '<cmd>ToggleBlame virtual<CR>', desc = 'Git blame' },
-			{ '<leader>gB', '<cmd>ToggleBlame window<CR>', desc = 'Git blame (window)' },
+			{ '<leader>gb', '<cmd>BlameToggle virtual<CR>', desc = 'Git blame' },
+			{ '<leader>gB', '<cmd>BlameToggle window<CR>', desc = 'Git blame (window)' },
 		},
 		opts = {
 			date_format = '%Y-%m-%d %H:%M',
+			merge_consecutive = false,
+			max_summary_width = 30,
+			mappings = {
+				commit_info = 'K',
+				stack_push = '>',
+				stack_pop = '<',
+				show_commit = '<CR>',
+				close = { '<Esc>', 'q' },
+			},
 		},
 	},
 
@@ -180,6 +189,7 @@ return {
 	{
 		'rhysd/git-messenger.vim',
 		cmd = 'GitMessenger',
+		-- stylua: ignore
 		keys = {
 			{ '<Leader>gm', '<Plug>(git-messenger)', desc = 'Reveal commit under cursor'}
 		},
