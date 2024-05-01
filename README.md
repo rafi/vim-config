@@ -259,9 +259,8 @@ Fork this repository and create a directory
 
 Adding plugins or override existing options:
 
-* `lua/plugins/*.lua` or `lua/plugins.lua` — Plugins (See [lazy.nvim] for
-  syntax)
-
+* `lua/plugins/*.lua` or `lua/plugins.lua` — Plugins (See [lazy.nvim] specs
+  for syntax)
 
 ### Extend: Plugins
 
@@ -364,27 +363,48 @@ return {
     vim.g.structure_status = false
     ```
 
-1. Create `lua/config/setup.lua` and return _any_ of these functions:
+1. You can override LazyVim options. For example in `lua/plugins/core.lua`:
 
-    * `opts()` — Override RafiVim setup options
+    ```lua
+    return {
+      {
+        'LazyVim/LazyVim',
+        opts = {
+          icons = {
+            diagnostics = {
+              Error = '',
+              Warn  = '',
+              Info  = '',
+            },
+            status = {
+              diagnostics = {
+                error = 'E',
+                warn  = 'W',
+                info  = 'I',
+                hint  = 'H',
+              },
+            },
+          },
+        },
+      },
+    }
+    ```
+
+1. You can override lazy.nvim (package-manager) global options.
+   Create `lua/config/setup.lua` and return this function:
+
     * `lazy_opts()` — override LazyVim setup options
 
-    For example: (Default values are shown)
+    For example:
 
     ```lua
     local M = {}
 
     ---@return table
-    function M.opts()
-      return {
-        -- See lua/rafi/config/init.lua for all options
-      }
-    end
-
-    ---@return table
     function M.lazy_opts()
       return {
-        -- See https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/init.lua
+        -- See https://github.com/folke/lazy.nvim/#%EF%B8%8F-configuration
+        concurrency = jit.os:find('Windows') and (vim.uv.available_parallelism() * 2) or nil,
       }
     end
 

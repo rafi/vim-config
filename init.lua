@@ -3,7 +3,6 @@
 
 local stdconfig = vim.fn.stdpath('config')
 local lazy_override = stdconfig .. '/lua/config/lazy.lua'
---local lazy_override = vim.fs.joinpath(stdconfig, 'lua', 'config', 'lazy.lua')
 
 vim.uv = vim.uv or vim.loop
 

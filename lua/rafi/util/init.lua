@@ -8,6 +8,7 @@ local LazyUtil = require('lazy.core.util')
 
 ---@class rafi.util: LazyUtilCore
 ---@field color rafi.util.color
+---@field cmp rafi.util.cmp
 ---@field contextmenu rafi.util.contextmenu
 ---@field edit rafi.util.edit
 ---@field preview rafi.util.preview

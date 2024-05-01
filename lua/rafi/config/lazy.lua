@@ -26,6 +26,7 @@ local has_user_plugins = vim.uv.fs_stat(user_path .. '/plugins') ~= nil
 require('lazy').setup(vim.tbl_extend('keep', user_lazy_opts, {
 	spec = {
 		-- Load LazyVim, but without any plugins (no import).
+		-- See all options in lua/rafi/plugins/lazyvim.lua
 		{
 			'LazyVim/LazyVim',
 			version = '*',
@@ -34,12 +35,10 @@ require('lazy').setup(vim.tbl_extend('keep', user_lazy_opts, {
 			cond = true,
 			opts = {},
 			config = function(_, opts)
-				-- Setup and override options with user config at lua/config/setup.lua
-				local RafiConfig = require('rafi.config')
-				RafiConfig.setup(user_setup.opts and user_setup.opts() or {})
+				-- Load lua/rafi/config/*
+				require('rafi.config').setup()
 				-- Setup lazyvim, but don't load lazyvim/config/* files.
 				package.loaded['lazyvim.config.options'] = true
-				opts = vim.tbl_deep_extend('force', RafiConfig.opts(), opts)
 				require('lazyvim.config').setup(vim.tbl_deep_extend('force', opts, {
 					defaults = { autocmds = false, keymaps = false },
 					news = { lazyvim = false }

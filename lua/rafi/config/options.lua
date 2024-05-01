@@ -27,6 +27,13 @@ vim.g.structure_status = false
 -- * a function with signature `function(buf) -> string|string[]`
 vim.g.root_spec = { 'lsp', { '.git', 'lua' }, 'cwd' }
 
+-- LazyVim automatically configures lazygit:
+--  * theme, based on the active colorscheme.
+--  * editorPreset to nvim-remote
+--  * enables nerd font icons
+-- Set to false to disable.
+vim.g.lazygit_config = true
+
 -- General
 -- ===
 -- stylua: ignore start
@@ -180,16 +187,18 @@ end
 -- ===
 
 opt.foldlevel = 99
-vim.opt.foldtext = "v:lua.require'lazyvim.util'.ui.foldtext()"
 
 if vim.fn.has('nvim-0.9.0') == 1 then
 	vim.opt.statuscolumn = [[%!v:lua.require'lazyvim.util'.ui.statuscolumn()]]
+	vim.opt.foldtext = "v:lua.require'lazyvim.util'.ui.foldtext()"
 end
 
 -- HACK: causes freezes on <= 0.9, so only enable on >= 0.10 for now
 if vim.fn.has('nvim-0.10') == 1 then
 	vim.opt.foldmethod = 'expr'
 	vim.opt.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
+	vim.opt.foldtext = ""
+	vim.opt.fillchars = "fold: "
 else
 	vim.opt.foldmethod = 'indent'
 end
