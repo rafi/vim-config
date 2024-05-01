@@ -39,7 +39,7 @@ function M.get()
 		-- { '<Leader>uD', function() M.diagnostic_toggle(true) end, desc = 'Disable All Diagnostics' },
 
 		{ '<leader>cl', '<cmd>LspInfo<cr>', desc = 'LSP info popup' },
-		{ '<leader>cs', M.formatter_select, mode = { 'n', 'x' }, desc = 'Formatter Select' },
+		{ '<leader>co', M.formatter_select, mode = { 'n', 'x' }, desc = 'Formatter Select' },
 		{ '<Leader>chi', vim.lsp.buf.incoming_calls, desc = 'Incoming calls' },
 		{ '<Leader>cho', vim.lsp.buf.outgoing_calls, desc = 'Outgoing calls' },
 		{ '<Leader>ce', vim.diagnostic.open_float, desc = 'Open diagnostics' },

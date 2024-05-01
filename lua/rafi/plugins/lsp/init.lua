@@ -1,4 +1,4 @@
--- LSP: Plugins
+-- LSP: Initialize
 -- https://github.com/rafi/vim-config
 
 -- This is part of LazyVim's code, with my modifications.
@@ -7,6 +7,7 @@
 return {
 
 	-----------------------------------------------------------------------------
+	-- LSP config
 	{
 		'neovim/nvim-lspconfig',
 		event = 'LazyFile',
@@ -20,6 +21,7 @@ return {
 		---@class PluginLspOpts
 		opts = {
 			-- Options for vim.diagnostic.config()
+			---@type vim.diagnostic.Opts
 			diagnostics = {
 				underline = true,
 				update_in_insert = false,
@@ -31,16 +33,16 @@ return {
 				severity_sort = true,
 				float = {
 					border = 'rounded',
-					source = 'always',
+					source = true,
 					header = '',
 					prefix = '',
 				},
 				signs = {
 					text = {
-						[vim.diagnostic.severity.ERROR] = require('lazyvim.config').icons.diagnostics.Error,
-						[vim.diagnostic.severity.WARN] = require('lazyvim.config').icons.diagnostics.Warn,
-						[vim.diagnostic.severity.HINT] = require('lazyvim.config').icons.diagnostics.Hint,
-						[vim.diagnostic.severity.INFO] = require('lazyvim.config').icons.diagnostics.Info,
+						[vim.diagnostic.severity.ERROR] = LazyVim.config.icons.diagnostics.Error,
+						[vim.diagnostic.severity.WARN] = LazyVim.config.icons.diagnostics.Warn,
+						[vim.diagnostic.severity.HINT] = LazyVim.config.icons.diagnostics.Hint,
+						[vim.diagnostic.severity.INFO] = LazyVim.config.icons.diagnostics.Info,
 					},
 				},
 			},
@@ -120,19 +122,20 @@ return {
 			---@diagnostic disable-next-line: duplicate-set-field
 			vim.lsp.handlers['client/registerCapability'] = function(err, res, ctx)
 				local ret = register_capability(err, res, ctx)
-				local client_id = ctx.client_id
-				local client = vim.lsp.get_client_by_id(client_id)
+				local client = vim.lsp.get_client_by_id(ctx.client_id)
 				local buffer = vim.api.nvim_get_current_buf()
-				if client ~= nil then
-					require('rafi.plugins.lsp.keymaps').on_attach(client, buffer)
-				end
+				require('rafi.plugins.lsp.keymaps').on_attach(client, buffer)
 				return ret
 			end
 
 			-- Diagnostics signs and highlights.
-			for name, icon in pairs(require('lazyvim.config').icons.diagnostics) do
-				name = 'DiagnosticSign' .. name
-				vim.fn.sign_define(name, { text = icon, texthl = name, numhl = '' })
+			if vim.fn.has('nvim-0.10.0') == 0 then
+				for severity, icon in pairs(opts.diagnostics.signs.text) do
+					local name =
+						vim.diagnostic.severity[severity]:lower():gsub('^%l', string.upper)
+					name = 'DiagnosticSign' .. name
+					vim.fn.sign_define(name, { text = icon, texthl = name, numhl = '' })
+				end
 			end
 
 			-- Setup inlay-hints
@@ -147,13 +150,16 @@ return {
 			-- code lens
 			if opts.codelens.enabled and vim.lsp.codelens then
 				LazyVim.lsp.on_attach(function(client, buffer)
-					if client.supports_method("textDocument/codeLens") then
+					if client.supports_method('textDocument/codeLens') then
 						vim.lsp.codelens.refresh()
 						--- autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()
-						vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-							buffer = buffer,
-							callback = vim.lsp.codelens.refresh,
-						})
+						vim.api.nvim_create_autocmd(
+							{ 'BufEnter', 'CursorHold', 'InsertLeave' },
+							{
+								buffer = buffer,
+								callback = vim.lsp.codelens.refresh,
+							}
+						)
 					end
 				end)
 			end
@@ -251,7 +257,9 @@ return {
 				})
 			end
 
-			if LazyVim.lsp.get_config('denols') and LazyVim.lsp.get_config('tsserver') then
+			if
+				LazyVim.lsp.get_config('denols') and LazyVim.lsp.get_config('tsserver')
+			then
 				local is_deno =
 					require('lspconfig.util').root_pattern('deno.json', 'deno.jsonc')
 				LazyVim.lsp.disable('tsserver', is_deno)

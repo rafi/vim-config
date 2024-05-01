@@ -1012,9 +1012,9 @@ Note that,
 | <kbd>K</kbd>  | 𝐍 | Show hover help or collapsed fold | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>gK</kbd> | 𝐍 | Show signature help | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>cl</kbd>  | 𝐍 | Open LSP info window | <small>[plugins/lsp/keymaps.lua]</small>
-| <kbd>Space</kbd> <kbd>cs</kbd>  | 𝐍 | Formatter menu selection | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>cr</kbd>  | 𝐍 | Rename | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>ce</kbd>  | 𝐍 | Open diagnostics window | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>Space</kbd> <kbd>co</kbd>  | 𝐍 | Formatter menu selection | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>ca</kbd>  | 𝐍 𝐕 | Code action | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>cA</kbd>  | 𝐍 | Source action | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>chi</kbd>  | 𝐍 | LSP incoming calls | <small>[plugins/lsp/keymaps.lua]</small>
