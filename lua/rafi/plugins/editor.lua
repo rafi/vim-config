@@ -23,10 +23,10 @@ return {
 		cond = vim.env.TMUX and not is_windows,
 		-- stylua: ignore
 		keys = {
-			{ '<C-h>', '<cmd>TmuxNavigateLeft<CR>', mode = { 'n', 't' }, silent = true, desc = 'Jump to left pane' },
-			{ '<C-j>', '<cmd>TmuxNavigateDown<CR>', mode = { 'n', 't' }, silent = true, desc = 'Jump to lower pane' },
-			{ '<C-k>', '<cmd>TmuxNavigateUp<CR>', mode = { 'n', 't' }, silent = true, desc = 'Jump to upper pane' },
-			{ '<C-l>', '<cmd>TmuxNavigateRight<CR>', mode = { 'n', 't' }, silent = true, desc = 'Jump to right pane' },
+			{ '<C-h>', '<cmd>TmuxNavigateLeft<CR>', mode = { 'n', 't' }, silent = true, desc = 'Go to Left Window' },
+			{ '<C-j>', '<cmd>TmuxNavigateDown<CR>', mode = { 'n', 't' }, silent = true, desc = 'Go to Lower Window' },
+			{ '<C-k>', '<cmd>TmuxNavigateUp<CR>', mode = { 'n', 't' }, silent = true, desc = 'Go to Upper Window' },
+			{ '<C-l>', '<cmd>TmuxNavigateRight<CR>', mode = { 'n', 't' }, silent = true, desc = 'Go to Right Window' },
 		},
 		init = function()
 			vim.g.tmux_navigator_no_mappings = true
@@ -213,11 +213,11 @@ return {
 	{
 		'folke/todo-comments.nvim',
 		event = 'LazyFile',
-		dependencies = 'nvim-telescope/telescope.nvim',
+		dependencies = { 'nvim-lua/plenary.nvim' },
 		-- stylua: ignore
 		keys = {
-			{ ']t', function() require('todo-comments').jump_next() end, desc = 'Next todo comment' },
-			{ '[t', function() require('todo-comments').jump_prev() end, desc = 'Previous todo comment' },
+			{ ']t', function() require('todo-comments').jump_next() end, desc = 'Next Todo Comment' },
+			{ '[t', function() require('todo-comments').jump_prev() end, desc = 'Previous Todo Comment' },
 			{ '<leader>xt', '<cmd>TodoTrouble<CR>', desc = 'Todo (Trouble)' },
 			{ '<leader>xT', '<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>', desc = 'Todo/Fix/Fixme (Trouble)' },
 			{ '<leader>st', '<cmd>TodoTelescope<cr>', desc = 'Todo' },
@@ -248,7 +248,7 @@ return {
 						vim.cmd.cprev()
 					end
 				end,
-				desc = 'Previous trouble/quickfix item',
+				desc = 'Previous Trouble/Quickfix Item',
 			},
 			{
 				']q',
@@ -259,7 +259,7 @@ return {
 						vim.cmd.cnext()
 					end
 				end,
-				desc = 'Next trouble/quickfix item',
+				desc = 'Next Trouble/Quickfix Item',
 			},
 		},
 	},
@@ -279,7 +279,7 @@ return {
 				term:toggle()
 			end
 			local mappings = {
-				{ '<C-/>', mode = { 'n', 't' }, toggleterm, desc = 'Toggle terminal' },
+				{ '<C-/>', mode = { 'n', 't' }, toggleterm, desc = 'Toggle Terminal' },
 				{ '<C-_>', mode = { 'n', 't' }, toggleterm, desc = 'which_key_ignore' },
 			}
 			return vim.list_extend(mappings, keys)
@@ -310,14 +310,14 @@ return {
 			local filter = Config.kind_filter
 
 			if type(filter) == 'table' then
-				filter = filter.default
-				if type(filter) == 'table' then
+				local filter_opts = filter.default
+				if type(filter_opts) == 'table' then
 					for kind, symbol in pairs(defaults.symbols) do
 						opts.symbols[kind] = {
 							icon = Config.icons.kinds[kind] or symbol.icon,
 							hl = symbol.hl,
 						}
-						if not vim.tbl_contains(filter, kind) then
+						if not vim.tbl_contains(filter_opts, kind) then
 							table.insert(opts.symbol_blacklist, kind)
 						end
 					end
@@ -368,19 +368,6 @@ return {
 				},
 			},
 		},
-	},
-
-	-----------------------------------------------------------------------------
-	-- Fast Neovim http client written in Lua
-	{
-		'rest-nvim/rest.nvim',
-		main = 'rest-nvim',
-		ft = 'http',
-		cmd = 'Rest',
-		keys = {
-			{ '<Leader>mh', '<cmd>Rest run<CR>', desc = 'Execute HTTP request' },
-		},
-		opts = { skip_ssl_verification = true },
 	},
 
 	-----------------------------------------------------------------------------
@@ -442,6 +429,7 @@ return {
 				['rg'] = {
 					cmd = 'rg',
 					args = {
+						'--pcre2',
 						'--color=never',
 						'--no-heading',
 						'--with-filename',

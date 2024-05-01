@@ -486,7 +486,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [akinsho/toggleterm.nvim] | Persist and toggle multiple terminals
 | [hedyhli/outline.nvim] | Code outline sidebar powered by LSP
 | [s1n7ax/nvim-window-picker] | Window picker
-| [rest-nvim/rest.nvim] | Fast Neovim http client written in Lua
 | [dnlhc/glance.nvim] | Pretty window for navigating LSP locations
 | [nvim-pack/nvim-spectre] | Find the enemy and replace them with dark power
 | [echasnovski/mini.bufremove] | Helper for removing buffers
@@ -614,7 +613,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [folke/trouble.nvim]: https://github.com/folke/trouble.nvim
 [akinsho/toggleterm.nvim]: https://github.com/akinsho/toggleterm.nvim
 [s1n7ax/nvim-window-picker]: https://github.com/s1n7ax/nvim-window-picker
-[rest-nvim/rest.nvim]: https://github.com/rest-nvim/rest.nvim
 [dnlhc/glance.nvim]: https://github.com/dnlhc/glance.nvim
 [nvim-pack/nvim-spectre]: https://github.com/nvim-pack/nvim-spectre
 [echasnovski/mini.bufremove]: https://github.com/echasnovski/mini.bufremove
@@ -742,6 +740,7 @@ Spec: `rafi.plugins.extras.editor.<name>`
 | `flybuf`      | [glepnir/flybuf.nvim]   | List buffers in a float window
 | `harpoon`     | [ThePrimeagen/harpoon]  | Marks for navigating your project
 | `minivisits`  | [echasnovski/mini.visits] | Track and reuse file system visits
+| `rest`        | [rest-nvim/rest.nvim] | Fast Neovim http client written in Lua
 | `sidebar`     | [sidebar-nvim/sidebar.nvim] | Generic and modular lua sidebar
 | `ufo`         | [kevinhwang91/nvim-ufo] | Make folds look modern and keep a high performance
 
@@ -749,6 +748,7 @@ Spec: `rafi.plugins.extras.editor.<name>`
 [glepnir/flybuf.nvim]: https://github.com/glepnir/flybuf.nvim
 [ThePrimeagen/harpoon]: https://github.com/ThePrimeagen/harpoon
 [echasnovski/mini.visits]: https://github.com/echasnovski/mini.visits
+[rest-nvim/rest.nvim]: https://github.com/rest-nvim/rest.nvim
 [sidebar-nvim/sidebar.nvim]: https://github.com/sidebar-nvim/sidebar.nvim
 [kevinhwang91/nvim-ufo]: https://github.com/kevinhwang91/nvim-ufo
 
