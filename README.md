@@ -411,13 +411,16 @@ return {
     return M
     ```
 
+1. You can completely override lazy.nvim setup by creating `lua/config/lazy.lua`
+   to replace `lua/rafi/config/lazy.lua` with your own procedure.
+
 ### Extend: LSP Settings
 
 To override **LSP configurations**, you can either:
 
 1. Customize per project's `.neoconf.json`
 
-1. Or, override server options with nvim-lspconfig plugin, for example:
+1. Or, override server options with [nvim-lspconfig] plugin, for example:
 
    ```lua
    {
