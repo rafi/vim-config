@@ -1,6 +1,6 @@
 {
   "Comment.nvim": { "branch": "master", "commit": "0236521ea582747b58869cb72f70ccfa967d2e89" },
-  "LazyVim": { "branch": "main", "commit": "07923f3701af23504bb09bf6cc11c4fb0a1894e7" },
+  "LazyVim": { "branch": "main", "commit": "6aef1989bd1c08a828eecb7e9044bf8cc1d93700" },
   "LuaSnip": { "branch": "master", "commit": "78296bfabf756dbb6c7134aa219e75564dddf40f" },
   "awesome-vim-colorschemes": { "branch": "master", "commit": "4b2787b8894c4a70c42d15c2808d7cf278cb6abb" },
   "bamboo.nvim": { "branch": "master", "commit": "2ca4ac5ddf80c0171469ec8d74fce036c98be458" },
