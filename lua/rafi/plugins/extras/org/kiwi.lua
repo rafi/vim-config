@@ -1,4 +1,6 @@
 return {
+
+	-- Stripped down VimWiki
 	{
 		'serenevoid/kiwi.nvim',
 		keys = {

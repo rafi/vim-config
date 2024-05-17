@@ -1,4 +1,6 @@
 return {
+
+	-- Cycle buffers with a customizable notification window
 	{
 		'ghillb/cybu.nvim',
 		dependencies = {

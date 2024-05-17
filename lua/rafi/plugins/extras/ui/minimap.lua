@@ -1,4 +1,6 @@
 return {
+
+	-- Window with buffer text overview, scrollbar and highlights
 	{
 		'echasnovski/mini.map',
 		main = 'mini.map',

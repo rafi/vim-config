@@ -1,4 +1,6 @@
 return {
+
+	-- Personal Wiki for Vim
 	{
 		'vimwiki/vimwiki',
 		cmd = { 'VimwikiIndex', 'VimwikiUISelect' },

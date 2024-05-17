@@ -1,7 +1,8 @@
 return {
+
+	-- Preview definitions using floating windows
 	{
 		'rmagatti/goto-preview',
-		dependencies = 'nvim-telescope/telescope.nvim',
 		keys = {
 			{
 				'gpd',

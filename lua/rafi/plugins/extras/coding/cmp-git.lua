@@ -3,9 +3,10 @@ return {
 	{
 		'hrsh7th/nvim-cmp',
 		optional = true,
-		dependencies = { 'petertriho/cmp-git' },
+		dependencies = { 'cmp-git' },
 	},
 
+	-- Git source for nvim-cmp
 	{
 		'petertriho/cmp-git',
 		opts = {},

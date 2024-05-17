@@ -1,4 +1,6 @@
 return {
+
+	-- Jump to any definition and references without overhead
 	{
 		'pechorin/any-jump.vim',
 		cmd = { 'AnyJump', 'AnyJumpVisual' },

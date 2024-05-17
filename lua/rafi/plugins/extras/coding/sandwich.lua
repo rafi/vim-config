@@ -1,4 +1,6 @@
 return {
+
+	-- Search, select, and edit sandwich text objects
 	{
 		'machakann/vim-sandwich',
 		-- stylua: ignore

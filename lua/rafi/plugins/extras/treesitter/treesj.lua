@@ -1,4 +1,6 @@
 return {
+
+	-- Splitting and joining blocks of code
 	{
 		'Wansmer/treesj',
 		cmd = { 'TSJJoin', 'TSJSplit' },

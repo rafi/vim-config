@@ -4,6 +4,7 @@
 return {
 
 	-----------------------------------------------------------------------------
+	-- Fully featured & enhanced copilot
 	{
 		'zbirenbaum/copilot.lua',
 		cmd = 'Copilot',

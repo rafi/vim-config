@@ -1,5 +1,6 @@
 return {
 
+	-- Tree like view for symbols using LSP
 	{
 		'simrat39/symbols-outline.nvim',
 		cmd = { 'SymbolsOutline', 'SymbolsOutlineOpen' },
