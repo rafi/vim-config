@@ -8,7 +8,7 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ';'
 
--- Enable LazyVim auto format
+-- LazyVim auto format
 vim.g.autoformat = false
 
 -- Enable elite-mode (hjkl mode. arrow-keys resize window)
@@ -51,13 +51,13 @@ opt.spelllang = { 'en' }
 opt.spelloptions:append('camel')
 opt.updatetime = 200           -- Idle time to write swap and trigger CursorHold
 if not vim.g.vscode then
-	opt.timeoutlen = 300         -- Time out on mappings
+	opt.timeoutlen = 500  -- Time out on mappings
+	opt.ttimeoutlen = 10  -- Time out on key codes
 end
-if not vim.env.SSH_TTY then
-	-- only set clipboard if not in ssh, to make sure the OSC 52
-	-- integration works automatically. Requires Neovim >= 0.10.0
-	opt.clipboard = 'unnamedplus' -- Sync with system clipboard
-end
+
+-- only set clipboard if not in ssh, to make sure the OSC 52
+-- integration works automatically. Requires Neovim >= 0.10.0
+opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
 
 opt.completeopt = 'menu,menuone,noinsert'
 opt.wildmode = 'longest:full,full'
@@ -114,6 +114,8 @@ end
 opt.wrap = false                -- No wrap by default
 opt.linebreak = true            -- Break long lines at 'breakat'
 opt.breakindent = true
+opt.formatexpr = "v:lua.require'lazyvim.util'.format.formatexpr()"
+
 opt.formatoptions = opt.formatoptions
 	- 'a' -- Auto formatting is BAD.
 	- 't' -- Don't auto format my code. I got linters for that.
@@ -138,6 +140,7 @@ opt.numberwidth = 2       -- Minimum number of columns to use for the line numbe
 opt.number = false        -- Don't show line numbers
 opt.ruler = false         -- Disable default status ruler
 opt.list = true           -- Show hidden characters
+opt.foldlevel = 99
 opt.cursorline = true     -- Highlight the text line under the cursor
 opt.splitbelow = true     -- New split at bottom
 opt.splitright = true     -- New split on right
@@ -179,31 +182,17 @@ opt.fillchars = {
 	verthoriz = '╋',
 }
 
+opt.statuscolumn = [[%!v:lua.require'lazyvim.util'.ui.statuscolumn()]]
+
 if vim.fn.has('nvim-0.10') == 1 then
 	opt.smoothscroll = true
-end
-
--- Folds
--- ===
-
-opt.foldlevel = 99
-
-if vim.fn.has('nvim-0.9.0') == 1 then
-	vim.opt.statuscolumn = [[%!v:lua.require'lazyvim.util'.ui.statuscolumn()]]
-	vim.opt.foldtext = "v:lua.require'lazyvim.util'.ui.foldtext()"
-end
-
--- HACK: causes freezes on <= 0.9, so only enable on >= 0.10 for now
-if vim.fn.has('nvim-0.10') == 1 then
-	vim.opt.foldmethod = 'expr'
 	vim.opt.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
-	vim.opt.foldtext = ""
-	vim.opt.fillchars = "fold: "
+	vim.opt.foldmethod = 'expr'
+	vim.opt.foldtext = ''
 else
 	vim.opt.foldmethod = 'indent'
+	vim.opt.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
 end
-
-vim.o.formatexpr = "v:lua.require'lazyvim.util'.format.formatexpr()"
 
 -- Misc
 -- ===
