@@ -32,10 +32,7 @@ return {
 	-- File explorer written in Lua
 	'nvim-neo-tree/neo-tree.nvim',
 	branch = 'v3.x',
-	dependencies = {
-		'MunifTanjim/nui.nvim',
-		's1n7ax/nvim-window-picker',
-	},
+	dependencies = { 'MunifTanjim/nui.nvim' },
 	cmd = 'Neotree',
 	-- stylua: ignore
 	keys = {

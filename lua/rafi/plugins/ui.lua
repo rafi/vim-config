@@ -94,6 +94,8 @@ return {
 				-- indicator = {
 				-- 	style = 'underline',
 				-- },
+				close_command = function(n) LazyVim.ui.bufremove(n) end,
+				right_mouse_command = function(n) LazyVim.ui.bufremove(n) end,
 				diagnostics_indicator = function(_, _, diag)
 					local icons = require('lazyvim.config').icons.diagnostics
 					local ret = (diag.error and icons.Error .. diag.error .. ' ' or '')

@@ -212,12 +212,12 @@ vim.filetype.add({
 		Brewfile = 'ruby',
 		justfile = 'just',
 		Justfile = 'just',
-		Tmuxfile = 'tmux',
 		['.buckconfig'] = 'toml',
 		['.flowconfig'] = 'ini',
 		['.jsbeautifyrc'] = 'json',
 		['.jscsrc'] = 'json',
 		['.watchmanconfig'] = 'json',
+		['todo.txt'] = 'todotxt',
 	},
 	pattern = {
 		['.*%.js%.map'] = 'json',
