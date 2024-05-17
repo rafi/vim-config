@@ -7,15 +7,16 @@ return {
 		opts = {},
 		-- stylua: ignore
 		keys = {
-			{ '<Leader>ua', 'ga', desc = 'Show character under cursor' },
-			{ 'ga', function() require('harpoon'):list():append() end, desc = 'Add location' },
-			{ '<C-n>', function() require('harpoon'):list():next() end, desc = 'Next location' },
-			{ '<C-p>', function() require('harpoon'):list():prev() end, desc = 'Previous location' },
-			{ '<Leader>mr', function() require('harpoon'):list():remove() end, desc = 'Remove location' },
-			{ '<LocalLeader>1', function() require('harpoon'):list():select(1) end, desc = 'Harpoon select 1' },
-			{ '<LocalLeader>2', function() require('harpoon'):list():select(2) end, desc = 'Harpoon select 2' },
-			{ '<LocalLeader>3', function() require('harpoon'):list():select(3) end, desc = 'Harpoon select 3' },
-			{ '<LocalLeader>4', function() require('harpoon'):list():select(4) end, desc = 'Harpoon select 4' },
+			{ '<Leader>ua', 'ga', desc = 'Show Character Under Cursor' },
+			{ 'ga', function() require('harpoon'):list():add() end, desc = 'Add Location' },
+			{ '<C-n>', function() require('harpoon'):list():next() end, desc = 'Next Location' },
+			{ '<C-p>', function() require('harpoon'):list():prev() end, desc = 'Previous Location' },
+			{ '<Leader>mr', function() require('harpoon'):list():remove() end, desc = 'Remove Location' },
+			{ '<LocalLeader>1', function() require('harpoon'):list():select(1) end, desc = 'Harpoon to File 1' },
+			{ '<LocalLeader>2', function() require('harpoon'):list():select(2) end, desc = 'Harpoon to File 2' },
+			{ '<LocalLeader>3', function() require('harpoon'):list():select(3) end, desc = 'Harpoon to File 3' },
+			{ '<LocalLeader>4', function() require('harpoon'):list():select(4) end, desc = 'Harpoon to File 4' },
+			{ '<LocalLeader>5', function() require('harpoon'):list():select(5) end, desc = 'Harpoon to File 5' },
 
 			{ '<LocalLeader>l', function()
 				local harpoon = require('harpoon')

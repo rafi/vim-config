@@ -151,6 +151,7 @@ return {
 			{ '<leader>snl', function() require('noice').cmd('last') end, desc = 'Noice Last Message' },
 			{ '<leader>snh', function() require('noice').cmd('history') end, desc = 'Noice History' },
 			{ '<leader>sna', function() require('noice').cmd('all') end, desc = 'Noice All' },
+			{ '<leader>snt', function() require('noice').cmd('telescope') end, desc = 'Noice Telescope' },
 			{ '<C-f>', function() if not require('noice.lsp').scroll(4) then return '<C-f>' end end, silent = true, expr = true, desc = 'Scroll Forward', mode = {'i', 'n', 's'} },
 			{ '<C-b>', function() if not require('noice.lsp').scroll(-4) then return '<C-b>' end end, silent = true, expr = true, desc = 'Scroll Backward', mode = {'i', 'n', 's'}},
 		},

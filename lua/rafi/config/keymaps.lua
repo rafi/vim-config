@@ -15,25 +15,25 @@ map('n', '<leader>mx', '<cmd>LazyExtras<CR>', { desc = 'Open Plugin Extras' })
 -- Navigation {{{
 
 -- Moves through display-lines, unless count is provided
-map({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-map({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+map({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true, desc = 'Down' })
+map({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true, desc = 'Up' })
 
-if vim.g.elite_mode then
+if vim.F.if_nil(vim.g.elite_mode, false) then
 	-- Elite-mode: Arrow-keys resize window
-	map('n', '<Up>', '<cmd>resize +1<cr>', { desc = 'Increase window height' })
-	map('n', '<Down>', '<cmd>resize -1<cr>', { desc = 'Decrease window height' })
-	map('n', '<Left>', '<cmd>vertical resize +1<cr>', { desc = 'Increase window width' })
-	map('n', '<Right>', '<cmd>vertical resize -1<cr>', { desc = 'Decrease window width' })
+	map('n', '<Up>', '<cmd>resize +1<cr>', { desc = 'Increase Window Height' })
+	map('n', '<Down>', '<cmd>resize -1<cr>', { desc = 'Decrease Window Height' })
+	map('n', '<Left>', '<cmd>vertical resize +1<cr>', { desc = 'Increase Window Width' })
+	map('n', '<Right>', '<cmd>vertical resize -1<cr>', { desc = 'Decrease Window Width' })
 else
 	-- Moves through display-lines, unless count is provided
-	map({ 'n', 'x' }, '<Down>', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-	map({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+	map({ 'n', 'x' }, '<Down>', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true, desc = 'Down' })
+	map({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true, desc = 'Up' })
 
 	-- Resize window using <ctrl> arrow keys
-	map('n', '<C-Up>', '<cmd>resize +1<cr>', { desc = 'Increase window height' })
-	map('n', '<C-Down>', '<cmd>resize -1<cr>', { desc = 'Decrease window height' })
-	map('n', '<C-Right>', '<cmd>vertical resize +1<cr>', { desc = 'Increase window width' })
-	map('n', '<C-Left>', '<cmd>vertical resize -1<cr>', { desc = 'Decrease window width' })
+	map('n', '<C-Up>', '<cmd>resize +2<cr>', { desc = 'Increase Window Height' })
+	map('n', '<C-Down>', '<cmd>resize -2<cr>', { desc = 'Decrease Window Height' })
+	map('n', '<C-Left>', '<cmd>vertical resize -2<cr>', { desc = 'Decrease Window Width' })
+	map('n', '<C-Right>', '<cmd>vertical resize +2<cr>', { desc = 'Increase Window Width' })
 end
 
 -- Easier line-wise movement
@@ -122,12 +122,12 @@ map('x', 'A',  blockwise_force('A'),  { expr = true, noremap = true, desc = 'Blo
 -- }}}
 -- Jump to {{{
 
-map('n', '[b', '<cmd>bprev<CR>', { desc = 'Prev buffer' })
-map('n', ']b', '<cmd>bnext<CR>', { desc = 'Next buffer' })
-map('n', ']q', vim.cmd.cnext, { desc = 'Next Quickfix Item' })
-map('n', '[q', vim.cmd.cprev, { desc = 'Previous Quickfix Item' })
-map('n', ']a', '<cmd>lnext<CR>', { desc = 'Next Loclist Item' })
-map('n', '[a', '<cmd>lprev<CR>', { desc = 'Previous Loclist Item' })
+map('n', '[b', '<cmd>bprev<CR>', { desc = 'Previous Buffer' })
+map('n', ']b', '<cmd>bnext<CR>', { desc = 'Next Buffer' })
+map('n', ']q', vim.cmd.cnext, { desc = 'Next Quickfix' })
+map('n', '[q', vim.cmd.cprev, { desc = 'Previous Quickfix' })
+map('n', ']a', '<cmd>lnext<CR>', { desc = 'Next Loclist' })
+map('n', '[a', '<cmd>lprev<CR>', { desc = 'Previous Loclist' })
 
 -- Whitespace jump (see plugin/whitespace.vim)
 map('n', ']z', function() RafiUtil.edit.whitespace_jump(1) end, { desc = 'Next Whitespace' })
@@ -178,6 +178,7 @@ map('n', '<C-q>', 'q', { desc = 'Macro Prefix' })
 
 -- Formatting
 map({ 'n', 'v' }, '<leader>cf', function() LazyVim.format({ force = true }) end, { desc = 'Format' })
+map('n', '<leader>cif', '<cmd>LazyFormatInfo<CR>', { silent = true, desc = 'Formatter Info' })
 
 -- Start new line from any cursor position in insert-mode
 map('i', '<S-Return>', '<C-o>o', { desc = 'Start Newline' })
@@ -207,7 +208,7 @@ map('n', '#', 'g#')
 map('n', 'g#', '#')
 
 -- Clear search with <Esc>
-map('n', '<Esc>', '<cmd>noh<CR>', { desc = 'Clear Search Highlight' })
+map('n', '<Esc>', '<cmd>noh<CR>', { desc = 'Escape and Clear hlsearch' })
 
 -- Use backspace key for matching pairs
 map({ 'n', 'x' }, '<BS>', '%', { remap = true, desc = 'Jump to Paren' })
@@ -236,17 +237,11 @@ map('c', '<C-n>', function()
 	return vim.fn.pumvisible() == 1 and '<C-n>' or '<Down>'
 end, { expr = true })
 
+-- Use keywordprg
+map('n', '<leader>K', '<cmd>norm! K<cr>', { desc = 'Keywordprg' })
+
 map('c', '<Up>', '<C-p>')
 map('c', '<Down>', '<C-n>')
-
--- Allow misspellings
-local cabbrev = vim.cmd.cnoreabbrev
-cabbrev('qw', 'wq')
-cabbrev('Wq', 'wq')
-cabbrev('WQ', 'wq')
-cabbrev('Qa', 'qa')
-cabbrev('Bd', 'bd')
-cabbrev('bD', 'bd')
 
 --- }}}
 -- File operations {{{
@@ -260,9 +255,12 @@ map('n', '<Leader>cd', function()
 	end
 end, { desc = 'Change Tab Directory' })
 
+-- New file
+map('n', '<leader>fn', '<cmd>enew<cr>', { desc = 'New File' })
+
 -- Fast saving from all modes
-map('n', '<Leader>w', '<cmd>write<CR>', { desc = 'Save' })
-map({ 'n', 'i', 'v' }, '<C-s>', '<cmd>write<CR>', { desc = 'Save' })
+map('n', '<Leader>w', '<cmd>write<CR>', { desc = 'Save File' })
+map({ 'n', 'i', 'v' }, '<C-s>', '<cmd>write<CR>', { desc = 'Save File' })
 
 -- }}}
 -- Editor UI {{{
@@ -279,13 +277,13 @@ map('n', '<Leader>a', function()
 	RafiUtil.edit.toggle_list('loclist')
 end, { desc = 'Open Location List' })
 
-map('n', '<leader>uf', function() LazyVim.format.toggle() end, { desc = 'Toggle auto format (global)' })
-map('n', '<leader>uF', function() LazyVim.format.toggle(true) end, { desc = 'Toggle auto format (buffer)' })
+map('n', '<leader>uf', function() LazyVim.format.toggle() end, { desc = 'Toggle Auto Format (Global)' })
+map('n', '<leader>uF', function() LazyVim.format.toggle(true) end, { desc = 'Toggle Auto Format (Buffer)' })
 map('n', '<leader>us', function() LazyVim.toggle('spell') end, { desc = 'Toggle Spelling' })
 map('n', '<leader>uw', function() LazyVim.toggle('wrap') end, { desc = 'Toggle Word Wrap' })
 map('n', '<leader>uL', function() LazyVim.toggle('relativenumber') end, { desc = 'Toggle Relative Line Numbers' })
 map('n', '<leader>ul', function() LazyVim.toggle.number() end, { desc = 'Toggle Line Numbers' })
-map("n", "<leader>ud", function() LazyVim.toggle.diagnostics() end, { desc = "Toggle Diagnostics" })
+map('n', '<leader>ud', function() LazyVim.toggle.diagnostics() end, { desc = 'Toggle Diagnostics' })
 map('n', '<Leader>uo', '<cmd>setlocal nolist!<CR>', { desc = 'Toggle Whitespace Symbols' })
 map('n', '<Leader>uu', '<cmd>nohlsearch<CR>', { desc = 'Hide Search Highlight' })
 local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
@@ -298,13 +296,14 @@ map('n', '<leader>ub', function() LazyVim.toggle('background', false, {'light', 
 
 -- Show treesitter nodes under cursor
 map('n', '<Leader>ui', vim.show_pos, { desc = 'Show Treesitter Node' })
+map('n', '<leader>uI', '<cmd>InspectTree<cr>', { desc = 'Inspect Tree' })
 
 -- Clear search, diff update and redraw taken from runtime/lua/_editor.lua
 map(
 	'n',
 	'<leader>ur',
 	'<cmd>nohlsearch<bar>diffupdate<bar>normal! <C-L><CR>',
-	{ desc = 'Redraw / clear hlsearch / diff update' }
+	{ desc = 'Redraw / Clear hlsearch / Diff Update' }
 )
 
 -- Smart wrap toggle (breakindent and colorcolumn toggle as-well)
@@ -334,17 +333,18 @@ map('n', '<RightMouse>', function() RafiUtil.contextmenu.show() end)
 map('n', '<LocalLeader>c', function() RafiUtil.contextmenu.show() end, { desc = 'Content-aware menu' })
 
 -- Lazygit
-map('n', '<leader>tg', function() require('lazy.util').float_term({ 'lazygit' }, { cwd = LazyVim.root.git(), esc_esc = false }) end, { desc = 'Lazygit (root dir)' })
-map('n', '<leader>tG', function() require('lazy.util').float_term({ 'lazygit' }, { esc_esc = false }) end, { desc = 'Lazygit (cwd)' })
+map('n', '<leader>tg', function() LazyVim.lazygit( { cwd = LazyVim.root.git() }) end, { desc = 'Lazygit (Root Dir)' })
+map('n', '<leader>tG', function() LazyVim.lazygit() end, { desc = 'Lazygit (cwd)' })
+map('n', '<leader>tm', LazyVim.lazygit.blame_line, { desc = 'Git Blame Line' })
 map('n', '<leader>tf', function()
 	local git_path = vim.api.nvim_buf_get_name(0)
-	LazyVim.terminal({ 'lazygit', '-f', vim.trim(git_path) }, { esc_esc = false, ctrl_hjkl = false })
-end, { desc = 'Lazygit current file history' })
+	LazyVim.lazygit({args = { '-f', vim.trim(git_path) }})
+end, { desc = 'Lazygit Current File History' })
 
 -- Terminal
 map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Enter Normal Mode' })
 local lazyterm = function() LazyVim.terminal(nil, { cwd = LazyVim.root() }) end
-map('n', '<leader>tt', lazyterm, { desc = 'Terminal (root dir)' })
+map('n', '<leader>tt', lazyterm, { desc = 'Terminal (Root Dir)' })
 map('n', '<leader>tT', function() LazyVim.terminal() end, { desc = 'Terminal (cwd)' })
 
 if vim.fn.has('mac') then
@@ -382,7 +382,6 @@ if vim.F.if_nil(vim.g.window_q_mapping, true) then
 			'notify',
 			'PlenaryTestPopup',
 			'qf',
-			'query',
 			'spectre_panel',
 			'startuptime',
 			'tsplayground',
@@ -409,7 +408,7 @@ if vim.F.if_nil(vim.g.window_q_mapping, true) then
 	end, { desc = 'Close window' })
 end
 
-map('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit all' })
+map('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit All' })
 
 -- Switch with adjacent window
 map('n', '<C-x>', '<C-w>x<C-w>w', { remap = true, desc = 'Swap adjacent windows' })

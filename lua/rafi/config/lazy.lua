@@ -5,7 +5,7 @@ local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.uv.fs_stat(lazypath) then
 	print('Installing lazy.nvim…')
 	-- stylua: ignore
-	vim.fn.system({ 'git', 'clone', '--filter=blob:none', '--branch=stable', 'https://github.com/folke/lazy.nvim.git', lazypath })
+	vim.fn.system({ 'git', 'clone', '--filter=blob:none', 'https://github.com/folke/lazy.nvim.git', '--branch=stable', lazypath })
 end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
@@ -17,8 +17,7 @@ if ok and user_setup.lazy_opts then
 end
 
 -- Validate if lua/plugins/ or lua/plugins.lua exist.
-local stdconfig = vim.fn.stdpath('config')
-local user_path = stdconfig .. '/lua'
+local user_path = vim.fn.stdpath('config') .. '/lua'
 local has_user_plugins = vim.uv.fs_stat(user_path .. '/plugins') ~= nil
 	or vim.uv.fs_stat(user_path .. '/plugins.lua') ~= nil
 
@@ -41,7 +40,7 @@ require('lazy').setup(vim.tbl_extend('keep', user_lazy_opts, {
 				package.loaded['lazyvim.config.options'] = true
 				require('lazyvim.config').setup(vim.tbl_deep_extend('force', opts, {
 					defaults = { autocmds = false, keymaps = false },
-					news = { lazyvim = false }
+					news = { lazyvim = false },
 				}))
 			end,
 		},

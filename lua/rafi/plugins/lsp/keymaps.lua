@@ -35,13 +35,10 @@ function M.get()
 			end
 		end },
 
-		-- { '<Leader>ud', function() M.diagnostic_toggle(false) end, desc = 'Disable Diagnostics' },
-		-- { '<Leader>uD', function() M.diagnostic_toggle(true) end, desc = 'Disable All Diagnostics' },
-
-		{ '<leader>cl', '<cmd>LspInfo<cr>', desc = 'LSP info popup' },
-		{ '<leader>co', M.formatter_select, mode = { 'n', 'x' }, desc = 'Formatter Select' },
-		{ '<Leader>chi', vim.lsp.buf.incoming_calls, desc = 'Incoming calls' },
-		{ '<Leader>cho', vim.lsp.buf.outgoing_calls, desc = 'Outgoing calls' },
+		{ '<leader>cil', '<cmd>LspInfo<cr>', desc = 'LSP info popup' },
+		{ '<leader>csf', M.formatter_select, mode = { 'n', 'x' }, desc = 'Formatter Select' },
+		{ '<Leader>csi', vim.lsp.buf.incoming_calls, desc = 'Incoming calls' },
+		{ '<Leader>cso', vim.lsp.buf.outgoing_calls, desc = 'Outgoing calls' },
 		{ '<Leader>ce', vim.diagnostic.open_float, desc = 'Open diagnostics' },
 		{ '<leader>cc', vim.lsp.codelens.run, desc = 'Run Codelens', mode = { 'n', 'v' }, has = 'codeLens' },
 		{ '<leader>cC', vim.lsp.codelens.refresh, desc = 'Refresh & Display Codelens', mode = { 'n' }, has = 'codeLens' },
@@ -117,8 +114,7 @@ function M.on_attach(_, buffer)
 
 	for _, keys in pairs(keymaps) do
 		if not keys.has or M.has(buffer, keys.has) then
-			---@class LazyKeysBase
-			local opts = Keys.opts(keys)
+			local opts = Keys.opts(keys) --[[@as vim.keymap.set.Opts]]
 			opts.has = nil
 			opts.silent = opts.silent ~= false
 			opts.buffer = buffer
@@ -127,33 +123,14 @@ function M.on_attach(_, buffer)
 	end
 end
 
--- Toggle diagnostics locally (false) or globally (true).
----@param global boolean
-function M.diagnostic_toggle(global)
-	local bufnr, cmd, msg, state
-	if global then
-		bufnr = nil
-		state = vim.g.diagnostics_disabled
-		vim.g.diagnostics_disabled = not state
-	else
-		bufnr = 0
-		if vim.fn.has('nvim-0.9') == 1 then
-			state = vim.diagnostic.is_disabled(bufnr)
-		else
-			state = vim.b.diagnostics_disabled
-			vim.b.diagnostics_disabled = not state
+function M.on_detach(_, buffer)
+	local keymaps = M.resolve(buffer)
+	for _, keys in pairs(keymaps) do
+		if not keys.has or M.has(buffer, keys.has) then
+			local opts = { buffer = buffer }
+			vim.keymap.del(keys.mode or 'n', keys.lhs, opts)
 		end
 	end
-
-	cmd = state and 'enable' or 'disable'
-	msg = cmd:gsub('^%l', string.upper) .. 'd diagnostics'
-	if global then
-		msg = msg .. ' globally'
-	end
-	vim.notify(msg)
-	vim.schedule(function()
-		vim.diagnostic[cmd](bufnr)
-	end)
 end
 
 -- Display a list of formatters and apply the selected one.
@@ -174,7 +151,7 @@ function M.formatter_select()
 
 	---@type rafi.Formatter[]
 	local sources = {}
-	local fmts = require('lazyvim.util.format').resolve(buf)
+	local fmts = LazyVim.format.resolve(buf)
 	for _, fmt in ipairs(fmts) do
 		vim.tbl_map(function(resolved)
 			table.insert(sources, {
