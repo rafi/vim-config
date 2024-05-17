@@ -62,6 +62,10 @@ return {
 			codelens = {
 				enabled = false,
 			},
+			-- Enable lsp cursor word highlighting
+			document_highlight = {
+				enabled = true,
+			},
 			-- Add any global capabilities here
 			capabilities = {},
 			-- Formatting options for vim.lsp.buf.format
@@ -119,10 +123,6 @@ return {
 			-- Setup formatting, keymaps and highlights.
 			LazyVim.lsp.on_attach(function(client, buffer)
 				require('rafi.plugins.lsp.keymaps').on_attach(client, buffer)
-				if not LazyVim.has('vim-illuminate') then
-					require('rafi.plugins.lsp.highlight').on_attach(client, buffer)
-				end
-
 				local filter = { bufnr = buffer }
 				if not vim.diagnostic.is_enabled(filter) or vim.bo[buffer].buftype ~= '' then
 					vim.diagnostic.enable(false, filter)
@@ -140,6 +140,8 @@ return {
 				require('rafi.plugins.lsp.keymaps').on_attach(client, buffer)
 				return ret
 			end
+
+			LazyVim.lsp.words.setup(opts.document_highlight)
 
 			-- Diagnostics signs and highlights.
 			if vim.fn.has('nvim-0.10.0') == 0 then

@@ -1,11 +1,20 @@
 return {
 
+	{
+		'neovim/nvim-lspconfig',
+		opts = { document_highlight = { enabed = false } },
+	},
+
 	-- Highlights other uses of the word under the cursor
 	{
 		'RRethy/vim-illuminate',
 		event = { 'BufReadPost', 'BufNewFile' },
 		opts = {
 			delay = 200,
+			large_file_cutoff = 2000,
+			large_file_overrides = {
+				providers = { 'lsp' },
+			},
 			under_cursor = false,
 			modes_allowlist = { 'n', 'no', 'nt' },
 			filetypes_denylist = {

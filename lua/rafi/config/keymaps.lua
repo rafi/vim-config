@@ -73,6 +73,7 @@ map('n', '<A-}>', '<cmd>+tabmove<CR>', { desc = 'Tab Move Forwards' })
 -- buffers
 map('n', '<leader>bb', '<cmd>e #<CR>', { desc = 'Switch to Other Buffer' })
 map('n', '<leader>`', '<cmd>e #<CR>', { desc = 'Switch to Other Buffer' })
+map('n', '<leader>bD', '<cmd>:bd<cr>', { desc = 'Delete Buffer and Window' })
 
 -- }}}
 -- Selection {{{

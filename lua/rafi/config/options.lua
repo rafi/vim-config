@@ -34,6 +34,9 @@ vim.g.root_spec = { 'lsp', { '.git', 'lua' }, 'cwd' }
 -- Set to false to disable.
 vim.g.lazygit_config = true
 
+-- Hide deprecation warnings
+vim.g.deprecation_warnings = false
+
 -- General
 -- ===
 -- stylua: ignore start
