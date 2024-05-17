@@ -1,14 +1,20 @@
 -- Rafael Bodill's lazy.nvim initialization
 -- https://github.com/rafi/vim-config
 
-local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
-if not vim.uv.fs_stat(lazypath) then
-	print('Installing lazy.nvim…')
-	-- stylua: ignore
-	vim.fn.system({ 'git', 'clone', '--filter=blob:none', 'https://github.com/folke/lazy.nvim.git', '--branch=stable', lazypath })
+-- Clone bootstrap repositories if not already installed.
+vim.uv = vim.uv or vim.loop
+local function clone(remote, dest)
+	if not vim.uv.fs_stat(dest) then
+		print('Installing ' .. dest .. '…')
+		-- stylua: ignore
+		vim.fn.system({ 'git', 'clone', '--filter=blob:none', remote, '--branch=stable', dest })
+	end
 end
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+clone('https://github.com/folke/lazy.nvim.git', lazypath)
 ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
+clone('https://github.com/LazyVim/LazyVim.git', vim.fn.stdpath('data') .. '/lazy/LazyVim')
 
 -- Load user options from lua/config/setup.lua
 local user_lazy_opts = {}
