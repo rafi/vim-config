@@ -3,6 +3,17 @@
 
 -- This is part of LazyVim's code, with my modifications.
 -- See: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/lang/python.lua
+
+if lazyvim_docs then
+	-- LSP Server to use for Python.
+	-- Set to "basedpyright" to use basedpyright instead of pyright.
+	vim.g.lazyvim_python_lsp = "pyright"
+	vim.g.lazyvim_python_ruff = 'ruff_lsp'
+end
+
+local lsp = vim.g.lazyvim_python_lsp or 'pyright'
+local ruff = vim.g.lazyvim_python_ruff or 'ruff_lsp'
+
 return {
 
 	{
@@ -28,40 +39,51 @@ return {
 
 	{
 		'neovim/nvim-lspconfig',
-		dependencies = 'rafi/neoconf-venom.nvim',
 		opts = {
 			servers = {
-				pyright = {},
-			},
-		},
-	},
-
-	{
-		'mhartington/formatter.nvim',
-		optional = true,
-		opts = function(_, opts)
-			opts = opts or {}
-			local fmts = require('formatter.filetypes.python')
-			local filetypes = {
-				python = {
-					fmts.black,
-					fmts.yapf,
-					fmts.pyment,
-					fmts.isort,
-					fmts.docformatter,
+				pyright = {
+					enabled = lsp == 'pyright',
 				},
-			}
-			opts.filetype = vim.tbl_extend('keep', opts.filetype or {}, filetypes)
-		end,
-	},
-
-	{
-		'rafi/neoconf-venom.nvim',
-		main = 'venom',
-		opts = {},
-		-- stylua: ignore
-		keys = {
-			{ '<leader>cv', '<cmd>Telescope venom virtualenvs<cr>', ft = 'python', desc = 'Select VirtualEnv' },
+				basedpyright = {
+					enabled = lsp == 'basedpyright',
+				},
+				[lsp] = {
+					enabled = true,
+				},
+				ruff_lsp = {
+					enabled = ruff == "ruff_lsp",
+				},
+				ruff = {
+					enabled = ruff == "ruff",
+				},
+				[ruff] = {
+					keys = {
+						{
+							'<leader>co',
+							function()
+								vim.lsp.buf.code_action({
+									apply = true,
+									context = {
+										only = { 'source.organizeImports' },
+										diagnostics = {},
+									},
+								})
+							end,
+							desc = 'Organize Imports',
+						},
+					},
+				},
+			},
+			setup = {
+				[ruff] = function()
+					LazyVim.lsp.on_attach(function(client, _)
+						if client.name == ruff then
+							-- Disable hover in favor of Pyright
+							client.server_capabilities.hoverProvider = false
+						end
+					end)
+				end,
+			},
 		},
 	},
 
@@ -98,5 +120,13 @@ return {
 				require('dap-python').setup(path .. '/venv/bin/python')
 			end,
 		},
+	},
+
+	{
+		'hrsh7th/nvim-cmp',
+		opts = function(_, opts)
+			opts.auto_brackets = opts.auto_brackets or {}
+			table.insert(opts.auto_brackets, 'python')
+		end,
 	},
 }
