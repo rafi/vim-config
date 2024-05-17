@@ -17,8 +17,6 @@ return {
 			'hrsh7th/cmp-path',
 			-- nvim-cmp source for emoji
 			'hrsh7th/cmp-emoji',
-			-- nvim-cmp source for tmux
-			'andersevenrud/cmp-tmux',
 		},
 		-- Not all LSP servers add brackets when completing a function.
 		-- To better deal with this, LazyVim adds a custom option to cmp,
@@ -58,12 +56,6 @@ return {
 				}, {
 					{ name = 'buffer', priority = 50, keyword_length = 3 },
 					{ name = 'emoji', insert = true, priority = 20 },
-					{
-						name = 'tmux',
-						priority = 10,
-						keyword_length = 3,
-						option = { all_panes = true, label = 'tmux' },
-					},
 				}),
 				mapping = cmp.mapping.preset.insert({
 					-- <CR> accepts currently selected item.

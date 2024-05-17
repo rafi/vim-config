@@ -477,7 +477,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [nmac427/guess-indent.nvim] | Automatic indentation style detection
 | [tweekmonster/helpful.vim] | Display vim version numbers in docs
 | [lambdalisue/suda.vim] | An alternative sudo for Vim and Neovim
-| [christoomey/tmux-navigator] | Seamless navigation between tmux panes and vim splits
 | [folke/persistence.nvim] | Simple lua plugin for automated session management
 | [mbbill/undotree] | Ultimate undo history visualizer
 | [folke/flash.nvim] | Search labels, enhanced character motions
@@ -502,7 +501,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [hrsh7th/cmp-buffer] | nvim-cmp source for buffer words
 | [hrsh7th/cmp-path] | nvim-cmp source for path
 | [hrsh7th/cmp-emoji] | nvim-cmp source for emoji
-| [andersevenrud/cmp-tmux] | Tmux completion source for nvim-cmp
 | [L3MON4D3/LuaSnip] | Snippet Engine written in Lua
 | [rafamadriz/friendly-snippets] | Preconfigured snippets for different languages
 | [saadparwaiz1/cmp_luasnip] | Luasnip completion source for nvim-cmp
@@ -594,7 +592,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 
 [folke/lazy.nvim]: https://github.com/folke/lazy.nvim
 [nmac427/guess-indent.nvim]: https://github.com/nmac427/guess-indent.nvim
-[christoomey/tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator
 [tweekmonster/helpful.vim]: https://github.com/tweekmonster/helpful.vim
 [lambdalisue/suda.vim]: https://github.com/lambdalisue/suda.vim
 [folke/persistence.nvim]: https://github.com/folke/persistence.nvim
@@ -616,7 +613,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [hrsh7th/cmp-buffer]: https://github.com/hrsh7th/cmp-buffer
 [hrsh7th/cmp-path]: https://github.com/hrsh7th/cmp-path
 [hrsh7th/cmp-emoji]: https://github.com/hrsh7th/cmp-emoji
-[andersevenrud/cmp-tmux]: https://github.com/andersevenrud/cmp-tmux
 [L3MON4D3/LuaSnip]: https://github.com/L3MON4D3/LuaSnip
 [rafamadriz/friendly-snippets]: https://github.com/rafamadriz/friendly-snippets
 [saadparwaiz1/cmp_luasnip]: https://github.com/saadparwaiz1/cmp_luasnip
@@ -789,6 +785,7 @@ Spec: `rafi.plugins.extras.lang.<name>`
 | `go`             | syntax, lsp, formatter, dap [leoluz/nvim-dap-go], test [nvim-neotest/neotest-go]
 | `helm`           | syntax, lsp
 | `python`         | syntax, lsp, dap [mfussenegger/nvim-dap-python], test, [rafi/neoconf-venom.nvim]
+| `tmux`           | syntax, completion [andersevenrud/cmp-tmux], keymaps [christoomey/tmux-navigator]
 | `yaml`           | syntax, lsp, schemas, [b0o/SchemaStore.nvim]
 
 [pearofducks/ansible-vim]: https://github.com/pearofducks/ansible-vim
@@ -797,6 +794,8 @@ Spec: `rafi.plugins.extras.lang.<name>`
 [mfussenegger/nvim-dap-python]: https://github.com/mfussenegger/nvim-dap-python
 [rafi/neoconf-venom.nvim]: https://github.com/rafi/neoconf-venom.nvim
 [b0o/SchemaStore.nvim]: https://github.com/b0o/SchemaStore.nvim
+[christoomey/tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator
+[andersevenrud/cmp-tmux]: https://github.com/andersevenrud/cmp-tmux
 
 ### Extra Plugins: Linting
 
@@ -931,10 +930,10 @@ Note that,
 | <kbd>gj</kbd> / <kbd>gk</kbd> | 𝐍 𝐕 𝐒 | Jump to edge upward/downward | <small>[haya14busa/vim-edgemotion]</small>
 | <kbd>gh</kbd> / <kbd>gl</kbd> | 𝐍 𝐕 | Easier line-wise movement | <small>`g^` `g$`</small>
 | <kbd>zl</kbd> / <kbd>zh</kbd> | 𝐍 | Scroll horizontally and vertically wider | <small>`z4` `l/h`</small>
-| <kbd>Ctrl</kbd>+<kbd>j</kbd> | 𝐍 | Move to split below | <small>[christoomey/tmux-navigator]</small>
-| <kbd>Ctrl</kbd>+<kbd>k</kbd> | 𝐍 | Move to upper split | <small>[christoomey/tmux-navigator]</small>
-| <kbd>Ctrl</kbd>+<kbd>h</kbd> | 𝐍 | Move to left split | <small>[christoomey/tmux-navigator]</small>
-| <kbd>Ctrl</kbd>+<kbd>l</kbd> | 𝐍 | Move to right split | <small>[christoomey/tmux-navigator]</small>
+| <kbd>Ctrl</kbd>+<kbd>j</kbd> | 𝐍 | Move to split below | <small>`<C-w>j` or [christoomey/tmux-navigator]</small>
+| <kbd>Ctrl</kbd>+<kbd>k</kbd> | 𝐍 | Move to upper split | <small>`<C-w>k` or [christoomey/tmux-navigator]</small>
+| <kbd>Ctrl</kbd>+<kbd>h</kbd> | 𝐍 | Move to left split | <small>`<C-w>h` or [christoomey/tmux-navigator]</small>
+| <kbd>Ctrl</kbd>+<kbd>l</kbd> | 𝐍 | Move to right split | <small>`<C-w>l` or [christoomey/tmux-navigator]</small>
 | <kbd>Return</kbd> | 𝐍 | Toggle fold under cursor | <small>`za`</small>
 | <kbd>Shift</kbd>+<kbd>Return</kbd> | 𝐍 | Focus the current fold by closing all others | <small>`zMzv`</small>
 | <kbd>Ctrl</kbd>+<kbd>f</kbd> | 𝐂 | Move cursor forwards in command | <kbd>Right</kbd>

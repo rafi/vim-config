@@ -163,7 +163,6 @@ return {
 				'ssh_config',
 				'starlark',
 				'svelte',
-				'tmux',
 				'todotxt',
 				'toml',
 				'vim',
