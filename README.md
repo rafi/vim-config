@@ -523,14 +523,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [rafi/theme-loader.nvim] | Use last-used colorscheme
 | [rafi/neo-hybrid.vim] | Modern dark colorscheme, hybrid improved
 | [rafi/awesome-colorschemes] | Awesome color-schemes
-| [AlexvZyl/nordic.nvim] | Nord for Neovim, but warmer and darker
-| [folke/tokyonight.nvim] | Clean, dark Neovim theme
-| [rebelot/kanagawa.nvim] | Inspired by the colors of the famous painting by Katsushika Hokusai
-| [olimorris/onedarkpro.nvim] | OneDarkPro theme
-| [EdenEast/nightfox.nvim] | Highly customizable theme
-| [nyoom-engineering/oxocarbon.nvim] | Dark and light theme inspired by IBM Carbon
-| [ribru17/bamboo.nvim] | Warm green theme
-| [catppuccin/nvim] | Soothing pastel theme
 
 ### Git Plugins
 
@@ -641,14 +633,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [rafi/theme-loader.nvim]: https://github.com/rafi/theme-loader.nvim
 [rafi/neo-hybrid.vim]: https://github.com/rafi/neo-hybrid.vim
 [rafi/awesome-colorschemes]: https://github.com/rafi/awesome-vim-colorschemes
-[AlexvZyl/nordic.nvim]: https://github.com/AlexvZyl/nordic.nvim
-[folke/tokyonight.nvim]: https://github.com/folke/tokyonight.nvim
-[rebelot/kanagawa.nvim]: https://github.com/rebelot/kanagawa.nvim
-[olimorris/onedarkpro.nvim]: https://github.com/olimorris/onedarkpro.nvim
-[EdenEast/nightfox.nvim]: https://github.com/EdenEast/nightfox.nvim
-[nyoom-engineering/oxocarbon.nvim]: https://github.com/nyoom-engineering/oxocarbon.nvim
-[ribru17/bamboo.nvim]: https://github.com/ribru17/bamboo.nvim
-[catppuccin/nvim]: https://github.com/catppuccin/nvim
 
 [lewis6991/gitsigns.nvim]: https://github.com/lewis6991/gitsigns.nvim
 [sindrets/diffview.nvim]: https://github.com/sindrets/diffview.nvim
@@ -736,6 +720,30 @@ Spec: `rafi.plugins.extras.coding.<name>`
 [echasnovski/mini.pairs]: https://github.com/echasnovski/mini.pairs
 [danymat/neogen]: https://github.com/danymat/neogen
 [machakann/vim-sandwich]: https://github.com/machakann/vim-sandwich
+
+### Extra Plugins: Colorscheme
+
+Spec: `rafi.plugins.extras.colorscheme.<name>`
+
+| Name           | Repository     | Description
+| -------------- | -------------- | ----------------------
+| `nordic`       | [AlexvZyl/nordic.nvim] | Nord for Neovim, but warmer and darker
+| `tokyonight`   | [folke/tokyonight.nvim] | Clean, dark Neovim theme
+| `kanagawa`     | [rebelot/kanagawa.nvim] | Inspired by the colors of the famous painting by Katsushika Hokusai
+| `onedarkpro`   | [olimorris/onedarkpro.nvim] | OneDarkPro theme
+| `nightfox`     | [EdenEast/nightfox.nvim] | Highly customizable theme
+| `oxocarbon`    | [nyoom-engineering/oxocarbon.nvim] | Dark and light theme inspired by IBM Carbon
+| `bamboo`       | [ribru17/bamboo.nvim] | Warm green theme
+| `catppuccin`   | [catppuccin/nvim] | Soothing pastel theme
+
+[AlexvZyl/nordic.nvim]: https://github.com/AlexvZyl/nordic.nvim
+[folke/tokyonight.nvim]: https://github.com/folke/tokyonight.nvim
+[rebelot/kanagawa.nvim]: https://github.com/rebelot/kanagawa.nvim
+[olimorris/onedarkpro.nvim]: https://github.com/olimorris/onedarkpro.nvim
+[EdenEast/nightfox.nvim]: https://github.com/EdenEast/nightfox.nvim
+[nyoom-engineering/oxocarbon.nvim]: https://github.com/nyoom-engineering/oxocarbon.nvim
+[ribru17/bamboo.nvim]: https://github.com/ribru17/bamboo.nvim
+[catppuccin/nvim]: https://github.com/catppuccin/nvim
 
 ### Extra Plugins: Editor
 
