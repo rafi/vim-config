@@ -38,6 +38,7 @@ return {
 			)
 			local cmp = require('cmp')
 			local defaults = require('cmp.config.default')()
+			local Util = require('rafi.util')
 
 			return {
 				-- configure any filetype to auto add brackets
