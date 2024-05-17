@@ -284,24 +284,24 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
-	-- Fast and familiar per-line commenting
+	-- Powerful line and block-wise commenting
 	{
-		'echasnovski/mini.comment',
+		'numToStr/Comment.nvim',
+		-- stylua: ignore
 		event = 'VeryLazy',
 		dependencies = { 'JoosepAlviste/nvim-ts-context-commentstring' },
-		-- stylua: ignore
 		keys = {
-			{ '<Leader>v', 'gcc', remap = true, silent = true, mode = 'n', desc = 'Comment' },
-			{ '<Leader>v', 'gc', remap = true, silent = true, mode = 'x', desc = 'Comment' },
+			{ '<Leader>v', '<Plug>(comment_toggle_linewise_current)', mode = 'n', desc = 'Comment' },
+			{ '<Leader>v', '<Plug>(comment_toggle_linewise_visual)', mode = 'x', desc = 'Comment' },
+			{ '<Leader>V', '<Plug>(comment_toggle_blockwise_current)', mode = 'n', desc = 'Comment' },
+			{ '<Leader>V', '<Plug>(comment_toggle_blockwise_visual)', mode = 'x', desc = 'Comment' },
 		},
-		opts = {
-			options = {
-				custom_commentstring = function()
-					return require('ts_context_commentstring.internal').calculate_commentstring()
-						or vim.bo.commentstring
-				end,
-			},
-		},
+		opts = function(_, opts)
+			local ok, tcc = pcall(require, 'ts_context_commentstring.integrations.comment_nvim')
+			if ok then
+				opts.pre_hook = tcc.create_pre_hook()
+			end
+		end
 	},
 
 	-----------------------------------------------------------------------------

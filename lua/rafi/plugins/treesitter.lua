@@ -47,7 +47,6 @@ return {
 		},
 		---@diagnostic disable-next-line: undefined-doc-name
 		---@type TSConfig
-		---@diagnostic disable-next-line: missing-fields
 		opts = {
 			highlight = { enable = true },
 			indent = { enable = true },
@@ -181,6 +180,7 @@ return {
 			if type(langs) == 'table' then
 				---@type table<string, boolean>
 				local added = {}
+				---@diagnostic disable-next-line: inject-field
 				opts.ensure_installed = vim.tbl_filter(function(lang)
 					if added[lang] then
 						return false

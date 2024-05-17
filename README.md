@@ -509,7 +509,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [windwp/nvim-autopairs] | Powerful auto-pair plugin with multiple characters support
 | [echasnovski/mini.surround] | Fast and feature-rich surround actions
 | [JoosepAlviste/nvim-ts-context-commentstring] | Set the commentstring based on the cursor location
-| [echasnovski/mini.comment] | Fast and familiar per-line commenting
+| [numToStr/Comment.nvim] | Powerful line and block-wise commenting
 | [echasnovski/mini.splitjoin] | Split and join arguments
 | [echasnovski/mini.trailspace] | Trailing whitespace highlight and remove
 | [AndrewRadev/linediff.vim] | Perform diffs on blocks of code
@@ -631,7 +631,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [windwp/nvim-autopairs]: https://github.com/windwp/nvim-autopairs
 [echasnovski/mini.surround]: https://github.com/echasnovski/mini.surround
 [JoosepAlviste/nvim-ts-context-commentstring]: https://github.com/JoosepAlviste/nvim-ts-context-commentstring
-[echasnovski/mini.comment]: https://github.com/echasnovski/mini.comment
+[numToStr/Comment.nvim]: https://github.com/numToStr/Comment.nvim
 [echasnovski/mini.splitjoin]: https://github.com/echasnovski/mini.splitjoin
 [echasnovski/mini.trailspace]: https://github.com/echasnovski/mini.trailspace
 [AndrewRadev/linediff.vim]: https://github.com/AndrewRadev/linediff.vim
@@ -721,6 +721,7 @@ Spec: `rafi.plugins.extras.coding.<name>`
 | `copilot`      | [zbirenbaum/copilot.lua] | Fully featured & enhanced copilot
 | `editorconfig` | [sgur/vim-editorconfig] | EditorConfig plugin written entirely in Vimscript
 | `emmet`        | [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet
+| `mini.comment` | [echasnovski/mini.comment] | Fast and familiar per-line commenting
 | `minipairs`    | [echasnovski/mini.pairs] | Automatically manage character pairs
 | `neogen`       | [danymat/neogen] | Annotation generator
 | `sandwich`     | [machakann/vim-sandwich] | Search, select, and edit sandwich text objects
@@ -731,6 +732,7 @@ Spec: `rafi.plugins.extras.coding.<name>`
 [zbirenbaum/copilot.lua]: https://github.com/zbirenbaum/copilot.lua
 [sgur/vim-editorconfig]: https://github.com/sgur/vim-editorconfig
 [mattn/emmet-vim]: https://github.com/mattn/emmet-vim
+[echasnovski/mini.comment]: https://github.com/echasnovski/mini.comment
 [echasnovski/mini.pairs]: https://github.com/echasnovski/mini.pairs
 [danymat/neogen]: https://github.com/danymat/neogen
 [machakann/vim-sandwich]: https://github.com/machakann/vim-sandwich
@@ -1060,10 +1062,11 @@ Note that,
 | <kbd>Shift</kbd>+<kbd>Return</kbd> | 𝐈 | Start new line from any cursor position | <small>`<C-o>o`</small>
 | <kbd>]</kbd> <kbd>Space</kbd> | 𝐍 | Add new line below | <small>`o<Esc>`</small>
 | <kbd>[</kbd> <kbd>Space</kbd> | 𝐍 | Add new line above | <small>`O<Esc>`</small>
-| <kbd>gc</kbd> | 𝐍 𝐕 | Comment prefix | <small>[echasnovski/mini.comment]</small>
-| <kbd>gcc</kbd> | 𝐍 𝐕 | Toggle comments | <small>[echasnovski/mini.comment]</small>
+| <kbd>gc</kbd> | 𝐍 𝐕 | Comment prefix | <small>[numToStr/Comment.nvim]</small>
+| <kbd>gcc</kbd> | 𝐍 𝐕 | Toggle comments | <small>[numToStr/Comment.nvim]</small>
 | <kbd>Space</kbd>+<kbd>j</kbd> or <kbd>k</kbd> | 𝐍 𝐕 | Move lines down/up | <small>`:m` …
-| <kbd>Space</kbd>+<kbd>v</kbd> | 𝐍 𝐕 | Toggle single-line comments | <small>[echasnovski/mini.comment]</small>
+| <kbd>Space</kbd>+<kbd>v</kbd> | 𝐍 𝐕 | Toggle line-wise comments | <small>[numToStr/Comment.nvim]</small>
+| <kbd>Space</kbd>+<kbd>V</kbd> | 𝐍 𝐕 | Toggle block-wise comments | <small>[numToStr/Comment.nvim]</small>
 | <kbd>Space</kbd>+<kbd>dd</kbd> | 𝐍 𝐕 | Duplicate line or selection | <small>[config/keymaps.lua]</small>
 | <kbd>Space</kbd>+<kbd>p</kbd> | 𝐍 | Duplicate paragraph | <small>`yap<S-}>p`</small>
 | <kbd>Space</kbd>+<kbd>cw</kbd> | 𝐍 | Remove all spaces at EOL | <small>[echasnovski/mini.trailspace]</small>
