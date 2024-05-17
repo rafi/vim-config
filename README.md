@@ -784,6 +784,7 @@ Spec: `rafi.plugins.extras.lang.<name>`
 | `docker`         | syntax, lsp, lint
 | `go`             | syntax, lsp, formatter, dap [leoluz/nvim-dap-go], test [nvim-neotest/neotest-go]
 | `helm`           | syntax, lsp
+| `markdown`       | syntax, lsp, browser preview [iamcco/markdown-preview.nvim]
 | `python`         | syntax, lsp, dap [mfussenegger/nvim-dap-python], test, [rafi/neoconf-venom.nvim]
 | `tmux`           | syntax, completion [andersevenrud/cmp-tmux], keymaps [christoomey/tmux-navigator]
 | `yaml`           | syntax, lsp, schemas, [b0o/SchemaStore.nvim]
@@ -791,6 +792,7 @@ Spec: `rafi.plugins.extras.lang.<name>`
 [pearofducks/ansible-vim]: https://github.com/pearofducks/ansible-vim
 [leoluz/nvim-dap-go]: https://github.com/leoluz/nvim-dap-go
 [nvim-neotest/neotest-go]: https://github.com/nvim-neotest/neotest-go
+[iamcco/markdown-preview.nvim]: https://github.com/iamcco/markdown-preview.nvim
 [mfussenegger/nvim-dap-python]: https://github.com/mfussenegger/nvim-dap-python
 [rafi/neoconf-venom.nvim]: https://github.com/rafi/neoconf-venom.nvim
 [b0o/SchemaStore.nvim]: https://github.com/b0o/SchemaStore.nvim
@@ -859,10 +861,12 @@ Spec: `rafi.plugins.extras.ui.<name>`
 | `cybu`            | [ghillb/cybu.nvim] | Cycle buffers with a customizable notification window
 | `deadcolumn`      | [Bekaboo/deadcolumn.nvim] | Show colorcolumn dynamically
 | `goto-preview`    | [rmagatti/goto-preview] | Preview definitions using floating windows
-| `illuminate`    | [RRethy/vim-illuminate] | Highlights other uses of the word under the cursor
+| `headlines`       | [lukas-reineke/headlines.nvim] | Adds horizontal highlights for headlines and code background.
+| `illuminate`      | [RRethy/vim-illuminate] | Highlights other uses of the word under the cursor
 | `incline`         | [b0o/incline.nvim] | Floating statuslines
 | `miniclue`        | [echasnovski/mini.clue] | Show next key clues
 | `minimap`         | [echasnovski/mini.map] | Window with buffer text overview, scrollbar and highlights
+| `render-markdown` | [MeanderingProgrammer/markdown.nvim] | Improve viewing Markdown files
 | `symbols-outline` | [simrat39/symbols-outline.nvim] | Tree like view for symbols using LSP
 
 [goolord/alpha-nvim]: https://github.com/goolord/alpha-nvim
@@ -871,10 +875,12 @@ Spec: `rafi.plugins.extras.ui.<name>`
 [ghillb/cybu.nvim]: https://github.com/ghillb/cybu.nvim
 [Bekaboo/deadcolumn.nvim]: https://github.com/Bekaboo/deadcolumn.nvim
 [rmagatti/goto-preview]: https://github.com/rmagatti/goto-preview
+[lukas-reineke/headlines.nvim]: https://github.com/lukas-reineke/headlines.nvim
 [RRethy/vim-illuminate]: https://github.com/RRethy/vim-illuminate
 [b0o/incline.nvim]: https://github.com/b0o/incline.nvim
 [echasnovski/mini.clue]: https://github.com/echasnovski/mini.clue
 [echasnovski/mini.map]: https://github.com/echasnovski/mini.map
+[MeanderingProgrammer/markdown.nvim]: https://github.com/MeanderingProgrammer/markdown.nvim
 [simrat39/symbols-outline.nvim]: https://github.com/simrat39/symbols-outline.nvim
 
 ### LazyVim Extras
