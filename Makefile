@@ -36,10 +36,10 @@ endif
 	"$(XDG_CACHE_HOME)/nvim/venv/bin/pip" install -U pynvim
 
 test:
-	$(info Testing for NVIM >= 0.9.x)
-	$(if $(shell nvim --version | egrep 'NVIM v0\.(9|10)\.'),\
+	$(info Testing for NVIM >= 0.10.x)
+	$(if $(shell nvim --version | egrep 'NVIM v0\.1[0-9]\.'),\
 		$(info OK),\
-		$(error   .. You need Neovim 0.9.x or newer))
+		$(error   .. You need Neovim 0.10.x or newer))
 	@echo All tests passed, hooray!
 
 .PHONY: install update create-dirs update-repo update-plugins uninstall venv test

@@ -141,6 +141,7 @@ local diagnostic_goto = function(next, severity)
 		go({ severity = severity_int })
 	end
 end
+
 map('n', ']d', diagnostic_goto(true), { desc = 'Next Diagnostic' })
 map('n', '[d', diagnostic_goto(false), { desc = 'Prev Diagnostic' })
 map('n', ']e', diagnostic_goto(true, 'ERROR'), { desc = 'Next Error' })
@@ -283,7 +284,9 @@ map('n', '<leader>us', function() LazyVim.toggle('spell') end, { desc = 'Toggle 
 map('n', '<leader>uw', function() LazyVim.toggle('wrap') end, { desc = 'Toggle Word Wrap' })
 map('n', '<leader>uL', function() LazyVim.toggle('relativenumber') end, { desc = 'Toggle Relative Line Numbers' })
 map('n', '<leader>ul', function() LazyVim.toggle.number() end, { desc = 'Toggle Line Numbers' })
-map('n', '<leader>ud', function() LazyVim.toggle.diagnostics() end, { desc = 'Toggle Diagnostics' })
+map('n', '<Leader>ud', function() RafiUtil.edit.diagnostic_toggle(false) end, { desc = 'Disable Diagnostics' })
+map('n', '<Leader>uD', function() RafiUtil.edit.diagnostic_toggle(true) end, { desc = 'Disable All Diagnostics' })
+
 map('n', '<Leader>uo', '<cmd>setlocal nolist!<CR>', { desc = 'Toggle Whitespace Symbols' })
 map('n', '<Leader>uu', '<cmd>nohlsearch<CR>', { desc = 'Hide Search Highlight' })
 local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3

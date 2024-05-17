@@ -149,38 +149,13 @@ end
 -- Toggle diagnostics locally (false) or globally (true).
 ---@param global boolean
 M.diagnostic_toggle = function(global)
-	local cmd, disabled
-
-	if vim.fn.has('nvim-0.10') == 1 then
-		local opts = {}
-		if not global then
-			opts.bufnr = vim.api.nvim_get_current_buf()
-		end
-		vim.diagnostic.enable(not vim.diagnostic.is_enabled(), opts)
-		cmd = disabled and 'enable' or 'disable'
-	else
-		local bufnr
-		if global then
-			bufnr = nil
-			disabled = vim.g.diagnostics_disabled
-			vim.g.diagnostics_disabled = not disabled
-		else
-			bufnr = 0
-			if vim.fn.has('nvim-0.9') == 1 then
-				disabled = vim.diagnostic.is_disabled(bufnr)
-			else
-				disabled = vim.b.diagnostics_disabled
-				vim.b.diagnostics_disabled = not disabled
-			end
-		end
-
-		cmd = disabled and 'enable' or 'disable'
-		vim.schedule(function()
-			vim.diagnostic[cmd](bufnr)
-		end)
+	local opts = {}
+	if not global then
+		opts.bufnr = vim.api.nvim_get_current_buf()
 	end
-
-	local msg = cmd:gsub('^%l', string.upper) .. 'd diagnostics'
+	local enabled = vim.diagnostic.is_enabled()
+	vim.diagnostic.enable(not enabled, opts)
+	local msg = (enabled and 'Disable' or 'Enable') .. 'd diagnostics'
 	if global then
 		msg = msg .. ' globally'
 	end

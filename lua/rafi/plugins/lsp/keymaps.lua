@@ -115,6 +115,7 @@ function M.on_attach(_, buffer)
 	for _, keys in pairs(keymaps) do
 		if not keys.has or M.has(buffer, keys.has) then
 			local opts = Keys.opts(keys) --[[@as vim.keymap.set.Opts]]
+			---@diagnostic disable-next-line: inject-field
 			opts.has = nil
 			opts.silent = opts.silent ~= false
 			opts.buffer = buffer

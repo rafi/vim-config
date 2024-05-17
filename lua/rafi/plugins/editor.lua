@@ -1,8 +1,6 @@
 -- Plugins: Editor
 -- https://github.com/rafi/vim-config
 
-local is_windows = vim.uv.os_uname().sysname == 'Windows_NT'
-
 return {
 
 	-----------------------------------------------------------------------------
@@ -20,7 +18,7 @@ return {
 	{
 		'christoomey/vim-tmux-navigator',
 		lazy = false,
-		cond = vim.env.TMUX and not is_windows,
+		cond = vim.env.TMUX and vim.uv.os_uname().sysname ~= 'Windows_NT',
 		-- stylua: ignore
 		keys = {
 			{ '<C-h>', '<cmd>TmuxNavigateLeft<CR>', mode = { 'n', 't' }, silent = true, desc = 'Go to Left Window' },

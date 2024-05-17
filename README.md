@@ -1,6 +1,6 @@
 # Rafael Bodill's Neovim Config
 
-Lean mean Neovim machine, 30-45ms startup time. Works best with [Neovim] ≥0.9
+Lean mean Neovim machine, 30-45ms startup time. Works best with [Neovim] ≥0.10
 
 :gear: See "[Extending](#extending)" for customizing configuration and adding
 plugins.
@@ -116,7 +116,7 @@ entire configuration has been rewritten to use [lazy.nvim] and Lua.
 ## Prerequisites
 
 * [git](https://git-scm.com/) ≥ 2.19.0 (`brew install git`)
-* [Neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim) ≥ v0.9.0
+* [Neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim) ≥ v0.10.0
   (`brew install neovim`)
 
 **Optional**, but highly recommended:
@@ -236,12 +236,12 @@ git pull --ff --ff-only
   * [rafi/](./lua/rafi)
     * [config/](./lua/config) — Neovim configurations
       * [autocmd.lua](./lua/rafi/config/autocmd.lua) — Auto-commands
-      * [init.lua](./lua/rafi/config/init.lua) — initialization
+      * [init.lua](./lua/rafi/config/init.lua) — Initialization
       * [keymaps.lua](./lua/rafi/config/keymaps.lua) — Key-mappings
       * [lazy.lua](./lua/rafi/config/lazy.lua) — Entry-point initialization
       * [options.lua](./lua/rafi/config/options.lua) — Editor settings
-    * [util/](./lua/rafi/util) — Utilities
     * [plugins/](./lua/plugins) — Plugins and configurations
+    * [util/](./lua/rafi/util) — Utility library
 * [snippets/](./snippets) — Personal code snippets
 
 ## Extending
@@ -350,10 +350,10 @@ return {
     (Default values are shown)
 
     ```lua
-    -- Enable auto format on-save
+    -- Auto format on-save
     vim.g.autoformat = false
 
-    -- Enable elite-mode (hjkl mode. arrow-keys resize window)
+    -- Elite-mode (hjkl mode. arrow-keys resize window)
     vim.g.elite_mode = false
 
     -- When enabled, 'q' closes any window
@@ -479,7 +479,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [lambdalisue/suda.vim] | An alternative sudo for Vim and Neovim
 | [christoomey/tmux-navigator] | Seamless navigation between tmux panes and vim splits
 | [folke/persistence.nvim] | Simple lua plugin for automated session management
-| [RRethy/vim-illuminate] | Highlights other uses of the word under the cursor
 | [mbbill/undotree] | Ultimate undo history visualizer
 | [folke/flash.nvim] | Search labels, enhanced character motions
 | [haya14busa/vim-edgemotion] | Jump to the edge of block
@@ -488,7 +487,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [folke/trouble.nvim] | Pretty lists to help you solve all code diagnostics
 | [akinsho/toggleterm.nvim] | Persist and toggle multiple terminals
 | [hedyhli/outline.nvim] | Code outline sidebar powered by LSP
-| [s1n7ax/nvim-window-picker] | Window picker
+| [s1n7ax/nvim-window-picker] | Fancy Window picker
 | [dnlhc/glance.nvim] | Pretty window for navigating LSP locations
 | [nvim-pack/nvim-spectre] | Find the enemy and replace them with dark power
 | [echasnovski/mini.bufremove] | Helper for removing buffers
@@ -553,7 +552,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [nvim-neo-tree/neo-tree.nvim] | File explorer written in Lua
 | [nvim-telescope/telescope.nvim] | Find, Filter, Preview, Pick. All lua.
 | [jvgrootveld/telescope-zoxide] | Telescope extension for Zoxide
-| [rafi/telescope-thesaurus.nvim] | Browse synonyms from thesaurus.com
+| [rafi/telescope-thesaurus.nvim] | Browse synonyms for a word
 | [nvim-lua/plenary.nvim] | Lua functions library
 
 ### Treesitter & Syntax
@@ -578,7 +577,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | -------------- | ----------------------
 | [nvim-tree/nvim-web-devicons] | Lua fork of vim-devicons
 | [MunifTanjim/nui.nvim] | UI Component Library
-| [rcarriga/nvim-notify] | Fancy notification manager for NeoVim
+| [rcarriga/nvim-notify] | Fancy notification manager
 | [stevearc/dressing.nvim] | Improve the default vim-ui interfaces
 | [akinsho/bufferline.nvim] | Snazzy tab/bufferline
 | [folke/noice.nvim] | Replaces the UI for messages, cmdline and the popupmenu
@@ -589,14 +588,14 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [folke/which-key.nvim] | Create key bindings that stick
 | [tenxsoydev/tabs-vs-spaces.nvim] | Hint and fix deviating indentation
 | [t9md/vim-quickhl] | Highlight words quickly
-| [kevinhwang91/nvim-bqf] | Better quickfix window in Neovim
+| [kevinhwang91/nvim-bqf] | Better quickfix window
 | [uga-rosa/ccc.nvim] | Super powerful color picker/colorizer plugin
 | [itchyny/calendar.vim] | Calendar application
 
 [neovim/nvim-lspconfig]: https://github.com/neovim/nvim-lspconfig
 [folke/neoconf.nvim]: https://github.com/folke/neoconf.nvim
 [folke/neodev.nvim]: https://github.com/folke/neodev.nvim
-[williamboman/mason.nvim]: https://github.com/williamboman/
+[williamboman/mason.nvim]: https://github.com/williamboman/mason.nvim
 [williamboman/mason-lspconfig.nvim]: https://github.com/williamboman/mason-lspconfig.nvim
 [stevearc/conform.nvim]: https://github.com/stevearc/conform.nvim
 [mfussenegger/nvim-lint]: https://github.com/mfussenegger/nvim-lint
@@ -607,7 +606,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [tweekmonster/helpful.vim]: https://github.com/tweekmonster/helpful.vim
 [lambdalisue/suda.vim]: https://github.com/lambdalisue/suda.vim
 [folke/persistence.nvim]: https://github.com/folke/persistence.nvim
-[RRethy/vim-illuminate]: https://github.com/RRethy/vim-illuminate
 [mbbill/undotree]: https://github.com/mbbill/undotree
 [folke/flash.nvim]: https://github.com/folke/flash.nvim
 [haya14busa/vim-edgemotion]: https://github.com/haya14busa/vim-edgemotion
@@ -718,19 +716,23 @@ Spec: `rafi.plugins.extras.coding.<name>`
 | Name           | Repository     | Description
 | -------------- | -------------- | ----------------------
 | `align`        | [echasnovski/mini.align] | Align text interactively
+| `chainsaw`     | [chrisgrieser/nvim-chainsaw] | Create log statements on the fly
 | `cmp-git`      | [petertriho/cmp-git] | Git source for nvim-cmp
 | `copilot`      | [zbirenbaum/copilot.lua] | Fully featured & enhanced copilot
 | `editorconfig` | [sgur/vim-editorconfig] | EditorConfig plugin written entirely in Vimscript
 | `emmet`        | [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet
 | `minipairs`    | [echasnovski/mini.pairs] | Automatically manage character pairs
+| `neogen`       | [danymat/neogen] | Annotation generator
 | `sandwich`     | [machakann/vim-sandwich] | Search, select, and edit sandwich text objects
 
 [echasnovski/mini.align]: https://github.com/echasnovski/mini.align
+[chrisgrieser/nvim-chainsaw]: https://github.com/chrisgrieser/nvim-chainsaw
 [petertriho/cmp-git]: https://github.com/petertriho/cmp-git
 [zbirenbaum/copilot.lua]: https://github.com/zbirenbaum/copilot.lua
 [sgur/vim-editorconfig]: https://github.com/sgur/vim-editorconfig
 [mattn/emmet-vim]: https://github.com/mattn/emmet-vim
 [echasnovski/mini.pairs]: https://github.com/echasnovski/mini.pairs
+[danymat/neogen]: https://github.com/danymat/neogen
 [machakann/vim-sandwich]: https://github.com/machakann/vim-sandwich
 
 ### Extra Plugins: Editor
@@ -848,6 +850,7 @@ Spec: `rafi.plugins.extras.ui.<name>`
 | `cybu`            | [ghillb/cybu.nvim] | Cycle buffers with a customizable notification window
 | `deadcolumn`      | [Bekaboo/deadcolumn.nvim] | Show colorcolumn dynamically
 | `goto-preview`    | [rmagatti/goto-preview] | Preview definitions using floating windows
+| `illuminate`    | [RRethy/vim-illuminate] | Highlights other uses of the word under the cursor
 | `incline`         | [b0o/incline.nvim] | Floating statuslines
 | `miniclue`        | [echasnovski/mini.clue] | Show next key clues
 | `minimap`         | [echasnovski/mini.map] | Window with buffer text overview, scrollbar and highlights
@@ -859,6 +862,7 @@ Spec: `rafi.plugins.extras.ui.<name>`
 [ghillb/cybu.nvim]: https://github.com/ghillb/cybu.nvim
 [Bekaboo/deadcolumn.nvim]: https://github.com/Bekaboo/deadcolumn.nvim
 [rmagatti/goto-preview]: https://github.com/rmagatti/goto-preview
+[RRethy/vim-illuminate]: https://github.com/RRethy/vim-illuminate
 [b0o/incline.nvim]: https://github.com/b0o/incline.nvim
 [echasnovski/mini.clue]: https://github.com/echasnovski/mini.clue
 [echasnovski/mini.map]: https://github.com/echasnovski/mini.map
@@ -952,7 +956,6 @@ Note that,
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
 | <kbd>],</kbd> or <kbd>[,</kbd> | 𝐍 | Next/previous parameter | <small>[akinsho/bufferline.nvim]</small>
-| <kbd>]]</kbd> or <kbd>[[</kbd> | 𝐍 | Next/previous reference | <small>[RRethy/vim-illuminate]</small>
 | <kbd>]q</kbd> or <kbd>[q</kbd> | 𝐍 | Next/previous on quick-fix | <small>`:cnext` / `:cprev`</small>
 | <kbd>]a</kbd> or <kbd>[a</kbd> | 𝐍 | Next/previous on location-list | <small>`:lnext` / `:lprev`</small>
 | <kbd>]d</kbd> or <kbd>[d</kbd> | 𝐍 | Next/previous diagnostics |

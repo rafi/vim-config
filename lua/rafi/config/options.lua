@@ -98,15 +98,6 @@ end
 opt.ignorecase = true -- Search ignoring case
 opt.smartcase = true  -- Keep case when searching with *
 opt.inccommand = 'nosplit' -- Preview incremental substitute
-opt.grepformat = '%f:%l:%c:%m'
-
-if vim.fn.executable('rg') then
-	opt.grepprg = 'rg --vimgrep --no-heading'
-		.. (opt.smartcase and ' --smart-case' or '') .. ' --'
-elseif vim.fn.executable('ag') then
-	opt.grepprg = 'ag --vimgrep'
-		.. (opt.smartcase and ' --smart-case' or '') .. ' --'
-end
 
 -- Formatting
 -- ===
@@ -167,7 +158,7 @@ opt.listchars = {
 	trail = '·'
 }
 opt.fillchars = {
-	foldopen = '󰅀', -- 󰅀 
+	foldopen = '', -- 󰅀 
 	foldclose = '', -- 󰅂 
 	fold = ' ', -- ⸱
 	foldsep = ' ',

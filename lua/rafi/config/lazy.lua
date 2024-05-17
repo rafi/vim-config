@@ -7,6 +7,7 @@ if not vim.uv.fs_stat(lazypath) then
 	-- stylua: ignore
 	vim.fn.system({ 'git', 'clone', '--filter=blob:none', 'https://github.com/folke/lazy.nvim.git', '--branch=stable', lazypath })
 end
+---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
 -- Load user options from lua/config/setup.lua
