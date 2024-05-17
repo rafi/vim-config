@@ -1,5 +1,6 @@
 return {
 
+	-- LazyVim framework.
 	{
 		'LazyVim/LazyVim',
 		version = '*',
@@ -98,5 +99,4 @@ return {
 			},
 		},
 	},
-
 }

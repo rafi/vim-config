@@ -49,6 +49,10 @@ return {
 
 				-- Actions
 				--
+				map('n', ']h', function() gs.nav_hunk('next') end, { desc = 'Next Hunk' })
+				map('n', '[h', function() gs.nav_hunk('prev') end, { desc = 'Prev Hunk' })
+				map('n', ']H', function() gs.nav_hunk('last') end, { desc = 'Last Hunk' })
+				map('n', '[H', function() gs.nav_hunk('first') end, { desc = 'First Hunk' })
 				map('n', '<leader>hs', gs.stage_hunk, { silent = true, desc = 'Stage hunk' })
 				map('n', '<leader>hr', gs.reset_hunk, { silent = true, desc = 'Reset hunk' })
 				map('x', '<leader>hs', function() gs.stage_hunk({vim.fn.line('.'), vim.fn.line('v')}) end, { desc = 'Stage hunk' })
