@@ -73,6 +73,14 @@ return {
 						select = false,
 					}),
 					['<C-Space>'] = cmp.mapping.complete(),
+					['<Tab>'] = Util.cmp.supertab({
+						behavior = require('cmp').SelectBehavior.Select,
+					}),
+					['<S-Tab>'] = Util.cmp.supertab_shift({
+						behavior = require('cmp').SelectBehavior.Select,
+					}),
+					['<C-j>'] = Util.cmp.snippet_jump_forward(),
+					['<C-k>'] = Util.cmp.snippet_jump_backward(),
 					['<C-n>'] = cmp.mapping.select_next_item({
 						behavior = cmp.SelectBehavior.Insert,
 					}),
@@ -170,13 +178,6 @@ return {
 						end,
 					}
 					table.insert(opts.sources, { name = 'luasnip', keyword_length = 2 })
-
-					local Util = require('rafi.util')
-					local behavior = { behavior = require('cmp').SelectBehavior.Select }
-					opts.mapping['<Tab>'] = Util.cmp.luasnip_supertab(behavior)
-					opts.mapping['<S-Tab>'] = Util.cmp.luasnip_shift_supertab(behavior)
-					opts.mapping['<C-j>'] = Util.cmp.luasnip_jump_forward()
-					opts.mapping['<C-b>'] = Util.cmp.luasnip_jump_backward()
 				end,
 			},
 		},
