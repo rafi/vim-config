@@ -15,16 +15,23 @@ function M.get()
 	---@class PluginLspKeys
 	-- stylua: ignore
 	M._keys =  {
-		{ 'gr', vim.lsp.buf.references, desc = 'References' },
 		{ 'gd', vim.lsp.buf.definition, desc = 'Goto Definition', has = 'definition' },
+		{ 'gr', vim.lsp.buf.references, desc = 'References' },
 		{ 'gD', vim.lsp.buf.declaration, desc = 'Goto Declaration' },
 		{ 'gI', vim.lsp.buf.implementation, desc = 'Goto Implementation' },
 		{ 'gy', vim.lsp.buf.type_definition, desc = 'Goto Type Definition' },
 		{ 'gK', vim.lsp.buf.signature_help, desc = 'Signature Help' },
-
-		{ '<Leader>fwa', vim.lsp.buf.add_workspace_folder, desc = 'Show Workspace Folders' },
-		{ '<Leader>fwr', vim.lsp.buf.remove_workspace_folder, desc = 'Remove Workspace Folder' },
-		{ '<Leader>fwl', '<cmd>lua =vim.lsp.buf.list_workspace_folders()<CR>', desc = 'List Workspace Folders' },
+		{ '<Leader>ca', vim.lsp.buf.code_action, mode = { 'n', 'x' }, has = 'codeAction', desc = 'Code Action' },
+		{ '<leader>cc', vim.lsp.codelens.run, desc = 'Run Codelens', mode = { 'n', 'x' }, has = 'codeLens' },
+		{ '<leader>cC', vim.lsp.codelens.refresh, desc = 'Refresh & Display Codelens', mode = { 'n' }, has = 'codeLens' },
+		{ '<Leader>cA', function()
+			vim.lsp.buf.code_action({
+				context = {
+					only = { 'source' },
+					diagnostics = {},
+				},
+			})
+		end, desc = 'Source Action', has = 'codeAction' },
 
 		{ 'K', function()
 			-- Show hover documentation or folded lines.
@@ -39,18 +46,9 @@ function M.get()
 		{ '<leader>csf', M.formatter_select, mode = { 'n', 'x' }, desc = 'Formatter Select' },
 		{ '<Leader>csi', vim.lsp.buf.incoming_calls, desc = 'Incoming calls' },
 		{ '<Leader>cso', vim.lsp.buf.outgoing_calls, desc = 'Outgoing calls' },
-		{ '<Leader>ce', vim.diagnostic.open_float, desc = 'Open diagnostics' },
-		{ '<leader>cc', vim.lsp.codelens.run, desc = 'Run Codelens', mode = { 'n', 'v' }, has = 'codeLens' },
-		{ '<leader>cC', vim.lsp.codelens.refresh, desc = 'Refresh & Display Codelens', mode = { 'n' }, has = 'codeLens' },
-		{ '<Leader>ca', vim.lsp.buf.code_action, mode = { 'n', 'x' }, has = 'codeAction', desc = 'Code Action' },
-		{ '<Leader>cA', function()
-			vim.lsp.buf.code_action({
-				context = {
-					only = { 'source' },
-					diagnostics = {},
-				},
-			})
-		end, desc = 'Source Action', has = 'codeAction' },
+		{ '<Leader>fwa', vim.lsp.buf.add_workspace_folder, desc = 'Show Workspace Folders' },
+		{ '<Leader>fwr', vim.lsp.buf.remove_workspace_folder, desc = 'Remove Workspace Folder' },
+		{ '<Leader>fwl', '<cmd>lua =vim.lsp.buf.list_workspace_folders()<CR>', desc = 'List Workspace Folders' },
 	}
 	if LazyVim.has('inc-rename.nvim') then
 		M._keys[#M._keys + 1] = {

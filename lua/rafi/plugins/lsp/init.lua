@@ -120,14 +120,9 @@ return {
 			-- Setup autoformat
 			LazyVim.format.register(LazyVim.lsp.formatter())
 
-			-- Setup formatting, keymaps and highlights.
+			-- Setup keymaps.
 			LazyVim.lsp.on_attach(function(client, buffer)
 				require('rafi.plugins.lsp.keymaps').on_attach(client, buffer)
-				local filter = { bufnr = buffer }
-				if not vim.diagnostic.is_enabled(filter) or vim.bo[buffer].buftype ~= '' then
-					vim.diagnostic.enable(false, filter)
-					return
-				end
 			end)
 
 			local register_capability = vim.lsp.handlers['client/registerCapability']

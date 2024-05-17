@@ -36,6 +36,19 @@ else
 	map('n', '<C-Right>', '<cmd>vertical resize +2<cr>', { desc = 'Increase Window Width' })
 end
 
+if not vim.env.TMUX or vim.uv.os_uname().sysname == 'Windows_NT' then
+	-- Move to window using the <ctrl> hjkl keys
+	map('n', '<C-h>', '<C-w>h', { desc = 'Go to Left Window', remap = true })
+	map('n', '<C-j>', '<C-w>j', { desc = 'Go to Lower Window', remap = true })
+	map('n', '<C-k>', '<C-w>k', { desc = 'Go to Upper Window', remap = true })
+	map('n', '<C-l>', '<C-w>l', { desc = 'Go to Right Window', remap = true })
+	-- Terminal Mappings
+	map('t', '<C-h>', '<cmd>wincmd h<cr>', { desc = 'Go to Left Window' })
+	map('t', '<C-j>', '<cmd>wincmd j<cr>', { desc = 'Go to Lower Window' })
+	map('t', '<C-k>', '<cmd>wincmd k<cr>', { desc = 'Go to Upper Window' })
+	map('t', '<C-l>', '<cmd>wincmd l<cr>', { desc = 'Go to Right Window' })
+end
+
 -- Easier line-wise movement
 map('n', 'gh', 'g^', { desc = 'Jump to first screen character' })
 map('n', 'gl', 'g$', { desc = 'Jump to last screen character' })
@@ -142,7 +155,7 @@ local diagnostic_goto = function(next, severity)
 		go({ severity = severity_int })
 	end
 end
-
+map('n', '<Leader>ce', vim.diagnostic.open_float, { desc = 'Line Diagnostics' })
 map('n', ']d', diagnostic_goto(true), { desc = 'Next Diagnostic' })
 map('n', '[d', diagnostic_goto(false), { desc = 'Prev Diagnostic' })
 map('n', ']e', diagnostic_goto(true, 'ERROR'), { desc = 'Next Error' })
