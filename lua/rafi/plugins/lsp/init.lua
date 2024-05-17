@@ -7,15 +7,19 @@
 return {
 
 	-----------------------------------------------------------------------------
-	-- LSP config
+	-- Quickstart configurations for the Nvim LSP client
 	{
 		'neovim/nvim-lspconfig',
 		event = 'LazyFile',
 		-- stylua: ignore
 		dependencies = {
+			-- Manage global and project-local settings
 			{ 'folke/neoconf.nvim', cmd = 'Neoconf', config = false, dependencies = { 'nvim-lspconfig' } },
+			-- Neovim setup for init.lua and plugin development
 			{ 'folke/neodev.nvim', opts = {} },
+			-- Portable package manager for Neovim
 			'williamboman/mason.nvim',
+			-- Mason extension for easier lspconfig integration
 			'williamboman/mason-lspconfig.nvim',
 		},
 		---@class PluginLspOpts
@@ -50,7 +54,7 @@ return {
 			-- Be aware that you also will need to properly configure your LSP server
 			-- to provide the inlay hints.
 			inlay_hints = {
-				enabled = false,
+				enabled = true,
 			},
 			-- Enable this to enable the builtin LSP code lenses on Neovim >= 0.10.0
 			-- Be aware that you also will need to properly configure your LSP server to
@@ -75,6 +79,17 @@ return {
 							workspace = { checkThirdParty = false },
 							codeLens = { enable = true },
 							completion = { callSnippet = 'Replace' },
+							doc = {
+								privateName = { '^_' },
+							},
+							hint = {
+								enable = true,
+								setType = false,
+								paramType = true,
+								paramName = 'Disable',
+								semicolon = 'Disable',
+								arrayIndex = 'Disable',
+							},
 						},
 					},
 				},
@@ -95,10 +110,7 @@ return {
 		---@param opts PluginLspOpts
 		config = function(_, opts)
 			if LazyVim.has('neoconf.nvim') then
-				local plugin = require('lazy.core.config').spec.plugins['neoconf.nvim']
-				require('neoconf').setup(
-					require('lazy.core.plugin').values(plugin, 'opts', false)
-				)
+				require('neoconf').setup(LazyVim.opts('neoconf.nvim'))
 			end
 
 			-- Setup autoformat
@@ -111,8 +123,9 @@ return {
 					require('rafi.plugins.lsp.highlight').on_attach(client, buffer)
 				end
 
-				if vim.diagnostic.is_disabled() or vim.bo[buffer].buftype ~= '' then
-					vim.diagnostic.disable(buffer)
+				local filter = { bufnr = buffer }
+				if not vim.diagnostic.is_enabled(filter) or vim.bo[buffer].buftype ~= '' then
+					vim.diagnostic.enable(false, filter)
 					return
 				end
 			end)
@@ -130,38 +143,37 @@ return {
 
 			-- Diagnostics signs and highlights.
 			if vim.fn.has('nvim-0.10.0') == 0 then
-				for severity, icon in pairs(opts.diagnostics.signs.text) do
-					local name =
-						vim.diagnostic.severity[severity]:lower():gsub('^%l', string.upper)
-					name = 'DiagnosticSign' .. name
-					vim.fn.sign_define(name, { text = icon, texthl = name, numhl = '' })
+				if type(opts.diagnostics.signs) ~= 'boolean' then
+					for severity, icon in pairs(opts.diagnostics.signs.text) do
+						local name = vim.diagnostic.severity[severity]:lower():gsub('^%l', string.upper)
+						name = 'DiagnosticSign' .. name
+						vim.fn.sign_define(name, { text = icon, texthl = name, numhl = '' })
+					end
 				end
 			end
 
-			-- Setup inlay-hints
-			if opts.inlay_hints.enabled then
-				LazyVim.lsp.on_attach(function(client, buffer)
-					if client.supports_method('textDocument/inlayHint') then
-						LazyVim.toggle.inlay_hints(buffer, true)
-					end
-				end)
-			end
-
-			-- code lens
-			if opts.codelens.enabled and vim.lsp.codelens then
-				LazyVim.lsp.on_attach(function(client, buffer)
-					if client.supports_method('textDocument/codeLens') then
-						vim.lsp.codelens.refresh()
-						--- autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()
-						vim.api.nvim_create_autocmd(
-							{ 'BufEnter', 'CursorHold', 'InsertLeave' },
-							{
+			if vim.fn.has('nvim-0.10') == 1 then
+				-- inlay hints
+				if opts.inlay_hints.enabled then
+					LazyVim.lsp.on_attach(function(client, buffer)
+						if client.supports_method('textDocument/inlayHint') then
+							LazyVim.toggle.inlay_hints(buffer, true)
+						end
+					end)
+				end
+				-- code lens
+				if opts.codelens.enabled and vim.lsp.codelens then
+					LazyVim.lsp.on_attach(function(client, buffer)
+						if client.supports_method('textDocument/codeLens') then
+							vim.lsp.codelens.refresh()
+							--- autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()
+							vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
 								buffer = buffer,
 								callback = vim.lsp.codelens.refresh,
-							}
-						)
-					end
-				end)
+							})
+						end
+					end)
+				end
 			end
 
 			if
@@ -252,8 +264,12 @@ return {
 
 			if have_mason then
 				mlsp.setup({
-					ensure_installed = ensure_installed,
 					handlers = { make_config },
+					ensure_installed = vim.tbl_deep_extend(
+						'force',
+						ensure_installed,
+						LazyVim.opts('mason-lspconfig.nvim').ensure_installed or {}
+					),
 				})
 			end
 
@@ -282,6 +298,7 @@ return {
 				border = 'rounded',
 			},
 		},
+		---@diagnostic disable-next-line: undefined-doc-name
 		---@param opts MasonSettings | {ensure_installed: string[]}
 		config = function(_, opts)
 			require('mason').setup(opts)
