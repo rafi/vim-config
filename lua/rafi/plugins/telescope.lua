@@ -144,8 +144,9 @@ return {
 		cmd = 'Telescope',
 		dependencies = {
 			'nvim-lua/plenary.nvim',
+			-- Telescope extension for Zoxide
 			'jvgrootveld/telescope-zoxide',
-			'folke/todo-comments.nvim',
+			-- Browse synonyms for a word
 			'rafi/telescope-thesaurus.nvim',
 		},
 		config = function(_, opts)

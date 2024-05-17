@@ -4,7 +4,7 @@
 return {
 
 	-----------------------------------------------------------------------------
-	-- Statusline plugin written in pure lua
+	-- Statusline plugin with many customizations.
 	{
 		'nvim-lualine/lualine.nvim',
 		dependencies = { 'nvim-tree/nvim-web-devicons' },

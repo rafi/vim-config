@@ -59,7 +59,13 @@ function M.append_modeline()
 		vim.bo.textwidth,
 		vim.bo.expandtab and '' or 'no'
 	)
-	modeline = string.gsub(vim.bo.commentstring, '%%s', modeline)
+	local cs = require('ts_context_commentstring.internal').calculate_commentstring()
+		or vim.bo.commentstring
+	if not cs then
+		LazyVim.warn('No commentstring found')
+		return
+	end
+	modeline = string.gsub(cs, '%%s', modeline)
 	vim.api.nvim_buf_set_lines(0, -1, -1, false, { modeline })
 end
 
@@ -138,6 +144,47 @@ M.get_tabpage_win_bufs = function(tabpage)
 		end
 	end
 	return bufs
+end
+
+-- Toggle diagnostics locally (false) or globally (true).
+---@param global boolean
+M.diagnostic_toggle = function(global)
+	local cmd, disabled
+
+	if vim.fn.has('nvim-0.10') == 1 then
+		local opts = {}
+		if not global then
+			opts.bufnr = vim.api.nvim_get_current_buf()
+		end
+		vim.diagnostic.enable(not vim.diagnostic.is_enabled(), opts)
+		cmd = disabled and 'enable' or 'disable'
+	else
+		local bufnr
+		if global then
+			bufnr = nil
+			disabled = vim.g.diagnostics_disabled
+			vim.g.diagnostics_disabled = not disabled
+		else
+			bufnr = 0
+			if vim.fn.has('nvim-0.9') == 1 then
+				disabled = vim.diagnostic.is_disabled(bufnr)
+			else
+				disabled = vim.b.diagnostics_disabled
+				vim.b.diagnostics_disabled = not disabled
+			end
+		end
+
+		cmd = disabled and 'enable' or 'disable'
+		vim.schedule(function()
+			vim.diagnostic[cmd](bufnr)
+		end)
+	end
+
+	local msg = cmd:gsub('^%l', string.upper) .. 'd diagnostics'
+	if global then
+		msg = msg .. ' globally'
+	end
+	LazyVim.info(msg, { title = 'Diagnostics' })
 end
 
 return M

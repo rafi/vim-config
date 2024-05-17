@@ -12,7 +12,7 @@ return {
 	{ 'MunifTanjim/nui.nvim', lazy = false },
 
 	-----------------------------------------------------------------------------
-	-- Fancy notification manager for NeoVim
+	-- Fancy notification manager
 	{
 		'rcarriga/nvim-notify',
 		priority = 9000,
@@ -217,13 +217,6 @@ return {
 				lsp_doc_border = true,
 				-- inc_rename = true,
 			},
-			commands = {
-				all = {
-					view = 'split',
-					opts = { enter = true, format = 'details' },
-					filter = {},
-				},
-			},
 		},
 	},
 
@@ -329,9 +322,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
-	-- Active indent guide and indent text objects. When you're browsing
-	-- code, this highlights the current level of indentation, and animates
-	-- the highlighting.
+	-- Visualize and operate on indent scope
 	{
 		'echasnovski/mini.indentscope',
 		event = 'LazyFile',
@@ -433,7 +424,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
-	-- Better quickfix window in Neovim
+	-- Better quickfix window
 	{
 		'kevinhwang91/nvim-bqf',
 		ft = 'qf',
@@ -489,6 +480,18 @@ return {
 			highlighter = {
 				auto_enable = true,
 				lsp = true,
+				filetypes = {
+					'html',
+					'lua',
+					'css',
+					'scss',
+					'sass',
+					'less',
+					'stylus',
+					'javascript',
+					'tmux',
+					'typescript',
+				},
 				excludes = { 'lazy', 'mason', 'help', 'neo-tree' },
 			},
 		},

@@ -3,6 +3,21 @@
 
 local winwidth = 30
 
+local function toggle_width()
+	local max = winwidth * 2
+	local cur_width = vim.fn.winwidth(0)
+	local half = math.floor((winwidth + (max - winwidth) / 2) + 0.4)
+	local new_width = winwidth
+	if cur_width == winwidth then
+		new_width = half
+	elseif cur_width == half then
+		new_width = max
+	else
+		new_width = winwidth
+	end
+	vim.cmd(new_width .. ' wincmd |')
+end
+
 local function get_current_directory(state)
 	local node = state.tree:get_node()
 	if node.type ~= 'directory' or not node:is_expanded() then
@@ -77,13 +92,23 @@ return {
 		vim.cmd([[Neotree close]])
 	end,
 	init = function()
-		if vim.fn.argc(-1) == 1 then
-			local arg = vim.fn.argv(0) --[[@as string]]
-			local stat = vim.uv.fs_stat(arg)
-			if stat and stat.type == 'directory' then
-				require('neo-tree')
-			end
-		end
+		-- FIX: use `autocmd` for lazy-loading neo-tree instead of directly requiring it,
+		-- because `cwd` is not set up properly.
+		vim.api.nvim_create_autocmd('BufEnter', {
+			group = vim.api.nvim_create_augroup('Neotree_start_directory', { clear = true }),
+			desc = 'Start Neo-tree with directory',
+			once = true,
+			callback = function()
+				if package.loaded['neo-tree'] then
+					return
+				else
+					local stats = vim.uv.fs_stat(vim.fn.argv(0))
+					if stats and stats.type == 'directory' then
+						require('neo-tree')
+					end
+				end
+			end,
+		})
 	end,
 	-- See: https://github.com/nvim-neo-tree/neo-tree.nvim
 	opts = {
@@ -98,8 +123,8 @@ return {
 			show_scrolled_off_parent_node = true,
 			padding = { left = 1, right = 0 },
 			sources = {
-				{ source = 'filesystem', display_name = '  Files' },   --       
-				{ source = 'buffers',    display_name = '  Buffers' }, --        
+				{ source = 'filesystem', display_name = '  Files' },   --      
+				{ source = 'buffers',    display_name = '  Buffers' }, --      
 				{ source = 'git_status', display_name = ' 󰊢 Git' },     -- 󰊢      
 			},
 		},
@@ -182,7 +207,7 @@ return {
 				},
 
 				-- Custom commands
-				['w'] = 'toggle_width',
+				['w'] = toggle_width,
 				['K'] = function(state)
 					local node = state.tree:get_node()
 					local path = node:get_id()
@@ -205,22 +230,6 @@ return {
 			},
 		},
 		filesystem = {
-			commands = {
-				toggle_width = function()
-					local max = winwidth * 2
-					local cur_width = vim.fn.winwidth(0)
-					local half = math.floor((winwidth + (max - winwidth) / 2) + 0.4)
-					local new_width = winwidth
-					if cur_width == winwidth then
-						new_width = half
-					elseif cur_width == half then
-						new_width = max
-					else
-						new_width = winwidth
-					end
-					vim.cmd(new_width .. ' wincmd |')
-				end
-			},
 			window = {
 				mappings = {
 					['d'] = 'noop',
@@ -267,7 +276,9 @@ return {
 					'.stfolder',
 					'.stversions',
 				},
-				never_show = {},
+				never_show_by_pattern = {
+					'vite.config.js.timestamp-*',
+				},
 			},
 			find_by_full_path_words = true,
 			group_empty_dirs = true,

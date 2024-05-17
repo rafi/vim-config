@@ -156,10 +156,12 @@ return {
 					require('luasnip.loaders.from_lua').load({ paths = { './snippets' } })
 				end,
 			},
+			-- Adds luasnip source to nvim-cmp.
 			{
 				'nvim-cmp',
 				dependencies = {
-					{ 'saadparwaiz1/cmp_luasnip' },
+					-- Luasnip completion source for nvim-cmp
+					'saadparwaiz1/cmp_luasnip',
 				},
 				opts = function(_, opts)
 					opts.snippet = {
