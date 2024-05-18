@@ -1,3 +1,6 @@
+-- rafi.plugins.extras.org.vimwiki
+--
+
 return {
 
 	-- Personal Wiki for Vim

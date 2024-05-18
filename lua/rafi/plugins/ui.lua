@@ -146,6 +146,17 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Helper for removing buffers
+	{
+		'echasnovski/mini.bufremove',
+		opts = {},
+		-- stylua: ignore
+		keys = {
+			{ '<leader>bd', function() require('mini.bufremove').delete(0, false) end, desc = 'Delete Buffer', },
+		},
+	},
+
+	-----------------------------------------------------------------------------
 	-- Replaces the UI for messages, cmdline and the popupmenu
 	{
 		'folke/noice.nvim',
@@ -509,17 +520,5 @@ return {
 				excludes = { 'lazy', 'mason', 'help', 'neo-tree' },
 			},
 		},
-	},
-
-	-----------------------------------------------------------------------------
-	-- Calendar application
-	{
-		'itchyny/calendar.vim',
-		cmd = 'Calendar',
-		init = function()
-			vim.g.calendar_google_calendar = 1
-			vim.g.calendar_google_task = 1
-			vim.g.calendar_cache_directory = vim.fn.stdpath('data') .. '/calendar'
-		end,
 	},
 }

@@ -1,3 +1,6 @@
+-- rafi.plugins.extras.org.zk
+--
+
 return {
 
 	-- Extension for the zk plain text note-taking assistant

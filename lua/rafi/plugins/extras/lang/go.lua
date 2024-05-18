@@ -1,13 +1,16 @@
--- This is part of LazyVim's code, with my modifications.
--- See: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/lang/go.lua
+-- rafi.plugins.extras.lang.go
+--
 
 return {
+	desc = 'Imports Go lang extras and adds more tools.',
 	recommended = function()
 		return LazyVim.extras.wants({
 			ft = { 'go', 'gomod', 'gowork', 'gotmpl' },
 			root = { 'go.work', 'go.mod' },
 		})
 	end,
+
+	{ import = 'lazyvim.plugins.extras.lang.go' },
 
 	{
 		'nvim-treesitter/nvim-treesitter',
@@ -41,94 +44,6 @@ return {
 	},
 
 	{
-		'neovim/nvim-lspconfig',
-		opts = {
-			servers = {
-				gopls = {
-					-- stylua: ignore
-					keys = {
-						-- Workaround for the lack of a DAP strategy in neotest-go: https://github.com/nvim-neotest/neotest-go/issues/12
-						{ "<leader>td", "<cmd>lua require('dap-go').debug_test()<CR>", desc = "Debug Nearest (Go)" },
-					},
-					settings = {
-						-- https://github.com/golang/tools/blob/master/gopls/doc/settings.md
-						gopls = {
-							gofumpt = true,
-							usePlaceholders = true,
-							completeUnimported = true,
-							staticcheck = true,
-							directoryFilters = {
-								'-.git',
-								'-.vscode',
-								'-.idea',
-								'-.vscode-test',
-								'-node_modules',
-							},
-							semanticTokens = true,
-							codelenses = {
-								gc_details = false,
-								generate = true,
-								regenerate_cgo = true,
-								run_govulncheck = true,
-								test = true,
-								tidy = true,
-								upgrade_dependency = true,
-								vendor = true,
-							},
-							hints = {
-								assignVariableTypes = true,
-								compositeLiteralFields = true,
-								compositeLiteralTypes = true,
-								constantValues = true,
-								functionTypeParameters = true,
-								parameterNames = true,
-								rangeVariableTypes = true,
-							},
-							-- https://github.com/golang/tools/blob/master/gopls/doc/analyzers.md
-							analyses = {
-								-- fieldalignment = true,
-								nilness = true,
-								unusedparams = true,
-								unusedwrite = true,
-								useany = true,
-								unusedvariable = true,
-								-- shadow = true,
-								-- ST1000 = false,
-								-- ST1005 = false,
-							},
-						},
-					},
-				},
-			},
-			setup = {
-				gopls = function(_, _)
-					-- workaround for gopls not supporting semanticTokensProvider
-					-- https://github.com/golang/go/issues/54531#issuecomment-1464982242
-					LazyVim.lsp.on_attach(function(client, _)
-						if client.name == 'gopls' then
-							if not client.server_capabilities.semanticTokensProvider then
-								local semantic =
-									client.config.capabilities.textDocument.semanticTokens
-								if semantic ~= nil then
-									client.server_capabilities.semanticTokensProvider = {
-										full = true,
-										legend = {
-											tokenTypes = semantic.tokenTypes,
-											tokenModifiers = semantic.tokenModifiers,
-										},
-										range = true,
-									}
-								end
-							end
-						end
-					end)
-					-- end workaround
-				end,
-			},
-		},
-	},
-
-	{
 		'williamboman/mason.nvim',
 		opts = function(_, opts)
 			opts.ensure_installed = opts.ensure_installed or {}
@@ -143,82 +58,22 @@ return {
 	},
 
 	{
-		'nvimtools/none-ls.nvim',
-		optional = true,
-		dependencies = {
-			{
-				'williamboman/mason.nvim',
-				opts = function(_, opts)
-					opts.ensure_installed = opts.ensure_installed or {}
-					vim.list_extend(opts.ensure_installed, { 'gomodifytags', 'impl' })
-				end,
-			},
-		},
-		opts = function(_, opts)
-			local nls = require('null-ls')
-			opts.sources = vim.list_extend(opts.sources or {}, {
-				nls.builtins.code_actions.gomodifytags,
-				nls.builtins.code_actions.impl,
-				nls.builtins.formatting.goimports,
-				nls.builtins.formatting.gofumpt,
-			})
-		end,
-	},
-
-	{
-		'mhartington/formatter.nvim',
-		optional = true,
-		opts = function(_, opts)
-			opts = opts or {}
-			local filetypes = {
-				go = {
-					require('formatter.filetypes.go').gofumpt,
-				},
-			}
-			opts.filetype = vim.tbl_extend('keep', opts.filetype or {}, filetypes)
-		end,
-	},
-
-	{
-		'stevearc/conform.nvim',
-		optional = true,
+		'neovim/nvim-lspconfig',
 		opts = {
-			formatters_by_ft = {
-				go = { 'goimports', 'gofumpt' },
-			},
-		},
-	},
-
-	{
-		'mfussenegger/nvim-dap',
-		optional = true,
-		dependencies = {
-			{
-				'williamboman/mason.nvim',
-				opts = function(_, opts)
-					opts.ensure_installed = opts.ensure_installed or {}
-					vim.list_extend(opts.ensure_installed, { 'delve' })
-				end,
-			},
-			{
-				'leoluz/nvim-dap-go',
-				opts = {},
-			},
-		},
-	},
-
-	{
-		'nvim-neotest/neotest',
-		optional = true,
-		dependencies = {
-			'nvim-neotest/neotest-go',
-		},
-		opts = {
-			adapters = {
-				['neotest-go'] = {
-					-- Here we can set options for neotest-go, e.g.
-					-- args = { '-tags=integration' }
-					recursive_run = true,
+			servers = {
+				gopls = {
+					settings = {
+						-- https://github.com/golang/tools/blob/master/gopls/doc/settings.md
+						gopls = {
+							-- https://github.com/golang/tools/blob/master/gopls/doc/analyzers.md
+							analyses = {
+								unusedvariable = true,
+								-- shadow = true,
+								-- ST1000 = false,
+								-- ST1005 = false,
+							},
+						},
+					},
 				},
 			},
 		},

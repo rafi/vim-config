@@ -391,29 +391,4 @@ return {
 			},
 		},
 	},
-
-	-----------------------------------------------------------------------------
-	-- Helper for removing buffers
-	{
-		'echasnovski/mini.bufremove',
-		opts = {},
-		-- stylua: ignore
-		keys = {
-			{ '<leader>bd', function() require('mini.bufremove').delete(0, false) end, desc = 'Delete Buffer', },
-		},
-	},
-
-	-----------------------------------------------------------------------------
-	-- Generate table of contents for Markdown files
-	{
-		'mzlogin/vim-markdown-toc',
-		cmd = { 'GenTocGFM', 'GenTocRedcarpet', 'GenTocGitLab', 'UpdateToc' },
-		ft = 'markdown',
-		keys = {
-			{ '<leader>mo', '<cmd>UpdateToc<CR>', desc = 'Update table of contents' },
-		},
-		init = function()
-			vim.g.vmt_auto_update_on_save = 0
-		end,
-	},
 }

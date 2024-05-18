@@ -18,7 +18,6 @@ return {
 					{ name = 'path', priority = 40 },
 				}, {
 					{ name = 'buffer', priority = 50 },
-					{ name = 'emoji', insert = true, priority = 20 },
 				}),
 			})
 		end,

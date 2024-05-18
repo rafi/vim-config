@@ -51,10 +51,10 @@ entire configuration has been rewritten to use [lazy.nvim] and Lua.
   * [UI Plugins](#ui-plugins)
 * [Extra Plugins](#extra-plugins)
   * [Extra Plugins: Coding](#extra-plugins-coding)
+  * [Extra Plugins: Colorscheme](#extra-plugins-colorscheme)
   * [Extra Plugins: Editor](#extra-plugins-editor)
   * [Extra Plugins: Git](#extra-plugins-git)
   * [Extra Plugins: Lang](#extra-plugins-lang)
-  * [Extra Plugins: Linting](#extra-plugins-linting)
   * [Extra Plugins: LSP](#extra-plugins-lsp)
   * [Extra Plugins: Org](#extra-plugins-org)
   * [Extra Plugins: Treesitter](#extra-plugins-treesitter)
@@ -271,25 +271,23 @@ recommended starting point:
 ```json
 {
   "extras": [
+    "lazyvim.plugins.extras.coding.copilot",
     "lazyvim.plugins.extras.dap.core",
     "lazyvim.plugins.extras.dap.nlua",
-    "lazyvim.plugins.extras.editor.mini-files",
+    "lazyvim.plugins.extras.lang.docker",
     "lazyvim.plugins.extras.lang.json",
-    "lazyvim.plugins.extras.lang.markdown",
+    "lazyvim.plugins.extras.lang.typescript",
+    "lazyvim.plugins.extras.lang.yaml",
     "lazyvim.plugins.extras.test.core",
     "rafi.plugins.extras.coding.align",
-    "rafi.plugins.extras.coding.cmp-git",
-    "rafi.plugins.extras.coding.copilot",
-    "rafi.plugins.extras.editor.harpoon",
-    "rafi.plugins.extras.editor.miniclue",
+    "rafi.plugins.extras.editor.harpoon2",
+    "rafi.plugins.extras.git.cmp-git",
     "rafi.plugins.extras.lang.ansible",
-    "rafi.plugins.extras.lang.docker",
     "rafi.plugins.extras.lang.go",
     "rafi.plugins.extras.lang.helm",
+    "rafi.plugins.extras.lang.markdown",
     "rafi.plugins.extras.lang.python",
-    "rafi.plugins.extras.lang.yaml",
-    "rafi.plugins.extras.org.zk",
-    "rafi.plugins.extras.ui.alpha",
+    "rafi.plugins.extras.lang.tmux",
     "rafi.plugins.extras.ui.deadcolumn"
   ],
   "news": [],
@@ -316,7 +314,7 @@ return {
   -- { 'liuchengxu/eleline.vim' },
 
   -- Enable GitHub's Copilot
-  { import = 'rafi.plugins.extras.coding.copilot' },
+  { import = 'lazyvim.plugins.extras.coding.copilot' },
 
   -- Enable incline, displaying filenames on each window
   { import = 'rafi.plugins.extras.ui.incline' },
@@ -489,8 +487,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [s1n7ax/nvim-window-picker] | Fancy Window picker
 | [dnlhc/glance.nvim] | Pretty window for navigating LSP locations
 | [nvim-pack/nvim-spectre] | Find the enemy and replace them with dark power
-| [echasnovski/mini.bufremove] | Helper for removing buffers
-| [mzlogin/vim-markdown-toc] | Generate table of contents for Markdown files
 
 ### Coding Plugins
 
@@ -570,6 +566,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [rcarriga/nvim-notify] | Fancy notification manager
 | [stevearc/dressing.nvim] | Improve the default vim-ui interfaces
 | [akinsho/bufferline.nvim] | Snazzy tab/bufferline
+| [echasnovski/mini.bufremove] | Helper for removing buffers
 | [folke/noice.nvim] | Replaces the UI for messages, cmdline and the popupmenu
 | [SmiteshP/nvim-navic] | Shows your current code context in winbar/statusline
 | [chentau/marks.nvim] | Interacting with and manipulating marks
@@ -580,7 +577,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [t9md/vim-quickhl] | Highlight words quickly
 | [kevinhwang91/nvim-bqf] | Better quickfix window
 | [uga-rosa/ccc.nvim] | Super powerful color picker/colorizer plugin
-| [itchyny/calendar.vim] | Calendar application
 
 [neovim/nvim-lspconfig]: https://github.com/neovim/nvim-lspconfig
 [folke/neoconf.nvim]: https://github.com/folke/neoconf.nvim
@@ -605,8 +601,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [s1n7ax/nvim-window-picker]: https://github.com/s1n7ax/nvim-window-picker
 [dnlhc/glance.nvim]: https://github.com/dnlhc/glance.nvim
 [nvim-pack/nvim-spectre]: https://github.com/nvim-pack/nvim-spectre
-[echasnovski/mini.bufremove]: https://github.com/echasnovski/mini.bufremove
-[mzlogin/vim-markdown-toc]: https://github.com/mzlogin/vim-markdown-toc
 
 [hrsh7th/nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
 [hrsh7th/cmp-nvim-lsp]: https://github.com/hrsh7th/cmp-nvim-lsp
@@ -662,6 +656,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [rcarriga/nvim-notify]: https://github.com/rcarriga/nvim-notify
 [stevearc/dressing.nvim]: https://github.com/stevearc/dressing.nvim
 [akinsho/bufferline.nvim]: https://github.com/akinsho/bufferline.nvim
+[echasnovski/mini.bufremove]: https://github.com/echasnovski/mini.bufremove
 [folke/noice.nvim]: https://github.com/folke/noice.nvim
 [SmiteshP/nvim-navic]: https://github.com/SmiteshP/nvim-navic
 [chentau/marks.nvim]: https://github.com/chentau/marks.nvim
@@ -672,7 +667,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [t9md/vim-quickhl]: https://github.com/t9md/vim-quickhl
 [kevinhwang91/nvim-bqf]: https://github.com/kevinhwang91/nvim-bqf
 [uga-rosa/ccc.nvim]: https://github.com/uga-rosa/ccc.nvim
-[itchyny/calendar.vim]: https://github.com/itchyny/calendar.vim
 
 </details>
 
@@ -697,8 +691,6 @@ Spec: `rafi.plugins.extras.coding.<name>`
 | -------------- | -------------- | ----------------------
 | `align`        | [echasnovski/mini.align] | Align text interactively
 | `chainsaw`     | [chrisgrieser/nvim-chainsaw] | Create log statements on the fly
-| `cmp-git`      | [petertriho/cmp-git] | Git source for nvim-cmp
-| `copilot`      | [zbirenbaum/copilot.lua] | Fully featured & enhanced copilot
 | `editorconfig` | [sgur/vim-editorconfig] | EditorConfig plugin written entirely in Vimscript
 | `emmet`        | [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet
 | `mini.comment` | [echasnovski/mini.comment] | Fast and familiar per-line commenting
@@ -708,8 +700,6 @@ Spec: `rafi.plugins.extras.coding.<name>`
 
 [echasnovski/mini.align]: https://github.com/echasnovski/mini.align
 [chrisgrieser/nvim-chainsaw]: https://github.com/chrisgrieser/nvim-chainsaw
-[petertriho/cmp-git]: https://github.com/petertriho/cmp-git
-[zbirenbaum/copilot.lua]: https://github.com/zbirenbaum/copilot.lua
 [sgur/vim-editorconfig]: https://github.com/sgur/vim-editorconfig
 [mattn/emmet-vim]: https://github.com/mattn/emmet-vim
 [echasnovski/mini.comment]: https://github.com/echasnovski/mini.comment
@@ -769,8 +759,10 @@ Spec: `rafi.plugins.extras.git.<name>`
 
 | Name         | Repository     | Description
 | -------------| -------------- | ----------------------
-| `fugitive`   | [tpope/vim-fugitive] | Git client, including [junegunn/gv.vim]
+| `cmp-git`      | [petertriho/cmp-git] | Git source for nvim-cmp
+| `fugitive`     | [tpope/vim-fugitive] | Git client, including [junegunn/gv.vim]
 
+[petertriho/cmp-git]: https://github.com/petertriho/cmp-git
 [tpope/vim-fugitive]: https://github.com/tpope/vim-fugitive
 [junegunn/gv.vim]: https://github.com/junegunn/gv.vim
 
@@ -780,32 +772,18 @@ Spec: `rafi.plugins.extras.lang.<name>`
 
 | Name             | Description
 | ---------------- | ----------------------
-| `ansible`        | syntax [pearofducks/ansible-vim], lsp, lint
-| `docker`         | syntax, lsp, lint
-| `go`             | syntax, lsp, formatter, dap [leoluz/nvim-dap-go], test [nvim-neotest/neotest-go]
-| `helm`           | syntax, lsp
-| `markdown`       | syntax, lsp, browser preview [iamcco/markdown-preview.nvim]
-| `python`         | syntax, lsp, dap [mfussenegger/nvim-dap-python], test, [rafi/neoconf-venom.nvim]
+| `ansible`        | imports `lazyvim.plugins.extras.lang.ansible`, add syntax and [pearofducks/ansible-vim]
+| `go`             | imports `lazyvim.plugins.extras.lang.go`, add tools, patterns, etc.
+| `helm`           | imports `lazyvim.plugins.extras.lang.helm`, add filetype patterns
+| `kubernetes`     | imports `lazyvim.plugins.extras.lang.yaml`, add filetype patterns
+| `markdown`       | imports `lazyvim.plugins.extras.lang.markdown`, disable headlines, add [mzlogin/vim-markdown-toc]
+| `python`         | imports `lazyvim.plugins.extras.lang.python`, add syntax and filetype patterns
 | `tmux`           | syntax, completion [andersevenrud/cmp-tmux], keymaps [christoomey/tmux-navigator]
-| `yaml`           | syntax, lsp, schemas, [b0o/SchemaStore.nvim]
 
 [pearofducks/ansible-vim]: https://github.com/pearofducks/ansible-vim
-[leoluz/nvim-dap-go]: https://github.com/leoluz/nvim-dap-go
-[nvim-neotest/neotest-go]: https://github.com/nvim-neotest/neotest-go
-[iamcco/markdown-preview.nvim]: https://github.com/iamcco/markdown-preview.nvim
-[mfussenegger/nvim-dap-python]: https://github.com/mfussenegger/nvim-dap-python
-[rafi/neoconf-venom.nvim]: https://github.com/rafi/neoconf-venom.nvim
-[b0o/SchemaStore.nvim]: https://github.com/b0o/SchemaStore.nvim
-[christoomey/tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator
+[mzlogin/vim-markdown-toc]: https://github.com/mzlogin/vim-markdown-toc
 [andersevenrud/cmp-tmux]: https://github.com/andersevenrud/cmp-tmux
-
-### Extra Plugins: Linting
-
-Spec: `rafi.plugins.extras.linting.<name>`
-
-| Name           | Description
-| -------------- | ----------------------
-| `ruff`         | ruff for python
+[christoomey/tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator
 
 ### Extra Plugins: LSP
 
@@ -814,12 +792,10 @@ Spec: `rafi.plugins.extras.lsp.<name>`
 | Key              | Name           | Description
 | ---------------- | -------------- | ----------------------
 | `gtd`            | [hrsh7th/nvim-gtd] | LSP's go-to definition plugin
-| `inlayhints`     | [lvimuser/lsp-inlayhints.nvim] | Partial implementation of LSP inlay hint
 | `lightbulb`      | [kosayoda/nvim-lightbulb] | VSCode 💡 for neovim's built-in LSP
 | `yaml-companion` | [yaml-companion.nvim] | Get, set and autodetect YAML schemas in your buffers
 
 [hrsh7th/nvim-gtd]: https://github.com/hrsh7th/nvim-gtd
-[lvimuser/lsp-inlayhints.nvim]: https://github.com/lvimuser/lsp-inlayhints.nvim
 [kosayoda/nvim-lightbulb]: https://github.com/kosayoda/nvim-lightbulb
 [yaml-companion.nvim]: https://github.com/someone-stole-my-name/yaml-companion.nvim
 
@@ -829,11 +805,13 @@ Spec: `rafi.plugins.extras.org.<name>`
 
 | Key            | Name           | Description
 | -------------- | -------------- | ----------------------
+| `calendar`     | [itchyny/calendar.vim] | Calendar application
 | `kiwi`         | [serenevoid/kiwi.nvim] | Stripped down VimWiki
 | `telekasten`   | [renerocksai/telekasten.nvim] | Manage text-based, markdown zettelkasten or wiki with telescope
 | `vimwiki`      | [vimwiki/vimwiki] | Personal Wiki for Vim
 | `zk-nvim`      | [zk-org/zk-nvim] | Extension for the zk plain text note-taking assistant
 
+[itchyny/calendar.vim]: https://github.com/itchyny/calendar.vim
 [serenevoid/kiwi.nvim]: https://github.com/serenevoid/kiwi.nvim
 [renerocksai/telekasten.nvim]: https://github.com/renerocksai/telekasten.nvim
 [vimwiki/vimwiki]: https://github.com/vimwiki/vimwiki

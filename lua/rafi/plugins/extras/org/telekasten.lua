@@ -1,3 +1,6 @@
+-- rafi.plugins.extras.org.telekasten
+--
+
 return {
 
 	-- Manage text-based, markdown zettelkasten or wiki with telescope

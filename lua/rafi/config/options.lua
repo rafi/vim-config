@@ -217,13 +217,16 @@ vim.filetype.add({
 		['.jsbeautifyrc'] = 'json',
 		['.jscsrc'] = 'json',
 		['.watchmanconfig'] = 'json',
+		['helmfile.yaml'] = 'yaml',
 		['todo.txt'] = 'todotxt',
+		['yarn.lock'] = 'yaml',
 	},
 	pattern = {
+		['%.config/git/users/.*'] = 'gitconfig',
+		['%.kube/config'] = 'yaml',
 		['.*%.js%.map'] = 'json',
 		['.*%.postman_collection'] = 'json',
 		['Jenkinsfile.*'] = 'groovy',
-		['%.config/git/users/.*'] = 'gitconfig',
 	},
 })
 
