@@ -94,8 +94,12 @@ return {
 				-- indicator = {
 				-- 	style = 'underline',
 				-- },
-				close_command = function(n) LazyVim.ui.bufremove(n) end,
-				right_mouse_command = function(n) LazyVim.ui.bufremove(n) end,
+				close_command = function(n)
+					LazyVim.ui.bufremove(n)
+				end,
+				right_mouse_command = function(n)
+					LazyVim.ui.bufremove(n)
+				end,
 				diagnostics_indicator = function(_, _, diag)
 					local icons = require('lazyvim.config').icons.diagnostics
 					local ret = (diag.error and icons.Error .. diag.error .. ' ' or '')
@@ -130,7 +134,7 @@ return {
 		config = function(_, opts)
 			require('bufferline').setup(opts)
 			-- Fix bufferline when restoring a session
-			vim.api.nvim_create_autocmd('BufAdd', {
+			vim.api.nvim_create_autocmd({ 'BufAdd', 'BufDelete' }, {
 				callback = function()
 					vim.schedule(function()
 						---@diagnostic disable-next-line: undefined-global
@@ -321,6 +325,14 @@ return {
 				},
 			},
 		},
+		config = function(_, opts)
+			if vim.fn.has('nvim-0.10.0') == 0 then
+				local utils = require('ibl.utils')
+				---@diagnostic disable-next-line: deprecated
+				utils.tbl_join = vim.tbl_flatten
+			end
+			require('ibl').setup(opts)
+		end,
 	},
 
 	-----------------------------------------------------------------------------

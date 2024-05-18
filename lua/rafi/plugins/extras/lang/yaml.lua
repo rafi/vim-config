@@ -2,6 +2,11 @@
 -- See: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/lang/yaml.lua
 
 return {
+	recommended = function()
+		return LazyVim.extras.wants({
+			ft = 'yaml',
+		})
+	end,
 
 	{
 		'nvim-treesitter/nvim-treesitter',

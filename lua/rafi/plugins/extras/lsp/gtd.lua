@@ -12,6 +12,7 @@ return {
 				desc = 'Go to definition or file',
 			},
 		},
+		---@diagnostic disable-next-line: undefined-doc-name
 		---@type gtd.kit.App.Config.Schema
 		opts = {
 			sources = {

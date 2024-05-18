@@ -2,6 +2,12 @@
 -- See: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/lang/go.lua
 
 return {
+	recommended = function()
+		return LazyVim.extras.wants({
+			ft = { 'go', 'gomod', 'gowork', 'gotmpl' },
+			root = { 'go.work', 'go.mod' },
+		})
+	end,
 
 	{
 		'nvim-treesitter/nvim-treesitter',

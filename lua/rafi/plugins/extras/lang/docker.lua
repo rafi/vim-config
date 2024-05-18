@@ -2,6 +2,18 @@
 -- See: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/lang/docker.lua
 
 return {
+	recommended = function()
+		return LazyVim.extras.wants({
+			ft = 'dockerfile',
+			root = {
+				'Dockerfile',
+				'docker-compose.yml',
+				'compose.yml',
+				'docker-compose.yaml',
+				'compose.yaml',
+			},
+		})
+	end,
 
 	{
 		'nvim-treesitter/nvim-treesitter',
