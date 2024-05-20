@@ -1,0 +1,11 @@
+{
+	"default": true,
+	"line-length": false,
+	"single-trailing-newline": false,
+	"no-space-in-code": false,
+	"no-inline-html": {
+		"allowed_elements": [
+			"a", "i", "strong", "center", "kbd", "small", "details", "summary"
+		]
+	}
+}

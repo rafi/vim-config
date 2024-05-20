@@ -1,35 +1,58 @@
-SHELL = /bin/bash
-nvim ?= nvim
-nvim_version := '${shell $(nvim) --version}'
-XDG_DATA_HOME ?= $(HOME)/.local/share
-VIM_DATA_HOME = $(XDG_DATA_HOME)/nvim
+SHELL := /usr/bin/env bash
+XDG_CACHE_HOME  ?= $(HOME)/.cache
+XDG_CONFIG_HOME ?= $(HOME)/.config
+XDG_DATA_HOME   ?= $(HOME)/.local/share
+XDG_STATE_HOME  ?= $(HOME)/.local/state
 
 default: install
 
+.PHONY: install update
 install: create-dirs update-plugins
-
 update: update-repo update-plugins
 
-upgrade: update
-
+.PHONY: create-dirs
 create-dirs:
-	@mkdir -vp ./spell "$(VIM_DATA_HOME)"/{backup,sessions,swap,undo,vsnip}
+	@mkdir -vp "$(XDG_CONFIG_HOME)"/nvim/spell
+	@mkdir -vp "$(XDG_DATA_HOME)"/nvim/site/spell
+	@mkdir -vp "$(XDG_STATE_HOME)"/nvim/{backup,sessions,shada,swap,undo}
 
+.PHONY: update-repo
 update-repo:
 	git pull --ff --ff-only
 
+.PHONY: update-plugins
 update-plugins:
-	$(nvim) -V1 -es -i NONE -N --noplugin -u config/init.vim \
-		-c "try | call dein#clear_state() | call dein#update() | finally | messages | qall! | endtry"
+	nvim --headless '+Lazy! sync' +qa
+	@echo
 
+.PHONY: uninstall
 uninstall:
-	rm -rf "$(VIM_DATA_HOME)"/dein
+	-rm -rf "$(XDG_DATA_HOME)"/nvim/{lazy,theme.txt,rplugin.vim}
+	-rm -rf "$(XDG_STATE_HOME)"/nvim/lazy
+	-rm -rf "$(XDG_CACHE_HOME)"/nvim/venv
 
+.PHONY: venv
+venv:
+ifeq (, $(shell which pyenv-virtualenv))
+	python3 -m venv "$(XDG_CACHE_HOME)/nvim/venv" || true
+else
+	pyenv virtualenv neovim || true
+	ln -fs "$(shell pyenv prefix neovim)" "$(XDG_CACHE_HOME)/nvim/venv"
+endif
+	"$(XDG_CACHE_HOME)/nvim/venv/bin/pip" install -U pip
+	"$(XDG_CACHE_HOME)/nvim/venv/bin/pip" install -U pynvim
+
+.PHONY: test
 test:
-	$(info Testing NVIM 0.5.0+...)
-	$(if $(shell echo "$(nvim_version)" | egrep "NVIM v0\.[5-9]"),\
+	$(info Testing for NVIM >= 0.10.x)
+	$(if $(shell nvim --version | egrep 'NVIM v0\.1[0-9]\.'),\
 		$(info OK),\
-		$(error   .. You need Neovim 0.5.0 or newer))
+		$(error   .. You need Neovim 0.10.x or newer))
 	@echo All tests passed, hooray!
 
-.PHONY: install create-dirs update-repo update-plugins uninstall test
+.PHONY: docker
+docker:
+	docker run -w /root -it --rm alpine:edge sh -uelic ' \
+		apk add git neovim ripgrep alpine-sdk --update && \
+		git clone https://github.com/rafi/vim-config ~/.config/nvim && \
+	cd ~/.config/nvim && nvim'

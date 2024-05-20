@@ -1,0 +1,22 @@
+{
+	"neodev": {
+		"library": {
+			"enabled": true,
+			"plugins": [
+				"LazyVim"
+				,"plenary.nvim"
+				,"lazy.nvim"
+				,"noice.nvim"
+				,"conform.nvim"
+				,"nvim-cmp"
+			]
+		}
+	},
+	"neoconf": {
+		"plugins": {
+			"lua_ls": {
+				"enabled": true
+			}
+		}
+	}
+}
