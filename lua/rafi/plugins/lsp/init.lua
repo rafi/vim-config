@@ -33,6 +33,9 @@ return {
 					spacing = 4,
 					source = 'if_many',
 					prefix = '●',
+					-- this will set set the prefix to a function that returns the diagnostics icon based on the severity
+					-- this only works on a recent 0.10.0 build. Will be set to "●" when not supported
+					-- prefix = 'icons',
 				},
 				severity_sort = true,
 				float = {
@@ -125,16 +128,17 @@ return {
 				require('rafi.plugins.lsp.keymaps').on_attach(client, buffer)
 			end)
 
-			local register_capability = vim.lsp.handlers['client/registerCapability']
+			-- When LSP client stops, undo buffer keymaps and such.
+			vim.api.nvim_create_autocmd('LspDetach', {
+				callback = function(args)
+					local buffer = args.buf ---@type number
+					local client = vim.lsp.get_client_by_id(args.data.client_id)
+					require('rafi.plugins.lsp.keymaps').on_detach(client, buffer)
+				end,
+			})
 
-			---@diagnostic disable-next-line: duplicate-set-field
-			vim.lsp.handlers['client/registerCapability'] = function(err, res, ctx)
-				local ret = register_capability(err, res, ctx)
-				local client = vim.lsp.get_client_by_id(ctx.client_id)
-				local buffer = vim.api.nvim_get_current_buf()
-				require('rafi.plugins.lsp.keymaps').on_attach(client, buffer)
-				return ret
-			end
+			LazyVim.lsp.setup()
+			LazyVim.lsp.on_dynamic_capability(require('rafi.plugins.lsp.keymaps').on_attach)
 
 			LazyVim.lsp.words.setup(opts.document_highlight)
 
@@ -142,7 +146,9 @@ return {
 			if vim.fn.has('nvim-0.10.0') == 0 then
 				if type(opts.diagnostics.signs) ~= 'boolean' then
 					for severity, icon in pairs(opts.diagnostics.signs.text) do
-						local name = vim.diagnostic.severity[severity]:lower():gsub('^%l', string.upper)
+						local name = vim.diagnostic.severity[severity]
+							:lower()
+							:gsub('^%l', string.upper)
 						name = 'DiagnosticSign' .. name
 						vim.fn.sign_define(name, { text = icon, texthl = name, numhl = '' })
 					end
@@ -152,23 +158,18 @@ return {
 			if vim.fn.has('nvim-0.10') == 1 then
 				-- inlay hints
 				if opts.inlay_hints.enabled then
-					LazyVim.lsp.on_attach(function(client, buffer)
-						if client.supports_method('textDocument/inlayHint') then
-							LazyVim.toggle.inlay_hints(buffer, true)
-						end
+					LazyVim.lsp.on_supports_method('textDocument/inlayHint', function(_, buffer)
+						LazyVim.toggle.inlay_hints(buffer, true)
 					end)
 				end
 				-- code lens
 				if opts.codelens.enabled and vim.lsp.codelens then
-					LazyVim.lsp.on_attach(function(client, buffer)
-						if client.supports_method('textDocument/codeLens') then
-							vim.lsp.codelens.refresh()
-							--- autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()
-							vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
-								buffer = buffer,
-								callback = vim.lsp.codelens.refresh,
-							})
-						end
+					LazyVim.lsp.on_supports_method('textDocument/codeLens', function(_, buffer)
+						vim.lsp.codelens.refresh()
+						vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
+							buffer = buffer,
+							callback = vim.lsp.codelens.refresh,
+						})
 					end)
 				end
 			end

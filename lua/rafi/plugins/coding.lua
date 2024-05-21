@@ -24,7 +24,7 @@ return {
 		--
 		-- ```lua
 		-- opts = {
-		--   auto_brackets = { "python" }
+		--   auto_brackets = { 'python' }
 		-- }
 		-- ```
 
@@ -59,11 +59,10 @@ return {
 				}),
 				mapping = cmp.mapping.preset.insert({
 					-- <CR> accepts currently selected item.
-					-- Set `select` to `false` to only confirm explicitly selected items.
-					['<CR>'] = cmp.mapping.confirm({ select = false }),
-					['<S-CR>'] = cmp.mapping.confirm({
+					['<CR>'] = LazyVim.cmp.confirm(),
+					-- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+					['<S-CR>'] = LazyVim.cmp.confirm({
 						behavior = cmp.ConfirmBehavior.Replace,
-						select = false,
 					}),
 					['<C-Space>'] = cmp.mapping.complete(),
 					['<Tab>'] = Util.cmp.supertab({
@@ -119,23 +118,14 @@ return {
 				source.group_index = source.group_index or 1
 			end
 			local cmp = require('cmp')
-			local Kind = cmp.lsp.CompletionItemKind
 			cmp.setup(opts)
 			cmp.event:on('confirm_done', function(event)
-				if not vim.tbl_contains(opts.auto_brackets or {}, vim.bo.filetype) then
-					return
+				if vim.tbl_contains(opts.auto_brackets or {}, vim.bo.filetype) then
+					LazyVim.cmp.auto_brackets(event.entry)
 				end
-				local entry = event.entry
-				local item = entry:get_completion_item()
-				if vim.tbl_contains({ Kind.Function, Kind.Method }, item.kind) and item.insertTextFormat ~= 2 then
-					local cursor = vim.api.nvim_win_get_cursor(0)
-					local prev_char = vim.api.nvim_buf_get_text(0, cursor[1] - 1, cursor[2], cursor[1] - 1, cursor[2] + 1, {})[1]
-					if prev_char ~= '(' and prev_char ~= ')' then
-						local keys =
-							vim.api.nvim_replace_termcodes('()<left>', false, false, true)
-						vim.api.nvim_feedkeys(keys, 'i', true)
-					end
-				end
+			end)
+			cmp.event:on('menu_opened', function(event)
+				LazyVim.cmp.add_missing_snippet_docs(event.window)
 			end)
 		end,
 	},
@@ -279,9 +269,9 @@ return {
 	-- Powerful line and block-wise commenting
 	{
 		'numToStr/Comment.nvim',
-		-- stylua: ignore
 		event = 'VeryLazy',
 		dependencies = { 'JoosepAlviste/nvim-ts-context-commentstring' },
+		-- stylua: ignore
 		keys = {
 			{ '<Leader>v', '<Plug>(comment_toggle_linewise_current)', mode = 'n', desc = 'Comment' },
 			{ '<Leader>v', '<Plug>(comment_toggle_linewise_visual)', mode = 'x', desc = 'Comment' },
@@ -289,11 +279,12 @@ return {
 			{ '<Leader>V', '<Plug>(comment_toggle_blockwise_visual)', mode = 'x', desc = 'Comment' },
 		},
 		opts = function(_, opts)
-			local ok, tcc = pcall(require, 'ts_context_commentstring.integrations.comment_nvim')
+			local ok, tcc =
+				pcall(require, 'ts_context_commentstring.integrations.comment_nvim')
 			if ok then
 				opts.pre_hook = tcc.create_pre_hook()
 			end
-		end
+		end,
 	},
 
 	-----------------------------------------------------------------------------
@@ -350,80 +341,37 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
-	-- Extend and create `a`/`i` textobjects
+	-- Extend and create `a`/`i` text-objects
 	{
 		'echasnovski/mini.ai',
 		event = 'VeryLazy',
 		opts = function()
+			LazyVim.on_load('which-key.nvim', function()
+				vim.schedule(LazyVim.mini.ai_whichkey)
+			end)
 			local ai = require('mini.ai')
 			return {
 				n_lines = 500,
 				-- stylua: ignore
 				custom_textobjects = {
-					o = ai.gen_spec.treesitter({
+					o = ai.gen_spec.treesitter({ -- code block
 						a = { '@block.outer', '@conditional.outer', '@loop.outer' },
 						i = { '@block.inner', '@conditional.inner', '@loop.inner' },
-					}, {}),
-					f = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }, {}),
-					c = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }, {}),
-					t = { '<([%p%w]-)%f[^<%w][^<>]->.-</%1>', '^<.->().*()</[^/]->$' },
+					}),
+					f = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
+					c = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }),
+					t = { '<([%p%w]-)%f[^<%w][^<>]->.-</%1>', '^<.->().*()</[^/]->$' }, -- tags
+					d = { '%f[%d]%d+' }, -- digits
+					e = { -- Word with case
+						{ '%u[%l%d]+%f[^%l%d]', '%f[%S][%l%d]+%f[^%l%d]', '%f[%P][%l%d]+%f[^%l%d]', '^[%l%d]+%f[^%l%d]' },
+						'^().*()$',
+					},
+					i = LazyVim.mini.ai_indent, -- indent
+					g = LazyVim.mini.ai_buffer, -- buffer
+					u = ai.gen_spec.function_call(), -- u for Usage
+					U = ai.gen_spec.function_call({ name_pattern = '[%w_]' }), -- without dot in function name
 				},
 			}
-		end,
-		config = function(_, opts)
-			require('mini.ai').setup(opts)
-
-			-- register all text objects with which-key
-			LazyVim.on_load('which-key.nvim', function()
-				---@type table<string, string|table>
-				local i = {
-					[' '] = 'Whitespace',
-					['"'] = 'Balanced "',
-					["'"] = "Balanced '",
-					['`'] = 'Balanced `',
-					['('] = 'Balanced (',
-					[')'] = 'Balanced ) including white-space',
-					['>'] = 'Balanced > including white-space',
-					['<lt>'] = 'Balanced <',
-					[']'] = 'Balanced ] including white-space',
-					['['] = 'Balanced [',
-					['}'] = 'Balanced } including white-space',
-					['{'] = 'Balanced {',
-					['?'] = 'User Prompt',
-					_ = 'Underscore',
-					a = 'Argument',
-					b = 'Balanced ), ], }',
-					c = 'Class',
-					f = 'Function',
-					o = 'Block, conditional, loop',
-					q = 'Quote `, ", \'',
-					t = 'Tag',
-				}
-				local a = vim.deepcopy(i) --[[@as table]]
-				for k, v in pairs(a) do
-					a[k] = v:gsub(' including.*', '')
-				end
-
-				local ic = vim.deepcopy(i)
-				local ac = vim.deepcopy(a)
-				for key, name in pairs({ n = 'Next', l = 'Last' }) do
-					i[key] = vim.tbl_extend(
-						'force',
-						{ name = 'Inside ' .. name .. ' textobject' },
-						ic
-					)
-					a[key] = vim.tbl_extend(
-						'force',
-						{ name = 'Around ' .. name .. ' textobject' },
-						ac
-					)
-				end
-				require('which-key').register({
-					mode = { 'o', 'x' },
-					i = i,
-					a = a,
-				})
-			end)
 		end,
 	},
 }

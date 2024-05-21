@@ -19,8 +19,9 @@ return {
 		build = ':TSUpdate',
 		event = { 'LazyFile', 'VeryLazy' },
 		lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
-		cmd = { 'TSInstall', 'TSUpdate', 'TSUpdateSync' },
+		cmd = { 'TSUpdateSync', 'TSUpdate', 'TSInstall' },
 		keys = {
+			{ '<C-Space>', desc = 'Increment Selection' },
 			{ 'v', desc = 'Increment Selection', mode = 'x' },
 			{ 'V', desc = 'Shrink Selection', mode = 'x' },
 		},
@@ -47,6 +48,7 @@ return {
 		},
 		---@diagnostic disable-next-line: undefined-doc-name
 		---@type TSConfig
+		---@diagnostic disable: missing-fields
 		opts = {
 			highlight = { enable = true },
 			indent = { enable = true },
@@ -175,18 +177,9 @@ return {
 		---@diagnostic disable-next-line: undefined-doc-name
 		---@param opts TSConfig
 		config = function(_, opts)
-			local langs = opts.ensure_installed
-			if type(langs) == 'table' then
-				---@type table<string, boolean>
-				local added = {}
+			if type(opts.ensure_installed) == 'table' then
 				---@diagnostic disable-next-line: inject-field
-				opts.ensure_installed = vim.tbl_filter(function(lang)
-					if added[lang] then
-						return false
-					end
-					added[lang] = true
-					return true
-				end, langs)
+				opts.ensure_installed = LazyVim.dedup(opts.ensure_installed)
 			end
 			require('nvim-treesitter.configs').setup(opts)
 		end,
@@ -196,8 +189,16 @@ return {
 	-- Textobjects using treesitter queries
 	{
 		'nvim-treesitter/nvim-treesitter-textobjects',
-		lazy = true,
+		event = 'VeryLazy',
 		config = function()
+			-- If treesitter is already loaded, we need to run config again for textobjects
+			if LazyVim.is_loaded('nvim-treesitter') then
+				local opts = LazyVim.opts('nvim-treesitter')
+				require('nvim-treesitter.configs').setup({
+					textobjects = opts.textobjects,
+				})
+			end
+
 			-- When in diff mode, we want to use the default
 			-- vim text objects c & C instead of the treesitter ones.
 			local move = require('nvim-treesitter.textobjects.move') ---@type table<string,fun(...)>
@@ -222,32 +223,6 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
-	-- Show context of the current function
-	{
-		'nvim-treesitter/nvim-treesitter-context',
-		-- event = 'LazyFile',
-		opts = {
-			mode = 'cursor',
-			max_lines = 3,
-		},
-		keys = {
-			{
-				'<leader>ut',
-				function()
-					local tsc = require('treesitter-context')
-					tsc.toggle()
-					if LazyVim.inject.get_upvalue(tsc.toggle, 'enabled') then
-						LazyVim.info('Enabled Treesitter Context', { title = 'Option' })
-					else
-						LazyVim.warn('Disabled Treesitter Context', { title = 'Option' })
-					end
-				end,
-				desc = 'Toggle Treesitter Context',
-			},
-		},
-	},
-
-	-----------------------------------------------------------------------------
 	-- Automatically add closing tags for HTML and JSX
 	{
 		'windwp/nvim-ts-autotag',
@@ -255,6 +230,7 @@ return {
 		opts = {
 			-- Removed markdown due to errors
 			filetypes = {
+				'astro',
 				'glimmer',
 				'handlebars',
 				'hbs',
@@ -262,6 +238,7 @@ return {
 				'javascript',
 				'javascriptreact',
 				'jsx',
+				'php',
 				'rescript',
 				'svelte',
 				'tsx',

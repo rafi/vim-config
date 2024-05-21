@@ -33,6 +33,9 @@ function M.get()
 			})
 		end, desc = 'Source Action', has = 'codeAction' },
 
+		{ ']]', function() LazyVim.lsp.words.jump(vim.v.count1) end, has = 'documentHighlight', desc = 'Next Reference' },
+		{ '[[', function() LazyVim.lsp.words.jump(-vim.v.count1) end, has = 'documentHighlight', desc = 'Next Reference' },
+
 		{ 'K', function()
 			-- Show hover documentation or folded lines.
 			local winid = LazyVim.has('nvim-ufo')

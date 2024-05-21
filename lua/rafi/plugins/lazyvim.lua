@@ -7,6 +7,17 @@ return {
 		priority = 10000,
 		lazy = false,
 		cond = true,
+		config = function(_, opts)
+			-- Load lua/rafi/config/*
+			require('rafi.config').setup()
+
+			-- Setup lazyvim, but don't load any lazyvim/config/* files.
+			package.loaded['lazyvim.config.options'] = true
+			require('lazyvim.config').setup(vim.tbl_deep_extend('force', opts, {
+				defaults = { autocmds = false, keymaps = false },
+				news = { lazyvim = false },
+			}))
+		end,
 		opts = {
 			-- String like `habamax` or a function that will load the colorscheme.
 			-- Disabled by default to allow theme-loader.nvim to manage the colorscheme.

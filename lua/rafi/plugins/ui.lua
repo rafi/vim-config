@@ -259,9 +259,6 @@ return {
 		},
 		init = function()
 			vim.g.navic_silence = true
-
-			---@param client vim.lsp.Client
-			---@param buffer integer
 			LazyVim.lsp.on_attach(function(client, buffer)
 				if client.supports_method('textDocument/documentSymbol') then
 					require('nvim-navic').attach(client, buffer)
@@ -336,14 +333,6 @@ return {
 				},
 			},
 		},
-		config = function(_, opts)
-			if vim.fn.has('nvim-0.10.0') == 0 then
-				local utils = require('ibl.utils')
-				---@diagnostic disable-next-line: deprecated
-				utils.tbl_join = vim.tbl_flatten
-			end
-			require('ibl').setup(opts)
-		end,
 	},
 
 	-----------------------------------------------------------------------------

@@ -67,6 +67,7 @@ return {
 						gopls = {
 							-- https://github.com/golang/tools/blob/master/gopls/doc/analyzers.md
 							analyses = {
+								fieldalignment = false,
 								unusedvariable = true,
 								-- shadow = true,
 								-- ST1000 = false,
