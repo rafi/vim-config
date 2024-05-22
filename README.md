@@ -497,9 +497,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [hrsh7th/cmp-buffer] | nvim-cmp source for buffer words
 | [hrsh7th/cmp-path] | nvim-cmp source for path
 | [hrsh7th/cmp-emoji] | nvim-cmp source for emoji
-| [L3MON4D3/LuaSnip] | Snippet Engine written in Lua
 | [rafamadriz/friendly-snippets] | Preconfigured snippets for different languages
-| [saadparwaiz1/cmp_luasnip] | Luasnip completion source for nvim-cmp
 | [windwp/nvim-autopairs] | Powerful auto-pair plugin with multiple characters support
 | [echasnovski/mini.surround] | Fast and feature-rich surround actions
 | [JoosepAlviste/nvim-ts-context-commentstring] | Set the commentstring based on the cursor location
@@ -607,9 +605,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [hrsh7th/cmp-buffer]: https://github.com/hrsh7th/cmp-buffer
 [hrsh7th/cmp-path]: https://github.com/hrsh7th/cmp-path
 [hrsh7th/cmp-emoji]: https://github.com/hrsh7th/cmp-emoji
-[L3MON4D3/LuaSnip]: https://github.com/L3MON4D3/LuaSnip
 [rafamadriz/friendly-snippets]: https://github.com/rafamadriz/friendly-snippets
-[saadparwaiz1/cmp_luasnip]: https://github.com/saadparwaiz1/cmp_luasnip
 [windwp/nvim-autopairs]: https://github.com/windwp/nvim-autopairs
 [echasnovski/mini.surround]: https://github.com/echasnovski/mini.surround
 [JoosepAlviste/nvim-ts-context-commentstring]: https://github.com/JoosepAlviste/nvim-ts-context-commentstring
@@ -693,7 +689,7 @@ Spec: `rafi.plugins.extras.coding.<name>`
 | `chainsaw`     | [chrisgrieser/nvim-chainsaw] | Create log statements on the fly
 | `editorconfig` | [sgur/vim-editorconfig] | EditorConfig plugin written entirely in Vimscript
 | `emmet`        | [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet
-| `mini.comment` | [echasnovski/mini.comment] | Fast and familiar per-line commenting
+| `luasnip`      | [L3MON4D3/LuaSnip] [saadparwaiz1/cmp_luasnip] | Snippet Engine and cmp source
 | `minipairs`    | [echasnovski/mini.pairs] | Automatically manage character pairs
 | `neogen`       | [danymat/neogen] | Annotation generator
 | `sandwich`     | [machakann/vim-sandwich] | Search, select, and edit sandwich text objects
@@ -702,7 +698,8 @@ Spec: `rafi.plugins.extras.coding.<name>`
 [chrisgrieser/nvim-chainsaw]: https://github.com/chrisgrieser/nvim-chainsaw
 [sgur/vim-editorconfig]: https://github.com/sgur/vim-editorconfig
 [mattn/emmet-vim]: https://github.com/mattn/emmet-vim
-[echasnovski/mini.comment]: https://github.com/echasnovski/mini.comment
+[L3MON4D3/LuaSnip]: https://github.com/L3MON4D3/LuaSnip
+[saadparwaiz1/cmp_luasnip]: https://github.com/saadparwaiz1/cmp_luasnip
 [echasnovski/mini.pairs]: https://github.com/echasnovski/mini.pairs
 [danymat/neogen]: https://github.com/danymat/neogen
 [machakann/vim-sandwich]: https://github.com/machakann/vim-sandwich

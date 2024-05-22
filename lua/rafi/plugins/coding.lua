@@ -117,6 +117,17 @@ return {
 			for _, source in ipairs(opts.sources) do
 				source.group_index = source.group_index or 1
 			end
+
+			local parse = require('cmp.utils.snippet').parse
+			---@diagnostic disable-next-line: duplicate-set-field
+			require('cmp.utils.snippet').parse = function(input)
+				local ok, ret = pcall(parse, input)
+				if ok then
+					return ret
+				end
+				return LazyVim.cmp.snippet_preview(input)
+			end
+
 			local cmp = require('cmp')
 			cmp.setup(opts)
 			cmp.event:on('confirm_done', function(event)
@@ -131,57 +142,36 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
-	-- Snippet Engine written in Lua
-	{
-		'L3MON4D3/LuaSnip',
-		event = 'InsertEnter',
-		build = (not LazyVim.is_win())
-				and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
-			or nil,
-		dependencies = {
-			-- Preconfigured snippets for different languages
-			{
-				'rafamadriz/friendly-snippets',
-				config = function()
-					require('luasnip.loaders.from_vscode').lazy_load()
-					require('luasnip.loaders.from_lua').load({ paths = { './snippets' } })
-				end,
-			},
-			-- Adds luasnip source to nvim-cmp.
-			{
+	-- Native snippets
+	vim.fn.has('nvim-0.10') == 1
+			and {
 				'nvim-cmp',
 				dependencies = {
-					-- Luasnip completion source for nvim-cmp
-					'saadparwaiz1/cmp_luasnip',
+					{
+						'garymjr/nvim-snippets',
+						opts = {
+							friendly_snippets = true,
+							global_snippets = { 'all', 'global' },
+						},
+						dependencies = {
+							-- Preconfigured snippets for different languages
+							'rafamadriz/friendly-snippets',
+						},
+					},
 				},
 				opts = function(_, opts)
 					opts.snippet = {
-						expand = function(args)
-							require('luasnip').lsp_expand(args.body)
+						expand = function(item)
+							return LazyVim.cmp.expand(item.body)
 						end,
 					}
-					table.insert(opts.sources, { name = 'luasnip', keyword_length = 2 })
+					table.insert(opts.sources, { name = 'snippets' })
 				end,
-			},
+			}
+		or {
+			import = 'rafi.plugins.extras.coding.luasnip',
+			enabled = vim.fn.has('nvim-0.10') == 0,
 		},
-		-- stylua: ignore
-		keys = {
-			{ '<C-l>', function() require('luasnip').expand_or_jump() end, mode = { 'i', 's' } },
-		},
-		opts = {
-			history = true,
-			delete_check_events = 'TextChanged',
-			-- ft_func = function()
-			-- 	return vim.split(vim.bo.filetype, '.', { plain = true })
-			-- end,
-		},
-		config = function(_, opts)
-			require('luasnip').setup(opts)
-			vim.api.nvim_create_user_command('LuaSnipEdit', function()
-				require('luasnip.loaders').edit_snippet_files()
-			end, {})
-		end,
-	},
 
 	-----------------------------------------------------------------------------
 	-- Powerful auto-pair plugin with multiple characters support
@@ -258,23 +248,23 @@ return {
 	-----------------------------------------------------------------------------
 	-- Set the commentstring based on the cursor location
 	{
-		'JoosepAlviste/nvim-ts-context-commentstring',
-		opts = {
-			enable = true,
-			enable_autocmd = false,
-		},
+		'folke/ts-comments.nvim',
+		event = 'VeryLazy',
+		enabled = vim.fn.has('nvim-0.10') == 1,
+		opts = {},
+	},
+	{
+		import = 'rafi.plugins.extras.coding.minicomment',
+		enabled = vim.fn.has('nvim-0.10') == 0,
 	},
 
 	-----------------------------------------------------------------------------
 	-- Powerful line and block-wise commenting
 	{
 		'numToStr/Comment.nvim',
-		event = 'VeryLazy',
 		dependencies = { 'JoosepAlviste/nvim-ts-context-commentstring' },
 		-- stylua: ignore
 		keys = {
-			{ '<Leader>v', '<Plug>(comment_toggle_linewise_current)', mode = 'n', desc = 'Comment' },
-			{ '<Leader>v', '<Plug>(comment_toggle_linewise_visual)', mode = 'x', desc = 'Comment' },
 			{ '<Leader>V', '<Plug>(comment_toggle_blockwise_current)', mode = 'n', desc = 'Comment' },
 			{ '<Leader>V', '<Plug>(comment_toggle_blockwise_visual)', mode = 'x', desc = 'Comment' },
 		},

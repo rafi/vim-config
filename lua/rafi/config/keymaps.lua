@@ -188,6 +188,10 @@ end, { silent = true, desc = 'Yank absolute path' })
 --- }}}
 -- Coding {{{
 
+-- Comment
+map('n', '<Leader>v', 'gcc', { remap = true, desc = 'Comment Line' })
+map('x', '<Leader>v', 'gc', { remap = true, desc = 'Comment Selection' })
+
 -- Macros
 map('n', '<C-q>', 'q', { desc = 'Macro Prefix' })
 
