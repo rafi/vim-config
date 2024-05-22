@@ -34,8 +34,8 @@ require('lazy').setup(vim.tbl_extend('keep', user_lazy_opts, {
 	spec = {
 		{ import = 'rafi.plugins.lazyvim' },
 		{ import = 'rafi.plugins' },
-		has_user_plugins and { import = 'plugins' } or nil,
 		{ import = 'lazyvim.plugins.xtras' },
+		has_user_plugins and { import = 'plugins' } or nil,
 	},
 	concurrency = vim.uv.available_parallelism() * 2,
 	defaults = { lazy = true, version = false },
