@@ -690,7 +690,7 @@ Spec: `rafi.plugins.extras.coding.<name>`
 | `editorconfig` | [sgur/vim-editorconfig] | EditorConfig plugin written entirely in Vimscript
 | `emmet`        | [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet
 | `luasnip`      | [L3MON4D3/LuaSnip] [saadparwaiz1/cmp_luasnip] | Snippet Engine and cmp source
-| `minipairs`    | [echasnovski/mini.pairs] | Automatically manage character pairs
+| `mini-pairs`   | [echasnovski/mini.pairs] | Automatically manage character pairs
 | `neogen`       | [danymat/neogen] | Annotation generator
 | `sandwich`     | [machakann/vim-sandwich] | Search, select, and edit sandwich text objects
 
@@ -737,7 +737,7 @@ Spec: `rafi.plugins.extras.editor.<name>`
 | `anyjump`     | [pechorin/any-jump.vim] | Jump to any definition and references without overhead
 | `flybuf`      | [glepnir/flybuf.nvim]   | List buffers in a float window
 | `harpoon`     | [ThePrimeagen/harpoon]  | Marks for navigating your project
-| `minivisits`  | [echasnovski/mini.visits] | Track and reuse file system visits
+| `mini-visits` | [echasnovski/mini.visits] | Track and reuse file system visits
 | `rest`        | [rest-nvim/rest.nvim] | Fast Neovim http client written in Lua
 | `sidebar`     | [sidebar-nvim/sidebar.nvim] | Generic and modular lua sidebar
 | `ufo`         | [kevinhwang91/nvim-ufo] | Make folds look modern and keep a high performance
@@ -839,8 +839,8 @@ Spec: `rafi.plugins.extras.ui.<name>`
 | `headlines`       | [lukas-reineke/headlines.nvim] | Adds horizontal highlights for headlines and code background.
 | `illuminate`      | [RRethy/vim-illuminate] | Highlights other uses of the word under the cursor
 | `incline`         | [b0o/incline.nvim] | Floating statuslines
-| `miniclue`        | [echasnovski/mini.clue] | Show next key clues
-| `minimap`         | [echasnovski/mini.map] | Window with buffer text overview, scrollbar and highlights
+| `mini-clue`       | [echasnovski/mini.clue] | Show next key clues
+| `mini-map`        | [echasnovski/mini.map] | Window with buffer text overview, scrollbar and highlights
 | `render-markdown` | [MeanderingProgrammer/markdown.nvim] | Improve viewing Markdown files
 | `symbols-outline` | [simrat39/symbols-outline.nvim] | Tree like view for symbols using LSP
 
