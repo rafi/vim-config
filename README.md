@@ -574,7 +574,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [tenxsoydev/tabs-vs-spaces.nvim] | Hint and fix deviating indentation
 | [t9md/vim-quickhl] | Highlight words quickly
 | [kevinhwang91/nvim-bqf] | Better quickfix window
-| [uga-rosa/ccc.nvim] | Super powerful color picker/colorizer plugin
 
 [neovim/nvim-lspconfig]: https://github.com/neovim/nvim-lspconfig
 [folke/neoconf.nvim]: https://github.com/folke/neoconf.nvim
@@ -662,7 +661,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [tenxsoydev/tabs-vs-spaces.nvim]: https://github.com/tenxsoydev/tabs-vs-spaces.nvim
 [t9md/vim-quickhl]: https://github.com/t9md/vim-quickhl
 [kevinhwang91/nvim-bqf]: https://github.com/kevinhwang91/nvim-bqf
-[uga-rosa/ccc.nvim]: https://github.com/uga-rosa/ccc.nvim
 
 </details>
 
@@ -832,6 +830,7 @@ Spec: `rafi.plugins.extras.ui.<name>`
 | ----------------- | -------------- | ----------------------
 | `alpha`           | [goolord/alpha-nvim] | Fast and fully programmable greeter
 | `barbecue`        | [utilyre/barbecue.nvim] | VS Code like winbar
+| `ccc`             | [uga-rosa/ccc.nvim] | Super powerful color picker/colorizer plugin
 | `cursorword`      | [itchyny/cursorword] | Underlines word under cursor
 | `cybu`            | [ghillb/cybu.nvim] | Cycle buffers with a customizable notification window
 | `deadcolumn`      | [Bekaboo/deadcolumn.nvim] | Show colorcolumn dynamically
@@ -846,6 +845,7 @@ Spec: `rafi.plugins.extras.ui.<name>`
 
 [goolord/alpha-nvim]: https://github.com/goolord/alpha-nvim
 [utilyre/barbecue.nvim]: https://github.com/utilyre/barbecue.nvim
+[uga-rosa/ccc.nvim]: https://github.com/uga-rosa/ccc.nvim
 [itchyny/cursorword]: https://github.com/itchyny/vim-cursorword
 [ghillb/cybu.nvim]: https://github.com/ghillb/cybu.nvim
 [Bekaboo/deadcolumn.nvim]: https://github.com/Bekaboo/deadcolumn.nvim
