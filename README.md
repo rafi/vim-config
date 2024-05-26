@@ -934,12 +934,12 @@ Note that,
 | ----- |:----:| ------------------ | ------
 | <kbd>Space</kbd>+<kbd>Space</kbd> | 𝐍 𝐕 | Toggle visual-line mode | <small>`V` / <kbd>Escape</kbd></small>
 | <kbd>v</kbd> / <kbd>V</kbd> | 𝐕 | Increment/shrink selection | <small>[nvim-treesitter]</small>
-| <kbd>gpp</kbd> | 𝐍 | Select last paste |
-| <kbd>sg</kbd> | 𝐕 | Replace within selected area |
-| <kbd>Ctrl</kbd>+<kbd>r</kbd> | 𝐕 | Replace selection with step-by-step confirmation |
-| <kbd>></kbd> / <kbd><</kbd> | 𝐕 | Indent and re-select |
-| <kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd> | 𝐕 | Indent and re-select |
-| <kbd>I</kbd> / <kbd>gI</kbd> / <kbd>A</kbd> | 𝐕 | Force blockwise operation |
+| <kbd>vp</kbd> | 𝐍 | Select last paste | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>sg</kbd> | 𝐕 | Replace within selected area | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>Ctrl</kbd>+<kbd>r</kbd> | 𝐕 | Replace selection with step-by-step confirmation | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>></kbd> / <kbd><</kbd> | 𝐕 | Indent and re-select | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd> | 𝐕 | Indent and re-select | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>I</kbd> / <kbd>gI</kbd> / <kbd>A</kbd> | 𝐕 | Force blockwise operation | <small>[plugins/lsp/keymaps.lua]</small>
 
 ### Jump To
 
@@ -948,9 +948,9 @@ Note that,
 | <kbd>],</kbd> or <kbd>[,</kbd> | 𝐍 | Next/previous parameter | <small>[akinsho/bufferline.nvim]</small>
 | <kbd>]q</kbd> or <kbd>[q</kbd> | 𝐍 | Next/previous on quick-fix | <small>`:cnext` / `:cprev`</small>
 | <kbd>]a</kbd> or <kbd>[a</kbd> | 𝐍 | Next/previous on location-list | <small>`:lnext` / `:lprev`</small>
-| <kbd>]d</kbd> or <kbd>[d</kbd> | 𝐍 | Next/previous diagnostics |
-| <kbd>]e</kbd> or <kbd>[e</kbd> | 𝐍 | Next/previous error |
-| <kbd>]w</kbd> or <kbd>[w</kbd> | 𝐍 | Next/previous warning |
+| <kbd>]d</kbd> or <kbd>[d</kbd> | 𝐍 | Next/previous diagnostics | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>]e</kbd> or <kbd>[e</kbd> | 𝐍 | Next/previous error | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>]w</kbd> or <kbd>[w</kbd> | 𝐍 | Next/previous warning | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>]b</kbd> or <kbd>[b</kbd> | 𝐍 | Next/previous buffer | <small>[akinsho/bufferline.nvim]</small>
 | <kbd>]f</kbd> or <kbd>[f</kbd> | 𝐍 | Next/previous function start | <small>[echasnovski/mini.ai]</small>
 | <kbd>]F</kbd> or <kbd>[F</kbd> | 𝐍 | Next/previous function end | <small>[echasnovski/mini.ai]</small>
@@ -960,7 +960,6 @@ Note that,
 | <kbd>]M</kbd> or <kbd>[M</kbd> | 𝐍 | Next/previous method end | <small>[echasnovski/mini.ai]</small>
 | <kbd>]g</kbd> or <kbd>[g</kbd> | 𝐍 | Next/previous Git hunk | <small>[lewis6991/gitsigns.nvim]</small>
 | <kbd>]i</kbd> or <kbd>[i</kbd> | 𝐍 | Next/previous indent scope | <small>[echasnovski/mini.indentscope]</small>
-| <kbd>]s</kbd> or <kbd>[s</kbd> | 𝐍 | Next/previous misspelled word
 | <kbd>]t</kbd> or <kbd>[t</kbd> | 𝐍 | Next/previous TODO | <small>[folke/todo-comments.nvim]</small>
 | <kbd>]z</kbd> or <kbd>[z</kbd> | 𝐍 | Next/previous whitespace error | <small>[config/keymaps.lua]</small>
 
@@ -1056,7 +1055,6 @@ Note that,
 | <kbd>Space</kbd>+<kbd>v</kbd> | 𝐍 𝐕 | Toggle line-wise comments | <small>[numToStr/Comment.nvim]</small>
 | <kbd>Space</kbd>+<kbd>V</kbd> | 𝐍 𝐕 | Toggle block-wise comments | <small>[numToStr/Comment.nvim]</small>
 | <kbd>Space</kbd>+<kbd>dd</kbd> | 𝐍 𝐕 | Duplicate line or selection | <small>[config/keymaps.lua]</small>
-| <kbd>Space</kbd>+<kbd>p</kbd> | 𝐍 | Duplicate paragraph | <small>`yap<S-}>p`</small>
 | <kbd>Space</kbd>+<kbd>cw</kbd> | 𝐍 | Remove all spaces at EOL | <small>[echasnovski/mini.trailspace]</small>
 | <kbd>sj</kbd> / <kbd>sk</kbd> | 𝐍 | Join/split arguments | <small>[echasnovski/mini.splitjoin]</small>
 | <kbd>dsf</kbd> / <kbd>csf</kbd> | 𝐍 | Delete/change surrounding function call | <small>[AndrewRadev/dsf.vim]</small>
@@ -1080,7 +1078,6 @@ Note that,
 
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
-| <kbd>!</kbd> | 𝐍 | Shortcut for shell command | <small>`:!`</small>
 | <kbd>g!</kbd> | 𝐍 | Read vim command into buffer | <small>`:put=execute('⌴')`</small>
 | <kbd>Ctrl</kbd>+<kbd>n</kbd> / <kbd>p</kbd> | 𝐂 | Switch history search pairs | <kbd>↓</kbd> / <kbd>↑</kbd>
 | <kbd>↓</kbd> / <kbd>↑</kbd> | 𝐂 | Switch history search pairs | <small>`Ctrl` `n`/`p`</small>
@@ -1169,42 +1166,42 @@ Note that,
 
 See [echasnovski/mini.surround] for more mappings and usage information.
 
-| Key            | Mode  | Action                       |
-| -------------- |:-----:| ---------------------------- |
-| <kbd>sa</kbd> & movement  | 𝐍 𝐕 | Add surrounding |
-| <kbd>cs</kbd> & movement  | 𝐍   | Replace surrounding |
-| <kbd>ds</kbd> & movement  | 𝐍   | Delete surrounding |
-| <kbd>gzf</kbd> & movement | 𝐍   | Find surrounding (to the right) |
-| <kbd>gzF</kbd> & movement | 𝐍   | Find surrounding (to the left) |
-| <kbd>gzh</kbd> & movement | 𝐍   | Highlight surrounding |
-| <kbd>gzn</kbd> & movement | 𝐍   | Update neighbor lines |
+| Key            | Mode  | Action
+| -------------- |:-----:| ----------------------------
+| <kbd>sa</kbd> & movement  | 𝐍 𝐕 | Add surrounding
+| <kbd>cs</kbd> & movement  | 𝐍   | Replace surrounding
+| <kbd>ds</kbd> & movement  | 𝐍   | Delete surrounding
+| <kbd>gzf</kbd> & movement | 𝐍   | Find surrounding (to the right)
+| <kbd>gzF</kbd> & movement | 𝐍   | Find surrounding (to the left)
+| <kbd>gzh</kbd> & movement | 𝐍   | Highlight surrounding
+| <kbd>gzn</kbd> & movement | 𝐍   | Update neighbor lines
 
 #### Plugin: Gitsigns
 
 See [lewis6991/gitsigns.nvim] for more mappings and usage information.
 
-| Key   | Mode | Action             |
-| ----- |:----:| ------------------ |
-| <kbd>]g</kbd> or <kbd>]g</kbd> | 𝐍 | Next/previous Git hunk |
-| <kbd>gs</kbd>                  | 𝐍 | Preview hunk |
-| <kbd>Space</kbd> <kbd>hp</kbd> | 𝐍 | Preview hunk inline |
-| <kbd>Space</kbd> <kbd>hb</kbd> | 𝐍 | Blame line |
-| <kbd>Space</kbd> <kbd>hs</kbd> | 𝐍 𝐕 | Stage hunk |
-| <kbd>Space</kbd> <kbd>hr</kbd> | 𝐍 𝐕 | Reset hunk |
-| <kbd>Space</kbd> <kbd>hu</kbd> | 𝐍 | Undo stage hunk |
-| <kbd>Space</kbd> <kbd>hS</kbd> | 𝐍 | Stage buffer |
-| <kbd>Space</kbd> <kbd>hR</kbd> | 𝐍 | Reset buffer |
-| <kbd>Space</kbd> <kbd>hd</kbd> | 𝐍 | Diff against the index |
-| <kbd>Space</kbd> <kbd>hD</kbd> | 𝐍 | Diff against the last commit |
-| <kbd>Space</kbd> <kbd>hw</kbd> | 𝐍 | Toggle word diff |
-| <kbd>Space</kbd> <kbd>hl</kbd> | 𝐍 | Publish hunks to location-list |
-| <kbd>Space</kbd> <kbd>htb</kbd> | 𝐍 | Toggle git current line blame |
-| <kbd>Space</kbd> <kbd>htd</kbd> | 𝐍 | Toggle git deleted |
-| <kbd>Space</kbd> <kbd>htw</kbd> | 𝐍 | Toggle git word diff |
-| <kbd>Space</kbd> <kbd>htl</kbd> | 𝐍 | Toggle git line highlight |
-| <kbd>Space</kbd> <kbd>htn</kbd> | 𝐍 | Toggle git number highlight |
-| <kbd>Space</kbd> <kbd>hts</kbd> | 𝐍 | Toggle git signs |
-| <kbd>ih</kbd>                  | 𝐎 | Select inner hunk operator |
+| Key   | Mode | Action
+| ----- |:----:| ------------------
+| <kbd>]g</kbd> or <kbd>]g</kbd> | 𝐍 | Next/previous Git hunk
+| <kbd>gs</kbd>                  | 𝐍 | Preview hunk
+| <kbd>Space</kbd> <kbd>hp</kbd> | 𝐍 | Preview hunk inline
+| <kbd>Space</kbd> <kbd>hb</kbd> | 𝐍 | Blame line
+| <kbd>Space</kbd> <kbd>hs</kbd> | 𝐍 𝐕 | Stage hunk
+| <kbd>Space</kbd> <kbd>hr</kbd> | 𝐍 𝐕 | Reset hunk
+| <kbd>Space</kbd> <kbd>hu</kbd> | 𝐍 | Undo stage hunk
+| <kbd>Space</kbd> <kbd>hS</kbd> | 𝐍 | Stage buffer
+| <kbd>Space</kbd> <kbd>hR</kbd> | 𝐍 | Reset buffer
+| <kbd>Space</kbd> <kbd>hd</kbd> | 𝐍 | Diff against the index
+| <kbd>Space</kbd> <kbd>hD</kbd> | 𝐍 | Diff against the last commit
+| <kbd>Space</kbd> <kbd>hw</kbd> | 𝐍 | Toggle word diff
+| <kbd>Space</kbd> <kbd>hl</kbd> | 𝐍 | Publish hunks to location-list
+| <kbd>Space</kbd> <kbd>htb</kbd> | 𝐍 | Toggle git current line blame
+| <kbd>Space</kbd> <kbd>htd</kbd> | 𝐍 | Toggle git deleted
+| <kbd>Space</kbd> <kbd>htw</kbd> | 𝐍 | Toggle git word diff
+| <kbd>Space</kbd> <kbd>htl</kbd> | 𝐍 | Toggle git line highlight
+| <kbd>Space</kbd> <kbd>htn</kbd> | 𝐍 | Toggle git number highlight
+| <kbd>Space</kbd> <kbd>hts</kbd> | 𝐍 | Toggle git signs
+| <kbd>ih</kbd>                  | 𝐎 | Select inner hunk operator
 
 #### Plugin: Diffview
 

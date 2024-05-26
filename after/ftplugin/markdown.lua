@@ -8,7 +8,7 @@ local function link_surround()
 	local csrow, cscol, cerow, cecol
 
 	if mode == 'n' then
-		local cword = vim.fn.expand('<cword>') --[[@as string]]
+		local cword = vim.fn.expand('<cword>')
 		bufnr, csrow, cscol, off = unpack(vim.fn.getpos('.') or { 0, 0, 0, 0 })
 		len = vim.fn.strchars(cword)
 		line = vim.fn.getline(csrow)

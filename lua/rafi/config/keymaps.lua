@@ -95,7 +95,7 @@ map('n', '<Leader><Leader>', 'V', { desc = 'Visual Mode' })
 map('x', '<Leader><Leader>', '<Esc>', { desc = 'Exit Visual Mode' })
 
 -- Select last paste
-map('n', 'gpp', "'`['.strpart(getregtype(), 0, 1).'`]'", { expr = true, desc = 'Select Paste' })
+map('n', 'vp', "'`['.strpart(getregtype(), 0, 1).'`]'", { expr = true, desc = 'Select Paste' })
 
 -- Quick substitute within selected area
 map('x', 'sg', ':s//gc<Left><Left><Left>', { desc = 'Substitute Within Selection' })
@@ -214,9 +214,6 @@ map('x', '<Leader>j', ":move'>+<CR>gv=gv", { silent = true, desc = 'Move selecti
 map('n', '<Leader>dd', 'm`""Y""P``', { desc = 'Duplicate line' })
 map('x', '<Leader>dd', '""Y""Pgv', { desc = 'Duplicate selection' })
 
--- Duplicate paragraph
-map('n', '<Leader>p', 'yap<S-}>p', { desc = 'Duplicate Paragraph' })
-
 -- }}}
 -- Search, substitute, diff {{{
 
@@ -239,9 +236,6 @@ end, { desc = 'Diff Windows in Tab' })
 
 -- }}}
 -- Command & History {{{
-
--- Start an external command with a single bang
-map('n', '!', ':!', { desc = 'Execute Shell Command' })
 
 -- Put vim command output into buffer
 map('n', 'g!', ":put=execute('')<Left><Left>", { desc = 'Paste Command' })

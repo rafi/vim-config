@@ -180,7 +180,10 @@ return {
 			{ '<leader>sD', '<cmd>Telescope diagnostics<CR>', desc = 'Workspace Diagnostics' },
 			{ '<leader>sh', '<cmd>Telescope help_tags<CR>', desc = 'Help Pages' },
 			{ '<leader>sk', '<cmd>Telescope keymaps<CR>', desc = 'Key Maps' },
+			{ '<leader>sj', '<cmd>Telescope jumplist<cr>', desc = 'Jumplist' },
+			{ '<leader>sl', '<cmd>Telescope loclist<cr>', desc = 'Location List' },
 			{ '<leader>sm', '<cmd>Telescope man_pages<CR>', desc = 'Man Pages' },
+			{ '<leader>sq', '<cmd>Telescope quickfix<cr>', desc = 'Quickfix List' },
 			{ '<leader>sw', '<cmd>Telescope grep_string<CR>', desc = 'Word' },
 			{ '<leader>sc', '<cmd>Telescope colorscheme<CR>', desc = 'Colorscheme' },
 
