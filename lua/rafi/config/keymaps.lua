@@ -95,7 +95,7 @@ map('n', '<Leader><Leader>', 'V', { desc = 'Visual Mode' })
 map('x', '<Leader><Leader>', '<Esc>', { desc = 'Exit Visual Mode' })
 
 -- Select last paste
-map('n', 'vp', "'`['.strpart(getregtype(), 0, 1).'`]'", { expr = true, desc = 'Select Paste' })
+map('n', 'vsp', "'`['.strpart(getregtype(), 0, 1).'`]'", { expr = true, desc = 'Select Paste' })
 
 -- Quick substitute within selected area
 map('x', 'sg', ':s//gc<Left><Left><Left>', { desc = 'Substitute Within Selection' })

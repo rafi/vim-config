@@ -934,7 +934,7 @@ Note that,
 | ----- |:----:| ------------------ | ------
 | <kbd>Space</kbd>+<kbd>Space</kbd> | 𝐍 𝐕 | Toggle visual-line mode | <small>`V` / <kbd>Escape</kbd></small>
 | <kbd>v</kbd> / <kbd>V</kbd> | 𝐕 | Increment/shrink selection | <small>[nvim-treesitter]</small>
-| <kbd>vp</kbd> | 𝐍 | Select last paste | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>vsp</kbd> | 𝐍 | Select last paste | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>sg</kbd> | 𝐕 | Replace within selected area | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Ctrl</kbd>+<kbd>r</kbd> | 𝐕 | Replace selection with step-by-step confirmation | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>></kbd> / <kbd><</kbd> | 𝐕 | Indent and re-select | <small>[plugins/lsp/keymaps.lua]</small>
