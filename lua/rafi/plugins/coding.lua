@@ -151,7 +151,6 @@ return {
 						'garymjr/nvim-snippets',
 						opts = {
 							friendly_snippets = true,
-							global_snippets = { 'all', 'global' },
 						},
 						dependencies = {
 							-- Preconfigured snippets for different languages
@@ -200,12 +199,6 @@ return {
 		config = function(_, opts)
 			local autopairs = require('nvim-autopairs')
 			autopairs.setup(opts)
-
-			if not LazyVim.has('nvim-cmp') then
-				-- Insert `(` after function or method item selection.
-				local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-				require('cmp').event:on('confirm_done', cmp_autopairs.on_confirm_done())
-			end
 		end,
 	},
 
@@ -254,7 +247,7 @@ return {
 		opts = {},
 	},
 	{
-		import = 'rafi.plugins.extras.coding.minicomment',
+		import = 'lazyvim.plugins.extras.coding.mini-comment',
 		enabled = vim.fn.has('nvim-0.10') == 0,
 	},
 

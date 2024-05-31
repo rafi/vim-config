@@ -171,10 +171,17 @@ return {
 		opts = { use_diagnostic_signs = true },
 		-- stylua: ignore
 		keys = {
-			{ '<leader>xx', function() require('trouble').toggle('document_diagnostics') end, desc = 'Document Diagnostics (Trouble)' },
-			{ '<leader>xX', function() require('trouble').toggle('workspace_diagnostics') end, desc = 'Workspace Diagnostics (Trouble)' },
-			{ '<leader>xL', function() require('trouble').toggle('loclist') end, desc = 'Location List (Trouble)' },
-			{ '<leader>xQ', function() require('trouble').toggle('quickfix') end, desc = 'Quickfix List (Trouble)' },
+			{ '<leader>xx', '<cmd>Trouble diagnostics toggle<cr>', desc = 'Diagnostics (Trouble)' },
+			{ '<leader>xX', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', desc = 'Buffer Diagnostics (Trouble)' },
+			{ '<leader>xs', '<cmd>Trouble symbols toggle focus=false<cr>', desc = 'Symbols (Trouble)' },
+			{
+				'<leader>xS',
+				'<cmd>Trouble lsp toggle focus=false win.position=right<cr>',
+				desc = 'LSP references/definitions/... (Trouble)',
+			},
+			{ '<leader>xL', '<cmd>Trouble loclist toggle<cr>', desc = 'Location List (Trouble)' },
+			{ '<leader>xQ', '<cmd>Trouble qflist toggle<cr>', desc = 'Quickfix List (Trouble)' },
+
 			{ 'gR', function() require('trouble').open('lsp_references') end, desc = 'LSP References (Trouble)' },
 			{
 				'[q',
