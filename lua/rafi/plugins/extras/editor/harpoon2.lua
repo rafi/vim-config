@@ -4,7 +4,14 @@ return {
 	{
 		'ThePrimeagen/harpoon',
 		branch = 'harpoon2',
-		opts = {},
+		opts = {
+			menu = {
+				width = vim.api.nvim_win_get_width(0) - 4,
+			},
+			settings = {
+				save_on_toggle = true,
+			},
+		},
 		-- stylua: ignore
 		keys = {
 			{ '<Leader>ua', 'ga', desc = 'Show Character Under Cursor' },
@@ -20,11 +27,7 @@ return {
 
 			{ '<LocalLeader>l', function()
 				local harpoon = require('harpoon')
-				if not LazyVim.has('telescope.nvim') then
-					harpoon.ui:toggle_quick_menu(harpoon:list())
-					return
-				end
-				return require('telescope._extensions.marks')()
+				harpoon.ui:toggle_quick_menu(harpoon:list())
 			end, desc = 'List locations' },
 		},
 	},

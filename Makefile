@@ -13,8 +13,8 @@ update: update-repo update-plugins
 .PHONY: create-dirs
 create-dirs:
 	@mkdir -vp "$(XDG_CONFIG_HOME)"/nvim/spell
-	@mkdir -vp "$(XDG_DATA_HOME)"/nvim/site/spell
-	@mkdir -vp "$(XDG_STATE_HOME)"/nvim/{backup,sessions,shada,swap,undo}
+	@mkdir -vp "$(XDG_DATA_HOME)"/nvim
+	@mkdir -vp "$(XDG_STATE_HOME)"/nvim/{sessions,shada,swap,undo}
 
 .PHONY: update-repo
 update-repo:
@@ -27,9 +27,9 @@ update-plugins:
 
 .PHONY: uninstall
 uninstall:
-	-rm -rf "$(XDG_DATA_HOME)"/nvim/{lazy,theme.txt,rplugin.vim}
-	-rm -rf "$(XDG_STATE_HOME)"/nvim/lazy
-	-rm -rf "$(XDG_CACHE_HOME)"/nvim/venv
+	-rm -rf "$(XDG_DATA_HOME)"/nvim/{lazy,mason,theme.txt,rplugin.vim}
+	-rm -rf "$(XDG_STATE_HOME)"/nvim/{lazy,shada,swap,undo}
+	-rm -rf "$(XDG_CACHE_HOME)"/nvim/{luac,venv}
 
 .PHONY: venv
 venv:

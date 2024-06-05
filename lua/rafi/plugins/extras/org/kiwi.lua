@@ -1,3 +1,6 @@
+-- rafi.plugins.extras.org.wiki
+--
+
 return {
 
 	-- Stripped down VimWiki

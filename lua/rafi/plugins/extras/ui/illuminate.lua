@@ -2,7 +2,7 @@ return {
 
 	{
 		'neovim/nvim-lspconfig',
-		opts = { document_highlight = { enabed = false } },
+		opts = { document_highlight = { enabled = false } },
 	},
 
 	-- Highlights other uses of the word under the cursor

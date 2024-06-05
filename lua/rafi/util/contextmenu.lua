@@ -48,9 +48,7 @@ M.show = function()
 	else
 		-- Add LSP methods, only if one of the servers support it.
 		if supports_method('textDocument/declaration', clients) then
-			vim.cmd(
-				'nmenu PopUp.Declaration <cmd>lua vim.lsp.buf.declaration()<CR>'
-			)
+			vim.cmd('nmenu PopUp.Declaration <cmd>lua vim.lsp.buf.declaration()<CR>')
 		end
 		if supports_method('textDocument/definition', clients) then
 			vim.cmd('nmenu PopUp.&Definition <cmd>lua vim.lsp.buf.definition()<CR>')

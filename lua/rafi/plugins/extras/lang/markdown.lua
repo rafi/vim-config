@@ -1,4 +1,8 @@
+-- rafi.plugins.extras.lang.markdown
+--
+
 return {
+	desc = 'Markdown lang extras, without headlines plugin, and toc generator.',
 	recommended = function()
 		return LazyVim.extras.wants({
 			ft = 'markdown',
@@ -6,74 +10,21 @@ return {
 		})
 	end,
 
-	{
-		'nvim-treesitter/nvim-treesitter',
-		opts = function(_, opts)
-			if type(opts.ensure_installed) == 'table' then
-				vim.list_extend(
-					opts.ensure_installed,
-					{ 'markdown', 'markdown_inline' }
-				)
-			end
-		end,
-	},
+	{ import = 'lazyvim.plugins.extras.lang.markdown' },
 
-	-- Preview Markdown in your modern browser with synchronised scrolling and
-	-- flexible configuration.
+	{ 'lukas-reineke/headlines.nvim', enabled = false },
+
+	-----------------------------------------------------------------------------
+	-- Generate table of contents for Markdown files
 	{
-		'iamcco/markdown-preview.nvim',
-		cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
-		build = function()
-			vim.fn['mkdp#util#install']()
-		end,
+		'mzlogin/vim-markdown-toc',
+		cmd = { 'GenTocGFM', 'GenTocRedcarpet', 'GenTocGitLab', 'UpdateToc' },
+		ft = 'markdown',
 		keys = {
-			{
-				'<leader>cp',
-				ft = 'markdown',
-				'<cmd>MarkdownPreviewToggle<cr>',
-				desc = 'Markdown Preview',
-			},
+			{ '<leader>mo', '<cmd>UpdateToc<CR>', desc = 'Update table of contents' },
 		},
-		config = function()
-			vim.cmd([[do FileType]])
+		init = function()
+			vim.g.vmt_auto_update_on_save = 0
 		end,
-	},
-
-	{
-		'williamboman/mason.nvim',
-		opts = function(_, opts)
-			opts.ensure_installed = opts.ensure_installed or {}
-			vim.list_extend(opts.ensure_installed, { 'markdownlint', 'marksman' })
-		end,
-	},
-
-	{
-		'nvimtools/none-ls.nvim',
-		optional = true,
-		opts = function(_, opts)
-			local nls = require('null-ls')
-			opts.sources = vim.list_extend(opts.sources or {}, {
-				nls.builtins.diagnostics.markdownlint,
-			})
-		end,
-	},
-
-	{
-		'mfussenegger/nvim-lint',
-		optional = true,
-		opts = {
-			linters_by_ft = {
-				markdown = { 'markdownlint' },
-			},
-		},
-	},
-
-	{
-		'neovim/nvim-lspconfig',
-		opts = {
-			servers = {
-				marksman = {},
-			},
-		},
 	},
 }

@@ -23,94 +23,105 @@ return {
 			'williamboman/mason-lspconfig.nvim',
 		},
 		---@class PluginLspOpts
-		opts = {
-			-- Options for vim.diagnostic.config()
-			---@type vim.diagnostic.Opts
-			diagnostics = {
-				underline = true,
-				update_in_insert = false,
-				virtual_text = {
-					spacing = 4,
-					source = 'if_many',
-					prefix = '●',
-				},
-				severity_sort = true,
-				float = {
-					border = 'rounded',
-					source = true,
-					header = '',
-					prefix = '',
-				},
-				signs = {
-					text = {
-						[vim.diagnostic.severity.ERROR] = LazyVim.config.icons.diagnostics.Error,
-						[vim.diagnostic.severity.WARN] = LazyVim.config.icons.diagnostics.Warn,
-						[vim.diagnostic.severity.HINT] = LazyVim.config.icons.diagnostics.Hint,
-						[vim.diagnostic.severity.INFO] = LazyVim.config.icons.diagnostics.Info,
+		opts = function()
+			return {
+				-- Options for vim.diagnostic.config()
+				---@type vim.diagnostic.Opts
+				diagnostics = {
+					underline = true,
+					update_in_insert = false,
+					virtual_text = {
+						spacing = 4,
+						source = 'if_many',
+						prefix = '●',
+						-- this will set set the prefix to a function that returns the diagnostics icon based on the severity
+						-- this only works on a recent 0.10.0 build. Will be set to "●" when not supported
+						-- prefix = 'icons',
+					},
+					severity_sort = true,
+					-- CUSTOM: Diagnostic popup
+					-- float = {
+					-- 	border = 'rounded',
+					-- 	source = true,
+					-- 	header = '',
+					-- 	prefix = '',
+					-- },
+					signs = {
+						text = {
+							[vim.diagnostic.severity.ERROR] = LazyVim.config.icons.diagnostics.Error,
+							[vim.diagnostic.severity.WARN] = LazyVim.config.icons.diagnostics.Warn,
+							[vim.diagnostic.severity.HINT] = LazyVim.config.icons.diagnostics.Hint,
+							[vim.diagnostic.severity.INFO] = LazyVim.config.icons.diagnostics.Info,
+						},
 					},
 				},
-			},
-			-- Enable this to enable the builtin LSP inlay hints on Neovim >= 0.10.0
-			-- Be aware that you also will need to properly configure your LSP server
-			-- to provide the inlay hints.
-			inlay_hints = {
-				enabled = false,
-			},
-			-- Enable this to enable the builtin LSP code lenses on Neovim >= 0.10.0
-			-- Be aware that you also will need to properly configure your LSP server to
-			-- provide the code lenses.
-			codelens = {
-				enabled = false,
-			},
-			-- Enable lsp cursor word highlighting
-			document_highlight = {
-				enabled = true,
-			},
-			-- Add any global capabilities here
-			capabilities = {},
-			-- Formatting options for vim.lsp.buf.format
-			format = {
-				formatting_options = nil,
-				timeout_ms = nil,
-			},
-			-- LSP Server Settings
-			---@type lspconfig.options
-			---@diagnostic disable: missing-fields
-			servers = {
-				lua_ls = {
-					settings = {
-						Lua = {
-							workspace = { checkThirdParty = false },
-							codeLens = { enable = true },
-							completion = { callSnippet = 'Replace' },
-							doc = {
-								privateName = { '^_' },
-							},
-							hint = {
-								enable = true,
-								setType = false,
-								paramType = true,
-								paramName = 'Disable',
-								semicolon = 'Disable',
-								arrayIndex = 'Disable',
+				-- Enable this to enable the builtin LSP inlay hints on Neovim >= 0.10.0
+				-- Be aware that you also will need to properly configure your LSP server
+				-- to provide the inlay hints.
+				inlay_hints = {
+					enabled = false,
+				},
+				-- Enable this to enable the builtin LSP code lenses on Neovim >= 0.10.0
+				-- Be aware that you also will need to properly configure your LSP server to
+				-- provide the code lenses.
+				codelens = {
+					enabled = false,
+				},
+				-- Enable lsp cursor word highlighting
+				document_highlight = {
+					enabled = true,
+				},
+				-- Add any global capabilities here
+				capabilities = {},
+				-- Formatting options for vim.lsp.buf.format
+				format = {
+					formatting_options = nil,
+					timeout_ms = nil,
+				},
+				-- LSP Server Settings
+				---@type lspconfig.options
+				---@diagnostic disable: missing-fields
+				servers = {
+					lua_ls = {
+						-- mason = false, -- set to false if you don't want this server to be
+						-- installed with mason Use this to add any additional keymaps for
+						-- specific lsp servers.
+						---@type LazyKeysSpec[]
+						-- keys = {},
+						settings = {
+							Lua = {
+								workspace = { checkThirdParty = false },
+								codeLens = { enable = true },
+								completion = { callSnippet = 'Replace' },
+								doc = {
+									privateName = { '^_' },
+								},
+								hint = {
+									enable = true,
+									setType = false,
+									paramType = true,
+									paramName = 'Disable',
+									semicolon = 'Disable',
+									arrayIndex = 'Disable',
+								},
 							},
 						},
 					},
 				},
-			},
-			-- you can do any additional lsp server setup here
-			-- return true if you don't want this server to be setup with lspconfig
-			---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
-			setup = {
-				-- example to setup with typescript.nvim
-				-- tsserver = function(_, opts)
-				--   require('typescript').setup({ server = opts })
-				--   return true
-				-- end,
-				-- Specify * to use this function as a fallback for any server
-				-- ['*'] = function(server, opts) end,
-			},
-		},
+				-- you can do any additional lsp server setup here
+				-- return true if you don't want this server to be setup with lspconfig
+				---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
+				setup = {
+					-- example to setup with typescript.nvim
+					-- tsserver = function(_, opts)
+					--   require('typescript').setup({ server = opts })
+					--   return true
+					-- end,
+					-- Specify * to use this function as a fallback for any server
+					-- ['*'] = function(server, opts) end,
+				},
+			}
+		end,
 		---@param opts PluginLspOpts
 		config = function(_, opts)
 			if LazyVim.has('neoconf.nvim') then
@@ -125,16 +136,11 @@ return {
 				require('rafi.plugins.lsp.keymaps').on_attach(client, buffer)
 			end)
 
-			local register_capability = vim.lsp.handlers['client/registerCapability']
 
-			---@diagnostic disable-next-line: duplicate-set-field
-			vim.lsp.handlers['client/registerCapability'] = function(err, res, ctx)
-				local ret = register_capability(err, res, ctx)
-				local client = vim.lsp.get_client_by_id(ctx.client_id)
-				local buffer = vim.api.nvim_get_current_buf()
-				require('rafi.plugins.lsp.keymaps').on_attach(client, buffer)
-				return ret
-			end
+			LazyVim.lsp.setup()
+			LazyVim.lsp.on_dynamic_capability(
+				require('rafi.plugins.lsp.keymaps').on_attach
+			)
 
 			LazyVim.lsp.words.setup(opts.document_highlight)
 
@@ -142,7 +148,9 @@ return {
 			if vim.fn.has('nvim-0.10.0') == 0 then
 				if type(opts.diagnostics.signs) ~= 'boolean' then
 					for severity, icon in pairs(opts.diagnostics.signs.text) do
-						local name = vim.diagnostic.severity[severity]:lower():gsub('^%l', string.upper)
+						local name = vim.diagnostic.severity[severity]
+							:lower()
+							:gsub('^%l', string.upper)
 						name = 'DiagnosticSign' .. name
 						vim.fn.sign_define(name, { text = icon, texthl = name, numhl = '' })
 					end
@@ -152,24 +160,33 @@ return {
 			if vim.fn.has('nvim-0.10') == 1 then
 				-- inlay hints
 				if opts.inlay_hints.enabled then
-					LazyVim.lsp.on_attach(function(client, buffer)
-						if client.supports_method('textDocument/inlayHint') then
-							LazyVim.toggle.inlay_hints(buffer, true)
+					LazyVim.lsp.on_supports_method(
+						'textDocument/inlayHint',
+						function(_, buffer)
+							if
+								vim.api.nvim_buf_is_valid(buffer)
+								and vim.bo[buffer].buftype == ''
+							then
+								LazyVim.toggle.inlay_hints(buffer, true)
+							end
 						end
-					end)
+					)
 				end
 				-- code lens
 				if opts.codelens.enabled and vim.lsp.codelens then
-					LazyVim.lsp.on_attach(function(client, buffer)
-						if client.supports_method('textDocument/codeLens') then
+					LazyVim.lsp.on_supports_method(
+						'textDocument/codeLens',
+						function(_, buffer)
 							vim.lsp.codelens.refresh()
-							--- autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()
-							vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
-								buffer = buffer,
-								callback = vim.lsp.codelens.refresh,
-							})
+							vim.api.nvim_create_autocmd(
+								{ 'BufEnter', 'CursorHold', 'InsertLeave' },
+								{
+									buffer = buffer,
+									callback = vim.lsp.codelens.refresh,
+								}
+							)
 						end
-					end)
+					)
 				end
 			end
 

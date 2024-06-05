@@ -3,7 +3,7 @@
 -- ===
 -- This file is automatically loaded by rafi.config.init
 
-local RafiUtil = require('rafi.util')
+local Util = require('rafi.util')
 local map = vim.keymap.set
 
 -- Package-manager
@@ -95,7 +95,7 @@ map('n', '<Leader><Leader>', 'V', { desc = 'Visual Mode' })
 map('x', '<Leader><Leader>', '<Esc>', { desc = 'Exit Visual Mode' })
 
 -- Select last paste
-map('n', 'gpp', "'`['.strpart(getregtype(), 0, 1).'`]'", { expr = true, desc = 'Select Paste' })
+map('n', 'vsp', "'`['.strpart(getregtype(), 0, 1).'`]'", { expr = true, desc = 'Select Paste' })
 
 -- Quick substitute within selected area
 map('x', 'sg', ':s//gc<Left><Left><Left>', { desc = 'Substitute Within Selection' })
@@ -144,8 +144,8 @@ map('n', ']a', '<cmd>lnext<CR>', { desc = 'Next Loclist' })
 map('n', '[a', '<cmd>lprev<CR>', { desc = 'Previous Loclist' })
 
 -- Whitespace jump (see plugin/whitespace.vim)
-map('n', ']z', function() RafiUtil.edit.whitespace_jump(1) end, { desc = 'Next Whitespace' })
-map('n', '[z', function() RafiUtil.edit.whitespace_jump(-1) end, { desc = 'Previous Whitespace' })
+map('n', ']z', function() Util.edit.whitespace_jump(1) end, { desc = 'Next Whitespace' })
+map('n', '[z', function() Util.edit.whitespace_jump(-1) end, { desc = 'Previous Whitespace' })
 
 -- Diagnostic movement
 local diagnostic_goto = function(next, severity)
@@ -188,6 +188,10 @@ end, { silent = true, desc = 'Yank absolute path' })
 --- }}}
 -- Coding {{{
 
+-- Comment
+map('n', '<Leader>v', 'gcc', { remap = true, desc = 'Comment Line' })
+map('x', '<Leader>v', 'gc', { remap = true, desc = 'Comment Selection' })
+
 -- Macros
 map('n', '<C-q>', 'q', { desc = 'Macro Prefix' })
 
@@ -209,9 +213,6 @@ map('x', '<Leader>j', ":move'>+<CR>gv=gv", { silent = true, desc = 'Move selecti
 -- Duplicate lines without affecting PRIMARY and CLIPBOARD selections.
 map('n', '<Leader>dd', 'm`""Y""P``', { desc = 'Duplicate line' })
 map('x', '<Leader>dd', '""Y""Pgv', { desc = 'Duplicate selection' })
-
--- Duplicate paragraph
-map('n', '<Leader>p', 'yap<S-}>p', { desc = 'Duplicate Paragraph' })
 
 -- }}}
 -- Search, substitute, diff {{{
@@ -236,27 +237,21 @@ end, { desc = 'Diff Windows in Tab' })
 -- }}}
 -- Command & History {{{
 
--- Start an external command with a single bang
-map('n', '!', ':!', { desc = 'Execute Shell Command' })
-
 -- Put vim command output into buffer
 map('n', 'g!', ":put=execute('')<Left><Left>", { desc = 'Paste Command' })
 
 -- Switch history search pairs, matching my bash shell
----@return string
+map('c', '<Up>', '<C-p>')
+map('c', '<Down>', '<C-n>')
 map('c', '<C-p>', function()
 	return vim.fn.pumvisible() == 1 and '<C-p>' or '<Up>'
 end, { expr = true })
-
 map('c', '<C-n>', function()
 	return vim.fn.pumvisible() == 1 and '<C-n>' or '<Down>'
 end, { expr = true })
 
 -- Use keywordprg
 map('n', '<leader>K', '<cmd>norm! K<cr>', { desc = 'Keywordprg' })
-
-map('c', '<Up>', '<C-p>')
-map('c', '<Down>', '<C-n>')
 
 --- }}}
 -- File operations {{{
@@ -281,15 +276,15 @@ map({ 'n', 'i', 'v' }, '<C-s>', '<cmd>write<CR>', { desc = 'Save File' })
 -- Editor UI {{{
 
 -- Toggle list windows
-map('n', '<leader>xl', function() RafiUtil.edit.toggle_list('loclist') end, { desc = 'Toggle Location List' })
-map('n', '<leader>xq', function() RafiUtil.edit.toggle_list('quickfix') end, { desc = 'Toggle Quickfix List' })
+map('n', '<leader>xl', function() Util.edit.toggle_list('loclist') end, { desc = 'Toggle Location List' })
+map('n', '<leader>xq', function() Util.edit.toggle_list('quickfix') end, { desc = 'Toggle Quickfix List' })
 
 -- Set locations with diagnostics and open the list.
 map('n', '<Leader>a', function()
 	if vim.bo.filetype ~= 'qf' then
 		vim.diagnostic.setloclist({ open = false })
 	end
-	RafiUtil.edit.toggle_list('loclist')
+	Util.edit.toggle_list('loclist')
 end, { desc = 'Open Location List' })
 
 map('n', '<leader>uf', function() LazyVim.format.toggle() end, { desc = 'Toggle Auto Format (Global)' })
@@ -298,8 +293,8 @@ map('n', '<leader>us', function() LazyVim.toggle('spell') end, { desc = 'Toggle 
 map('n', '<leader>uw', function() LazyVim.toggle('wrap') end, { desc = 'Toggle Word Wrap' })
 map('n', '<leader>uL', function() LazyVim.toggle('relativenumber') end, { desc = 'Toggle Relative Line Numbers' })
 map('n', '<leader>ul', function() LazyVim.toggle.number() end, { desc = 'Toggle Line Numbers' })
-map('n', '<Leader>ud', function() RafiUtil.edit.diagnostic_toggle(false) end, { desc = 'Disable Diagnostics' })
-map('n', '<Leader>uD', function() RafiUtil.edit.diagnostic_toggle(true) end, { desc = 'Disable All Diagnostics' })
+map('n', '<Leader>ud', function() Util.edit.diagnostic_toggle(false) end, { desc = 'Disable Diagnostics' })
+map('n', '<Leader>uD', function() Util.edit.diagnostic_toggle(true) end, { desc = 'Disable All Diagnostics' })
 
 map('n', '<Leader>uo', '<cmd>setlocal nolist!<CR>', { desc = 'Toggle Whitespace Symbols' })
 map('n', '<Leader>uu', '<cmd>nohlsearch<CR>', { desc = 'Hide Search Highlight' })
@@ -323,31 +318,19 @@ map(
 	{ desc = 'Redraw / Clear hlsearch / Diff Update' }
 )
 
--- Smart wrap toggle (breakindent and colorcolumn toggle as-well)
-map('n', '<Leader>uw', function()
-	vim.opt_local.wrap = not vim.wo.wrap
-	vim.opt_local.breakindent = not vim.wo.breakindent
-
-	if vim.wo.colorcolumn == '' then
-		vim.opt_local.colorcolumn = tostring(vim.bo.textwidth)
-	else
-		vim.opt_local.colorcolumn = ''
-	end
-end, { desc = 'Toggle Wrap' })
-
 -- }}}
 -- Plugins & Tools {{{
 
 -- Append mode-line to current buffer
-map('n', '<Leader>ml', function() RafiUtil.edit.append_modeline() end, { desc = 'Append Modeline' })
+map('n', '<Leader>ml', function() Util.edit.append_modeline() end, { desc = 'Append Modeline' })
 
 -- Jump entire buffers throughout jumplist
-map('n', 'g<C-i>', function() RafiUtil.edit.jump_buffer(1) end, { desc = 'Jump to newer buffer' })
-map('n', 'g<C-o>', function() RafiUtil.edit.jump_buffer(-1) end, { desc = 'Jump to older buffer' })
+map('n', 'g<C-i>', function() Util.edit.jump_buffer(1) end, { desc = 'Jump to newer buffer' })
+map('n', 'g<C-o>', function() Util.edit.jump_buffer(-1) end, { desc = 'Jump to older buffer' })
 
 -- Context aware menu. See lua/lib/contextmenu.lua
-map('n', '<RightMouse>', function() RafiUtil.contextmenu.show() end)
-map('n', '<LocalLeader>c', function() RafiUtil.contextmenu.show() end, { desc = 'Content-aware menu' })
+map('n', '<RightMouse>', function() Util.contextmenu.show() end)
+map('n', '<LocalLeader>c', function() Util.contextmenu.show() end, { desc = 'Content-aware menu' })
 
 -- Lazygit
 map('n', '<leader>tg', function() LazyVim.lazygit( { cwd = LazyVim.root.git() }) end, { desc = 'Lazygit (Root Dir)' })
@@ -367,19 +350,6 @@ map('n', '<leader>tT', function() LazyVim.terminal() end, { desc = 'Terminal (cw
 if vim.fn.has('mac') then
 	-- Open the macOS dictionary on current word
 	map('n', '<Leader>?', '<cmd>silent !open dict://<cword><CR>', { desc = 'Dictionary' })
-
-	-- Use Marked for real-time Markdown preview
-	-- See: https://marked2app.com/
-	if vim.fn.executable('/Applications/Marked 2.app') then
-		vim.api.nvim_create_autocmd('FileType', {
-			group = vim.api.nvim_create_augroup('rafi_marked_preview', {}),
-			pattern = 'markdown',
-			callback = function()
-				local cmd = "<cmd>silent !open -a Marked\\ 2.app '%:p'<CR>"
-				map('n', '<Leader>P', cmd, { desc = 'Markdown Preview' })
-			end,
-		})
-	end
 end
 
 -- }}}

@@ -25,7 +25,7 @@ local plugin_icons = {
 }
 
 local cache_keys = {
-	'statusline_cache_trails'
+	'statusline_cache_trails',
 }
 
 -- Clear cached values that relate to buffer filename.
@@ -106,7 +106,11 @@ function M.trails(opts)
 		end
 
 		local msg = ''
-		if not vim.bo.readonly and vim.bo.modifiable and vim.fn.line('$') < 9000 then
+		if
+			not vim.bo.readonly
+			and vim.bo.modifiable
+			and vim.fn.line('$') < 9000
+		then
 			local trailing = vim.fn.search('\\s$', 'nw')
 			if trailing > 0 then
 				msg = msg .. opts.symbol .. trailing

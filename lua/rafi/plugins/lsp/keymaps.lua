@@ -33,6 +33,15 @@ function M.get()
 			})
 		end, desc = 'Source Action', has = 'codeAction' },
 
+		{ ']]', function() LazyVim.lsp.words.jump(vim.v.count1) end, has = 'documentHighlight',
+			desc = 'Next Reference', cond = function() return LazyVim.lsp.words.enabled end },
+		{ '[[', function() LazyVim.lsp.words.jump(-vim.v.count1) end, has = 'documentHighlight',
+			desc = 'Prev Reference', cond = function() return LazyVim.lsp.words.enabled end },
+		{ '<a-n>', function() LazyVim.lsp.words.jump(vim.v.count1, true) end, has = 'documentHighlight',
+			desc = 'Next Reference', cond = function() return LazyVim.lsp.words.enabled end },
+		{ '<a-p>', function() LazyVim.lsp.words.jump(-vim.v.count1, true) end, has = 'documentHighlight',
+			desc = 'Prev Reference', cond = function() return LazyVim.lsp.words.enabled end },
+
 		{ 'K', function()
 			-- Show hover documentation or folded lines.
 			local winid = LazyVim.has('nvim-ufo')
@@ -88,7 +97,7 @@ function M.has(buffer, method)
 	return false
 end
 
----@return (LazyKeys|{has?:string})[]
+---@return LazyKeysLsp[]
 function M.resolve(buffer)
 	local Keys = require('lazy.core.handler.keys')
 	if not Keys.resolve then
@@ -111,23 +120,22 @@ function M.on_attach(_, buffer)
 	local keymaps = M.resolve(buffer)
 
 	for _, keys in pairs(keymaps) do
-		if not keys.has or M.has(buffer, keys.has) then
+		local has = not keys.has or M.has(buffer, keys.has)
+		local cond = not (
+			keys.cond == false or (
+				(type(keys.cond) == 'function') and not keys.cond()
+			)
+		)
+
+		if has and cond then
 			local opts = Keys.opts(keys) --[[@as vim.keymap.set.Opts]]
+			---@diagnostic disable-next-line: inject-field
+			opts.cond = nil
 			---@diagnostic disable-next-line: inject-field
 			opts.has = nil
 			opts.silent = opts.silent ~= false
 			opts.buffer = buffer
 			vim.keymap.set(keys.mode or 'n', keys.lhs, keys.rhs, opts)
-		end
-	end
-end
-
-function M.on_detach(_, buffer)
-	local keymaps = M.resolve(buffer)
-	for _, keys in pairs(keymaps) do
-		if not keys.has or M.has(buffer, keys.has) then
-			local opts = { buffer = buffer }
-			vim.keymap.del(keys.mode or 'n', keys.lhs, opts)
 		end
 	end
 end

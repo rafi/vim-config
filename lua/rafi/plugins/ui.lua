@@ -146,6 +146,17 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Helper for removing buffers
+	{
+		'echasnovski/mini.bufremove',
+		opts = {},
+		-- stylua: ignore
+		keys = {
+			{ '<leader>bd', function() require('mini.bufremove').delete(0, false) end, desc = 'Delete Buffer', },
+		},
+	},
+
+	-----------------------------------------------------------------------------
 	-- Replaces the UI for messages, cmdline and the popupmenu
 	{
 		'folke/noice.nvim',
@@ -248,9 +259,6 @@ return {
 		},
 		init = function()
 			vim.g.navic_silence = true
-
-			---@param client vim.lsp.Client
-			---@param buffer integer
 			LazyVim.lsp.on_attach(function(client, buffer)
 				if client.supports_method('textDocument/documentSymbol') then
 					require('nvim-navic').attach(client, buffer)
@@ -325,14 +333,6 @@ return {
 				},
 			},
 		},
-		config = function(_, opts)
-			if vim.fn.has('nvim-0.10.0') == 0 then
-				local utils = require('ibl.utils')
-				---@diagnostic disable-next-line: deprecated
-				utils.tbl_join = vim.tbl_flatten
-			end
-			require('ibl').setup(opts)
-		end,
 	},
 
 	-----------------------------------------------------------------------------
@@ -480,46 +480,5 @@ return {
 				end,
 			},
 		},
-	},
-
-	-----------------------------------------------------------------------------
-	-- Super powerful color picker/colorizer plugin
-	{
-		'uga-rosa/ccc.nvim',
-		event = 'FileType',
-		keys = {
-			{ '<Leader>mc', '<cmd>CccPick<CR>', desc = 'Color-picker' },
-		},
-		opts = {
-			highlighter = {
-				auto_enable = true,
-				lsp = true,
-				filetypes = {
-					'html',
-					'lua',
-					'css',
-					'scss',
-					'sass',
-					'less',
-					'stylus',
-					'javascript',
-					'tmux',
-					'typescript',
-				},
-				excludes = { 'lazy', 'mason', 'help', 'neo-tree' },
-			},
-		},
-	},
-
-	-----------------------------------------------------------------------------
-	-- Calendar application
-	{
-		'itchyny/calendar.vim',
-		cmd = 'Calendar',
-		init = function()
-			vim.g.calendar_google_calendar = 1
-			vim.g.calendar_google_task = 1
-			vim.g.calendar_cache_directory = vim.fn.stdpath('data') .. '/calendar'
-		end,
 	},
 }
