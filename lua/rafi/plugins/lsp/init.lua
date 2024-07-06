@@ -16,11 +16,11 @@ return {
 			-- Portable package manager for Neovim
 			'williamboman/mason.nvim',
 			-- Mason extension for easier lspconfig integration
-			'williamboman/mason-lspconfig.nvim',
+			{ 'williamboman/mason-lspconfig.nvim', config = function() end },
 		},
-		---@class PluginLspOpts
 		opts = function()
-			return {
+			---@class PluginLspOpts
+			local opts = {
 				-- Options for vim.diagnostic.config()
 				---@type vim.diagnostic.Opts
 				diagnostics = {
@@ -56,6 +56,7 @@ return {
 				-- to provide the inlay hints.
 				inlay_hints = {
 					enabled = false,
+					exclude = { 'vue' }, -- filetypes for which you don't want to enable inlay hints
 				},
 				-- Enable this to enable the builtin LSP code lenses on Neovim >= 0.10.0
 				-- Be aware that you also will need to properly configure your LSP server to
@@ -68,7 +69,14 @@ return {
 					enabled = true,
 				},
 				-- Add any global capabilities here
-				capabilities = {},
+				capabilities = {
+					workspace = {
+						fileOperations = {
+							didRename = true,
+							willRename = true,
+						},
+					},
+				},
 				-- Formatting options for vim.lsp.buf.format
 				format = {
 					formatting_options = nil,
@@ -82,7 +90,7 @@ return {
 						-- mason = false, -- set to false if you don't want this server to be
 						-- installed with mason Use this to add any additional keymaps for
 						-- specific lsp servers.
-						---@type LazyKeysSpec[]
+						-- ---@type LazyKeysSpec[]
 						-- keys = {},
 						settings = {
 							Lua = {
@@ -117,6 +125,7 @@ return {
 					-- ['*'] = function(server, opts) end,
 				},
 			}
+			return opts
 		end,
 		---@param opts PluginLspOpts
 		config = function(_, opts)
@@ -158,6 +167,10 @@ return {
 							if
 								vim.api.nvim_buf_is_valid(buffer)
 								and vim.bo[buffer].buftype == ''
+								and not vim.tbl_contains(
+									opts.inlay_hints.exclude,
+									vim.bo[buffer].filetype
+								)
 							then
 								LazyVim.toggle.inlay_hints(buffer, true)
 							end
@@ -189,7 +202,7 @@ return {
 				opts.diagnostics.virtual_text.prefix = vim.fn.has('nvim-0.10.0') == 0
 						and '●'
 					or function(diagnostic)
-						local icons = require('lazyvim.config').icons.diagnostics
+						local icons = LazyVim.config.icons.diagnostics
 						for d, icon in pairs(icons) do
 							if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
 								return icon
@@ -233,13 +246,6 @@ return {
 						return
 					end
 				end
-
-				-- Load user-defined custom settings for each LSP server.
-				local exists, module = pcall(require, 'lsp.' .. server_name)
-				if exists and module ~= nil then
-					local user_config = module.config(server_opts) or {}
-					server_opts = vim.tbl_deep_extend('force', server_opts, user_config)
-				end
 				require('lspconfig')[server_name].setup(server_opts)
 			end
 
@@ -256,15 +262,17 @@ return {
 			for server, server_opts in pairs(servers) do
 				if server_opts then
 					server_opts = server_opts == true and {} or server_opts
-					-- run manual setup if mason=false or if this is a server that cannot
-					-- be installed with mason-lspconfig
-					if
-						server_opts.mason == false
-						or not vim.tbl_contains(all_mslp_servers, server)
-					then
-						make_config(server)
-					elseif server_opts.enabled ~= false then
-						ensure_installed[#ensure_installed + 1] = server
+					if server_opts.enabled ~= false then
+						-- run manual setup if mason=false or if this is a server that
+						-- cannot be installed with mason-lspconfig.
+						if
+							server_opts.mason == false
+							or not vim.tbl_contains(all_mslp_servers, server)
+						then
+							make_config(server)
+						else
+							ensure_installed[#ensure_installed + 1] = server
+						end
 					end
 				end
 			end
@@ -281,13 +289,16 @@ return {
 			end
 
 			if
-				LazyVim.lsp.get_config('denols') and LazyVim.lsp.get_config('tsserver')
+				LazyVim.lsp.is_enabled('denols') and LazyVim.lsp.is_enabled('vtsls')
 			then
 				local is_deno =
 					require('lspconfig.util').root_pattern('deno.json', 'deno.jsonc')
-				LazyVim.lsp.disable('tsserver', is_deno)
-				LazyVim.lsp.disable('denols', function(root_dir)
-					return not is_deno(root_dir)
+				LazyVim.lsp.disable('vtsls', is_deno)
+				LazyVim.lsp.disable('denols', function(root_dir, config)
+					if not is_deno(root_dir) then
+						config.settings.deno.enable = false
+					end
+					return false
 				end)
 			end
 		end,
@@ -299,8 +310,12 @@ return {
 		cmd = 'Mason',
 		build = ':MasonUpdate',
 		keys = { { '<leader>mm', '<cmd>Mason<cr>', desc = 'Mason' } },
+		opts_extend = { 'ensure_installed' },
 		opts = {
-			ensure_installed = {},
+			ensure_installed = {
+				'stylua',
+				'shfmt',
+			},
 			ui = {
 				border = 'rounded',
 			},
@@ -319,19 +334,15 @@ return {
 					})
 				end, 100)
 			end)
-			local function ensure_installed()
+
+			mr.refresh(function()
 				for _, tool in ipairs(opts.ensure_installed) do
 					local p = mr.get_package(tool)
 					if not p:is_installed() then
 						p:install()
 					end
 				end
-			end
-			if mr.refresh then
-				mr.refresh(ensure_installed)
-			else
-				ensure_installed()
-			end
+			end)
 		end,
 	},
 }
