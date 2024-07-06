@@ -11,6 +11,12 @@ vim.g.maplocalleader = ';'
 -- LazyVim auto format
 vim.g.autoformat = false
 
+-- LazyVim picker to use.
+-- Can be one of: telescope, fzf
+-- Leave it to "auto" to automatically use the picker
+-- enabled with `:LazyExtras`
+vim.g.lazyvim_picker = 'auto'
+
 -- Enable elite-mode (hjkl mode. arrow-keys resize window)
 vim.g.elite_mode = false
 
