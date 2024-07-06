@@ -1,6 +1,12 @@
 -- rafi.plugins.extras.lang.tmux
 --
 
+LazyVim.on_very_lazy(function()
+	vim.filetype.add({
+		filename = { Tmuxfile = 'tmux' },
+	})
+end)
+
 return {
 	desc = 'Tmux syntax, navigator (<C-h/j/k/l>), and completion.',
 	recommended = function()
@@ -14,10 +20,6 @@ return {
 			if type(opts.ensure_installed) == 'table' then
 				vim.list_extend(opts.ensure_installed, { 'tmux' })
 			end
-
-			vim.filetype.add({
-				filename = { Tmuxfile = 'tmux' },
-			})
 
 			-- Setup filetype settings
 			vim.api.nvim_create_autocmd('FileType', {

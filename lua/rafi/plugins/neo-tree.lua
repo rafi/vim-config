@@ -114,7 +114,7 @@ return {
 	-- See: https://github.com/nvim-neo-tree/neo-tree.nvim
 	opts = {
 		close_if_last_window = true,
-		sources = { 'filesystem', 'buffers', 'git_status', 'document_symbols' },
+		sources = { 'filesystem', 'buffers', 'git_status' },
 		open_files_do_not_replace_types = {
 			'terminal',
 			'Trouble',
@@ -122,6 +122,7 @@ return {
 			'qf',
 			'edgy',
 			'Outline',
+			'gitsigns.blame',
 		},
 		popup_border_style = 'rounded',
 		sort_case_insensitive = true,
@@ -187,7 +188,7 @@ return {
 				['g?'] = 'show_help',
 				['<2-LeftMouse>'] = 'open',
 				['<CR>'] = 'open_with_window_picker',
-				['l'] = 'open_drop',
+				['l'] = 'open',
 				['h'] = 'close_node',
 				['C'] = 'close_node',
 				['z'] = 'close_all_nodes',

@@ -15,15 +15,14 @@ return {
 	{
 		'nvim-treesitter/nvim-treesitter',
 		opts = function(_, opts)
-			if type(opts.ensure_installed) == 'table' then
-				vim.list_extend(opts.ensure_installed, {
-					'go',
-					'gomod',
-					'gosum',
-					'gotmpl',
-					'gowork',
-				})
-			end
+			opts = opts or {}
+			opts.ensure_installed = {
+				'go',
+				'gomod',
+				'gosum',
+				'gotmpl',
+				'gowork',
+			}
 
 			-- Convert a JSON string to a Go struct.
 			vim.api.nvim_buf_create_user_command(
@@ -45,16 +44,15 @@ return {
 
 	{
 		'williamboman/mason.nvim',
-		opts = function(_, opts)
-			opts.ensure_installed = opts.ensure_installed or {}
-			vim.list_extend(opts.ensure_installed, {
+		opts = {
+			ensure_installed = {
 				'gofumpt',
 				'goimports-reviser',
 				'gomodifytags',
 				'impl',
 				'json-to-struct',
-			})
-		end,
+			},
+		},
 	},
 
 	{

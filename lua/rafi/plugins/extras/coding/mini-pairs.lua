@@ -7,14 +7,16 @@ return {
 		'echasnovski/mini.pairs',
 		event = 'VeryLazy',
 		opts = {
-			mappings = {
-				['`'] = {
-					action = 'closeopen',
-					pair = '``',
-					neigh_pattern = '[^\\`].',
-					register = { cr = false },
-				},
-			},
+			modes = { insert = true, command = true, terminal = false },
+			-- skip autopair when next character is one of these
+			skip_next = [=[[%w%%%'%[%"%.%`%$]]=],
+			-- skip autopair when the cursor is inside these treesitter nodes
+			skip_ts = { "string" },
+			-- skip autopair when next character is closing pair
+			-- and there are more closing pairs than opening pairs
+			skip_unbalanced = true,
+			-- better deal with markdown code blocks
+			markdown = true,
 		},
 		keys = {
 			{
@@ -31,5 +33,8 @@ return {
 				desc = 'Toggle Auto Pairs',
 			},
 		},
+		config = function(_, opts)
+			LazyVim.mini.pairs(opts)
+		end,
 	},
 }

@@ -62,6 +62,8 @@ return {
 			{ '<leader>br', '<Cmd>BufferLineCloseRight<CR>', desc = 'Delete Buffers to the Right' },
 			{ '<leader>bl', '<Cmd>BufferLineCloseLeft<CR>', desc = 'Delete Buffers to the Left' },
 			{ '<leader>tp', '<Cmd>BufferLinePick<CR>', desc = 'Tab Pick' },
+			{ '[B', '<cmd>BufferLineMovePrev<cr>', desc = 'Move buffer prev' },
+			{ ']B', '<cmd>BufferLineMoveNext<cr>', desc = 'Move buffer next' },
 		},
 		opts = {
 			options = {
@@ -83,7 +85,7 @@ return {
 					LazyVim.ui.bufremove(n)
 				end,
 				diagnostics_indicator = function(_, _, diag)
-					local icons = require('lazyvim.config').icons.diagnostics
+					local icons = LazyVim.config.icons.diagnostics
 					local ret = (diag.error and icons.Error .. diag.error .. ' ' or '')
 						.. (diag.warning and icons.Warn .. diag.warning or '')
 					return vim.trim(ret)
@@ -111,6 +113,10 @@ return {
 						text_align = 'center',
 					},
 				},
+				---@param opts bufferline.IconFetcherOpts
+				get_element_icon = function(opts)
+					return LazyVim.config.icons.ft[opts.filetype]
+				end,
 			},
 		},
 		config = function(_, opts)
@@ -146,11 +152,12 @@ return {
 		enabled = not vim.g.started_by_firenvim,
 		-- stylua: ignore
 		keys = {
+			{ '<leader>sn', '', desc = '+noice' },
 			{ '<S-Enter>', function() require('noice').redirect(tostring(vim.fn.getcmdline())) end, mode = 'c', desc = 'Redirect Cmdline' },
 			{ '<leader>snl', function() require('noice').cmd('last') end, desc = 'Noice Last Message' },
 			{ '<leader>snh', function() require('noice').cmd('history') end, desc = 'Noice History' },
 			{ '<leader>sna', function() require('noice').cmd('all') end, desc = 'Noice All' },
-			{ '<leader>snt', function() require('noice').cmd('telescope') end, desc = 'Noice Telescope' },
+			{ '<leader>snt', function() require('noice').cmd('pick') end, desc = 'Noice Picker (Telescope/FzfLua)' },
 			{ '<C-f>', function() if not require('noice.lsp').scroll(4) then return '<C-f>' end end, silent = true, expr = true, desc = 'Scroll Forward', mode = {'i', 'n', 's'} },
 			{ '<C-b>', function() if not require('noice.lsp').scroll(-4) then return '<C-b>' end end, silent = true, expr = true, desc = 'Scroll Backward', mode = {'i', 'n', 's'}},
 		},
@@ -211,12 +218,21 @@ return {
 				},
 			},
 			presets = {
+				bottom_search = true,
 				command_palette = true,
 				long_message_to_split = true,
 				lsp_doc_border = true,
-				-- inc_rename = true,
 			},
 		},
+		config = function(_, opts)
+			-- HACK: noice shows messages from before it was enabled,
+			-- but this is not ideal when Lazy is installing plugins,
+			-- so clear the messages in this case.
+			if vim.o.filetype == 'lazy' then
+				vim.cmd([[messages clear]])
+			end
+			require('noice').setup(opts)
+		end,
 	},
 
 	-----------------------------------------------------------------------------
@@ -335,6 +351,7 @@ return {
 				pattern = {
 					'alpha',
 					'dashboard',
+					'fzf',
 					'help',
 					'lazy',
 					'lazyterm',
@@ -345,6 +362,7 @@ return {
 					'Outline',
 					'toggleterm',
 					'Trouble',
+					'trouble',
 				},
 				callback = function()
 					vim.b['miniindentscope_disable'] = true
@@ -378,7 +396,7 @@ return {
 				['<leader>f']  = { name = '+file/find' },
 				['<leader>fw'] = { name = '+workspace' },
 				['<leader>g']  = { name = '+git' },
-				['<leader>h']  = { name = '+hunks' },
+				['<leader>h']  = { name = '+hunks', ['_'] = 'which_key_ignore' },
 				['<leader>ht'] = { name = '+toggle' },
 				['<leader>m']  = { name = '+tools' },
 				['<leader>md'] = { name = '+diff' },

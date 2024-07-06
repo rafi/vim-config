@@ -46,15 +46,15 @@ return {
 
 				{ type = 'text', val = 'Quick links', opts = { hl = 'SpecialComment', position = 'center' } },
 				{ type = 'padding', val = 1 },
-				dashboard.button('f', '󰱽 ' .. ' Find file',       '<cmd> Telescope find_files <CR>'),
-				dashboard.button('g', '󱩾 ' .. ' Find text',       '<cmd> Telescope live_grep <CR>'),
-				dashboard.button('n', ' ' .. ' New file',        '<cmd> ene <CR>'),
-				dashboard.button('r', ' ' .. ' Recent files',    '<cmd> Telescope oldfiles <CR>'),
+				dashboard.button('f', ' ' .. ' Find file',       LazyVim.pick()),
+				dashboard.button('n', ' ' .. ' New file',        [[<cmd> ene <BAR> startinsert <CR>]]),
+				dashboard.button('r', ' ' .. ' Recent files',    LazyVim.pick('oldfiles')),
+				dashboard.button('g', ' ' .. ' Find text',       LazyVim.pick('live_grep')),
 				{ type = 'text', val = '-------', opts = { hl = 'Comment', position = 'center' } },
-				dashboard.button('c', ' ' .. ' Config',          '<cmd> lua require("lazyvim.util").telescope.config_files()() <CR>'),
-				dashboard.button('s', '󰁯 ' .. ' Restore Session', '<cmd> lua require("persistence").load() <CR>'),
+				dashboard.button('c', ' ' .. ' Config',          LazyVim.pick.config_files()),
+				dashboard.button('s', ' ' .. ' Restore Session', [[<cmd> lua require('persistence').load() <CR>]]),
 				dashboard.button('u', ' ' .. ' Update plugins' , '<cmd> Lazy sync <CR>'),
-				dashboard.button('x', ' ' .. ' Lazy Extras',     '<cmd> LazyExtras <CR>'),
+				dashboard.button('x', ' ' .. ' Lazy Extras',     '<cmd> LazyExtras <CR>'),
 				dashboard.button('l', '󰒲 ' .. ' Lazy',            '<cmd> Lazy <CR>'),
 				dashboard.button('q', ' ' .. ' Quit',            '<cmd> qa <CR>'),
 				{ type = 'padding', val = 1 },
@@ -95,12 +95,12 @@ return {
 					local stats = require('lazy').stats()
 					local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
 					dashboard.section.footer.val = '⚡ Neovim loaded '
-					.. stats.loaded
-					.. '/'
-					.. stats.count
-					.. ' plugins in '
-					.. ms
-					.. 'ms'
+						.. stats.loaded
+						.. '/'
+						.. stats.count
+						.. ' plugins in '
+						.. ms
+						.. 'ms'
 					pcall(vim.cmd.AlphaRedraw)
 				end,
 			})

@@ -5,7 +5,7 @@ return {
 
 	-----------------------------------------------------------------------------
 	-- Automatic indentation style detection
-	{ 'nmac427/guess-indent.nvim', lazy = false, priority = 50, config = true },
+	{ 'nmac427/guess-indent.nvim', lazy = false, priority = 50, opts = {} },
 
 	-- Display vim version numbers in docs
 	{ 'tweekmonster/helpful.vim', cmd = 'HelpfulVersion' },
@@ -155,8 +155,8 @@ return {
 		keys = {
 			{ ']t', function() require('todo-comments').jump_next() end, desc = 'Next Todo Comment' },
 			{ '[t', function() require('todo-comments').jump_prev() end, desc = 'Previous Todo Comment' },
-			{ '<leader>xt', '<cmd>TodoTrouble<CR>', desc = 'Todo (Trouble)' },
-			{ '<leader>xT', '<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>', desc = 'Todo/Fix/Fixme (Trouble)' },
+			{ '<leader>xt', '<cmd>Trouble todo toggle<cr>', desc = 'Todo (Trouble)' },
+			{ '<leader>xT', '<cmd>Trouble todo toggle filter = {tag = {TODO,FIX,FIXME}}<cr>', desc = 'Todo/Fix/Fixme (Trouble)' },
 			{ '<leader>st', '<cmd>TodoTelescope<cr>', desc = 'Todo' },
 			{ '<leader>sT', '<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>', desc = 'Todo/Fix/Fixme' },
 		},
@@ -167,18 +167,20 @@ return {
 	-- Pretty lists to help you solve all code diagnostics
 	{
 		'folke/trouble.nvim',
-		cmd = { 'Trouble', 'TroubleToggle' },
-		opts = { use_diagnostic_signs = true },
+		cmd = { 'Trouble' },
+		opts = {
+			modes = {
+				lsp = {
+					win = { position = 'right' },
+				},
+			},
+		},
 		-- stylua: ignore
 		keys = {
-			{ '<leader>xx', '<cmd>Trouble diagnostics toggle<cr>', desc = 'Diagnostics (Trouble)' },
-			{ '<leader>xX', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', desc = 'Buffer Diagnostics (Trouble)' },
-			{ '<leader>xs', '<cmd>Trouble symbols toggle focus=false<cr>', desc = 'Symbols (Trouble)' },
-			{
-				'<leader>xS',
-				'<cmd>Trouble lsp toggle focus=false win.position=right<cr>',
-				desc = 'LSP references/definitions/... (Trouble)',
-			},
+			{ '<Leader>xx', '<cmd>Trouble diagnostics toggle<CR>', desc = 'Diagnostics (Trouble)' },
+			{ '<Leader>xX', '<cmd>Trouble diagnostics toggle filter.buf=0<CR>', desc = 'Buffer Diagnostics (Trouble)' },
+			{ '<Leader>xs', '<cmd>Trouble symbols toggle<CR>', desc = 'Symbols (Trouble)' },
+			{ '<Leader>xS', '<cmd>Trouble lsp toggle<CR>', desc = 'LSP references/definitions/... (Trouble)' },
 			{ '<leader>xL', '<cmd>Trouble loclist toggle<cr>', desc = 'Location List (Trouble)' },
 			{ '<leader>xQ', '<cmd>Trouble qflist toggle<cr>', desc = 'Quickfix List (Trouble)' },
 
@@ -189,7 +191,10 @@ return {
 					if require('trouble').is_open() then
 						require('trouble').previous({ skip_groups = true, jump = true })
 					else
-						vim.cmd.cprev()
+						local ok, err = pcall(vim.cmd.cprev)
+						if not ok then
+							vim.notify(err, vim.log.levels.ERROR)
+						end
 					end
 				end,
 				desc = 'Previous Trouble/Quickfix Item',
@@ -200,7 +205,10 @@ return {
 					if require('trouble').is_open() then
 						require('trouble').next({ skip_groups = true, jump = true })
 					else
-						vim.cmd.cnext()
+						local ok, err = pcall(vim.cmd.cnext)
+						if not ok then
+							vim.notify(err, vim.log.levels.ERROR)
+						end
 					end
 				end,
 				desc = 'Next Trouble/Quickfix Item',
@@ -245,27 +253,23 @@ return {
 			{ '<leader>o', '<cmd>Outline<CR>', desc = 'Toggle outline' },
 		},
 		opts = function()
-			local Config = require('lazyvim.config')
 			local defaults = require('outline.config').defaults
 			local opts = {
-				symbols = {},
-				symbol_blacklist = {},
+				symbols = {
+					icons = {},
+					filter = LazyVim.config.kind_filter,
+				},
+				keymaps = {
+					up_and_jump = '<up>',
+					down_and_jump = '<down>',
+				},
 			}
-			local filter = Config.kind_filter
 
-			if type(filter) == 'table' then
-				local filter_opts = filter.default
-				if type(filter_opts) == 'table' then
-					for kind, symbol in pairs(defaults.symbols) do
-						opts.symbols[kind] = {
-							icon = Config.icons.kinds[kind] or symbol.icon,
-							hl = symbol.hl,
-						}
-						if not vim.tbl_contains(filter_opts, kind) then
-							table.insert(opts.symbol_blacklist, kind)
-						end
-					end
-				end
+			for kind, symbol in pairs(defaults.symbols.icons) do
+				opts.symbols.icons[kind] = {
+					icon = LazyVim.config.icons.kinds[kind] or symbol.icon,
+					hl = symbol.hl,
+				}
 			end
 			return opts
 		end,
@@ -306,6 +310,7 @@ return {
 			show_prompt = false,
 			filter_rules = {
 				include_current_win = true,
+				autoselect_one = true,
 				bo = {
 					filetype = { 'notify', 'noice', 'neo-tree-popup' },
 					buftype = { 'prompt', 'nofile', 'quickfix' },

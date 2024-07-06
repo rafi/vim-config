@@ -13,6 +13,6 @@ return {
 			{ '<C-S-Tab>', '<Plug>(CybuLastusedPrev)' },
 			{ '<C-Tab>', '<Plug>(CybuLastusedNext)' },
 		},
-		config = true,
+		opts = {},
 	},
 }
