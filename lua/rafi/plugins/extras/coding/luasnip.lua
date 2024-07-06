@@ -52,4 +52,9 @@ return {
 			end, {})
 		end,
 	},
+
+	{
+		'garymjr/nvim-snippets',
+		enabled = false,
+	},
 }
