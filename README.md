@@ -460,8 +460,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | Name           | Description
 | -------------- | ----------------------
 | [neovim/nvim-lspconfig] | Quickstart configurations for the Nvim LSP client
-| [folke/neoconf.nvim] | Manage global and project-local settings
-| [folke/neodev.nvim] | Neovim setup for init.lua and plugin development
 | [williamboman/mason.nvim] | Portable package manager for Neovim
 | [williamboman/mason-lspconfig.nvim] | Mason extension for easier lspconfig integration
 | [stevearc/conform.nvim] | Lightweight yet powerful formatter plugin
@@ -507,6 +505,8 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [AndrewRadev/linediff.vim] | Perform diffs on blocks of code
 | [AndrewRadev/dsf.vim] | Delete surrounding function call
 | [echasnovski/mini.ai] | Extend and create `a`/`i` textobjects
+| [folke/lazydev.nvim] | Faster LuaLS setup
+| [Bilal2453/luvit-meta] | Manage libuv types with lazy
 
 ### Colorscheme Plugins
 
@@ -576,8 +576,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [kevinhwang91/nvim-bqf] | Better quickfix window
 
 [neovim/nvim-lspconfig]: https://github.com/neovim/nvim-lspconfig
-[folke/neoconf.nvim]: https://github.com/folke/neoconf.nvim
-[folke/neodev.nvim]: https://github.com/folke/neodev.nvim
 [williamboman/mason.nvim]: https://github.com/williamboman/mason.nvim
 [williamboman/mason-lspconfig.nvim]: https://github.com/williamboman/mason-lspconfig.nvim
 [stevearc/conform.nvim]: https://github.com/stevearc/conform.nvim
@@ -614,6 +612,8 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [AndrewRadev/linediff.vim]: https://github.com/AndrewRadev/linediff.vim
 [AndrewRadev/dsf.vim]: https://github.com/AndrewRadev/dsf.vim
 [echasnovski/mini.ai]: https://github.com/echasnovski/mini.ai
+[folke/lazydev.nvim]: https://github.com/folke/lazydev.nvim
+[Bilal2453/luvit-meta]: https://github.com/Bilal2453/luvit-meta
 
 [rafi/theme-loader.nvim]: https://github.com/rafi/theme-loader.nvim
 [rafi/neo-hybrid.vim]: https://github.com/rafi/neo-hybrid.vim

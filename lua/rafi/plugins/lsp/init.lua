@@ -13,10 +13,6 @@ return {
 		event = 'LazyFile',
 		-- stylua: ignore
 		dependencies = {
-			-- Manage global and project-local settings
-			{ 'folke/neoconf.nvim', cmd = 'Neoconf', config = false, dependencies = { 'nvim-lspconfig' } },
-			-- Neovim setup for init.lua and plugin development
-			{ 'folke/neodev.nvim', opts = {} },
 			-- Portable package manager for Neovim
 			'williamboman/mason.nvim',
 			-- Mason extension for easier lspconfig integration
@@ -124,10 +120,6 @@ return {
 		end,
 		---@param opts PluginLspOpts
 		config = function(_, opts)
-			if LazyVim.has('neoconf.nvim') then
-				require('neoconf').setup(LazyVim.opts('neoconf.nvim'))
-			end
-
 			-- Setup autoformat
 			LazyVim.format.register(LazyVim.lsp.formatter())
 
