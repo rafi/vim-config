@@ -560,7 +560,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [rcarriga/nvim-notify] | Fancy notification manager
 | [stevearc/dressing.nvim] | Improve the default vim-ui interfaces
 | [akinsho/bufferline.nvim] | Snazzy tab/bufferline
-| [echasnovski/mini.bufremove] | Helper for removing buffers
 | [folke/noice.nvim] | Replaces the UI for messages, cmdline and the popupmenu
 | [SmiteshP/nvim-navic] | Shows your current code context in winbar/statusline
 | [chentau/marks.nvim] | Interacting with and manipulating marks
@@ -647,7 +646,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [rcarriga/nvim-notify]: https://github.com/rcarriga/nvim-notify
 [stevearc/dressing.nvim]: https://github.com/stevearc/dressing.nvim
 [akinsho/bufferline.nvim]: https://github.com/akinsho/bufferline.nvim
-[echasnovski/mini.bufremove]: https://github.com/echasnovski/mini.bufremove
 [folke/noice.nvim]: https://github.com/folke/noice.nvim
 [SmiteshP/nvim-navic]: https://github.com/SmiteshP/nvim-navic
 [chentau/marks.nvim]: https://github.com/chentau/marks.nvim
@@ -963,8 +961,7 @@ Note that,
 
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
-| <kbd>Space</kbd>+<kbd>bd</kbd> | 𝐍 | Delete buffer | <small>[echasnovski/mini.bufremove]</small>
-
+| <kbd>Space</kbd>+<kbd>bd</kbd> | 𝐍 | Delete buffer | <small>LazyVim.ui.bufremove</small>
 
 ### Clipboard
 
