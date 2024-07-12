@@ -824,6 +824,7 @@ Spec: `rafi.plugins.extras.ui.<name>`
 | ----------------- | -------------- | ----------------------
 | `alpha`           | [goolord/alpha-nvim] | Fast and fully programmable greeter
 | `barbecue`        | [utilyre/barbecue.nvim] | VS Code like winbar
+| `bookmarks`        | [tomasky/bookmarks.nvim] | Bookmarks plugin with global file store
 | `ccc`             | [uga-rosa/ccc.nvim] | Super powerful color picker/colorizer plugin
 | `cursorword`      | [itchyny/cursorword] | Underlines word under cursor
 | `cybu`            | [ghillb/cybu.nvim] | Cycle buffers with a customizable notification window
@@ -832,6 +833,7 @@ Spec: `rafi.plugins.extras.ui.<name>`
 | `headlines`       | [lukas-reineke/headlines.nvim] | Adds horizontal highlights for headlines and code background.
 | `illuminate`      | [RRethy/vim-illuminate] | Highlights other uses of the word under the cursor
 | `incline`         | [b0o/incline.nvim] | Floating statuslines
+| `marks`         | [chentoast/marks.nvim] | Interacting with and manipulating marks
 | `mini-clue`       | [echasnovski/mini.clue] | Show next key clues
 | `mini-map`        | [echasnovski/mini.map] | Window with buffer text overview, scrollbar and highlights
 | `render-markdown` | [MeanderingProgrammer/markdown.nvim] | Improve viewing Markdown files
@@ -839,6 +841,7 @@ Spec: `rafi.plugins.extras.ui.<name>`
 
 [goolord/alpha-nvim]: https://github.com/goolord/alpha-nvim
 [utilyre/barbecue.nvim]: https://github.com/utilyre/barbecue.nvim
+[tomasky/bookmarks.nvim]: https://github.com/tomasky/bookmarks.nvim
 [uga-rosa/ccc.nvim]: https://github.com/uga-rosa/ccc.nvim
 [itchyny/cursorword]: https://github.com/itchyny/vim-cursorword
 [ghillb/cybu.nvim]: https://github.com/ghillb/cybu.nvim
@@ -847,6 +850,7 @@ Spec: `rafi.plugins.extras.ui.<name>`
 [lukas-reineke/headlines.nvim]: https://github.com/lukas-reineke/headlines.nvim
 [RRethy/vim-illuminate]: https://github.com/RRethy/vim-illuminate
 [b0o/incline.nvim]: https://github.com/b0o/incline.nvim
+[chentoast/marks.nvim]: https://github.com/chentoast/marks.nvim
 [echasnovski/mini.clue]: https://github.com/echasnovski/mini.clue
 [echasnovski/mini.map]: https://github.com/echasnovski/mini.map
 [MeanderingProgrammer/markdown.nvim]: https://github.com/MeanderingProgrammer/markdown.nvim
