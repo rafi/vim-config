@@ -3,7 +3,7 @@ return {
 	-- VS Code like winbar
 	{
 		'utilyre/barbecue.nvim',
-		dependencies = { 'SmiteshP/nvim-navic', 'nvim-tree/nvim-web-devicons' },
+		dependencies = { 'SmiteshP/nvim-navic' },
 		keys = {
 			{
 				'<Leader>uB',

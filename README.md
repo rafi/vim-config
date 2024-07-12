@@ -555,7 +555,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 
 | Name           | Description
 | -------------- | ----------------------
-| [nvim-tree/nvim-web-devicons] | Lua fork of vim-devicons
+| [echasnovski/mini.icons] | Icon provider
 | [MunifTanjim/nui.nvim] | UI Component Library
 | [rcarriga/nvim-notify] | Fancy notification manager
 | [stevearc/dressing.nvim] | Improve the default vim-ui interfaces
@@ -641,7 +641,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [MTDL9/vim-log-highlighting]: https://github.com/MTDL9/vim-log-highlighting
 [reasonml-editor/vim-reason-plus]: https://github.com/reasonml-editor/vim-reason-plus
 
-[nvim-tree/nvim-web-devicons]: https://github.com/nvim-tree/nvim-web-devicons
+[echasnovski/mini.icons]: https://github.com/echasnovski/mini.icons
 [MunifTanjim/nui.nvim]: https://github.com/MunifTanjim/nui.nvim
 [rcarriga/nvim-notify]: https://github.com/rcarriga/nvim-notify
 [stevearc/dressing.nvim]: https://github.com/stevearc/dressing.nvim
