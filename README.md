@@ -1242,6 +1242,7 @@ See [telescope.nvim] for more mappings and usage information.
 | <kbd>;n</kbd> | 𝐍 | Plugins
 | <kbd>;k</kbd> | 𝐍 | Thesaurus
 | <kbd>;u</kbd> | 𝐍 | Spelling suggestions
+| <kbd>;s</kbd> | 𝐍 | Sessions
 | <kbd>;x</kbd> | 𝐍 | Old files
 | <kbd>;w</kbd> | 𝐍 | Zk notes
 | <kbd>;z</kbd> | 𝐍 | Zoxide directories

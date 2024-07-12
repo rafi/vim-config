@@ -176,6 +176,7 @@ return {
 			{ '<localleader>t', '<cmd>Telescope lsp_dynamic_workspace_symbols<CR>', desc = 'Workspace Symbols' },
 			{ '<localleader>v', '<cmd>Telescope registers<CR>', desc = 'Registers' },
 			{ '<localleader>u', '<cmd>Telescope spell_suggest<CR>', desc = 'Spell Suggest' },
+			{ '<localleader>s', "<cmd>lua require'persistence'.select()<CR>", desc = 'Sessions' },
 			{ '<localleader>x', '<cmd>Telescope oldfiles<CR>', desc = 'Old Files' },
 			{ '<localleader>;', '<cmd>Telescope command_history<CR>', desc = 'Command History' },
 			{ '<localleader>:', '<cmd>Telescope commands<CR>', desc = 'Commands' },
