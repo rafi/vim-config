@@ -134,3 +134,35 @@ vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufReadPre' }, {
 		vim.opt_global.writebackup = false
 	end,
 })
+
+-- Set 'bigfile' as filetype for large files.
+vim.filetype.add({
+	pattern = {
+		['.*'] = {
+			function(path, buf)
+				return vim.bo[buf]
+						and vim.bo[buf].filetype ~= 'bigfile'
+						and path
+						and vim.fn.getfsize(path) > vim.g.bigfile_size
+						and 'bigfile'
+					or nil
+			end,
+		},
+	},
+})
+
+-- Disable some features for big files.
+vim.api.nvim_create_autocmd({ 'FileType' }, {
+	group = augroup('bigfile'),
+	pattern = 'bigfile',
+	callback = function(ev)
+		vim.opt.cursorline = false
+		vim.opt.cursorcolumn = false
+		vim.opt.list = false
+		vim.opt.wrap = false
+		vim.b.minianimate_disable = true
+		vim.schedule(function()
+			vim.bo[ev.buf].syntax = vim.filetype.match({ buf = ev.buf }) or ''
+		end)
+	end,
+})
