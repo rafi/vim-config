@@ -328,42 +328,56 @@ return {
 	{
 		'folke/which-key.nvim',
 		event = 'VeryLazy',
-		-- stylua: ignore
+		cmd = 'WhichKey',
+		opts_extend = { 'spec' },
 		opts = {
+			defaults = {},
 			icons = {
-				separator = ' 󰁔 ',
+				breadcrumb = '»',
+				separator = '󰁔  ', -- ➜
 			},
-			defaults = {
-				mode = { 'n', 'v' },
-				[';'] = { name = '+telescope' },
-				[';d'] = { name = '+lsp' },
-				['g'] = { name = '+goto' },
-				['gz'] = { name = '+surround' },
-				[']'] = { name = '+next' },
-				['['] = { name = '+prev' },
+			delay = function(ctx)
+				return ctx.plugin and 0 or 400
+			end,
+			spec = {
+				{
+					mode = { 'n', 'v' },
+					{ ';', group = '+telescope' },
+					{ ';d', group = '+lsp' },
+					{ 'g', group = '+goto' },
+					{ 'gz', group = '+surround' },
+					{ ']', group = '+next' },
+					{ '[', group = '+prev' },
 
-				['<leader>b']  = { name = '+buffer' },
-				['<leader>c']  = { name = '+code' },
-				['<leader>ch'] = { name = '+calls' },
-				['<leader>f']  = { name = '+file/find' },
-				['<leader>fw'] = { name = '+workspace' },
-				['<leader>g']  = { name = '+git' },
-				['<leader>h']  = { name = '+hunks', ['_'] = 'which_key_ignore' },
-				['<leader>ht'] = { name = '+toggle' },
-				['<leader>m']  = { name = '+tools' },
-				['<leader>md'] = { name = '+diff' },
-				['<leader>s']  = { name = '+search' },
-				['<leader>sn'] = { name = '+noice' },
-				['<leader>t']  = { name = '+toggle/tools' },
-				['<leader>u']  = { name = '+ui' },
-				['<leader>x']  = { name = '+diagnostics/quickfix' },
-				['<leader>z']  = { name = '+notes' },
+					{ '<leader>b', group = 'buffer' },
+					{ '<leader>c', group = 'code' },
+					{ '<leader>ch', group = 'calls' },
+					{ '<leader>f', group = 'file/find' },
+					{ '<leader>fw', group = 'workspace' },
+					{ '<leader>g', group = 'git' },
+					{ '<leader>h', group = 'hunks' },
+					{ '<leader>ht', group = 'toggle' },
+					{ '<leader>m', group = 'tools' },
+					{ '<leader>md', group = 'diff' },
+					{ '<leader>q', group = 'quit/session' },
+					{ '<leader>s', group = 'search' },
+					{ '<leader>sn', group = 'noice' },
+					{ '<leader>t', group = 'toggle/tools' },
+					{ '<leader>u', group = 'ui' },
+					{ '<leader>x', group = 'diagnostics/quickfix' },
+					{ '<leader>z', group = 'notes' },
+				},
 			},
 		},
 		config = function(_, opts)
 			local wk = require('which-key')
 			wk.setup(opts)
-			wk.register(opts.defaults)
+			if not vim.tbl_isempty(opts.defaults) then
+				LazyVim.warn(
+					'which-key: opts.defaults is deprecated. Please use opts.spec instead.'
+				)
+				wk.register(opts.defaults)
+			end
 		end,
 	},
 
