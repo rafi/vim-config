@@ -172,7 +172,7 @@ return {
 									vim.bo[buffer].filetype
 								)
 							then
-								LazyVim.toggle.inlay_hints(buffer, true)
+								vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
 							end
 						end
 					)

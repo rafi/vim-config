@@ -1012,7 +1012,6 @@ Note that,
 | <kbd>Space</kbd> <kbd>chi</kbd>  | 𝐍 | LSP incoming calls | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>cho</kbd>  | 𝐍 | LSP outgoing calls | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>ud</kbd>  | 𝐍 | Toggle buffer diagnostics | <small>[plugins/lsp/keymaps.lua]</small>
-| <kbd>Space</kbd> <kbd>uD</kbd>  | 𝐍 | Toggle global diagnostics | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>fwa</kbd> | 𝐍 | Add workspace folder | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>fwr</kbd> | 𝐍 | Remove workspace folder | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>fwl</kbd> | 𝐍 | List workspace folders | <small>[plugins/lsp/keymaps.lua]</small>
@@ -1096,8 +1095,6 @@ Note that,
 | <kbd>Space</kbd> <kbd>us</kbd> | 𝐍 | Toggle spell-checker | <small>`:setlocal spell!`</small>
 | <kbd>Space</kbd> <kbd>ul</kbd> | 𝐍 | Toggle line numbers | <small>`:setlocal nonumber!`</small>
 | <kbd>Space</kbd> <kbd>uL</kbd> | 𝐍 | Toggle relative line numbers | <small>`:setlocal norelativenumber!`</small>
-| <kbd>Space</kbd> <kbd>uo</kbd> | 𝐍 | Toggle hidden characters | <small>`:setlocal nolist!`</small>
-| <kbd>Space</kbd> <kbd>uu</kbd> | 𝐍 | Toggle highlighted search | <small>`:set hlsearch!`</small>
 | <kbd>Space</kbd> <kbd>uw</kbd> | 𝐍 | Toggle wrap | <small>`:setlocal wrap!`</small> …
 | <kbd>Space</kbd> <kbd>ue</kbd> | 𝐍 | Toggle indentation lines | <small>[lukas-reineke/indent-blankline.nvim]</small>
 | <kbd>Space</kbd> <kbd>uh</kbd> | 𝐍 | Toggle inlay-hints | <small>[config/keymaps.lua]</small>

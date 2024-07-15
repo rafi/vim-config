@@ -300,24 +300,21 @@ map('n', '<Leader>a', function()
 	Util.edit.toggle_list('loclist')
 end, { desc = 'Open Location List' })
 
-map('n', '<leader>uf', function() LazyVim.format.toggle() end, { desc = 'Toggle Auto Format (Global)' })
-map('n', '<leader>uF', function() LazyVim.format.toggle(true) end, { desc = 'Toggle Auto Format (Buffer)' })
-map('n', '<leader>us', function() LazyVim.toggle('spell') end, { desc = 'Toggle Spelling' })
-map('n', '<leader>uw', function() LazyVim.toggle('wrap') end, { desc = 'Toggle Word Wrap' })
-map('n', '<leader>uL', function() LazyVim.toggle('relativenumber') end, { desc = 'Toggle Relative Line Numbers' })
-map('n', '<leader>ul', function() LazyVim.toggle.number() end, { desc = 'Toggle Line Numbers' })
+LazyVim.toggle.map('<leader>uf', LazyVim.toggle.format())
+LazyVim.toggle.map('<leader>uF', LazyVim.toggle.format(true))
+LazyVim.toggle.map('<leader>us', LazyVim.toggle('spell', { name = 'Spelling' }))
+LazyVim.toggle.map('<leader>uw', LazyVim.toggle('wrap', { name = 'Wrap' }))
+LazyVim.toggle.map('<leader>uL', LazyVim.toggle('relativenumber', { name = 'Relative Number' }))
+LazyVim.toggle.map('<leader>ud', LazyVim.toggle.diagnostics)
 map('n', '<Leader>ud', function() Util.edit.diagnostic_toggle(false) end, { desc = 'Disable Diagnostics' })
 map('n', '<Leader>uD', function() Util.edit.diagnostic_toggle(true) end, { desc = 'Disable All Diagnostics' })
-
-map('n', '<Leader>uo', '<cmd>setlocal nolist!<CR>', { desc = 'Toggle Whitespace Symbols' })
-map('n', '<Leader>uu', '<cmd>nohlsearch<CR>', { desc = 'Hide Search Highlight' })
-local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
-map('n', '<leader>uc', function() LazyVim.toggle('conceallevel', false, { 0, conceallevel }) end, { desc = 'Toggle Conceal' })
-if vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint then
-	map('n', '<leader>uh', function() LazyVim.toggle.inlay_hints() end, { desc = 'Toggle Inlay Hints' })
+LazyVim.toggle.map('<leader>ul', LazyVim.toggle.number)
+LazyVim.toggle.map('<leader>uc', LazyVim.toggle('conceallevel', { values = { 0, vim.o.conceallevel > 0 and vim.o.conceallevel or 2 } }))
+LazyVim.toggle.map('<leader>uT', LazyVim.toggle.treesitter)
+LazyVim.toggle.map('<leader>ub', LazyVim.toggle('background', { values = { 'light', 'dark' }, name = 'Background' }))
+if vim.lsp.inlay_hint then
+	LazyVim.toggle.map('<leader>uh', LazyVim.toggle.inlay_hints)
 end
-map('n', '<leader>uT', function() if vim.b.ts_highlight then vim.treesitter.stop() else vim.treesitter.start() end end, { desc = 'Toggle Treesitter Highlight' })
-map('n', '<leader>ub', function() LazyVim.toggle('background', false, {'light', 'dark'}) end, { desc = 'Toggle Background' })
 
 -- Show treesitter nodes under cursor
 map('n', '<Leader>ui', vim.show_pos, { desc = 'Show Treesitter Node' })
@@ -436,7 +433,7 @@ map('n', 'sx', function()
 end, { desc = 'Delete buffer and open new' })
 
 -- Toggle window zoom
-map('n', 'sz', function() LazyVim.toggle.maximize() end, { desc = 'Maximize Toggle' })
+LazyVim.toggle.map('sz', LazyVim.toggle.maximize)
 -- }}}
 
 -- vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :
