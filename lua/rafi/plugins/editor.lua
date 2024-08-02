@@ -356,49 +356,26 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
-	-- Find the enemy and replace them with dark power
+	-- Search/replace in multiple files
 	{
-		'nvim-pack/nvim-spectre',
-		-- stylua: ignore
+		'MagicDuck/grug-far.nvim',
+		cmd = 'GrugFar',
+		opts = { headerMaxWidth = 80 },
 		keys = {
-			{ '<Leader>sp', function() require('spectre').toggle() end, desc = 'Spectre', },
-			{ '<Leader>sp', function() require('spectre').open_visual({ select_word = true }) end, mode = 'x', desc = 'Spectre Word' },
-		},
-		opts = {
-			open_cmd = 'noswapfile vnew',
-			mapping = {
-				['toggle_gitignore'] = {
-					map = 'tg',
-					cmd = "<cmd>lua require('spectre').change_options('gitignore')<CR>",
-					desc = 'toggle gitignore',
-				},
-			},
-			find_engine = {
-				['rg'] = {
-					cmd = 'rg',
-					args = {
-						'--pcre2',
-						'--color=never',
-						'--no-heading',
-						'--with-filename',
-						'--line-number',
-						'--column',
-						'--ignore',
-					},
-					options = {
-						['gitignore'] = {
-							value = '--no-ignore',
-							icon = '[G]',
-							desc = 'gitignore',
+			{
+				'<leader>sr',
+				function()
+					local grug = require('grug-far')
+					local ext = vim.bo.buftype == '' and vim.fn.expand('%:e')
+					grug.grug_far({
+						transient = true,
+						prefills = {
+							filesFilter = ext and ext ~= '' and '*.' .. ext or nil,
 						},
-					},
-				},
-			},
-			default = {
-				find = {
-					cmd = 'rg',
-					options = { 'ignore-case', 'hidden', 'gitignore' },
-				},
+					})
+				end,
+				mode = { 'n', 'v' },
+				desc = 'Search and Replace',
 			},
 		},
 	},

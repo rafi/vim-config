@@ -378,6 +378,7 @@ if vim.F.if_nil(vim.g.window_q_mapping, true) then
 			'checkhealth',
 			'fugitive',
 			'fugitiveblame',
+			'grug-far',
 			'help',
 			'httpResult',
 			'lspinfo',
