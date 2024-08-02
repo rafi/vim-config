@@ -298,6 +298,20 @@ return {
 				return require('trouble.sources.telescope').open(...)
 			end
 
+			local function find_command()
+				if 1 == vim.fn.executable('rg') then
+					return { 'rg', '--files', '--color', 'never', '-g', '!.git' }
+				elseif 1 == vim.fn.executable('fd') then
+					return { 'fd', '--type', 'f', '--color', 'never', '-E', '.git' }
+				elseif 1 == vim.fn.executable('fdfind') then
+					return { 'fdfind', '--type', 'f', '--color', 'never', '-E', '.git' }
+				elseif 1 == vim.fn.executable('find') and vim.fn.has('win32') == 0 then
+					return { 'find', '.', '-type', 'f' }
+				elseif 1 == vim.fn.executable('where') then
+					return { 'where', '/r', '.', '*' }
+				end
+			end
+
 			-- Transform to Telescope proper actions.
 			myactions = transform_mod(myactions)
 
@@ -314,18 +328,6 @@ return {
 
 			local path_sep = jit and (jit.os == 'Windows' and '\\' or '/')
 				or package.config:sub(1, 1)
-
-			local find_args = {
-				'rg',
-				'--vimgrep',
-				'--files',
-				'--follow',
-				'--hidden',
-				'--no-ignore-vcs',
-				'--smart-case',
-				'--glob',
-				'!**/.git/*',
-			}
 
 			opts = opts or {}
 			opts.defaults = {
@@ -423,6 +425,25 @@ return {
 							local entry = require('telescope.actions.state').get_selected_entry()
 							require('rafi.util.preview').open(entry.path)
 						end,
+
+						-- Compare selected files with diffprg
+						['c'] = function(prompt_bufnr)
+							if #vim.g.diffprg == 0 then
+								LazyVim.error('Set `g:diffprg` to use this feature')
+								return
+							end
+							local from_entry = require('telescope.from_entry')
+							local action_state = require('telescope.actions.state')
+							local picker = action_state.get_current_picker(prompt_bufnr)
+							local entries = {}
+							for _, entry in ipairs(picker:get_multi_selection()) do
+								table.insert(entries, from_entry.path(entry, false, false))
+							end
+							if #entries > 0 then
+								table.insert(entries, 1, vim.g.diffprg)
+								vim.fn.system(entries)
+							end
+						end,
 					},
 				},
 			}
@@ -438,8 +459,9 @@ return {
 					},
 				},
 				find_files = {
-					find_command = has_ripgrep and find_args or nil,
 					layout_config = { preview_width = 0.5 },
+					hidden = true,
+					find_command = find_command,
 				},
 				live_grep = {
 					dynamic_preview_title = true,

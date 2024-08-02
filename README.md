@@ -356,9 +356,6 @@ return {
 
     -- When enabled, 'q' closes any window
     vim.g.window_q_mapping = true
-
-    -- Display structure in statusline by default
-    vim.g.structure_status = false
     ```
 
 1. You can override LazyVim options. For example in `lua/plugins/core.lua`:
@@ -541,7 +538,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | -------------- | ----------------------
 | [nvim-treesitter/nvim-treesitter] | Nvim Treesitter configurations and abstraction layer
 | [nvim-treesitter/nvim-treesitter-textobjects] | Textobjects using treesitter queries
-| [nvim-treesitter/nvim-treesitter-context] | Show code context
 | [RRethy/nvim-treesitter-endwise] | Wisely add "end" in various filetypes
 | [windwp/nvim-ts-autotag] | Use treesitter to auto close and auto rename html tag
 | [andymass/vim-matchup] | Modern matchit and matchparen
@@ -631,7 +627,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 
 [nvim-treesitter/nvim-treesitter]: https://github.com/nvim-treesitter/nvim-treesitter
 [nvim-treesitter/nvim-treesitter-textobjects]: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
-[nvim-treesitter/nvim-treesitter-context]: https://github.com/nvim-treesitter/nvim-treesitter-context
 [RRethy/nvim-treesitter-endwise]: https://github.com/RRethy/nvim-treesitter-endwise
 [windwp/nvim-ts-autotag]: https://github.com/windwp/nvim-ts-autotag
 [andymass/vim-matchup]: https://github.com/andymass/vim-matchup

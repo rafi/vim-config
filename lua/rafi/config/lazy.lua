@@ -13,7 +13,6 @@ end
 
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 clone('folke/lazy.nvim.git', lazypath)
----@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 clone('LazyVim/LazyVim.git', vim.fn.stdpath('data') .. '/lazy/LazyVim')
 
@@ -43,7 +42,11 @@ require('lazy').setup(vim.tbl_extend('keep', user_lazy_opts, {
 	install = { missing = true, colorscheme = {} },
 	checker = { enabled = true, notify = false },
 	change_detection = { notify = false },
-	ui = { border = 'rounded' },
+	ui = {
+		size = { width = 0.8, height = 0.85 },
+		border = 'rounded',
+		wrap = false,
+	},
 	diff = { cmd = 'terminal_git' },
 	performance = {
 		rtp = {

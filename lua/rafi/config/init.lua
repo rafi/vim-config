@@ -6,6 +6,8 @@
 
 local M = {}
 
+local lazy_clipboard
+
 -- Load rafi and user config files.
 function M.setup()
 	-- Autocmds can be loaded lazily when not opening a file
@@ -23,6 +25,9 @@ function M.setup()
 				M.load('autocmds')
 			end
 			M.load('keymaps')
+			if lazy_clipboard ~= nil then
+				vim.opt.clipboard = lazy_clipboard
+			end
 		end,
 	})
 end
@@ -57,7 +62,6 @@ function M.init()
 	M.did_init = true
 	local plugin = require('lazy.core.config').spec.plugins.LazyVim
 	if plugin then
-		---@diagnostic disable-next-line: undefined-field
 		vim.opt.rtp:append(plugin.dir)
 	end
 
@@ -71,6 +75,10 @@ function M.init()
 	-- this is needed to make sure options will be correctly applied
 	-- after installing missing plugins
 	M.load('options')
+
+	-- Defer built-in clipboard handling: "xsel" and "pbcopy" can be slow
+	lazy_clipboard = vim.opt.clipboard
+	vim.opt.clipboard = ''
 
 	LazyVim.plugin.setup()
 	LazyVimConfig.json.load()

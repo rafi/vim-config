@@ -18,8 +18,6 @@ return {
 
 	{ import = 'lazyvim.plugins.extras.lang.markdown' },
 
-	{ 'lukas-reineke/headlines.nvim', enabled = false },
-
 	-----------------------------------------------------------------------------
 	-- Generate table of contents for Markdown files
 	{

@@ -99,7 +99,6 @@ return {
 		'folke/flash.nvim',
 		event = 'VeryLazy',
 		vscode = true,
-		---@diagnostic disable-next-line: undefined-doc-name
 		---@type Flash.Config
 		opts = {
 			modes = {

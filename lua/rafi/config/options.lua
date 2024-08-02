@@ -8,6 +8,15 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ';'
 
+-- Enable elite-mode (hjkl mode. arrow-keys resize window)
+vim.g.elite_mode = false
+
+-- When enabled, 'q' closes any window
+vim.g.window_q_mapping = true
+
+-- File diff program
+vim.g.diffprg = 'bcompare'
+
 -- LazyVim auto format
 vim.g.autoformat = false
 
@@ -16,15 +25,6 @@ vim.g.autoformat = false
 -- Leave it to "auto" to automatically use the picker
 -- enabled with `:LazyExtras`
 vim.g.lazyvim_picker = 'auto'
-
--- Enable elite-mode (hjkl mode. arrow-keys resize window)
-vim.g.elite_mode = false
-
--- When enabled, 'q' closes any window
-vim.g.window_q_mapping = true
-
--- Display structure in statusline by default
-vim.g.structure_status = false
 
 -- LazyVim root dir detection
 -- Each entry can be:
@@ -56,6 +56,7 @@ vim.g.deprecation_warnings = false
 vim.g.bigfile_size = 1024 * 1024 * 1.5 -- 1.5 MB
 
 -- Show the current document symbols location from Trouble in lualine
+-- You can disable this for a buffer by setting `vim.b.trouble_lualine = false`
 vim.g.trouble_lualine = false
 
 -- General

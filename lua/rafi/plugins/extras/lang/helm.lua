@@ -22,11 +22,4 @@ return {
 	{ import = 'lazyvim.plugins.extras.lang.helm' },
 
 	{ 'towolf/vim-helm', enabled = false },
-
-	{
-		'nvim-treesitter/nvim-treesitter',
-		opts = {
-			ensure_installed = 'helm',
-		},
-	},
 }

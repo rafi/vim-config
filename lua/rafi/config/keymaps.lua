@@ -306,8 +306,6 @@ LazyVim.toggle.map('<leader>us', LazyVim.toggle('spell', { name = 'Spelling' }))
 LazyVim.toggle.map('<leader>uw', LazyVim.toggle('wrap', { name = 'Wrap' }))
 LazyVim.toggle.map('<leader>uL', LazyVim.toggle('relativenumber', { name = 'Relative Number' }))
 LazyVim.toggle.map('<leader>ud', LazyVim.toggle.diagnostics)
-map('n', '<Leader>ud', function() Util.edit.diagnostic_toggle(false) end, { desc = 'Disable Diagnostics' })
-map('n', '<Leader>uD', function() Util.edit.diagnostic_toggle(true) end, { desc = 'Disable All Diagnostics' })
 LazyVim.toggle.map('<leader>ul', LazyVim.toggle.number)
 LazyVim.toggle.map('<leader>uc', LazyVim.toggle('conceallevel', { values = { 0, vim.o.conceallevel > 0 and vim.o.conceallevel or 2 } }))
 LazyVim.toggle.map('<leader>uT', LazyVim.toggle.treesitter)
@@ -412,10 +410,11 @@ if vim.F.if_nil(vim.g.window_q_mapping, true) then
 	end, { desc = 'Close window' })
 end
 
-map('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit All' })
+map('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Exit Neovim' })
 
 -- Switch with adjacent window
 map('n', '<C-x>', '<C-w>x<C-w>w', { remap = true, desc = 'Swap adjacent windows' })
+map('n', '<C-w>d', '<C-W>c', { desc = 'Delete Window', remap = true })
 
 map('n', 'sb', '<cmd>buffer#<CR>', { desc = 'Alternate buffer' })
 map('n', 'sc', '<cmd>close<CR>', { desc = 'Close window' })

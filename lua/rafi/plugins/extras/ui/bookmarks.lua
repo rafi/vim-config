@@ -15,7 +15,7 @@ return {
 			{ 'm<Space>', function() require('bookmarks').bookmark_clear_all() end, desc = 'Remove all marks' },
 		},
 		opts = {
-			save_file = vim.fn.stdpath('data') .. '/bookmarks.json',
+			save_file = vim.fn.stdpath('state') .. '/bookmarks.json',
 			keywords = {
 				['@t'] = ' ',
 				['@w'] = ' ',
