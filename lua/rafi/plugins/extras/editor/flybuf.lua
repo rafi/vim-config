@@ -1,4 +1,6 @@
 return {
+
+	-- List buffers in a float window
 	{
 		'glepnir/flybuf.nvim',
 		cmd = 'FlyBuf',

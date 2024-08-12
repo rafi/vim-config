@@ -1,8 +1,9 @@
 return {
+
+	-- LSP's go-to definition plugin
 	{
 		'hrsh7th/nvim-gtd',
 		event = { 'BufReadPre', 'BufNewFile' },
-		dependencies = 'neovim/nvim-lspconfig',
 		-- stylua: ignore
 		keys = {
 			{
@@ -11,6 +12,7 @@ return {
 				desc = 'Go to definition or file',
 			},
 		},
+		---@diagnostic disable-next-line: undefined-doc-name
 		---@type gtd.kit.App.Config.Schema
 		opts = {
 			sources = {

@@ -1,4 +1,6 @@
 return {
+
+	-- Underlines word under cursor
 	{
 		'itchyny/vim-cursorword',
 		event = 'FileType',

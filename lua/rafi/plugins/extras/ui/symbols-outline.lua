@@ -1,5 +1,6 @@
 return {
 
+	-- Tree like view for symbols using LSP
 	{
 		'simrat39/symbols-outline.nvim',
 		cmd = { 'SymbolsOutline', 'SymbolsOutlineOpen' },
@@ -7,7 +8,6 @@ return {
 			{ '<Leader>o', '<cmd>SymbolsOutline<CR>', desc = 'Symbols Outline' },
 		},
 		opts = function()
-			local Config = require('lazyvim.config')
 			local defaults = require('symbols-outline.config').defaults
 			local opts = {
 				width = 30,
@@ -19,17 +19,17 @@ return {
 				symbols = {},
 				symbol_blacklist = {},
 			}
-			local filter = Config.kind_filter
+			local filter = LazyVim.config.kind_filter
 
 			if type(filter) == 'table' then
-				filter = filter.default
-				if type(filter) == 'table' then
+				local default = filter.default
+				if type(default) == 'table' then
 					for kind, symbol in pairs(defaults.symbols) do
 						opts.symbols[kind] = {
-							icon = Config.icons.kinds[kind] or symbol.icon,
+							icon = LazyVim.config.icons.kinds[kind] or symbol.icon,
 							hl = symbol.hl,
 						}
-						if not vim.tbl_contains(filter, kind) then
+						if not vim.tbl_contains(default, kind) then
 							table.insert(opts.symbol_blacklist, kind)
 						end
 					end

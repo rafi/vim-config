@@ -1,4 +1,6 @@
 return {
+
+	-- EditorConfig plugin written entirely in Vimscript
 	{
 		'sgur/vim-editorconfig',
 		lazy = false,

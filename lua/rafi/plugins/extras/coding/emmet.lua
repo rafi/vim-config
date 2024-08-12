@@ -1,4 +1,6 @@
 return {
+
+	-- Provides support for expanding abbreviations alá emmet
 	{
 		'mattn/emmet-vim',
 		ft = { 'html', 'css', 'vue', 'javascript', 'javascriptreact', 'svelte' },

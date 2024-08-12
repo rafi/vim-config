@@ -8,17 +8,23 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ';'
 
--- Enable LazyVim auto format
-vim.g.autoformat = false
-
 -- Enable elite-mode (hjkl mode. arrow-keys resize window)
 vim.g.elite_mode = false
 
 -- When enabled, 'q' closes any window
 vim.g.window_q_mapping = true
 
--- Display structure in statusline by default
-vim.g.structure_status = false
+-- File diff program
+vim.g.diffprg = 'bcompare'
+
+-- LazyVim auto format
+vim.g.autoformat = false
+
+-- LazyVim picker to use.
+-- Can be one of: telescope, fzf
+-- Leave it to "auto" to automatically use the picker
+-- enabled with `:LazyExtras`
+vim.g.lazyvim_picker = 'auto'
 
 -- LazyVim root dir detection
 -- Each entry can be:
@@ -26,6 +32,32 @@ vim.g.structure_status = false
 -- * a pattern or array of patterns like `.git` or `lua`.
 -- * a function with signature `function(buf) -> string|string[]`
 vim.g.root_spec = { 'lsp', { '.git', 'lua' }, 'cwd' }
+
+-- LazyVim automatically configures lazygit:
+--  * theme, based on the active colorscheme.
+--  * editorPreset to nvim-remote
+--  * enables nerd font icons
+-- Set to false to disable.
+vim.g.lazygit_config = true
+
+-- Options for the LazyVim statuscolumn
+vim.g.lazyvim_statuscolumn = {
+	folds_open = false, -- show fold sign when fold is open
+	folds_githl = false, -- highlight fold sign with git sign color
+}
+
+-- Hide deprecation warnings
+vim.g.deprecation_warnings = false
+
+-- Set filetype to `bigfile` for files larger than 1.5 MB
+-- Only vim syntax will be enabled (with the correct filetype)
+-- LSP, treesitter and other ft plugins will be disabled.
+-- mini.animate will also be disabled.
+vim.g.bigfile_size = 1024 * 1024 * 1.5 -- 1.5 MB
+
+-- Show the current document symbols location from Trouble in lualine
+-- You can disable this for a buffer by setting `vim.b.trouble_lualine = false`
+vim.g.trouble_lualine = false
 
 -- General
 -- ===
@@ -42,17 +74,18 @@ opt.conceallevel = 2           -- Hide * markup for bold and italic, but not mar
 opt.signcolumn = 'yes'         -- Always show signcolumn
 opt.spelllang = { 'en' }
 opt.spelloptions:append('camel')
+opt.spelloptions:append('noplainbuffer')
 opt.updatetime = 200           -- Idle time to write swap and trigger CursorHold
 if not vim.g.vscode then
-	opt.timeoutlen = 300         -- Time out on mappings
-end
-if not vim.env.SSH_TTY then
-	-- only set clipboard if not in ssh, to make sure the OSC 52
-	-- integration works automatically. Requires Neovim >= 0.10.0
-	opt.clipboard = 'unnamedplus' -- Sync with system clipboard
+	opt.timeoutlen = 500  -- Time out on mappings
+	opt.ttimeoutlen = 10  -- Time out on key codes
 end
 
-opt.completeopt = 'menu,menuone,noinsert'
+-- only set clipboard if not in ssh, to make sure the OSC 52
+-- integration works automatically. Requires Neovim >= 0.10.0
+opt.clipboard = vim.env.SSH_TTY and '' or 'unnamedplus' -- Sync with system clipboard
+
+opt.completeopt = 'menu,menuone,noselect'
 opt.wildmode = 'longest:full,full'
 opt.diffopt:append({ 'indent-heuristic', 'algorithm:patience' })
 
@@ -91,15 +124,7 @@ end
 opt.ignorecase = true -- Search ignoring case
 opt.smartcase = true  -- Keep case when searching with *
 opt.inccommand = 'nosplit' -- Preview incremental substitute
-opt.grepformat = '%f:%l:%c:%m'
-
-if vim.fn.executable('rg') then
-	opt.grepprg = 'rg --vimgrep --no-heading'
-		.. (opt.smartcase and ' --smart-case' or '') .. ' --'
-elseif vim.fn.executable('ag') then
-	opt.grepprg = 'ag --vimgrep'
-		.. (opt.smartcase and ' --smart-case' or '') .. ' --'
-end
+opt.jumpoptions = 'view'
 
 -- Formatting
 -- ===
@@ -107,6 +132,8 @@ end
 opt.wrap = false                -- No wrap by default
 opt.linebreak = true            -- Break long lines at 'breakat'
 opt.breakindent = true
+opt.formatexpr = "v:lua.require'lazyvim.util'.format.formatexpr()"
+
 opt.formatoptions = opt.formatoptions
 	- 'a' -- Auto formatting is BAD.
 	- 't' -- Don't auto format my code. I got linters for that.
@@ -125,12 +152,14 @@ opt.termguicolors = true  -- True color support
 opt.shortmess:append({ W = true, I = true, c = true })  --  (default "ltToOCF")
 opt.showcmd = false       -- Don't show command in status line
 opt.showmode = false      -- Don't show mode in cmd window
+opt.laststatus = 3        -- Global statusline
 opt.scrolloff = 4         -- Keep at least 2 lines above/below
 opt.sidescrolloff = 8     -- Keep at least 5 lines left/right
 opt.numberwidth = 2       -- Minimum number of columns to use for the line number
 opt.number = false        -- Don't show line numbers
 opt.ruler = false         -- Disable default status ruler
 opt.list = true           -- Show hidden characters
+opt.foldlevel = 99
 opt.cursorline = true     -- Highlight the text line under the cursor
 opt.splitbelow = true     -- New split at bottom
 opt.splitright = true     -- New split on right
@@ -157,7 +186,7 @@ opt.listchars = {
 	trail = '·'
 }
 opt.fillchars = {
-	foldopen = '󰅀', -- 󰅀 
+	foldopen = '', -- 󰅀 
 	foldclose = '', -- 󰅂 
 	fold = ' ', -- ⸱
 	foldsep = ' ',
@@ -172,29 +201,17 @@ opt.fillchars = {
 	verthoriz = '╋',
 }
 
+opt.statuscolumn = [[%!v:lua.require'lazyvim.util'.ui.statuscolumn()]]
+
 if vim.fn.has('nvim-0.10') == 1 then
 	opt.smoothscroll = true
-end
-
--- Folds
--- ===
-
-opt.foldlevel = 99
-vim.opt.foldtext = "v:lua.require'lazyvim.util'.ui.foldtext()"
-
-if vim.fn.has('nvim-0.9.0') == 1 then
-	vim.opt.statuscolumn = [[%!v:lua.require'lazyvim.util'.ui.statuscolumn()]]
-end
-
--- HACK: causes freezes on <= 0.9, so only enable on >= 0.10 for now
-if vim.fn.has('nvim-0.10') == 1 then
-	vim.opt.foldmethod = 'expr'
 	vim.opt.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
+	vim.opt.foldmethod = 'expr'
+	vim.opt.foldtext = ''
 else
 	vim.opt.foldmethod = 'indent'
+	vim.opt.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
 end
-
-vim.o.formatexpr = "v:lua.require'lazyvim.util'.format.formatexpr()"
 
 -- Misc
 -- ===
@@ -220,18 +237,21 @@ vim.filetype.add({
 		Brewfile = 'ruby',
 		justfile = 'just',
 		Justfile = 'just',
-		Tmuxfile = 'tmux',
 		['.buckconfig'] = 'toml',
 		['.flowconfig'] = 'ini',
 		['.jsbeautifyrc'] = 'json',
 		['.jscsrc'] = 'json',
 		['.watchmanconfig'] = 'json',
+		['helmfile.yaml'] = 'yaml',
+		['todo.txt'] = 'todotxt',
+		['yarn.lock'] = 'yaml',
 	},
 	pattern = {
+		['%.config/git/users/.*'] = 'gitconfig',
+		['%.kube/config'] = 'yaml',
 		['.*%.js%.map'] = 'json',
 		['.*%.postman_collection'] = 'json',
 		['Jenkinsfile.*'] = 'groovy',
-		['%.config/git/users/.*'] = 'gitconfig',
 	},
 })
 

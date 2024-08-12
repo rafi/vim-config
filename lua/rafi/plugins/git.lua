@@ -7,7 +7,7 @@ return {
 	-- Git signs written in pure lua
 	{
 		'lewis6991/gitsigns.nvim',
-		event = { 'BufReadPre', 'BufNewFile' },
+		event = 'LazyFile',
 		-- See: https://github.com/lewis6991/gitsigns.nvim#usage
 		-- stylua: ignore
 		opts = {
@@ -24,6 +24,21 @@ return {
 			preview_config = {
 				border = 'rounded',
 			},
+			signs = {
+				add = { text = '▎' },
+				change = { text = '▎' },
+				delete = { text = '' },
+				topdelete = { text = '' },
+				changedelete = { text = '▎' },
+				untracked = { text = '▎' },
+			},
+			signs_staged = {
+				add = { text = '▎' },
+				change = { text = '▎' },
+				delete = { text = '' },
+				topdelete = { text = '' },
+				changedelete = { text = '▎' },
+			},
 			on_attach = function(bufnr)
 				local gs = package.loaded.gitsigns
 
@@ -37,18 +52,34 @@ return {
 				---@return string
 				map('n', ']g', function()
 					if vim.wo.diff then return ']c' end
-					vim.schedule(function() gs.next_hunk() end)
+					vim.schedule(function() gs.nav_hunk('next') end)
 					return '<Ignore>'
-				end, { expr = true, desc = 'Git hunk forward'  })
+				end, { expr = true, desc = 'Next git hunk'  })
 
 				map('n', '[g', function()
 					if vim.wo.diff then return '[c' end
-					vim.schedule(function() gs.prev_hunk() end)
+					vim.schedule(function() gs.nav_hunk('prev') end)
 					return '<Ignore>'
-				end, { expr = true, desc = 'Git hunk last' })
+				end, { expr = true, desc = 'Previous git hunk' })
 
 				-- Actions
 				--
+				map('n', ']h', function()
+					if vim.wo.diff then
+						vim.cmd.normal({ ']c', bang = true })
+					else
+						gs.nav_hunk('next')
+					end
+				end, { desc = 'Next Hunk' })
+				map('n', '[h', function()
+					if vim.wo.diff then
+						vim.cmd.normal({ '[c', bang = true })
+					else
+						gs.nav_hunk('prev')
+					end
+				end, { desc = 'Prev Hunk' })
+				map('n', ']H', function() gs.nav_hunk('last') end, { desc = 'Last Hunk' })
+				map('n', '[H', function() gs.nav_hunk('first') end, { desc = 'First Hunk' })
 				map('n', '<leader>hs', gs.stage_hunk, { silent = true, desc = 'Stage hunk' })
 				map('n', '<leader>hr', gs.reset_hunk, { silent = true, desc = 'Reset hunk' })
 				map('x', '<leader>hs', function() gs.stage_hunk({vim.fn.line('.'), vim.fn.line('v')}) end, { desc = 'Stage hunk' })
@@ -69,6 +100,7 @@ return {
 
 				-- Toggles
 				map('n', '<leader>htb', gs.toggle_current_line_blame, { desc = 'Toggle Git line blame' })
+				map('n', '<leader>htB', function() gs.blame() end, { desc = 'Blame Buffer' })
 				map('n', '<leader>htd', gs.toggle_deleted, { desc = 'Toggle Git deleted' })
 				map('n', '<leader>htw', gs.toggle_word_diff, { desc = 'Toggle Git word diff' })
 				map('n', '<leader>htl', gs.toggle_linehl, { desc = 'Toggle Git line highlight' })
@@ -138,7 +170,7 @@ return {
 		'NeogitOrg/neogit',
 		dependencies = {
 			'sindrets/diffview.nvim',
-			'nvim-telescope/telescope.nvim'
+			'nvim-telescope/telescope.nvim',
 		},
 		cmd = 'Neogit',
 		keys = {
@@ -167,11 +199,20 @@ return {
 		cmd = 'ToggleBlame',
 		-- stylua: ignore
 		keys = {
-			{ '<leader>gb', '<cmd>ToggleBlame virtual<CR>', desc = 'Git blame' },
-			{ '<leader>gB', '<cmd>ToggleBlame window<CR>', desc = 'Git blame (window)' },
+			{ '<leader>gb', '<cmd>BlameToggle virtual<CR>', desc = 'Git blame' },
+			{ '<leader>gB', '<cmd>BlameToggle window<CR>', desc = 'Git blame (window)' },
 		},
 		opts = {
 			date_format = '%Y-%m-%d %H:%M',
+			merge_consecutive = false,
+			max_summary_width = 30,
+			mappings = {
+				commit_info = 'K',
+				stack_push = '>',
+				stack_pop = '<',
+				show_commit = '<CR>',
+				close = { '<Esc>', 'q' },
+			},
 		},
 	},
 
@@ -180,13 +221,15 @@ return {
 	{
 		'rhysd/git-messenger.vim',
 		cmd = 'GitMessenger',
+		-- stylua: ignore
 		keys = {
 			{ '<Leader>gm', '<Plug>(git-messenger)', desc = 'Reveal commit under cursor'}
 		},
 		init = function()
 			vim.g.git_messenger_include_diff = 'current'
-			vim.g.git_messenger_no_default_mappings = false
+			vim.g.git_messenger_no_default_mappings = true
 			vim.g.git_messenger_floating_win_opts = { border = 'rounded' }
+			vim.g.git_messenger_max_popup_height = math.ceil(vim.o.lines / 1.15)
 		end,
 	},
 

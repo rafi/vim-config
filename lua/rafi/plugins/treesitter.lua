@@ -18,10 +18,12 @@ return {
 		version = false,
 		build = ':TSUpdate',
 		event = { 'LazyFile', 'VeryLazy' },
-		cmd = { 'TSInstall', 'TSUpdate', 'TSUpdateSync' },
+		lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
+		cmd = { 'TSUpdateSync', 'TSUpdate', 'TSInstall' },
 		keys = {
-			{ 'v', desc = 'Increment selection', mode = 'x' },
-			{ 'V', desc = 'Shrink selection', mode = 'x' },
+			{ '<C-Space>', desc = 'Increment Selection' },
+			{ 'v', desc = 'Increment Selection', mode = 'x' },
+			{ 'V', desc = 'Shrink Selection', mode = 'x' },
 		},
 		init = function(plugin)
 			-- PERF: add nvim-treesitter queries to the rtp and it's custom query predicates early
@@ -33,33 +35,6 @@ return {
 			require('nvim-treesitter.query_predicates')
 		end,
 		dependencies = {
-			-- Textobjects using treesitter queries
-			{
-				'nvim-treesitter/nvim-treesitter-textobjects',
-				config = function()
-					-- When in diff mode, we want to use the default
-					-- vim text objects c & C instead of the treesitter ones.
-					local move = require('nvim-treesitter.textobjects.move') ---@type table<string,fun(...)>
-					local configs = require('nvim-treesitter.configs')
-					for name, fn in pairs(move) do
-						if name:find('goto') == 1 then
-							move[name] = function(q, ...)
-								if vim.wo.diff then
-									local config = configs.get_module('textobjects.move')[name] ---@type table<string,string>
-									for key, query in pairs(config or {}) do
-										if q == query and key:find('[%]%[][cC]') then
-											vim.cmd('normal! ' .. key)
-											return
-										end
-									end
-								end
-								return fn(q, ...)
-							end
-						end
-					end
-				end,
-			},
-
 			-- Modern matchit and matchparen
 			{
 				'andymass/vim-matchup',
@@ -71,10 +46,21 @@ return {
 			-- Wisely add "end" in various filetypes
 			'RRethy/nvim-treesitter-endwise',
 		},
+		opts_extend = { 'ensure_installed' },
 		---@type TSConfig
-		---@diagnostic disable-next-line: missing-fields
+		---@diagnostic disable: missing-fields
 		opts = {
-			highlight = { enable = true },
+			highlight = {
+				enable = true,
+				disable = function(_, buf)
+					local max_filesize = 100 * 1024 -- 100 KB
+					local ok, stats =
+						pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
+					if ok and stats and stats.size > max_filesize then
+						return true
+					end
+				end,
+			},
 			indent = { enable = true },
 			refactor = {
 				highlight_definitions = { enable = true },
@@ -153,94 +139,88 @@ return {
 				'cue',
 				'diff',
 				'dtd',
+				'editorconfig',
 				'fish',
-				'fennel',
 				'git_config',
 				'git_rebase',
+				'gitattributes',
 				'gitcommit',
 				'gitignore',
-				'gitattributes',
 				'graphql',
-				'hcl',
 				'html',
 				'http',
-				'java',
 				'javascript',
 				'jsdoc',
+				'json5',
 				'just',
-				'kotlin',
 				'lua',
 				'luadoc',
 				'luap',
 				'make',
 				'markdown',
 				'markdown_inline',
-				'nix',
-				'perl',
-				'php',
-				'promql',
-				'pug',
+				'printf',
+				'python',
+				'query',
 				'readline',
 				'regex',
-				'scala',
-				'query',
 				'scss',
 				'sql',
 				'ssh_config',
-				'starlark',
 				'svelte',
-				'tmux',
-				'todotxt',
 				'toml',
 				'vim',
 				'vimdoc',
-				'vue',
 				'xml',
+				'yaml',
 				'zig',
 			},
 		},
 		---@param opts TSConfig
 		config = function(_, opts)
-			local langs = opts.ensure_installed
-			if type(langs) == 'table' then
-				---@type table<string, boolean>
-				local added = {}
-				opts.ensure_installed = vim.tbl_filter(function(lang)
-					if added[lang] then
-						return false
-					end
-					added[lang] = true
-					return true
-				end, langs)
+			if type(opts.ensure_installed) == 'table' then
+				---@diagnostic disable-next-line: param-type-mismatch
+				opts.ensure_installed = LazyVim.dedup(opts.ensure_installed)
 			end
 			require('nvim-treesitter.configs').setup(opts)
 		end,
 	},
 
 	-----------------------------------------------------------------------------
-	-- Show context of the current function
+	-- Textobjects using treesitter queries
 	{
-		'nvim-treesitter/nvim-treesitter-context',
-		-- event = 'LazyFile',
-		opts = {
-			mode = 'cursor',
-			max_lines = 3,
-		},
-		keys = {
-			{
-				'<leader>ut',
-				function()
-					local tsc = require('treesitter-context')
-					tsc.toggle()
-					if LazyVim.inject.get_upvalue(tsc.toggle, 'enabled') then
-						LazyVim.info('Enabled Treesitter Context', { title = 'Option' })
-					else
-						LazyVim.warn('Disabled Treesitter Context', { title = 'Option' })
+		'nvim-treesitter/nvim-treesitter-textobjects',
+		event = 'VeryLazy',
+		config = function()
+			-- If treesitter is already loaded, we need to run config again for textobjects
+			if LazyVim.is_loaded('nvim-treesitter') then
+				local opts = LazyVim.opts('nvim-treesitter')
+				require('nvim-treesitter.configs').setup({
+					textobjects = opts.textobjects,
+				})
+			end
+
+			-- When in diff mode, we want to use the default
+			-- vim text objects c & C instead of the treesitter ones.
+			local move = require('nvim-treesitter.textobjects.move') ---@type table<string,fun(...)>
+			local configs = require('nvim-treesitter.configs')
+			for name, fn in pairs(move) do
+				if name:find('goto') == 1 then
+					move[name] = function(q, ...)
+						if vim.wo.diff then
+							local config = configs.get_module('textobjects.move')[name] ---@type table<string,string>
+							for key, query in pairs(config or {}) do
+								if q == query and key:find('[%]%[][cC]') then
+									vim.cmd('normal! ' .. key)
+									return
+								end
+							end
+						end
+						return fn(q, ...)
 					end
-				end,
-				desc = 'Toggle Treesitter Context',
-			},
-		},
+				end
+			end
+		end,
 	},
 
 	-----------------------------------------------------------------------------
@@ -248,24 +228,6 @@ return {
 	{
 		'windwp/nvim-ts-autotag',
 		event = 'LazyFile',
-		opts = {
-			-- Removed markdown due to errors
-			filetypes = {
-				'glimmer',
-				'handlebars',
-				'hbs',
-				'html',
-				'javascript',
-				'javascriptreact',
-				'jsx',
-				'rescript',
-				'svelte',
-				'tsx',
-				'typescript',
-				'typescriptreact',
-				'vue',
-				'xml',
-			},
-		},
+		opts = {},
 	},
 }

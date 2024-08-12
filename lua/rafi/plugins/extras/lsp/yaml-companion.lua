@@ -15,6 +15,7 @@ return {
 		},
 	},
 
+	-- Get, set and autodetect YAML schemas in your buffers
 	{
 		'someone-stole-my-name/yaml-companion.nvim',
 		dependencies = {

@@ -1,4 +1,6 @@
 return {
+
+	-- Generic and modular lua sidebar
 	{
 		'sidebar-nvim/sidebar.nvim',
 		main = 'sidebar-nvim',

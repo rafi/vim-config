@@ -1,13 +1,11 @@
 -- Plugins: Editor
 -- https://github.com/rafi/vim-config
 
-local is_windows = vim.uv.os_uname().sysname == 'Windows_NT'
-
 return {
 
 	-----------------------------------------------------------------------------
 	-- Automatic indentation style detection
-	{ 'nmac427/guess-indent.nvim', lazy = false, priority = 50, config = true },
+	{ 'nmac427/guess-indent.nvim', lazy = false, priority = 50, opts = {} },
 
 	-- Display vim version numbers in docs
 	{ 'tweekmonster/helpful.vim', cmd = 'HelpfulVersion' },
@@ -16,30 +14,12 @@ return {
 	{ 'lambdalisue/suda.vim', event = 'BufRead' },
 
 	-----------------------------------------------------------------------------
-	-- Seamless navigation between tmux panes and vim splits
-	{
-		'christoomey/vim-tmux-navigator',
-		lazy = false,
-		cond = vim.env.TMUX and not is_windows,
-		-- stylua: ignore
-		keys = {
-			{ '<C-h>', '<cmd>TmuxNavigateLeft<CR>', mode = { 'n', 't' }, silent = true, desc = 'Jump to left pane' },
-			{ '<C-j>', '<cmd>TmuxNavigateDown<CR>', mode = { 'n', 't' }, silent = true, desc = 'Jump to lower pane' },
-			{ '<C-k>', '<cmd>TmuxNavigateUp<CR>', mode = { 'n', 't' }, silent = true, desc = 'Jump to upper pane' },
-			{ '<C-l>', '<cmd>TmuxNavigateRight<CR>', mode = { 'n', 't' }, silent = true, desc = 'Jump to right pane' },
-		},
-		init = function()
-			vim.g.tmux_navigator_no_mappings = true
-		end,
-	},
-
-	-----------------------------------------------------------------------------
 	-- Simple lua plugin for automated session management
 	{
 		'folke/persistence.nvim',
 		event = 'VimEnter',
 		opts = {
-			options = vim.opt_global.sessionoptions:get(),
+			branch = false,
 			-- Enable to autoload session on startup, unless:
 			-- * neovim was started with files as arguments
 			-- * stdin has been provided
@@ -104,57 +84,6 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
-	-- Highlights other uses of the word under the cursor
-	{
-		'RRethy/vim-illuminate',
-		event = { 'BufReadPost', 'BufNewFile' },
-		opts = {
-			delay = 200,
-			under_cursor = false,
-			modes_allowlist = { 'n', 'no', 'nt' },
-			filetypes_denylist = {
-				'DiffviewFileHistory',
-				'DiffviewFiles',
-				'fugitive',
-				'git',
-				'minifiles',
-				'neo-tree',
-				'Outline',
-				'SidebarNvim',
-			},
-		},
-		keys = {
-			{ ']]', desc = 'Next Reference' },
-			{ '[[', desc = 'Prev Reference' },
-		},
-		config = function(_, opts)
-			require('illuminate').configure(opts)
-
-			local function map(key, dir, buffer)
-				vim.keymap.set('n', key, function()
-					require('illuminate')['goto_' .. dir .. '_reference'](false)
-				end, {
-					desc = dir:sub(1, 1):upper() .. dir:sub(2) .. ' Reference',
-					buffer = buffer,
-				})
-			end
-
-			map(']]', 'next')
-			map('[[', 'prev')
-
-			-- also set it after loading ftplugins, since a lot overwrite [[ and ]]
-			vim.api.nvim_create_autocmd('FileType', {
-				group = vim.api.nvim_create_augroup('rafi_illuminate', {}),
-				callback = function()
-					local buffer = vim.api.nvim_get_current_buf()
-					map(']]', 'next', buffer)
-					map('[[', 'prev', buffer)
-				end,
-			})
-		end,
-	},
-
-	-----------------------------------------------------------------------------
 	-- Ultimate undo history visualizer
 	{
 		'mbbill/undotree',
@@ -170,14 +99,21 @@ return {
 		'folke/flash.nvim',
 		event = 'VeryLazy',
 		vscode = true,
-		opts = {},
+		---@type Flash.Config
+		opts = {
+			modes = {
+				search = {
+					enabled = false,
+				},
+			},
+		},
 		-- stylua: ignore
 		keys = {
 			{ 'ss', mode = { 'n', 'x', 'o' }, function() require('flash').jump() end, desc = 'Flash' },
 			{ 'S', mode = { 'n', 'x', 'o' }, function() require('flash').treesitter() end, desc = 'Flash Treesitter' },
 			{ 'r', mode = 'o', function() require('flash').remote() end, desc = 'Remote Flash' },
 			{ 'R', mode = { 'x', 'o' }, function() require('flash').treesitter_search() end, desc = 'Treesitter Search' },
-			{ '<c-s>', mode = { 'c' }, function() require('flash').toggle() end, desc = 'Toggle Flash Search' },
+			{ '<C-s>', mode = { 'c' }, function() require('flash').toggle() end, desc = 'Toggle Flash Search' },
 		},
 	},
 
@@ -213,13 +149,13 @@ return {
 	{
 		'folke/todo-comments.nvim',
 		event = 'LazyFile',
-		dependencies = 'nvim-telescope/telescope.nvim',
+		dependencies = { 'nvim-lua/plenary.nvim' },
 		-- stylua: ignore
 		keys = {
-			{ ']t', function() require('todo-comments').jump_next() end, desc = 'Next todo comment' },
-			{ '[t', function() require('todo-comments').jump_prev() end, desc = 'Previous todo comment' },
-			{ '<leader>xt', '<cmd>TodoTrouble<CR>', desc = 'Todo (Trouble)' },
-			{ '<leader>xT', '<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>', desc = 'Todo/Fix/Fixme (Trouble)' },
+			{ ']t', function() require('todo-comments').jump_next() end, desc = 'Next Todo Comment' },
+			{ '[t', function() require('todo-comments').jump_prev() end, desc = 'Previous Todo Comment' },
+			{ '<leader>xt', '<cmd>Trouble todo toggle<cr>', desc = 'Todo (Trouble)' },
+			{ '<leader>xT', '<cmd>Trouble todo toggle filter = {tag = {TODO,FIX,FIXME}}<cr>', desc = 'Todo/Fix/Fixme (Trouble)' },
 			{ '<leader>st', '<cmd>TodoTelescope<cr>', desc = 'Todo' },
 			{ '<leader>sT', '<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>', desc = 'Todo/Fix/Fixme' },
 		},
@@ -230,14 +166,23 @@ return {
 	-- Pretty lists to help you solve all code diagnostics
 	{
 		'folke/trouble.nvim',
-		cmd = { 'Trouble', 'TroubleToggle' },
-		opts = { use_diagnostic_signs = true },
+		cmd = { 'Trouble' },
+		opts = {
+			modes = {
+				lsp = {
+					win = { position = 'right' },
+				},
+			},
+		},
 		-- stylua: ignore
 		keys = {
-			{ '<leader>xx', function() require('trouble').toggle('document_diagnostics') end, desc = 'Document Diagnostics (Trouble)' },
-			{ '<leader>xX', function() require('trouble').toggle('workspace_diagnostics') end, desc = 'Workspace Diagnostics (Trouble)' },
-			{ '<leader>xL', function() require('trouble').toggle('loclist') end, desc = 'Location List (Trouble)' },
-			{ '<leader>xQ', function() require('trouble').toggle('quickfix') end, desc = 'Quickfix List (Trouble)' },
+			{ '<Leader>xx', '<cmd>Trouble diagnostics toggle<CR>', desc = 'Diagnostics (Trouble)' },
+			{ '<Leader>xX', '<cmd>Trouble diagnostics toggle filter.buf=0<CR>', desc = 'Buffer Diagnostics (Trouble)' },
+			{ '<Leader>xs', '<cmd>Trouble symbols toggle<CR>', desc = 'Symbols (Trouble)' },
+			{ '<Leader>xS', '<cmd>Trouble lsp toggle<CR>', desc = 'LSP references/definitions/... (Trouble)' },
+			{ '<leader>xL', '<cmd>Trouble loclist toggle<cr>', desc = 'Location List (Trouble)' },
+			{ '<leader>xQ', '<cmd>Trouble qflist toggle<cr>', desc = 'Quickfix List (Trouble)' },
+
 			{ 'gR', function() require('trouble').open('lsp_references') end, desc = 'LSP References (Trouble)' },
 			{
 				'[q',
@@ -245,10 +190,13 @@ return {
 					if require('trouble').is_open() then
 						require('trouble').previous({ skip_groups = true, jump = true })
 					else
-						vim.cmd.cprev()
+						local ok, err = pcall(vim.cmd.cprev)
+						if not ok then
+							vim.notify(err, vim.log.levels.ERROR)
+						end
 					end
 				end,
-				desc = 'Previous trouble/quickfix item',
+				desc = 'Previous Trouble/Quickfix Item',
 			},
 			{
 				']q',
@@ -256,10 +204,13 @@ return {
 					if require('trouble').is_open() then
 						require('trouble').next({ skip_groups = true, jump = true })
 					else
-						vim.cmd.cnext()
+						local ok, err = pcall(vim.cmd.cnext)
+						if not ok then
+							vim.notify(err, vim.log.levels.ERROR)
+						end
 					end
 				end,
-				desc = 'Next trouble/quickfix item',
+				desc = 'Next Trouble/Quickfix Item',
 			},
 		},
 	},
@@ -279,7 +230,7 @@ return {
 				term:toggle()
 			end
 			local mappings = {
-				{ '<C-/>', mode = { 'n', 't' }, toggleterm, desc = 'Toggle terminal' },
+				{ '<C-/>', mode = { 'n', 't' }, toggleterm, desc = 'Toggle Terminal' },
 				{ '<C-_>', mode = { 'n', 't' }, toggleterm, desc = 'which_key_ignore' },
 			}
 			return vim.list_extend(mappings, keys)
@@ -301,27 +252,23 @@ return {
 			{ '<leader>o', '<cmd>Outline<CR>', desc = 'Toggle outline' },
 		},
 		opts = function()
-			local Config = require('lazyvim.config')
 			local defaults = require('outline.config').defaults
 			local opts = {
-				symbols = {},
-				symbol_blacklist = {},
+				symbols = {
+					icons = {},
+					filter = vim.deepcopy(LazyVim.config.kind_filter),
+				},
+				keymaps = {
+					up_and_jump = '<up>',
+					down_and_jump = '<down>',
+				},
 			}
-			local filter = Config.kind_filter
 
-			if type(filter) == 'table' then
-				filter = filter.default
-				if type(filter) == 'table' then
-					for kind, symbol in pairs(defaults.symbols) do
-						opts.symbols[kind] = {
-							icon = Config.icons.kinds[kind] or symbol.icon,
-							hl = symbol.hl,
-						}
-						if not vim.tbl_contains(filter, kind) then
-							table.insert(opts.symbol_blacklist, kind)
-						end
-					end
-				end
+			for kind, symbol in pairs(defaults.symbols.icons) do
+				opts.symbols.icons[kind] = {
+					icon = LazyVim.config.icons.kinds[kind] or symbol.icon,
+					hl = symbol.hl,
+				}
 			end
 			return opts
 		end,
@@ -362,25 +309,13 @@ return {
 			show_prompt = false,
 			filter_rules = {
 				include_current_win = true,
+				autoselect_one = true,
 				bo = {
 					filetype = { 'notify', 'noice', 'neo-tree-popup' },
 					buftype = { 'prompt', 'nofile', 'quickfix' },
 				},
 			},
 		},
-	},
-
-	-----------------------------------------------------------------------------
-	-- Fast Neovim http client written in Lua
-	{
-		'rest-nvim/rest.nvim',
-		main = 'rest-nvim',
-		ft = 'http',
-		cmd = 'Rest',
-		keys = {
-			{ '<Leader>mh', '<cmd>Rest run<CR>', desc = 'Execute HTTP request' },
-		},
-		opts = { skip_ssl_verification = true },
 	},
 
 	-----------------------------------------------------------------------------
@@ -421,74 +356,41 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
-	-- Find the enemy and replace them with dark power
+	-- Search/replace in multiple files
 	{
-		'nvim-pack/nvim-spectre',
-		-- stylua: ignore
+		'MagicDuck/grug-far.nvim',
+		cmd = 'GrugFar',
+		opts = { headerMaxWidth = 80 },
 		keys = {
-			{ '<Leader>sp', function() require('spectre').toggle() end, desc = 'Spectre', },
-			{ '<Leader>sp', function() require('spectre').open_visual({ select_word = true }) end, mode = 'x', desc = 'Spectre Word' },
-		},
-		opts = {
-			open_cmd = 'noswapfile vnew',
-			mapping = {
-				['toggle_gitignore'] = {
-					map = 'tg',
-					cmd = "<cmd>lua require('spectre').change_options('gitignore')<CR>",
-					desc = 'toggle gitignore',
-				},
-			},
-			find_engine = {
-				['rg'] = {
-					cmd = 'rg',
-					args = {
-						'--color=never',
-						'--no-heading',
-						'--with-filename',
-						'--line-number',
-						'--column',
-						'--ignore',
-					},
-					options = {
-						['gitignore'] = {
-							value = '--no-ignore',
-							icon = '[G]',
-							desc = 'gitignore',
+			{
+				'<leader>sr',
+				function()
+					local grug = require('grug-far')
+					local ext = vim.bo.buftype == '' and vim.fn.expand('%:e')
+					grug.grug_far({
+						transient = true,
+						prefills = {
+							filesFilter = ext and ext ~= '' and '*.' .. ext or nil,
 						},
-					},
-				},
-			},
-			default = {
-				find = {
-					cmd = 'rg',
-					options = { 'ignore-case', 'hidden', 'gitignore' },
-				},
+					})
+				end,
+				mode = { 'n', 'v' },
+				desc = 'Search and Replace',
 			},
 		},
 	},
 
-	-----------------------------------------------------------------------------
-	-- Helper for removing buffers
 	{
-		'echasnovski/mini.bufremove',
-		opts = {},
-		-- stylua: ignore
-		keys = {
-			{ '<leader>bd', function() require('mini.bufremove').delete(0, false) end, desc = 'Delete Buffer', },
-		},
+		import = 'lazyvim.plugins.extras.editor.fzf',
+		enabled = function()
+			return LazyVim.pick.want() == 'fzf'
+		end,
 	},
 
-	-----------------------------------------------------------------------------
-	-- Generate table of contents for Markdown files
 	{
-		'mzlogin/vim-markdown-toc',
-		cmd = { 'GenTocGFM', 'GenTocRedcarpet', 'GenTocGitLab', 'UpdateToc' },
-		ft = 'markdown',
-		keys = {
-			{ '<leader>mo', '<cmd>UpdateToc<CR>', desc = 'Update table of contents' },
-		},
-		init = function()
-			vim.g.vmt_auto_update_on_save = 0
+		import = 'rafi.plugins.extras.editor.telescope',
+		enabled = function()
+			return LazyVim.pick.want() == 'telescope'
 		end,
 	},
 }

@@ -1,4 +1,9 @@
+-- rafi.plugins.extras.org.vimwiki
+--
+
 return {
+
+	-- Personal Wiki for Vim
 	{
 		'vimwiki/vimwiki',
 		cmd = { 'VimwikiIndex', 'VimwikiUISelect' },

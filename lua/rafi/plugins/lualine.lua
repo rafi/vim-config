@@ -4,10 +4,9 @@
 return {
 
 	-----------------------------------------------------------------------------
-	-- Statusline plugin written in pure lua
+	-- Statusline plugin with many customizations.
 	{
 		'nvim-lualine/lualine.nvim',
-		dependencies = { 'nvim-tree/nvim-web-devicons' },
 		event = 'VeryLazy',
 		enabled = not vim.g.started_by_firenvim,
 		init = function()
@@ -107,10 +106,9 @@ return {
 							separator = '',
 							color = function()
 								local hl = is_file_window() and 'Statement' or 'Function'
-								return { fg = RafiUtil.ui.fg(hl) }
+								return LazyVim.ui.fg(hl)
 							end,
 						},
-
 						-- Readonly/zoomed/hash symbol.
 						{
 							padding = { left = 1, right = 0 },
@@ -136,7 +134,7 @@ return {
 								vim.cmd([[Telescope git_branches]])
 							end,
 						},
-						Util.lualine.root_dir(),
+						LazyVim.lualine.root_dir(),
 						{
 							RafiUtil.lualine.plugin_title(),
 							padding = { left = 0, right = 1 },
@@ -151,7 +149,7 @@ return {
 					},
 					lualine_c = {
 						{
-							Util.lualine.pretty_path(),
+							LazyVim.lualine.pretty_path(),
 							color = { fg = '#D7D7BC' },
 							cond = is_file_window,
 							on_click = function()
@@ -185,7 +183,7 @@ return {
 							RafiUtil.lualine.trails(),
 							cond = is_file_window,
 							padding = { left = 1, right = 0 },
-							color = { fg = RafiUtil.ui.bg('Identifier') },
+							color = LazyVim.ui.fg('Identifier'),
 						},
 
 						{
@@ -204,13 +202,19 @@ return {
 									return ''
 								end
 
-								local ok, result = pcall(vim.fn.searchcount, { maxcount = 999, timeout = 10 })
+								local ok, result =
+									pcall(vim.fn.searchcount, { maxcount = 999, timeout = 10 })
 								if not ok or next(result) == nil or result.current == 0 then
 									return ''
 								end
 
 								local denominator = math.min(result.total, result.maxcount)
-								return string.format('/%s [%d/%d]', vim.fn.getreg('/'), result.current, denominator)
+								return string.format(
+									'/%s [%d/%d]',
+									vim.fn.getreg('/'),
+									result.current,
+									denominator
+								)
 							end,
 							separator = '',
 							padding = { left = 1, right = 0 },
@@ -271,7 +275,7 @@ return {
 									---@diagnostic disable-next-line: undefined-field
 									and require('noice').api.status.command.has()
 							end,
-							color = { fg = RafiUtil.ui.fg('Statement') },
+							color = LazyVim.ui.fg('Statement'),
 						},
 						-- showmode
 						{
@@ -284,20 +288,20 @@ return {
 									---@diagnostic disable-next-line: undefined-field
 									and require('noice').api.status.mode.has()
 							end,
-							color = { fg = RafiUtil.ui.fg('Constant') },
+							color = LazyVim.ui.fg('Constant'),
 						},
 						-- dap status
 						-- stylua: ignore
 						{
 							function() return '  ' .. require('dap').status() end,
 							cond = function () return package.loaded['dap'] and require('dap').status() ~= '' end,
-							color = Util.ui.fg('Debug'),
+							color = LazyVim.ui.fg('Debug'),
 						},
 						-- lazy.nvim updates
 						{
 							require('lazy.status').updates,
 							cond = require('lazy.status').has_updates,
-							color = { fg = RafiUtil.ui.fg('Comment') },
+							color = LazyVim.ui.fg('Comment'),
 							on_click = function()
 								vim.cmd([[Lazy]])
 							end,

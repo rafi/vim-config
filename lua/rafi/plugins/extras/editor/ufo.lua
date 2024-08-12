@@ -14,6 +14,7 @@ return {
 		},
 	},
 
+	-- Make folds look modern and keep a high performance
 	{
 		'kevinhwang91/nvim-ufo',
 		event = { 'BufReadPost', 'BufNewFile' },

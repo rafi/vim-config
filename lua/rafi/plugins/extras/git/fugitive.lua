@@ -1,6 +1,7 @@
 return {
 
 	-----------------------------------------------------------------------------
+	-- Git client
 	{
 		'tpope/vim-fugitive',
 		cmd = { 'G', 'Git', 'Gfetch', 'Gpush', 'Gclog', 'Gdiffsplit' },
@@ -22,6 +23,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Git commit browser
 	{
 		'junegunn/gv.vim',
 		dependencies = { 'tpope/vim-fugitive' },

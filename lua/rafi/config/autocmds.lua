@@ -22,11 +22,11 @@ vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
 vim.api.nvim_create_autocmd('TextYankPost', {
 	group = augroup('highlight_yank'),
 	callback = function()
-		vim.highlight.on_yank({ timeout = 100 })
+		vim.highlight.on_yank({ timeout = 50 })
 	end,
 })
 
--- resize splits if window got resized
+-- Resize splits if window got resized
 vim.api.nvim_create_autocmd({ 'VimResized' }, {
 	group = augroup('resize_splits'),
 	callback = function()
@@ -73,10 +73,10 @@ vim.api.nvim_create_autocmd({ 'InsertEnter', 'WinLeave' }, {
 	end,
 })
 
--- wrap and check for spell in text filetypes
+-- Wrap and check for spell in text filetypes
 vim.api.nvim_create_autocmd('FileType', {
 	group = augroup('wrap_spell'),
-	pattern = { 'gitcommit', 'markdown' },
+	pattern = { 'text', 'plaintex', 'typst', 'gitcommit', 'markdown' },
 	callback = function()
 		vim.opt_local.wrap = true
 		vim.opt_local.spell = true
@@ -96,7 +96,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
 vim.api.nvim_create_autocmd('BufWritePre', {
 	group = augroup('auto_create_dir'),
 	callback = function(event)
-		if event.match:match('^%w%w+://') then
+		if event.match:match('^%w%w+:[\\/][\\/]') then
 			return
 		end
 		local file = vim.uv.fs_realpath(event.match) or event.match
@@ -132,5 +132,37 @@ vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufReadPre' }, {
 		vim.opt_local.swapfile = false
 		vim.opt_global.backup = false
 		vim.opt_global.writebackup = false
+	end,
+})
+
+-- Set 'bigfile' as filetype for large files.
+vim.filetype.add({
+	pattern = {
+		['.*'] = {
+			function(path, buf)
+				return vim.bo[buf]
+						and vim.bo[buf].filetype ~= 'bigfile'
+						and path
+						and vim.fn.getfsize(path) > vim.g.bigfile_size
+						and 'bigfile'
+					or nil
+			end,
+		},
+	},
+})
+
+-- Disable some features for big files.
+vim.api.nvim_create_autocmd({ 'FileType' }, {
+	group = augroup('bigfile'),
+	pattern = 'bigfile',
+	callback = function(ev)
+		vim.opt.cursorline = false
+		vim.opt.cursorcolumn = false
+		vim.opt.list = false
+		vim.opt.wrap = false
+		vim.b.minianimate_disable = true
+		vim.schedule(function()
+			vim.bo[ev.buf].syntax = vim.filetype.match({ buf = ev.buf }) or ''
+		end)
 	end,
 })
