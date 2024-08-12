@@ -1,18 +1,22 @@
 -- rafi.plugins.extras.lang.markdown
 --
 
+LazyVim.on_very_lazy(function()
+	vim.filetype.add({
+		extension = { mdx = 'markdown.mdx' },
+	})
+end)
+
 return {
 	desc = 'Markdown lang extras, without headlines plugin, and toc generator.',
 	recommended = function()
 		return LazyVim.extras.wants({
-			ft = 'markdown',
+			ft = { 'markdown', 'markdown.mdx' },
 			root = 'README.md',
 		})
 	end,
 
 	{ import = 'lazyvim.plugins.extras.lang.markdown' },
-
-	{ 'lukas-reineke/headlines.nvim', enabled = false },
 
 	-----------------------------------------------------------------------------
 	-- Generate table of contents for Markdown files

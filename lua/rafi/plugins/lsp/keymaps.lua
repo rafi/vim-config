@@ -16,22 +16,18 @@ function M.get()
 	-- stylua: ignore
 	M._keys =  {
 		{ 'gd', vim.lsp.buf.definition, desc = 'Goto Definition', has = 'definition' },
-		{ 'gr', vim.lsp.buf.references, desc = 'References' },
+		{ 'gr', vim.lsp.buf.references, desc = 'References', nowait = true },
 		{ 'gD', vim.lsp.buf.declaration, desc = 'Goto Declaration' },
 		{ 'gI', vim.lsp.buf.implementation, desc = 'Goto Implementation' },
 		{ 'gy', vim.lsp.buf.type_definition, desc = 'Goto Type Definition' },
+		{ 'K', vim.lsp.buf.hover, desc = 'Hover' },
 		{ 'gK', vim.lsp.buf.signature_help, desc = 'Signature Help' },
+		{ '<leader>cR', LazyVim.lsp.rename_file, desc = 'Rename File', mode = 'n', has = { 'workspace/didRenameFiles', 'workspace/willRenameFiles' } },
+		{ '<leader>cr', vim.lsp.buf.rename, desc = 'Rename', has = 'rename' },
 		{ '<Leader>ca', vim.lsp.buf.code_action, mode = { 'n', 'x' }, has = 'codeAction', desc = 'Code Action' },
 		{ '<leader>cc', vim.lsp.codelens.run, desc = 'Run Codelens', mode = { 'n', 'x' }, has = 'codeLens' },
 		{ '<leader>cC', vim.lsp.codelens.refresh, desc = 'Refresh & Display Codelens', mode = { 'n' }, has = 'codeLens' },
-		{ '<Leader>cA', function()
-			vim.lsp.buf.code_action({
-				context = {
-					only = { 'source' },
-					diagnostics = {},
-				},
-			})
-		end, desc = 'Source Action', has = 'codeAction' },
+		{ '<leader>cA', LazyVim.lsp.action.source, desc = 'Source Action', has = 'codeAction' },
 
 		{ ']]', function() LazyVim.lsp.words.jump(vim.v.count1) end, has = 'documentHighlight',
 			desc = 'Next Reference', cond = function() return LazyVim.lsp.words.enabled end },
@@ -42,15 +38,6 @@ function M.get()
 		{ '<a-p>', function() LazyVim.lsp.words.jump(-vim.v.count1, true) end, has = 'documentHighlight',
 			desc = 'Prev Reference', cond = function() return LazyVim.lsp.words.enabled end },
 
-		{ 'K', function()
-			-- Show hover documentation or folded lines.
-			local winid = LazyVim.has('nvim-ufo')
-				and require('ufo').peekFoldedLinesUnderCursor() or nil
-			if not winid then
-				vim.lsp.buf.hover()
-			end
-		end },
-
 		{ '<leader>cil', '<cmd>LspInfo<cr>', desc = 'LSP info popup' },
 		{ '<leader>csf', M.formatter_select, mode = { 'n', 'x' }, desc = 'Formatter Select' },
 		{ '<Leader>csi', vim.lsp.buf.incoming_calls, desc = 'Incoming calls' },
@@ -59,34 +46,20 @@ function M.get()
 		{ '<Leader>fwr', vim.lsp.buf.remove_workspace_folder, desc = 'Remove Workspace Folder' },
 		{ '<Leader>fwl', '<cmd>lua =vim.lsp.buf.list_workspace_folders()<CR>', desc = 'List Workspace Folders' },
 	}
-	if LazyVim.has('inc-rename.nvim') then
-		M._keys[#M._keys + 1] = {
-			'<leader>cr',
-			function()
-				local inc_rename = require('inc_rename')
-				return string.format(
-					':%s %s',
-					inc_rename.config.cmd_name,
-					vim.fn.expand('<cword>')
-				)
-			end,
-			expr = true,
-			desc = 'Rename',
-			has = 'rename',
-		}
-	else
-		M._keys[#M._keys + 1] = {
-			'<leader>cr',
-			vim.lsp.buf.rename,
-			desc = 'Rename',
-			has = 'rename',
-		}
-	end
+
 	return M._keys
 end
 
----@param method string
+---@param method string|string[]
 function M.has(buffer, method)
+	if type(method) == 'table' then
+		for _, m in ipairs(method) do
+			if M.has(buffer, m) then
+				return true
+			end
+		end
+		return false
+	end
 	method = method:find('/') and method or 'textDocument/' .. method
 	local clients = LazyVim.lsp.get_clients({ bufnr = buffer })
 	for _, client in ipairs(clients) do
@@ -122,9 +95,8 @@ function M.on_attach(_, buffer)
 	for _, keys in pairs(keymaps) do
 		local has = not keys.has or M.has(buffer, keys.has)
 		local cond = not (
-			keys.cond == false or (
-				(type(keys.cond) == 'function') and not keys.cond()
-			)
+			keys.cond == false
+			or ((type(keys.cond) == 'function') and not keys.cond())
 		)
 
 		if has and cond then
@@ -136,6 +108,23 @@ function M.on_attach(_, buffer)
 			opts.silent = opts.silent ~= false
 			opts.buffer = buffer
 			vim.keymap.set(keys.mode or 'n', keys.lhs, keys.rhs, opts)
+		end
+	end
+end
+
+function M.on_detach(_, buffer)
+	local keymaps = M.resolve(buffer)
+	vim.notify('Detaching keymaps for buffer ' .. buffer, vim.log.levels.INFO)
+	for _, keys in pairs(keymaps) do
+		if not keys.has or M.has(buffer, keys.has) then
+			local opts = { buffer = buffer }
+			local ok = pcall(vim.keymap.del, keys.mode or 'n', keys.lhs, opts)
+			if not ok then
+				vim.notify(
+					'Failed to remove keymap: ' .. keys.lhs,
+					vim.log.levels.ERROR
+				)
+			end
 		end
 	end
 end

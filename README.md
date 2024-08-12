@@ -84,7 +84,6 @@ entire configuration has been rewritten to use [lazy.nvim] and Lua.
     * [Plugin: Diffview](#plugin-diffview)
     * [Plugin: Telescope](#plugin-telescope)
     * [Plugin: Neo-Tree](#plugin-neo-tree)
-    * [Plugin: Spectre](#plugin-spectre)
     * [Plugin: Marks](#plugin-marks)
     * [Plugin: Zk](#plugin-zk)
 
@@ -356,9 +355,6 @@ return {
 
     -- When enabled, 'q' closes any window
     vim.g.window_q_mapping = true
-
-    -- Display structure in statusline by default
-    vim.g.structure_status = false
     ```
 
 1. You can override LazyVim options. For example in `lua/plugins/core.lua`:
@@ -414,11 +410,7 @@ return {
 
 ### Extend: LSP Settings
 
-To override **LSP configurations**, you can either:
-
-1. Customize per project's `.neoconf.json`
-
-1. Or, override server options with [nvim-lspconfig] plugin, for example:
+Override server options with [nvim-lspconfig] plugin, for example:
 
    ```lua
    {
@@ -460,8 +452,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | Name           | Description
 | -------------- | ----------------------
 | [neovim/nvim-lspconfig] | Quickstart configurations for the Nvim LSP client
-| [folke/neoconf.nvim] | Manage global and project-local settings
-| [folke/neodev.nvim] | Neovim setup for init.lua and plugin development
 | [williamboman/mason.nvim] | Portable package manager for Neovim
 | [williamboman/mason-lspconfig.nvim] | Mason extension for easier lspconfig integration
 | [stevearc/conform.nvim] | Lightweight yet powerful formatter plugin
@@ -486,7 +476,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [hedyhli/outline.nvim] | Code outline sidebar powered by LSP
 | [s1n7ax/nvim-window-picker] | Fancy Window picker
 | [dnlhc/glance.nvim] | Pretty window for navigating LSP locations
-| [nvim-pack/nvim-spectre] | Find the enemy and replace them with dark power
+| [MagicDuck/grug-far.nvim] | Search/replace in multiple files
 
 ### Coding Plugins
 
@@ -507,6 +497,8 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [AndrewRadev/linediff.vim] | Perform diffs on blocks of code
 | [AndrewRadev/dsf.vim] | Delete surrounding function call
 | [echasnovski/mini.ai] | Extend and create `a`/`i` textobjects
+| [folke/lazydev.nvim] | Faster LuaLS setup
+| [Bilal2453/luvit-meta] | Manage libuv types with lazy
 
 ### Colorscheme Plugins
 
@@ -545,7 +537,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | -------------- | ----------------------
 | [nvim-treesitter/nvim-treesitter] | Nvim Treesitter configurations and abstraction layer
 | [nvim-treesitter/nvim-treesitter-textobjects] | Textobjects using treesitter queries
-| [nvim-treesitter/nvim-treesitter-context] | Show code context
 | [RRethy/nvim-treesitter-endwise] | Wisely add "end" in various filetypes
 | [windwp/nvim-ts-autotag] | Use treesitter to auto close and auto rename html tag
 | [andymass/vim-matchup] | Modern matchit and matchparen
@@ -559,12 +550,11 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 
 | Name           | Description
 | -------------- | ----------------------
-| [nvim-tree/nvim-web-devicons] | Lua fork of vim-devicons
+| [echasnovski/mini.icons] | Icon provider
 | [MunifTanjim/nui.nvim] | UI Component Library
 | [rcarriga/nvim-notify] | Fancy notification manager
 | [stevearc/dressing.nvim] | Improve the default vim-ui interfaces
 | [akinsho/bufferline.nvim] | Snazzy tab/bufferline
-| [echasnovski/mini.bufremove] | Helper for removing buffers
 | [folke/noice.nvim] | Replaces the UI for messages, cmdline and the popupmenu
 | [SmiteshP/nvim-navic] | Shows your current code context in winbar/statusline
 | [chentau/marks.nvim] | Interacting with and manipulating marks
@@ -576,8 +566,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [kevinhwang91/nvim-bqf] | Better quickfix window
 
 [neovim/nvim-lspconfig]: https://github.com/neovim/nvim-lspconfig
-[folke/neoconf.nvim]: https://github.com/folke/neoconf.nvim
-[folke/neodev.nvim]: https://github.com/folke/neodev.nvim
 [williamboman/mason.nvim]: https://github.com/williamboman/mason.nvim
 [williamboman/mason-lspconfig.nvim]: https://github.com/williamboman/mason-lspconfig.nvim
 [stevearc/conform.nvim]: https://github.com/stevearc/conform.nvim
@@ -597,7 +585,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [akinsho/toggleterm.nvim]: https://github.com/akinsho/toggleterm.nvim
 [s1n7ax/nvim-window-picker]: https://github.com/s1n7ax/nvim-window-picker
 [dnlhc/glance.nvim]: https://github.com/dnlhc/glance.nvim
-[nvim-pack/nvim-spectre]: https://github.com/nvim-pack/nvim-spectre
+[MagicDuck/grug-far.nvim]: https://github.com/MagicDuck/grug-far.nvim
 
 [hrsh7th/nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
 [hrsh7th/cmp-nvim-lsp]: https://github.com/hrsh7th/cmp-nvim-lsp
@@ -614,6 +602,8 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [AndrewRadev/linediff.vim]: https://github.com/AndrewRadev/linediff.vim
 [AndrewRadev/dsf.vim]: https://github.com/AndrewRadev/dsf.vim
 [echasnovski/mini.ai]: https://github.com/echasnovski/mini.ai
+[folke/lazydev.nvim]: https://github.com/folke/lazydev.nvim
+[Bilal2453/luvit-meta]: https://github.com/Bilal2453/luvit-meta
 
 [rafi/theme-loader.nvim]: https://github.com/rafi/theme-loader.nvim
 [rafi/neo-hybrid.vim]: https://github.com/rafi/neo-hybrid.vim
@@ -636,7 +626,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 
 [nvim-treesitter/nvim-treesitter]: https://github.com/nvim-treesitter/nvim-treesitter
 [nvim-treesitter/nvim-treesitter-textobjects]: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
-[nvim-treesitter/nvim-treesitter-context]: https://github.com/nvim-treesitter/nvim-treesitter-context
 [RRethy/nvim-treesitter-endwise]: https://github.com/RRethy/nvim-treesitter-endwise
 [windwp/nvim-ts-autotag]: https://github.com/windwp/nvim-ts-autotag
 [andymass/vim-matchup]: https://github.com/andymass/vim-matchup
@@ -646,12 +635,11 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [MTDL9/vim-log-highlighting]: https://github.com/MTDL9/vim-log-highlighting
 [reasonml-editor/vim-reason-plus]: https://github.com/reasonml-editor/vim-reason-plus
 
-[nvim-tree/nvim-web-devicons]: https://github.com/nvim-tree/nvim-web-devicons
+[echasnovski/mini.icons]: https://github.com/echasnovski/mini.icons
 [MunifTanjim/nui.nvim]: https://github.com/MunifTanjim/nui.nvim
 [rcarriga/nvim-notify]: https://github.com/rcarriga/nvim-notify
 [stevearc/dressing.nvim]: https://github.com/stevearc/dressing.nvim
 [akinsho/bufferline.nvim]: https://github.com/akinsho/bufferline.nvim
-[echasnovski/mini.bufremove]: https://github.com/echasnovski/mini.bufremove
 [folke/noice.nvim]: https://github.com/folke/noice.nvim
 [SmiteshP/nvim-navic]: https://github.com/SmiteshP/nvim-navic
 [chentau/marks.nvim]: https://github.com/chentau/marks.nvim
@@ -830,6 +818,7 @@ Spec: `rafi.plugins.extras.ui.<name>`
 | ----------------- | -------------- | ----------------------
 | `alpha`           | [goolord/alpha-nvim] | Fast and fully programmable greeter
 | `barbecue`        | [utilyre/barbecue.nvim] | VS Code like winbar
+| `bookmarks`        | [tomasky/bookmarks.nvim] | Bookmarks plugin with global file store
 | `ccc`             | [uga-rosa/ccc.nvim] | Super powerful color picker/colorizer plugin
 | `cursorword`      | [itchyny/cursorword] | Underlines word under cursor
 | `cybu`            | [ghillb/cybu.nvim] | Cycle buffers with a customizable notification window
@@ -838,6 +827,7 @@ Spec: `rafi.plugins.extras.ui.<name>`
 | `headlines`       | [lukas-reineke/headlines.nvim] | Adds horizontal highlights for headlines and code background.
 | `illuminate`      | [RRethy/vim-illuminate] | Highlights other uses of the word under the cursor
 | `incline`         | [b0o/incline.nvim] | Floating statuslines
+| `marks`         | [chentoast/marks.nvim] | Interacting with and manipulating marks
 | `mini-clue`       | [echasnovski/mini.clue] | Show next key clues
 | `mini-map`        | [echasnovski/mini.map] | Window with buffer text overview, scrollbar and highlights
 | `render-markdown` | [MeanderingProgrammer/markdown.nvim] | Improve viewing Markdown files
@@ -845,6 +835,7 @@ Spec: `rafi.plugins.extras.ui.<name>`
 
 [goolord/alpha-nvim]: https://github.com/goolord/alpha-nvim
 [utilyre/barbecue.nvim]: https://github.com/utilyre/barbecue.nvim
+[tomasky/bookmarks.nvim]: https://github.com/tomasky/bookmarks.nvim
 [uga-rosa/ccc.nvim]: https://github.com/uga-rosa/ccc.nvim
 [itchyny/cursorword]: https://github.com/itchyny/vim-cursorword
 [ghillb/cybu.nvim]: https://github.com/ghillb/cybu.nvim
@@ -853,6 +844,7 @@ Spec: `rafi.plugins.extras.ui.<name>`
 [lukas-reineke/headlines.nvim]: https://github.com/lukas-reineke/headlines.nvim
 [RRethy/vim-illuminate]: https://github.com/RRethy/vim-illuminate
 [b0o/incline.nvim]: https://github.com/b0o/incline.nvim
+[chentoast/marks.nvim]: https://github.com/chentoast/marks.nvim
 [echasnovski/mini.clue]: https://github.com/echasnovski/mini.clue
 [echasnovski/mini.map]: https://github.com/echasnovski/mini.map
 [MeanderingProgrammer/markdown.nvim]: https://github.com/MeanderingProgrammer/markdown.nvim
@@ -934,12 +926,12 @@ Note that,
 | ----- |:----:| ------------------ | ------
 | <kbd>Space</kbd>+<kbd>Space</kbd> | 𝐍 𝐕 | Toggle visual-line mode | <small>`V` / <kbd>Escape</kbd></small>
 | <kbd>v</kbd> / <kbd>V</kbd> | 𝐕 | Increment/shrink selection | <small>[nvim-treesitter]</small>
-| <kbd>vsp</kbd> | 𝐍 | Select last paste | <small>[plugins/lsp/keymaps.lua]</small>
-| <kbd>sg</kbd> | 𝐕 | Replace within selected area | <small>[plugins/lsp/keymaps.lua]</small>
-| <kbd>Ctrl</kbd>+<kbd>r</kbd> | 𝐕 | Replace selection with step-by-step confirmation | <small>[plugins/lsp/keymaps.lua]</small>
-| <kbd>></kbd> / <kbd><</kbd> | 𝐕 | Indent and re-select | <small>[plugins/lsp/keymaps.lua]</small>
-| <kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd> | 𝐕 | Indent and re-select | <small>[plugins/lsp/keymaps.lua]</small>
-| <kbd>I</kbd> / <kbd>gI</kbd> / <kbd>A</kbd> | 𝐕 | Force blockwise operation | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>vsp</kbd> | 𝐍 | Select last paste | <small>[config/keymaps.lua]</small>
+| <kbd>sg</kbd> | 𝐕 | Replace within selected area | <small>[config/keymaps.lua]</small>
+| <kbd>Ctrl</kbd>+<kbd>r</kbd> | 𝐕 | Replace selection with step-by-step confirmation | <small>[config/keymaps.lua]</small>
+| <kbd>></kbd> / <kbd><</kbd> | 𝐕 | Indent and re-select | <small>[config/keymaps.lua]</small>
+| <kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd> | 𝐕 | Indent and re-select | <small>[config/keymaps.lua]</small>
+| <kbd>I</kbd> / <kbd>gI</kbd> / <kbd>A</kbd> | 𝐕 | Force blockwise operation | <small>[config/keymaps.lua]</small>
 
 ### Jump To
 
@@ -948,9 +940,9 @@ Note that,
 | <kbd>],</kbd> or <kbd>[,</kbd> | 𝐍 | Next/previous parameter | <small>[akinsho/bufferline.nvim]</small>
 | <kbd>]q</kbd> or <kbd>[q</kbd> | 𝐍 | Next/previous on quick-fix | <small>`:cnext` / `:cprev`</small>
 | <kbd>]a</kbd> or <kbd>[a</kbd> | 𝐍 | Next/previous on location-list | <small>`:lnext` / `:lprev`</small>
-| <kbd>]d</kbd> or <kbd>[d</kbd> | 𝐍 | Next/previous diagnostics | <small>[plugins/lsp/keymaps.lua]</small>
-| <kbd>]e</kbd> or <kbd>[e</kbd> | 𝐍 | Next/previous error | <small>[plugins/lsp/keymaps.lua]</small>
-| <kbd>]w</kbd> or <kbd>[w</kbd> | 𝐍 | Next/previous warning | <small>[plugins/lsp/keymaps.lua]</small>
+| <kbd>]d</kbd> or <kbd>[d</kbd> | 𝐍 | Next/previous diagnostics | <small>[config/keymaps.lua]</small>
+| <kbd>]e</kbd> or <kbd>[e</kbd> | 𝐍 | Next/previous error | <small>[config/keymaps.lua]</small>
+| <kbd>]w</kbd> or <kbd>[w</kbd> | 𝐍 | Next/previous warning | <small>[config/keymaps.lua]</small>
 | <kbd>]b</kbd> or <kbd>[b</kbd> | 𝐍 | Next/previous buffer | <small>[akinsho/bufferline.nvim]</small>
 | <kbd>]f</kbd> or <kbd>[f</kbd> | 𝐍 | Next/previous function start | <small>[echasnovski/mini.ai]</small>
 | <kbd>]F</kbd> or <kbd>[F</kbd> | 𝐍 | Next/previous function end | <small>[echasnovski/mini.ai]</small>
@@ -967,8 +959,7 @@ Note that,
 
 | Key   | Mode | Action             | Plugin or Mapping
 | ----- |:----:| ------------------ | ------
-| <kbd>Space</kbd>+<kbd>bd</kbd> | 𝐍 | Delete buffer | <small>[echasnovski/mini.bufremove]</small>
-
+| <kbd>Space</kbd>+<kbd>bd</kbd> | 𝐍 | Delete buffer | <small>LazyVim.ui.bufremove</small>
 
 ### Clipboard
 
@@ -1015,7 +1006,6 @@ Note that,
 | <kbd>Space</kbd> <kbd>chi</kbd>  | 𝐍 | LSP incoming calls | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>cho</kbd>  | 𝐍 | LSP outgoing calls | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>ud</kbd>  | 𝐍 | Toggle buffer diagnostics | <small>[plugins/lsp/keymaps.lua]</small>
-| <kbd>Space</kbd> <kbd>uD</kbd>  | 𝐍 | Toggle global diagnostics | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>fwa</kbd> | 𝐍 | Add workspace folder | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>fwr</kbd> | 𝐍 | Remove workspace folder | <small>[plugins/lsp/keymaps.lua]</small>
 | <kbd>Space</kbd> <kbd>fwl</kbd> | 𝐍 | List workspace folders | <small>[plugins/lsp/keymaps.lua]</small>
@@ -1099,8 +1089,6 @@ Note that,
 | <kbd>Space</kbd> <kbd>us</kbd> | 𝐍 | Toggle spell-checker | <small>`:setlocal spell!`</small>
 | <kbd>Space</kbd> <kbd>ul</kbd> | 𝐍 | Toggle line numbers | <small>`:setlocal nonumber!`</small>
 | <kbd>Space</kbd> <kbd>uL</kbd> | 𝐍 | Toggle relative line numbers | <small>`:setlocal norelativenumber!`</small>
-| <kbd>Space</kbd> <kbd>uo</kbd> | 𝐍 | Toggle hidden characters | <small>`:setlocal nolist!`</small>
-| <kbd>Space</kbd> <kbd>uu</kbd> | 𝐍 | Toggle highlighted search | <small>`:set hlsearch!`</small>
 | <kbd>Space</kbd> <kbd>uw</kbd> | 𝐍 | Toggle wrap | <small>`:setlocal wrap!`</small> …
 | <kbd>Space</kbd> <kbd>ue</kbd> | 𝐍 | Toggle indentation lines | <small>[lukas-reineke/indent-blankline.nvim]</small>
 | <kbd>Space</kbd> <kbd>uh</kbd> | 𝐍 | Toggle inlay-hints | <small>[config/keymaps.lua]</small>
@@ -1211,11 +1199,11 @@ See [sindrets/diffview.nvim] for more mappings and usage information.
 | ----- |:----:| ------------------
 | <kbd>Space</kbd> <kbd>gd</kbd> | 𝐍 | Diff view file history
 | <kbd>Space</kbd> <kbd>gv</kbd> | 𝐍 | Diff view open
-| **Within _diffview_ "view" window** ||
+| **Within _diffview_ "view" window** | | &nbsp;
 | <kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd> | 𝐍 | Select next/previous entry
 | <kbd>;</kbd> <kbd>a</kbd>    | 𝐍 | Focus file
 | <kbd>;</kbd> <kbd>e</kbd>    | 𝐍 | Toggle files panel
-| **Within _diffview_ "file" panel** ||
+| **Within _diffview_ "file" panel** || &nbsp;
 | <kbd>q</kbd>                 | 𝐍 | Close
 | <kbd>h</kbd>                 | 𝐍 | Previous entry
 | <kbd>o</kbd>                 | 𝐍 | Focus entry
@@ -1224,7 +1212,7 @@ See [sindrets/diffview.nvim] for more mappings and usage information.
 | <kbd>st</kbd>                | 𝐍 | Open file in new tab
 | <kbd>Ctrl</kbd>+<kbd>r</kbd> | 𝐍 | Refresh files
 | <kbd>;</kbd> <kbd>e</kbd>    | 𝐍 | Toggle panel
-| **Within _diffview_ "history" panel** ||
+| **Within _diffview_ "history" panel** || &nbsp;
 | <kbd>q</kbd>                 | 𝐍 | Close diffview
 | <kbd>o</kbd>                 | 𝐍 | Focus entry
 | <kbd>O</kbd>                 | 𝐍 | Show options
@@ -1249,6 +1237,7 @@ See [telescope.nvim] for more mappings and usage information.
 | <kbd>;n</kbd> | 𝐍 | Plugins
 | <kbd>;k</kbd> | 𝐍 | Thesaurus
 | <kbd>;u</kbd> | 𝐍 | Spelling suggestions
+| <kbd>;s</kbd> | 𝐍 | Sessions
 | <kbd>;x</kbd> | 𝐍 | Old files
 | <kbd>;w</kbd> | 𝐍 | Zk notes
 | <kbd>;z</kbd> | 𝐍 | Zoxide directories
@@ -1279,7 +1268,7 @@ See [telescope.nvim] for more mappings and usage information.
 | <kbd>Space</kbd> <kbd>st</kbd> | 𝐍 | Todo list
 | <kbd>Space</kbd> <kbd>sT</kbd> | 𝐍 | Todo/Fix/Fixme list
 | <kbd>Space</kbd> <kbd>sw</kbd> | 𝐍 | Grep string
-| **Within _Telescope_ window** ||
+| **Within _Telescope_ window** || &nbsp;
 | <kbd>?</kbd> | 𝐍 | Keymaps help screen
 | <kbd>Ctrl</kbd>+<kbd>Space</kbd> | 𝐍 | Move from none fuzzy search to fuzzy
 | <kbd>jj</kbd> or <kbd>Escape</kbd> | 𝐈 | Leave Insert mode
@@ -1314,7 +1303,7 @@ See [nvim-neo-tree/neo-tree.nvim] for more mappings and usage information.
 | <kbd>be</kbd> | 𝐍 | Open Buffer explorer
 | <kbd>xe</kbd> | 𝐍 | Open Document explorer
 | <kbd>;a</kbd> | 𝐍 | Focus current file in file-explorer
-| **Within _Neo-Tree_ window** ||
+| **Within _Neo-Tree_ window** || &nbsp;
 | <kbd>g?</kbd> | 𝐍 | Show help
 | <kbd>q</kbd> | 𝐍 | Close window
 | <kbd>j</kbd> or <kbd>k</kbd> | 𝐍 | Move up and down the tree
@@ -1348,15 +1337,6 @@ See [nvim-neo-tree/neo-tree.nvim] for more mappings and usage information.
 | <kbd>e</kbd> | 𝐍 | Toggle auto-expand window width
 | <kbd>w</kbd> | 𝐍 | Toggle window width
 | <kbd>z</kbd> | 𝐍 | Collapse all nodes
-
-#### Plugin: Spectre
-
-See [nvim-pack/nvim-spectre] for more mappings and usage information.
-
-| Key   | Mode | Action
-| ----- |:----:| ------------------
-| <kbd>Space</kbd>+<kbd>sp</kbd> | 𝐍 | Open Spectre window (search & replace)
-| <kbd>Space</kbd>+<kbd>sp</kbd> | 𝐕 | Open Spectre with selection
 
 #### Plugin: Marks
 

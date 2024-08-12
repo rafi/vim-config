@@ -46,11 +46,21 @@ return {
 			-- Wisely add "end" in various filetypes
 			'RRethy/nvim-treesitter-endwise',
 		},
-		---@diagnostic disable-next-line: undefined-doc-name
+		opts_extend = { 'ensure_installed' },
 		---@type TSConfig
 		---@diagnostic disable: missing-fields
 		opts = {
-			highlight = { enable = true },
+			highlight = {
+				enable = true,
+				disable = function(_, buf)
+					local max_filesize = 100 * 1024 -- 100 KB
+					local ok, stats =
+						pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
+					if ok and stats and stats.size > max_filesize then
+						return true
+					end
+				end,
+			},
 			indent = { enable = true },
 			refactor = {
 				highlight_definitions = { enable = true },
@@ -129,56 +139,47 @@ return {
 				'cue',
 				'diff',
 				'dtd',
+				'editorconfig',
 				'fish',
-				'fennel',
 				'git_config',
 				'git_rebase',
+				'gitattributes',
 				'gitcommit',
 				'gitignore',
-				'gitattributes',
 				'graphql',
-				'hcl',
 				'html',
 				'http',
-				'java',
 				'javascript',
 				'jsdoc',
+				'json5',
 				'just',
-				'kotlin',
 				'lua',
 				'luadoc',
 				'luap',
 				'make',
 				'markdown',
 				'markdown_inline',
-				'nix',
-				'perl',
-				'php',
-				'promql',
-				'pug',
+				'printf',
+				'python',
+				'query',
 				'readline',
 				'regex',
-				'scala',
-				'query',
 				'scss',
 				'sql',
 				'ssh_config',
-				'starlark',
 				'svelte',
-				'todotxt',
 				'toml',
 				'vim',
 				'vimdoc',
-				'vue',
 				'xml',
+				'yaml',
 				'zig',
 			},
 		},
-		---@diagnostic disable-next-line: undefined-doc-name
 		---@param opts TSConfig
 		config = function(_, opts)
 			if type(opts.ensure_installed) == 'table' then
-				---@diagnostic disable-next-line: inject-field
+				---@diagnostic disable-next-line: param-type-mismatch
 				opts.ensure_installed = LazyVim.dedup(opts.ensure_installed)
 			end
 			require('nvim-treesitter.configs').setup(opts)
@@ -227,26 +228,6 @@ return {
 	{
 		'windwp/nvim-ts-autotag',
 		event = 'LazyFile',
-		opts = {
-			-- Removed markdown due to errors
-			filetypes = {
-				'astro',
-				'glimmer',
-				'handlebars',
-				'hbs',
-				'html',
-				'javascript',
-				'javascriptreact',
-				'jsx',
-				'php',
-				'rescript',
-				'svelte',
-				'tsx',
-				'typescript',
-				'typescriptreact',
-				'vue',
-				'xml',
-			},
-		},
+		opts = {},
 	},
 }

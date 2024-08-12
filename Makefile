@@ -16,6 +16,11 @@ create-dirs:
 	@mkdir -vp "$(XDG_DATA_HOME)"/nvim
 	@mkdir -vp "$(XDG_STATE_HOME)"/nvim/{sessions,shada,swap,undo}
 
+.PHONY: stash
+stash:
+	git checkout -- lazy-lock.json
+	git stash -a
+
 .PHONY: update-repo
 update-repo:
 	git pull --ff --ff-only
@@ -27,8 +32,8 @@ update-plugins:
 
 .PHONY: uninstall
 uninstall:
-	-rm -rf "$(XDG_DATA_HOME)"/nvim/{lazy,mason,theme.txt,rplugin.vim}
-	-rm -rf "$(XDG_STATE_HOME)"/nvim/{lazy,shada,swap,undo}
+	-rm -rf "$(XDG_DATA_HOME)"/nvim/{lazy,mason,rplugin.vim}
+	-rm -rf "$(XDG_STATE_HOME)"/nvim/{lazy,shada,swap,undo,theme.txt}
 	-rm -rf "$(XDG_CACHE_HOME)"/nvim/{luac,venv}
 
 .PHONY: venv

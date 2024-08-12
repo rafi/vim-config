@@ -16,6 +16,7 @@ return {
 				dashboard = true,
 				flash = true,
 				gitsigns = true,
+				grug_far = true,
 				headlines = true,
 				illuminate = true,
 				indent_blankline = { enabled = true },

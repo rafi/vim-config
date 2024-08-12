@@ -1,6 +1,17 @@
 -- rafi.plugins.extras.lang.python
 --
 
+LazyVim.on_very_lazy(function()
+	vim.filetype.add({
+		filename = {
+			['dev-requirements.txt'] = 'requirements',
+		},
+		pattern = {
+			['requirements-.*%.txt'] = 'requirements',
+		},
+	})
+end)
+
 return {
 	desc = 'Imports Python lang extras with more patterns and syntaxs.',
 	recommended = function()
@@ -21,22 +32,14 @@ return {
 
 	{
 		'nvim-treesitter/nvim-treesitter',
-		opts = function(_, opts)
-			if type(opts.ensure_installed) == 'table' then
-				vim.list_extend(
-					opts.ensure_installed,
-					{ 'ninja', 'python', 'pymanifest', 'requirements', 'rst', 'toml' }
-				)
-			end
-
-			vim.filetype.add({
-				filename = {
-					['dev-requirements.txt'] = 'requirements',
-				},
-				pattern = {
-					['requirements-.*%.txt'] = 'requirements',
-				},
-			})
-		end,
+		opts = {
+			ensure_installed = {
+				'ninja',
+				'python',
+				'pymanifest',
+				'requirements',
+				'rst',
+			},
+		},
 	},
 }

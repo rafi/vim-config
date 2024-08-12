@@ -8,6 +8,7 @@ return {
 	{
 		'hrsh7th/nvim-cmp',
 		event = 'InsertEnter',
+		main = 'lazyvim.util.cmp',
 		dependencies = {
 			-- nvim-cmp source for neovim builtin LSP client
 			'hrsh7th/cmp-nvim-lsp',
@@ -36,11 +37,18 @@ return {
 			)
 			local cmp = require('cmp')
 			local defaults = require('cmp.config.default')()
+			local auto_select = false
 			local Util = require('rafi.util')
 
 			return {
 				-- configure any filetype to auto add brackets
 				auto_brackets = { 'python' },
+				completion = {
+					completeopt = 'menu,menuone,noinsert'
+						.. (auto_select and '' or ',noselect'),
+				},
+				preselect = auto_select and cmp.PreselectMode.Item
+					or cmp.PreselectMode.None,
 				view = {
 					entries = { follow_cursor = true },
 				},
@@ -58,12 +66,15 @@ return {
 					{ name = 'emoji', insert = true, priority = 20 },
 				}),
 				mapping = cmp.mapping.preset.insert({
-					-- <CR> accepts currently selected item.
-					['<CR>'] = LazyVim.cmp.confirm(),
-					-- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+					['<CR>'] = LazyVim.cmp.confirm({ select = auto_select }),
+					['<C-y>'] = LazyVim.cmp.confirm({ select = true }),
 					['<S-CR>'] = LazyVim.cmp.confirm({
 						behavior = cmp.ConfirmBehavior.Replace,
 					}),
+					['<C-CR>'] = function(fallback)
+						cmp.abort()
+						fallback()
+					end,
 					['<C-Space>'] = cmp.mapping.complete(),
 					['<Tab>'] = Util.cmp.supertab({
 						behavior = require('cmp').SelectBehavior.Select,
@@ -73,12 +84,6 @@ return {
 					}),
 					['<C-j>'] = Util.cmp.snippet_jump_forward(),
 					['<C-k>'] = Util.cmp.snippet_jump_backward(),
-					['<C-n>'] = cmp.mapping.select_next_item({
-						behavior = cmp.SelectBehavior.Insert,
-					}),
-					['<C-p>'] = cmp.mapping.select_prev_item({
-						behavior = cmp.SelectBehavior.Insert,
-					}),
 					['<C-d>'] = cmp.mapping.select_next_item({ count = 5 }),
 					['<C-u>'] = cmp.mapping.select_prev_item({ count = 5 }),
 					['<C-f>'] = cmp.mapping.scroll_docs(4),
@@ -98,13 +103,23 @@ return {
 				formatting = {
 					format = function(entry, item)
 						-- Prepend with a fancy icon from config.
-						local icons = require('lazyvim.config').icons
+						local icons = LazyVim.config.icons
 						if entry.source.name == 'git' then
 							item.kind = icons.misc.git
 						else
 							local icon = icons.kinds[item.kind]
 							if icon ~= nil then
-								item.kind = icon .. ' ' .. item.kind
+								item.kind = icon .. item.kind
+							end
+						end
+						local widths = {
+							abbr = vim.g.cmp_widths and vim.g.cmp_widths.abbr or 40,
+							menu = vim.g.cmp_widths and vim.g.cmp_widths.menu or 30,
+						}
+
+						for key, width in pairs(widths) do
+							if item[key] and vim.fn.strdisplaywidth(item[key]) > width then
+								item[key] = vim.fn.strcharpart(item[key], 0, width - 1) .. '…'
 							end
 						end
 						return item
@@ -112,65 +127,35 @@ return {
 				},
 			}
 		end,
-		---@param opts cmp.ConfigSchema | {auto_brackets?: string[]}
-		config = function(_, opts)
-			for _, source in ipairs(opts.sources) do
-				source.group_index = source.group_index or 1
-			end
-
-			local parse = require('cmp.utils.snippet').parse
-			---@diagnostic disable-next-line: duplicate-set-field
-			require('cmp.utils.snippet').parse = function(input)
-				local ok, ret = pcall(parse, input)
-				if ok then
-					return ret
-				end
-				return LazyVim.cmp.snippet_preview(input)
-			end
-
-			local cmp = require('cmp')
-			cmp.setup(opts)
-			cmp.event:on('confirm_done', function(event)
-				if vim.tbl_contains(opts.auto_brackets or {}, vim.bo.filetype) then
-					LazyVim.cmp.auto_brackets(event.entry)
-				end
-			end)
-			cmp.event:on('menu_opened', function(event)
-				LazyVim.cmp.add_missing_snippet_docs(event.window)
-			end)
-		end,
 	},
 
 	-----------------------------------------------------------------------------
 	-- Native snippets
-	vim.fn.has('nvim-0.10') == 1
-			and {
-				'nvim-cmp',
-				dependencies = {
-					{
-						'garymjr/nvim-snippets',
-						opts = {
-							friendly_snippets = true,
-						},
-						dependencies = {
-							-- Preconfigured snippets for different languages
-							'rafamadriz/friendly-snippets',
-						},
-					},
+	{
+		'nvim-cmp',
+		dependencies = {
+			{
+				'garymjr/nvim-snippets',
+				opts = {
+					friendly_snippets = true,
 				},
-				opts = function(_, opts)
-					opts.snippet = {
-						expand = function(item)
-							return LazyVim.cmp.expand(item.body)
-						end,
-					}
-					table.insert(opts.sources, { name = 'snippets' })
+				dependencies = {
+					-- Preconfigured snippets for different languages
+					'rafamadriz/friendly-snippets',
+				},
+			},
+		},
+		opts = function(_, opts)
+			opts.snippet = {
+				expand = function(item)
+					return LazyVim.cmp.expand(item.body)
 				end,
 			}
-		or {
-			import = 'rafi.plugins.extras.coding.luasnip',
-			enabled = vim.fn.has('nvim-0.10') == 0,
-		},
+			if LazyVim.has('nvim-snippets') then
+				table.insert(opts.sources, { name = 'snippets' })
+			end
+		end,
+	},
 
 	-----------------------------------------------------------------------------
 	-- Powerful auto-pair plugin with multiple characters support
@@ -178,7 +163,7 @@ return {
 		'windwp/nvim-autopairs',
 		event = 'InsertEnter',
 		opts = {
-			disable_filetype = { 'TelescopePrompt', 'spectre_panel' },
+			disable_filetype = { 'TelescopePrompt', 'grug-far', 'spectre_panel' },
 		},
 		keys = {
 			{
@@ -243,12 +228,7 @@ return {
 	{
 		'folke/ts-comments.nvim',
 		event = 'VeryLazy',
-		enabled = vim.fn.has('nvim-0.10') == 1,
 		opts = {},
-	},
-	{
-		import = 'lazyvim.plugins.extras.coding.mini-comment',
-		enabled = vim.fn.has('nvim-0.10') == 0,
 	},
 
 	-----------------------------------------------------------------------------
@@ -329,9 +309,6 @@ return {
 		'echasnovski/mini.ai',
 		event = 'VeryLazy',
 		opts = function()
-			LazyVim.on_load('which-key.nvim', function()
-				vim.schedule(LazyVim.mini.ai_whichkey)
-			end)
 			local ai = require('mini.ai')
 			return {
 				n_lines = 500,
@@ -355,6 +332,37 @@ return {
 					U = ai.gen_spec.function_call({ name_pattern = '[%w_]' }), -- without dot in function name
 				},
 			}
+		end,
+		config = function(_, opts)
+			require('mini.ai').setup(opts)
+			LazyVim.on_load('which-key.nvim', function()
+				vim.schedule(function()
+					LazyVim.mini.ai_whichkey(opts)
+				end)
+			end)
+		end,
+	},
+
+	-----------------------------------------------------------------------------
+	{
+		'folke/lazydev.nvim',
+		ft = 'lua',
+		cmd = 'LazyDev',
+		opts = {
+			library = {
+				{ path = 'luvit-meta/library', words = { 'vim%.uv' } },
+				{ path = 'LazyVim', words = { 'LazyVim' } },
+				{ path = 'lazy.nvim', words = { 'LazyVim' } },
+			},
+		},
+	},
+	-- Manage libuv types with lazy. Plugin will never be loaded
+	{ 'Bilal2453/luvit-meta', lazy = true },
+	-- Add lazydev source to cmp
+	{
+		'hrsh7th/nvim-cmp',
+		opts = function(_, opts)
+			table.insert(opts.sources, { name = 'lazydev', group_index = 0 })
 		end,
 	},
 }

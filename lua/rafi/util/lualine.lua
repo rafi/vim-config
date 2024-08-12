@@ -16,6 +16,7 @@ local plugin_icons = {
 	['neo-tree-popup'] = { '󰋱', 'Neo-tree' },
 	Outline = { ' ' },
 	quickfix = { ' ', 'Quickfix List' }, -- 󰎟 
+	['grug-far'] = { '󰥩 ', 'Grug FAR' },
 	spectre_panel = { '󰥩 ', 'Spectre' },
 	TelescopePrompt = { '󰋱', 'Telescope' },
 	terminal = { ' ' },

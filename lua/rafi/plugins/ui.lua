@@ -4,8 +4,27 @@
 return {
 
 	-----------------------------------------------------------------------------
-	-- Lua fork of vim-devicons
-	{ 'nvim-tree/nvim-web-devicons', lazy = false },
+	-- Icon provider
+	{
+		'echasnovski/mini.icons',
+		lazy = true,
+		opts = {
+			file = {
+				['.keep'] = { glyph = '󰊢', hl = 'MiniIconsGrey' },
+				['devcontainer.json'] = { glyph = '', hl = 'MiniIconsAzure' },
+			},
+			filetype = {
+				dotenv = { glyph = '', hl = 'MiniIconsYellow' },
+			},
+		},
+		init = function()
+			---@diagnostic disable-next-line: duplicate-set-field
+			package.preload['nvim-web-devicons'] = function()
+				require('mini.icons').mock_nvim_web_devicons()
+				return package.loaded['nvim-web-devicons']
+			end
+		end,
+	},
 
 	-----------------------------------------------------------------------------
 	-- UI Component Library
@@ -49,24 +68,6 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
-	-- Improve the default vim-ui interfaces
-	{
-		'stevearc/dressing.nvim',
-		init = function()
-			---@diagnostic disable-next-line: duplicate-set-field
-			vim.ui.select = function(...)
-				require('lazy').load({ plugins = { 'dressing.nvim' } })
-				return vim.ui.select(...)
-			end
-			---@diagnostic disable-next-line: duplicate-set-field
-			vim.ui.input = function(...)
-				require('lazy').load({ plugins = { 'dressing.nvim' } })
-				return vim.ui.input(...)
-			end
-		end,
-	},
-
-	-----------------------------------------------------------------------------
 	-- Snazzy tab/bufferline
 	{
 		'akinsho/bufferline.nvim',
@@ -80,6 +81,8 @@ return {
 			{ '<leader>br', '<Cmd>BufferLineCloseRight<CR>', desc = 'Delete Buffers to the Right' },
 			{ '<leader>bl', '<Cmd>BufferLineCloseLeft<CR>', desc = 'Delete Buffers to the Left' },
 			{ '<leader>tp', '<Cmd>BufferLinePick<CR>', desc = 'Tab Pick' },
+			{ '[B', '<cmd>BufferLineMovePrev<cr>', desc = 'Move buffer prev' },
+			{ ']B', '<cmd>BufferLineMoveNext<cr>', desc = 'Move buffer next' },
 		},
 		opts = {
 			options = {
@@ -101,7 +104,7 @@ return {
 					LazyVim.ui.bufremove(n)
 				end,
 				diagnostics_indicator = function(_, _, diag)
-					local icons = require('lazyvim.config').icons.diagnostics
+					local icons = LazyVim.config.icons.diagnostics
 					local ret = (diag.error and icons.Error .. diag.error .. ' ' or '')
 						.. (diag.warning and icons.Warn .. diag.warning or '')
 					return vim.trim(ret)
@@ -129,6 +132,10 @@ return {
 						text_align = 'center',
 					},
 				},
+				---@param opts bufferline.IconFetcherOpts
+				get_element_icon = function(opts)
+					return LazyVim.config.icons.ft[opts.filetype]
+				end,
 			},
 		},
 		config = function(_, opts)
@@ -146,17 +153,6 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
-	-- Helper for removing buffers
-	{
-		'echasnovski/mini.bufremove',
-		opts = {},
-		-- stylua: ignore
-		keys = {
-			{ '<leader>bd', function() require('mini.bufremove').delete(0, false) end, desc = 'Delete Buffer', },
-		},
-	},
-
-	-----------------------------------------------------------------------------
 	-- Replaces the UI for messages, cmdline and the popupmenu
 	{
 		'folke/noice.nvim',
@@ -164,11 +160,12 @@ return {
 		enabled = not vim.g.started_by_firenvim,
 		-- stylua: ignore
 		keys = {
+			{ '<leader>sn', '', desc = '+noice' },
 			{ '<S-Enter>', function() require('noice').redirect(tostring(vim.fn.getcmdline())) end, mode = 'c', desc = 'Redirect Cmdline' },
 			{ '<leader>snl', function() require('noice').cmd('last') end, desc = 'Noice Last Message' },
 			{ '<leader>snh', function() require('noice').cmd('history') end, desc = 'Noice History' },
 			{ '<leader>sna', function() require('noice').cmd('all') end, desc = 'Noice All' },
-			{ '<leader>snt', function() require('noice').cmd('telescope') end, desc = 'Noice Telescope' },
+			{ '<leader>snt', function() require('noice').cmd('pick') end, desc = 'Noice Picker (Telescope/FzfLua)' },
 			{ '<C-f>', function() if not require('noice.lsp').scroll(4) then return '<C-f>' end end, silent = true, expr = true, desc = 'Scroll Forward', mode = {'i', 'n', 's'} },
 			{ '<C-b>', function() if not require('noice.lsp').scroll(-4) then return '<C-b>' end end, silent = true, expr = true, desc = 'Scroll Backward', mode = {'i', 'n', 's'}},
 		},
@@ -229,68 +226,21 @@ return {
 				},
 			},
 			presets = {
+				bottom_search = true,
 				command_palette = true,
 				long_message_to_split = true,
 				lsp_doc_border = true,
-				-- inc_rename = true,
 			},
 		},
-	},
-
-	-----------------------------------------------------------------------------
-	-- Shows your current code context in winbar/statusline
-	{
-		'SmiteshP/nvim-navic',
-		keys = {
-			{
-				'<Leader>uB',
-				function()
-					if vim.b.navic_winbar then
-						vim.b['navic_winbar'] = false
-						vim.opt_local.winbar = ''
-					else
-						vim.b['navic_winbar'] = true
-						vim.opt_local.winbar = '%#NavicIconsFile# %t %* '
-							.. "%{%v:lua.require'nvim-navic'.get_location()%}"
-					end
-				end,
-				desc = 'Breadcrumbs toggle',
-			},
-		},
-		init = function()
-			vim.g.navic_silence = true
-			LazyVim.lsp.on_attach(function(client, buffer)
-				if client.supports_method('textDocument/documentSymbol') then
-					require('nvim-navic').attach(client, buffer)
-				end
-			end)
+		config = function(_, opts)
+			-- HACK: noice shows messages from before it was enabled,
+			-- but this is not ideal when Lazy is installing plugins,
+			-- so clear the messages in this case.
+			if vim.o.filetype == 'lazy' then
+				vim.cmd([[messages clear]])
+			end
+			require('noice').setup(opts)
 		end,
-		opts = function()
-			return {
-				separator = '  ',
-				highlight = true,
-				depth_limit = 5,
-				icons = require('lazyvim.config').icons.kinds,
-				lazy_update_context = true,
-			}
-		end,
-	},
-
-	-----------------------------------------------------------------------------
-	-- Interacting with and manipulating marks
-	{
-		'chentoast/marks.nvim',
-		event = 'FileType',
-		keys = {
-			{ 'm/', '<cmd>MarksListAll<CR>', desc = 'Marks from all opened buffers' },
-		},
-		opts = {
-			sign_priority = { lower = 10, upper = 15, builtin = 8, bookmark = 20 },
-			bookmark_1 = { sign = '󰈼' }, -- ⚐ ⚑ 󰈻 󰈼 󰈽 󰈾 󰈿 󰉀
-			mappings = {
-				annotate = 'm<Space>',
-			},
-		},
 	},
 
 	-----------------------------------------------------------------------------
@@ -299,40 +249,49 @@ return {
 		'lukas-reineke/indent-blankline.nvim',
 		main = 'ibl',
 		event = 'LazyFile',
-		keys = {
-			{ '<Leader>ue', '<cmd>IBLToggle<CR>', desc = 'Toggle indent-lines' },
-		},
-		opts = {
-			indent = {
-				-- See more characters at :h ibl.config.indent.char
-				char = '│', -- ▏│
-				tab_char = '│',
-			},
-			scope = { enabled = false },
-			exclude = {
-				filetypes = {
-					'alpha',
-					'checkhealth',
-					'dashboard',
-					'git',
-					'gitcommit',
-					'help',
-					'lazy',
-					'lazyterm',
-					'lspinfo',
-					'man',
-					'mason',
-					'neo-tree',
-					'notify',
-					'Outline',
-					'TelescopePrompt',
-					'TelescopeResults',
-					'terminal',
-					'toggleterm',
-					'Trouble',
+		opts = function()
+			LazyVim.toggle.map('<leader>ue', {
+				name = 'Indention Guides',
+				get = function()
+					return require('ibl.config').get_config(0).enabled
+				end,
+				set = function(state)
+					require('ibl').setup_buffer(0, { enabled = state })
+				end,
+			})
+
+			return {
+				indent = {
+					-- See more characters at :h ibl.config.indent.char
+					char = '│', -- ▏│
+					tab_char = '│',
 				},
-			},
-		},
+				scope = { show_start = false, show_end = false },
+				exclude = {
+					filetypes = {
+						'alpha',
+						'checkhealth',
+						'dashboard',
+						'git',
+						'gitcommit',
+						'help',
+						'lazy',
+						'lazyterm',
+						'lspinfo',
+						'man',
+						'mason',
+						'neo-tree',
+						'notify',
+						'Outline',
+						'TelescopePrompt',
+						'TelescopeResults',
+						'terminal',
+						'toggleterm',
+						'Trouble',
+					},
+				},
+			}
+		end,
 	},
 
 	-----------------------------------------------------------------------------
@@ -353,6 +312,7 @@ return {
 				pattern = {
 					'alpha',
 					'dashboard',
+					'fzf',
 					'help',
 					'lazy',
 					'lazyterm',
@@ -363,6 +323,7 @@ return {
 					'Outline',
 					'toggleterm',
 					'Trouble',
+					'trouble',
 				},
 				callback = function()
 					vim.b['miniindentscope_disable'] = true
@@ -376,42 +337,82 @@ return {
 	{
 		'folke/which-key.nvim',
 		event = 'VeryLazy',
+		cmd = 'WhichKey',
+		keys = {
+			{
+				'<leader>bk',
+				function()
+					require('which-key').show({ global = false })
+				end,
+				desc = 'Buffer Keymaps (which-key)',
+			},
+			{
+				'<C-w><Space>',
+				function()
+					require('which-key').show({ keys = '<c-w>', loop = true })
+				end,
+				desc = 'Window Hydra Mode (which-key)',
+			},
+		},
+		opts_extend = { 'spec' },
 		-- stylua: ignore
 		opts = {
+			defaults = {},
 			icons = {
-				separator = ' 󰁔 ',
+				breadcrumb = '»',
+				separator = '󰁔  ', -- ➜
 			},
-			defaults = {
-				mode = { 'n', 'v' },
-				[';'] = { name = '+telescope' },
-				[';d'] = { name = '+lsp' },
-				['g'] = { name = '+goto' },
-				['gz'] = { name = '+surround' },
-				[']'] = { name = '+next' },
-				['['] = { name = '+prev' },
+			delay = function(ctx)
+				return ctx.plugin and 0 or 400
+			end,
+			spec = {
+				{
+					mode = { 'n', 'v' },
+					{ '[', group = 'prev' },
+					{ ']', group = 'next' },
+					{ 'g', group = 'goto' },
+					{ 'gz', group = 'surround' },
+					{ 'z', group = 'fold' },
+					{ ';', group = '+telescope' },
+					{ ';d', group = '+lsp' },
+					{
+						'<leader>b',
+						group = 'buffer',
+						expand = function()
+							return require('which-key.extras').expand.buf()
+						end,
+					},
+					{ '<leader>c', group = 'code' },
+					{ '<leader>ch', group = 'calls' },
+					{ '<leader>f', group = 'file/find' },
+					{ '<leader>fw', group = 'workspace' },
+					{ '<leader>g', group = 'git' },
+					{ '<leader>h', group = 'hunks', icon = { icon = ' ', color = 'red' } },
+					{ '<leader>ht', group = 'toggle' },
+					{ '<leader>m', group = 'tools' },
+					{ '<leader>md', group = 'diff' },
+					{ '<leader>q', group = 'quit/session' },
+					{ '<leader>s', group = 'search' },
+					{ '<leader>sn', group = 'noice' },
+					{ '<leader>t', group = 'toggle/tools' },
+					{ '<leader>u', group = 'ui', icon = { icon = '󰙵 ', color = 'cyan' } },
+					{ '<leader>x', group = 'diagnostics/quickfix', icon = { icon = '󱖫 ', color = 'green' } },
+					{ '<leader>z', group = 'notes' },
 
-				['<leader>b']  = { name = '+buffer' },
-				['<leader>c']  = { name = '+code' },
-				['<leader>ch'] = { name = '+calls' },
-				['<leader>f']  = { name = '+file/find' },
-				['<leader>fw'] = { name = '+workspace' },
-				['<leader>g']  = { name = '+git' },
-				['<leader>h']  = { name = '+hunks' },
-				['<leader>ht'] = { name = '+toggle' },
-				['<leader>m']  = { name = '+tools' },
-				['<leader>md'] = { name = '+diff' },
-				['<leader>s']  = { name = '+search' },
-				['<leader>sn'] = { name = '+noice' },
-				['<leader>t']  = { name = '+toggle/tools' },
-				['<leader>u']  = { name = '+ui' },
-				['<leader>x']  = { name = '+diagnostics/quickfix' },
-				['<leader>z']  = { name = '+notes' },
+					-- Better descriptions
+					{ 'gx', desc = 'Open with system app' },
+				},
 			},
 		},
 		config = function(_, opts)
 			local wk = require('which-key')
 			wk.setup(opts)
-			wk.register(opts.defaults)
+			if not vim.tbl_isempty(opts.defaults) then
+				LazyVim.warn(
+					'which-key: opts.defaults is deprecated. Please use opts.spec instead.'
+				)
+				wk.register(opts.defaults)
+			end
 		end,
 	},
 
@@ -427,13 +428,9 @@ return {
 	-- Highlight words quickly
 	{
 		't9md/vim-quickhl',
+		-- stylua: ignore
 		keys = {
-			{
-				'<Leader>mt',
-				'<Plug>(quickhl-manual-this)',
-				mode = { 'n', 'x' },
-				desc = 'Highlight word',
-			},
+			{ '<Leader>mt', '<Plug>(quickhl-manual-this)', mode = { 'n', 'x' }, desc = 'Highlight word' },
 		},
 	},
 

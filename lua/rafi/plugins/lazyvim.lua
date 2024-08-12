@@ -31,6 +31,9 @@ return {
 					dots = '󰇘',
 					git = ' ',
 				},
+				ft = {
+					octo = '',
+				},
 				dap = {
 					Stopped             = { '󰁕 ', 'DiagnosticWarn', 'DapStoppedLine' },
 					Breakpoint          = ' ',
