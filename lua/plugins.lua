@@ -1,22 +1,19 @@
 return {
 
 	-- Enable GitHub's Copilot
-	{ import = "rafi.plugins.extras.coding.copilot" },
-
-	-- Enable yaml-companion
-	{ import = "rafi.plugins.extras.lsp.yaml-companion" },
+  { import = 'lazyvim.plugins.extras.coding.copilot' },
 
 	-- Enable yaml plugins
-	{ import = "rafi.plugins.extras.lang.yaml" },
+	{ import = "lazyvim.plugins.extras.lang.yaml" },
 
 	-- Enable go plugins
-	{ import = "rafi.plugins.extras.lang.go" },
+	{ import = "lazyvim.plugins.extras.lang.go" },
 
 	-- Enable docker plugins
-	{ import = "rafi.plugins.extras.lang.docker" },
+	{ import = "lazyvim.plugins.extras.lang.docker" },
 
 	-- Enable python plugins
-	{ import = "rafi.plugins.extras.lang.python" },
+	{ import = "lazyvim.plugins.extras.lang.python" },
 
 	-- Accerelated-jk plugin
 	{

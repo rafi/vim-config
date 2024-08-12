@@ -1,7 +1,23 @@
 {
   "extras": [
-    "lazyvim.plugins.extras.lang.markdown",
-    "rafi.plugins.extras.coding.copilot"
+    "lazyvim.plugins.extras.coding.copilot",
+    "lazyvim.plugins.extras.dap.core",
+    "lazyvim.plugins.extras.dap.nlua",
+    "lazyvim.plugins.extras.lang.docker",
+    "lazyvim.plugins.extras.lang.json",
+    "lazyvim.plugins.extras.lang.typescript",
+    "lazyvim.plugins.extras.lang.yaml",
+    "lazyvim.plugins.extras.test.core",
+    "rafi.plugins.extras.coding.align",
+    "rafi.plugins.extras.editor.harpoon2",
+    "rafi.plugins.extras.git.cmp-git",
+    "rafi.plugins.extras.lang.ansible",
+    "rafi.plugins.extras.lang.go",
+    "rafi.plugins.extras.lang.helm",
+    "rafi.plugins.extras.lang.markdown",
+    "rafi.plugins.extras.lang.python",
+    "rafi.plugins.extras.lang.tmux",
+    "rafi.plugins.extras.ui.deadcolumn"
   ],
   "news": [
 
