@@ -758,12 +758,13 @@ Spec: `rafi.plugins.extras.lang.<name>`
 | `ansible`        | imports `lazyvim.plugins.extras.lang.ansible`, add syntax and [pearofducks/ansible-vim] |
 | `go`             | imports `lazyvim.plugins.extras.lang.go`, add tools, patterns, etc. |
 | `helm`           | imports `lazyvim.plugins.extras.lang.helm`, add filetype patterns |
-| `kubernetes`     | imports `lazyvim.plugins.extras.lang.yaml`, add filetype patterns |
+| `kubernetes`     | imports `lazyvim.plugins.extras.lang.yaml`, add filetype patterns and [ramilito/kubectl.nvim] |
 | `markdown`       | imports `lazyvim.plugins.extras.lang.markdown`, disable headlines, add [mzlogin/vim-markdown-toc] |
 | `python`         | imports `lazyvim.plugins.extras.lang.python`, add syntax and filetype patterns |
 | `tmux`           | syntax, completion [andersevenrud/cmp-tmux], keymaps [christoomey/tmux-navigator] |
 
 [pearofducks/ansible-vim]: https://github.com/pearofducks/ansible-vim
+[ramilito/kubectl.nvim]: https://github.com/ramilito/kubectl.nvim
 [mzlogin/vim-markdown-toc]: https://github.com/mzlogin/vim-markdown-toc
 [andersevenrud/cmp-tmux]: https://github.com/andersevenrud/cmp-tmux
 [christoomey/tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator

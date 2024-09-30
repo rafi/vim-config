@@ -10,6 +10,16 @@ return {
 	{ import = 'lazyvim.plugins.extras.lang.yaml' },
 
 	{
+		'ramilito/kubectl.nvim',
+		cmd = { 'Kubectl', 'Kubectx', 'Kubens' },
+		-- stylua: ignore
+		keys = {
+			{ '<leader>8', function() vim.cmd[[tabnew]]; require('kubectl').open() end, desc = 'Kubectl' },
+		},
+		opts = {},
+	},
+
+	{
 		'neovim/nvim-lspconfig',
 		opts = {
 			servers = {
