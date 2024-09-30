@@ -43,8 +43,7 @@ vim.keymap.set('n', 'O', 'h?|\\S\\+|<CR>:nohlsearch<CR>', opts)
 vim.keymap.set('n', 'p', '/\\*\\S\\+\\*<CR>:nohlsearch<CR>', opts)
 vim.keymap.set('n', 'P', 'h?\\*\\S\\+\\*<CR>:nohlsearch<CR>', opts)
 
-vim.b.undo_ftplugin = (vim.b.undo_ftplugin or '')
-	.. (vim.b.undo_ftplugin ~= nil and ' | ' or '')
+vim.b.undo_ftplugin = (vim.b.undo_ftplugin or '') .. '\n '
 	.. 'setlocal spell< list<'
 	.. ' | sil! nunmap <buffer> <CR>'
 	.. ' | sil! nunmap <buffer> <BS>'

@@ -7,7 +7,6 @@ vim.keymap.set('n', '<Leader>o', function()
 	require('man').show_toc()
 end, opts)
 
-vim.b.undo_ftplugin = (vim.b.undo_ftplugin or '')
-	.. (vim.b.undo_ftplugin ~= nil and ' | ' or '')
+vim.b.undo_ftplugin = (vim.b.undo_ftplugin or '') .. '\n '
 	.. 'sil! nunmap <buffer> <Leader>o'
 	.. ' | sil! nunmap <buffer> q'

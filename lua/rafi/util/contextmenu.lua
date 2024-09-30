@@ -42,38 +42,37 @@ M.show = function()
 	if cword == '' then
 		-- Cursor is on blank character.
 		vim.cmd([[
-			nmenu PopUp.Select\ All  ggVG
-			nmenu PopUp.-1-          <Nop>
+			nmenu     PopUp.Select\ All  ggVG
+			nnoremenu PopUp.-1-          <Nop>
 		]])
 	else
 		-- Add LSP methods, only if one of the servers support it.
-		if supports_method('textDocument/declaration', clients) then
-			vim.cmd('nmenu PopUp.Declaration <cmd>lua vim.lsp.buf.declaration()<CR>')
-		end
 		if supports_method('textDocument/definition', clients) then
-			vim.cmd('nmenu PopUp.&Definition <cmd>lua vim.lsp.buf.definition()<CR>')
+			vim.cmd(
+				'nnoremenu PopUp.Go\\ to\\ &definition <cmd>lua vim.lsp.buf.definition()<CR>'
+			)
 		end
 
 		if supports_method('textDocument/references', clients) then
 			vim.cmd(
-				'nmenu PopUp.&References… <cmd>lua vim.lsp.buf.references()<CR>'
+				'nnoremenu PopUp.Go\\ to\\ &references… <cmd>lua vim.lsp.buf.references()<CR>'
 			)
 		end
 		if supports_method('textDocument/implementation', clients) then
 			vim.cmd(
-				'nmenu PopUp.Implementation <cmd>lua vim.lsp.buf.implementation()<CR>'
+				'nnoremenu PopUp.Implementation <cmd>lua vim.lsp.buf.implementation()<CR>'
 			)
 		end
 
 		if #clients > 0 then
 			vim.cmd([[
-				nmenu PopUp.-1-            <Nop>
-				nmenu PopUp.Find\ symbol…  <cmd>lua vim.schedule(function() require'telescope.builtin'.lsp_workspace_symbols({default_text = vim.fn.expand('<cword>')}) end)<CR>
+				nnoremenu PopUp.-1-            <Nop>
+				nmenu PopUp.Find\ symbol…  <cmd>lua require'telescope.builtin'.lsp_workspace_symbols({default_text = vim.fn.expand('<cword>')})<CR>
 			]])
 		end
 
 		vim.cmd([[
-			nmenu PopUp.Grep… <cmd>lua vim.schedule(function() require'telescope.builtin'.live_grep({default_text = vim.fn.expand('<cword>')}) end)<CR>
+			nmenu PopUp.Grep… <cmd>lua require'telescope.builtin'.live_grep({default_text = vim.fn.expand('<cword>')})<CR>
 			nmenu PopUp.-2-   <Nop>
 		]])
 	end

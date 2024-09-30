@@ -235,7 +235,7 @@ map('n', '#', 'g#')
 map('n', 'g#', '#')
 
 -- Clear search with <Esc>
-map('n', '<Esc>', '<cmd>noh<CR>', { desc = 'Escape and Clear hlsearch' })
+map('n', '<Esc>', '<cmd>noh<CR>', { desc = 'Clear hlsearch' })
 
 -- Use backspace key for matching pairs
 map({ 'n', 'x' }, '<BS>', '%', { remap = true, desc = 'Jump to Paren' })

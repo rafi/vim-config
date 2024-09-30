@@ -49,7 +49,6 @@ local opts = { noremap = true, buffer = 0 }
 vim.keymap.set('n', '<C-Return>', link_surround, opts)
 vim.keymap.set('x', '<C-Return>', link_surround, opts)
 
-vim.b.undo_ftplugin = (vim.b.undo_ftplugin or '')
-	.. (vim.b.undo_ftplugin ~= nil and ' | ' or '')
+vim.b.undo_ftplugin = (vim.b.undo_ftplugin or '') .. '\n '
 	.. 'sil! nunmap <buffer> <C-Return>'
 	.. ' | sil! xunmap <buffer> <C-Return>'
