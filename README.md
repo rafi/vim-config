@@ -270,7 +270,7 @@ recommended starting point:
 ```json
 {
   "extras": [
-    "lazyvim.plugins.extras.coding.copilot",
+    "lazyvim.plugins.extras.ai.copilot",
     "lazyvim.plugins.extras.dap.core",
     "lazyvim.plugins.extras.dap.nlua",
     "lazyvim.plugins.extras.lang.docker",
@@ -313,14 +313,14 @@ return {
   -- { 'liuchengxu/eleline.vim' },
 
   -- Enable GitHub's Copilot
-  { import = 'lazyvim.plugins.extras.coding.copilot' },
+  { import = 'lazyvim.plugins.extras.ai.copilot' },
 
   -- Enable incline, displaying filenames on each window
   { import = 'rafi.plugins.extras.ui.incline' },
 
   -- Disable built-in plugins
   { 'shadmansaleh/lualine.nvim', enabled = false },
-  { 'limorris/persisted.nvim', enabled = false },
+  { 'folke/persistence.nvim', enabled = false },
 
   -- Change built-in plugins' options
   {
@@ -357,7 +357,7 @@ return {
     vim.g.window_q_mapping = true
     ```
 
-1. You can override LazyVim options. For example in `lua/plugins/core.lua`:
+1. You can override LazyVim options. For example in `lua/plugins/lazyvim.lua`:
 
     ```lua
     return {
@@ -952,7 +952,7 @@ Note that,
 
 | Key   | Mode | Action             | Plugin or Mapping |
 | ----- |:----:| ------------------ | ------ |
-| <kbd>Space</kbd>+<kbd>bd</kbd> | 𝐍 | Delete buffer | <small>LazyVim.ui.bufremove</small> |
+| <kbd>Space</kbd>+<kbd>bd</kbd> | 𝐍 | Delete buffer | <small>[folke/snacks.nvim]</small> |
 
 ### Clipboard
 
@@ -1077,7 +1077,7 @@ Note that,
 
 | Key   | Mode | Action             | Plugin or Mapping |
 | ----- |:----:| ------------------ | ------ |
-| <kbd>Space</kbd> <kbd>ub</kbd> | 𝐍 | Toggle structure scope in winbar | <small>[SmiteshP/nvim-navic]</small> |
+| <kbd>Space</kbd> <kbd>ub</kbd> | 𝐍 | Toggle background dark/light | <small>[folke/snacks.nvim]</small> |
 | <kbd>Space</kbd> <kbd>uf</kbd> | 𝐍 | Toggle format on Save | <small>[config/keymaps.lua]</small> |
 | <kbd>Space</kbd> <kbd>us</kbd> | 𝐍 | Toggle spell-checker | <small>`:setlocal spell!`</small> |
 | <kbd>Space</kbd> <kbd>ul</kbd> | 𝐍 | Toggle line numbers | <small>`:setlocal nonumber!`</small> |
@@ -1117,7 +1117,7 @@ Note that,
 | <kbd>;</kbd>+<kbd>c</kbd> | 𝐍 | Open context-menu | <small>[lua/rafi/util/contextmenu.lua]</small> |
 | <kbd>g</kbd><kbd>Ctrl</kbd>+<kbd>o</kbd> | 𝐍 | Navigate to previous file on jumplist | <small>[util/edit.lua]</small> |
 | <kbd>g</kbd><kbd>Ctrl</kbd>+<kbd>i</kbd> | 𝐍 | Navigate to next file on jumplist | <small>[util/edit.lua]</small> |
-| <kbd>Ctrl</kbd>+<kbd>/</kbd> | 𝐍 | Toggle terminal | <small>snacks/nvim</small> |
+| <kbd>Ctrl</kbd>+<kbd>/</kbd> | 𝐍 | Toggle terminal | <small>[folke/snacks.nvim]</small> |
 | <kbd>Space</kbd> <kbd>l</kbd> | 𝐍 | Open Lazy | <small>[folke/lazy.nvim]</small> |
 | <kbd>Space</kbd> <kbd>o</kbd> | 𝐍 | Open Outline side | <small>[hedyhli/outline.nvim]</small> |
 | <kbd>Space</kbd> <kbd>?</kbd> | 𝐍 | Open the macOS dictionary on current word | <small>`:!open dict://`</small> |
