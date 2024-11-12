@@ -35,8 +35,7 @@ return {
 
 					vim.opt_local.iskeyword:append('-')
 
-					vim.b.undo_ftplugin = (vim.b.undo_ftplugin or '')
-						.. (vim.b.undo_ftplugin ~= nil and ' | ' or '')
+					vim.b.undo_ftplugin = (vim.b.undo_ftplugin or '') .. '\n '
 						.. 'setlocal iskeyword<'
 						.. '| sil! nunmap <buffer> gK'
 

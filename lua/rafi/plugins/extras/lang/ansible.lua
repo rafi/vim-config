@@ -44,8 +44,7 @@ return {
 				callback = function()
 					-- Add '.' to iskeyword for ansible modules, e.g. ansible.builtin.copy
 					vim.opt_local.iskeyword:append('.')
-					vim.b.undo_ftplugin = (vim.b.undo_ftplugin or '')
-						.. (vim.b.undo_ftplugin ~= nil and ' | ' or '')
+					vim.b.undo_ftplugin = (vim.b.undo_ftplugin or '') .. '\n '
 						.. 'setlocal iskeyword<'
 
 					if vim.fn.executable('ansible-doc') then

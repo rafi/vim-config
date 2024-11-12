@@ -254,15 +254,6 @@ return {
 
 			-- Find by...
 			{
-				'<leader>gt',
-				function()
-					require('telescope.builtin').lsp_workspace_symbols({
-						default_text = vim.fn.expand('<cword>'),
-					})
-				end,
-				desc = 'Find Symbol',
-			},
-			{
 				'<leader>gf',
 				function()
 					require('telescope.builtin').find_files({
@@ -300,7 +291,7 @@ return {
 
 			local function find_command()
 				if 1 == vim.fn.executable('rg') then
-					return { 'rg', '--files', '--color', 'never', '-g', '!.git' }
+					return { 'rg', '--files', '--color', 'never', '--no-ignore-vcs', '--smart-case', '-g', '!.git' }
 				elseif 1 == vim.fn.executable('fd') then
 					return { 'fd', '--type', 'f', '--color', 'never', '-E', '.git' }
 				elseif 1 == vim.fn.executable('fdfind') then

@@ -20,6 +20,7 @@ return {
 			-- Adds luasnip source to nvim-cmp.
 			{
 				'nvim-cmp',
+				optional = true,
 				dependencies = {
 					-- Luasnip completion source for nvim-cmp
 					'saadparwaiz1/cmp_luasnip',

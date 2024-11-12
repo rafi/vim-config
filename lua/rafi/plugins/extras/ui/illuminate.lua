@@ -44,6 +44,21 @@ return {
 				})
 			end
 
+			Snacks.toggle({
+				name = 'Illuminate',
+				get = function()
+					return not require('illuminate.engine').is_paused()
+				end,
+				set = function(enabled)
+					local m = require('illuminate')
+					if enabled then
+						m.resume()
+					else
+						m.pause()
+					end
+				end,
+			}):map('<leader>ux')
+
 			map(']]', 'next')
 			map('[[', 'prev')
 

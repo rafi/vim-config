@@ -54,9 +54,10 @@ return {
 				},
 				sorting = defaults.sorting,
 				experimental = {
-					ghost_text = {
-						hl_group = 'Comment',
-					},
+					-- Only show ghost text when we show ai completions
+					ghost_text = vim.g.ai_cmp and {
+						hl_group = 'CmpGhostText',
+					} or false,
 				},
 				sources = cmp.config.sources({
 					{ name = 'nvim_lsp', priority = 50 },
@@ -82,8 +83,6 @@ return {
 					['<S-Tab>'] = Util.cmp.supertab_shift({
 						behavior = require('cmp').SelectBehavior.Select,
 					}),
-					['<C-j>'] = Util.cmp.snippet_jump_forward(),
-					['<C-k>'] = Util.cmp.snippet_jump_backward(),
 					['<C-d>'] = cmp.mapping.select_next_item({ count = 5 }),
 					['<C-u>'] = cmp.mapping.select_prev_item({ count = 5 }),
 					['<C-f>'] = cmp.mapping.scroll_docs(4),
@@ -133,6 +132,7 @@ return {
 	-- Native snippets
 	{
 		'nvim-cmp',
+		optional = true,
 		dependencies = {
 			{
 				'garymjr/nvim-snippets',
@@ -163,6 +163,8 @@ return {
 		'windwp/nvim-autopairs',
 		event = 'InsertEnter',
 		opts = {
+			map_cr = false,
+			avoid_move_to_end = true, -- stay for direct end_key use
 			disable_filetype = { 'TelescopePrompt', 'grug-far', 'spectre_panel' },
 		},
 		keys = {
@@ -352,6 +354,7 @@ return {
 			library = {
 				{ path = 'luvit-meta/library', words = { 'vim%.uv' } },
 				{ path = 'LazyVim', words = { 'LazyVim' } },
+				{ path = 'snacks.nvim', words = { 'Snacks' } },
 				{ path = 'lazy.nvim', words = { 'LazyVim' } },
 			},
 		},
@@ -361,6 +364,7 @@ return {
 	-- Add lazydev source to cmp
 	{
 		'hrsh7th/nvim-cmp',
+		optional = true,
 		opts = function(_, opts)
 			table.insert(opts.sources, { name = 'lazydev', group_index = 0 })
 		end,

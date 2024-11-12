@@ -472,7 +472,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [folke/zen-mode.nvim] | Distraction-free coding for Neovim |
 | [folke/todo-comments.nvim] | Highlight, list and search todo comments in your projects |
 | [folke/trouble.nvim] | Pretty lists to help you solve all code diagnostics |
-| [akinsho/toggleterm.nvim] | Persist and toggle multiple terminals |
 | [hedyhli/outline.nvim] | Code outline sidebar powered by LSP |
 | [s1n7ax/nvim-window-picker] | Fancy Window picker |
 | [dnlhc/glance.nvim] | Pretty window for navigating LSP locations |
@@ -516,14 +515,13 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [sindrets/diffview.nvim] | Tabpage interface for cycling through diffs |
 | [NeogitOrg/neogit] | Magit clone for Neovim |
 | [FabijanZulj/blame.nvim] | Git blame visualizer |
-| [rhysd/git-messenger.vim] | Reveal the commit messages under the cursor |
-| [ruifm/gitlinker.nvim] | Browse git repositories |
 | [rhysd/committia.vim] | Pleasant editing on Git commit messages |
 
 ### Misc Plugins
 
 | Name           | Description |
 | -------------- | ---------------------- |
+| [folke/snacks.nvim] | Collection of small QoL plugins |
 | [hoob3rt/lualine.nvim] | Statusline plugin written in pure lua |
 | [nvim-neo-tree/neo-tree.nvim] | File explorer written in Lua |
 | [nvim-telescope/telescope.nvim] | Find, Filter, Preview, Pick. All lua. |
@@ -552,7 +550,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | -------------- | ---------------------- |
 | [echasnovski/mini.icons] | Icon provider |
 | [MunifTanjim/nui.nvim] | UI Component Library |
-| [rcarriga/nvim-notify] | Fancy notification manager |
 | [stevearc/dressing.nvim] | Improve the default vim-ui interfaces |
 | [akinsho/bufferline.nvim] | Snazzy tab/bufferline |
 | [folke/noice.nvim] | Replaces the UI for messages, cmdline and the popupmenu |
@@ -582,7 +579,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [folke/zen-mode.nvim]: https://github.com/folke/zen-mode.nvim
 [folke/todo-comments.nvim]: https://github.com/folke/todo-comments.nvim
 [folke/trouble.nvim]: https://github.com/folke/trouble.nvim
-[akinsho/toggleterm.nvim]: https://github.com/akinsho/toggleterm.nvim
 [s1n7ax/nvim-window-picker]: https://github.com/s1n7ax/nvim-window-picker
 [dnlhc/glance.nvim]: https://github.com/dnlhc/glance.nvim
 [MagicDuck/grug-far.nvim]: https://github.com/MagicDuck/grug-far.nvim
@@ -613,10 +609,9 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [sindrets/diffview.nvim]: https://github.com/sindrets/diffview.nvim
 [NeogitOrg/neogit]: https://github.com/NeogitOrg/neogit
 [FabijanZulj/blame.nvim]: https://github.com/FabijanZulj/blame.nvim
-[rhysd/git-messenger.vim]: https://github.com/rhysd/git-messenger.vim
-[ruifm/gitlinker.nvim]: https://github.com/ruifm/gitlinker.nvim
 [rhysd/committia.vim]: https://github.com/rhysd/committia.vim
 
+[folke/snacks.nvim]: https://github.com/folke/snacks.nvim
 [hoob3rt/lualine.nvim]: https://github.com/hoob3rt/lualine.nvim
 [nvim-neo-tree/neo-tree.nvim]: https://github.com/nvim-neo-tree/neo-tree.nvim
 [nvim-telescope/telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
@@ -637,7 +632,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 
 [echasnovski/mini.icons]: https://github.com/echasnovski/mini.icons
 [MunifTanjim/nui.nvim]: https://github.com/MunifTanjim/nui.nvim
-[rcarriga/nvim-notify]: https://github.com/rcarriga/nvim-notify
 [stevearc/dressing.nvim]: https://github.com/stevearc/dressing.nvim
 [akinsho/bufferline.nvim]: https://github.com/akinsho/bufferline.nvim
 [folke/noice.nvim]: https://github.com/folke/noice.nvim
@@ -1094,7 +1088,7 @@ Note that,
 | <kbd>Space</kbd> <kbd>ui</kbd> | 𝐍 | Show highlight groups for word | <small>`vim.show_pos`</small> |
 | <kbd>Space</kbd> <kbd>up</kbd> | 𝐍 | Disable auto-pairs | <small>[windwp/nvim-autopairs]</small> |
 | <kbd>Space</kbd> <kbd>ur</kbd> | 𝐍 | Redraw, clear hlsearch, and diff update | <small>[config/keymaps.lua]</small> |
-| <kbd>Space</kbd> <kbd>un</kbd> | 𝐍 | Dismiss all notifications | <small>[rcarriga/nvim-notify]</small> |
+| <kbd>Space</kbd> <kbd>un</kbd> | 𝐍 | Dismiss all notifications | <small>[folke/snacks.nvim]</small> |
 
 ### Window Management
 
@@ -1123,7 +1117,7 @@ Note that,
 | <kbd>;</kbd>+<kbd>c</kbd> | 𝐍 | Open context-menu | <small>[lua/rafi/util/contextmenu.lua]</small> |
 | <kbd>g</kbd><kbd>Ctrl</kbd>+<kbd>o</kbd> | 𝐍 | Navigate to previous file on jumplist | <small>[util/edit.lua]</small> |
 | <kbd>g</kbd><kbd>Ctrl</kbd>+<kbd>i</kbd> | 𝐍 | Navigate to next file on jumplist | <small>[util/edit.lua]</small> |
-| <kbd>Ctrl</kbd>+<kbd>/</kbd> | 𝐍 | Toggle terminal | <small>[akinsho/toggleterm.nvim]</small> |
+| <kbd>Ctrl</kbd>+<kbd>/</kbd> | 𝐍 | Toggle terminal | <small>snacks/nvim</small> |
 | <kbd>Space</kbd> <kbd>l</kbd> | 𝐍 | Open Lazy | <small>[folke/lazy.nvim]</small> |
 | <kbd>Space</kbd> <kbd>o</kbd> | 𝐍 | Open Outline side | <small>[hedyhli/outline.nvim]</small> |
 | <kbd>Space</kbd> <kbd>?</kbd> | 𝐍 | Open the macOS dictionary on current word | <small>`:!open dict://`</small> |
@@ -1131,13 +1125,13 @@ Note that,
 | <kbd>Space</kbd> <kbd>mc</kbd> | 𝐍 | Open color-picker | <small>[uga-rosa/ccc.nvim]</small> |
 | <kbd>Space</kbd> <kbd>tt</kbd> | 𝐍 | Open terminal (root dir) | <small>[config/keymaps.lua]</small> |
 | <kbd>Space</kbd> <kbd>tT</kbd> | 𝐍 | Open terminal (cwd) | <small>[config/keymaps.lua]</small> |
-| <kbd>Space</kbd> <kbd>tg</kbd> | 𝐍 | Open Lazygit (root dir) | <small>[config/keymaps.lua]</small> |
-| <kbd>Space</kbd> <kbd>tG</kbd> | 𝐍 | Open Lazygit (cwd) | <small>[config/keymaps.lua]</small> |
-| <kbd>Space</kbd> <kbd>gu</kbd> | 𝐍 | Open undo-tree | <small>[mbbill/undotree]</small> |
+| <kbd>Space</kbd> <kbd>gt</kbd> | 𝐍 | Open Lazygit (root dir) | <small>[config/keymaps.lua]</small> |
+| <kbd>Space</kbd> <kbd>gT</kbd> | 𝐍 | Open Lazygit (cwd) | <small>[config/keymaps.lua]</small> |
 | <kbd>Space</kbd> <kbd>gb</kbd> | 𝐍 | Git blame | <small>[FabijanZulj/blame.nvim]</small> |
 | <kbd>Space</kbd> <kbd>gB</kbd> | 𝐍 | Git blame in window | <small>[FabijanZulj/blame.nvim]</small> |
-| <kbd>Space</kbd> <kbd>gm</kbd> | 𝐍 | Reveal commit under cursor | <small>[rhysd/git-messenger.vim]</small> |
-| <kbd>Space</kbd> <kbd>go</kbd> | 𝐍 𝐕 | Open SCM detailed URL in browser | <small>[ruifm/gitlinker.nvim]</small> |
+| <kbd>Space</kbd> <kbd>gm</kbd> | 𝐍 | Reveal commit under cursor | <small>[folke/snacks.nvim]</small> |
+| <kbd>Space</kbd> <kbd>go</kbd> | 𝐍 𝐕 | Open source-code URL in browser | <small>[folke/snacks.nvim]</small> |
+| <kbd>Space</kbd> <kbd>gu</kbd> | 𝐍 | Open undo-tree | <small>[mbbill/undotree]</small> |
 | <kbd>Space</kbd> <kbd>mg</kbd> | 𝐍 | Open Neogit | <small>[NeogitOrg/neogit]</small> |
 | <kbd>Space</kbd> <kbd>ml</kbd> | 𝐍 | Append modeline to end of buffer | <small>[config/keymaps.lua]</small> |
 | <kbd>Space</kbd> <kbd>mda</kbd> | 𝐕 | Sequentially mark region for diff | <small>[AndrewRadev/linediff.vim]</small> |
@@ -1259,7 +1253,6 @@ See [telescope.nvim] for more mappings and usage information.
 | <kbd>Space</kbd> <kbd>gl</kbd> | 𝐍 | Git commits |
 | <kbd>Space</kbd> <kbd>gL</kbd> | 𝐍 | Git buffer commits |
 | <kbd>Space</kbd> <kbd>gh</kbd> | 𝐍 | Git stashes |
-| <kbd>Space</kbd> <kbd>gt</kbd> | 𝐍 | Find symbols matching word under cursor |
 | <kbd>Space</kbd> <kbd>gf</kbd> | 𝐍 | Find files matching word under cursor |
 | <kbd>Space</kbd> <kbd>gg</kbd> | 𝐍 𝐕 | Grep word under cursor |
 | <kbd>Space</kbd> <kbd>sc</kbd> | 𝐍 | Colorschemes |

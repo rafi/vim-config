@@ -31,43 +31,6 @@ return {
 	{ 'MunifTanjim/nui.nvim', lazy = false },
 
 	-----------------------------------------------------------------------------
-	-- Fancy notification manager
-	{
-		'rcarriga/nvim-notify',
-		priority = 9000,
-		keys = {
-			{
-				'<leader>un',
-				function()
-					require('notify').dismiss({ silent = true, pending = true })
-				end,
-				desc = 'Dismiss All Notifications',
-			},
-		},
-		opts = {
-			stages = 'static',
-			timeout = 3000,
-			max_height = function()
-				return math.floor(vim.o.lines * 0.75)
-			end,
-			max_width = function()
-				return math.floor(vim.o.columns * 0.75)
-			end,
-			on_open = function(win)
-				vim.api.nvim_win_set_config(win, { zindex = 100 })
-			end,
-		},
-		init = function()
-			-- When noice is not enabled, install notify on VeryLazy
-			if not LazyVim.has('noice.nvim') then
-				LazyVim.on_very_lazy(function()
-					vim.notify = require('notify')
-				end)
-			end
-		end,
-	},
-
-	-----------------------------------------------------------------------------
 	-- Snazzy tab/bufferline
 	{
 		'akinsho/bufferline.nvim',
@@ -77,7 +40,6 @@ return {
 		keys = {
 			{ '<leader>bp', '<Cmd>BufferLineTogglePin<CR>', desc = 'Toggle Pin' },
 			{ '<leader>bP', '<Cmd>BufferLineGroupClose ungrouped<CR>', desc = 'Delete Non-Pinned Buffers' },
-			{ '<leader>bo', '<Cmd>BufferLineCloseOthers<CR>', desc = 'Delete Other Buffers' },
 			{ '<leader>br', '<Cmd>BufferLineCloseRight<CR>', desc = 'Delete Buffers to the Right' },
 			{ '<leader>bl', '<Cmd>BufferLineCloseLeft<CR>', desc = 'Delete Buffers to the Left' },
 			{ '<leader>tp', '<Cmd>BufferLinePick<CR>', desc = 'Tab Pick' },
@@ -97,12 +59,10 @@ return {
 				-- indicator = {
 				-- 	style = 'underline',
 				-- },
-				close_command = function(n)
-					LazyVim.ui.bufremove(n)
-				end,
-				right_mouse_command = function(n)
-					LazyVim.ui.bufremove(n)
-				end,
+				-- stylua: ignore
+				close_command = function(n) Snacks.bufdelete(n) end,
+				-- stylua: ignore
+				right_mouse_command = function(n) Snacks.bufdelete(n) end,
 				diagnostics_indicator = function(_, _, diag)
 					local icons = LazyVim.config.icons.diagnostics
 					local ret = (diag.error and icons.Error .. diag.error .. ' ' or '')
@@ -250,7 +210,7 @@ return {
 		main = 'ibl',
 		event = 'LazyFile',
 		opts = function()
-			LazyVim.toggle.map('<leader>ue', {
+			Snacks.toggle({
 				name = 'Indention Guides',
 				get = function()
 					return require('ibl.config').get_config(0).enabled
@@ -258,7 +218,7 @@ return {
 				set = function(state)
 					require('ibl').setup_buffer(0, { enabled = state })
 				end,
-			})
+			}):map('<Leader>ug')
 
 			return {
 				indent = {
@@ -266,7 +226,7 @@ return {
 					char = '│', -- ▏│
 					tab_char = '│',
 				},
-				scope = { show_start = false, show_end = false },
+				scope = { enabled = false, show_start = false, show_end = false },
 				exclude = {
 					filetypes = {
 						'alpha',
@@ -283,10 +243,14 @@ return {
 						'neo-tree',
 						'notify',
 						'Outline',
+						'snacks_notif',
+						'snacks_terminal',
+						'snacks_win',
 						'TelescopePrompt',
 						'TelescopeResults',
 						'terminal',
 						'toggleterm',
+						'trouble',
 						'Trouble',
 					},
 				},
