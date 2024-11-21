@@ -343,6 +343,8 @@ map('n', '<LocalLeader>c', function() Util.contextmenu.show() end, { desc = 'Con
 if vim.fn.executable('lazygit') == 1 then
 	map('n', '<leader>gt', function() Snacks.lazygit( { cwd = LazyVim.root.git() }) end, { desc = 'Lazygit (Root Dir)' })
 	map('n', '<leader>gT', function() Snacks.lazygit() end, { desc = 'Lazygit (cwd)' })
+	map('n', '<leader>gm', function() Snacks.git.blame_line() end, { desc = 'Git Blame Line' })
+	map({ 'n', 'x' }, '<leader>go', function() Snacks.gitbrowse() end, { desc = 'Git Browse' })
 	map('n', '<leader>gF', function() Snacks.lazygit.log_file() end, { desc = 'Lazygit Current File History' })
 	map('n', '<leader>gl', function() Snacks.lazygit.log({ cwd = LazyVim.root.git() }) end, { desc = 'Lazygit Log' })
 	map('n', '<leader>gL', function() Snacks.lazygit.log() end, { desc = 'Lazygit Log (cwd)' })

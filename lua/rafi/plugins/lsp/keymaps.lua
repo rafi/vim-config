@@ -20,8 +20,8 @@ function M.get()
 		{ 'gD', vim.lsp.buf.declaration, desc = 'Goto Declaration' },
 		{ 'gI', vim.lsp.buf.implementation, desc = 'Goto Implementation' },
 		{ 'gy', vim.lsp.buf.type_definition, desc = 'Goto Type Definition' },
-		{ 'K', vim.lsp.buf.hover, desc = 'Hover' },
-		{ 'gK', vim.lsp.buf.signature_help, desc = 'Signature Help' },
+		{ 'K', function() return vim.lsp.buf.hover() end, desc = 'Hover' },
+		{ 'gK', function() return vim.lsp.buf.signature_help() end, desc = 'Signature Help' },
 
 		{ '<leader>cR', function() Snacks.rename.rename_file() end, desc = 'Rename File', mode = {'n'}, has = { 'workspace/didRenameFiles', 'workspace/willRenameFiles' }},
 		{ '<leader>cr', vim.lsp.buf.rename, desc = 'Rename', has = 'rename' },

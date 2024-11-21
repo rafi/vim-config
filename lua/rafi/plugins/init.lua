@@ -38,7 +38,9 @@ return {
 		opts = function()
 			---@type snacks.Config
 			return {
-				toggle = { map = LazyVim.safe_keymap_set },
+				bigfile = { enabled = true },
+				notifier = { enabled = true },
+				quickfile = { enabled = true },
 				statuscolumn = { enabled = false }, -- We set this in options.lua
 				terminal = {
 					win = {
@@ -50,11 +52,11 @@ return {
 						},
 					},
 				},
+				toggle = { map = LazyVim.safe_keymap_set },
+				words = { enabled = true },
 			}
 		end,
 		keys = {
-			{ '<leader>gm', function() Snacks.git.blame_line() end, { desc = 'Git Blame Line' }},
-			{ '<leader>go', function() Snacks.gitbrowse() end, { desc = 'Git Browse' }},
 			{
 				'<leader>un',
 				function()
@@ -81,5 +83,14 @@ return {
 				end,
 			}
 		},
+		config = function(_, opts)
+			local notify = vim.notify
+			require('snacks').setup(opts)
+			-- HACK: restore vim.notify after snacks setup and let noice.nvim take over
+			-- this is needed to have early notifications show up in noice history
+			if LazyVim.has('noice.nvim') then
+				vim.notify = notify
+			end
+		end,
 	},
 }
