@@ -234,6 +234,7 @@ return {
 						'neo-tree',
 						'notify',
 						'Outline',
+						'snacks_dashboard',
 						'snacks_notif',
 						'snacks_terminal',
 						'snacks_win',
