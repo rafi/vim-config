@@ -84,6 +84,10 @@ if not vim.g.vscode then
 	opt.ttimeoutlen = 10  -- Time out on key codes
 end
 
+if vim.fn.has('nvim-0.11') == 1 then
+	opt.tabclose:append({'uselast'})
+end
+
 opt.completeopt = 'menu,menuone,noselect'
 opt.wildmode = 'longest:full,full'
 opt.diffopt:append({ 'indent-heuristic', 'algorithm:patience' })

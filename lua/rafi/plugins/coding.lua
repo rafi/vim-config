@@ -23,6 +23,7 @@ return {
 		event = 'InsertEnter',
 		opts = {
 			map_cr = false,
+			disable_in_visualblock = true,
 			avoid_move_to_end = true, -- stay for direct end_key use
 			disable_filetype = { 'TelescopePrompt', 'grug-far', 'spectre_panel' },
 		},
