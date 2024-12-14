@@ -105,6 +105,13 @@ function M.init()
 		end
 		return vim.g.lazyvim_picker
 	end
+	LazyVim.cmp_engine = function()
+		vim.g.lazyvim_cmp = vim.g.lazyvim_cmp or 'auto'
+		if vim.g.lazyvim_cmp == 'auto' then
+			return LazyVim.has_extra('coding.blink') and 'blink.cmp' or 'nvim-cmp'
+		end
+		return vim.g.lazyvim_cmp
+	end
 	LazyVim.plugin.setup()
 	LazyVimConfig.json.load()
 
