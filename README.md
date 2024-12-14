@@ -1137,11 +1137,14 @@ Legend: | Ⓝormal | Ⓥisual | Ⓢelect | Ⓘnsert | Ⓞperator | Ⓒommand |
 | <kbd>Space</kbd> <kbd>tT</kbd> | Ⓝ | Open terminal (cwd) | <small>[config/keymaps.lua]</small> |
 | <kbd>Space</kbd> <kbd>gt</kbd> | Ⓝ | Open Lazygit (root dir) | <small>[config/keymaps.lua]</small> |
 | <kbd>Space</kbd> <kbd>gT</kbd> | Ⓝ | Open Lazygit (cwd) | <small>[config/keymaps.lua]</small> |
+| <kbd>Space</kbd> <kbd>gF</kbd> | Ⓝ | Open Lazygit on current file history | <small>[config/keymaps.lua]</small> |
+| <kbd>Space</kbd> <kbd>gl</kbd> | Ⓝ | Open Lazygit log | <small>[config/keymaps.lua]</small> |
+| <kbd>Space</kbd> <kbd>gL</kbd> | Ⓝ | Open Lazygit log (cwd) | <small>[config/keymaps.lua]</small> |
 | <kbd>Space</kbd> <kbd>gb</kbd> | Ⓝ | Git blame | <small>[FabijanZulj/blame.nvim]</small> |
 | <kbd>Space</kbd> <kbd>gB</kbd> | Ⓝ | Git blame in window | <small>[FabijanZulj/blame.nvim]</small> |
-| <kbd>Space</kbd> <kbd>gm</kbd> | Ⓝ | Reveal commit under cursor | <small>[folke/snacks.nvim]</small> |
-| <kbd>Space</kbd> <kbd>go</kbd> | Ⓝ Ⓥ | Open source-code URL in browser | <small>[folke/snacks.nvim]</small> |
-| <kbd>Space</kbd> <kbd>gY</kbd> | Ⓝ Ⓥ | Copy source-code URL | <small>[folke/snacks.nvim]</small> |
+| <kbd>Space</kbd> <kbd>gm</kbd> | Ⓝ | Reveal commit under cursor | <small>[config/keymaps.lua]</small> |
+| <kbd>Space</kbd> <kbd>go</kbd> | Ⓝ Ⓥ | Open source-code URL in browser | <small>[config/keymaps.lua]</small> |
+| <kbd>Space</kbd> <kbd>gY</kbd> | Ⓝ Ⓥ | Copy source-code URL | <small>[config/keymaps.lua]</small> |
 | <kbd>Space</kbd> <kbd>gu</kbd> | Ⓝ | Open undo-tree | <small>[mbbill/undotree]</small> |
 | <kbd>Space</kbd> <kbd>mg</kbd> | Ⓝ | Open Neogit | <small>[NeogitOrg/neogit]</small> |
 | <kbd>Space</kbd> <kbd>ml</kbd> | Ⓝ | Append modeline to end of buffer | <small>[config/keymaps.lua]</small> |
@@ -1260,8 +1263,6 @@ See [telescope.nvim] for more mappings and usage information.
 | <kbd>Space</kbd> <kbd>/</kbd> | Ⓝ | Buffer fuzzy find |
 | <kbd>Space</kbd> <kbd>gs</kbd> | Ⓝ | Git status |
 | <kbd>Space</kbd> <kbd>gr</kbd> | Ⓝ | Git branches |
-| <kbd>Space</kbd> <kbd>gl</kbd> | Ⓝ | Git commits |
-| <kbd>Space</kbd> <kbd>gL</kbd> | Ⓝ | Git buffer commits |
 | <kbd>Space</kbd> <kbd>gh</kbd> | Ⓝ | Git stashes |
 | <kbd>Space</kbd> <kbd>gf</kbd> | Ⓝ | Find files matching word under cursor |
 | <kbd>Space</kbd> <kbd>gg</kbd> | Ⓝ Ⓥ | Grep word under cursor |

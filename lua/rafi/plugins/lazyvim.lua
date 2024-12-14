@@ -28,23 +28,9 @@ return {
 			-- stylua: ignore
 			icons = {
 				misc = {
-					dots = '󰇘',
 					git = ' ',
 				},
-				ft = {
-					octo = '',
-				},
-				dap = {
-					Stopped             = { '󰁕 ', 'DiagnosticWarn', 'DapStoppedLine' },
-					Breakpoint          = ' ',
-					BreakpointCondition = ' ',
-					BreakpointRejected  = { ' ', 'DiagnosticError' },
-					LogPoint            = '.>',
-				},
 				diagnostics = {
-					-- Error = '', --   ✘
-					-- Warn  = '', --  󰀪 󰳤 󱗓 
-					-- Info  = '', --    󰋼 󰋽 ⁱ
 					Error = '✘', --   ✘
 					Warn  = '󰀪', --  󰀪 ▲󰳤 󱗓 
 					Info  = 'ⁱ', --    󰋼 󰋽 ⚑ⁱ
@@ -71,45 +57,45 @@ return {
 				-- Default completion kind symbols.
 				kinds = {
 					Array         = '󰅪 ', --  󰅪 󰅨 󱃶
-					Boolean       = '󰨙 ', --  ◩ 󰔡 󱃙 󰟡 󰨙
+					Boolean       = '󰨙 ', -- 󰨙 󰔡 󱃙 󰟡  ◩
 					Class         = '󰌗 ', --  󰌗 󰠱 𝓒
-					Codeium       = '󰘦 ', -- 󰘦
-					Collapsed     = ' ', -- 
-					Color         = '󰏘 ', -- 󰸌 󰏘
-					Constant      = '󰏿 ', --   󰏿
-					Constructor   = ' ', --  󰆧   
-					Control       = ' ', -- 
-					Copilot       = ' ', --  
-					Enum          = '󰕘 ', --  󰕘  ℰ 
-					EnumMember    = ' ', --  
+					Codeium       = '󰘦 ',
+					Collapsed     = ' ',
+					Color         = '󰏘 ', --  󰸌 󰏘
+					Constant      = '󰏿 ', -- 󰏿  
+					Constructor   = ' ', --   
+					Control       = ' ',
+					Copilot       = ' ',
+					Enum          = '󰕘 ', --   󰕘 ℰ 
+					EnumMember    = ' ',
 					Event         = ' ', --  
 					Field         = ' ', --  󰄶  󰆨  󰀻 󰃒 
 					File          = ' ', --    󰈔 󰈙
 					Folder        = ' ', --   󰉋
-					Function      = '󰊕 ', --  󰊕 
-					Interface     = ' ', --    
-					Key           = ' ', -- 
+					Function      = '󰊕 ', -- 󰊕 ƒ 
+					Interface     = ' ', --    
+					Key           = ' ',
 					Keyword       = ' ', --   󰌋 
-					Method        = '󰊕 ', --  󰆧 󰊕 ƒ
-					Module        = ' ', --   󰅩 󰆧 󰏗
-					Namespace     = '󰦮 ', -- 󰦮   󰅩
+					Method        = '󰊕 ',
+					Module        = ' ',
+					Namespace     = '󰦮 ',
 					Null          = ' ', --  󰟢
-					Number        = '󰎠 ', --  󰎠 
+					Number        = '󰎠 ', -- 󰎠  
 					Object        = ' ', --   󰅩
 					Operator      = '󰃬 ', --  󰃬 󰆕 +
-					Package       = ' ', --   󰏖 󰏗 󰆧
-					Property      = ' ', --   󰜢   󰖷
+					Package       = ' ', --   󰏖 󰏗 󰆧 
+					Property      = ' ', --    󰖷
 					Reference     = '󰈝 ', --  󰈝 󰈇
-					Snippet       = ' ', --  󰘌 ⮡   
+					Snippet       = ' ', --   󰘌 ⮡  
 					String        = ' ', --   󰅳
 					Struct        = '󰆼 ', -- 󰆼   𝓢 󰙅 󱏒
 					Supermaven    = ' ',
-					TabNine       = '󰏚 ', -- 󰏚
+					TabNine       = '󰏚 ',
 					Text          = ' ', --   󰉿 𝓐
 					TypeParameter = ' ', --  󰊄 𝙏
 					Unit          = ' ', --   󰑭 
-					Value         = ' ', --   󰀬 󰎠
-					Variable      = ' ', --   󰀫 
+					Value         = ' ', --  󰀬 󰎠 
+					Variable      = ' ', -- 󰀫  
 				},
 			},
 		},

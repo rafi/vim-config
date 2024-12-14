@@ -21,6 +21,11 @@ return {
 		},
 		opts = {
 			picker = 'telescope',
+			-- lsp = {
+			-- 	auto_attach = {
+			-- 		enabled = false,
+			-- 	},
+			-- },
 		},
 	},
 

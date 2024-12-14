@@ -209,6 +209,8 @@ map({ 'n', 'v' }, '<leader>cf', function() LazyVim.format({ force = true }) end,
 map('n', '<leader>cid', '<cmd>LazyDev<CR>', { silent = true, desc = 'Dev' })
 map('n', '<leader>cif', '<cmd>LazyFormatInfo<CR>', { silent = true, desc = 'Formatter Info' })
 map('n', '<leader>cir', '<cmd>LazyRoot<CR>', { silent = true, desc = 'Root' })
+map('n', '<leader>cil', '<cmd>check lspconfig<cr>', { desc = 'LSP info popup' })
+map({ 'n', 'x' }, '<leader>csf', function() Util.edit.formatter_select() end, { desc = 'Formatter Select' })
 
 -- Start new line from any cursor position in insert-mode
 map('i', '<S-Return>', '<C-o>o', { desc = 'Start Newline' })
@@ -365,7 +367,7 @@ end
 
 map('n', '<leader>gm', function() Snacks.git.blame_line() end, { desc = 'Git Blame Line' })
 map({ 'n', 'x' }, '<leader>go', function() Snacks.gitbrowse() end, { desc = 'Git Browse' })
-map({'n', 'x' }, '<leader>gY', function()
+map({ 'n', 'x' }, '<leader>gY', function()
 	Snacks.gitbrowse({ open = function(url) vim.fn.setreg('+', url) end, notify = false })
 end, { desc = 'Git Browse (copy)' })
 

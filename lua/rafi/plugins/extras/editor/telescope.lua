@@ -246,7 +246,9 @@ return {
 				'<localleader>z',
 				function()
 					require('telescope').extensions.zoxide.list({
-						layout_config = { width = 0.5, height = 0.6 },
+						prompt_title = 'Zoxide',
+						previewer = false,
+						layout_config = { width = 0.6, height = 0.6 },
 					})
 				end,
 				desc = 'Zoxide (MRU)',

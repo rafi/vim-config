@@ -21,8 +21,8 @@ return {
 					scroll_line = '⎕',  -- '⎕', '█', '🮚', '▶'
 					scroll_view = '┊',  -- '⎮', '╎', '┋', '┊'
 				},
-				show_integration_count = false,
 				window = {
+					show_integration_count = false,
 					width = 1,
 					winblend = 40,
 				},

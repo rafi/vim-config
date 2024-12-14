@@ -113,10 +113,9 @@ end
 
 -- Toggle list window
 ---@param name "quickfix" | "loclist"
-M.toggle_list = function(name)
-	local win_bufs = M.get_tabpage_win_bufs(0)
-	for win, buf in pairs(win_bufs) do
-		if vim.bo[buf].filetype == 'qf' and vim.fn.win_gettype(win) == name then
+function M.toggle_list(name)
+	for _, win in pairs(vim.api.nvim_tabpage_list_wins(0)) do
+		if vim.api.nvim_win_is_valid(win) and vim.fn.win_gettype(win) == name then
 			vim.api.nvim_win_close(win, false)
 			return
 		end
@@ -129,37 +128,73 @@ M.toggle_list = function(name)
 	end
 end
 
--- Return a table with all window buffers from a tabpage.
----@private
----@param tabpage integer
----@return table
-M.get_tabpage_win_bufs = function(tabpage)
-	local bufs = {}
-	for _, win in pairs(vim.api.nvim_tabpage_list_wins(tabpage)) do
-		if win ~= nil and vim.api.nvim_win_is_valid(win) then
-			local buf = vim.api.nvim_win_get_buf(win)
-			if buf ~= nil and vim.api.nvim_buf_is_valid(buf) then
-				bufs[win] = buf
-			end
-		end
+-- Display a list of formatters and apply the selected one.
+function M.formatter_select()
+	local buf = vim.api.nvim_get_current_buf()
+	local is_visual = vim.tbl_contains({ 'v', 'V', '\22' }, vim.fn.mode())
+	local cur_start, cur_end
+	if is_visual then
+		cur_start = vim.fn.getpos('.')
+		cur_end = vim.fn.getpos('v')
 	end
-	return bufs
-end
 
--- Toggle diagnostics locally (false) or globally (true).
----@param global boolean
-M.diagnostic_toggle = function(global)
-	local opts = {}
-	if not global then
-		opts.bufnr = vim.api.nvim_get_current_buf()
+	-- Collect various sources of formatters.
+	---@class rafi.Formatter
+	---@field kind string
+	---@field name string
+	---@field client LazyFormatter|{active:boolean,resolved:string[]}
+
+	---@type rafi.Formatter[]
+	local sources = {}
+	local fmts = LazyVim.format.resolve(buf)
+	for _, fmt in ipairs(fmts) do
+		vim.tbl_map(function(resolved)
+			table.insert(sources, {
+				kind = fmt.name,
+				name = resolved,
+				client = fmt,
+			})
+		end, fmt.resolved)
 	end
-	local enabled = vim.diagnostic.is_enabled()
-	vim.diagnostic.enable(not enabled, opts)
-	local msg = (enabled and 'Disable' or 'Enable') .. 'd diagnostics'
-	if global then
-		msg = msg .. ' globally'
+
+	local total_sources = #sources
+
+	-- Apply formatter source on buffer.
+	---@param bufnr number
+	---@param source rafi.Formatter
+	local apply_source = function(bufnr, source)
+		if source == nil then
+			return
+		end
+		LazyVim.try(function()
+			return source.client.format(bufnr)
+		end, { msg = 'Formatter `' .. source.name .. '` failed' })
 	end
-	LazyVim.info(msg, { title = 'Diagnostics' })
+
+	if total_sources == 1 then
+		apply_source(buf, sources[1])
+	elseif total_sources > 1 then
+		-- Display a list of sources to choose from
+		vim.ui.select(sources, {
+			prompt = 'Select a formatter',
+			format_item = function(item)
+				return item.name .. ' (' .. item.kind .. ')'
+			end,
+		}, function(selected)
+			if is_visual then
+				-- Restore visual selection
+				vim.fn.setpos('.', cur_start)
+				vim.cmd([[normal! v]])
+				vim.fn.setpos('.', cur_end)
+			end
+			apply_source(buf, selected)
+		end)
+	else
+		vim.notify(
+			'No configured formatters for this filetype.',
+			vim.log.levels.WARN
+		)
+	end
 end
 
 return M

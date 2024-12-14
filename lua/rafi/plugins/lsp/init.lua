@@ -13,8 +13,7 @@ return {
 		event = 'LazyFile',
 		-- stylua: ignore
 		dependencies = {
-			-- Portable package manager for Neovim
-			'williamboman/mason.nvim',
+			'mason.nvim',
 			-- Mason extension for easier lspconfig integration
 			{ 'williamboman/mason-lspconfig.nvim', config = function() end },
 		},
@@ -211,9 +210,6 @@ return {
 
 			vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
-			-- Enable custom rounded borders in :LspInfo window.
-			require('lspconfig.ui.windows').default_options.border = 'rounded'
-
 			-- Initialize LSP servers and ensure Mason packages
 
 			-- Setup base config for all servers.
@@ -308,6 +304,7 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
+	-- Portable package manager for Neovim
 	{
 		'williamboman/mason.nvim',
 		cmd = 'Mason',
