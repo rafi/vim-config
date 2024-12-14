@@ -52,6 +52,10 @@ function M.load(name)
 	vim.api.nvim_exec_autocmds('User', { pattern = pattern, modeline = false })
 end
 
+-- Check if table has a value that ends with a suffix.
+---@param tbl table
+---@param suffix string
+---@return boolean
 local function tbl_endswith(tbl, suffix)
 	local l = #suffix
 	for _, v in ipairs(tbl) do

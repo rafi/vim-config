@@ -274,6 +274,7 @@ return {
 			{ 'gpr', '<cmd>Glance references<CR>' },
 			{ 'gpy', '<cmd>Glance type_definitions<CR>' },
 			{ 'gpi', '<cmd>Glance implementations<CR>' },
+			{ 'gpu', '<cmd>Glance resume<CR>' },
 		},
 		opts = function()
 			local actions = require('glance').actions

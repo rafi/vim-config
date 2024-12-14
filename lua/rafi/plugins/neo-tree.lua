@@ -51,6 +51,7 @@ return {
 			desc = 'Explorer NeoTree (cwd)',
 		},
 		{ '<LocalLeader>e', '<leader>fe', desc = 'Explorer NeoTree (Root Dir)', remap = true },
+		{ '<LocalLeader>E', '<leader>fE', desc = 'Explorer NeoTree (cwd)', remap = true },
 		{
 			'<LocalLeader>a',
 			function()
@@ -185,6 +186,14 @@ return {
 				['?'] = 'noop',
 				['g?'] = 'show_help',
 				['<Space>'] = 'noop',
+
+				-- Close preview or floating neo-tree window, and clear hlsearch.
+				['<Esc>'] = function(_)
+					require('neo-tree.sources.filesystem.lib.filter_external').cancel()
+					require('neo-tree.sources.common.preview').hide()
+					vim.cmd([[ nohlsearch ]])
+				end,
+
 				['<2-LeftMouse>'] = 'open',
 				['<CR>'] = 'open_with_window_picker',
 				['l'] = 'open',
@@ -210,7 +219,6 @@ return {
 				['P'] = 'paste_from_clipboard',
 				['p'] = {
 					'toggle_preview',
-					nowait = true,
 					config = { use_float = true },
 				},
 

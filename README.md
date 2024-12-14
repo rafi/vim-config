@@ -5,10 +5,6 @@ Lean mean Neovim machine, 30-45ms startup time. Works best with [Neovim] ≥0.10
 :gear: See "[Extending](#extending)" for customizing configuration and adding
 plugins.
 
-:triangular_flag_on_post: git tag [`vim`](https://github.com/rafi/vim-config/tree/vim)
-tracks the last revision using Dein.nvim and plugins.yaml. Since then, the
-entire configuration has been rewritten to use [lazy.nvim] and Lua.
-
 > I encourage you to fork this repo and create your own experience.
 > Learn how to tweak and change Neovim to the way YOU like it.
 > This is my cultivation of years of tweaking, use it as a git remote
@@ -347,14 +343,17 @@ return {
     (Default values are shown)
 
     ```lua
-    -- Auto format on-save
-    vim.g.autoformat = false
-
     -- Elite-mode (hjkl mode. arrow-keys resize window)
     vim.g.elite_mode = false
 
-    -- When enabled, 'q' closes any window
-    vim.g.window_q_mapping = true
+    -- External file diff program
+    vim.g.diffprg = 'bcompare'
+
+    -- Auto format on-save
+    vim.g.autoformat = false
+
+    -- Snacks animations
+    vim.g.snacks_animate = false
     ```
 
 1. You can override LazyVim options. For example in `lua/plugins/lazyvim.lua`:
@@ -1073,6 +1072,7 @@ Legend: | Ⓝormal | Ⓥisual | Ⓢelect | Ⓘnsert | Ⓞperator | Ⓒommand |
 | ----- |:----:| ------------------ | ------ |
 | <kbd>\*</kbd> / <kbd>#</kbd> | Ⓝ Ⓥ | Search partial words | <small>`g*` / `g#`</small> |
 | <kbd>g\*</kbd> / <kbd>g#</kbd> | Ⓝ Ⓥ | Search whole-word forward/backward | <small>`*` / `#`</small> |
+| <kbd>Ctrl</kbd>+<kbd>c</kbd> | Ⓝ | Change inner word | <small>`ciw`</small> |
 | <kbd>Escape</kbd> | Ⓝ | Clear search highlight | <small>`:nohlsearch`</small> |
 | <kbd>Backspace</kbd> | Ⓝ | Match bracket | <small>`%`</small> |
 | <kbd>Space</kbd>+<kbd>bf</kbd> | Ⓝ | Diff current windows in tab | <small>`windo diffthis`</small> |
@@ -1105,6 +1105,7 @@ Legend: | Ⓝormal | Ⓥisual | Ⓢelect | Ⓘnsert | Ⓞperator | Ⓒommand |
 | ----- |:----:| ------------------ | ------ |
 | <kbd>q</kbd> | Ⓝ | Quit window (if last window, quit nvim) | <small>`:quit`</small> |
 | <kbd>Ctrl</kbd>+<kbd>x</kbd> | Ⓝ | Rotate window placement | <small>`C-w` `x`</small> |
+| <kbd>Space</kbd> <kbd>qq</kbd> | Ⓝ | Quit all and exit | <small>`:quitall`</small> |
 | <kbd>sp</kbd> | Ⓝ | Choose a window to edit | <small>[s1n7ax/nvim-window-picker]</small> |
 | <kbd>sw</kbd> | Ⓝ | Switch editing window with selected | <small>[s1n7ax/nvim-window-picker]</small> |
 | <kbd>sv</kbd> | Ⓝ | Horizontal split | <small>`:split`</small> |
@@ -1151,7 +1152,6 @@ Legend: | Ⓝormal | Ⓥisual | Ⓢelect | Ⓘnsert | Ⓞperator | Ⓒommand |
 | <kbd>Space</kbd> <kbd>mh</kbd> | Ⓝ | Open HTTP Rest UI | <small>[rest-nvim/rest.nvim]</small> |
 | <kbd>Space</kbd> <kbd>mt</kbd> | Ⓝ Ⓥ | Toggle highlighted word | <small>[t9md/vim-quickhl]</small> |
 | <kbd>Space</kbd> <kbd>mo</kbd> | Ⓝ | Update Markdown TOC | <small>[mzlogin/vim-markdown-toc]</small> |
-| <kbd>Space</kbd> <kbd>qq</kbd> | Ⓝ | Exit all and quit | <small>`:quitall`</small> |
 
 #### Plugin: Mini.Surround
 

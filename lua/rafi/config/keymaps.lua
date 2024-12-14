@@ -206,7 +206,9 @@ map('n', '<C-q>', 'q', { desc = 'Macro Prefix' })
 
 -- Formatting
 map({ 'n', 'v' }, '<leader>cf', function() LazyVim.format({ force = true }) end, { desc = 'Format' })
+map('n', '<leader>cid', '<cmd>LazyDev<CR>', { silent = true, desc = 'Dev' })
 map('n', '<leader>cif', '<cmd>LazyFormatInfo<CR>', { silent = true, desc = 'Formatter Info' })
+map('n', '<leader>cir', '<cmd>LazyRoot<CR>', { silent = true, desc = 'Root' })
 
 -- Start new line from any cursor position in insert-mode
 map('i', '<S-Return>', '<C-o>o', { desc = 'Start Newline' })
@@ -232,8 +234,10 @@ map('n', 'g*', '*')
 map('n', '#', 'g#')
 map('n', 'g#', '#')
 
+map('n', '<C-c>', 'ciw', { desc = 'Change Inner Word' })
+
 -- Clear search with <Esc>
-map('n', '<Esc>', '<cmd>noh<CR>', { desc = 'Clear hlsearch' })
+map('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'Clear hlsearch' })
 
 -- Use backspace key for matching pairs
 map({ 'n', 'x' }, '<BS>', '%', { remap = true, desc = 'Jump to Paren' })
@@ -242,6 +246,9 @@ map({ 'n', 'x' }, '<BS>', '%', { remap = true, desc = 'Jump to Paren' })
 map('n', '<Leader>bf', function()
 	vim.cmd('windo diff' .. (vim.wo.diff and 'off' or 'this'))
 end, { desc = 'Diff Windows in Tab' })
+
+-- External diff
+map('n', '<Leader>bF', '<cmd>!' .. vim.g.diffprg .. ' % #<CR>', { desc = 'Diff with' .. vim.g.diffprg })
 
 -- }}}
 -- Command & History {{{
@@ -279,6 +286,7 @@ map('n', '<leader>fn', '<cmd>enew<cr>', { desc = 'New File' })
 
 -- Fast saving from all modes
 map('n', '<Leader>w', '<cmd>write<CR>', { desc = 'Save File' })
+map('n', '<M-s>', '<cmd>write<CR>', { desc = 'Save File' })
 map({ 'n', 'i', 'v' }, '<C-s>', '<cmd>write<CR>', { desc = 'Save File' })
 
 -- }}}
@@ -301,15 +309,15 @@ end, { desc = 'Open Location List' })
 -- Toggle options
 LazyVim.format.snacks_toggle():map('<leader>uf')
 LazyVim.format.snacks_toggle(true):map('<leader>uF')
-Snacks.toggle.option('spell', { name = 'Spelling'}):map('<leader>us')
-Snacks.toggle.option('wrap', {name = 'Wrap'}):map('<leader>uw')
-Snacks.toggle.option('relativenumber', { name = 'Relative Number'}):map('<leader>uL')
+Snacks.toggle.option('spell', { name = 'Spelling' }):map('<leader>us')
+Snacks.toggle.option('wrap', { name = 'Wrap' }):map('<leader>uw')
+Snacks.toggle.option('relativenumber', { name = 'Relative Number' }):map('<leader>uL')
 Snacks.toggle.diagnostics():map('<leader>ud')
 Snacks.toggle.line_number():map('<leader>ul')
-Snacks.toggle.option('conceallevel', {off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2, name = 'Conceal Level'}):map('<leader>uc')
-Snacks.toggle.option('showtabline', {off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = 'Tabline'}):map('<leader>uA')
+Snacks.toggle.option('conceallevel', { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2, name = 'Conceal Level' }):map('<leader>uc')
+Snacks.toggle.option('showtabline', { off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = 'Tabline' }):map('<leader>uA')
 Snacks.toggle.treesitter():map('<leader>uT')
-Snacks.toggle.option('background', { off = 'light', on = 'dark' , name = 'Dark Background'}):map('<leader>ub')
+Snacks.toggle.option('background', { off = 'light', on = 'dark' , name = 'Dark Background' }):map('<leader>ub')
 Snacks.toggle.dim():map('<leader>uD')
 Snacks.toggle.animate():map('<leader>ua')
 Snacks.toggle.indent():map('<leader>ug')
@@ -368,8 +376,9 @@ map('n', '<C-/>',      function() Snacks.terminal(nil, { cwd = LazyVim.root() })
 map('n', '<C-_>',      function() Snacks.terminal(nil, { cwd = LazyVim.root() }) end, { desc = 'which_key_ignore' })
 
 -- Terminal Mappings
-map('t', '<C-/>', '<cmd>close<cr>', { desc = 'Hide Terminal' })
-map('t', '<C-_>', '<cmd>close<cr>', { desc = 'which_key_ignore' })
+map('t', '<C-g>', '<C-\\><C-n>', { desc = 'Enter Normal Mode' })
+map('t', '<C-/>', '<cmd>close<CR>', { desc = 'Hide Terminal' })
+map('t', '<C-_>', '<cmd>close<CR>', { desc = 'which_key_ignore' })
 
 if vim.fn.has('mac') then
 	-- Open the macOS dictionary on current word
@@ -379,10 +388,11 @@ end
 -- }}}
 -- Windows and buffers {{{
 
-map('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Exit Neovim' })
+-- Quit Neovim
+map('n', '<leader>qq', '<cmd>qall<CR>', { desc = 'Exit Neovim' })
 
--- Ultimatus Quitos
-if vim.F.if_nil(vim.g.window_q_mapping, true) then
+-- When enabled, 'q' closes any window.
+if vim.F.if_nil(vim.g.window_q_mapping, false) then
 	map('n', 'q', function()
 		local plugins = {
 			'blame',
@@ -450,13 +460,13 @@ Snacks.toggle.zen():map('<leader>uz')
 -- }}}
 
 -- Tabs
-map('n', '<leader><tab>l', '<cmd>tablast<cr>', { desc = 'Last Tab' })
-map('n', '<leader><tab>o', '<cmd>tabonly<cr>', { desc = 'Close Other Tabs' })
-map('n', '<leader><tab>f', '<cmd>tabfirst<cr>', { desc = 'First Tab' })
-map('n', '<leader><tab><tab>', '<cmd>tabnew<cr>', { desc = 'New Tab' })
-map('n', '<leader><tab>]', '<cmd>tabnext<cr>', { desc = 'Next Tab' })
-map('n', '<leader><tab>d', '<cmd>tabclose<cr>', { desc = 'Close Tab' })
-map('n', '<leader><tab>[', '<cmd>tabprevious<cr>', { desc = 'Previous Tab' })
+map('n', '<leader><tab>l', '<cmd>tablast<CR>', { desc = 'Last Tab' })
+map('n', '<leader><tab>o', '<cmd>tabonly<CR>', { desc = 'Close Other Tabs' })
+map('n', '<leader><tab>f', '<cmd>tabfirst<CR>', { desc = 'First Tab' })
+map('n', '<leader><tab><tab>', '<cmd>tabnew<CR>', { desc = 'New Tab' })
+map('n', '<leader><tab>]', '<cmd>tabnext<CR>', { desc = 'Next Tab' })
+map('n', '<leader><tab>d', '<cmd>tabclose<CR>', { desc = 'Close Tab' })
+map('n', '<leader><tab>[', '<cmd>tabprevious<CR>', { desc = 'Previous Tab' })
 
 -- Native snippets. only needed on < 0.11, as 0.11 creates these by default
 if vim.fn.has('nvim-0.11') == 0 then

@@ -11,9 +11,6 @@ vim.g.maplocalleader = ';'
 -- Enable elite-mode (hjkl mode. arrow-keys resize window)
 vim.g.elite_mode = false
 
--- When enabled, 'q' closes any window
-vim.g.window_q_mapping = true
-
 -- External file diff program
 vim.g.diffprg = 'bcompare'
 
@@ -22,7 +19,7 @@ vim.g.autoformat = false
 
 -- Snacks animations
 -- Set to `false` to globally disable all snacks animations
-vim.g.snacks_animate = true
+vim.g.snacks_animate = false
 
 -- LazyVim picker to use.
 -- Can be one of: telescope, fzf
@@ -70,7 +67,7 @@ vim.g.trouble_lualine = false
 
 local opt = vim.opt
 
--- only set clipboard if not in ssh, to make sure the OSC 52
+-- Only set clipboard if not in SSH, to make sure the OSC 52
 -- integration works automatically. Requires Neovim >= 0.10.0
 opt.clipboard = vim.env.SSH_TTY and '' or 'unnamedplus' -- Sync with system clipboard
 opt.title = true

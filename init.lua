@@ -1,5 +1,7 @@
 -- Rafael Bodill's Neovim entry-point
 -- https://github.com/rafi/vim-config
+--
+-- since 2014.
 
 local stdconfig = vim.fn.stdpath('config') --[[@as string]]
 local lazy_override = stdconfig .. '/lua/config/lazy.lua'
