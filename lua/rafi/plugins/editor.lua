@@ -29,6 +29,7 @@ return {
 		-- stylua: ignore
 		keys = {
 			{ '<leader>qs', function() require('persistence').load() end, desc = 'Restore Session' },
+			{ '<leader>qS', function() require('persistence').select() end, desc = 'Select Session' },
 			{ '<leader>ql', function() require('persistence').load({ last = true }) end, desc = 'Restore Last Session' },
 			{ '<leader>qd', function() require('persistence').stop() end, desc = 'Don\'t Save Current Session' },
 		},
@@ -114,33 +115,6 @@ return {
 			{ 'r', mode = 'o', function() require('flash').remote() end, desc = 'Remote Flash' },
 			{ 'R', mode = { 'x', 'o' }, function() require('flash').treesitter_search() end, desc = 'Treesitter Search' },
 			{ '<C-s>', mode = { 'c' }, function() require('flash').toggle() end, desc = 'Toggle Flash Search' },
-		},
-	},
-
-	-----------------------------------------------------------------------------
-	-- Jump to the edge of block
-	{
-		'haya14busa/vim-edgemotion',
-		-- stylua: ignore
-		keys = {
-			{ 'gj', '<Plug>(edgemotion-j)', mode = { 'n', 'x' }, desc = 'Move to bottom edge' },
-			{ 'gk', '<Plug>(edgemotion-k)', mode = { 'n', 'x' }, desc = 'Move to top edge' },
-		},
-	},
-
-	-----------------------------------------------------------------------------
-	-- Distraction-free coding for Neovim
-	{
-		'folke/zen-mode.nvim',
-		cmd = 'ZenMode',
-		keys = {
-			{ '<Leader>zz', '<cmd>ZenMode<CR>', noremap = true, desc = 'Zen Mode' },
-		},
-		opts = {
-			plugins = {
-				gitsigns = { enabled = true },
-				tmux = { enabled = vim.env.TMUX ~= nil },
-			},
 		},
 	},
 
@@ -352,6 +326,7 @@ return {
 		},
 	},
 
+	-----------------------------------------------------------------------------
 	{
 		import = 'lazyvim.plugins.extras.editor.fzf',
 		enabled = function()

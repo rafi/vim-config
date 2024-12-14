@@ -23,7 +23,7 @@ return {
 		opts = function()
 			local Util = require('lazyvim.util')
 			local RafiUtil = require('rafi.util')
-			local icons = require('lazyvim.config').icons
+			local icons = LazyVim.config.icons
 
 			local function is_plugin_window()
 				return vim.bo.buftype ~= ''
@@ -45,12 +45,12 @@ return {
 			end
 
 			local active = {
-				bg = RafiUtil.ui.bg('StatusLine'),
-				fg = RafiUtil.ui.fg('StatusLine'),
+				bg = Snacks.util.color('StatusLine', 'bg'),
+				fg = Snacks.util.color('StatusLine'),
 			}
 			local inactive = {
-				bg = RafiUtil.ui.bg('StatusLineNC'),
-				fg = RafiUtil.ui.fg('StatusLineNC'),
+				bg = Snacks.util.color('StatusLineNC', 'bg'),
+				fg = Snacks.util.color('StatusLineNC'),
 			}
 
 			local theme = {
@@ -83,12 +83,12 @@ return {
 
 			vim.o.laststatus = vim.g.lualine_laststatus
 
-			return {
+			local opts = {
 				options = {
 					theme = theme,
-					globalstatus = true,
+					globalstatus = vim.o.laststatus == 3,
 					disabled_filetypes = {
-						statusline = { 'dashboard', 'alpha', 'starter' },
+						statusline = { 'dashboard', 'alpha', 'ministarter', 'snacks_dashboard' },
 					},
 				},
 				extensions = {
@@ -106,7 +106,7 @@ return {
 							separator = '',
 							color = function()
 								local hl = is_file_window() and 'Statement' or 'Function'
-								return LazyVim.ui.fg(hl)
+								return { fg = Snacks.util.color(hl) }
 							end,
 						},
 						-- Readonly/zoomed/hash symbol.
@@ -183,7 +183,7 @@ return {
 							RafiUtil.lualine.trails(),
 							cond = is_file_window,
 							padding = { left = 1, right = 0 },
-							color = LazyVim.ui.fg('Identifier'),
+							color = function() return { fg = Snacks.util.color('Identifier') } end,
 						},
 
 						{
@@ -219,25 +219,9 @@ return {
 							separator = '',
 							padding = { left = 1, right = 0 },
 						},
-
-						{
-							function()
-								return require('nvim-navic').get_location()
-							end,
-							padding = { left = 1, right = 0 },
-							cond = function()
-								return vim.g.structure_status
-									and is_min_width(100)
-									and package.loaded['nvim-navic']
-									and require('nvim-navic').is_available()
-							end,
-							on_click = function()
-								vim.g.structure_status = not vim.g.structure_status
-								require('lualine').refresh()
-							end,
-						},
 					},
 					lualine_x = {
+						Snacks.profiler.status(),
 						-- Diff (git)
 						{
 							'diff',
@@ -275,7 +259,7 @@ return {
 									---@diagnostic disable-next-line: undefined-field
 									and require('noice').api.status.command.has()
 							end,
-							color = LazyVim.ui.fg('Statement'),
+							color = function() return { fg = Snacks.util.color('Statement') } end,
 						},
 						-- showmode
 						{
@@ -288,20 +272,20 @@ return {
 									---@diagnostic disable-next-line: undefined-field
 									and require('noice').api.status.mode.has()
 							end,
-							color = LazyVim.ui.fg('Constant'),
+							color = function() return { fg = Snacks.util.color('Constant') } end,
 						},
 						-- dap status
 						-- stylua: ignore
 						{
 							function() return '  ' .. require('dap').status() end,
 							cond = function () return package.loaded['dap'] and require('dap').status() ~= '' end,
-							color = LazyVim.ui.fg('Debug'),
+							color = function() return { fg = Snacks.util.color('Debug') } end,
 						},
 						-- lazy.nvim updates
 						{
 							require('lazy.status').updates,
 							cond = require('lazy.status').has_updates,
-							color = LazyVim.ui.fg('Comment'),
+							color = function() return { fg = Snacks.util.color('Comment') } end,
 							on_click = function()
 								vim.cmd([[Lazy]])
 							end,
@@ -367,6 +351,28 @@ return {
 					},
 				},
 			}
+
+			-- Show code structure in statusline.
+			-- Allow it to be overriden for some buffer types (see autocmds).
+			if vim.g.trouble_lualine and LazyVim.has('trouble.nvim') then
+				local trouble = require('trouble')
+				local symbols = trouble.statusline({
+					mode = 'symbols',
+					groups = {},
+					title = false,
+					filter = { range = true },
+					format = '{kind_icon}{symbol.name:Normal}',
+					hl_group = 'lualine_c_normal',
+				})
+				table.insert(opts.sections.lualine_c, {
+					symbols and symbols.get,
+					cond = function()
+						return vim.b.trouble_lualine ~= false and symbols.has()
+					end,
+				})
+			end
+
+			return opts
 		end,
 	},
 }

@@ -14,17 +14,27 @@ vim.g.elite_mode = false
 -- When enabled, 'q' closes any window
 vim.g.window_q_mapping = true
 
--- File diff program
+-- External file diff program
 vim.g.diffprg = 'bcompare'
 
 -- LazyVim auto format
 vim.g.autoformat = false
+
+-- Snacks animations
+-- Set to `false` to globally disable all snacks animations
+vim.g.snacks_animate = true
 
 -- LazyVim picker to use.
 -- Can be one of: telescope, fzf
 -- Leave it to "auto" to automatically use the picker
 -- enabled with `:LazyExtras`
 vim.g.lazyvim_picker = 'auto'
+
+-- LazyVim completion engine to use.
+-- Can be one of: nvim-cmp, blink.cmp
+-- Leave it to "auto" to automatically use the completion engine
+-- enabled with `:LazyExtras`
+vim.g.lazyvim_cmp = 'auto'
 
 -- if the completion engine supports the AI source,
 -- use that instead of inline suggestions
@@ -60,6 +70,9 @@ vim.g.trouble_lualine = false
 
 local opt = vim.opt
 
+-- only set clipboard if not in ssh, to make sure the OSC 52
+-- integration works automatically. Requires Neovim >= 0.10.0
+opt.clipboard = vim.env.SSH_TTY and '' or 'unnamedplus' -- Sync with system clipboard
 opt.title = true
 opt.titlestring = '%<%F%=%l/%L - nvim'
 opt.mouse = 'nv'               -- Enable mouse in normal and visual modes only
@@ -73,10 +86,6 @@ if not vim.g.vscode then
 	opt.timeoutlen = 500  -- Time out on mappings
 	opt.ttimeoutlen = 10  -- Time out on key codes
 end
-
--- only set clipboard if not in ssh, to make sure the OSC 52
--- integration works automatically. Requires Neovim >= 0.10.0
-opt.clipboard = vim.env.SSH_TTY and '' or 'unnamedplus' -- Sync with system clipboard
 
 opt.completeopt = 'menu,menuone,noselect'
 opt.wildmode = 'longest:full,full'
@@ -154,7 +163,6 @@ opt.cursorline = true     -- Highlight the text line under the cursor
 opt.splitbelow = true     -- New split at bottom
 opt.splitright = true     -- New split on right
 opt.splitkeep = 'screen'  -- New split keep the text on the same screen line
-
 opt.cmdheight = 0
 opt.colorcolumn = '+0'    -- Align text at 'textwidth'
 opt.showtabline = 2       -- Always show the tabs line

@@ -195,97 +195,53 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
-	-- Visually display indent levels
 	{
-		'lukas-reineke/indent-blankline.nvim',
-		main = 'ibl',
-		event = 'LazyFile',
-		opts = function()
-			Snacks.toggle({
-				name = 'Indention Guides',
-				get = function()
-					return require('ibl.config').get_config(0).enabled
-				end,
-				set = function(state)
-					require('ibl').setup_buffer(0, { enabled = state })
-				end,
-			}):map('<Leader>ug')
-
-			return {
-				indent = {
-					-- See more characters at :h ibl.config.indent.char
-					char = '│', -- ▏│
-					tab_char = '│',
+		'snacks.nvim',
+		opts = {
+			-- See also lazyvim's lua/lazyvim/plugins/util.lua
+			indent = { enabled = true },
+			input = { enabled = true },
+			notifier = { enabled = true },
+			scope = { enabled = true },
+			-- scroll = { enabled = true },
+			statuscolumn = { enabled = false }, -- we set this in options.lua
+			toggle = { map = LazyVim.safe_keymap_set },
+			words = { enabled = true },
+			zen = {
+				toggles = { git_signs = true },
+				zoom = {
+					show = { tabline = false },
+					win = { backdrop = true },
 				},
-				scope = { enabled = false, show_start = false, show_end = false },
-				exclude = {
-					filetypes = {
-						'alpha',
-						'checkhealth',
-						'dashboard',
-						'git',
-						'gitcommit',
-						'help',
-						'lazy',
-						'lazyterm',
-						'lspinfo',
-						'man',
-						'mason',
-						'neo-tree',
-						'notify',
-						'Outline',
-						'snacks_dashboard',
-						'snacks_notif',
-						'snacks_terminal',
-						'snacks_win',
-						'TelescopePrompt',
-						'TelescopeResults',
-						'terminal',
-						'toggleterm',
-						'trouble',
-						'Trouble',
-					},
-				},
+			},
+		},
+		-- stylua: ignore
+		keys = {
+			{ '<leader>.',  function() Snacks.scratch() end, desc = 'Toggle Scratch Buffer' },
+			{ '<leader>S',  function() Snacks.scratch.select() end, desc = 'Select Scratch Buffer' },
+			{ '<leader>n',  function() Snacks.notifier.show_history() end, desc = 'Notification History' },
+			{ '<leader>un', function() Snacks.notifier.hide() end, desc = 'Dismiss All Notifications' },
+			{ '<leader>dps', function() Snacks.profiler.scratch() end, desc = 'Profiler Scratch Buffer' },
+			{
+				'<leader>N',
+				desc = 'Neovim News',
+				function()
+					---@diagnostic disable-next-line: missing-fields
+					Snacks.win({
+						file = vim.api.nvim_get_runtime_file('doc/news.txt', false)[1],
+						width = 0.6,
+						height = 0.6,
+						wo = {
+							spell = false,
+							wrap = false,
+							signcolumn = 'yes',
+							statuscolumn = ' ',
+							conceallevel = 3,
+						},
+					})
+				end,
 			}
-		end,
-	},
-
-	-----------------------------------------------------------------------------
-	-- Visualize and operate on indent scope
-	{
-		'echasnovski/mini.indentscope',
-		event = 'LazyFile',
-		opts = function(_, opts)
-			opts.symbol = '│' -- ▏│
-			opts.options = { try_as_border = true }
-			opts.draw = {
-				delay = 0,
-				animation = require('mini.indentscope').gen_animation.none(),
-			}
-		end,
-		init = function()
-			vim.api.nvim_create_autocmd('FileType', {
-				pattern = {
-					'alpha',
-					'dashboard',
-					'fzf',
-					'help',
-					'lazy',
-					'lazyterm',
-					'man',
-					'mason',
-					'neo-tree',
-					'notify',
-					'Outline',
-					'toggleterm',
-					'Trouble',
-					'trouble',
-				},
-				callback = function()
-					vim.b['miniindentscope_disable'] = true
-				end,
-			})
-		end,
+		},
 	},
 
 	-----------------------------------------------------------------------------
@@ -313,6 +269,7 @@ return {
 		opts_extend = { 'spec' },
 		-- stylua: ignore
 		opts = {
+			preset = 'helix',
 			defaults = {},
 			icons = {
 				breadcrumb = '»',
@@ -326,6 +283,7 @@ return {
 					mode = { 'n', 'v' },
 					{ '[', group = 'prev' },
 					{ ']', group = 'next' },
+					{ 's', group = 'screen' },
 					{ 'g', group = 'goto' },
 					{ 'gz', group = 'surround' },
 					{ 'z', group = 'fold' },
@@ -339,6 +297,8 @@ return {
 						end,
 					},
 					{ '<leader>c', group = 'code' },
+					{ '<leader>d', group = 'debug' },
+					{ '<leader>dp', group = 'profiler' },
 					{ '<leader>ch', group = 'calls' },
 					{ '<leader>f', group = 'file/find' },
 					{ '<leader>fw', group = 'workspace' },
@@ -367,6 +327,7 @@ return {
 				LazyVim.warn(
 					'which-key: opts.defaults is deprecated. Please use opts.spec instead.'
 				)
+				---@diagnostic disable-next-line: deprecated
 				wk.register(opts.defaults)
 			end
 		end,
@@ -387,51 +348,6 @@ return {
 		-- stylua: ignore
 		keys = {
 			{ '<Leader>mt', '<Plug>(quickhl-manual-this)', mode = { 'n', 'x' }, desc = 'Highlight word' },
-		},
-	},
-
-	-----------------------------------------------------------------------------
-	-- Better quickfix window
-	{
-		'kevinhwang91/nvim-bqf',
-		ft = 'qf',
-		cmd = 'BqfAutoToggle',
-		event = 'QuickFixCmdPost',
-		opts = {
-			auto_resize_height = false,
-			func_map = {
-				tab = 'st',
-				split = 'sv',
-				vsplit = 'sg',
-
-				stoggleup = 'K',
-				stoggledown = 'J',
-
-				ptoggleitem = 'p',
-				ptoggleauto = 'P',
-				ptogglemode = 'zp',
-
-				pscrollup = '<C-b>',
-				pscrolldown = '<C-f>',
-
-				prevfile = 'gk',
-				nextfile = 'gj',
-
-				prevhist = '<S-Tab>',
-				nexthist = '<Tab>',
-			},
-			preview = {
-				auto_preview = true,
-				should_preview_cb = function(bufnr)
-					-- file size greater than 100kb can't be previewed automatically
-					local filename = vim.api.nvim_buf_get_name(bufnr)
-					local fsize = vim.fn.getfsize(filename)
-					if fsize > 100 * 1024 then
-						return false
-					end
-					return true
-				end,
-			},
 		},
 	},
 }

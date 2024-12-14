@@ -64,6 +64,7 @@ entire configuration has been rewritten to use [lazy.nvim] and Lua.
     * [DAP (Debugging)](#dap-debugging)
     * [Test](#test)
 * [Custom Key-mappings](#custom-key-mappings)
+  * [Toggle Features](#toggle-features)
   * [Navigation](#navigation)
   * [Selection](#selection)
   * [Jump To](#jump-to)
@@ -76,7 +77,6 @@ entire configuration has been rewritten to use [lazy.nvim] and Lua.
   * [Search, Substitute, Diff](#search-substitute-diff)
   * [Command & History](#command--history)
   * [File Operations](#file-operations)
-  * [Editor UI](#editor-ui)
   * [Window Management](#window-management)
   * [Plugins](#plugins)
     * [Plugin: Mini.Surround](#plugin-minisurround)
@@ -468,8 +468,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [folke/persistence.nvim] | Simple lua plugin for automated session management |
 | [mbbill/undotree] | Ultimate undo history visualizer |
 | [folke/flash.nvim] | Search labels, enhanced character motions |
-| [haya14busa/vim-edgemotion] | Jump to the edge of block |
-| [folke/zen-mode.nvim] | Distraction-free coding for Neovim |
 | [folke/todo-comments.nvim] | Highlight, list and search todo comments in your projects |
 | [folke/trouble.nvim] | Pretty lists to help you solve all code diagnostics |
 | [hedyhli/outline.nvim] | Code outline sidebar powered by LSP |
@@ -494,7 +492,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [echasnovski/mini.splitjoin] | Split and join arguments |
 | [echasnovski/mini.trailspace] | Trailing whitespace highlight and remove |
 | [AndrewRadev/linediff.vim] | Perform diffs on blocks of code |
-| [AndrewRadev/dsf.vim] | Delete surrounding function call |
 | [echasnovski/mini.ai] | Extend and create `a`/`i` textobjects |
 | [folke/lazydev.nvim] | Faster LuaLS setup |
 | [Bilal2453/luvit-meta] | Manage libuv types with lazy |
@@ -535,7 +532,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | -------------- | ---------------------- |
 | [nvim-treesitter/nvim-treesitter] | Nvim Treesitter configurations and abstraction layer |
 | [nvim-treesitter/nvim-treesitter-textobjects] | Textobjects using treesitter queries |
-| [RRethy/nvim-treesitter-endwise] | Wisely add "end" in various filetypes |
 | [windwp/nvim-ts-autotag] | Use treesitter to auto close and auto rename html tag |
 | [andymass/vim-matchup] | Modern matchit and matchparen |
 | [iloginow/vim-stylus] | Better vim plugin for stylus |
@@ -560,7 +556,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [folke/which-key.nvim] | Create key bindings that stick |
 | [tenxsoydev/tabs-vs-spaces.nvim] | Hint and fix deviating indentation |
 | [t9md/vim-quickhl] | Highlight words quickly |
-| [kevinhwang91/nvim-bqf] | Better quickfix window |
 
 [neovim/nvim-lspconfig]: https://github.com/neovim/nvim-lspconfig
 [williamboman/mason.nvim]: https://github.com/williamboman/mason.nvim
@@ -575,8 +570,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [folke/persistence.nvim]: https://github.com/folke/persistence.nvim
 [mbbill/undotree]: https://github.com/mbbill/undotree
 [folke/flash.nvim]: https://github.com/folke/flash.nvim
-[haya14busa/vim-edgemotion]: https://github.com/haya14busa/vim-edgemotion
-[folke/zen-mode.nvim]: https://github.com/folke/zen-mode.nvim
 [folke/todo-comments.nvim]: https://github.com/folke/todo-comments.nvim
 [folke/trouble.nvim]: https://github.com/folke/trouble.nvim
 [s1n7ax/nvim-window-picker]: https://github.com/s1n7ax/nvim-window-picker
@@ -596,7 +589,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [echasnovski/mini.splitjoin]: https://github.com/echasnovski/mini.splitjoin
 [echasnovski/mini.trailspace]: https://github.com/echasnovski/mini.trailspace
 [AndrewRadev/linediff.vim]: https://github.com/AndrewRadev/linediff.vim
-[AndrewRadev/dsf.vim]: https://github.com/AndrewRadev/dsf.vim
 [echasnovski/mini.ai]: https://github.com/echasnovski/mini.ai
 [folke/lazydev.nvim]: https://github.com/folke/lazydev.nvim
 [Bilal2453/luvit-meta]: https://github.com/Bilal2453/luvit-meta
@@ -621,7 +613,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 
 [nvim-treesitter/nvim-treesitter]: https://github.com/nvim-treesitter/nvim-treesitter
 [nvim-treesitter/nvim-treesitter-textobjects]: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
-[RRethy/nvim-treesitter-endwise]: https://github.com/RRethy/nvim-treesitter-endwise
 [windwp/nvim-ts-autotag]: https://github.com/windwp/nvim-ts-autotag
 [andymass/vim-matchup]: https://github.com/andymass/vim-matchup
 [iloginow/vim-stylus]: https://github.com/iloginow/vim-stylus
@@ -642,7 +633,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [folke/which-key.nvim]: https://github.com/folke/which-key.nvim
 [tenxsoydev/tabs-vs-spaces.nvim]: https://github.com/tenxsoydev/tabs-vs-spaces.nvim
 [t9md/vim-quickhl]: https://github.com/t9md/vim-quickhl
-[kevinhwang91/nvim-bqf]: https://github.com/kevinhwang91/nvim-bqf
 
 </details>
 
@@ -799,10 +789,12 @@ Spec: `rafi.plugins.extras.org.<name>`
 
 Spec: `rafi.plugins.extras.treesitter.<name>`
 
-| Key            | Name           | Description |
-| -------------- | -------------- | ---------------------- |
+| Key            | Name                         | Description |
+| -------------- | ---------------------------- | ---------------------- |
+| `endwise`      | [RRethy/nvim-treesitter-endwise] | Wisely add "end" in various filetypes |
 | `treesj`       | [Wansmer/treesj] | Splitting and joining blocks of code |
 
+[RRethy/nvim-treesitter-endwise]: https://github.com/RRethy/nvim-treesitter-endwise
 [Wansmer/treesj]: https://github.com/Wansmer/treesj
 
 ### Extra Plugins: UI
@@ -813,7 +805,8 @@ Spec: `rafi.plugins.extras.ui.<name>`
 | ----------------- | -------------- | ---------------------- |
 | `alpha`           | [goolord/alpha-nvim] | Fast and fully programmable greeter |
 | `barbecue`        | [utilyre/barbecue.nvim] | VS Code like winbar |
-| `bookmarks`        | [tomasky/bookmarks.nvim] | Bookmarks plugin with global file store |
+| `bookmarks`       | [tomasky/bookmarks.nvim] | Bookmarks plugin with global file store |
+| `bqf`             | [kevinhwang91/nvim-bqf] | Better quickfix window |
 | `ccc`             | [uga-rosa/ccc.nvim] | Super powerful color picker/colorizer plugin |
 | `cursorword`      | [itchyny/cursorword] | Underlines word under cursor |
 | `cybu`            | [ghillb/cybu.nvim] | Cycle buffers with a customizable notification window |
@@ -822,7 +815,7 @@ Spec: `rafi.plugins.extras.ui.<name>`
 | `headlines`       | [lukas-reineke/headlines.nvim] | Adds horizontal highlights for headlines and code background. |
 | `illuminate`      | [RRethy/vim-illuminate] | Highlights other uses of the word under the cursor |
 | `incline`         | [b0o/incline.nvim] | Floating statuslines |
-| `marks`         | [chentoast/marks.nvim] | Interacting with and manipulating marks |
+| `marks`           | [chentoast/marks.nvim] | Interacting with and manipulating marks |
 | `mini-clue`       | [echasnovski/mini.clue] | Show next key clues |
 | `mini-map`        | [echasnovski/mini.map] | Window with buffer text overview, scrollbar and highlights |
 | `symbols-outline` | [simrat39/symbols-outline.nvim] | Tree like view for symbols using LSP |
@@ -830,6 +823,7 @@ Spec: `rafi.plugins.extras.ui.<name>`
 [goolord/alpha-nvim]: https://github.com/goolord/alpha-nvim
 [utilyre/barbecue.nvim]: https://github.com/utilyre/barbecue.nvim
 [tomasky/bookmarks.nvim]: https://github.com/tomasky/bookmarks.nvim
+[kevinhwang91/nvim-bqf]: https://github.com/kevinhwang91/nvim-bqf
 [uga-rosa/ccc.nvim]: https://github.com/uga-rosa/ccc.nvim
 [itchyny/cursorword]: https://github.com/itchyny/vim-cursorword
 [ghillb/cybu.nvim]: https://github.com/ghillb/cybu.nvim
@@ -878,7 +872,7 @@ Note that,
 * **Leader** key set as <kbd>Space</kbd>
 * **Local-Leader** key set as <kbd>;</kbd> and used for navigation and search
   (Telescope and Neo-tree)
-* Disable <kbd>←</kbd> <kbd>↑</kbd> <kbd>→</kbd> <kbd>↓</kbd> in normal mode by enabling `elite_mode`.
+* Disable <kbd>←</kbd> <kbd>↑</kbd> <kbd>→</kbd> <kbd>↓</kbd> in normal mode by enabling `vim.g.elite_mode`.
 
 <details open>
   <summary>
@@ -886,23 +880,43 @@ Note that,
     <small><i>(🔎 Click to expand/collapse)</i></small>
   </summary>
 
-<center>
-Legend:
+Legend: | Ⓝormal | Ⓥisual | Ⓢelect | Ⓘnsert | Ⓞperator | Ⓒommand |
 
-| Ⓝormal
-| Ⓥisual
-| Ⓢelect
-| Ⓘnsert
-| Ⓞperator
-| Ⓒommand |
-</center>
+### Toggle Features
+
+| Key   | Mode | Action |
+| ----- |:----:| ------------------ |
+| <kbd>Space</kbd> <kbd>dph</kbd>  | Ⓝ | Toggle profiler highlights |
+| <kbd>Space</kbd> <kbd>dpp</kbd>  | Ⓝ | Toggle profiler |
+| <kbd>Space</kbd> <kbd>uA</kbd> | Ⓝ | Toggle animation |
+| <kbd>Space</kbd> <kbd>uA</kbd> | Ⓝ | Toggle tabline |
+| <kbd>Space</kbd> <kbd>ub</kbd> | Ⓝ | Toggle background dark/light |
+| <kbd>Space</kbd> <kbd>uc</kbd>  | Ⓝ | Toggle conceal level |
+| <kbd>Space</kbd> <kbd>ud</kbd>  | Ⓝ | Toggle buffer diagnostics |
+| <kbd>Space</kbd> <kbd>uD</kbd>  | Ⓝ | Toggle text dim |
+| <kbd>Space</kbd> <kbd>uf</kbd> | Ⓝ | Toggle format on Save |
+| <kbd>Space</kbd> <kbd>uF</kbd> | Ⓝ | Toggle format on Save (Global) |
+| <kbd>Space</kbd> <kbd>ug</kbd> | Ⓝ | Toggle indentation lines |
+| <kbd>Space</kbd> <kbd>uh</kbd> | Ⓝ | Toggle inlay-hints |
+| <kbd>Space</kbd> <kbd>ui</kbd> | Ⓝ | Show highlight groups for word |
+| <kbd>Space</kbd> <kbd>ul</kbd> | Ⓝ | Toggle line numbers |
+| <kbd>Space</kbd> <kbd>uL</kbd> | Ⓝ | Toggle relative line numbers |
+| <kbd>Space</kbd> <kbd>un</kbd> | Ⓝ | Dismiss all notifications |
+| <kbd>Space</kbd> <kbd>up</kbd> | Ⓝ | Disable auto-pairs |
+| <kbd>Space</kbd> <kbd>ur</kbd> | Ⓝ | Redraw, clear hlsearch, and diff update |
+| <kbd>Space</kbd> <kbd>us</kbd> | Ⓝ | Toggle spell-checker |
+| <kbd>Space</kbd> <kbd>uS</kbd> | Ⓝ | Toggle scroll |
+| <kbd>Space</kbd> <kbd>uT</kbd> | Ⓝ | Toggle tree-sitter |
+| <kbd>Space</kbd> <kbd>uw</kbd> | Ⓝ | Toggle wrap |
+| <kbd>Space</kbd> <kbd>uz</kbd> | Ⓝ | Toggle distraction-free zen writing |
+| <kbd>Space</kbd> <kbd>uZ</kbd> | Ⓝ | Toggle window zoom |
 
 ### Navigation
 
 | Key   | Mode | Action             | Plugin or Mapping |
 | ----- |:----:| ------------------ | ------ |
 | <kbd>j</kbd> / <kbd>k</kbd> | Ⓝ Ⓥ | Cursor moves through display-lines | <small>`g` `j/k`</small> |
-| <kbd>gj</kbd> / <kbd>gk</kbd> | Ⓝ Ⓥ Ⓢ | Jump to edge upward/downward | <small>[haya14busa/vim-edgemotion]</small> |
+| <kbd>]i</kbd> / <kbd>[i</kbd> | Ⓝ Ⓥ | Jump to scope edges | <small>[folke/snacks.nvim]</small> |
 | <kbd>gh</kbd> / <kbd>gl</kbd> | Ⓝ Ⓥ | Easier line-wise movement | <small>`g^` `g$`</small> |
 | <kbd>zl</kbd> / <kbd>zh</kbd> | Ⓝ | Scroll horizontally and vertically wider | <small>`z4` `l/h`</small> |
 | <kbd>Ctrl</kbd>+<kbd>j</kbd> | Ⓝ | Move to split below | <small>`<C-w>j` or [christoomey/tmux-navigator]</small> |
@@ -1007,7 +1021,6 @@ Legend:
 | <kbd>Space</kbd> <kbd>cA</kbd>  | Ⓝ | Source action | <small>[plugins/lsp/keymaps.lua]</small> |
 | <kbd>Space</kbd> <kbd>chi</kbd>  | Ⓝ | LSP incoming calls | <small>[plugins/lsp/keymaps.lua]</small> |
 | <kbd>Space</kbd> <kbd>cho</kbd>  | Ⓝ | LSP outgoing calls | <small>[plugins/lsp/keymaps.lua]</small> |
-| <kbd>Space</kbd> <kbd>ud</kbd>  | Ⓝ | Toggle buffer diagnostics | <small>[plugins/lsp/keymaps.lua]</small> |
 | <kbd>Space</kbd> <kbd>fwa</kbd> | Ⓝ | Add workspace folder | <small>[plugins/lsp/keymaps.lua]</small> |
 | <kbd>Space</kbd> <kbd>fwr</kbd> | Ⓝ | Remove workspace folder | <small>[plugins/lsp/keymaps.lua]</small> |
 | <kbd>Space</kbd> <kbd>fwl</kbd> | Ⓝ | List workspace folders | <small>[plugins/lsp/keymaps.lua]</small> |
@@ -1020,6 +1033,7 @@ Legend:
 
 | Key   | Mode | Action             | Plugin or Mapping |
 | ----- |:----:| ------------------ | ------ |
+| <kbd>Space</kbd> <kbd>ud</kbd>  | Ⓝ | Toggle buffer diagnostics | <small>[plugins/lsp/keymaps.lua]</small> |
 | <kbd>Space</kbd> <kbd>xt</kbd> | Ⓝ | List TODO with Trouble | <small>[folke/todo-comments.nvim]</small> |
 | <kbd>Space</kbd> <kbd>xT</kbd> | Ⓝ | List TODO/FIXME with Trouble | <small>[folke/todo-comments.nvim]</small> |
 | <kbd>Space</kbd> <kbd>st</kbd> | Ⓝ | Select TODO with Telescope | <small>[folke/todo-comments.nvim]</small> |
@@ -1048,8 +1062,10 @@ Legend:
 | <kbd>Space</kbd>+<kbd>V</kbd> | Ⓝ Ⓥ | Toggle block-wise comments | <small>[numToStr/Comment.nvim]</small> |
 | <kbd>Space</kbd>+<kbd>dd</kbd> | Ⓝ Ⓥ | Duplicate line or selection | <small>[config/keymaps.lua]</small> |
 | <kbd>Space</kbd>+<kbd>cw</kbd> | Ⓝ | Remove all spaces at EOL | <small>[echasnovski/mini.trailspace]</small> |
+| <kbd>Space</kbd>+<kbd>cid</kbd> | Ⓝ | LazyDev | <small>[folke/lazydev.nvim]</small> |
+| <kbd>Space</kbd>+<kbd>cif</kbd> | Ⓝ | LazyFormatterInfo | <small>[LazyVim/LazyVim]</small> |
+| <kbd>Space</kbd>+<kbd>cir</kbd> | Ⓝ | LazyRoot | <small>[LazyVim/LazyVim]</small> |
 | <kbd>sj</kbd> / <kbd>sk</kbd> | Ⓝ | Join/split arguments | <small>[echasnovski/mini.splitjoin]</small> |
-| <kbd>dsf</kbd> / <kbd>csf</kbd> | Ⓝ | Delete/change surrounding function call | <small>[AndrewRadev/dsf.vim]</small> |
 
 ### Search, Substitute, Diff
 
@@ -1060,6 +1076,7 @@ Legend:
 | <kbd>Escape</kbd> | Ⓝ | Clear search highlight | <small>`:nohlsearch`</small> |
 | <kbd>Backspace</kbd> | Ⓝ | Match bracket | <small>`%`</small> |
 | <kbd>Space</kbd>+<kbd>bf</kbd> | Ⓝ | Diff current windows in tab | <small>`windo diffthis`</small> |
+| <kbd>Space</kbd>+<kbd>bF</kbd> | Ⓝ | External diff | <small>`!vim.g.diffprg % #`</small> |
 | <kbd>ss</kbd> | Ⓝ Ⓥ Ⓞ | Flash jump | <small>[folke/flash.nvim]</small> |
 | <kbd>S</kbd> | Ⓝ Ⓥ Ⓞ | Flash treesitter | <small>[folke/flash.nvim]</small> |
 | <kbd>r</kbd> | Ⓞ | Flash remote | <small>[folke/flash.nvim]</small> |
@@ -1079,25 +1096,8 @@ Legend:
 | Key   | Mode | Action             | Plugin or Mapping |
 | ----- |:----:| ------------------ | ------ |
 | <kbd>Space</kbd>+<kbd>cd</kbd> | Ⓝ | Switch tab to the directory of current buffer | <small>`:tcd %:p:h`</small> |
-| <kbd>Space</kbd>+<kbd>w</kbd> | Ⓝ | Write buffer to file | <small>`:write`</small> |
+| <kbd>Space</kbd>+<kbd>w</kbd> or <kbd>M</kbd>+<kbd>s</kbd> | Ⓝ | Write buffer to file | <small>`:write`</small> |
 | <kbd>Ctrl</kbd>+<kbd>s</kbd> | Ⓝ Ⓥ Ⓒ | Write buffer to file | <small>`:write`</small> |
-
-### Editor UI
-
-| Key   | Mode | Action             | Plugin or Mapping |
-| ----- |:----:| ------------------ | ------ |
-| <kbd>Space</kbd> <kbd>ub</kbd> | Ⓝ | Toggle background dark/light | <small>[folke/snacks.nvim]</small> |
-| <kbd>Space</kbd> <kbd>uf</kbd> | Ⓝ | Toggle format on Save | <small>[config/keymaps.lua]</small> |
-| <kbd>Space</kbd> <kbd>us</kbd> | Ⓝ | Toggle spell-checker | <small>`:setlocal spell!`</small> |
-| <kbd>Space</kbd> <kbd>ul</kbd> | Ⓝ | Toggle line numbers | <small>`:setlocal nonumber!`</small> |
-| <kbd>Space</kbd> <kbd>uL</kbd> | Ⓝ | Toggle relative line numbers | <small>`:setlocal norelativenumber!`</small> |
-| <kbd>Space</kbd> <kbd>uw</kbd> | Ⓝ | Toggle wrap | <small>`:setlocal wrap!`</small> … |
-| <kbd>Space</kbd> <kbd>ue</kbd> | Ⓝ | Toggle indentation lines | <small>[lukas-reineke/indent-blankline.nvim]</small> |
-| <kbd>Space</kbd> <kbd>uh</kbd> | Ⓝ | Toggle inlay-hints | <small>[config/keymaps.lua]</small> |
-| <kbd>Space</kbd> <kbd>ui</kbd> | Ⓝ | Show highlight groups for word | <small>`vim.show_pos`</small> |
-| <kbd>Space</kbd> <kbd>up</kbd> | Ⓝ | Disable auto-pairs | <small>[windwp/nvim-autopairs]</small> |
-| <kbd>Space</kbd> <kbd>ur</kbd> | Ⓝ | Redraw, clear hlsearch, and diff update | <small>[config/keymaps.lua]</small> |
-| <kbd>Space</kbd> <kbd>un</kbd> | Ⓝ | Dismiss all notifications | <small>[folke/snacks.nvim]</small> |
 
 ### Window Management
 
@@ -1140,6 +1140,7 @@ Legend:
 | <kbd>Space</kbd> <kbd>gB</kbd> | Ⓝ | Git blame in window | <small>[FabijanZulj/blame.nvim]</small> |
 | <kbd>Space</kbd> <kbd>gm</kbd> | Ⓝ | Reveal commit under cursor | <small>[folke/snacks.nvim]</small> |
 | <kbd>Space</kbd> <kbd>go</kbd> | Ⓝ Ⓥ | Open source-code URL in browser | <small>[folke/snacks.nvim]</small> |
+| <kbd>Space</kbd> <kbd>gY</kbd> | Ⓝ Ⓥ | Copy source-code URL | <small>[folke/snacks.nvim]</small> |
 | <kbd>Space</kbd> <kbd>gu</kbd> | Ⓝ | Open undo-tree | <small>[mbbill/undotree]</small> |
 | <kbd>Space</kbd> <kbd>mg</kbd> | Ⓝ | Open Neogit | <small>[NeogitOrg/neogit]</small> |
 | <kbd>Space</kbd> <kbd>ml</kbd> | Ⓝ | Append modeline to end of buffer | <small>[config/keymaps.lua]</small> |
@@ -1150,7 +1151,7 @@ Legend:
 | <kbd>Space</kbd> <kbd>mh</kbd> | Ⓝ | Open HTTP Rest UI | <small>[rest-nvim/rest.nvim]</small> |
 | <kbd>Space</kbd> <kbd>mt</kbd> | Ⓝ Ⓥ | Toggle highlighted word | <small>[t9md/vim-quickhl]</small> |
 | <kbd>Space</kbd> <kbd>mo</kbd> | Ⓝ | Update Markdown TOC | <small>[mzlogin/vim-markdown-toc]</small> |
-| <kbd>Space</kbd> <kbd>zz</kbd> | Ⓝ | Toggle distraction-free writing | <small>[folke/zen-mode.nvim]</small> |
+| <kbd>Space</kbd> <kbd>qq</kbd> | Ⓝ | Exit all and quit | <small>`:quitall`</small> |
 
 #### Plugin: Mini.Surround
 

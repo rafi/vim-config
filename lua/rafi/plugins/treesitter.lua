@@ -11,8 +11,20 @@ return {
 	{ 'MTDL9/vim-log-highlighting', ft = 'log' },
 	{ 'reasonml-editor/vim-reason-plus', ft = { 'reason', 'merlin' } },
 
+	{
+		'folke/which-key.nvim',
+		opts = {
+			spec = {
+				{ '<C-Space>', desc = 'Increment Selection' },
+				{ 'v', desc = 'Increment Selection', mode = 'x' },
+				{ 'V', desc = 'Decrement Selection', mode = 'x' },
+			},
+		},
+	},
+
 	-----------------------------------------------------------------------------
-	-- Nvim Treesitter configurations and abstraction layer
+	-- Treesitter configurations and abstraction layer for faster and more
+	-- accurate syntax highlighting.
 	{
 		'nvim-treesitter/nvim-treesitter',
 		version = false,
@@ -23,7 +35,7 @@ return {
 		keys = {
 			{ '<C-Space>', desc = 'Increment Selection' },
 			{ 'v', desc = 'Increment Selection', mode = 'x' },
-			{ 'V', desc = 'Shrink Selection', mode = 'x' },
+			{ 'V', desc = 'Decrement Selection', mode = 'x' },
 		},
 		init = function(plugin)
 			-- PERF: add nvim-treesitter queries to the rtp and it's custom query predicates early
@@ -42,9 +54,6 @@ return {
 					vim.g.matchup_matchparen_offscreen = {}
 				end,
 			},
-
-			-- Wisely add "end" in various filetypes
-			'RRethy/nvim-treesitter-endwise',
 		},
 		opts_extend = { 'ensure_installed' },
 		---@type TSConfig
@@ -53,7 +62,7 @@ return {
 			highlight = {
 				enable = true,
 				disable = function(_, buf)
-					local max_filesize = 100 * 1024 -- 100 KB
+					local max_filesize = 1024 * 1024 -- 1MB
 					local ok, stats =
 						pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
 					if ok and stats and stats.size > max_filesize then
@@ -66,9 +75,6 @@ return {
 				highlight_definitions = { enable = true },
 				highlight_current_scope = { enable = true },
 			},
-
-			-- See: https://github.com/RRethy/nvim-treesitter-endwise
-			endwise = { enable = true },
 
 			-- See: https://github.com/andymass/vim-matchup
 			matchup = {

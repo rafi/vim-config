@@ -116,13 +116,13 @@ return {
 		close_if_last_window = true,
 		sources = { 'filesystem', 'buffers', 'git_status' },
 		open_files_do_not_replace_types = {
+			'edgy',
+			'gitsigns-blame',
+			'Outline',
+			'qf',
 			'terminal',
 			'Trouble',
 			'trouble',
-			'qf',
-			'edgy',
-			'Outline',
-			'gitsigns-blame',
 		},
 		popup_border_style = 'rounded',
 		sort_case_insensitive = true,
@@ -159,7 +159,7 @@ return {
 			},
 			name = {
 				trailing_slash = true,
-				highlight_opened_files = true, -- NeoTreeFileNameOpened
+				highlight_opened_files = true,
 				use_git_status_colors = false,
 			},
 			git_status = {
@@ -183,9 +183,8 @@ return {
 			mappings = {
 				['q'] = 'close_window',
 				['?'] = 'noop',
-				['<Space>'] = 'noop',
-
 				['g?'] = 'show_help',
+				['<Space>'] = 'noop',
 				['<2-LeftMouse>'] = 'open',
 				['<CR>'] = 'open_with_window_picker',
 				['l'] = 'open',
@@ -242,6 +241,9 @@ return {
 			},
 		},
 		filesystem = {
+			bind_to_cwd = false,
+			follow_current_file = { enabled = true },
+			use_libuv_file_watcher = true,
 			window = {
 				mappings = {
 					['d'] = 'noop',
@@ -264,13 +266,6 @@ return {
 				},
 			},
 
-			-- See `:h neo-tree-cwd`
-			-- bind_to_cwd = false,
-			-- cwd_target = {
-			-- 	sidebar = 'window',
-			-- 	current = 'window',
-			-- },
-
 			filtered_items = {
 				hide_dotfiles = false,
 				hide_gitignored = false,
@@ -292,9 +287,6 @@ return {
 					'vite.config.js.timestamp-*',
 				},
 			},
-			find_by_full_path_words = true,
-			group_empty_dirs = true,
-			use_libuv_file_watcher = true,
 		},
 		buffers = {
 			window = {
