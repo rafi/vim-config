@@ -12,7 +12,6 @@ local LazyUtil = require('lazy.core.util')
 ---@field contextmenu rafi.util.contextmenu
 ---@field edit rafi.util.edit
 ---@field preview rafi.util.preview
----@field ui rafi.util.ui
 ---@field lualine rafi.util.lualine
 local M = {}
 

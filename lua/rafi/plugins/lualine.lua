@@ -21,8 +21,7 @@ return {
 			end
 		end,
 		opts = function()
-			local Util = require('lazyvim.util')
-			local RafiUtil = require('rafi.util')
+			local Util = require('rafi.util')
 			local icons = LazyVim.config.icons
 
 			local function is_plugin_window()
@@ -59,16 +58,16 @@ return {
 					b = active,
 					c = active,
 					x = {
-						fg = RafiUtil.color.brightness_modifier(active.bg, -80),
+						fg = Util.color.brightness_modifier(active.bg, -80),
 						bg = active.bg,
 					},
 					y = {
 						fg = active.fg,
-						bg = RafiUtil.color.brightness_modifier(active.bg, -20),
+						bg = Util.color.brightness_modifier(active.bg, -20),
 					},
 					z = {
 						fg = active.fg,
-						bg = RafiUtil.color.brightness_modifier(active.bg, 63),
+						bg = Util.color.brightness_modifier(active.bg, 63),
 					},
 				},
 				inactive = {
@@ -123,8 +122,6 @@ return {
 								return ''
 							end,
 						},
-					},
-					lualine_b = {
 						{
 							'branch',
 							cond = is_file_window,
@@ -136,7 +133,7 @@ return {
 						},
 						LazyVim.lualine.root_dir(),
 						{
-							RafiUtil.lualine.plugin_title(),
+							require('rafi.util').lualine.plugin_title(),
 							padding = { left = 0, right = 1 },
 							cond = is_plugin_window,
 						},
@@ -144,20 +141,26 @@ return {
 							'filetype',
 							icon_only = true,
 							padding = { left = 1, right = 0 },
+							separator = { right = '' },
 							cond = is_file_window,
 						},
 					},
-					lualine_c = {
+					lualine_b = {
+						-- File-path, toggle navic structure when clicked.
 						{
-							LazyVim.lualine.pretty_path(),
+							LazyVim.lualine.pretty_path({ length = 5 }),
 							color = { fg = '#D7D7BC' },
+							separator = '',
 							cond = is_file_window,
 							on_click = function()
-								vim.g.structure_status = not vim.g.structure_status
+								vim.g.trouble_lualine = not vim.g.trouble_lualine
 								require('lualine').refresh()
 							end,
 						},
+						-- Show buffer number in terminal
 						{
+							separator = '',
+							padding = { left = 0, right = 1 },
 							function()
 								return '#' .. vim.b['toggle_number']
 							end,
@@ -165,7 +168,9 @@ return {
 								return vim.bo.buftype == 'terminal'
 							end,
 						},
+						-- Quickfix/location list title
 						{
+							separator = '',
 							function()
 								if vim.fn.win_gettype() == 'loclist' then
 									return vim.fn.getloclist(0, { title = 0 }).title
@@ -180,7 +185,7 @@ return {
 
 						-- Whitespace trails
 						{
-							RafiUtil.lualine.trails(),
+							require('rafi.util').lualine.trails(),
 							cond = is_file_window,
 							padding = { left = 1, right = 0 },
 							color = function() return { fg = Snacks.util.color('Identifier') } end,
@@ -196,6 +201,7 @@ return {
 							},
 						},
 
+						-- Search count
 						{
 							function()
 								if vim.v.hlsearch == 0 then
@@ -220,6 +226,7 @@ return {
 							padding = { left = 1, right = 0 },
 						},
 					},
+					lualine_c = {},
 					lualine_x = {
 						Snacks.profiler.status(),
 						-- Diff (git)
@@ -293,7 +300,7 @@ return {
 					},
 					lualine_y = {
 						{
-							RafiUtil.lualine.filemedia(),
+							require('rafi.util').lualine.filemedia(),
 							padding = 1,
 							cond = function()
 								return is_min_width(70)
@@ -322,19 +329,12 @@ return {
 							'filetype',
 							icon_only = true,
 							colored = false,
+							separator = '',
 							padding = { left = 1, right = 0 },
 						},
-						{ Util.lualine.pretty_path(), padding = { left = 1, right = 0 } },
 						{
-							function()
-								return vim.bo.modified
-										and vim.bo.buftype == ''
-										and icons.status.filename.modified
-									or ''
-							end,
-							cond = is_file_window,
-							padding = 1,
-							color = { fg = RafiUtil.ui.bg('DiffDelete') },
+							LazyVim.lualine.pretty_path({ length = 3 }),
+							padding = { left = 1, right = 0 },
 						},
 					},
 					lualine_b = {},
