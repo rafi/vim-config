@@ -98,6 +98,13 @@ function M.init()
 		end
 		return tbl_endswith(require('lazyvim.config').json.data.extras, modname)
 	end
+	LazyVim.pick.want = function()
+		vim.g.lazyvim_picker = vim.g.lazyvim_picker or 'auto'
+		if vim.g.lazyvim_picker == 'auto' then
+			return LazyVim.has_extra('editor.fzf') and 'fzf' or 'telescope'
+		end
+		return vim.g.lazyvim_picker
+	end
 	LazyVim.plugin.setup()
 	LazyVimConfig.json.load()
 
