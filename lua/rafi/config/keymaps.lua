@@ -238,9 +238,6 @@ map('n', 'g#', '#')
 
 map('n', '<C-c>', 'ciw', { desc = 'Change Inner Word' })
 
--- Clear search with <Esc>
-map('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'Clear hlsearch' })
-
 -- Use backspace key for matching pairs
 map({ 'n', 'x' }, '<BS>', '%', { remap = true, desc = 'Jump to Paren' })
 
@@ -333,6 +330,13 @@ end
 -- Show treesitter nodes under cursor
 map('n', '<Leader>ui', vim.show_pos, { desc = 'Show Treesitter Node' })
 map('n', '<leader>uI', '<cmd>InspectTree<cr>', { desc = 'Inspect Tree' })
+
+-- Clear search and stop snippet on escape
+map({ 'i', 'n', 's' }, '<esc>', function()
+	vim.cmd("noh")
+	LazyVim.cmp.actions.snippet_stop()
+	return '<esc>'
+end, { expr = true, desc = 'Escape and Clear hlsearch' })
 
 -- Clear search, diff update and redraw taken from runtime/lua/_editor.lua
 map(
