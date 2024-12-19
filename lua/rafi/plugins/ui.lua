@@ -169,18 +169,6 @@ return {
 					},
 					view = 'mini',
 				},
-				{
-					filter = {
-						event = 'msg_show',
-						any = {
-							{ find = '^%d+ lines .ed %d+ times?$' },
-							{ find = '^%d+ lines yanked$' },
-							{ kind = 'emsg', find = 'E490' },
-							{ kind = 'search_count' },
-						},
-					},
-					opts = { skip = true },
-				},
 			},
 		},
 		config = function(_, opts)
