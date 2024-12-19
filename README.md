@@ -484,7 +484,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 | [hrsh7th/cmp-path] | nvim-cmp source for path |
 | [hrsh7th/cmp-emoji] | nvim-cmp source for emoji |
 | [rafamadriz/friendly-snippets] | Preconfigured snippets for different languages |
-| [windwp/nvim-autopairs] | Powerful auto-pair plugin with multiple characters support |
+| [echasnovski/mini.pairs] | Automatically manage character pairs |
 | [echasnovski/mini.surround] | Fast and feature-rich surround actions |
 | [JoosepAlviste/nvim-ts-context-commentstring] | Set the commentstring based on the cursor location |
 | [numToStr/Comment.nvim] | Powerful line and block-wise commenting |
@@ -581,7 +581,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [hrsh7th/cmp-path]: https://github.com/hrsh7th/cmp-path
 [hrsh7th/cmp-emoji]: https://github.com/hrsh7th/cmp-emoji
 [rafamadriz/friendly-snippets]: https://github.com/rafamadriz/friendly-snippets
-[windwp/nvim-autopairs]: https://github.com/windwp/nvim-autopairs
+[echasnovski/mini.pairs]: https://github.com/echasnovski/mini.pairs
 [echasnovski/mini.surround]: https://github.com/echasnovski/mini.surround
 [JoosepAlviste/nvim-ts-context-commentstring]: https://github.com/JoosepAlviste/nvim-ts-context-commentstring
 [numToStr/Comment.nvim]: https://github.com/numToStr/Comment.nvim
@@ -659,7 +659,6 @@ Spec: `rafi.plugins.extras.coding.<name>`
 | `editorconfig` | [sgur/vim-editorconfig] | EditorConfig plugin written entirely in Vimscript |
 | `emmet`        | [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet |
 | `luasnip`      | [L3MON4D3/LuaSnip] [saadparwaiz1/cmp_luasnip] | Snippet Engine and cmp source |
-| `mini-pairs`   | [echasnovski/mini.pairs] | Automatically manage character pairs |
 | `neogen`       | [danymat/neogen] | Annotation generator |
 | `sandwich`     | [machakann/vim-sandwich] | Search, select, and edit sandwich text objects |
 
@@ -669,7 +668,6 @@ Spec: `rafi.plugins.extras.coding.<name>`
 [mattn/emmet-vim]: https://github.com/mattn/emmet-vim
 [L3MON4D3/LuaSnip]: https://github.com/L3MON4D3/LuaSnip
 [saadparwaiz1/cmp_luasnip]: https://github.com/saadparwaiz1/cmp_luasnip
-[echasnovski/mini.pairs]: https://github.com/echasnovski/mini.pairs
 [danymat/neogen]: https://github.com/danymat/neogen
 [machakann/vim-sandwich]: https://github.com/machakann/vim-sandwich
 

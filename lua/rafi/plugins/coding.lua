@@ -17,35 +17,24 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
-	-- Powerful auto-pair plugin with multiple characters support
+	-- Auto-pairs
 	{
-		'windwp/nvim-autopairs',
-		event = 'InsertEnter',
+		'echasnovski/mini.pairs',
+		event = 'VeryLazy',
 		opts = {
-			map_cr = false,
-			disable_in_visualblock = true,
-			avoid_move_to_end = true, -- stay for direct end_key use
-			disable_filetype = { 'TelescopePrompt', 'grug-far', 'spectre_panel' },
-		},
-		keys = {
-			{
-				'<leader>up',
-				function()
-					vim.g.autopairs_disable = not vim.g.autopairs_disable
-					if vim.g.autopairs_disable then
-						require('nvim-autopairs').disable()
-						LazyVim.warn('Disabled auto pairs', { title = 'Option' })
-					else
-						require('nvim-autopairs').enable()
-						LazyVim.info('Enabled auto pairs', { title = 'Option' })
-					end
-				end,
-				desc = 'Toggle auto pairs',
-			},
+			modes = { insert = true, command = true, terminal = false },
+			-- skip autopair when next character is one of these
+			skip_next = [=[[%w%%%'%[%'%.%`%$]]=],
+			-- skip autopair when the cursor is inside these treesitter nodes
+			skip_ts = { 'string' },
+			-- skip autopair when next character is closing pair
+			-- and there are more closing pairs than opening pairs
+			skip_unbalanced = true,
+			-- better deal with markdown code blocks
+			markdown = true,
 		},
 		config = function(_, opts)
-			local autopairs = require('nvim-autopairs')
-			autopairs.setup(opts)
+			LazyVim.mini.pairs(opts)
 		end,
 	},
 
