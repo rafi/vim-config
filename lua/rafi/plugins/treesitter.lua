@@ -12,7 +12,7 @@ return {
 	{ 'reasonml-editor/vim-reason-plus', ft = { 'reason', 'merlin' } },
 
 	{
-		'folke/which-key.nvim',
+		'which-key.nvim',
 		opts = {
 			spec = {
 				{ '<BS>', hidden = true, mode = 'x' },
@@ -22,6 +22,15 @@ return {
 				{ 'V', desc = 'Decrement Selection', mode = 'x' },
 			},
 		},
+	},
+
+	-----------------------------------------------------------------------------
+	-- Automatically add closing tags for HTML and JSX
+	-- NOTE: This extends
+	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/treesitter.lua
+	{
+		'nvim-ts-autotag',
+		event = 'InsertEnter',
 	},
 
 	-----------------------------------------------------------------------------
@@ -152,14 +161,5 @@ return {
 				'zig',
 			},
 		},
-	},
-
-	-----------------------------------------------------------------------------
-	-- Automatically add closing tags for HTML and JSX
-	-- NOTE: This extends
-	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/treesitter.lua
-	{
-		'windwp/nvim-ts-autotag',
-		event = 'InsertEnter',
 	},
 }

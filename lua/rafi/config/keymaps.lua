@@ -36,7 +36,7 @@ else
 	map('n', '<C-Right>', '<cmd>vertical resize +2<cr>', { desc = 'Increase Window Width' })
 end
 
-if not vim.env.TMUX or vim.uv.os_uname().sysname == 'Windows_NT' then
+if not LazyVim.has('vim-tmux-navigator') or vim.uv.os_uname().sysname == 'Windows_NT' then
 	-- Move to window using the <ctrl> hjkl keys
 	map('n', '<C-h>', '<C-w>h', { desc = 'Go to Left Window', remap = true })
 	map('n', '<C-j>', '<C-w>j', { desc = 'Go to Lower Window', remap = true })

@@ -77,7 +77,12 @@ return {
 					theme = theme,
 					globalstatus = vim.o.laststatus == 3,
 					disabled_filetypes = {
-						statusline = { 'dashboard', 'alpha', 'ministarter', 'snacks_dashboard' },
+						statusline = {
+							'dashboard',
+							'alpha',
+							'ministarter',
+							'snacks_dashboard',
+						},
 					},
 				},
 				extensions = { 'lazy', 'fzf', 'man' },
@@ -157,8 +162,8 @@ return {
 								return s .. (n and ' #' .. n or '')
 							end,
 							cond = function()
-								return vim.bo.buftype == 'snacks_terminal' or
-									vim.bo.buftype == 'terminal'
+								return vim.bo.buftype == 'snacks_terminal'
+									or vim.bo.buftype == 'terminal'
 							end,
 						},
 						-- Quickfix/location list title
@@ -177,6 +182,7 @@ return {
 						},
 
 						-- Whitespace trails
+						-- stylua: ignore
 						{
 							require('rafi.util').lualine.trails(),
 							cond = is_file_window,
@@ -249,6 +255,7 @@ return {
 							end,
 						},
 						-- showcmd
+						-- stylua: ignore
 						{
 							function()
 								---@diagnostic disable-next-line: undefined-field
@@ -262,6 +269,7 @@ return {
 							color = function() return { fg = Snacks.util.color('Statement') } end,
 						},
 						-- showmode
+						-- stylua: ignore
 						{
 							function()
 								---@diagnostic disable-next-line: undefined-field
@@ -282,6 +290,7 @@ return {
 							color = function() return { fg = Snacks.util.color('Debug') } end,
 						},
 						-- lazy.nvim updates
+						-- stylua: ignore
 						{
 							require('lazy.status').updates,
 							cond = require('lazy.status').has_updates,

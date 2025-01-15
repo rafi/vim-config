@@ -284,6 +284,7 @@ return {
 
 			local function find_command()
 				if 1 == vim.fn.executable('rg') then
+					-- stylua: ignore
 					return { 'rg', '--files', '--color', 'never', '--no-ignore-vcs', '--smart-case', '-g', '!.git' }
 				elseif 1 == vim.fn.executable('fd') then
 					return { 'fd', '--type', 'f', '--color', 'never', '-E', '.git' }
