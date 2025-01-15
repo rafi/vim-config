@@ -48,6 +48,8 @@ require('lazy').setup(vim.tbl_extend('keep', user_lazy_opts, {
 			---@type LazyVimOptions
 			opts = {
 				colorscheme = function() end,
+				news = { lazyvim = false },
+
 				-- stylua: ignore
 				icons = {
 					misc = {

@@ -1,8 +1,6 @@
 -- Plugin: Neo-tree
 -- https://github.com/rafi/vim-config
 
-local winwidth = 30
-
 local has_git = vim.fn.executable('git') == 1
 
 local function get_current_directory(state)
@@ -106,7 +104,7 @@ return {
 			},
 		},
 		window = {
-			width = winwidth,
+			width = 30, -- Default 40
 			mappings = {
 				['q'] = 'close_window',
 				['?'] = 'noop',
@@ -151,17 +149,15 @@ return {
 				-- Custom commands
 
 				['w'] = function(state)
-					-- TODO: find current window width from `state`
-					local max = winwidth * 2
-					local cur_width = vim.fn.winwidth(0)
-					local half = math.floor((winwidth + (max - winwidth) / 2) + 0.4)
-					local new_width = winwidth
-					if cur_width == winwidth then
-						new_width = half
-					elseif cur_width == half then
-						new_width = max
-					else
-						new_width = winwidth
+					local normal = state.window.width
+					local large = normal * 1.9
+					local small = math.floor(normal / 1.6)
+					local cur_width = state.win_width + 1
+					local new_width = normal
+					if cur_width > normal then
+						new_width = small
+					elseif cur_width == normal then
+						new_width = large
 					end
 					vim.cmd(new_width .. ' wincmd |')
 				end,
