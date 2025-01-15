@@ -364,12 +364,12 @@ map('n', '<LocalLeader>c', function() Util.contextmenu.show() end, { desc = 'Con
 if vim.fn.executable('lazygit') == 1 then
 	map('n', '<leader>gt', function() Snacks.lazygit( { cwd = LazyVim.root.git() }) end, { desc = 'Lazygit (Root Dir)' })
 	map('n', '<leader>gT', function() Snacks.lazygit() end, { desc = 'Lazygit (cwd)' })
-	map('n', '<leader>gF', function() Snacks.lazygit.log_file() end, { desc = 'Lazygit Current File History' })
-	map('n', '<leader>gl', function() Snacks.lazygit.log({ cwd = LazyVim.root.git() }) end, { desc = 'Lazygit Log' })
-	map('n', '<leader>gL', function() Snacks.lazygit.log() end, { desc = 'Lazygit Log (cwd)' })
+	map('n', '<leader>gF', function() Snacks.picker.git_log_file() end, { desc = 'Git Current File History' })
+	map('n', '<leader>gl', function() Snacks.picker.git_log({ cwd = LazyVim.root.git() }) end, { desc = 'Git Log' })
+	map('n', '<leader>gL', function() Snacks.picker.git_log() end, { desc = 'Git Log (cwd)' })
 end
 
-map('n', '<leader>gm', function() Snacks.git.blame_line() end, { desc = 'Git Blame Line' })
+map('n', '<leader>gm', function() Snacks.picker.git_log_line() end, { desc = 'Git Blame Line' })
 map({ 'n', 'x' }, '<leader>go', function() Snacks.gitbrowse() end, { desc = 'Git Browse' })
 map({ 'n', 'x' }, '<leader>gY', function()
 	Snacks.gitbrowse({ open = function(url) vim.fn.setreg('+', url) end, notify = false })

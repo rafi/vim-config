@@ -21,7 +21,7 @@ local plugin_icons = {
 	TelescopePrompt = { '󰋱', 'Telescope' },
 	terminal = { ' ' },
 	toggleterm = { ' ', 'Terminal' },
-	Trouble = { '' }, --  
+	trouble = { '' }, --  
 	undotree = { '󰃢' },
 }
 

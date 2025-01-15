@@ -5,7 +5,7 @@
 -- This file is automatically loaded by rafi.config.init
 
 local function augroup(name)
-	return vim.api.nvim_create_augroup('rafi_' .. name, {})
+	return vim.api.nvim_create_augroup('rafi_' .. name, { clear = true })
 end
 
 -- Check if we need to reload the file when it changed
