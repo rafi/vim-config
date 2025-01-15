@@ -5,21 +5,11 @@ return {
 
 	-----------------------------------------------------------------------------
 	-- Statusline plugin with many customizations.
+	-- NOTE: This extends
+	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/ui.lua
 	{
 		'nvim-lualine/lualine.nvim',
-		event = 'VeryLazy',
 		enabled = not vim.g.started_by_firenvim,
-		init = function()
-			vim.g.qf_disable_statusline = true
-			vim.g.lualine_laststatus = vim.o.laststatus
-			if vim.fn.argc(-1) > 0 then
-				-- set an empty statusline till lualine loads
-				vim.o.statusline = ' '
-			else
-				-- hide the statusline on the starter page
-				vim.o.laststatus = 0
-			end
-		end,
 		opts = function()
 			local Util = require('rafi.util')
 			local icons = LazyVim.config.icons
@@ -90,10 +80,7 @@ return {
 						statusline = { 'dashboard', 'alpha', 'ministarter', 'snacks_dashboard' },
 					},
 				},
-				extensions = {
-					'man',
-					'lazy',
-				},
+				extensions = { 'lazy', 'fzf', 'man' },
 				sections = {
 					lualine_a = {
 						-- Left edge block.

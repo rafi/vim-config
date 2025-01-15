@@ -3,39 +3,51 @@
 
 return {
 
+	-----------------------------------------------------------------------------
+	-- Code completion
+	-- NOTE: This extends
+	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/extras/coding/blink.lua
 	{
-		import = 'rafi.plugins.extras.coding.nvim-cmp',
-		enabled = function()
-			return LazyVim.cmp_engine() == 'nvim-cmp'
-		end,
-	},
-	{
-		import = 'lazyvim.plugins.extras.coding.blink',
-		enabled = function()
-			return LazyVim.cmp_engine() == 'blink.cmp'
-		end,
+		'blink.cmp',
+		optional = true,
+		opts = {
+			keymap = {
+				['<C-j>'] = { 'select_next', 'fallback' },
+				['<C-k>'] = { 'select_prev', 'fallback' },
+				['<C-d>'] = { 'select_next', 'fallback' },
+				['<C-u>'] = { 'select_prev', 'fallback' },
+			},
+		},
 	},
 
 	-----------------------------------------------------------------------------
-	-- Auto-pairs
+	-- Lightweight yet powerful formatter plugin
+	-- NOTE: This extends
+	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/formatting.lua
 	{
-		'echasnovski/mini.pairs',
-		event = 'VeryLazy',
-		opts = {
-			modes = { insert = true, command = true, terminal = false },
-			-- skip autopair when next character is one of these
-			skip_next = [=[[%w%%%'%[%'%.%`%$]]=],
-			-- skip autopair when the cursor is inside these treesitter nodes
-			skip_ts = { 'string' },
-			-- skip autopair when next character is closing pair
-			-- and there are more closing pairs than opening pairs
-			skip_unbalanced = true,
-			-- better deal with markdown code blocks
-			markdown = true,
+		'conform.nvim',
+		-- stylua: ignore
+		keys = {
+			{ '<leader>cic', '<cmd>ConformInfo<CR>', silent = true, desc = 'Conform Info' },
 		},
-		config = function(_, opts)
-			LazyVim.mini.pairs(opts)
-		end,
+	},
+
+	-----------------------------------------------------------------------------
+	-- Asynchronous linter plugin
+	-- NOTE: This extends
+	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/linting.lua
+	{
+		'nvim-lint',
+		keys = {
+			{
+				'<leader>cin',
+				function()
+					vim.notify(vim.inspect(require('lint').linters[vim.bo.filetype]))
+				end,
+				silent = true,
+				desc = 'Linter Info',
+			},
+		},
 	},
 
 	-----------------------------------------------------------------------------
@@ -45,8 +57,7 @@ return {
 		-- stylua: ignore
 		keys = function(_, keys)
 			-- Populate the keys based on the user's options
-			local plugin = require('lazy.core.config').spec.plugins['mini.surround']
-			local opts = require('lazy.core.plugin').values(plugin, 'opts', false)
+			local opts = LazyVim.opts('mini.surround')
 			local mappings = {
 				{ opts.mappings.add, desc = 'Add Surrounding', mode = { 'n', 'v' } },
 				{ opts.mappings.delete, desc = 'Delete Surrounding' },
@@ -72,14 +83,6 @@ return {
 				update_n_lines = 'gzn', -- Update `n_lines`
 			},
 		},
-	},
-
-	-----------------------------------------------------------------------------
-	-- Set the commentstring based on the cursor location
-	{
-		'folke/ts-comments.nvim',
-		event = 'VeryLazy',
-		opts = {},
 	},
 
 	-----------------------------------------------------------------------------
@@ -137,61 +140,6 @@ return {
 			{ '<Leader>mda', ':LinediffAdd<CR>', mode = 'x', desc = 'Line diff add' },
 			{ '<Leader>mds', '<cmd>LinediffShow<CR>', desc = 'Line diff show' },
 			{ '<Leader>mdr', '<cmd>LinediffReset<CR>', desc = 'Line diff reset' },
-		},
-	},
-
-	-----------------------------------------------------------------------------
-	-- Extend and create `a`/`i` text-objects
-	{
-		'echasnovski/mini.ai',
-		event = 'VeryLazy',
-		opts = function()
-			local ai = require('mini.ai')
-			return {
-				n_lines = 500,
-				-- stylua: ignore
-				custom_textobjects = {
-					o = ai.gen_spec.treesitter({ -- code block
-						a = { '@block.outer', '@conditional.outer', '@loop.outer' },
-						i = { '@block.inner', '@conditional.inner', '@loop.inner' },
-					}),
-					f = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
-					c = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }),
-					t = { '<([%p%w]-)%f[^<%w][^<>]->.-</%1>', '^<.->().*()</[^/]->$' }, -- tags
-					d = { '%f[%d]%d+' }, -- digits
-					e = { -- Word with case
-						{ '%u[%l%d]+%f[^%l%d]', '%f[%S][%l%d]+%f[^%l%d]', '%f[%P][%l%d]+%f[^%l%d]', '^[%l%d]+%f[^%l%d]' },
-						'^().*()$',
-					},
-					g = LazyVim.mini.ai_buffer, -- buffer
-					u = ai.gen_spec.function_call(), -- u for Usage
-					U = ai.gen_spec.function_call({ name_pattern = '[%w_]' }), -- without dot in function name
-				},
-			}
-		end,
-		config = function(_, opts)
-			require('mini.ai').setup(opts)
-			LazyVim.on_load('which-key.nvim', function()
-				vim.schedule(function()
-					LazyVim.mini.ai_whichkey(opts)
-				end)
-			end)
-		end,
-	},
-
-	-----------------------------------------------------------------------------
-	-- Properly configures LuaLS and lazily update your workspace libraries
-	{
-		'folke/lazydev.nvim',
-		ft = 'lua',
-		cmd = 'LazyDev',
-		opts = {
-			library = {
-				{ path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-				{ path = 'LazyVim', words = { 'LazyVim' } },
-				{ path = 'snacks.nvim', words = { 'Snacks' } },
-				{ path = 'lazy.nvim', words = { 'LazyVim' } },
-			},
 		},
 	},
 }

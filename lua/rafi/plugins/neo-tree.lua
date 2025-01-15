@@ -3,21 +3,6 @@
 
 local winwidth = 30
 
-local function toggle_width()
-	local max = winwidth * 2
-	local cur_width = vim.fn.winwidth(0)
-	local half = math.floor((winwidth + (max - winwidth) / 2) + 0.4)
-	local new_width = winwidth
-	if cur_width == winwidth then
-		new_width = half
-	elseif cur_width == half then
-		new_width = max
-	else
-		new_width = winwidth
-	end
-	vim.cmd(new_width .. ' wincmd |')
-end
-
 local function get_current_directory(state)
 	local node = state.tree:get_node()
 	if node.type ~= 'directory' or not node:is_expanded() then
@@ -30,26 +15,13 @@ return {
 
 	-----------------------------------------------------------------------------
 	-- File explorer written in Lua
-	'nvim-neo-tree/neo-tree.nvim',
+	-- NOTE: This extends $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/editor.lua
+	'neo-tree.nvim',
 	branch = 'v3.x',
 	dependencies = { 'MunifTanjim/nui.nvim' },
 	cmd = 'Neotree',
 	-- stylua: ignore
 	keys = {
-		{
-			'<leader>fe',
-			function()
-				require('neo-tree.command').execute({ toggle = true, dir = LazyVim.root() })
-			end,
-			desc = 'Explorer NeoTree (Root Dir)',
-		},
-		{
-			'<leader>fE',
-			function()
-				require('neo-tree.command').execute({ toggle = true, dir = vim.uv.cwd() })
-			end,
-			desc = 'Explorer NeoTree (cwd)',
-		},
 		{ '<LocalLeader>e', '<leader>fe', desc = 'Explorer NeoTree (Root Dir)', remap = true },
 		{ '<LocalLeader>E', '<leader>fE', desc = 'Explorer NeoTree (cwd)', remap = true },
 		{
@@ -62,22 +34,6 @@ return {
 			end,
 			desc = 'Explorer NeoTree Reveal',
 		},
-		{ '<leader>e', '<leader>fe', desc = 'Explorer NeoTree (Root Dir)', remap = true },
-		{ '<leader>E', '<leader>fE', desc = 'Explorer NeoTree (cwd)', remap = true },
-		{
-			'<leader>ge',
-			function()
-				require('neo-tree.command').execute({ source = 'git_status', toggle = true })
-			end,
-			desc = 'Git Explorer',
-		},
-		{
-			'<leader>be',
-			function()
-				require('neo-tree.command').execute({ source = 'buffers', toggle = true })
-			end,
-			desc = 'Buffer Explorer',
-		},
 		{
 			'<leader>xe',
 			function()
@@ -86,45 +42,9 @@ return {
 			desc = 'Document Explorer',
 		},
 	},
-	deactivate = function()
-		vim.cmd([[Neotree close]])
-	end,
-	init = function()
-		-- FIX: use `autocmd` for lazy-loading neo-tree instead of directly requiring it,
-		-- because `cwd` is not set up properly.
-		vim.api.nvim_create_autocmd('BufEnter', {
-			group = vim.api.nvim_create_augroup(
-				'Neotree_start_directory',
-				{ clear = true }
-			),
-			desc = 'Start Neo-tree with directory',
-			once = true,
-			callback = function()
-				if package.loaded['neo-tree'] then
-					return
-				else
-					---@diagnostic disable-next-line: param-type-mismatch
-					local stats = vim.uv.fs_stat(vim.fn.argv(0))
-					if stats and stats.type == 'directory' then
-						require('neo-tree')
-					end
-				end
-			end,
-		})
-	end,
 	-- See: https://github.com/nvim-neo-tree/neo-tree.nvim
 	opts = {
 		close_if_last_window = true,
-		sources = { 'filesystem', 'buffers', 'git_status' },
-		open_files_do_not_replace_types = {
-			'edgy',
-			'gitsigns-blame',
-			'Outline',
-			'qf',
-			'terminal',
-			'Trouble',
-			'trouble',
-		},
 		popup_border_style = 'rounded',
 		sort_case_insensitive = true,
 
@@ -150,6 +70,9 @@ return {
 		},
 
 		default_component_configs = {
+			indent = {
+				with_expanders = false,
+			},
 			icon = {
 				folder_empty = '',
 				folder_empty_open = '',
@@ -223,7 +146,22 @@ return {
 				},
 
 				-- Custom commands
-				['w'] = toggle_width,
+
+				['w'] = function(state)
+					-- TODO: find current window width from `state`
+					local max = winwidth * 2
+					local cur_width = vim.fn.winwidth(0)
+					local half = math.floor((winwidth + (max - winwidth) / 2) + 0.4)
+					local new_width = winwidth
+					if cur_width == winwidth then
+						new_width = half
+					elseif cur_width == half then
+						new_width = max
+					else
+						new_width = winwidth
+					end
+					vim.cmd(new_width .. ' wincmd |')
+				end,
 				['K'] = function(state)
 					local node = state.tree:get_node()
 					local path = node:get_id()
@@ -261,12 +199,13 @@ return {
 					['F'] = 'fuzzy_finder',
 					['<C-c>'] = 'clear_filter',
 
-					-- Custom commands
+					-- Find file in path.
 					['gf'] = function(state)
 						require('telescope.builtin').find_files({
 							cwd = get_current_directory(state),
 						})
 					end,
+					-- Live grep in path.
 					['gr'] = function(state)
 						require('telescope.builtin').live_grep({
 							cwd = get_current_directory(state),
@@ -322,25 +261,4 @@ return {
 			},
 		},
 	},
-	config = function(_, opts)
-		local function on_move(data)
-			Snacks.rename.on_rename_file(data.source, data.destination)
-		end
-
-		local events = require('neo-tree.events')
-		opts.event_handlers = opts.event_handlers or {}
-		vim.list_extend(opts.event_handlers, {
-			{ event = events.FILE_MOVED, handler = on_move },
-			{ event = events.FILE_RENAMED, handler = on_move },
-		})
-		require('neo-tree').setup(opts)
-		vim.api.nvim_create_autocmd('TermClose', {
-			pattern = '*lazygit',
-			callback = function()
-				if package.loaded['neo-tree.sources.git_status'] then
-					require('neo-tree.sources.git_status').refresh()
-				end
-			end,
-		})
-	end,
 }

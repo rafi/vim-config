@@ -141,14 +141,12 @@ vim.api.nvim_create_autocmd('User', {
 -- See telescope.nvim/lua/telescope/config.lua for defaults.
 return {
 
-	{
-		import = 'lazyvim.plugins.extras.editor.telescope',
-	},
-
 	-----------------------------------------------------------------------------
 	-- Find, Filter, Preview, Pick. All lua.
+	-- NOTE: This extends
+	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/extras/editor/telescope.lua
 	{
-		'nvim-telescope/telescope.nvim',
+		'telescope.nvim',
 		version = false,
 		cmd = 'Telescope',
 		enabled = function()
@@ -230,13 +228,6 @@ return {
 				end,
 				desc = 'Goto Symbol (Workspace)',
 			},
-
-			-- Git
-			{ '<leader>gs', '<cmd>Telescope git_status<CR>', desc = 'Git Status' },
-			{ '<leader>gr', '<cmd>Telescope git_branches<CR>', desc = 'Git Branches' },
-			{ '<leader>gL', '<cmd>Telescope git_bcommits<CR>', desc = 'Git Buffer Commits' },
-			{ '<leader>gh', '<cmd>Telescope git_stash<CR>', desc = 'Git Stashes' },
-			{ '<leader>gc', '<cmd>Telescope git_bcommits_range<CR>', mode = { 'x', 'n' }, desc = 'Git Buffer Commits Range' },
 
 			-- Plugins
 			{ '<localleader>n', plugin_directories, desc = 'Plugins' },
@@ -545,65 +536,6 @@ return {
 			}
 
 			return opts
-		end,
-	},
-
-	-----------------------------------------------------------------------------
-	-- Flash Telescope config
-	{
-		'nvim-telescope/telescope.nvim',
-		optional = true,
-		opts = function(_, opts)
-			if not LazyVim.has('flash.nvim') then
-				return
-			end
-			local function flash(prompt_bufnr)
-				require('flash').jump({
-					pattern = '^',
-					label = { after = { 0, 0 } },
-					search = {
-						mode = 'search',
-						exclude = {
-							function(win)
-								return vim.bo[vim.api.nvim_win_get_buf(win)].filetype
-									~= 'TelescopeResults'
-							end,
-						},
-					},
-					action = function(match)
-						local picker =
-							require('telescope.actions.state').get_current_picker(
-								prompt_bufnr
-							)
-						picker:set_selection(match.pos[1] - 1)
-					end,
-				})
-			end
-			opts.defaults = vim.tbl_deep_extend('force', opts.defaults or {}, {
-				mappings = { n = { s = flash }, i = { ['<c-s>'] = flash } },
-			})
-		end,
-	},
-
-	-----------------------------------------------------------------------------
-	-- better vim.ui with telescope
-	{
-		'stevearc/dressing.nvim',
-		lazy = true,
-		enabled = function()
-			return LazyVim.pick.want() == 'telescope'
-		end,
-		init = function()
-			---@diagnostic disable-next-line: duplicate-set-field
-			vim.ui.select = function(...)
-				require('lazy').load({ plugins = { 'dressing.nvim' } })
-				return vim.ui.select(...)
-			end
-			---@diagnostic disable-next-line: duplicate-set-field
-			vim.ui.input = function(...)
-				require('lazy').load({ plugins = { 'dressing.nvim' } })
-				return vim.ui.input(...)
-			end
 		end,
 	},
 }
