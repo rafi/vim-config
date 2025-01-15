@@ -1,6 +1,8 @@
 -- Plugins: Editor
 -- https://github.com/rafi/vim-config
 
+local has_git = vim.fn.executable('git') == 1
+
 return {
 
 	-----------------------------------------------------------------------------
@@ -12,6 +14,22 @@ return {
 
 	-- An alternative sudo for Vim and Neovim
 	{ 'lambdalisue/suda.vim', event = 'BufRead' },
+
+	-----------------------------------------------------------------------------
+	-- File explorer
+	-- NOTE: This extends
+	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/extras/editor/fzf.lua
+	{
+		'fzf-lua',
+		enabled = function()
+			return LazyVim.pick.want() == 'fzf'
+		end,
+		opts = {
+			defaults = {
+				git_icons = has_git,
+			},
+		}
+	},
 
 	-----------------------------------------------------------------------------
 	-- Simple lua plugin for automated session management
@@ -164,6 +182,7 @@ return {
 	-- NOTE: This extends $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/editor.lua
 	{
 		'gitsigns.nvim',
+		cond = has_git,
 		-- stylua: ignore
 		keys = {
 				{ ']g', ']h', desc = 'Next Hunk', remap = true },

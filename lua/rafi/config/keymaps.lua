@@ -1,9 +1,8 @@
 -- Rafi's Neovim keymaps
--- github.com/rafi/vim-config
+-- https://github.com/rafi/vim-config
 -- ===
 -- This file is automatically loaded by rafi.config.init
 
-local Util = require('rafi.util')
 local map = vim.keymap.set
 
 -- Package-manager
@@ -105,7 +104,7 @@ map('x', 'sg', ':s//gc<Left><Left><Left>', { desc = 'Substitute Within Selection
 map(
 	'x',
 	'<C-r>',
-	":<C-u>%s/\\V<C-R>=v:lua.require'rafi.util.edit'.get_visual_selection()<CR>"
+	":<C-u>%s/\\V<C-R>=v:lua._G.get_visual_selection()<CR>"
 		.. '//gc<Left><Left><Left>',
 	{ desc = 'Replace Selection' }
 )
@@ -145,8 +144,8 @@ map('n', ']a', '<cmd>lnext<CR>', { desc = 'Next Loclist' })
 map('n', '[a', '<cmd>lprev<CR>', { desc = 'Previous Loclist' })
 
 -- Whitespace jump (see plugin/whitespace.vim)
-map('n', ']z', function() Util.edit.whitespace_jump(1) end, { desc = 'Next Whitespace' })
-map('n', '[z', function() Util.edit.whitespace_jump(-1) end, { desc = 'Previous Whitespace' })
+map('n', ']z', function() _G.whitespace_jump(1) end, { desc = 'Next Whitespace' })
+map('n', '[z', function() _G.whitespace_jump(-1) end, { desc = 'Previous Whitespace' })
 
 -- Diagnostic movement
 local diagnostic_jump = function(count, severity)
@@ -215,7 +214,7 @@ map('n', '<leader>cid', '<cmd>LazyDev<CR>', { silent = true, desc = 'Dev' })
 map('n', '<leader>cif', '<cmd>LazyFormatInfo<CR>', { silent = true, desc = 'Formatter Info' })
 map('n', '<leader>cir', '<cmd>LazyRoot<CR>', { silent = true, desc = 'Root' })
 map('n', '<leader>cil', '<cmd>check lspconfig<cr>', { desc = 'LSP info popup' })
-map({ 'n', 'x' }, '<leader>csf', function() Util.edit.formatter_select() end, { desc = 'Formatter Select' })
+map({ 'n', 'x' }, '<leader>csf', function() _G.formatter_select() end, { desc = 'Formatter Select' })
 
 -- Start new line from any cursor position in insert-mode
 map('i', '<S-Return>', '<C-o>o', { desc = 'Start Newline' })
@@ -297,8 +296,8 @@ map({ 'n', 'i', 'v' }, '<C-s>', '<cmd>write<CR>', { desc = 'Save File' })
 -- Editor UI {{{
 
 -- Toggle list windows
-map('n', '<leader>xl', function() Util.edit.toggle_list('loclist') end, { desc = 'Toggle Location List' })
-map('n', '<leader>xq', function() Util.edit.toggle_list('quickfix') end, { desc = 'Toggle Quickfix List' })
+map('n', '<leader>xl', function() _G.toggle_list('loclist') end, { desc = 'Toggle Location List' })
+map('n', '<leader>xq', function() _G.toggle_list('quickfix') end, { desc = 'Toggle Quickfix List' })
 
 map('n', '<Leader>ce', vim.diagnostic.open_float, { desc = 'Line Diagnostics' })
 
@@ -307,7 +306,7 @@ map('n', '<Leader>a', function()
 	if vim.bo.filetype ~= 'qf' then
 		vim.diagnostic.setloclist({ open = false })
 	end
-	Util.edit.toggle_list('loclist')
+	_G.toggle_list('loclist')
 end, { desc = 'Open Location List' })
 
 -- Toggle options
@@ -355,21 +354,23 @@ map(
 -- Plugins & Tools {{{
 
 -- Append mode-line to current buffer
-map('n', '<Leader>ml', function() Util.edit.append_modeline() end, { desc = 'Append Modeline' })
+map('n', '<Leader>ml', function() _G.append_modeline() end, { desc = 'Append Modeline' })
 
 -- Jump entire buffers throughout jumplist
-map('n', 'g<C-i>', function() Util.edit.jump_buffer(1) end, { desc = 'Jump to newer buffer' })
-map('n', 'g<C-o>', function() Util.edit.jump_buffer(-1) end, { desc = 'Jump to older buffer' })
+map('n', 'g<C-i>', function() _G.jump_buffer(1) end, { desc = 'Jump to newer buffer' })
+map('n', 'g<C-o>', function() _G.jump_buffer(-1) end, { desc = 'Jump to older buffer' })
 
 -- Context aware menu. See lua/lib/contextmenu.lua
-map('n', '<RightMouse>', function() Util.contextmenu.show() end)
-map('n', '<LocalLeader>c', function() Util.contextmenu.show() end, { desc = 'Content-aware menu' })
+map('n', '<RightMouse>', function() require('rafi.util.contextmenu').show() end)
+map('n', '<LocalLeader>c', function() require('rafi.util.contextmenu').show() end, { desc = 'Content-aware menu' })
 
 -- Lazygit
 if vim.fn.executable('lazygit') == 1 then
+	---@diagnostic disable-next-line: missing-fields
 	map('n', '<leader>gt', function() Snacks.lazygit( { cwd = LazyVim.root.git() }) end, { desc = 'Lazygit (Root Dir)' })
 	map('n', '<leader>gT', function() Snacks.lazygit() end, { desc = 'Lazygit (cwd)' })
 	map('n', '<leader>gF', function() Snacks.picker.git_log_file() end, { desc = 'Git Current File History' })
+	---@diagnostic disable-next-line: missing-fields
 	map('n', '<leader>gl', function() Snacks.picker.git_log({ cwd = LazyVim.root.git() }) end, { desc = 'Git Log' })
 	map('n', '<leader>gL', function() Snacks.picker.git_log() end, { desc = 'Git Log (cwd)' })
 end
@@ -377,6 +378,7 @@ end
 map('n', '<leader>gm', function() Snacks.picker.git_log_line() end, { desc = 'Git Blame Line' })
 map({ 'n', 'x' }, '<leader>go', function() Snacks.gitbrowse() end, { desc = 'Git Browse' })
 map({ 'n', 'x' }, '<leader>gY', function()
+	---@diagnostic disable-next-line: missing-fields
 	Snacks.gitbrowse({ open = function(url) vim.fn.setreg('+', url) end, notify = false })
 end, { desc = 'Git Browse (copy)' })
 
@@ -487,6 +489,202 @@ if vim.fn.has('nvim-0.11') == 0 then
 	map({ 'i', 's' }, '<S-Tab>', function()
 		return vim.snippet.active({ direction = -1 }) and '<cmd>lua vim.snippet.jump(-1)<cr>' or '<S-Tab>'
 	end, { expr = true, desc = 'Jump Previous' })
+end
+
+-- FUNCTIONS
+-- ===
+
+-- Get visually selected lines.
+-- Source: https://github.com/ibhagwan/fzf-lua/blob/main/lua/fzf-lua/utils.lua
+---@return string
+function _G.get_visual_selection()
+	-- this will exit visual mode
+	-- use 'gv' to reselect the text
+	local _, csrow, cscol, cerow, cecol
+	local mode = vim.fn.mode()
+	local is_visual = vim.tbl_contains({ 'v', 'V', '\22' }, mode)
+	if is_visual then
+		-- if we are in visual mode use the live position
+		_, csrow, cscol, _ = unpack(vim.fn.getpos('.') or { 0, 0, 0, 0 })
+		_, cerow, cecol, _ = unpack(vim.fn.getpos('v') or { 0, 0, 0, 0 })
+		if mode == 'V' then
+			-- visual line doesn't provide columns
+			cscol, cecol = 0, 999
+		end
+	else
+		-- otherwise, use the last known visual position
+		_, csrow, cscol, _ = unpack(vim.fn.getpos("'<") or { 0, 0, 0, 0 })
+		_, cerow, cecol, _ = unpack(vim.fn.getpos("'>") or { 0, 0, 0, 0 })
+	end
+	-- swap vars if needed
+	if cerow < csrow then
+		csrow, cerow = cerow, csrow
+	end
+	if cecol < cscol then
+		cscol, cecol = cecol, cscol
+	end
+	local lines = vim.fn.getline(csrow, cerow)
+	-- local n = cerow-csrow+1
+	local n = #lines
+	if n <= 0 or type(lines) ~= 'table' then
+		return ''
+	end
+	lines[n] = string.sub(lines[n], 1, cecol)
+	lines[1] = string.sub(lines[1], cscol)
+	return table.concat(lines, '\n')
+end
+
+-- Append modeline at end of file.
+function _G.append_modeline()
+	local modeline = string.format(
+		'vim: set ts=%d sw=%d tw=%d %set :',
+		vim.bo.tabstop,
+		vim.bo.shiftwidth,
+		vim.bo.textwidth,
+		vim.bo.expandtab and '' or 'no'
+	)
+	local cs = vim.bo.commentstring
+	local ok, tccs = pcall(require, 'ts_context_commentstring.internal')
+	if ok then
+		local ts_cs = tccs.calculate_commentstring()
+		if ts_cs then
+			cs = ts_cs
+		end
+	end
+	if not cs then
+		LazyVim.warn('No commentstring found')
+		return
+	end
+	modeline = string.gsub(cs, '%%s', modeline)
+	vim.api.nvim_buf_set_lines(0, -1, -1, false, { modeline })
+end
+
+-- Go to newer/older buffer through jumplist.
+---@param direction 1 | -1
+function _G.jump_buffer(direction)
+	local jumplist, curjump = unpack(vim.fn.getjumplist() or { 0, 0 })
+	if #jumplist == 0 then
+		return
+	end
+	local cur_buf = vim.api.nvim_get_current_buf()
+	local jumpcmd = direction > 0 and '<C-i>' or '<C-o>'
+	local searchrange = {}
+	curjump = curjump + 1
+	if direction > 0 then
+		searchrange = vim.fn.range(curjump + 1, #jumplist)
+	else
+		searchrange = vim.fn.range(curjump - 1, 1, -1)
+	end
+
+	for _, i in ipairs(searchrange) do
+		local nr = jumplist[i]['bufnr']
+		if nr ~= cur_buf and vim.fn.bufname(nr):find('^%w+://') == nil then
+			local n = tostring(math.abs(i - curjump))
+			vim.notify('Executing ' .. jumpcmd .. ' ' .. n .. ' times')
+			jumpcmd = vim.api.nvim_replace_termcodes(jumpcmd, true, true, true)
+			vim.cmd.normal({ n .. jumpcmd, bang = true })
+			break
+		end
+	end
+end
+
+-- Jump to next/previous whitespace error.
+---@param direction 1 | -1
+function _G.whitespace_jump(direction)
+	local opts = 'wz'
+	if direction < 1 then
+		opts = opts .. 'b'
+	end
+
+	-- Whitespace pattern: Trailing whitespace or mixed tabs/spaces.
+	local pat = '\\s\\+$\\| \\+\\ze\\t'
+	vim.fn.search(pat, opts)
+end
+
+-- Toggle list window
+---@param name "quickfix" | "loclist"
+function _G.toggle_list(name)
+	for _, win in pairs(vim.api.nvim_tabpage_list_wins(0)) do
+		if vim.api.nvim_win_is_valid(win) and vim.fn.win_gettype(win) == name then
+			vim.api.nvim_win_close(win, false)
+			return
+		end
+	end
+
+	if name == 'loclist' then
+		vim.cmd([[ botright lopen ]])
+	else
+		vim.cmd([[ botright copen ]])
+	end
+end
+
+-- Display a list of formatters and apply the selected one.
+function _G.formatter_select()
+	local buf = vim.api.nvim_get_current_buf()
+	local is_visual = vim.tbl_contains({ 'v', 'V', '\22' }, vim.fn.mode())
+	local cur_start, cur_end
+	if is_visual then
+		cur_start = vim.fn.getpos('.')
+		cur_end = vim.fn.getpos('v')
+	end
+
+	-- Collect various sources of formatters.
+	---@class rafi.Formatter
+	---@field kind string
+	---@field name string
+	---@field client LazyFormatter|{active:boolean,resolved:string[]}
+
+	---@type rafi.Formatter[]
+	local sources = {}
+	local fmts = LazyVim.format.resolve(buf)
+	for _, fmt in ipairs(fmts) do
+		vim.tbl_map(function(resolved)
+			table.insert(sources, {
+				kind = fmt.name,
+				name = resolved,
+				client = fmt,
+			})
+		end, fmt.resolved)
+	end
+
+	local total_sources = #sources
+
+	-- Apply formatter source on buffer.
+	---@param bufnr number
+	---@param source rafi.Formatter
+	local apply_source = function(bufnr, source)
+		if source == nil then
+			return
+		end
+		LazyVim.try(function()
+			return source.client.format(bufnr)
+		end, { msg = 'Formatter `' .. source.name .. '` failed' })
+	end
+
+	if total_sources == 1 then
+		apply_source(buf, sources[1])
+	elseif total_sources > 1 then
+		-- Display a list of sources to choose from
+		vim.ui.select(sources, {
+			prompt = 'Select a formatter',
+			format_item = function(item)
+				return item.name .. ' (' .. item.kind .. ')'
+			end,
+		}, function(selected)
+			if is_visual then
+				-- Restore visual selection
+				vim.fn.setpos('.', cur_start)
+				vim.cmd([[normal! v]])
+				vim.fn.setpos('.', cur_end)
+			end
+			apply_source(buf, selected)
+		end)
+	else
+		vim.notify(
+			'No configured formatters for this filetype.',
+			vim.log.levels.WARN
+		)
+	end
 end
 
 -- vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :

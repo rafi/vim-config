@@ -267,7 +267,7 @@ return {
 				'<leader>gg',
 				function()
 					require('telescope.builtin').live_grep({
-						default_text = require('rafi.util.edit').get_visual_selection(),
+						default_text = _G.get_visual_selection(),
 					})
 				end,
 				mode = 'x',

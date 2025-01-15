@@ -3,6 +3,8 @@
 
 local winwidth = 30
 
+local has_git = vim.fn.executable('git') == 1
+
 local function get_current_directory(state)
 	local node = state.tree:get_node()
 	if node.type ~= 'directory' or not node:is_expanded() then
@@ -44,6 +46,7 @@ return {
 	},
 	-- See: https://github.com/nvim-neo-tree/neo-tree.nvim
 	opts = {
+		enable_git_status = has_git,
 		close_if_last_window = true,
 		popup_border_style = 'rounded',
 		sort_case_insensitive = true,
@@ -166,7 +169,7 @@ return {
 				['K'] = function(state)
 					local node = state.tree:get_node()
 					local path = node:get_id()
-					require('rafi.util').preview.open(path)
+					require('rafi.util.preview').open(path)
 				end,
 
 				['Y'] = {
@@ -193,7 +196,7 @@ return {
 			bind_to_cwd = false,
 			follow_current_file = { enabled = true },
 			group_empty_dirs = true,
-			use_libuv_file_watcher = true,
+			use_libuv_file_watcher = has_git,
 			window = {
 				mappings = {
 					['d'] = 'noop',

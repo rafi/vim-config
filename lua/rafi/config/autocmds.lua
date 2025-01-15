@@ -1,5 +1,5 @@
 -- Rafi's Neovim autocmds
--- github.com/rafi/vim-config
+-- https://github.com/rafi/vim-config
 -- ===
 
 -- This file is automatically loaded by rafi.config.init

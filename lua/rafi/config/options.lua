@@ -1,5 +1,5 @@
 -- Rafi's Neovim options
--- github.com/rafi/vim-config
+-- https://github.com/rafi/vim-config
 -- ===
 
 -- This file is automatically loaded with autocmd in lua/rafi/config/lazy.lua
@@ -17,12 +17,12 @@ vim.g.diffprg = 'bcompare'
 
 -- vim.g.health = { style = 'float' }
 
-local opt = vim.opt
-
 -- Disable LazyVim features.
 vim.g.autoformat = false      -- LazyVim auto format
 vim.g.snacks_animate = false  -- Globally disable all snacks animations
 vim.g.trouble_lualine = false -- Disable document symbols in statusline
+
+local opt = vim.opt
 
 opt.autowrite = false
 opt.expandtab = false

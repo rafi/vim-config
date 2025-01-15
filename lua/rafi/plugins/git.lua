@@ -1,12 +1,15 @@
 -- Plugins: Git
 -- https://github.com/rafi/vim-config
 
+local has_git = vim.fn.executable('git') == 1
+
 return {
 
 	-----------------------------------------------------------------------------
 	-- Tabpage interface for cycling through diffs
 	{
 		'sindrets/diffview.nvim',
+		cond = has_git,
 		cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
 		keys = {
 			{ '<Leader>gd', '<cmd>DiffviewFileHistory %<CR>', desc = 'Diff File' },
@@ -57,6 +60,7 @@ return {
 	-- Magit clone for Neovim
 	{
 		'NeogitOrg/neogit',
+		cond = has_git,
 		dependencies = {
 			'sindrets/diffview.nvim',
 			'nvim-telescope/telescope.nvim',
@@ -85,6 +89,7 @@ return {
 	-- Git blame visualizer
 	{
 		'FabijanZulj/blame.nvim',
+		cond = has_git,
 		cmd = 'ToggleBlame',
 		-- stylua: ignore
 		keys = {
@@ -109,6 +114,7 @@ return {
 	-- Pleasant editing on Git commit messages
 	{
 		'rhysd/committia.vim',
+		cond = has_git,
 		event = 'BufReadPre COMMIT_EDITMSG',
 		init = function()
 			-- See: https://github.com/rhysd/committia.vim#variables

@@ -41,7 +41,6 @@ return {
 			local cmp = require('cmp')
 			local defaults = require('cmp.config.default')()
 			local auto_select = false
-			local Util = require('rafi.util')
 
 			return {
 				-- configure any filetype to auto add brackets
@@ -81,17 +80,12 @@ return {
 						fallback()
 					end,
 					['<C-Space>'] = cmp.mapping.complete(),
-					-- ['<Tab>'] = function(fallback)
-					-- 	return LazyVim.cmp.map({ 'snippet_forward', 'ai_accept' }, fallback)()
-					-- end,
-					['<Tab>'] = Util.cmp.supertab({
+					['<Tab>'] = require('rafi.util.cmp').supertab({
 						behavior = require('cmp').SelectBehavior.Select,
 					}),
-					['<S-Tab>'] = Util.cmp.supertab_shift({
+					['<S-Tab>'] = require('rafi.util.cmp').supertab_shift({
 						behavior = require('cmp').SelectBehavior.Select,
 					}),
-					-- ['<C-j>'] = Util.cmp.snippet_jump_forward(),
-					-- ['<C-k>'] = Util.cmp.snippet_jump_backward(),
 					['<C-d>'] = cmp.mapping.select_next_item({ count = 5 }),
 					['<C-u>'] = cmp.mapping.select_prev_item({ count = 5 }),
 					['<C-f>'] = cmp.mapping.scroll_docs(4),

@@ -32,6 +32,8 @@ vim.api.nvim_create_autocmd('User', {
 	end,
 })
 
+local has_git = vim.fn.executable('git') == 1
+
 -- Start lazy.nvim plugin manager.
 require('lazy').setup(vim.tbl_extend('keep', user_lazy_opts, {
 	spec = {
@@ -120,8 +122,8 @@ require('lazy').setup(vim.tbl_extend('keep', user_lazy_opts, {
 	},
 	defaults = { lazy = true, version = false },
 	dev = { path = vim.fn.stdpath('config') .. '/dev' },
-	install = { missing = true, colorscheme = {} },
-	checker = { enabled = true, notify = false },
+	install = { missing = has_git, colorscheme = {} },
+	checker = { enabled = has_git, notify = false },
 	change_detection = { notify = false },
 	ui = {
 		size = { width = 0.8, height = 0.85 },

@@ -11,7 +11,6 @@ return {
 		'nvim-lualine/lualine.nvim',
 		enabled = not vim.g.started_by_firenvim,
 		opts = function()
-			local Util = require('rafi.util')
 			local icons = LazyVim.config.icons
 
 			local function is_plugin_window()
@@ -42,22 +41,23 @@ return {
 				fg = Snacks.util.color('StatusLineNC'),
 			}
 
+			local ColorUtil = require('rafi.util.color')
 			local theme = {
 				normal = {
 					a = active,
 					b = active,
 					c = active,
 					x = {
-						fg = Util.color.brightness_modifier(active.bg, -80),
+						fg = ColorUtil.brightness_modifier(active.bg, -80),
 						bg = active.bg,
 					},
 					y = {
 						fg = active.fg,
-						bg = Util.color.brightness_modifier(active.bg, -20),
+						bg = ColorUtil.brightness_modifier(active.bg, -20),
 					},
 					z = {
 						fg = active.fg,
-						bg = Util.color.brightness_modifier(active.bg, 63),
+						bg = ColorUtil.brightness_modifier(active.bg, 63),
 					},
 				},
 				inactive = {
@@ -125,7 +125,7 @@ return {
 						},
 						LazyVim.lualine.root_dir(),
 						{
-							require('rafi.util').lualine.plugin_title(),
+							require('rafi.util.lualine').plugin_title(),
 							padding = { left = 0, right = 1 },
 							cond = is_plugin_window,
 						},
@@ -184,7 +184,7 @@ return {
 						-- Whitespace trails
 						-- stylua: ignore
 						{
-							require('rafi.util').lualine.trails(),
+							require('rafi.util.lualine').trails(),
 							cond = is_file_window,
 							padding = { left = 1, right = 0 },
 							color = function() return { fg = Snacks.util.color('Identifier') } end,
@@ -302,7 +302,7 @@ return {
 					},
 					lualine_y = {
 						{
-							require('rafi.util').lualine.filemedia(),
+							require('rafi.util.lualine').filemedia(),
 							padding = 1,
 							cond = function()
 								return is_min_width(70)
