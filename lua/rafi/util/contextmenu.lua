@@ -29,7 +29,7 @@ M.show = function()
 	local cword = vim.fn.expand('<cword>')
 	local bufnr = vim.api.nvim_get_current_buf()
 	local clients
-	if vim.lsp.get_clients ~= nil then
+	if vim.lsp.get_clients then
 		clients = vim.lsp.get_clients({ bufnr = bufnr })
 	else
 		---@diagnostic disable-next-line: deprecated

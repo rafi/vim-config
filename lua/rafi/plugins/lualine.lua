@@ -147,12 +147,18 @@ return {
 						-- Show buffer number in terminal
 						{
 							separator = '',
-							padding = { left = 0, right = 1 },
+							padding = { left = 1, right = 1 },
 							function()
-								return '#' .. vim.b['toggle_number']
+								local s = vim.b.term_title or ''
+								local n = vim.b.toggle_number or ''
+								if vim.b.snacks_terminal then
+									n = vim.b.snacks_terminal.id
+								end
+								return s .. (n and ' #' .. n or '')
 							end,
 							cond = function()
-								return vim.bo.buftype == 'terminal'
+								return vim.bo.buftype == 'snacks_terminal' or
+									vim.bo.buftype == 'terminal'
 							end,
 						},
 						-- Quickfix/location list title

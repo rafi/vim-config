@@ -201,6 +201,11 @@ map('x', '<Leader>v', 'gc', { remap = true, desc = 'Comment Selection' })
 map('n', 'gco', 'o<Esc>Vcx<Esc><cmd>normal gcc<CR>fxa<BS>', { silent = true, desc = 'Add Comment Below' })
 map('n', 'gcO', 'O<Esc>Vcx<Esc><cmd>normal gcc<CR>fxa<BS>', { silent = true, desc = 'Add Comment Above' })
 
+-- Add undo break-points
+map('i', ',', ',<c-g>u')
+map('i', '.', '.<c-g>u')
+map('i', ';', ';<c-g>u')
+
 -- Macros
 map('n', '<C-q>', 'q', { desc = 'Macro Prefix' })
 

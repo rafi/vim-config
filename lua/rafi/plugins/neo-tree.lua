@@ -162,11 +162,13 @@ return {
 					end
 					vim.cmd(new_width .. ' wincmd |')
 				end,
+
 				['K'] = function(state)
 					local node = state.tree:get_node()
 					local path = node:get_id()
 					require('rafi.util').preview.open(path)
 				end,
+
 				['Y'] = {
 					function(state)
 						local node = state.tree:get_node()
@@ -175,6 +177,7 @@ return {
 					end,
 					desc = 'Copy Path to Clipboard',
 				},
+
 				['O'] = {
 					function(state)
 						require('lazy.util').open(
@@ -205,11 +208,29 @@ return {
 							cwd = get_current_directory(state),
 						})
 					end,
+
 					-- Live grep in path.
 					['gr'] = function(state)
 						require('telescope.builtin').live_grep({
 							cwd = get_current_directory(state),
 						})
+					end,
+
+					-- Search and replace in path.
+					['gz'] = function(state)
+						local path = get_current_directory(state):gsub(' ', '\\ ')
+						local prefills = { paths = path }
+						local grugFar = require('grug-far')
+						if not grugFar.has_instance('tree') then
+							grugFar.open({
+								instanceName = 'tree',
+								prefills = prefills,
+								staticTitle = 'Find and Replace from Tree',
+							})
+						else
+							grugFar.open_instance('tree')
+							grugFar.update_instance_prefills('tree', prefills, false)
+						end
 					end,
 				},
 			},

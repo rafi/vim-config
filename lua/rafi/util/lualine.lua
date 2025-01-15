@@ -12,8 +12,8 @@ local plugin_icons = {
 	loclist = { '󰂖', 'Location List' },
 	mason = { '󰈏 ', 'Mason' },
 	NeogitStatus = { '󰉺' },
-	['neo-tree'] = { ' ', 'Neo-tree' },
-	['neo-tree-popup'] = { '󰋱', 'Neo-tree' },
+	['neo-tree'] = { ' ', '%{%v:lua._G.neotree_get_path()%}' },
+	['neo-tree-popup'] = { '󰋱', '%{%v:lua._G.neotree_get_path()%}' },
 	Outline = { ' ' },
 	quickfix = { ' ', 'Quickfix List' }, -- 󰎟 
 	['grug-far'] = { '󰥩 ', 'Grug FAR' },
@@ -63,10 +63,8 @@ function M.plugin_title()
 			end
 		end
 		if #plugin_icons[plugin_type] < 2 then
-			msg = msg .. bufname
+			msg = msg .. bufname:gsub('%%', '%%%%')
 		end
-		-- % char must be escaped in statusline.
-		msg = msg:gsub('%%', '%%%%')
 		return msg
 	end
 end
@@ -120,6 +118,19 @@ function M.trails(opts)
 		vim.api.nvim_buf_set_var(0, cache_key, msg)
 		return msg
 	end
+end
+
+_G.neotree_get_path = function(winid)
+	winid = winid or vim.api.nvim_get_current_win()
+	local state =
+		require('neo-tree.sources.manager').get_state('filesystem', nil, winid)
+	if not state.path then
+		local bufnr = vim.api.nvim_win_get_buf(winid)
+		if vim.bo[bufnr].filetype == 'neo-tree' then
+			state = require('neo-tree.sources.manager').get_state('filesystem')
+		end
+	end
+	return state.path and vim.fn.fnamemodify(state.path, ':~') or ''
 end
 
 return M
