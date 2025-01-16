@@ -8,7 +8,7 @@ return {
 			vim.g.cursorword = 0
 		end,
 		config = function()
-			local augroup = vim.api.nvim_create_augroup('rafi_cursorword', {})
+			local augroup = vim.api.nvim_create_augroup('rafi.cursorword', {})
 			vim.api.nvim_create_autocmd('FileType', {
 				group = augroup,
 				pattern = {

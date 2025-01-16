@@ -12,7 +12,7 @@ return {
 		end,
 		config = function()
 			vim.api.nvim_create_autocmd('FileType', {
-				group = vim.api.nvim_create_augroup('rafi_emmet', {}),
+				group = vim.api.nvim_create_augroup('rafi.emmet', {}),
 				pattern = {
 					'css',
 					'html',

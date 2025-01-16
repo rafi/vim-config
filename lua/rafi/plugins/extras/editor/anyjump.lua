@@ -13,7 +13,7 @@ return {
 		init = function()
 			vim.g.any_jump_disable_default_keybindings = 1
 			vim.api.nvim_create_autocmd('FileType', {
-				group = vim.api.nvim_create_augroup('rafi_any-jump', {}),
+				group = vim.api.nvim_create_augroup('rafi.any-jump', {}),
 				pattern = 'any-jump',
 				callback = function()
 					vim.opt.cursorline = true

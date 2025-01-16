@@ -50,7 +50,7 @@ return {
 			-- Detect if stdin has been provided.
 			vim.g.started_with_stdin = false
 			vim.api.nvim_create_autocmd('StdinReadPre', {
-				group = vim.api.nvim_create_augroup('rafi_persistence', {}),
+				group = vim.api.nvim_create_augroup('rafi.persistence', {}),
 				callback = function()
 					vim.g.started_with_stdin = true
 				end,
@@ -61,7 +61,7 @@ return {
 				'/private/tmp',
 			}
 			vim.api.nvim_create_autocmd('VimEnter', {
-				group = 'rafi_persistence',
+				group = 'rafi.persistence',
 				once = true,
 				nested = true,
 				callback = function()

@@ -23,7 +23,7 @@ return {
 
 			-- Setup filetype settings
 			vim.api.nvim_create_autocmd('FileType', {
-				group = vim.api.nvim_create_augroup('rafi_ftplugin_tmux', {}),
+				group = vim.api.nvim_create_augroup('rafi.ftplugin.tmux', {}),
 				pattern = 'tmux',
 				callback = function()
 					-- Open 'man tmux' in a vertical split with word under cursor.

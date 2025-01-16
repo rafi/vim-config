@@ -2,7 +2,7 @@
 -- https://github.com/rafi/vim-config
 -- ===
 
--- This file is automatically loaded with autocmd in lua/rafi/config/lazy.lua
+-- This file is automatically loaded by an autocmd in lua/rafi/config/lazy.lua
 -- NOTE: Extends $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/config/options.lua
 
 -- Keyboard leaders
@@ -15,8 +15,6 @@ vim.g.elite_mode = false
 -- External file diff program
 vim.g.diffprg = 'bcompare'
 
--- vim.g.health = { style = 'float' }
-
 -- Disable LazyVim features.
 vim.g.autoformat = false      -- LazyVim auto format
 vim.g.snacks_animate = false  -- Globally disable all snacks animations
@@ -28,8 +26,6 @@ opt.autowrite = false
 opt.expandtab = false
 opt.number = false
 opt.relativenumber = false
--- opt.completeopt = 'menu,menuone,noinsert'
--- opt.writebackup = false
 
 opt.title = true
 opt.titlestring = '%<%F%=%l/%L - nvim'

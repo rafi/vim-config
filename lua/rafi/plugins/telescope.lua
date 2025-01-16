@@ -126,7 +126,7 @@ end
 -- Enable indent-guides in telescope preview
 vim.api.nvim_create_autocmd('User', {
 	pattern = 'TelescopePreviewerLoaded',
-	group = vim.api.nvim_create_augroup('rafi_telescope', {}),
+	group = vim.api.nvim_create_augroup('rafi.telescope', {}),
 	callback = function(args)
 		if args.buf ~= vim.api.nvim_win_get_buf(0) then
 			return

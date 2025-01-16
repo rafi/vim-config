@@ -33,7 +33,7 @@ local cache_keys = {
 vim.api.nvim_create_autocmd(
 	{ 'BufReadPost', 'BufFilePost', 'BufNewFile', 'BufWritePost' },
 	{
-		group = vim.api.nvim_create_augroup('rafi_statusline', {}),
+		group = vim.api.nvim_create_augroup('rafi.statusline', {}),
 		callback = function()
 			if vim.bo.buftype ~= '' then
 				return

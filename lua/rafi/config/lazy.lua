@@ -25,7 +25,7 @@ local has_user_plugins = vim.uv.fs_stat(user_path .. '/plugins') ~= nil
 -- Overload rafi.config after $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/config/options.lua
 -- TODO: Try preload 'lazyvim.config.options' and return my options, instead.
 vim.api.nvim_create_autocmd('User', {
-	group = vim.api.nvim_create_augroup('rafi_options', { clear = true }),
+	group = vim.api.nvim_create_augroup('rafi.options', { clear = true }),
 	pattern = 'LazyVimOptionsDefaults',
 	callback = function()
 		require('rafi.config').setup()

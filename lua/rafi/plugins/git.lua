@@ -18,7 +18,7 @@ return {
 		opts = function()
 			local actions = require('diffview.actions')
 			vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' }, {
-				group = vim.api.nvim_create_augroup('rafi_diffview', {}),
+				group = vim.api.nvim_create_augroup('rafi.diffview', {}),
 				pattern = 'diffview:///panels/*',
 				callback = function()
 					vim.opt_local.cursorline = true
