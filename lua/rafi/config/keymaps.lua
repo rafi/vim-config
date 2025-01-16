@@ -194,6 +194,12 @@ end, { silent = true, desc = 'Yank absolute path' })
 --- }}}
 -- Coding {{{
 
+pcall(vim.keymap.del, 'n', 'gra')
+pcall(vim.keymap.del, 'n', 'gri')
+pcall(vim.keymap.del, 'n', 'grr')
+pcall(vim.keymap.del, 'n', 'grn')
+pcall(vim.keymap.del, 'n', 'gc')
+
 -- Comment
 map('n', '<Leader>v', 'gcc', { remap = true, desc = 'Comment Line' })
 map('x', '<Leader>v', 'gc', { remap = true, desc = 'Comment Selection' })
@@ -214,7 +220,7 @@ map('n', '<leader>cid', '<cmd>LazyDev<CR>', { silent = true, desc = 'Dev' })
 map('n', '<leader>cif', '<cmd>LazyFormatInfo<CR>', { silent = true, desc = 'Formatter Info' })
 map('n', '<leader>cir', '<cmd>LazyRoot<CR>', { silent = true, desc = 'Root' })
 map('n', '<leader>cil', '<cmd>check lspconfig<cr>', { desc = 'LSP info popup' })
-map({ 'n', 'x' }, '<leader>csf', function() _G.formatter_select() end, { desc = 'Formatter Select' })
+map({ 'n', 'x' }, '<leader>cs', function() _G.formatter_select() end, { desc = 'Formatter Select' })
 
 -- Start new line from any cursor position in insert-mode
 map('i', '<S-Return>', '<C-o>o', { desc = 'Start Newline' })
@@ -361,8 +367,8 @@ map('n', 'g<C-i>', function() _G.jump_buffer(1) end, { desc = 'Jump to newer buf
 map('n', 'g<C-o>', function() _G.jump_buffer(-1) end, { desc = 'Jump to older buffer' })
 
 -- Context aware menu. See lua/lib/contextmenu.lua
-map('n', '<RightMouse>', function() require('rafi.util.contextmenu').show() end)
-map('n', '<LocalLeader>c', function() require('rafi.util.contextmenu').show() end, { desc = 'Content-aware menu' })
+map('n', '<RightMouse>', function() require('rafi.util.contextmenu').show() end, { desc = 'Context-aware menu' })
+map('n', '<LocalLeader>c', function() require('rafi.util.contextmenu').show() end, { desc = 'Context-aware menu' })
 
 -- Lazygit
 if vim.fn.executable('lazygit') == 1 then
@@ -454,7 +460,7 @@ end
 map('n', '<C-x>', '<C-w>x<C-w>w', { remap = true, desc = 'Swap adjacent windows' })
 map('n', '<C-w>d', '<C-W>c', { desc = 'Delete Window', remap = true })
 
-map('n', 's', '<Nop>')
+map('n', 's', '<Nop>', { desc = '+screen' })
 map('n', 'sb', '<cmd>buffer#<CR>', { desc = 'Alternate buffer' })
 map('n', 'sc', '<cmd>close<CR>', { desc = 'Close window' })
 map('n', 'sd', '<cmd>bdelete<CR>', { desc = 'Buffer delete' })

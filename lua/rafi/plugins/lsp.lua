@@ -13,12 +13,13 @@ return {
 		-- stylua: ignore
 		opts = function()
 			local keys = require('lazyvim.plugins.lsp.keymaps').get()
+			keys[#keys + 1] = { '<leader>cl', false }
 			keys[#keys + 1] = { '<c-k>', false, mode = 'i' }
-			keys[#keys + 1] = { '<Leader>csi', vim.lsp.buf.incoming_calls, desc = 'Incoming calls' }
-			keys[#keys + 1] = { '<Leader>cso', vim.lsp.buf.outgoing_calls, desc = 'Outgoing calls' }
-			keys[#keys + 1] = { '<Leader>fwa', vim.lsp.buf.add_workspace_folder, desc = 'Show Workspace Folders' }
-			keys[#keys + 1] = { '<Leader>fwr', vim.lsp.buf.remove_workspace_folder, desc = 'Remove Workspace Folder' }
-			keys[#keys + 1] = { '<Leader>fwl', '<cmd>lua =vim.lsp.buf.list_workspace_folders()<CR>', desc = 'List Workspace Folders' }
+			keys[#keys + 1] = { '<leader>cli', vim.lsp.buf.incoming_calls, desc = 'Incoming calls' }
+			keys[#keys + 1] = { '<leader>clo', vim.lsp.buf.outgoing_calls, desc = 'Outgoing calls' }
+			keys[#keys + 1] = { '<leader>fwa', vim.lsp.buf.add_workspace_folder, desc = 'Show Workspace Folders' }
+			keys[#keys + 1] = { '<leader>fwr', vim.lsp.buf.remove_workspace_folder, desc = 'Remove Workspace Folder' }
+			keys[#keys + 1] = { '<leader>fwl', '<cmd>lua =vim.lsp.buf.list_workspace_folders()<CR>', desc = 'List Workspace Folders' }
 		end,
 	},
 

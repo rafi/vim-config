@@ -6,6 +6,7 @@ return {
 		event = 'FileType',
 		-- stylua: ignore
 		keys = {
+			{ 'm', "", desc = '+marks' },
 			{ 'mm', function() require('bookmarks').bookmark_toggle() end, desc = 'Toggle mark' },
 			{ 'mi', function() require('bookmarks').bookmark_ann() end, desc = 'Annotate mark' },
 			{ 'm<BS>', function() require('bookmarks').bookmark_clean() end, desc = 'Clean buffer marks' },

@@ -161,48 +161,28 @@ return {
 		},
 		-- stylua: ignore
 		keys = {
+			{ '<leader><space>', false },
+
 			-- General pickers
 			{ '<localleader>r', '<cmd>Telescope resume<CR>', desc = 'Resume Last' },
 			{ '<localleader>p', '<cmd>Telescope pickers<CR>', desc = 'Pickers' },
-			{ '<localleader>f', '<cmd>Telescope find_files<CR>', desc = 'Find Files' },
-			{ '<localleader>g', '<cmd>Telescope live_grep<CR>', desc = 'Grep' },
+			{ "<localleader>f", LazyVim.pick("files"), desc = "Find Files (Root Dir)" },
+			{ "<localleader>F", LazyVim.pick("files", { root = false }), desc = "Find Files (cwd)" },
+			{ "<localleader>g", LazyVim.pick("live_grep"), desc = "Grep (Root Dir)" },
+			{ "<localleader>G", LazyVim.pick("live_grep", { root = false }), desc = "Grep (cwd)" },
 			{ '<localleader>b', '<cmd>Telescope buffers<CR>', desc = 'Buffers' },
 			{ '<localleader>h', '<cmd>Telescope highlights<CR>', desc = 'Highlights' },
 			{ '<localleader>j', '<cmd>Telescope jumplist<CR>', desc = 'Jump List' },
-			{ '<localleader>m', '<cmd>Telescope marks<CR>', desc = 'Marks' },
-			{ '<localleader>o', '<cmd>Telescope vim_options<CR>', desc = 'Neovim Options' },
-			{ '<localleader>t', '<cmd>Telescope lsp_dynamic_workspace_symbols<CR>', desc = 'Workspace Symbols' },
+			{ '<localleader>m', '<cmd>Telescope marks<CR>', desc = 'Jump to Mark' },
+			{ '<localleader>o', '<cmd>Telescope vim_options<CR>', desc = 'Options' },
+			{ '<localleader>t', "<leader>sS", desc = 'Goto Symbol (Workspace)', remap = true },
 			{ '<localleader>v', '<cmd>Telescope registers<CR>', desc = 'Registers' },
 			{ '<localleader>u', '<cmd>Telescope spell_suggest<CR>', desc = 'Spell Suggest' },
-			{ '<localleader>s', "<cmd>lua require'persistence'.select()<CR>", desc = 'Sessions' },
-			{ '<localleader>x', '<cmd>Telescope oldfiles<CR>', desc = 'Old Files' },
+			{ '<localleader>x', '<cmd>Telescope oldfiles<CR>', desc = 'Recent Files' },
 			{ '<localleader>;', '<cmd>Telescope command_history<CR>', desc = 'Command History' },
 			{ '<localleader>:', '<cmd>Telescope commands<CR>', desc = 'Commands' },
 			{ '<localleader>/', '<cmd>Telescope search_history<CR>', desc = 'Search History' },
-			{ '<leader>/', '<cmd>Telescope current_buffer_fuzzy_find<CR>', desc = 'Buffer Find' },
-
-			{
-				'<leader>,',
-				'<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>',
-				desc = 'Switch Buffer',
-			},
-			{ '<leader>ff', '<cmd>Telescope find_files<CR>', desc = 'Find Files' },
-			{ '<leader>fg', '<cmd>Telescope live_grep<CR>', desc = 'Grep' },
-
-			{ '<leader>sd', '<cmd>Telescope diagnostics bufnr=0<CR>', desc = 'Document Diagnostics' },
-			{ '<leader>sD', '<cmd>Telescope diagnostics<CR>', desc = 'Workspace Diagnostics' },
-			{ '<leader>sh', '<cmd>Telescope help_tags<CR>', desc = 'Help Pages' },
-			{ '<leader>sk', '<cmd>Telescope keymaps<CR>', desc = 'Key Maps' },
-			{ '<leader>sj', '<cmd>Telescope jumplist<cr>', desc = 'Jumplist' },
-			{ '<leader>sl', '<cmd>Telescope loclist<cr>', desc = 'Location List' },
-			{ '<leader>sm', '<cmd>Telescope man_pages<CR>', desc = 'Man Pages' },
-			{ '<leader>sq', '<cmd>Telescope quickfix<cr>', desc = 'Quickfix List' },
-
-			{ '<leader>sw', LazyVim.pick('grep_string', { word_match = '-w' }), desc = 'Word (Root Dir)' },
-			{ '<leader>sW', LazyVim.pick('grep_string', { root = false, word_match = '-w' }), desc = 'Word (cwd)' },
-			{ '<leader>sw', LazyVim.pick('grep_string'), mode = 'v', desc = 'Selection (Root Dir)' },
-			{ '<leader>sW', LazyVim.pick('grep_string', { root = false }), mode = 'v', desc = 'Selection (cwd)' },
-			{ '<leader>sc', LazyVim.pick('colorscheme', { enable_preview = true }), desc = 'Colorscheme with Preview' },
+			{ '<localleader>i', '<cmd>Telescope current_buffer_fuzzy_find<CR>', desc = 'Buffer Find' },
 
 			-- LSP related
 			{ '<localleader>dd', '<cmd>Telescope lsp_definitions<CR>', desc = 'Definitions' },
@@ -210,24 +190,6 @@ return {
 			{ '<localleader>dr', '<cmd>Telescope lsp_references<CR>', desc = 'References' },
 			{ '<localleader>da', '<cmd>Telescope lsp_code_actions<CR>', desc = 'Code Actions' },
 			{ '<localleader>da', ':Telescope lsp_range_code_actions<CR>', mode = 'x', desc = 'Code Actions' },
-			{
-				'<leader>ss',
-				function()
-					require('telescope.builtin').lsp_document_symbols({
-						symbols = LazyVim.config.get_kind_filter(),
-					})
-				end,
-				desc = 'Goto Symbol',
-			},
-			{
-				'<leader>sS',
-				function()
-					require('telescope.builtin').lsp_dynamic_workspace_symbols({
-						symbols = LazyVim.config.get_kind_filter(),
-					})
-				end,
-				desc = 'Goto Symbol (Workspace)',
-			},
 
 			-- Plugins
 			{ '<localleader>n', plugin_directories, desc = 'Plugins' },

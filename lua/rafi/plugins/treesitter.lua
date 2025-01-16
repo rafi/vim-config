@@ -17,10 +17,6 @@ return {
 		'which-key.nvim',
 		opts = {
 			spec = {
-				{ '<BS>', hidden = true, mode = 'x' },
-				{ '<c-space>', hidden = true, mode = 'x' },
-				{ '<c-space>', desc = 'Increment Selection' },
-				{ 'v', desc = 'Increment Selection', mode = 'x' },
 				{ 'V', desc = 'Decrement Selection', mode = 'x' },
 			},
 		},
@@ -43,8 +39,7 @@ return {
 	{
 		'nvim-treesitter/nvim-treesitter',
 		keys = {
-			{ '<c-space>', desc = 'Increment Selection' },
-			{ 'v', desc = 'Increment Selection', mode = 'x' },
+			{ '<bs>', false, mode = 'x' },
 			{ 'V', desc = 'Decrement Selection', mode = 'x' },
 		},
 		dependencies = {
@@ -96,8 +91,8 @@ return {
 			incremental_selection = {
 				enable = true,
 				keymaps = {
-					init_selection = '<C-Space>',
-					node_incremental = 'v',
+					init_selection = '<c-space>',
+					node_incremental = '<c-space>',
 					scope_incremental = false,
 					node_decremental = 'V',
 				},

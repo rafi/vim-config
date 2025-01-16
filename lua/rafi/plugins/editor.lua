@@ -37,6 +37,9 @@ return {
 	{
 		'folke/persistence.nvim',
 		event = 'VimEnter',
+		keys = {
+			{ '<localleader>s', "<cmd>lua require'persistence'.select()<CR>", desc = 'Sessions' },
+		},
 		opts = {
 			branch = false,
 			-- Enable to autoload session on startup, unless:
@@ -156,20 +159,19 @@ return {
 			end,
 			spec = {
 				{
-					{ 's', group = 'screen' },
-					{ 'gs', desc = 'Preview Hunk' },
-					{ 'gz', group = 'surround' },
-					{ ';', group = '+telescope' },
-					{ ';d', group = '+lsp' },
-					{ '<leader>ch', group = 'calls' },
+					{ 'gs', group = nil },
+					{ 'gz', group = 'surround', icon = { icon = '󱞹 ', color = 'cyan' } },
+					{ ';d', group = 'lsp' },
+					{ ';',  group = 'picker' },
+					{ '<leader>cl', group = 'calls' },
+					{ '<leader>ci', group = 'info' },
 					{ '<leader>fw', group = 'workspace' },
-					{ '<leader>h', group = 'hunks', icon = { icon = ' ', color = 'red' } },
+					{ '<leader>ght', group = 'toggle' },
 					{ '<leader>ht', group = 'toggle' },
-					{ '<leader>m', group = 'tools' },
-					{ '<leader>md', group = 'diff' },
-					-- { '<leader>sn', group = 'noice' },
-					-- { '<leader>t', group = 'toggle/tools' },
+					{ '<leader>m',  group = 'tools', icon = { icon = '󱁤 ', color = 'blue' } },
+					{ '<leader>md', group = 'diff', icon = { icon = ' ', color = 'green' } },
 					{ '<leader>z', group = 'notes' },
+					{ '<leader>w', group = nil },
 				},
 			},
 		},
@@ -220,7 +222,12 @@ return {
 		'trouble.nvim',
 		-- stylua: ignore
 		keys = {
+			{ '<leader>cs', false },
+			{ '<leader>cS', false },
+
 			{ 'gR', function() require('trouble').open('lsp_references') end, desc = 'LSP References (Trouble)' },
+			{ '<Leader>xs', '<cmd>Trouble symbols toggle<CR>', desc = 'Symbols (Trouble)' },
+			{ '<Leader>xS', '<cmd>Trouble lsp toggle<CR>', desc = 'LSP references/definitions/... (Trouble)' },
 		},
 	},
 
@@ -313,11 +320,11 @@ return {
 		'dnlhc/glance.nvim',
 		cmd = 'Glance',
 		keys = {
-			{ 'gpd', '<cmd>Glance definitions<CR>' },
-			{ 'gpr', '<cmd>Glance references<CR>' },
-			{ 'gpy', '<cmd>Glance type_definitions<CR>' },
-			{ 'gpi', '<cmd>Glance implementations<CR>' },
-			{ 'gpu', '<cmd>Glance resume<CR>' },
+			{ '<leader>cgd', '<cmd>Glance definitions<CR>', desc = 'Glance Definitions' },
+			{ '<leader>cgr', '<cmd>Glance references<CR>', desc = 'Glance References' },
+			{ '<leader>cgy', '<cmd>Glance type_definitions<CR>', desc = 'Glance Type Definitions' },
+			{ '<leader>cgi', '<cmd>Glance implementations<CR>', desc = 'Glance implementations' },
+			{ '<leader>cgu', '<cmd>Glance resume<CR>', desc = 'Glance Resume' },
 		},
 		opts = function()
 			local actions = require('glance').actions

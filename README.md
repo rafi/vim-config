@@ -938,7 +938,7 @@ Legend: | Ⓝormal | Ⓥisual | Ⓢelect | Ⓘnsert | Ⓞperator | Ⓒommand |
 | Key   | Mode | Action             | Plugin or Mapping |
 | ----- |:----:| ------------------ | ------ |
 | <kbd>Space</kbd>+<kbd>Space</kbd> | Ⓝ Ⓥ | Toggle visual-line mode | <small>`V` / <kbd>Escape</kbd></small> |
-| <kbd>v</kbd> / <kbd>V</kbd> | Ⓥ | Increment/shrink selection | <small>[nvim-treesitter]</small> |
+| <kbd>Ctrl</kbd>+<kbd>Space</kbd> / <kbd>V</kbd> | Ⓥ | Increment/shrink selection | <small>[nvim-treesitter]</small> |
 | <kbd>vsp</kbd> | Ⓝ | Select last paste | <small>[config/keymaps.lua]</small> |
 | <kbd>sg</kbd> | Ⓥ | Replace within selected area | <small>[config/keymaps.lua]</small> |
 | <kbd>Ctrl</kbd>+<kbd>r</kbd> | Ⓥ | Replace selection with step-by-step confirmation | <small>[config/keymaps.lua]</small> |
@@ -1010,21 +1010,21 @@ Legend: | Ⓝormal | Ⓥisual | Ⓢelect | Ⓘnsert | Ⓞperator | Ⓒommand |
 | <kbd>gy</kbd> | Ⓝ | Go to type definition | <small>[plugins/lsp/keymaps.lua]</small> |
 | <kbd>K</kbd>  | Ⓝ | Show hover help or collapsed fold | <small>[plugins/lsp/keymaps.lua]</small> |
 | <kbd>gK</kbd> | Ⓝ | Show signature help | <small>[plugins/lsp/keymaps.lua]</small> |
-| <kbd>Space</kbd> <kbd>cl</kbd>  | Ⓝ | Open LSP info window | <small>[plugins/lsp/keymaps.lua]</small> |
 | <kbd>Space</kbd> <kbd>cr</kbd>  | Ⓝ | Rename | <small>[plugins/lsp/keymaps.lua]</small> |
 | <kbd>Space</kbd> <kbd>ce</kbd>  | Ⓝ | Open diagnostics window | <small>[plugins/lsp/keymaps.lua]</small> |
-| <kbd>Space</kbd> <kbd>co</kbd>  | Ⓝ | Formatter menu selection | <small>[plugins/lsp/keymaps.lua]</small> |
+| <kbd>Space</kbd> <kbd>cs</kbd>  | Ⓝ | Formatter menu selection | <small>[plugins/lsp/keymaps.lua]</small> |
 | <kbd>Space</kbd> <kbd>ca</kbd>  | Ⓝ Ⓥ | Code action | <small>[plugins/lsp/keymaps.lua]</small> |
 | <kbd>Space</kbd> <kbd>cA</kbd>  | Ⓝ | Source action | <small>[plugins/lsp/keymaps.lua]</small> |
-| <kbd>Space</kbd> <kbd>chi</kbd>  | Ⓝ | LSP incoming calls | <small>[plugins/lsp/keymaps.lua]</small> |
-| <kbd>Space</kbd> <kbd>cho</kbd>  | Ⓝ | LSP outgoing calls | <small>[plugins/lsp/keymaps.lua]</small> |
+| <kbd>Space</kbd> <kbd>cli</kbd>  | Ⓝ | LSP incoming calls | <small>[plugins/lsp/keymaps.lua]</small> |
+| <kbd>Space</kbd> <kbd>clo</kbd>  | Ⓝ | LSP outgoing calls | <small>[plugins/lsp/keymaps.lua]</small> |
 | <kbd>Space</kbd> <kbd>fwa</kbd> | Ⓝ | Add workspace folder | <small>[plugins/lsp/keymaps.lua]</small> |
 | <kbd>Space</kbd> <kbd>fwr</kbd> | Ⓝ | Remove workspace folder | <small>[plugins/lsp/keymaps.lua]</small> |
 | <kbd>Space</kbd> <kbd>fwl</kbd> | Ⓝ | List workspace folders | <small>[plugins/lsp/keymaps.lua]</small> |
-| <kbd>gpd</kbd> | Ⓝ | Glance definitions | <small>[dnlhc/glance.nvim]</small> |
-| <kbd>gpr</kbd> | Ⓝ | Glance references | <small>[dnlhc/glance.nvim]</small> |
-| <kbd>gpy</kbd> | Ⓝ | Glance type definitions | <small>[dnlhc/glance.nvim]</small> |
-| <kbd>gpi</kbd> | Ⓝ | Glance implementations | <small>[dnlhc/glance.nvim]</small> |
+| <kbd>Space</kbd> <kbd>cgd</kbd> | Ⓝ | Glance definitions | <small>[dnlhc/glance.nvim]</small> |
+| <kbd>Space</kbd> <kbd>cgr</kbd> | Ⓝ | Glance references | <small>[dnlhc/glance.nvim]</small> |
+| <kbd>Space</kbd> <kbd>cgy</kbd> | Ⓝ | Glance type definitions | <small>[dnlhc/glance.nvim]</small> |
+| <kbd>Space</kbd> <kbd>cgi</kbd> | Ⓝ | Glance implementations | <small>[dnlhc/glance.nvim]</small> |
+| <kbd>Space</kbd> <kbd>cgu</kbd> | Ⓝ | Glance resume | <small>[dnlhc/glance.nvim]</small> |
 
 ### Diagnostics
 
