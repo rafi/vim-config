@@ -148,10 +148,8 @@ return {
 	{
 		'telescope.nvim',
 		version = false,
+		optional = true,
 		cmd = 'Telescope',
-		enabled = function()
-			return LazyVim.pick.want() == 'telescope'
-		end,
 		dependencies = {
 			'nvim-lua/plenary.nvim',
 			-- Telescope extension for Zoxide
