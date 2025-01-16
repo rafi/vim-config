@@ -21,9 +21,7 @@ return {
 	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/extras/editor/fzf.lua
 	{
 		'fzf-lua',
-		enabled = function()
-			return LazyVim.pick.want() == 'fzf'
-		end,
+		optional = true,
 		opts = {
 			defaults = {
 				git_icons = has_git,
