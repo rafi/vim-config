@@ -16,7 +16,7 @@ return {
 	{ 'lambdalisue/suda.vim', event = 'BufRead' },
 
 	-----------------------------------------------------------------------------
-	-- File explorer
+	-- FZF picker
 	-- NOTE: This extends
 	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/extras/editor/fzf.lua
 	{
@@ -26,7 +26,7 @@ return {
 			defaults = {
 				git_icons = has_git,
 			},
-		}
+		},
 	},
 
 	-----------------------------------------------------------------------------

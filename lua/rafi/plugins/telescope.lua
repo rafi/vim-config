@@ -162,27 +162,9 @@ return {
 		-- stylua: ignore
 		keys = {
 			{ '<leader><space>', false },
-
-			-- General pickers
-			{ '<localleader>r', '<cmd>Telescope resume<CR>', desc = 'Resume Last' },
 			{ '<localleader>p', '<cmd>Telescope pickers<CR>', desc = 'Pickers' },
-			{ "<localleader>f", LazyVim.pick("files"), desc = "Find Files (Root Dir)" },
-			{ "<localleader>F", LazyVim.pick("files", { root = false }), desc = "Find Files (cwd)" },
-			{ "<localleader>g", LazyVim.pick("live_grep"), desc = "Grep (Root Dir)" },
-			{ "<localleader>G", LazyVim.pick("live_grep", { root = false }), desc = "Grep (cwd)" },
-			{ '<localleader>b', '<cmd>Telescope buffers<CR>', desc = 'Buffers' },
-			{ '<localleader>h', '<cmd>Telescope highlights<CR>', desc = 'Highlights' },
-			{ '<localleader>j', '<cmd>Telescope jumplist<CR>', desc = 'Jump List' },
-			{ '<localleader>m', '<cmd>Telescope marks<CR>', desc = 'Jump to Mark' },
-			{ '<localleader>o', '<cmd>Telescope vim_options<CR>', desc = 'Options' },
-			{ '<localleader>t', "<leader>sS", desc = 'Goto Symbol (Workspace)', remap = true },
-			{ '<localleader>v', '<cmd>Telescope registers<CR>', desc = 'Registers' },
 			{ '<localleader>u', '<cmd>Telescope spell_suggest<CR>', desc = 'Spell Suggest' },
-			{ '<localleader>x', '<cmd>Telescope oldfiles<CR>', desc = 'Recent Files' },
-			{ '<localleader>;', '<cmd>Telescope command_history<CR>', desc = 'Command History' },
-			{ '<localleader>:', '<cmd>Telescope commands<CR>', desc = 'Commands' },
 			{ '<localleader>/', '<cmd>Telescope search_history<CR>', desc = 'Search History' },
-			{ '<localleader>i', '<cmd>Telescope current_buffer_fuzzy_find<CR>', desc = 'Buffer Find' },
 
 			-- LSP related
 			{ '<localleader>dd', '<cmd>Telescope lsp_definitions<CR>', desc = 'Definitions' },
@@ -194,7 +176,6 @@ return {
 			-- Plugins
 			{ '<localleader>n', plugin_directories, desc = 'Plugins' },
 			{ '<localleader>k', '<cmd>Telescope thesaurus lookup<CR>', desc = 'Thesaurus' },
-
 			{
 				'<localleader>z',
 				function()
@@ -206,8 +187,6 @@ return {
 				end,
 				desc = 'Zoxide (MRU)',
 			},
-
-			-- Find by...
 			{
 				'<leader>gf',
 				function()
@@ -217,25 +196,6 @@ return {
 				end,
 				desc = 'Find File',
 			},
-			{
-				'<leader>gg', function()
-					require('telescope.builtin').live_grep({
-						default_text = vim.fn.expand('<cword>'),
-					})
-				end,
-				desc = 'Grep Cursor Word',
-			},
-			{
-				'<leader>gg',
-				function()
-					require('telescope.builtin').live_grep({
-						default_text = _G.get_visual_selection(),
-					})
-				end,
-				mode = 'x',
-				desc = 'Grep Cursor Word',
-			},
-
 		},
 		opts = function(_, opts)
 			local actions = require('telescope.actions')
