@@ -61,10 +61,6 @@ return {
 	{
 		'NeogitOrg/neogit',
 		cond = has_git,
-		dependencies = {
-			'sindrets/diffview.nvim',
-			'nvim-telescope/telescope.nvim',
-		},
 		cmd = 'Neogit',
 		keys = {
 			{ '<Leader>mg', '<cmd>Neogit<CR>', desc = 'Neogit' },

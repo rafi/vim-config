@@ -151,7 +151,6 @@ return {
 		optional = true,
 		cmd = 'Telescope',
 		dependencies = {
-			'nvim-lua/plenary.nvim',
 			-- Telescope extension for Zoxide
 			'jvgrootveld/telescope-zoxide',
 			-- Browse synonyms for a word
