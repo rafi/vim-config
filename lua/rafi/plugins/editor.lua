@@ -1,8 +1,6 @@
 -- Plugins: Editor
 -- https://github.com/rafi/vim-config
 
-local has_git = vim.fn.executable('git') == 1
-
 return {
 
 	-----------------------------------------------------------------------------
@@ -24,17 +22,19 @@ return {
 		optional = true,
 		opts = {
 			defaults = {
-				git_icons = has_git,
+				git_icons = vim.fn.executable('git') == 1,
 			},
 		},
 	},
 
 	-----------------------------------------------------------------------------
 	-- Simple lua plugin for automated session management
-	-- NOTE: This extends $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/util.lua
+	-- NOTE: This extends
+	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/util.lua
 	{
-		'folke/persistence.nvim',
+		'persistence.nvim',
 		event = 'VimEnter',
+		-- stylua: ignore
 		keys = {
 			{ '<localleader>s', "<cmd>lua require'persistence'.select()<CR>", desc = 'Sessions' },
 		},
@@ -98,18 +98,9 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
-	-- Ultimate undo history visualizer
-	{
-		'mbbill/undotree',
-		cmd = 'UndotreeToggle',
-		keys = {
-			{ '<leader>gu', '<cmd>UndotreeToggle<CR>', desc = 'Undo Tree' },
-		},
-	},
-
-	-----------------------------------------------------------------------------
 	-- Search labels, enhanced character motions
-	-- NOTE: This extends $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/editor.lua
+	-- NOTE: This extends
+	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/editor.lua
 	{
 		'flash.nvim',
 		event = 'VeryLazy',
@@ -132,7 +123,8 @@ return {
 
 	-----------------------------------------------------------------------------
 	-- Create key bindings that stick
-	-- NOTE: This extends $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/editor.lua
+	-- NOTE: This extends
+	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/editor.lua
 	{
 		'which-key.nvim',
 		keys = {
@@ -176,46 +168,9 @@ return {
 	},
 
 	-----------------------------------------------------------------------------
-	-- Git signs written in pure lua
-	-- See: https://github.com/lewis6991/gitsigns.nvim#usage
-	-- TODO: Normalize with lazyvim/plugins/editor.lua
-	-- NOTE: This extends $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/editor.lua
-	{
-		'gitsigns.nvim',
-		cond = has_git,
-		-- stylua: ignore
-		keys = {
-				{ ']g', ']h', desc = 'Next Hunk', remap = true },
-				{ '[g', '[h', desc = 'Previous Hunk', remap = true },
-				{ 'gs',           function() package.loaded.gitsigns.preview_hunk() end, desc = 'Preview hunk' },
-				{ '<leader>ghtb', function() package.loaded.gitsigns.toggle_current_line_blame() end, desc = 'Toggle Git line blame' },
-				{ '<leader>ghtd', function() package.loaded.gitsigns.toggle_deleted() end, desc = 'Toggle Git deleted' },
-				{ '<leader>ghtw', function() package.loaded.gitsigns.toggle_word_diff() end, desc = 'Toggle Git word diff' },
-				{ '<leader>ghtl', function() package.loaded.gitsigns.toggle_linehl() end, desc = 'Toggle Git line highlight' },
-				{ '<leader>ghtn', function() package.loaded.gitsigns.toggle_numhl() end, desc = 'Toggle Git number highlight' },
-				{ '<leader>ghts', function() package.loaded.gitsigns.toggle_signs() end, desc = 'Toggle Git signs' },
-		},
-		-- stylua: ignore
-		opts = {
-			signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
-			numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
-			linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
-			word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
-			current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
-			attach_to_untracked = true,
-			watch_gitdir = {
-				interval = 1000,
-				follow_files = true,
-			},
-			preview_config = {
-				border = 'rounded',
-			},
-		},
-	},
-
-	-----------------------------------------------------------------------------
 	-- Pretty lists to help you solve all code diagnostics
-	-- NOTE: This extends $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/editor.lua
+	-- NOTE: This extends
+	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/editor.lua
 	{
 		'trouble.nvim',
 		-- stylua: ignore
@@ -231,7 +186,8 @@ return {
 
 	-----------------------------------------------------------------------------
 	-- Highlight, list and search todo comments in your projects
-	-- NOTE: This extends $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/editor.lua
+	-- NOTE: This extends
+	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/editor.lua
 	{
 		'todo-comments.nvim',
 		opts = { signs = false },
@@ -266,6 +222,16 @@ return {
 			end
 			return opts
 		end,
+	},
+
+	-----------------------------------------------------------------------------
+	-- Ultimate undo history visualizer
+	{
+		'mbbill/undotree',
+		cmd = 'UndotreeToggle',
+		keys = {
+			{ '<leader>gu', '<cmd>UndotreeToggle<CR>', desc = 'Undo Tree' },
+		},
 	},
 
 	-----------------------------------------------------------------------------
@@ -317,6 +283,7 @@ return {
 	{
 		'dnlhc/glance.nvim',
 		cmd = 'Glance',
+		-- stylua: ignore
 		keys = {
 			{ '<leader>cg', '', desc = '+glance' },
 			{ '<leader>cgd', '<cmd>Glance definitions<CR>', desc = 'Glance Definitions' },

@@ -13,6 +13,7 @@ return {
 	{ 'MTDL9/vim-log-highlighting', ft = 'log' },
 	{ 'reasonml-editor/vim-reason-plus', ft = { 'reason', 'merlin' } },
 
+	-----------------------------------------------------------------------------
 	{
 		'which-key.nvim',
 		opts = {
@@ -37,7 +38,7 @@ return {
 	-- NOTE: This extends
 	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/treesitter.lua
 	{
-		'nvim-treesitter/nvim-treesitter',
+		'nvim-treesitter',
 		keys = {
 			{ '<bs>', false, mode = 'x' },
 			{ 'V', desc = 'Decrement Selection', mode = 'x' },

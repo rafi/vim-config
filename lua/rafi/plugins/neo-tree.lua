@@ -15,7 +15,8 @@ return {
 
 	-----------------------------------------------------------------------------
 	-- File explorer written in Lua
-	-- NOTE: This extends $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/editor.lua
+	-- NOTE: This extends
+	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/editor.lua
 	'neo-tree.nvim',
 	branch = 'v3.x',
 	dependencies = { 'MunifTanjim/nui.nvim' },

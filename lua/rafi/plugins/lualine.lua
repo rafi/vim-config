@@ -8,7 +8,7 @@ return {
 	-- NOTE: This extends
 	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/ui.lua
 	{
-		'nvim-lualine/lualine.nvim',
+		'lualine.nvim',
 		enabled = not vim.g.started_by_firenvim,
 		opts = function()
 			local icons = LazyVim.config.icons

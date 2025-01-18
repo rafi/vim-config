@@ -55,7 +55,7 @@ return {
 	-- NOTE: This extends
 	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/ui.lua
 	{
-		'folke/noice.nvim',
+		'noice.nvim',
 		enabled = not vim.g.started_by_firenvim,
 		---@type NoiceConfig
 		opts = {
@@ -144,7 +144,7 @@ return {
 		},
 	},
 	{
-		'folke/snacks.nvim',
+		'snacks.nvim',
 		keys = function(_, keys)
 			if LazyVim.pick.want() ~= 'snacks' then
 				return

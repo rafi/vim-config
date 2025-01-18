@@ -133,7 +133,7 @@ map('x', 'sg', ':s//gc<Left><Left><Left>', { desc = 'Substitute Within Selection
 map(
 	'x',
 	'<C-r>',
-	":<C-u>%s/\\V<C-R>=v:lua._G.get_visual_selection()<CR>"
+	":<C-u>%s/\\V<C-R>=v:lua.get_visual_selection()<CR>"
 		.. '//gc<Left><Left><Left>',
 	{ desc = 'Replace Selection' }
 )
@@ -173,8 +173,8 @@ map('n', ']a', '<cmd>lnext<CR>', { desc = 'Next Loclist' })
 map('n', '[a', '<cmd>lprev<CR>', { desc = 'Previous Loclist' })
 
 -- Whitespace jump (see plugin/whitespace.vim)
-map('n', ']z', function() _G.whitespace_jump(1) end, { desc = 'Next Whitespace' })
-map('n', '[z', function() _G.whitespace_jump(-1) end, { desc = 'Previous Whitespace' })
+map('n', ']z', function() whitespace_jump(1) end, { desc = 'Next Whitespace' })
+map('n', '[z', function() whitespace_jump(-1) end, { desc = 'Previous Whitespace' })
 
 -- Diagnostic movement
 local diagnostic_jump = function(count, severity)
@@ -249,7 +249,7 @@ map('n', '<leader>cid', '<cmd>LazyDev<CR>', { silent = true, desc = 'Dev' })
 map('n', '<leader>cif', '<cmd>LazyFormatInfo<CR>', { silent = true, desc = 'Formatter Info' })
 map('n', '<leader>cir', '<cmd>LazyRoot<CR>', { silent = true, desc = 'Root' })
 map('n', '<leader>cil', '<cmd>check lspconfig<cr>', { desc = 'LSP info popup' })
-map({ 'n', 'x' }, '<leader>cs', function() _G.formatter_select() end, { desc = 'Formatter Select' })
+map({ 'n', 'x' }, '<leader>cs', function() formatter_select() end, { desc = 'Formatter Select' })
 
 -- Start new line from any cursor position in insert-mode
 map('i', '<S-Return>', '<C-o>o', { desc = 'Start Newline' })
@@ -339,8 +339,8 @@ map({ 'n', 'i', 'v' }, '<C-s>', '<cmd>write<CR>', { desc = 'Save File' })
 -- Editor UI {{{
 
 -- Toggle list windows
-map('n', '<leader>xl', function() _G.toggle_list('loclist') end, { desc = 'Toggle Location List' })
-map('n', '<leader>xq', function() _G.toggle_list('quickfix') end, { desc = 'Toggle Quickfix List' })
+map('n', '<leader>xl', function() toggle_list('loclist') end, { desc = 'Toggle Location List' })
+map('n', '<leader>xq', function() toggle_list('quickfix') end, { desc = 'Toggle Quickfix List' })
 
 map('n', '<Leader>ce', vim.diagnostic.open_float, { desc = 'Line Diagnostics' })
 
@@ -349,7 +349,7 @@ map('n', '<Leader>a', function()
 	if vim.bo.filetype ~= 'qf' then
 		vim.diagnostic.setloclist({ open = false })
 	end
-	_G.toggle_list('loclist')
+	toggle_list('loclist')
 end, { desc = 'Open Location List' })
 
 -- Toggle options
@@ -397,11 +397,11 @@ map(
 -- Plugins & Tools {{{
 
 -- Append mode-line to current buffer
-map('n', '<Leader>ml', function() _G.append_modeline() end, { desc = 'Append Modeline' })
+map('n', '<Leader>ml', function() append_modeline() end, { desc = 'Append Modeline' })
 
 -- Jump entire buffers throughout jumplist
-map('n', 'g<C-i>', function() _G.jump_buffer(1) end, { desc = 'Jump to newer buffer' })
-map('n', 'g<C-o>', function() _G.jump_buffer(-1) end, { desc = 'Jump to older buffer' })
+map('n', 'g<C-i>', function() jump_buffer(1) end, { desc = 'Jump to newer buffer' })
+map('n', 'g<C-o>', function() jump_buffer(-1) end, { desc = 'Jump to older buffer' })
 
 -- Context aware menu. See lua/lib/contextmenu.lua
 map('n', '<RightMouse>', function() require('rafi.util.contextmenu').show() end, { desc = 'Context-aware menu' })

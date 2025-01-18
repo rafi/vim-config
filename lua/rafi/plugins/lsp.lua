@@ -9,7 +9,7 @@ return {
 	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/lsp/init.lua
 	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/lsp/keymaps.lua
 	{
-		'neovim/nvim-lspconfig',
+		'nvim-lspconfig',
 		-- stylua: ignore
 		opts = function()
 			local keys = require('lazyvim.plugins.lsp.keymaps').get()
