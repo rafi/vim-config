@@ -80,10 +80,13 @@ function M.setup()
 	end
 
 	-- Use Telescope by default.
+	---@return "telescope" | "fzf" | "snacks"
 	LazyVim.pick.want = function()
 		vim.g.lazyvim_picker = vim.g.lazyvim_picker or 'auto'
 		if vim.g.lazyvim_picker == 'auto' then
-			return LazyVim.has_extra('editor.fzf') and 'fzf' or 'telescope'
+			return LazyVim.has_extra('editor.snacks_picker') and 'snacks'
+				or LazyVim.has_extra('editor.fzf') and 'fzf'
+				or 'telescope'
 		end
 		return vim.g.lazyvim_picker
 	end

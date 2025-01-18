@@ -203,16 +203,12 @@ return {
 
 					-- Find file in path.
 					['gf'] = function(state)
-						require('telescope.builtin').find_files({
-							cwd = get_current_directory(state),
-						})
+						LazyVim.pick('files', { cwd = get_current_directory(state) })()
 					end,
 
 					-- Live grep in path.
 					['gr'] = function(state)
-						require('telescope.builtin').live_grep({
-							cwd = get_current_directory(state),
-						})
+						LazyVim.pick('live_grep', { cwd = get_current_directory(state) })()
 					end,
 
 					-- Search and replace in path.
