@@ -2,37 +2,22 @@
 -- https://github.com/rafi/vim-config
 -- ===
 
--- This file is automatically loaded by rafi.config.init
+-- This file is automatically loaded by lua/rafi/config/lazy.lua
+-- Extends $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/config/autocmds.lua
+
+vim.api.nvim_del_augroup_by_name('lazyvim_highlight_yank')
+vim.api.nvim_del_augroup_by_name('lazyvim_last_loc')
+vim.api.nvim_del_augroup_by_name('lazyvim_wrap_spell')
 
 local function augroup(name)
 	return vim.api.nvim_create_augroup('rafi.' .. name, { clear = true })
 end
-
--- Check if we need to reload the file when it changed
-vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
-	group = augroup('checktime'),
-	callback = function()
-		if vim.o.buftype ~= 'nofile' then
-			vim.cmd('checktime')
-		end
-	end,
-})
 
 -- Highlight on yank
 vim.api.nvim_create_autocmd('TextYankPost', {
 	group = augroup('highlight_yank'),
 	callback = function()
 		(vim.hl or vim.highlight).on_yank({ timeout = 50 })
-	end,
-})
-
--- Resize splits if window got resized
-vim.api.nvim_create_autocmd({ 'VimResized' }, {
-	group = augroup('resize_splits'),
-	callback = function()
-		local current_tab = vim.fn.tabpagenr()
-		vim.cmd('tabdo wincmd =')
-		vim.cmd('tabnext ' .. current_tab)
 	end,
 })
 
@@ -62,24 +47,10 @@ vim.api.nvim_create_autocmd('FileType', {
 	group = augroup('close_with_q'),
 	pattern = {
 		'blame',
-		'checkhealth',
-		'dbout',
 		'fugitive',
 		'fugitiveblame',
-		'gitsigns-blame',
-		'grug-far',
-		'help',
 		'httpResult',
 		'lspinfo',
-		'neotest-output',
-		'neotest-output-panel',
-		'neotest-summary',
-		'notify',
-		'PlenaryTestPopup',
-		'qf',
-		'spectre_panel',
-		'startuptime',
-		'tsplayground',
 	},
 	callback = function(event)
 		vim.bo[event.buf].buflisted = false
@@ -118,27 +89,6 @@ vim.api.nvim_create_autocmd('FileType', {
 	pattern = { 'text', 'plaintex', 'typst', 'gitcommit', 'markdown' },
 	callback = function()
 		vim.opt_local.spell = true
-	end,
-})
-
--- Fix conceallevel for json files
-vim.api.nvim_create_autocmd({ 'FileType' }, {
-	group = augroup('json_conceal'),
-	pattern = { 'json', 'jsonc', 'json5' },
-	callback = function()
-		vim.opt_local.conceallevel = 0
-	end,
-})
-
--- Create directories when needed, when saving a file (except for URIs "://").
-vim.api.nvim_create_autocmd('BufWritePre', {
-	group = augroup('auto_create_dir'),
-	callback = function(event)
-		if event.match:match('^%w%w+:[\\/][\\/]') then
-			return
-		end
-		local file = vim.uv.fs_realpath(event.match) or event.match
-		vim.fn.mkdir(vim.fn.fnamemodify(file, ':p:h'), 'p')
 	end,
 })
 
