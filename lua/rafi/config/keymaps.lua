@@ -11,7 +11,7 @@ local unmap = function(modes, lhs)
 	lhs = type(lhs) == 'string' and { lhs } or lhs
 	for _, mode in pairs(modes) do
 		for _, l in pairs(lhs) do
-			vim.keymap.del(mode, l)
+			pcall(vim.keymap.del, mode, l)
 		end
 	end
 end
