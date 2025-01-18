@@ -103,7 +103,7 @@ return {
 		'mbbill/undotree',
 		cmd = 'UndotreeToggle',
 		keys = {
-			{ '<Leader>gu', '<cmd>UndotreeToggle<CR>', desc = 'Undo Tree' },
+			{ '<leader>gu', '<cmd>UndotreeToggle<CR>', desc = 'Undo Tree' },
 		},
 	},
 
@@ -224,8 +224,8 @@ return {
 			{ '<leader>cS', false },
 
 			{ 'gR', function() require('trouble').open('lsp_references') end, desc = 'LSP References (Trouble)' },
-			{ '<Leader>xs', '<cmd>Trouble symbols toggle<CR>', desc = 'Symbols (Trouble)' },
-			{ '<Leader>xS', '<cmd>Trouble lsp toggle<CR>', desc = 'LSP references/definitions/... (Trouble)' },
+			{ '<leader>xs', '<cmd>Trouble symbols toggle<CR>', desc = 'Symbols (Trouble)' },
+			{ '<leader>xS', '<cmd>Trouble lsp toggle<CR>', desc = 'LSP references/definitions/... (Trouble)' },
 		},
 	},
 
@@ -318,6 +318,7 @@ return {
 		'dnlhc/glance.nvim',
 		cmd = 'Glance',
 		keys = {
+			{ '<leader>cg', '', desc = '+glance' },
 			{ '<leader>cgd', '<cmd>Glance definitions<CR>', desc = 'Glance Definitions' },
 			{ '<leader>cgr', '<cmd>Glance references<CR>', desc = 'Glance References' },
 			{ '<leader>cgy', '<cmd>Glance type_definitions<CR>', desc = 'Glance Type Definitions' },

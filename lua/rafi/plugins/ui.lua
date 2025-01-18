@@ -123,7 +123,6 @@ return {
 				},
 			},
 		},
-		-- stylua: ignore
 		keys = {
 			{
 				'<leader>N',
@@ -143,7 +142,7 @@ return {
 						},
 					})
 				end,
-			}
+			},
 		},
 	},
 
@@ -161,7 +160,7 @@ return {
 		't9md/vim-quickhl',
 		-- stylua: ignore
 		keys = {
-			{ '<Leader>mt', '<Plug>(quickhl-manual-this)', mode = { 'n', 'x' }, desc = 'Highlight word' },
+			{ '<leader>mt', '<Plug>(quickhl-manual-this)', mode = { 'n', 'x' }, desc = 'Highlight word' },
 		},
 	},
 }

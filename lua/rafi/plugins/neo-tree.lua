@@ -22,10 +22,10 @@ return {
 	cmd = 'Neotree',
 	-- stylua: ignore
 	keys = {
-		{ '<LocalLeader>e', '<leader>fe', desc = 'Explorer NeoTree (Root Dir)', remap = true },
-		{ '<LocalLeader>E', '<leader>fE', desc = 'Explorer NeoTree (cwd)', remap = true },
+		{ '<localleader>e', '<leader>fe', desc = 'Explorer NeoTree (Root Dir)', remap = true },
+		{ '<localleader>E', '<leader>fE', desc = 'Explorer NeoTree (cwd)', remap = true },
 		{
-			'<LocalLeader>a',
+			'<localleader>a',
 			function()
 				require('neo-tree.command').execute({
 					reveal = true,

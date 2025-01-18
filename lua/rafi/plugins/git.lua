@@ -12,8 +12,8 @@ return {
 		cond = has_git,
 		cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
 		keys = {
-			{ '<Leader>gd', '<cmd>DiffviewFileHistory %<CR>', desc = 'Diff File' },
-			{ '<Leader>gv', '<cmd>DiffviewOpen<CR>', desc = 'Diff View' },
+			{ '<leader>gd', '<cmd>DiffviewFileHistory %<CR>', desc = 'Diff File' },
+			{ '<leader>gv', '<cmd>DiffviewOpen<CR>', desc = 'Diff View' },
 		},
 		opts = function()
 			local actions = require('diffview.actions')
@@ -33,8 +33,8 @@ return {
 						{ 'n', 'q', actions.close },
 						{ 'n', '<Tab>', actions.select_next_entry },
 						{ 'n', '<S-Tab>', actions.select_prev_entry },
-						{ 'n', '<LocalLeader>a', actions.focus_files },
-						{ 'n', '<LocalLeader>e', actions.toggle_files },
+						{ 'n', '<localleader>a', actions.focus_files },
+						{ 'n', '<localleader>e', actions.toggle_files },
 					},
 					file_panel = {
 						{ 'n', 'q', actions.close },
@@ -44,7 +44,7 @@ return {
 						{ 'n', 'sg', actions.goto_file_split },
 						{ 'n', 'st', actions.goto_file_tab },
 						{ 'n', '<C-r>', actions.refresh_files },
-						{ 'n', '<LocalLeader>e', actions.toggle_files },
+						{ 'n', '<localleader>e', actions.toggle_files },
 					},
 					file_history_panel = {
 						{ 'n', 'q', '<cmd>DiffviewClose<CR>' },
@@ -63,7 +63,7 @@ return {
 		cond = has_git,
 		cmd = 'Neogit',
 		keys = {
-			{ '<Leader>mg', '<cmd>Neogit<CR>', desc = 'Neogit' },
+			{ '<leader>mg', '<cmd>Neogit<CR>', desc = 'Neogit' },
 		},
 		-- See: https://github.com/TimUntersberger/neogit#configuration
 		opts = {

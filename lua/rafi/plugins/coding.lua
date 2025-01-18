@@ -75,8 +75,8 @@ return {
 		dependencies = { 'JoosepAlviste/nvim-ts-context-commentstring' },
 		-- stylua: ignore
 		keys = {
-			{ '<Leader>V', '<Plug>(comment_toggle_blockwise_current)', mode = 'n', desc = 'Comment' },
-			{ '<Leader>V', '<Plug>(comment_toggle_blockwise_visual)', mode = 'x', desc = 'Comment' },
+			{ '<leader>V', '<Plug>(comment_toggle_blockwise_current)', mode = 'n', desc = 'Comment' },
+			{ '<leader>V', '<Plug>(comment_toggle_blockwise_visual)', mode = 'x', desc = 'Comment' },
 		},
 		opts = function(_, opts)
 			local ok, tcc =
@@ -108,7 +108,7 @@ return {
 		event = { 'BufReadPost', 'BufNewFile' },
 		-- stylua: ignore
 		keys = {
-			{ '<Leader>cw', '<cmd>lua MiniTrailspace.trim()<CR>', desc = 'Erase Whitespace' },
+			{ '<leader>cw', '<cmd>lua MiniTrailspace.trim()<CR>', desc = 'Erase Whitespace' },
 		},
 		opts = {},
 	},
@@ -119,10 +119,10 @@ return {
 		'AndrewRadev/linediff.vim',
 		cmd = { 'Linediff', 'LinediffAdd' },
 		keys = {
-			{ '<Leader>mdf', ':Linediff<CR>', mode = 'x', desc = 'Line diff' },
-			{ '<Leader>mda', ':LinediffAdd<CR>', mode = 'x', desc = 'Line diff add' },
-			{ '<Leader>mds', '<cmd>LinediffShow<CR>', desc = 'Line diff show' },
-			{ '<Leader>mdr', '<cmd>LinediffReset<CR>', desc = 'Line diff reset' },
+			{ '<leader>mdf', ':Linediff<CR>', mode = 'x', desc = 'Line diff' },
+			{ '<leader>mda', ':LinediffAdd<CR>', mode = 'x', desc = 'Line diff add' },
+			{ '<leader>mds', '<cmd>LinediffShow<CR>', desc = 'Line diff show' },
+			{ '<leader>mdr', '<cmd>LinediffReset<CR>', desc = 'Line diff reset' },
 		},
 	},
 }
