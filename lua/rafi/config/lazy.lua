@@ -22,15 +22,20 @@ local user_path = vim.fn.stdpath('config') .. '/lua'
 local has_user_plugins = vim.uv.fs_stat(user_path .. '/plugins') ~= nil
 	or vim.uv.fs_stat(user_path .. '/plugins.lua') ~= nil
 
--- Overload rafi.config after $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/config/options.lua
--- TODO: Try preload 'lazyvim.config.options' and return my options, instead.
-vim.api.nvim_create_autocmd('User', {
-	group = vim.api.nvim_create_augroup('rafi.options', { clear = true }),
-	pattern = 'LazyVimOptionsDefaults',
-	callback = function()
-		require('rafi.config').setup()
-	end,
-})
+-- Load rafi.config.* after lazyvim's base files:
+-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/config/options.lua
+-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/config/autocmds.lua
+-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/config/keymaps.lua
+for _, name in pairs({ 'options', 'autocmds', 'keymaps' }) do
+	vim.api.nvim_create_autocmd('User', {
+		group = vim.api.nvim_create_augroup('rafi.' .. name, { clear = true }),
+		pattern = 'LazyVim' .. name:sub(1, 1):upper() .. name:sub(2) .. 'Defaults',
+		once = true,
+		callback = function()
+			require('rafi.config').load(name)
+		end,
+	})
+end
 
 local has_git = vim.fn.executable('git') == 1
 

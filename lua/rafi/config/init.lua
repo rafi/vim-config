@@ -15,29 +15,16 @@ M.deprecated_extras = {
 -- Load lua/rafi/config/* and user lua/config/* files.
 ---@param name 'autocmds' | 'options' | 'keymaps'
 function M.load(name)
-	local function _load(mod)
-		if require('lazy.core.cache').find(mod)[1] then
-			LazyVim.try(function()
-				require(mod)
-			end, { msg = 'Failed loading ' .. mod })
-		end
-	end
-	_load('rafi.config.' .. name)
-	if name == 'options' then
-		-- User's lua/config/options.lua is already loaded by lazyvim init.
-		return
+	local mod = 'rafi.config.' .. name
+	if require('lazy.core.cache').find(mod)[1] then
+		LazyVim.try(function()
+			require(mod)
+		end, { msg = 'Failed loading ' .. mod })
 	end
 
-	local pattern = 'LazyVim' .. name:sub(1, 1):upper() .. name:sub(2)
-	vim.api.nvim_exec_autocmds(
-		'User',
-		{ pattern = pattern .. 'Defaults', modeline = false }
-	)
-	_load('config.' .. name)
-	if vim.bo.filetype == 'lazy' then
-		vim.cmd([[do VimResized]])
+	if name == 'options' then
+		require('rafi.config').setup()
 	end
-	vim.api.nvim_exec_autocmds('User', { pattern = pattern, modeline = false })
 end
 
 -- Check if table has a value that ends with a suffix.
@@ -54,20 +41,13 @@ local function tbl_endswith(tbl, suffix)
 	return false
 end
 
--- Loaded by autocmd set in lua/rafi/config/lazy.lua
+-- Overload some LazyVim's config functions.
 function M.setup()
-	-- Overload LazyVim's config loader with rafi's loader.
-	local loader = require('rafi.config').load
-	LazyVim.config.load = loader
-
 	-- Overload deprecated extras.
 	local extras = require('lazyvim.util.plugin').deprecated_extras
 	for k, v in pairs(M.deprecated_extras) do
 		extras[k] = v
 	end
-
-	-- Load lua/rafi/config/options.lua
-	loader('options')
 
 	-- Check if extra is enabled, regardless of first namespace.
 	---@param extra string
@@ -91,7 +71,7 @@ function M.setup()
 		return vim.g.lazyvim_picker
 	end
 
-	-- Add lua/*/plugins/extras as list of "extra" sources
+	-- Add lua/rafi/plugins/extras as list of "extra" sources.
 	LazyVim.extras.sources = {
 		{
 			name = 'LazyVim',
