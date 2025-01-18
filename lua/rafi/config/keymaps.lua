@@ -325,6 +325,10 @@ map('n', 'g<C-o>', function() jump_buffer(-1) end, { desc = 'Jump to older buffe
 map('n', '<RightMouse>', function() require('rafi.util.contextmenu').show() end, { desc = 'Context-aware menu' })
 map('n', '<LocalLeader>c', function() require('rafi.util.contextmenu').show() end, { desc = 'Context-aware menu' })
 
+-- Base64 encode/decode
+map('x', '<leader>64e', function() base64() end, { desc = 'Base64 Encode' })
+map('x', '<leader>64d', function() base64(false) end, { desc = 'Base64 Decode' })
+
 -- Lazygit
 if vim.fn.executable('lazygit') == 1 then
 	---@diagnostic disable-next-line: missing-fields
@@ -461,6 +465,24 @@ function _G.get_visual_selection() -- {{{
 	lines[n] = string.sub(lines[n], 1, cecol)
 	lines[1] = string.sub(lines[1], cscol)
 	return table.concat(lines, '\n')
+end -- }}}
+
+--- Base64 encode/decode
+---@param encode? boolean
+function _G.base64(encode) -- {{{
+	vim.cmd('normal! c')
+	encode = encode == nil and true or encode
+	local txt = vim.fn.getreg()
+	if not encode then
+		txt = vim.trim(txt)
+	end
+	local out = ''
+	if vim.base64 then
+		out = encode and vim.base64.encode(txt) or vim.base64.decode(txt)
+	else
+		out = vim.fn.system(encode and 'base64' or 'base64 --decode', txt)
+	end
+	vim.api.nvim_paste(out, false, -1)
 end -- }}}
 
 -- Append modeline at end of file.

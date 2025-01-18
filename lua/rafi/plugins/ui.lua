@@ -177,7 +177,6 @@ return {
 			end
 			return vim.tbl_deep_extend('force', opts or {}, {
 				picker = {
-					hidden = true,
 					win = {
 						input = {
 							keys = {

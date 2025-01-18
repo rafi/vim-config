@@ -3,6 +3,7 @@
 
 -- Clone lazy.nvim if not already installed.
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+vim.uv = vim.uv or vim.loop
 if not vim.uv.fs_stat(lazypath) then
 	print('Installing lazy.nvim…')
 	-- stylua: ignore
