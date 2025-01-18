@@ -36,7 +36,6 @@ map({ 'n', 'x' }, '<localleader>;', '<leader>sc',  { remap = true, desc = 'Comma
 map({ 'n', 'x' }, '<localleader>:', '<leader>sC',  { remap = true, desc = 'Commands' })
 map({ 'n', 'x' }, '<localleader>i', '<leader>sb',  { remap = true, desc = 'Buffer' })
 map({ 'n', 'x' }, '<localleader>p', '<leader>qp',  { remap = true, desc = 'Projects' })
-map({ 'n', 'x' }, '<localleader>z', function() Snacks.picker.zoxide() end,  { desc = 'Projects' })
 map({ 'n', 'x' }, '<leader>gg', '<leader>sw',  { remap = true, desc = 'Visual selection or word (Root Dir)' })
 map({ 'n', 'x' }, '<leader>gG', '<leader>sW',  { remap = true, desc = 'Visual selection or word (cwd)' })
 
