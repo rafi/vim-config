@@ -152,6 +152,7 @@ return {
 			-- stylua: ignore
 			local mappings = {
 				{ '<leader><localleader>', function() Snacks.picker() end, mode = { 'n', 'x' }, desc = 'Pickers' },
+				{ '<localleader>i', function() Snacks.picker.icons() end, mode = { 'n', 'x' }, desc = 'Spellcheck' },
 				{ '<localleader>u', function() Snacks.picker.spelling() end, mode = { 'n', 'x' }, desc = 'Spellcheck' },
 				{ '<localleader>/', function() Snacks.picker.search_history() end, mode = { 'n', 'x' }, desc = 'Search History' },
 				{

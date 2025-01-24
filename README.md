@@ -1,8 +1,9 @@
 # Rafael Bodill's Neovim Config
 
 Lean mean Neovim machine, 30-45ms startup time. Works best with [Neovim] ≥0.10
+<br />(powered by [LazyVim]💤)
 
-:gear: See "[Extending](#extending)" for customizing configuration and adding
+:gear: See [__Extending__](#extending) for customizing configuration and adding
 plugins.
 
 > I encourage you to fork this repo and create your own experience.
@@ -56,10 +57,8 @@ plugins.
   * [Extra Plugins: Treesitter](#extra-plugins-treesitter)
   * [Extra Plugins: UI](#extra-plugins-ui)
   * [LazyVim Extras](#lazyvim-extras)
-    * [Language](#language)
-    * [DAP (Debugging)](#dap-debugging)
-    * [Test](#test)
 * [Custom Key-mappings](#custom-key-mappings)
+  * [Picker](#picker)
   * [Toggle Features](#toggle-features)
   * [Navigation](#navigation)
   * [Selection](#selection)
@@ -78,7 +77,6 @@ plugins.
     * [Plugin: Mini.Surround](#plugin-minisurround)
     * [Plugin: Gitsigns](#plugin-gitsigns)
     * [Plugin: Diffview](#plugin-diffview)
-    * [Plugin: Telescope](#plugin-telescope)
     * [Plugin: Neo-Tree](#plugin-neo-tree)
     * [Plugin: Marks](#plugin-marks)
     * [Plugin: Zk](#plugin-zk)
@@ -95,8 +93,7 @@ plugins.
 * LSP configuration with [nvim-lspconfig]
 * [telescope.nvim] centric work-flow with lists (try <kbd>;</kbd>+<kbd>f</kbd>…)
 * Custom context-menu (try it! <kbd>;</kbd>+<kbd>c</kbd>)
-* Auto-complete extensive setup with [nvim-cmp]
-  (try <kbd>Tab</kbd> or <kbd>Ctrl</kbd>+<kbd>Space</kbd> in insert-mode)
+* Auto-complete setup with [blink.cmp] or [nvim-cmp]
 * Structure view with [hedyhli/outline.nvim]
 * Git features using [lewis6991/gitsigns.nvim], [sindrets/diffview.nvim], and [more](#git-plugins)
 * Session management with [folke/persistence.nvim]
@@ -267,19 +264,22 @@ recommended starting point:
 {
   "extras": [
     "lazyvim.plugins.extras.ai.copilot",
+    "lazyvim.plugins.extras.coding.neogen",
+    "lazyvim.plugins.extras.coding.yanky",
     "lazyvim.plugins.extras.dap.core",
     "lazyvim.plugins.extras.dap.nlua",
     "lazyvim.plugins.extras.lang.docker",
     "lazyvim.plugins.extras.lang.json",
+    "lazyvim.plugins.extras.lang.svelte",
+    "lazyvim.plugins.extras.lang.terraform",
+    "lazyvim.plugins.extras.lang.toml",
     "lazyvim.plugins.extras.lang.typescript",
-    "lazyvim.plugins.extras.lang.yaml",
     "lazyvim.plugins.extras.test.core",
-    "rafi.plugins.extras.coding.align",
-    "rafi.plugins.extras.editor.harpoon2",
-    "rafi.plugins.extras.git.cmp-git",
+    "lazyvim.plugins.extras.util.mini-hipatterns",
     "rafi.plugins.extras.lang.ansible",
     "rafi.plugins.extras.lang.go",
     "rafi.plugins.extras.lang.helm",
+    "rafi.plugins.extras.lang.kubernetes",
     "rafi.plugins.extras.lang.markdown",
     "rafi.plugins.extras.lang.python",
     "rafi.plugins.extras.lang.tmux",
@@ -348,12 +348,6 @@ return {
 
     -- External file diff program
     vim.g.diffprg = 'bcompare'
-
-    -- Auto format on-save
-    vim.g.autoformat = false
-
-    -- Snacks animations
-    vim.g.snacks_animate = false
     ```
 
 1. You can override LazyVim options. For example in `lua/plugins/lazyvim.lua`:
@@ -478,11 +472,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 
 | Name           | Description |
 | -------------- | ---------------------- |
-| [hrsh7th/nvim-cmp] | Completion plugin for neovim written in Lua |
-| [hrsh7th/cmp-nvim-lsp] | nvim-cmp source for neovim builtin LSP client |
-| [hrsh7th/cmp-buffer] | nvim-cmp source for buffer words |
-| [hrsh7th/cmp-path] | nvim-cmp source for path |
-| [hrsh7th/cmp-emoji] | nvim-cmp source for emoji |
 | [rafamadriz/friendly-snippets] | Preconfigured snippets for different languages |
 | [echasnovski/mini.pairs] | Automatically manage character pairs |
 | [echasnovski/mini.surround] | Fast and feature-rich surround actions |
@@ -575,11 +564,6 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 [dnlhc/glance.nvim]: https://github.com/dnlhc/glance.nvim
 [MagicDuck/grug-far.nvim]: https://github.com/MagicDuck/grug-far.nvim
 
-[hrsh7th/nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
-[hrsh7th/cmp-nvim-lsp]: https://github.com/hrsh7th/cmp-nvim-lsp
-[hrsh7th/cmp-buffer]: https://github.com/hrsh7th/cmp-buffer
-[hrsh7th/cmp-path]: https://github.com/hrsh7th/cmp-path
-[hrsh7th/cmp-emoji]: https://github.com/hrsh7th/cmp-emoji
 [rafamadriz/friendly-snippets]: https://github.com/rafamadriz/friendly-snippets
 [echasnovski/mini.pairs]: https://github.com/echasnovski/mini.pairs
 [echasnovski/mini.surround]: https://github.com/echasnovski/mini.surround
@@ -640,7 +624,7 @@ _Note_ that 95% of the plugins are **lazy-loaded**.
 <details open>
   <summary><strong>List of extras</strong> <small><i>(🔎 Click to expand/collapse)</i></small></summary>
 
-You can view all LazyVim's extras at [www.lazyvim.org/extras].
+You can view all LazyVim's extras at [lazyvim.org/extras].
 
 These plugins aren't enabled by default. You'll have to install them using
 `:LazyExtras` and installing with <kbd>x</kbd>. (Or import them using specs)
@@ -654,21 +638,20 @@ Spec: `rafi.plugins.extras.coding.<name>`
 
 | Name           | Repository     | Description |
 | -------------- | -------------- | ---------------------- |
-| `align`        | [echasnovski/mini.align] | Align text interactively |
-| `chainsaw`     | [chrisgrieser/nvim-chainsaw] | Create log statements on the fly |
+| `align` | [echasnovski/mini.align] | Align text interactively |
+| `chainsaw` | [chrisgrieser/nvim-chainsaw] | Create log statements on the fly |
+| `debugprint.lua` | [andrewferrier/debugprint.nvim] | Easily add debug print lines |
 | `editorconfig` | [sgur/vim-editorconfig] | EditorConfig plugin written entirely in Vimscript |
-| `emmet`        | [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet |
-| `luasnip`      | [L3MON4D3/LuaSnip] [saadparwaiz1/cmp_luasnip] | Snippet Engine and cmp source |
-| `neogen`       | [danymat/neogen] | Annotation generator |
-| `sandwich`     | [machakann/vim-sandwich] | Search, select, and edit sandwich text objects |
+| `emmet` | [mattn/emmet-vim] | Provides support for expanding abbreviations alá emmet |
+| `nvim-cmp` | [hrsh7th/nvim-cmp] | Completion plugin |
+| `sandwich` | [machakann/vim-sandwich] | Search, select, and edit sandwich text objects |
 
 [echasnovski/mini.align]: https://github.com/echasnovski/mini.align
 [chrisgrieser/nvim-chainsaw]: https://github.com/chrisgrieser/nvim-chainsaw
+[andrewferrier/debugprint.nvim]: https://github.com/andrewferrier/debugprint.nvim
 [sgur/vim-editorconfig]: https://github.com/sgur/vim-editorconfig
 [mattn/emmet-vim]: https://github.com/mattn/emmet-vim
-[L3MON4D3/LuaSnip]: https://github.com/L3MON4D3/LuaSnip
-[saadparwaiz1/cmp_luasnip]: https://github.com/saadparwaiz1/cmp_luasnip
-[danymat/neogen]: https://github.com/danymat/neogen
+[hrsh7th/nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
 [machakann/vim-sandwich]: https://github.com/machakann/vim-sandwich
 
 ### Extra Plugins: Colorscheme
@@ -677,23 +660,17 @@ Spec: `rafi.plugins.extras.colorscheme.<name>`
 
 | Name           | Repository     | Description |
 | -------------- | -------------- | ---------------------- |
-| `nordic`       | [AlexvZyl/nordic.nvim] | Nord for Neovim, but warmer and darker |
-| `tokyonight`   | [folke/tokyonight.nvim] | Clean, dark Neovim theme |
-| `kanagawa`     | [rebelot/kanagawa.nvim] | Inspired by the colors of the famous painting by Katsushika Hokusai |
-| `onedarkpro`   | [olimorris/onedarkpro.nvim] | OneDarkPro theme |
-| `nightfox`     | [EdenEast/nightfox.nvim] | Highly customizable theme |
-| `oxocarbon`    | [nyoom-engineering/oxocarbon.nvim] | Dark and light theme inspired by IBM Carbon |
 | `bamboo`       | [ribru17/bamboo.nvim] | Warm green theme |
-| `catppuccin`   | [catppuccin/nvim] | Soothing pastel theme |
+| `cyberdream`   | [scottmckendry/cyberdream.nvim] | High-contrast, futuristic & vibrant theme |
+| `github`       | [projekt0n/github-nvim-theme] | GitHub's theme |
+| `kanagawa`     | [rebelot/kanagawa.nvim] | Inspired by the colors of the famous painting by Katsushika Hokusai |
+| `monokai-pro`  | [loctvl842/monokai-pro.nvim] | Monokai Pro theme with multiple filters |
 
-[AlexvZyl/nordic.nvim]: https://github.com/AlexvZyl/nordic.nvim
-[folke/tokyonight.nvim]: https://github.com/folke/tokyonight.nvim
-[rebelot/kanagawa.nvim]: https://github.com/rebelot/kanagawa.nvim
-[olimorris/onedarkpro.nvim]: https://github.com/olimorris/onedarkpro.nvim
-[EdenEast/nightfox.nvim]: https://github.com/EdenEast/nightfox.nvim
-[nyoom-engineering/oxocarbon.nvim]: https://github.com/nyoom-engineering/oxocarbon.nvim
 [ribru17/bamboo.nvim]: https://github.com/ribru17/bamboo.nvim
-[catppuccin/nvim]: https://github.com/catppuccin/nvim
+[scottmckendry/cyberdream.nvim]: https://github.com/scottmckendry/cyberdream.nvim
+[projekt0n/github-nvim-theme]: https://github.com/projekt0n/github-nvim-theme
+[rebelot/kanagawa.nvim]: https://github.com/rebelot/kanagawa.nvim
+[loctvl842/monokai-pro.nvim]: https://github.com/loctvl842/monokai-pro.nvim
 
 ### Extra Plugins: Editor
 
@@ -703,10 +680,11 @@ Spec: `rafi.plugins.extras.editor.<name>`
 | --------------| -------------- | ---------------------- |
 | `anyjump`     | [pechorin/any-jump.vim] | Jump to any definition and references without overhead |
 | `flybuf`      | [glepnir/flybuf.nvim]   | List buffers in a float window |
-| `harpoon`     | [ThePrimeagen/harpoon]  | Marks for navigating your project |
+| `harpoon2`    | [ThePrimeagen/harpoon]  | Marks for navigating your project |
 | `mini-visits` | [echasnovski/mini.visits] | Track and reuse file system visits |
 | `rest`        | [rest-nvim/rest.nvim] | Fast Neovim http client written in Lua |
 | `sidebar`     | [sidebar-nvim/sidebar.nvim] | Generic and modular lua sidebar |
+| `spectre`     | [nvim-pack/nvim-spectre] | Find and replace |
 | `ufo`         | [kevinhwang91/nvim-ufo] | Make folds look modern and keep a high performance |
 
 [pechorin/any-jump.vim]: https://github.com/pechorin/any-jump.vim
@@ -715,6 +693,7 @@ Spec: `rafi.plugins.extras.editor.<name>`
 [echasnovski/mini.visits]: https://github.com/echasnovski/mini.visits
 [rest-nvim/rest.nvim]: https://github.com/rest-nvim/rest.nvim
 [sidebar-nvim/sidebar.nvim]: https://github.com/sidebar-nvim/sidebar.nvim
+[nvim-pack/nvim-spectre]: https://github.com/nvim-pack/nvim-spectre
 [kevinhwang91/nvim-ufo]: https://github.com/kevinhwang91/nvim-ufo
 
 ### Extra Plugins: Git
@@ -815,6 +794,7 @@ Spec: `rafi.plugins.extras.ui.<name>`
 | `marks`           | [chentoast/marks.nvim] | Interacting with and manipulating marks |
 | `mini-clue`       | [echasnovski/mini.clue] | Show next key clues |
 | `mini-map`        | [echasnovski/mini.map] | Window with buffer text overview, scrollbar and highlights |
+| `quicker`         | [stevearc/quicker.nvim] | Improved quickfix UI and workflow |
 | `symbols-outline` | [simrat39/symbols-outline.nvim] | Tree like view for symbols using LSP |
 
 [goolord/alpha-nvim]: https://github.com/goolord/alpha-nvim
@@ -832,6 +812,7 @@ Spec: `rafi.plugins.extras.ui.<name>`
 [chentoast/marks.nvim]: https://github.com/chentoast/marks.nvim
 [echasnovski/mini.clue]: https://github.com/echasnovski/mini.clue
 [echasnovski/mini.map]: https://github.com/echasnovski/mini.map
+[stevearc/quicker.nvim]: https://github.com/stevearc/quicker.nvim
 [simrat39/symbols-outline.nvim]: https://github.com/simrat39/symbols-outline.nvim
 
 ### LazyVim Extras
@@ -839,26 +820,24 @@ Spec: `rafi.plugins.extras.ui.<name>`
 LazyVim is imported in specs (see [lua/rafi/config/lazy.lua](./lua/rafi/config/lazy.lua))
 Therefore, you can import any of the "Extras" plugins defined at
 [LazyVim/LazyVim](https://github.com/LazyVim/LazyVim/tree/main/lua/lazyvim/plugins/extras)
-and documented in [lazyvim.org](https://www.lazyvim.org).
+and documented in [lazyvim.org/extras].
+
+Use <kbd>Space</kbd><kbd>m</kbd><kbd>x</kbd> or `:LazyExtras` to install them.
 
 **These are only highlights:**
 
-#### Language
-
-* `lazyvim.plugins.extras.lang.json`
-* `lazyvim.plugins.extras.lang.markdown`
-* `lazyvim.plugins.extras.lang.terraform`
-* `lazyvim.plugins.extras.lang.typescript`
-
-#### DAP (Debugging)
-
-* Spec: `lazyvim.plugins.extras.dap.<name>`
-* See [lazyvim/plugins/extras/dap](https://github.com/LazyVim/LazyVim/tree/main/lua/lazyvim/plugins/extras/dap)
-
-#### Test
-
-* Spec: `lazyvim.plugins.extras.test.<name>`
-* See [lazyvim/plugins/extras/test](https://github.com/LazyVim/LazyVim/tree/main/lua/lazyvim/plugins/extras/test)
+* `ai.copilot`
+* `coding.neogen`
+* `coding.yanky`
+* `dap.core`
+* `test.core`
+* `util.mini-hipatterns`
+* `lang.docker`
+* `lang.json`
+* `lang.markdown`
+* `lang.svelte`
+* `lang.terraform`
+* And [much more](https://www.lazyvim.org/extras)…
 
 </details>
 
@@ -879,7 +858,9 @@ Note that,
 
 Legend: | Ⓝormal | Ⓥisual | Ⓢelect | Ⓘnsert | Ⓞperator | Ⓒommand |
 
-### Picker (Telescope/Snacks/FZF)
+### Picker
+
+ (Telescope/Snacks/FZF)
 
 | Key   | Mode | Action |
 | ----- |:----:| ------------------ |
@@ -931,14 +912,12 @@ Legend: | Ⓝormal | Ⓥisual | Ⓢelect | Ⓘnsert | Ⓞperator | Ⓒommand |
 | <kbd>Space</kbd> <kbd>sT</kbd> | Ⓝ | Todo/Fix/Fixme list |
 | <kbd>Space</kbd> <kbd>sw</kbd> | Ⓝ | Grep string |
 | | | &nbsp; |
-| **Telescope Only** | | &nbsp; |
-| | | &nbsp; |
-| <kbd>;w</kbd> | Ⓝ | Notes |
-| <kbd>;n</kbd> | Ⓝ | Plugin directories |
-| <kbd>;k</kbd> | Ⓝ | Thesaurus |
+| <kbd>;i</kbd> | Ⓝ | (Snacks only) Icons |
+| <kbd>;w</kbd> | Ⓝ | (Telescope only) Notes |
+| <kbd>;n</kbd> | Ⓝ | (Telescope only) Plugin directories |
+| <kbd>;k</kbd> | Ⓝ | (Telescope only) Thesaurus |
 | | | &nbsp; |
 | **Within _Picker_ window** | | &nbsp; |
-| | | &nbsp; |
 | <kbd>?</kbd> | Ⓝ | Keymaps help screen |
 | <kbd>Ctrl</kbd>+<kbd>Space</kbd> | Ⓝ | Move from none fuzzy search to fuzzy |
 | <kbd>jj</kbd> or <kbd>Escape</kbd> | Ⓘ | Leave Insert mode |
@@ -1397,9 +1376,11 @@ more mappings and usage information.
 </details>
 
 [Neovim]: https://github.com/neovim/neovim
+[LazyVim]: https://www.lazyvim.org/
 [lazy.nvim]: https://github.com/folke/lazy.nvim
 [lua/rafi/plugins/lsp/init.lua]: ./lua/rafi/plugins/lsp/init.lua
 [nvim-lspconfig]: https://github.com/neovim/nvim-lspconfig
+[blink.cmp]: https://github.com/saghen/blink.cmp
 [nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
 [telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
 [config/keymaps.lua]: ./lua/rafi/config/keymaps.lua
@@ -1407,4 +1388,4 @@ more mappings and usage information.
 [plugins/lsp/keymaps.lua]: ./lua/rafi/plugins/lsp/keymaps.lua
 [lua/rafi/util/contextmenu.lua]: ./lua/rafi/util/contextmenu.lua
 [nvim-treesitter]: https://github.com/nvim-treesitter/nvim-treesitter
-[www.lazyvim.org/extras]: https://www.lazyvim.org/extras
+[lazyvim.org/extras]: https://www.lazyvim.org/extras

@@ -121,7 +121,18 @@ return {
 
 				['<2-LeftMouse>'] = 'open',
 				['<CR>'] = 'open_with_window_picker',
-				['l'] = 'open',
+				['l'] = function(state)
+					-- Toggle directories or nested items.
+					local node = state.tree:get_node()
+					if
+						node.type == 'directory'
+						or (node:has_children() and not node:is_expanded())
+					then
+						state.commands.toggle_node(state)
+					else
+						state.commands.open(state)
+					end
+				end,
 				['h'] = 'close_node',
 				['C'] = 'close_node',
 				['z'] = 'close_all_nodes',
