@@ -28,12 +28,12 @@ return {
 					delete_debug_prints = nil,
 				},
 				insert = {
-					plain = nil,  -- '<C-G>p',
-					variable = nil,  -- '<C-G>v',
+					plain = nil, -- '<C-G>p',
+					variable = nil, -- '<C-G>v',
 				},
 				visual = {
-					variable_below = nil,  -- 'g?v',
-					variable_above = nil,  -- 'g?V',
+					variable_below = nil, -- 'g?v',
+					variable_above = nil, -- 'g?V',
 				},
 			},
 			commands = {

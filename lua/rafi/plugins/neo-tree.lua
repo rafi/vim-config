@@ -112,8 +112,9 @@ return {
 				['g?'] = 'show_help',
 				['<leader>'] = { 'toggle_node', nowait = true },
 
-				-- Close preview or floating neo-tree window, and clear hlsearch.
-				['<Esc>'] = function(_)
+				-- Clear filter, preview and highlight search.
+				['<Esc>'] = function(state)
+					require('neo-tree.sources.filesystem').reset_search(state, true)
 					require('neo-tree.sources.filesystem.lib.filter_external').cancel()
 					require('neo-tree.sources.common.preview').hide()
 					vim.cmd([[ nohlsearch ]])
@@ -153,6 +154,8 @@ return {
 				['N'] = { 'add_directory', config = { show_path = 'relative' } },
 
 				['P'] = 'paste_from_clipboard',
+
+				['K'] = { 'preview', config = { use_float = true } },
 				['p'] = {
 					'toggle_preview',
 					config = { use_float = true },
@@ -172,12 +175,6 @@ return {
 						new_width = large
 					end
 					vim.cmd(new_width .. ' wincmd |')
-				end,
-
-				['K'] = function(state)
-					local node = state.tree:get_node()
-					local path = node:get_id()
-					require('rafi.util.preview').open(path)
 				end,
 
 				['Y'] = {

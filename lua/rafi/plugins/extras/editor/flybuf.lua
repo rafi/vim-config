@@ -6,7 +6,7 @@ return {
 		cmd = 'FlyBuf',
 		keys = {
 			-- stylua: ignore
-			{ '<Leader><Tab>', function() require('flybuf').toggle() end, desc = 'Flybuf' },
+			{ 'sf', function() require('flybuf').toggle() end, desc = 'Flybuf' },
 		},
 		opts = {},
 	},

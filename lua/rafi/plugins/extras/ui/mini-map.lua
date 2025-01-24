@@ -18,8 +18,8 @@ return {
 				-- 	minimap.gen_integration.gitsigns(),
 				-- },
 				symbols = {
-					scroll_line = '⎕',  -- '⎕', '█', '🮚', '▶'
-					scroll_view = '┊',  -- '⎮', '╎', '┋', '┊'
+					scroll_line = '⎕', -- '⎕', '█', '🮚', '▶'
+					scroll_view = '┊', -- '⎮', '╎', '┋', '┊'
 				},
 				window = {
 					show_integration_count = false,
@@ -32,6 +32,6 @@ return {
 			local minimap = require('mini.map')
 			minimap.setup(opts)
 			minimap.open()
-		end
+		end,
 	},
 }

@@ -5,9 +5,8 @@ return {
 		opts = {
 			setup = {
 				yamlls = function(_, _)
-					local yamlls_opts = require('yaml-companion').setup(
-						LazyVim.opts('yaml-companion.nvim')
-					)
+					local yamlls_opts =
+						require('yaml-companion').setup(LazyVim.opts('yaml-companion.nvim'))
 					require('lspconfig')['yamlls'].setup(yamlls_opts)
 					return true
 				end,
@@ -22,8 +21,8 @@ return {
 			'neovim/nvim-lspconfig',
 			'nvim-telescope/telescope.nvim',
 		},
+		-- stylua: ignore
 		keys = {
-			-- stylua: ignore
 			{ '<localleader>y', '<cmd>Telescope yaml_schema<CR>', desc = 'YAML Schema' },
 		},
 		opts = {},

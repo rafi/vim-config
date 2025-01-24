@@ -32,7 +32,7 @@ return {
 		},
 		opts = function()
 			-- lsp->treesitter->indent
-			---@param bufnr number
+			---@param bufnr integer
 			---@return table
 			local function customizeSelector(bufnr)
 				local function handleFallbackException(err, providerName)

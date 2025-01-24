@@ -6,8 +6,8 @@ return {
 		opts = {},
 		-- stylua: ignore
 		keys = {
-			{ '<Leader>dv', function() require('chainsaw').variableLog() end },
-			{ '<Leader>dm', function() require('chainsaw').messageLog() end },
+			{ 'g?v', function() require('chainsaw').variableLog() end },
+			{ 'g?p', function() require('chainsaw').messageLog() end },
 		},
 	},
 }

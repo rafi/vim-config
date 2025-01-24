@@ -7,8 +7,8 @@ return {
 		cmd = { 'SidebarNvimToggle', 'SidebarNvimOpen' },
 		opts = {
 			open = true,
+			-- stylua: ignore
 			bindings = {
-				-- stylua: ignore
 				['q'] = function() require('sidebar-nvim').close() end,
 			},
 		},

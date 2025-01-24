@@ -7,7 +7,7 @@ return {
 		opts = {},
 		-- stylua: ignore
 		keys = {
-			{ '<LocalLeader>l', '<cmd>lua MiniVisits.select_path()<CR>', 'Visits' },
+			{ '<local>h', '<cmd>lua MiniVisits.select_path()<CR>', 'Visits' },
 		},
 	},
 }

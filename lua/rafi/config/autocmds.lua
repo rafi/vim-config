@@ -83,7 +83,7 @@ vim.api.nvim_create_autocmd({ 'InsertEnter', 'WinLeave' }, {
 	end,
 })
 
--- Wrap and check for spell in text filetypes
+-- Spell checking in text file types
 vim.api.nvim_create_autocmd('FileType', {
 	group = augroup('wrap_spell'),
 	pattern = { 'text', 'plaintex', 'typst', 'gitcommit', 'markdown' },
