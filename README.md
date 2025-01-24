@@ -91,7 +91,7 @@ plugins.
 * Fast startup time — plugins are almost entirely lazy-loaded!
 * Robust, yet light-weight
 * Plugin management with [folke/lazy.nvim]. Use with `:Lazy` or <kbd>Space</kbd>+<kbd>l</kbd>
-* Install LSP, DAP, linters, and formatters. Use with `:Mason` or <kbd>Space</kbd>+<kbd>mm</kbd>
+* Install LSP, DAP, linters, and formatters. Use with `:Mason` or <kbd>Space</kbd>+<kbd>cm</kbd>
 * LSP configuration with [nvim-lspconfig]
 * [telescope.nvim] centric work-flow with lists (try <kbd>;</kbd>+<kbd>f</kbd>…)
 * Custom context-menu (try it! <kbd>;</kbd>+<kbd>c</kbd>)
@@ -143,7 +143,7 @@ Enjoy! :smile:
 
 ## Install LSP, DAP, Linters, Formatters
 
-Use `:Mason` (or <kbd>Space</kbd>+<kbd>mm</kbd>) to install and manage LSP
+Use `:Mason` (or <kbd>Space</kbd>+<kbd>cm</kbd>) to install and manage LSP
 servers, DAP servers, linters and formatters. See `:h mason.nvim` and
 [williamboman/mason.nvim] for more information.
 
@@ -868,7 +868,7 @@ Note that,
 
 * **Leader** key set as <kbd>Space</kbd>
 * **Local-Leader** key set as <kbd>;</kbd> and used for navigation and search
-  (Telescope and Neo-tree)
+  (Telescope/Snacks/FZF and Neo-tree)
 * Disable <kbd>←</kbd> <kbd>↑</kbd> <kbd>→</kbd> <kbd>↓</kbd> in normal mode by enabling `vim.g.elite_mode`.
 
 <details open>
@@ -879,30 +879,116 @@ Note that,
 
 Legend: | Ⓝormal | Ⓥisual | Ⓢelect | Ⓘnsert | Ⓞperator | Ⓒommand |
 
+### Picker (Telescope/Snacks/FZF)
+
+| Key   | Mode | Action |
+| ----- |:----:| ------------------ |
+| <kbd>Space</kbd> <kbd>;</kbd> | Ⓝ | Select picker |
+| <kbd>;r</kbd> | Ⓝ | Resume previous picker |
+| <kbd>;p</kbd> | Ⓝ | Projects |
+| <kbd>;f</kbd> | Ⓝ | File |
+| <kbd>;F</kbd> | Ⓝ | File (cwd) |
+| <kbd>;g</kbd> | Ⓝ | Grep search |
+| <kbd>;G</kbd> | Ⓝ | Grep search (cwd) |
+| <kbd>;b</kbd> | Ⓝ | Switch buffers |
+| <kbd>;h</kbd> | Ⓝ | Help pages |
+| <kbd>;H</kbd> | Ⓝ | Highlights |
+| <kbd>;j</kbd> | Ⓝ | Jumplist |
+| <kbd>;m</kbd> | Ⓝ | Jump to mark |
+| <kbd>;M</kbd> | Ⓝ | Man pages |
+| <kbd>;o</kbd> | Ⓝ | Options |
+| <kbd>;t</kbd> | Ⓝ | Goto symbol |
+| <kbd>;T</kbd> | Ⓝ | Goto symbol (workspace) |
+| <kbd>;v</kbd> | Ⓝ Ⓥ | Registers |
+| <kbd>;s</kbd> | Ⓝ | Sessions |
+| <kbd>;u</kbd> | Ⓝ | Spelling suggestions |
+| <kbd>;x</kbd> | Ⓝ | Recent |
+| <kbd>;X</kbd> | Ⓝ | Recent (cwd) |
+| <kbd>;z</kbd> | Ⓝ | Zoxide directories |
+| <kbd>;;</kbd> | Ⓝ | Command history |
+| <kbd>;:</kbd> | Ⓝ | Commands |
+| <kbd>;/</kbd> | Ⓝ | Search history |
+| <kbd>;dd</kbd> | Ⓝ | LSP definitions |
+| <kbd>;di</kbd> | Ⓝ | LSP implementations |
+| <kbd>;dr</kbd> | Ⓝ | LSP references |
+| <kbd>;da</kbd> | Ⓝ Ⓥ | LSP code actions |
+| <kbd>Space</kbd> <kbd>/</kbd> | Ⓝ | Buffer fuzzy find |
+| <kbd>Space</kbd> <kbd>gs</kbd> | Ⓝ | Git status |
+| <kbd>Space</kbd> <kbd>gr</kbd> | Ⓝ | Git branches |
+| <kbd>Space</kbd> <kbd>gh</kbd> | Ⓝ | Git stashes |
+| <kbd>Space</kbd> <kbd>gf</kbd> | Ⓝ | Find files matching word under cursor |
+| <kbd>Space</kbd> <kbd>gg</kbd> | Ⓝ Ⓥ | Grep word/selection |
+| <kbd>Space</kbd> <kbd>gG</kbd> | Ⓝ Ⓥ | Grep word/selection (cwd) |
+| <kbd>Space</kbd> <kbd>sc</kbd> | Ⓝ | Colorschemes |
+| <kbd>Space</kbd> <kbd>sd</kbd> | Ⓝ | Document diagnostics |
+| <kbd>Space</kbd> <kbd>sD</kbd> | Ⓝ | Workspace diagnostics |
+| <kbd>Space</kbd> <kbd>sh</kbd> | Ⓝ | Help tags |
+| <kbd>Space</kbd> <kbd>sk</kbd> | Ⓝ | Key-maps |
+| <kbd>Space</kbd> <kbd>sm</kbd> | Ⓝ | Man pages |
+| <kbd>Space</kbd> <kbd>ss</kbd> | Ⓝ | LSP document symbols |
+| <kbd>Space</kbd> <kbd>sS</kbd> | Ⓝ | LSP workspace symbols |
+| <kbd>Space</kbd> <kbd>st</kbd> | Ⓝ | Todo list |
+| <kbd>Space</kbd> <kbd>sT</kbd> | Ⓝ | Todo/Fix/Fixme list |
+| <kbd>Space</kbd> <kbd>sw</kbd> | Ⓝ | Grep string |
+| | | &nbsp; |
+| **Telescope Only** | | &nbsp; |
+| | | &nbsp; |
+| <kbd>;w</kbd> | Ⓝ | Notes |
+| <kbd>;n</kbd> | Ⓝ | Plugin directories |
+| <kbd>;k</kbd> | Ⓝ | Thesaurus |
+| | | &nbsp; |
+| **Within _Picker_ window** | | &nbsp; |
+| | | &nbsp; |
+| <kbd>?</kbd> | Ⓝ | Keymaps help screen |
+| <kbd>Ctrl</kbd>+<kbd>Space</kbd> | Ⓝ | Move from none fuzzy search to fuzzy |
+| <kbd>jj</kbd> or <kbd>Escape</kbd> | Ⓘ | Leave Insert mode |
+| <kbd>i</kbd> | Ⓝ | Enter Insert mode (filter input) |
+| <kbd>q</kbd> or <kbd>Escape</kbd> | Ⓝ | Exit |
+| <kbd>Tab</kbd> or <kbd>Shift</kbd>+<kbd>Tab</kbd> | Ⓝ Ⓘ | Next/previous candidate |
+| <kbd>Ctrl</kbd>+<kbd>d</kbd>/<kbd>u</kbd> | Ⓝ Ⓘ | Scroll down/upwards |
+| <kbd>Ctrl</kbd>+<kbd>f</kbd>/<kbd>b</kbd> | Ⓝ Ⓘ | Scroll preview down/upwards |
+| <kbd>Ctrl</kbd>+<kbd>j</kbd>/<kbd>k</kbd> | Ⓝ Ⓘ | Scroll preview vertically |
+| <kbd>Ctrl</kbd>+<kbd>h</kbd>/<kbd>l</kbd> | Ⓝ Ⓘ | Scroll preview horizontally |
+| <kbd>J</kbd> or <kbd>K</kbd> | Ⓝ | Select candidates up/downwards |
+| <kbd>st</kbd> | Ⓝ | Open in a new tab |
+| <kbd>sg</kbd> | Ⓝ | Open in a vertical split |
+| <kbd>sv</kbd> | Ⓝ | Open in a split |
+| <kbd>*</kbd>  | Ⓝ | Toggle selection |
+| <kbd>u</kbd>  | Ⓝ | Drop all |
+| <kbd>w</kbd>  | Ⓝ | Smart send to quickfix list |
+| <kbd>e</kbd>  | Ⓝ | Send to quickfix list |
+| <kbd>Ctrl</kbd>+<kbd>q</kbd> | Ⓘ | Send to quickfix list |
+| <kbd>dd</kbd> | Ⓝ | Delete entry (buffer list) |
+| <kbd>!</kbd> | Ⓝ | Edit in command line |
+
 ### Toggle Features
 
 | Key   | Mode | Action |
 | ----- |:----:| ------------------ |
 | <kbd>Space</kbd> <kbd>dph</kbd>  | Ⓝ | Toggle profiler highlights |
 | <kbd>Space</kbd> <kbd>dpp</kbd>  | Ⓝ | Toggle profiler |
-| <kbd>Space</kbd> <kbd>uA</kbd> | Ⓝ | Toggle animation |
+| <kbd>Space</kbd> <kbd>ua</kbd> | Ⓝ | Toggle animation |
 | <kbd>Space</kbd> <kbd>uA</kbd> | Ⓝ | Toggle tabline |
 | <kbd>Space</kbd> <kbd>ub</kbd> | Ⓝ | Toggle background dark/light |
 | <kbd>Space</kbd> <kbd>uc</kbd>  | Ⓝ | Toggle conceal level |
+| <kbd>Space</kbd> <kbd>uC</kbd>  | Ⓝ | Colorschemes |
 | <kbd>Space</kbd> <kbd>ud</kbd>  | Ⓝ | Toggle buffer diagnostics |
 | <kbd>Space</kbd> <kbd>uD</kbd>  | Ⓝ | Toggle text dim |
 | <kbd>Space</kbd> <kbd>uf</kbd> | Ⓝ | Toggle format on Save |
 | <kbd>Space</kbd> <kbd>uF</kbd> | Ⓝ | Toggle format on Save (Global) |
 | <kbd>Space</kbd> <kbd>ug</kbd> | Ⓝ | Toggle indentation lines |
+| <kbd>Space</kbd> <kbd>uG</kbd> | Ⓝ | Toggle git signs |
 | <kbd>Space</kbd> <kbd>uh</kbd> | Ⓝ | Toggle inlay-hints |
-| <kbd>Space</kbd> <kbd>ui</kbd> | Ⓝ | Show highlight groups for word |
+| <kbd>Space</kbd> <kbd>ui</kbd> | Ⓝ | Inspect position |
+| <kbd>Space</kbd> <kbd>uI</kbd> | Ⓝ | Inspect tree |
 | <kbd>Space</kbd> <kbd>ul</kbd> | Ⓝ | Toggle line numbers |
 | <kbd>Space</kbd> <kbd>uL</kbd> | Ⓝ | Toggle relative line numbers |
+| <kbd>Space</kbd> <kbd>um</kbd> | Ⓝ | Toggle markdown render |
 | <kbd>Space</kbd> <kbd>un</kbd> | Ⓝ | Dismiss all notifications |
 | <kbd>Space</kbd> <kbd>up</kbd> | Ⓝ | Disable auto-pairs |
 | <kbd>Space</kbd> <kbd>ur</kbd> | Ⓝ | Redraw, clear hlsearch, and diff update |
 | <kbd>Space</kbd> <kbd>us</kbd> | Ⓝ | Toggle spell-checker |
-| <kbd>Space</kbd> <kbd>uS</kbd> | Ⓝ | Toggle scroll |
+| <kbd>Space</kbd> <kbd>uS</kbd> | Ⓝ | Toggle smooth scroll |
 | <kbd>Space</kbd> <kbd>uT</kbd> | Ⓝ | Toggle tree-sitter |
 | <kbd>Space</kbd> <kbd>uw</kbd> | Ⓝ | Toggle wrap |
 | <kbd>Space</kbd> <kbd>uz</kbd> | Ⓝ | Toggle distraction-free zen writing |
@@ -1226,79 +1312,6 @@ See [sindrets/diffview.nvim] for more mappings and usage information.
 | <kbd>q</kbd>                 | Ⓝ | Close diffview |
 | <kbd>o</kbd>                 | Ⓝ | Focus entry |
 | <kbd>O</kbd>                 | Ⓝ | Show options |
-
-#### Plugin: Telescope
-
-See [telescope.nvim] for more mappings and usage information.
-
-| Key   | Mode | Action |
-| ----- |:----:| ------------------ |
-| <kbd>;r</kbd> | Ⓝ | Results of the previous picker |
-| <kbd>;p</kbd> | Ⓝ | List of the previous pickers |
-| <kbd>;f</kbd> | Ⓝ | File search |
-| <kbd>;g</kbd> | Ⓝ | Grep search |
-| <kbd>;b</kbd> | Ⓝ | Buffers |
-| <kbd>;h</kbd> | Ⓝ | Highlights |
-| <kbd>;j</kbd> | Ⓝ | Jump points |
-| <kbd>;m</kbd> | Ⓝ | Marks |
-| <kbd>;o</kbd> | Ⓝ | Vim options |
-| <kbd>;t</kbd> | Ⓝ | LSP workspace symbols |
-| <kbd>;v</kbd> | Ⓝ Ⓥ | Yank history |
-| <kbd>;n</kbd> | Ⓝ | Plugins |
-| <kbd>;k</kbd> | Ⓝ | Thesaurus |
-| <kbd>;u</kbd> | Ⓝ | Spelling suggestions |
-| <kbd>;s</kbd> | Ⓝ | Sessions |
-| <kbd>;x</kbd> | Ⓝ | Old files |
-| <kbd>;w</kbd> | Ⓝ | Zk notes |
-| <kbd>;z</kbd> | Ⓝ | Zoxide directories |
-| <kbd>;;</kbd> | Ⓝ | Command history |
-| <kbd>;:</kbd> | Ⓝ | Commands |
-| <kbd>;/</kbd> | Ⓝ | Search history |
-| <kbd>;dd</kbd> | Ⓝ | LSP definitions |
-| <kbd>;di</kbd> | Ⓝ | LSP implementations |
-| <kbd>;dr</kbd> | Ⓝ | LSP references |
-| <kbd>;da</kbd> | Ⓝ Ⓥ | LSP code actions |
-| <kbd>Space</kbd> <kbd>/</kbd> | Ⓝ | Buffer fuzzy find |
-| <kbd>Space</kbd> <kbd>gs</kbd> | Ⓝ | Git status |
-| <kbd>Space</kbd> <kbd>gr</kbd> | Ⓝ | Git branches |
-| <kbd>Space</kbd> <kbd>gh</kbd> | Ⓝ | Git stashes |
-| <kbd>Space</kbd> <kbd>gf</kbd> | Ⓝ | Find files matching word under cursor |
-| <kbd>Space</kbd> <kbd>gg</kbd> | Ⓝ Ⓥ | Grep word under cursor |
-| <kbd>Space</kbd> <kbd>sc</kbd> | Ⓝ | Colorschemes |
-| <kbd>Space</kbd> <kbd>sd</kbd> | Ⓝ | Document diagnostics |
-| <kbd>Space</kbd> <kbd>sD</kbd> | Ⓝ | Workspace diagnostics |
-| <kbd>Space</kbd> <kbd>sh</kbd> | Ⓝ | Help tags |
-| <kbd>Space</kbd> <kbd>sk</kbd> | Ⓝ | Key-maps |
-| <kbd>Space</kbd> <kbd>sm</kbd> | Ⓝ | Man pages |
-| <kbd>Space</kbd> <kbd>ss</kbd> | Ⓝ | LSP document symbols |
-| <kbd>Space</kbd> <kbd>sS</kbd> | Ⓝ | LSP workspace symbols |
-| <kbd>Space</kbd> <kbd>st</kbd> | Ⓝ | Todo list |
-| <kbd>Space</kbd> <kbd>sT</kbd> | Ⓝ | Todo/Fix/Fixme list |
-| <kbd>Space</kbd> <kbd>sw</kbd> | Ⓝ | Grep string |
-| | | &nbsp; |
-| **Within _Telescope_ window** | | &nbsp; |
-| | | &nbsp; |
-| <kbd>?</kbd> | Ⓝ | Keymaps help screen |
-| <kbd>Ctrl</kbd>+<kbd>Space</kbd> | Ⓝ | Move from none fuzzy search to fuzzy |
-| <kbd>jj</kbd> or <kbd>Escape</kbd> | Ⓘ | Leave Insert mode |
-| <kbd>i</kbd> | Ⓝ | Enter Insert mode (filter input) |
-| <kbd>q</kbd> or <kbd>Escape</kbd> | Ⓝ | Exit Telescope |
-| <kbd>Tab</kbd> or <kbd>Shift</kbd>+<kbd>Tab</kbd> | Ⓝ Ⓘ | Next/previous candidate |
-| <kbd>Ctrl</kbd>+<kbd>d</kbd>/<kbd>u</kbd> | Ⓝ Ⓘ | Scroll down/upwards |
-| <kbd>Ctrl</kbd>+<kbd>f</kbd>/<kbd>b</kbd> | Ⓝ Ⓘ | Scroll preview down/upwards |
-| <kbd>Ctrl</kbd>+<kbd>j</kbd>/<kbd>k</kbd> | Ⓝ Ⓘ | Scroll preview vertically |
-| <kbd>Ctrl</kbd>+<kbd>h</kbd>/<kbd>l</kbd> | Ⓝ Ⓘ | Scroll preview horizontally |
-| <kbd>J</kbd> or <kbd>K</kbd> | Ⓝ | Select candidates up/downwards |
-| <kbd>st</kbd> | Ⓝ | Open in a new tab |
-| <kbd>sg</kbd> | Ⓝ | Open in a vertical split |
-| <kbd>sv</kbd> | Ⓝ | Open in a split |
-| <kbd>*</kbd>  | Ⓝ | Toggle selection |
-| <kbd>u</kbd>  | Ⓝ | Drop all |
-| <kbd>w</kbd>  | Ⓝ | Smart send to quickfix list |
-| <kbd>e</kbd>  | Ⓝ | Send to quickfix list |
-| <kbd>Ctrl</kbd>+<kbd>q</kbd> | Ⓘ | Send to quickfix list |
-| <kbd>dd</kbd> | Ⓝ | Delete entry (buffer list) |
-| <kbd>!</kbd> | Ⓝ | Edit in command line |
 
 #### Plugin: Neo-Tree
 

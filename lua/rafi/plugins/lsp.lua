@@ -31,10 +31,6 @@ return {
 	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/lsp/init.lua
 	{
 		'mason.nvim',
-		keys = {
-			{ '<leader>cm', false },
-			{ '<leader>mm', '<cmd>Mason<cr>', desc = 'Mason' },
-		},
 		opts = {
 			ui = {
 				border = 'rounded',

@@ -110,7 +110,7 @@ return {
 				['q'] = 'close_window',
 				['?'] = 'noop',
 				['g?'] = 'show_help',
-				['<Space>'] = 'noop',
+				['<leader>'] = { 'toggle_node', nowait = true },
 
 				-- Close preview or floating neo-tree window, and clear hlsearch.
 				['<Esc>'] = function(_)
@@ -153,7 +153,7 @@ return {
 					local normal = state.window.width
 					local large = normal * 1.9
 					local small = math.floor(normal / 1.6)
-					local cur_width = state.win_width + 1
+					local cur_width = state.win_width
 					local new_width = normal
 					if cur_width > normal then
 						new_width = small

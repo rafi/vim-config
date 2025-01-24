@@ -152,6 +152,8 @@ return {
 			-- stylua: ignore
 			local mappings = {
 				{ '<leader><localleader>', function() Snacks.picker() end, mode = { 'n', 'x' }, desc = 'Pickers' },
+				{ '<localleader>u', function() Snacks.picker.spelling() end, mode = { 'n', 'x' }, desc = 'Spellcheck' },
+				{ '<localleader>/', function() Snacks.picker.search_history() end, mode = { 'n', 'x' }, desc = 'Search History' },
 				{
 					'<localleader>z',
 					mode = { 'n', 'x' },
@@ -181,7 +183,6 @@ return {
 						input = {
 							keys = {
 								['jj'] = { '<esc>', expr = true, mode = 'i' },
-								['<c-l>'] = { 'cycle_win', mode = { 'n', 'i' } },
 								['sv'] = 'edit_split',
 								['sg'] = 'edit_vsplit',
 								['st'] = 'edit_tab',
@@ -192,18 +193,20 @@ return {
 								['K'] = 'select_and_prev',
 								['J'] = 'select_and_next',
 								['*'] = 'select_all',
+								['<c-l>'] = { 'preview_scroll_right', mode = { 'i', 'n' } },
+								['<c-h>'] = { 'preview_scroll_left', mode = { 'i', 'n' } },
 							},
 						},
 						list = {
 							keys = {
-								['<c-h>'] = { 'focus_input', mode = { 'n', 'i' } },
-								['<c-l>'] = { 'cycle_win', mode = { 'n', 'i' } },
+								['<c-l>'] = 'preview_scroll_right',
+								['<c-h>'] = 'preview_scroll_left',
 							},
 						},
 						preview = {
 							keys = {
-								['<c-h>'] = { 'focus_input', mode = { 'n', 'i' } },
-								['<c-l>'] = { 'cycle_win', mode = { 'n', 'i' } },
+								['<c-h>'] = 'focus_input',
+								['<c-l>'] = 'cycle_win',
 							},
 						},
 					},

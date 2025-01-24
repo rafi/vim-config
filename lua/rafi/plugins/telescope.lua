@@ -159,7 +159,7 @@ return {
 		-- stylua: ignore
 		keys = {
 			{ '<leader><space>', false },
-			{ '<localleader>p', '<cmd>Telescope pickers<CR>', desc = 'Pickers' },
+			{ '<leader><localleader>', '<cmd>Telescope pickers<CR>', desc = 'Pickers' },
 			{ '<localleader>u', '<cmd>Telescope spell_suggest<CR>', desc = 'Spell Suggest' },
 			{ '<localleader>/', '<cmd>Telescope search_history<CR>', desc = 'Search History' },
 

@@ -21,29 +21,29 @@ end
 -- Picker {{{
 
 -- Bind localleader to common LazyVim picker (telescope/fzf/snacks) keymaps.
-map({ 'n', 'x' }, '<localleader>r', '<leader>sR', { remap = true, desc = 'Resume Last' })
-map({ 'n', 'x' }, '<localleader>f', '<leader>ff', { remap = true, desc = 'Find Files (Root Dir)' })
-map({ 'n', 'x' }, '<localleader>F', '<leader>fF', { remap = true, desc = 'Find Files (cwd)' })
-map({ 'n', 'x' }, '<localleader>g', '<leader>sg', { remap = true, desc = 'Grep (Root Dir)' })
-map({ 'n', 'x' }, '<localleader>G', '<leader>sG', { remap = true, desc = 'Grep (cwd)' })
-map({ 'n', 'x' }, '<localleader>b', '<leader>,',  { remap = true, desc = 'Switch Buffer' })
-map({ 'n', 'x' }, '<localleader>h', '<leader>sh',  { remap = true, desc = 'Help Pages' })
-map({ 'n', 'x' }, '<localleader>H', '<leader>sH',  { remap = true, desc = 'Search Highlight Groups' })
-map({ 'n', 'x' }, '<localleader>j', '<leader>sj',  { remap = true, desc = 'Jumplist' })
-map({ 'n', 'x' }, '<localleader>m', '<leader>sm',  { remap = true, desc = 'Jump to Mark' })
-map({ 'n', 'x' }, '<localleader>M', '<leader>sM',  { remap = true, desc = 'Man Pages' })
-map({ 'n', 'x' }, '<localleader>o', '<leader>so',  { remap = true, desc = 'Options' })
-map({ 'n', 'x' }, '<localleader>t', '<leader>ss',  { remap = true, desc = 'Goto Symbol' })
-map({ 'n', 'x' }, '<localleader>T', '<leader>sS',  { remap = true, desc = 'Goto Symbol (Workspace)' })
-map({ 'n', 'x' }, '<localleader>v', '<leader>s"',  { remap = true, desc = 'Registers' })
-map({ 'n', 'x' }, '<localleader>s', '<leader>qS',  { remap = true, desc = 'Sessions' })
-map({ 'n', 'x' }, '<localleader>x', '<leader>fr',  { remap = true, desc = 'Recent' })
-map({ 'n', 'x' }, '<localleader>X', '<leader>fR',  { remap = true, desc = 'Recent (cwd)' })
-map({ 'n', 'x' }, '<localleader>;', '<leader>sc',  { remap = true, desc = 'Command History' })
-map({ 'n', 'x' }, '<localleader>:', '<leader>sC',  { remap = true, desc = 'Commands' })
-map({ 'n', 'x' }, '<localleader>i', '<leader>sb',  { remap = true, desc = 'Buffer' })
-map({ 'n', 'x' }, '<localleader>p', '<leader>qp',  { remap = true, desc = 'Projects' })
-unmap('n', { '<leader>gg', '<leader>gG' })
+map('n', '<localleader>r', '<leader>sR', { remap = true, desc = 'Resume Last' })
+map('n', '<localleader>f', '<leader>ff', { remap = true, desc = 'Find Files (Root Dir)' })
+map('n', '<localleader>F', '<leader>fF', { remap = true, desc = 'Find Files (cwd)' })
+map('n', '<localleader>g', '<leader>sg', { remap = true, desc = 'Grep (Root Dir)' })
+map('n', '<localleader>G', '<leader>sG', { remap = true, desc = 'Grep (cwd)' })
+map('n', '<localleader>b', '<leader>,',  { remap = true, desc = 'Switch Buffer' })
+map('n', '<localleader>B', '<leader>sB',  { remap = true, desc = 'Grep open buffers' })
+map('n', '<localleader>l', '<leader>sb', { remap = true, desc = 'Buffer lines' })
+map('n', '<localleader>h', '<leader>sh', { remap = true, desc = 'Help Pages' })
+map('n', '<localleader>H', '<leader>sH', { remap = true, desc = 'Search Highlight Groups' })
+map('n', '<localleader>j', '<leader>sj', { remap = true, desc = 'Jumplist' })
+map('n', '<localleader>m', '<leader>sm', { remap = true, desc = 'Jump to Mark' })
+map('n', '<localleader>M', '<leader>sM', { remap = true, desc = 'Man Pages' })
+map('n', '<localleader>o', '<leader>so', { remap = true, desc = 'Options' })
+map('n', '<localleader>t', '<leader>ss', { remap = true, desc = 'Goto Symbol' })
+map('n', '<localleader>T', '<leader>sS', { remap = true, desc = 'Goto Symbol (Workspace)' })
+map('n', '<localleader>v', '<leader>s"', { remap = true, desc = 'Registers' })
+map('n', '<localleader>s', '<leader>qS', { remap = true, desc = 'Sessions' })
+map('n', '<localleader>x', '<leader>fr', { remap = true, desc = 'Recent' })
+map('n', '<localleader>X', '<leader>fR', { remap = true, desc = 'Recent (cwd)' })
+map('n', '<localleader>;', '<leader>sc', { remap = true, desc = 'Command History' })
+map('n', '<localleader>:', '<leader>sC', { remap = true, desc = 'Commands' })
+map('n', '<localleader>p', '<leader>fp', { remap = true, desc = 'Projects' })
 map({ 'n', 'x' }, '<leader>gg', '<leader>sw',  { remap = true, desc = 'Visual selection or word (Root Dir)' })
 map({ 'n', 'x' }, '<leader>gG', '<leader>sW',  { remap = true, desc = 'Visual selection or word (cwd)' })
 
@@ -94,7 +94,6 @@ end, { expr = true, desc = 'Toggle Fold' })
 map('n', '<S-Return>', 'zMzv', { remap = true, desc = 'Focus Fold' })
 
 -- Tabs: Many ways to navigate them
-unmap('n', { '<A-j>', '<A-k>' })
 map('n', '<A-j>', '<cmd>tabnext<CR>', { desc = 'Next Tab' })
 map('n', '<A-k>', '<cmd>tabprevious<CR>', { desc = 'Previous Tab' })
 map('n', '<A-[>', '<cmd>tabprevious<CR>', { desc = 'Previous Tab' })
@@ -276,7 +275,6 @@ end, { expr = true })
 -- File operations {{{
 
 -- Switch (tab) to the directory of the current opened buffer
-unmap('n', '<Leader>cd')
 map('n', '<Leader>cd', function()
 	local bufdir = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p:h')
 	if bufdir ~= nil and vim.uv.fs_stat(bufdir) then
@@ -294,7 +292,6 @@ map('n', '<M-s>', '<cmd>write<CR>', { desc = 'Save File' })
 -- Editor UI {{{
 
 -- Toggle list windows
-unmap('n', { '<leader>xl', '<leader>xq' })
 map('n', '<leader>xl', function() toggle_list('loclist') end, { desc = 'Toggle Location List' })
 map('n', '<leader>xq', function() toggle_list('quickfix') end, { desc = 'Toggle Quickfix List' })
 
@@ -336,14 +333,8 @@ if vim.fn.executable('lazygit') == 1 then
 	map('n', '<leader>gT', function() Snacks.lazygit() end, { desc = 'Lazygit (cwd)' })
 end
 
-unmap('n', { '<leader>gb', '<leader>gB' })
 map('n', '<leader>gm', function() Snacks.picker.git_log_line() end, { desc = 'Git Blame Line' })
 map({ 'n', 'x' }, '<leader>go', function() Snacks.gitbrowse() end, { desc = 'Git Browse' })
-
--- Floating Terminal
-unmap('n', { '<leader>fT', '<leader>ft' })
-map('n', '<Leader>tT', function() Snacks.terminal() end, { desc = 'Terminal (cwd)' })
-map('n', '<Leader>tt', function() Snacks.terminal(nil, { cwd = LazyVim.root() }) end, { desc = 'Terminal (Root Dir)' })
 
 -- Terminal Mappings
 map('t', '<C-g>', '<C-\\><C-n>', { desc = 'Enter Normal Mode' })
