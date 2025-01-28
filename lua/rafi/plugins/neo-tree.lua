@@ -196,7 +196,8 @@ return {
 		},
 		filesystem = {
 			bind_to_cwd = false,
-			follow_current_file = { enabled = true },
+			follow_current_file = { enabled = false },
+			find_by_full_path_words = true,
 			group_empty_dirs = true,
 			use_libuv_file_watcher = has_git,
 			window = {
