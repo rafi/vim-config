@@ -49,7 +49,7 @@ function M.setup()
 		extras[k] = v
 	end
 
-	-- Check if extra is enabled, regardless of first namespace.
+	-- Check if extra is enabled, regardless of the first namespace.
 	---@param extra string
 	LazyVim.has_extra = function(extra)
 		local modname = '.extras.' .. extra

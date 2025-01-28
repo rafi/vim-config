@@ -23,24 +23,21 @@ return {
 	cmd = 'Neotree',
 	-- stylua: ignore
 	keys = {
-		{ '<localleader>e', '<leader>fe', desc = 'Explorer NeoTree (Root Dir)', remap = true },
-		{ '<localleader>E', '<leader>fE', desc = 'Explorer NeoTree (cwd)', remap = true },
+		{ '<localleader>e', '<leader>fe', desc = 'Explorer Tree (Root Dir)', remap = true },
+		{ '<localleader>E', '<leader>fE', desc = 'Explorer Tree (cwd)', remap = true },
 		{
 			'<localleader>a',
 			function()
-				require('neo-tree.command').execute({
-					reveal = true,
-					dir = LazyVim.root()
-				})
+				require('neo-tree.command').execute({ reveal = true, dir = LazyVim.root() })
 			end,
-			desc = 'Explorer NeoTree Reveal',
+			desc = 'Reveal in Explorer',
 		},
 		{
-			'<leader>xe',
+			'<localleader>A',
 			function()
-				require('neo-tree.command').execute({ source = 'document_symbols', toggle = true })
+				require('neo-tree.command').execute({ reveal = true, dir = vim.uv.cwd() })
 			end,
-			desc = 'Document Explorer',
+			desc = 'Reveal in Explorer (cwd)',
 		},
 	},
 	-- See: https://github.com/nvim-neo-tree/neo-tree.nvim
@@ -104,13 +101,14 @@ return {
 				},
 			},
 		},
+
 		window = {
 			width = 30, -- Default 40
 			mappings = {
 				['q'] = 'close_window',
 				['?'] = 'noop',
 				['g?'] = 'show_help',
-				['<leader>'] = { 'toggle_node', nowait = true },
+				['<leader>'] = 'noop',
 
 				-- Clear filter, preview and highlight search.
 				['<Esc>'] = function(state)

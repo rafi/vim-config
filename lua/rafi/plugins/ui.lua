@@ -106,7 +106,7 @@ return {
 	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/ui.lua
 	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/util.lua
 	{
-		'snacks.nvim',
+		'folke/snacks.nvim',
 		opts = {
 			dashboard = { enabled = false },
 			scroll = { enabled = false },
@@ -144,7 +144,7 @@ return {
 		},
 	},
 	{
-		'snacks.nvim',
+		'folke/snacks.nvim',
 		keys = function(_, keys)
 			if LazyVim.pick.want() ~= 'snacks' then
 				return
@@ -153,8 +153,10 @@ return {
 			local mappings = {
 				{ '<leader><localleader>', function() Snacks.picker() end, mode = { 'n', 'x' }, desc = 'Pickers' },
 				{ '<localleader>i', function() Snacks.picker.icons() end, mode = { 'n', 'x' }, desc = 'Spellcheck' },
+				{ '<localleader>n', function() Snacks.picker.notifications() end, desc = 'Notifications' },
 				{ '<localleader>u', function() Snacks.picker.spelling() end, mode = { 'n', 'x' }, desc = 'Spellcheck' },
 				{ '<localleader>/', function() Snacks.picker.search_history() end, mode = { 'n', 'x' }, desc = 'Search History' },
+				{ '<leader>gF', function() Snacks.picker.files({ pattern = vim.fn.expand('<cword>') }) end, desc = 'Find File' },
 				{
 					'<localleader>z',
 					mode = { 'n', 'x' },

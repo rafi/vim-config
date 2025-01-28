@@ -897,7 +897,7 @@ Legend: | Ⓝormal | Ⓥisual | Ⓢelect | Ⓘnsert | Ⓞperator | Ⓒommand |
 | <kbd>Space</kbd> <kbd>gs</kbd> | Ⓝ | Git status |
 | <kbd>Space</kbd> <kbd>gr</kbd> | Ⓝ | Git branches |
 | <kbd>Space</kbd> <kbd>gh</kbd> | Ⓝ | Git stashes |
-| <kbd>Space</kbd> <kbd>gf</kbd> | Ⓝ | Find files matching word under cursor |
+| <kbd>Space</kbd> <kbd>gF</kbd> | Ⓝ | Find files matching word under cursor |
 | <kbd>Space</kbd> <kbd>gg</kbd> | Ⓝ Ⓥ | Grep word/selection |
 | <kbd>Space</kbd> <kbd>gG</kbd> | Ⓝ Ⓥ | Grep word/selection (cwd) |
 | <kbd>Space</kbd> <kbd>sc</kbd> | Ⓝ | Colorschemes |
@@ -1166,9 +1166,8 @@ Legend: | Ⓝormal | Ⓥisual | Ⓢelect | Ⓘnsert | Ⓞperator | Ⓒommand |
 
 | Key   | Mode | Action             | Plugin or Mapping |
 | ----- |:----:| ------------------ | ------ |
-| <kbd>q</kbd> | Ⓝ | Quit window (if last window, quit nvim) | <small>`:quit`</small> |
-| <kbd>Ctrl</kbd>+<kbd>x</kbd> | Ⓝ | Rotate window placement | <small>`C-w` `x`</small> |
 | <kbd>Space</kbd> <kbd>qq</kbd> | Ⓝ | Quit all and exit | <small>`:quitall`</small> |
+| <kbd>s]</kbd> | Ⓝ | Rotate window placement | <small>`C-w` `x`</small> |
 | <kbd>sp</kbd> | Ⓝ | Choose a window to edit | <small>[s1n7ax/nvim-window-picker]</small> |
 | <kbd>sw</kbd> | Ⓝ | Switch editing window with selected | <small>[s1n7ax/nvim-window-picker]</small> |
 | <kbd>sv</kbd> | Ⓝ | Horizontal split | <small>`:split`</small> |
@@ -1178,7 +1177,7 @@ Legend: | Ⓝormal | Ⓥisual | Ⓢelect | Ⓘnsert | Ⓞperator | Ⓒommand |
 | <kbd>sb</kbd> | Ⓝ | Previous buffer | <small>`:b#`</small> |
 | <kbd>sc</kbd> | Ⓝ | Close current buffer | <small>`:close`</small> |
 | <kbd>sd</kbd> | Ⓝ | Delete buffer | <small>`:bdelete`</small> |
-| <kbd>sq</kbd> | Ⓝ | Quit window | <small>`:quit`</small> |
+| <kbd>sq</kbd> | Ⓝ | Quit window (if last window, quit nvim) | <small>`:quit`</small> |
 | <kbd>sx</kbd> | Ⓝ | Delete buffer, leave blank window | <small>`:enew │ bdelete`</small> |
 | <kbd>sz</kbd> | Ⓝ | Toggle window zoom | <small>`:vertical resize │ resize`</small> |
 | <kbd>sh</kbd> | Ⓝ | Toggle colorscheme background=dark/light | <small>`:set background` … |
@@ -1298,12 +1297,12 @@ See [nvim-neo-tree/neo-tree.nvim] for more mappings and usage information.
 
 | Key   | Mode | Action             |
 | ----- |:----:| ------------------ |
-| <kbd>fe</kbd> / <kbd>Space</kbd><kbd>e</kbd> | Ⓝ | Toggle file explorer (root) |
-| <kbd>fE</kbd> / <kbd>Space</kbd><kbd>E</kbd> | Ⓝ | Toggle file explorer (cwd) |
+| <kbd>Space</kbd> <kbd>e</kbd>/<kbd>fe</kbd> | Ⓝ | Toggle file explorer (root) |
+| <kbd>Space</kbd> <kbd>E</kbd>/<kbd>fE</kbd> | Ⓝ | Toggle file explorer (cwd) |
 | <kbd>ge</kbd> | Ⓝ | Open Git explorer |
 | <kbd>be</kbd> | Ⓝ | Open Buffer explorer |
-| <kbd>xe</kbd> | Ⓝ | Open Document explorer |
-| <kbd>;a</kbd> | Ⓝ | Focus current file in file-explorer |
+| <kbd>;a</kbd> | Ⓝ | Reveal in file explorer |
+| <kbd>;A</kbd> | Ⓝ | Reveal in file explorer (cwd) |
 | | | &nbsp; |
 | **Within _Neo-Tree_ window** | | &nbsp; |
 | | | &nbsp; |
