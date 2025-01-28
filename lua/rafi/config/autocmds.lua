@@ -5,21 +5,12 @@
 -- This file is automatically loaded by lua/rafi/config/lazy.lua
 -- Extends $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/config/autocmds.lua
 
-vim.api.nvim_del_augroup_by_name('lazyvim_highlight_yank')
 vim.api.nvim_del_augroup_by_name('lazyvim_last_loc')
 vim.api.nvim_del_augroup_by_name('lazyvim_wrap_spell')
 
 local function augroup(name)
 	return vim.api.nvim_create_augroup('rafi.' .. name, { clear = true })
 end
-
--- Highlight on yank
-vim.api.nvim_create_autocmd('TextYankPost', {
-	group = augroup('highlight_yank'),
-	callback = function()
-		(vim.hl or vim.highlight).on_yank({ timeout = 50 })
-	end,
-})
 
 -- Go to last loc when opening a buffer, see ':h last-position-jump'
 vim.api.nvim_create_autocmd('BufReadPost', {

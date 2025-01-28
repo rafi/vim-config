@@ -8,7 +8,7 @@ local function get_current_directory(state)
 	if node.type ~= 'directory' or not node:is_expanded() then
 		node = state.tree:get_node(node:get_parent_id())
 	end
-	return node.path
+	return node:get_id()
 end
 
 return {
@@ -20,7 +20,6 @@ return {
 	'neo-tree.nvim',
 	branch = 'v3.x',
 	dependencies = { 'MunifTanjim/nui.nvim' },
-	cmd = 'Neotree',
 	-- stylua: ignore
 	keys = {
 		{ '<localleader>e', '<leader>fe', desc = 'Explorer Tree (Root Dir)', remap = true },
@@ -220,19 +219,18 @@ return {
 
 					-- Search and replace in path.
 					['gz'] = function(state)
-						local path = get_current_directory(state):gsub(' ', '\\ ')
-						local prefills = { paths = path }
-						local grugFar = require('grug-far')
-						if not grugFar.has_instance('tree') then
-							grugFar.open({
-								instanceName = 'tree',
-								prefills = prefills,
-								staticTitle = 'Find and Replace from Tree',
-							})
+						local prefills = {
+							paths = vim.fn.fnameescape(get_current_directory(state)),
+						}
+						local grug_far = require('grug-far')
+						if not grug_far.has_instance('explorer') then
+							grug_far.open({ instanceName = 'explorer' })
 						else
-							grugFar.open_instance('tree')
-							grugFar.update_instance_prefills('tree', prefills, false)
+							grug_far.open_instance('explorer')
 						end
+						-- Doing it seperately because multiple paths isn't supported when passed
+						-- with prefills update, without clearing search and other fields.
+						grug_far.update_instance_prefills('explorer', prefills, false)
 					end,
 				},
 			},
