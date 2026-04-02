@@ -328,7 +328,7 @@ return {
         'bash', 'comment', 'css', 'diff', 'dockerfile', 'fennel', 'fish',
         'gitcommit', 'gitignore', 'gitattributes', 'git_rebase', 'go', 'gomod',
         'gosum', 'gowork', 'graphql', 'hcl', 'html', 'javascript', 'jsdoc',
-        'json', 'json5', 'jsonc', 'jsonnet', 'lua', 'make', 'markdown',
+        'json', 'json5', 'jsonnet', 'lua', 'make', 'markdown',
         'markdown_inline', 'nix', 'perl', 'php', 'pug', 'python', 'regex',
         'rst', 'ruby', 'rust', 'scss', 'sql', 'svelte', 'terraform', 'toml',
         'tsx', 'typescript', 'vim', 'vimdoc', 'vue', 'yaml', 'zig',

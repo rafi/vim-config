@@ -14,7 +14,6 @@ return {
 		keys = {
 			{ '<S-h>', false },
 			{ '<S-l>', false },
-			{ '<leader>tp', '<Cmd>BufferLinePick<CR>', desc = 'Tab Pick' },
 		},
 		opts = {
 			options = {

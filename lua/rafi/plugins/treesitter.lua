@@ -148,6 +148,7 @@ return {
 				'http',
 				'json5',
 				'just',
+				'typst',
 				'make',
 				'readline',
 				'scss',

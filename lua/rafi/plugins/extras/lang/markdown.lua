@@ -1,11 +1,7 @@
 -- rafi.plugins.extras.lang.markdown
 --
-
-LazyVim.on_very_lazy(function()
-	vim.filetype.add({
-		extension = { mdx = 'markdown.mdx' },
-	})
-end)
+-- NOTE: This extends
+-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/extras/lang/markdown.lua
 
 return {
 	desc = 'Markdown lang extras, without headlines plugin, and toc generator.',

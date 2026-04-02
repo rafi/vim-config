@@ -4,7 +4,6 @@ return {
 	{
 		'andrewferrier/debugprint.nvim',
 		version = '*', -- Remove if you DON'T want to use the stable version
-		cmd = { 'ToggleCommentDebugPrints', 'DeleteDebugPrints' },
 		keys = {
 			{ 'g?o', desc = 'Debug via text-obj below' },
 			{ 'g?O', desc = 'Debug via text-obj above' },
@@ -35,10 +34,6 @@ return {
 					variable_below = nil, -- 'g?v',
 					variable_above = nil, -- 'g?V',
 				},
-			},
-			commands = {
-				toggle_comment_debug_prints = 'ToggleCommentDebugPrints',
-				delete_debug_prints = 'DeleteDebugPrints',
 			},
 		},
 	},

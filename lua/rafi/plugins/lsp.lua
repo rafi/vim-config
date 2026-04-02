@@ -5,6 +5,8 @@ return {
 
 	-----------------------------------------------------------------------------
 	-- Quickstart configurations for the Nvim LSP client
+	-- :h lspconfig.txt  :h lspconfig-all
+	--
 	-- NOTE: This extends
 	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/lsp/init.lua
 	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/lsp/keymaps.lua
@@ -35,6 +37,8 @@ return {
 
 	-----------------------------------------------------------------------------
 	-- Portable package manager for Neovim
+	-- :h mason.nvim
+	--
 	-- NOTE: This extends
 	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/lsp/init.lua
 	{
