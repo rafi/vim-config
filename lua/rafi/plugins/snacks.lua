@@ -41,9 +41,11 @@ return {
 					sources = {
 						files = {
 							hidden = true,
+							ignored = true,
 						},
 						grep = {
 							hidden = true,
+							ignored = true,
 						},
 					},
 					win = {
@@ -128,6 +130,7 @@ return {
 						explorer = {
 							replace_netrw = true,
 							hidden = true,
+							ignored = true,
 							layout = {
 								cycle = false,
 								auto_hide = { 'input' },
