@@ -2,7 +2,7 @@
 --
 
 return {
-	desc = 'Imports Go lang extras and adds more tools.',
+	desc = 'Extends LazyVim Go extras and adds more tools',
 	recommended = function()
 		return LazyVim.extras.wants({
 			ft = { 'go', 'gomod', 'gowork', 'gotmpl' },
@@ -13,7 +13,8 @@ return {
 	{ import = 'lazyvim.plugins.extras.lang.go' },
 
 	{
-		'nvim-treesitter/nvim-treesitter',
+		'romus204/tree-sitter-manager.nvim',
+		optional = true,
 		opts = function(_, opts)
 			opts = opts or {}
 			opts.ensure_installed = {

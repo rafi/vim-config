@@ -31,7 +31,8 @@ return {
 	{ import = 'lazyvim.plugins.extras.lang.python' },
 
 	{
-		'nvim-treesitter/nvim-treesitter',
+		'romus204/tree-sitter-manager.nvim',
+		optional = true,
 		opts = {
 			ensure_installed = {
 				'ninja',

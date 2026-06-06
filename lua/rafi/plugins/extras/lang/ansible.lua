@@ -20,7 +20,7 @@ LazyVim.on_very_lazy(function()
 end)
 
 return {
-	desc = 'Imports Ansible lang extras and adds more tools.',
+	desc = 'ansiblels, ansible-lint, mfussenegger/nvim-ansible',
 	recommended = function()
 		return LazyVim.extras.wants({
 			ft = 'yaml.ansible',
@@ -28,16 +28,35 @@ return {
 		})
 	end,
 
-	{ import = 'lazyvim.plugins.extras.lang.ansible' },
+	{
+		'mason-org/mason.nvim',
+		opts = { ensure_installed = { 'ansible-lint' } },
+	},
 
 	{
-		'nvim-treesitter/nvim-treesitter',
-		dependencies = {
-			'pearofducks/ansible-vim',
-			ft = { 'ansible', 'ansible_hosts', 'jinja2' },
+		'neovim/nvim-lspconfig',
+		opts = {
+			servers = {
+				ansiblels = {},
+			},
 		},
-		opts = function(_, _)
-			-- Setup filetype settings
+	},
+
+	{
+		'mfussenegger/nvim-ansible',
+		ft = { 'yaml' },
+		keys = {
+			{
+				'<leader>ta',
+				function()
+					require('ansible').run()
+				end,
+				ft = 'yaml.ansible',
+				desc = 'Ansible Run Playbook/Role',
+				silent = true,
+			},
+		},
+		init = function()
 			vim.api.nvim_create_autocmd('FileType', {
 				group = vim.api.nvim_create_augroup('rafi.ftplugin.ansible', {}),
 				pattern = 'yaml.ansible',
