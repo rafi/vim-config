@@ -20,6 +20,8 @@ function M.setup()
 		extras[k] = v
 	end
 
+	require('vim._core.ui2').enable({})
+
 	-- Add lua/rafi/plugins/extras as list of "extra" sources.
 	LazyVim.extras.sources = {
 		{
