@@ -37,9 +37,6 @@ return {
 				interval = 1000,
 				follow_files = true,
 			},
-			preview_config = {
-				border = 'rounded',
-			},
 		},
 	},
 

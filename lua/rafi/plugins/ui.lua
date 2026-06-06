@@ -90,7 +90,7 @@ return {
 					---@diagnostic disable-next-line: missing-fields
 					Snacks.win({
 						file = vim.api.nvim_get_runtime_file('doc/news.txt', false)[1],
-						border = 'rounded',
+						border = vim.o.winborder,
 						width = 0.6,
 						height = 0.6,
 						wo = {

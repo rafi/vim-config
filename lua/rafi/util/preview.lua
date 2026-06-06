@@ -10,7 +10,7 @@ function M.open(opts)
 	local defaults = {
 		enter = false,
 		backdrop = false,
-		border = 'rounded',
+		border = vim.o.winborder,
 		title_pos = 'center',
 		position = 'float',
 		width = 0.7,
