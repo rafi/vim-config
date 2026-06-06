@@ -45,8 +45,9 @@ if vim.fn.has('nvim-0.11') == 1 then
 	opt.tabclose:append({'uselast'})
 end
 
--- What to save for views and sessions
+-- What to save for sessions
 opt.sessionoptions:remove({ 'blank', 'buffers', 'terminal' })
+opt.sessionoptions:append({ 'localoptions' })
 
 opt.breakindent = true
 opt.showcmd = false       -- Don't show command in status line
@@ -58,6 +59,7 @@ opt.helpheight = 0        -- Disable help window resizing
 opt.winwidth = 30         -- Minimum width for active window
 opt.winheight = 1         -- Minimum height for active window
 opt.winminheight = 1      -- Minimum height for inactive window
+opt.winborder = 'rounded' -- Default border style of floating windows
 
 opt.showbreak = '⤷  ' -- ↪	⤷
 opt.listchars = {
@@ -68,11 +70,14 @@ opt.listchars = {
 	nbsp = '␣',
 	trail = '·'
 }
+opt.foldlevelstart = 99
+opt.foldnestmax = 15
 opt.fillchars = {
-	foldopen = '', --  󰅀
-	foldclose = '', --  󰅂
+	foldopen = '󰅀', --  󰅀▾
+	foldclose = '󰅂', --  󰅂▸
 	fold = ' ', -- ⸱
 	foldsep = ' ',
+	foldinner = ' ',
 	diff = '╱',
 	eob = ' ',
 	horiz = '━',

@@ -6,7 +6,6 @@
 -- Extends $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/config/autocmds.lua
 
 vim.api.nvim_del_augroup_by_name('lazyvim_last_loc')
-vim.api.nvim_del_augroup_by_name('lazyvim_wrap_spell')
 
 local function augroup(name)
 	return vim.api.nvim_create_augroup('rafi.' .. name, { clear = true })
@@ -74,15 +73,6 @@ vim.api.nvim_create_autocmd({ 'InsertEnter', 'WinLeave' }, {
 	end,
 })
 
--- Spell checking in text file types
-vim.api.nvim_create_autocmd('FileType', {
-	group = augroup('spell_checking'),
-	pattern = { 'text', 'plaintex', 'typst', 'gitcommit', 'markdown' },
-	callback = function()
-		vim.opt_local.spell = true
-	end,
-})
-
 -- Disable swap/undo/backup files in temp directories or shm
 vim.api.nvim_create_autocmd('BufWritePre', {
 	group = augroup('undo_disable'),
@@ -103,14 +93,19 @@ vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufReadPre' }, {
 		'$TMPDIR/*',
 		'$TMP/*',
 		'$TEMP/*',
-		'*/shm/*',
+		'/dev/shm/*',
 		'/private/var/*',
+		'/private/tmp/*',
 	},
 	callback = function()
-		vim.opt_local.undofile = false
-		vim.opt_local.swapfile = false
-		vim.opt_global.backup = false
-		vim.opt_global.writebackup = false
+		vim.opt_local.undolevels = -1    -- Disables undo entirely
+		vim.opt_local.undofile = false   -- Prevents writing undo history to disk
+		vim.opt_local.swapfile = false   -- Disables swap file creation
+		vim.opt_local.backup = false     -- Disables backup file creation
+		vim.opt_local.shada = ''         -- Prevents history from being saved to ShAda
+		vim.opt_local.writebackup = false
+		vim.opt_local.shelltemp = false
+		vim.opt_local.history = 0
 	end,
 })
 
