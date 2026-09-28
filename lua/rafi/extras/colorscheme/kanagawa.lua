@@ -1,8 +1,4 @@
-return {
+-- Colorscheme inspired by Katsushika Hokusai's famous painting
 
-	-- Colorscheme inspired by the colors of the famous painting by Katsushika
-	-- Hokusai.
-	{
-		'rebelot/kanagawa.nvim',
-	},
-}
+-- Eager: only adds colors/ to runtimepath, for theme-loader to find.
+vim.pack.add({ 'https://github.com/rebelot/kanagawa.nvim' })

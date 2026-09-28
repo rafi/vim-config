@@ -1,17 +1,240 @@
 -- Rafi's Neovim keymaps
 -- https://github.com/rafi/vim-config
 -- ===
+-- Derived from LazyVim (Apache-2.0), modified for this config:
+-- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 
--- This file is automatically loaded by lua/rafi/config/lazy.lua
--- Extends $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/config/keymaps.lua
+-- This file is automatically loaded by rafi.config.setup() (init.lua)
 
 local map = vim.keymap.set
-local unmap = function(modes, lhs)
+
+-- stylua: ignore start
+
+-- General keymaps. Rafi's keymaps further below override these.
+-- ===
+
+-- better up/down
+map({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { desc = 'Down', expr = true, silent = true })
+map({ 'n', 'x' }, '<Down>', "v:count == 0 ? 'gj' : 'j'", { desc = 'Down', expr = true, silent = true })
+map({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { desc = 'Up', expr = true, silent = true })
+map({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", { desc = 'Up', expr = true, silent = true })
+
+-- Move to window using the <ctrl> hjkl keys
+map('n', '<C-h>', '<C-w>h', { desc = 'Go to Left Window' })
+map('n', '<C-j>', '<C-w>j', { desc = 'Go to Lower Window' })
+map('n', '<C-k>', '<C-w>k', { desc = 'Go to Upper Window' })
+map('n', '<C-l>', '<C-w>l', { desc = 'Go to Right Window' })
+
+-- Resize window using <ctrl> arrow keys
+map('n', '<C-Up>', '<cmd>resize +2<cr>', { desc = 'Increase Window Height' })
+map('n', '<C-Down>', '<cmd>resize -2<cr>', { desc = 'Decrease Window Height' })
+map('n', '<C-Left>', '<cmd>vertical resize -2<cr>', { desc = 'Decrease Window Width' })
+map('n', '<C-Right>', '<cmd>vertical resize +2<cr>', { desc = 'Increase Window Width' })
+
+-- Move Lines
+map('n', '<A-j>', "<cmd>execute 'move .+' . v:count1<cr>==", { desc = 'Move Down' })
+map('n', '<A-k>', "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = 'Move Up' })
+map('i', '<A-j>', '<esc><cmd>m .+1<cr>==gi', { desc = 'Move Down' })
+map('i', '<A-k>', '<esc><cmd>m .-2<cr>==gi', { desc = 'Move Up' })
+map('v', '<A-j>', ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = 'Move Down', silent = true })
+map('v', '<A-k>', ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = 'Move Up', silent = true })
+
+-- buffers
+map('n', '<S-h>', '<cmd>bprevious<cr>', { desc = 'Prev Buffer' })
+map('n', '<S-l>', '<cmd>bnext<cr>', { desc = 'Next Buffer' })
+map('n', '[b', '<cmd>bprevious<cr>', { desc = 'Prev Buffer' })
+map('n', ']b', '<cmd>bnext<cr>', { desc = 'Next Buffer' })
+map('n', '<leader>bb', '<cmd>e #<cr>', { desc = 'Switch to Other Buffer' })
+map('n', '<leader>`', '<cmd>e #<cr>', { desc = 'Switch to Other Buffer' })
+map('n', '<leader>bd', function() Snacks.bufdelete() end, { desc = 'Delete Buffer' })
+map('n', '<leader>bo', function() Snacks.bufdelete.other() end, { desc = 'Delete Other Buffers' })
+map('n', '<leader>bi', function() Snacks.bufdelete.invisible() end, { desc = 'Delete Invisible Buffers' })
+map('n', '<leader>bD', '<cmd>:bd<cr>', { desc = 'Delete Buffer and Window' })
+
+-- Clear search and stop snippet on escape
+map({ 'i', 'n', 's' }, '<esc>', function()
+	vim.cmd('noh')
+	if vim.snippet then
+		vim.snippet.stop()
+	end
+	return '<esc>'
+end, { expr = true, desc = 'Escape and Clear hlsearch' })
+
+-- Clear search, multi-cursor marks, diff update and redraw
+-- See |CTRL-L-default| ($VIMRUNTIME/lua/vim/_core/defaults.lua)
+map(
+	'n',
+	'<leader>ur',
+	'<Cmd>nohlsearch<Bar>diffupdate'
+		.. '<Bar>call nvim_buf_clear_namespace(0, nvim_create_namespace("nvim.multicursor"), 0, -1)'
+		.. '<Bar>normal! <C-L><CR>',
+	{ desc = 'Redraw / Clear hlsearch / Diff Update' }
+)
+
+vim.keymap.set('n', '<C-[>', function()
+	local mc_ns = vim.api.nvim_create_namespace('nvim.multicursor')
+	vim.api.nvim_buf_clear_namespace(0, mc_ns, 0, -1)
+end)
+
+-- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
+map('n', 'n', "'Nn'[v:searchforward].'zv'", { expr = true, desc = 'Next Search Result' })
+map('x', 'n', "'Nn'[v:searchforward]", { expr = true, desc = 'Next Search Result' })
+map('o', 'n', "'Nn'[v:searchforward]", { expr = true, desc = 'Next Search Result' })
+map('n', 'N', "'nN'[v:searchforward].'zv'", { expr = true, desc = 'Prev Search Result' })
+map('x', 'N', "'nN'[v:searchforward]", { expr = true, desc = 'Prev Search Result' })
+map('o', 'N', "'nN'[v:searchforward]", { expr = true, desc = 'Prev Search Result' })
+
+-- Add undo break-points
+map('i', ',', ',<c-g>u')
+map('i', '.', '.<c-g>u')
+map('i', ';', ';<c-g>u')
+
+-- save file
+map({ 'i', 'x', 'n', 's' }, '<C-s>', '<cmd>w<cr><esc>', { desc = 'Save File' })
+
+--keywordprg
+map('n', '<leader>K', '<cmd>norm! K<cr>', { desc = 'Keywordprg' })
+
+-- better indenting
+map('x', '<', '<gv')
+map('x', '>', '>gv')
+
+-- commenting
+map('n', 'gco', 'o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>', { desc = 'Add Comment Below' })
+map('n', 'gcO', 'O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>', { desc = 'Add Comment Above' })
+
+-- new file
+map('n', '<leader>fn', '<cmd>enew<cr>', { desc = 'New File' })
+
+-- location list
+map('n', '<leader>xl', function()
+	local success, err = pcall(
+		vim.fn.getloclist(0, { winid = 0 }).winid ~= 0 and vim.cmd.lclose
+			or vim.cmd.lopen
+	)
+	if not success and err then
+		vim.notify(err, vim.log.levels.ERROR)
+	end
+end, { desc = 'Location List' })
+
+-- quickfix list
+map('n', '<leader>xq', function()
+	local success, err = pcall(
+		vim.fn.getqflist({ winid = 0 }).winid ~= 0 and vim.cmd.cclose
+			or vim.cmd.copen
+	)
+	if not success and err then
+		vim.notify(err, vim.log.levels.ERROR)
+	end
+end, { desc = 'Quickfix List' })
+
+map('n', '[q', vim.cmd.cprev, { desc = 'Previous Quickfix' })
+map('n', ']q', vim.cmd.cnext, { desc = 'Next Quickfix' })
+
+-- formatting
+-- map({ 'n', 'x' }, '<leader>cf', function()
+-- 	require('rafi.util.format').format({ force = true })
+-- end, { desc = 'Format' })
+
+-- diagnostic
+local diagnostic_goto = function(next, severity)
+	return function()
+		vim.diagnostic.jump({
+			count = (next and 1 or -1) * vim.v.count1,
+			severity = severity and vim.diagnostic.severity[severity] or nil,
+			float = true,
+		})
+	end
+end
+map('n', '<leader>cd', vim.diagnostic.open_float, { desc = 'Line Diagnostics' })
+map('n', ']d', diagnostic_goto(true), { desc = 'Next Diagnostic' })
+map('n', '[d', diagnostic_goto(false), { desc = 'Prev Diagnostic' })
+map('n', ']e', diagnostic_goto(true, 'ERROR'), { desc = 'Next Error' })
+map('n', '[e', diagnostic_goto(false, 'ERROR'), { desc = 'Prev Error' })
+map('n', ']w', diagnostic_goto(true, 'WARN'), { desc = 'Next Warning' })
+map('n', '[w', diagnostic_goto(false, 'WARN'), { desc = 'Prev Warning' })
+
+-- toggle options
+-- <leader>uf / <leader>uF (format toggles) are mapped in the rafi section.
+Snacks.toggle.option('spell', { name = 'Spelling' }):map('<leader>us')
+Snacks.toggle.option('wrap', { name = 'Wrap' }):map('<leader>uw')
+Snacks.toggle.option('relativenumber', { name = 'Relative Number' }):map('<leader>uL')
+Snacks.toggle.diagnostics():map('<leader>ud')
+Snacks.toggle.line_number():map('<leader>ul')
+Snacks.toggle.option('conceallevel', { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2, name = 'Conceal Level' }):map('<leader>uc')
+Snacks.toggle.option('showtabline', { off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = 'Tabline' }):map('<leader>uA')
+Snacks.toggle.treesitter():map('<leader>uT')
+Snacks.toggle.option('background', { off = 'light', on = 'dark' , name = 'Dark Background' }):map('<leader>ub')
+Snacks.toggle.dim():map('<leader>uD')
+Snacks.toggle.animate():map('<leader>ua')
+Snacks.toggle.indent():map('<leader>ug')
+Snacks.toggle.scroll():map('<leader>uS')
+Snacks.toggle.profiler():map('<leader>dpp')
+Snacks.toggle.profiler_highlights():map('<leader>dph')
+
+if vim.lsp.inlay_hint then
+	Snacks.toggle.inlay_hints():map('<leader>uh')
+end
+
+-- lazygit
+if vim.fn.executable('lazygit') == 1 then
+	map('n', '<leader>gg', function() Snacks.lazygit( { cwd = require('rafi.util.root').git() }) end, { desc = 'Lazygit (Root Dir)' })
+	map('n', '<leader>gG', function() Snacks.lazygit() end, { desc = 'Lazygit (cwd)' })
+end
+
+map('n', '<leader>gL', function() Snacks.picker.git_log() end, { desc = 'Git Log (cwd)' })
+map('n', '<leader>gb', function() Snacks.picker.git_log_line() end, { desc = 'Git Blame Line' })
+map('n', '<leader>gf', function() Snacks.picker.git_log_file() end, { desc = 'Git Current File History' })
+map('n', '<leader>gl', function() Snacks.picker.git_log({ cwd = require('rafi.util.root').git() }) end, { desc = 'Git Log' })
+map({ 'n', 'x' }, '<leader>gB', function() Snacks.gitbrowse() end, { desc = 'Git Browse (open)' })
+map({'n', 'x' }, '<leader>gY', function()
+	Snacks.gitbrowse({ open = function(url) vim.fn.setreg('+', url) end, notify = false })
+end, { desc = 'Git Browse (copy)' })
+
+-- quit
+map('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit All' })
+
+-- highlights under cursor
+map('n', '<leader>ui', vim.show_pos, { desc = 'Inspect Pos' })
+map('n', '<leader>uI', function() vim.treesitter.inspect_tree() vim.api.nvim_input('I') end, { desc = 'Inspect Tree' })
+
+-- floating terminal
+map('n', '<leader>fT', function() Snacks.terminal() end, { desc = 'Terminal (cwd)' })
+map('n', '<leader>ft', function() Snacks.terminal(nil, { cwd = require('rafi.util.root')() }) end, { desc = 'Terminal (Root Dir)' })
+map({'n','t'}, '<c-/>',function() Snacks.terminal.focus(nil, { cwd = require('rafi.util.root')() }) end, { desc = 'Terminal (Root Dir)' })
+map({'n','t'}, '<c-_>',function() Snacks.terminal.focus(nil, { cwd = require('rafi.util.root')() }) end, { desc = 'which_key_ignore' })
+
+-- windows
+map('n', '<leader>-', '<C-W>s', { desc = 'Split Window Below' })
+map('n', '<leader>|', '<C-W>v', { desc = 'Split Window Right' })
+map('n', '<leader>wd', '<C-W>c', { desc = 'Delete Window' })
+Snacks.toggle.zoom():map('<leader>wm'):map('<leader>uZ')
+Snacks.toggle.zen():map('<leader>uz')
+
+-- tabs
+map('n', '<leader><tab>l', '<cmd>tablast<cr>', { desc = 'Last Tab' })
+map('n', '<leader><tab>o', '<cmd>tabonly<cr>', { desc = 'Close Other Tabs' })
+map('n', '<leader><tab>f', '<cmd>tabfirst<cr>', { desc = 'First Tab' })
+map('n', '<leader><tab><tab>', '<cmd>tabnew<cr>', { desc = 'New Tab' })
+map('n', '<leader><tab>]', '<cmd>tabnext<cr>', { desc = 'Next Tab' })
+map('n', '<leader><tab>d', '<cmd>tabclose<cr>', { desc = 'Close Tab' })
+map('n', '<leader><tab>[', '<cmd>tabprevious<cr>', { desc = 'Previous Tab' })
+
+-- lua (Snacks.keymap.set understands the `ft` option, vim.keymap.set does
+-- not)
+Snacks.keymap.set({'n', 'x'}, '<leader>cu', function() Snacks.debug.run() end, { desc = 'Run Lua', ft = 'lua' })
+
+-- stylua: ignore end
+
+-- Rafi's keymaps
+-- ===
+local unmap = function(modes, lhs, opts)
 	modes = type(modes) == 'string' and { modes } or modes
 	lhs = type(lhs) == 'string' and { lhs } or lhs
 	for _, mode in pairs(modes) do
 		for _, l in pairs(lhs) do
-			pcall(vim.keymap.del, mode, l)
+			-- pcall(vim.keymap.del, mode, l)
+			vim.keymap.del(mode, l, opts)
 		end
 	end
 end
@@ -20,7 +243,7 @@ end
 
 -- Picker {{{
 
--- Bind localleader to common LazyVim picker (telescope/fzf/snacks) keymaps.
+-- Bind localleader to common picker (telescope/fzf/snacks) keymaps
 map('n', '<localleader>f', '<leader>ff', { remap = true, desc = 'Find Files (Root Dir)' })
 map('n', '<localleader>F', '<leader>fF', { remap = true, desc = 'Find Files (cwd)' })
 map('n', '<localleader>g', '<leader>sg', { remap = true, desc = 'Grep (Root Dir)' })
@@ -39,7 +262,6 @@ map('n', '<localleader>o', '<leader>so', { remap = true, desc = 'Options' })
 map('n', '<localleader>t', '<leader>ss', { remap = true, desc = 'Goto Symbol' })
 map('n', '<localleader>T', '<leader>sS', { remap = true, desc = 'Goto Symbol (Workspace)' })
 map('n', '<localleader>v', '<leader>s"', { remap = true, desc = 'Registers' })
-map('n', '<localleader>s', '<leader>qS', { remap = true, desc = 'Sessions' })
 map('n', '<localleader>x', '<leader>fr', { remap = true, desc = 'Recent' })
 map('n', '<localleader>X', '<leader>fR', { remap = true, desc = 'Recent (cwd)' })
 map('n', '<localleader>;', '<leader>sc', { remap = true, desc = 'Command History' })
@@ -212,8 +434,14 @@ map('n', '<C-q>', 'q', { desc = 'Macro Prefix' })
 
 -- Formatting
 map('n', '<leader>cid', '<cmd>LazyDev<CR>', { silent = true, desc = 'Dev' })
-map('n', '<leader>cif', '<cmd>LazyFormatInfo<CR>', { silent = true, desc = 'Formatter Info' })
-map('n', '<leader>cir', '<cmd>LazyRoot<CR>', { silent = true, desc = 'Root' })
+map({ 'n', 'x' }, '<leader>cf', function() require('rafi.util.format').format({ force = true }) end, { desc = 'Format' })
+map('n', '<leader>cif', function() require('rafi.util.format').info() end, { desc = 'Formatter Info' })
+require('rafi.util.format').snacks_toggle():map('<leader>uf')
+require('rafi.util.format').snacks_toggle(true):map('<leader>uF')
+vim.api.nvim_create_user_command('RafiRoot', function()
+	require('rafi.util.root').info()
+end, { desc = 'Roots for the current buffer' })
+map('n', '<leader>cir', '<cmd>RafiRoot<CR>', { silent = true, desc = 'Root' })
 map('n', '<leader>cil', function() Snacks.picker.lsp_config() end, { desc = 'LSP Info' })
 map({ 'n', 'x' }, '<leader>cs', function() formatter_select() end, { desc = 'Formatter Select' })
 
@@ -293,18 +521,18 @@ map('n', '<M-s>', '<cmd>write<CR>', { desc = 'Save File' })
 map('n', '<Leader>ce', vim.diagnostic.open_float, { desc = 'Line Diagnostics' })
 
 -- Set locations with diagnostics and open the list.
-map('n', '<Leader>a', function()
-	if vim.bo.filetype ~= 'qf' then
-		vim.diagnostic.setloclist({ open = false })
-	end
-	toggle_list('loclist')
-end, { desc = 'Open Location List' })
+-- map('n', '<Leader>a', function()
+-- 	if vim.bo.filetype ~= 'qf' then
+-- 		vim.diagnostic.setloclist({ open = false })
+-- 	end
+-- 	toggle_list('loclist')
+-- end, { desc = 'Open Location List' })
 
 -- }}}
 -- Plugins & Tools {{{
 
 -- Package-manager
-map('n', '<leader>mx', '<cmd>LazyExtras<cr>', { desc = 'Open Plugin Extras' })
+map('n', '<leader>mx', '<cmd>RafiExtras<cr>', { desc = 'Open Plugin Extras' })
 
 -- Append mode-line to current buffer
 map('n', '<Leader>ml', function() append_modeline() end, { desc = 'Append Modeline' })
@@ -315,7 +543,7 @@ map('n', 'g<C-o>', function() jump_buffer(-1) end, { desc = 'Jump to older buffe
 
 -- Context aware menu. See lua/rafi/config/autocmds.lua
 map('n', '<LocalLeader>c', function()
-	-- Only RightMouse triggers MenuPopup event :(
+	-- Only right-click fires MenuPopup, so fire it here
 	vim.api.nvim_exec_autocmds('MenuPopup', { pattern = 'n', modeline = false })
 	pcall(vim.cmd.popup, 'PopUp')
 end, { desc = 'Context-aware menu' })
@@ -327,7 +555,7 @@ map('x', '<leader>64d', function() base64(false) end, { desc = 'Base64 Decode' }
 -- Lazygit
 if vim.fn.executable('lazygit') == 1 then
 	---@diagnostic disable-next-line: missing-fields
-	map('n', '<leader>gt', function() Snacks.lazygit( { cwd = LazyVim.root.git() }) end, { desc = 'Lazygit (Root Dir)' })
+	map('n', '<leader>gt', function() Snacks.lazygit( { cwd = require('rafi.util.root').git() }) end, { desc = 'Lazygit (Root Dir)' })
 	map('n', '<leader>gT', function() Snacks.lazygit() end, { desc = 'Lazygit (cwd)' })
 end
 
@@ -336,6 +564,10 @@ map({ 'n', 'x' }, '<leader>go', function() Snacks.gitbrowse() end, { desc = 'Git
 
 -- Terminal Mappings
 map('t', '<C-g>', '<C-\\><C-n>', { desc = 'Enter Normal Mode' })
+
+-- todo.md
+map('n', '<Leader>mk', function() require('rafi.util.todo-md').open() end, { desc = 'Open todo.md' })
+map('n', '<Leader>mK', function() require('rafi.util.todo-md').find_snacks() end, { desc = 'Open todo.md' })
 
 if vim.fn.has('mac') then
 	-- Open the macOS dictionary on current word
@@ -417,8 +649,7 @@ end, { desc = 'Delete buffer and open new' })
 -- Source: https://github.com/ibhagwan/fzf-lua/blob/main/lua/fzf-lua/utils.lua
 ---@return string
 function _G.get_visual_selection() -- {{{
-	-- this will exit visual mode
-	-- use 'gv' to reselect the text
+	-- This exits visual mode. Use 'gv' to reselect the text.
 	local _, csrow, cscol, cerow, cecol
 	local mode = vim.fn.mode()
 	local is_visual = vim.tbl_contains({ 'v', 'V', '\22' }, mode)
@@ -489,7 +720,7 @@ function _G.append_modeline() -- {{{
 		end
 	end
 	if not cs then
-		LazyVim.warn('No commentstring found')
+		vim.notify('No commentstring found', vim.log.levels.WARN)
 		return
 	end
 	modeline = string.gsub(cs, '%%s', modeline)
@@ -569,11 +800,11 @@ function _G.formatter_select() -- {{{
 	---@class rafi.Formatter
 	---@field kind string
 	---@field name string
-	---@field client LazyFormatter|{active:boolean,resolved:string[]}
+	---@field client rafi.util.format.Resolved
 
 	---@type rafi.Formatter[]
 	local sources = {}
-	local fmts = LazyVim.format.resolve(buf)
+	local fmts = require('rafi.util.format').resolve(buf)
 	for _, fmt in ipairs(fmts) do
 		vim.tbl_map(function(resolved)
 			table.insert(sources, {
@@ -593,9 +824,13 @@ function _G.formatter_select() -- {{{
 		if source == nil then
 			return
 		end
-		LazyVim.try(function()
-			return source.client.format(bufnr)
-		end, { msg = 'Formatter `' .. source.name .. '` failed' })
+		local ok, err = pcall(source.client.format, bufnr)
+		if not ok then
+			vim.notify(
+				'Formatter `' .. source.name .. '` failed\n' .. tostring(err),
+				vim.log.levels.ERROR
+			)
+		end
 	end
 
 	if total_sources == 1 then

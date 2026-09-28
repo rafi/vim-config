@@ -1,25 +1,14 @@
--- rafi.plugins.extras.lang.helm
---
+-- Helm: helm-ls.nvim filetypes/ftplugin, and helm_ls language server
 
-LazyVim.on_very_lazy(function()
-	vim.filetype.add({
-		pattern = {
-			['.*/templates/.*%.ya?ml'] = 'helm',
-			['.*/templates/.*%.tpl'] = 'helm',
-		},
-	})
-end)
+-- Eager: ftdetect must be sourced before files are read. Its setup() was
+-- never called (conceal, indent hints and action highlight stay off).
+vim.pack.add({ 'https://github.com/qvalentin/helm-ls.nvim' })
 
-return {
-	desc = 'Helm lang extras, common patterns, without towolf/vim-helm.',
-	recommended = function()
-		return LazyVim.extras.wants({
-			ft = 'helm',
-			root = { 'Chart.yaml' },
-		})
-	end,
+vim.filetype.add({
+	pattern = {
+		['.*/templates/.*%.ya?ml'] = 'helm',
+		['.*/templates/.*%.tpl'] = 'helm',
+	},
+})
 
-	{ import = 'lazyvim.plugins.extras.lang.helm' },
-
-	{ 'towolf/vim-helm', enabled = false },
-}
+require('rafi.util.lang').add({ servers = { helm_ls = true } })

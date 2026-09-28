@@ -1,5 +1,6 @@
 *~
 /benchmarks/
+/dev/
 /spell/
 /.stignore
 /.stfolder
@@ -8,3 +9,5 @@
 /lua/lsp/
 /lua/plugins/
 /lua/plugins.lua
+/rafi.json
+/.tests/

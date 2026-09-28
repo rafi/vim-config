@@ -1,17 +1,10 @@
--- rafi.plugins.extras.org.calendar
---
+-- Calendar application with Google Calendar/Tasks sync (calendar.vim)
 
-return {
+vim.g.calendar_google_calendar = 1
+vim.g.calendar_google_task = 1
+vim.g.calendar_cache_directory = vim.fn.stdpath('state') .. '/calendar'
 
-	-----------------------------------------------------------------------------
-	-- Calendar application
-	{
-		'itchyny/calendar.vim',
-		cmd = 'Calendar',
-		init = function()
-			vim.g.calendar_google_calendar = 1
-			vim.g.calendar_google_task = 1
-			vim.g.calendar_cache_directory = vim.fn.stdpath('state') .. '/calendar'
-		end,
-	},
-}
+-- Stub until the plugin's own plugin/calendar.vim redefines it.
+require('rafi.pack').command('Calendar', function()
+	vim.pack.add({ 'https://github.com/itchyny/calendar.vim' })
+end)

@@ -4,9 +4,7 @@
 -- This is part of LazyVim's code, with my modifications.
 -- See: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/util/init.lua
 
-local LazyUtil = require('lazy.core.util')
-
----@class rafi.util: LazyUtilCore
+---@class rafi.util
 ---@field color rafi.util.color
 ---@field cmp rafi.util.cmp
 ---@field preview rafi.util.preview
@@ -18,9 +16,6 @@ local deprecated = {}
 
 setmetatable(M, {
 	__index = function(t, k)
-		if LazyUtil[k] then
-			return LazyUtil[k]
-		end
 		local dep = deprecated[k]
 		if dep then
 			local mod = type(dep) == 'table' and dep[1] or dep
@@ -37,13 +32,20 @@ setmetatable(M, {
 	end,
 })
 
+-- Warn once that `old` was renamed to `new` (was lazy.nvim's util.warn).
 function M.deprecate(old, new)
-	M.warn(('`%s` is deprecated. Please use `%s` instead'):format(old, new), {
-		title = 'Rafi',
-		once = true,
-		stacktrace = true,
-		stacklevel = 6,
-	})
+	vim.notify_once(
+		('`%s` is deprecated. Please use `%s` instead'):format(old, new),
+		vim.log.levels.WARN,
+		{ title = 'Rafi' }
+	)
+end
+
+-- Statuscolumn expression: snacks' statuscolumn once snacks is loaded, else
+-- empty, so windows drawn before snacks (or with it disabled) don't error.
+---@return string
+function M.statuscolumn()
+	return package.loaded.snacks and require('snacks.statuscolumn').get() or ''
 end
 
 return M

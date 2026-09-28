@@ -1,17 +1,12 @@
-return {
+-- Align text interactively
+local pack = require('rafi.pack')
 
-	-- Align text interactively
-	{
-		'nvim-mini/mini.align',
-		opts = {
-			mappings = {
-				start = 'gb',
-				start_with_preview = 'gB',
-			},
+pack.later(function()
+	vim.pack.add({ 'https://github.com/nvim-mini/mini.align' })
+	require('mini.align').setup({
+		mappings = {
+			start = 'gb',
+			start_with_preview = 'gB',
 		},
-		keys = {
-			{ 'gb', mode = { 'n', 'x' } },
-			{ 'gB', mode = { 'n', 'x' } },
-		},
-	},
-}
+	})
+end)

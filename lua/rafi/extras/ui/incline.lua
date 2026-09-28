@@ -1,13 +1,11 @@
-return {
+-- Floating statuslines
+local pack = require('rafi.pack')
 
-	-- Floating statuslines
-	{
-		'b0o/incline.nvim',
-		event = 'FileType',
-		opts = {
-			ignore = {
-				filetypes = { 'gitcommit' },
-			},
+pack.on_event('FileType', function()
+	vim.pack.add({ 'https://github.com/b0o/incline.nvim' })
+	require('incline').setup({
+		ignore = {
+			filetypes = { 'gitcommit' },
 		},
-	},
-}
+	})
+end)

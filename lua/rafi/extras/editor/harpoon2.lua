@@ -1,32 +1,52 @@
-return {
+-- Marks for navigating your project
+-- Derived from LazyVim (Apache-2.0), modified for this config:
+-- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/editor/harpoon2.lua
+local menu_width = vim.api.nvim_win_get_width(0) - 4
 
-	-- Marks for navigating your project
-	{
-		'ThePrimeagen/harpoon',
-		branch = 'harpoon2',
-		opts = {
-			menu = {
-				width = vim.api.nvim_win_get_width(0) - 4,
-			},
-			settings = {
-				save_on_toggle = true,
-			},
-		},
-		-- stylua: ignore
-		keys = {
-			{ '<local>h', function()
-				local harpoon = require('harpoon')
-				harpoon.ui:toggle_quick_menu(harpoon:list())
-			end, desc = 'List locations' },
-			{ '<leader>H', function() require('harpoon'):list():add() end, desc = 'Add Location' },
-			{ '<leader>mr', function() require('harpoon'):list():remove() end, desc = 'Remove Location' },
-			{ '<C-n>', function() require('harpoon'):list():next() end, desc = 'Next Location' },
-			{ '<C-p>', function() require('harpoon'):list():prev() end, desc = 'Previous Location' },
-			{ '<localleader>1', function() require('harpoon'):list():select(1) end, desc = 'Harpoon to File 1' },
-			{ '<localleader>2', function() require('harpoon'):list():select(2) end, desc = 'Harpoon to File 2' },
-			{ '<localleader>3', function() require('harpoon'):list():select(3) end, desc = 'Harpoon to File 3' },
-			{ '<localleader>4', function() require('harpoon'):list():select(4) end, desc = 'Harpoon to File 4' },
-			{ '<localleader>5', function() require('harpoon'):list():select(5) end, desc = 'Harpoon to File 5' },
-		},
-	},
-}
+local loaded = false
+local function load()
+	if loaded then
+		return
+	end
+	loaded = true
+	-- harpoon2 (the `harpoon2` branch) requires plenary.nvim (`plenary.path`)
+	-- but doesn't declare it. Add it explicitly instead of relying on other
+	-- core files happening to have added it first.
+	vim.pack.add({
+		'https://github.com/nvim-lua/plenary.nvim',
+		{ src = 'https://github.com/ThePrimeagen/harpoon', version = 'harpoon2' },
+	})
+	require('harpoon').setup({
+		menu = { width = menu_width },
+		settings = { save_on_toggle = true },
+	})
+end
+
+-- Core keymaps (rafi.config.keymaps) map <localleader>h to Help Pages on
+-- `later`, after this file runs. Re-apply on RafiKeymaps so harpoon wins,
+-- while lua/config/keymaps.lua (which runs after) can still override it.
+vim.api.nvim_create_autocmd('User', {
+	pattern = 'RafiKeymaps',
+	once = true,
+	callback = function()
+		vim.keymap.set('n', '<localleader>h', function()
+			load()
+			local harpoon = require('harpoon')
+			harpoon.ui:toggle_quick_menu(harpoon:list())
+		end, { desc = 'List locations' })
+	end,
+})
+
+-- stylua: ignore start
+vim.keymap.set('n', '<leader>H', function() load() require('harpoon'):list():add() end, { desc = 'Add Location' })
+vim.keymap.set('n', '<leader>mr', function() load() require('harpoon'):list():remove() end, { desc = 'Remove Location' })
+vim.keymap.set('n', '<C-n>', function() load() require('harpoon'):list():next() end, { desc = 'Next Location' })
+vim.keymap.set('n', '<C-p>', function() load() require('harpoon'):list():prev() end, { desc = 'Previous Location' })
+-- stylua: ignore end
+
+for i = 1, 5 do
+	vim.keymap.set('n', '<localleader>' .. i, function()
+		load()
+		require('harpoon'):list():select(i)
+	end, { desc = 'Harpoon to File ' .. i })
+end

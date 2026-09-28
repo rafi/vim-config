@@ -1,46 +1,76 @@
 -- Rafi's Neovim autocmds
 -- https://github.com/rafi/vim-config
 -- ===
+-- Derived from LazyVim (Apache-2.0), modified for this config:
+-- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 
--- This file is automatically loaded by lua/rafi/config/lazy.lua
--- Extends $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/config/autocmds.lua
-
-vim.api.nvim_del_augroup_by_name('lazyvim_last_loc')
+-- This file is automatically loaded by rafi.config.setup() (init.lua)
 
 local function augroup(name)
 	return vim.api.nvim_create_augroup('rafi.' .. name, { clear = true })
 end
 
--- Go to last loc when opening a buffer, see ':h last-position-jump'
-vim.api.nvim_create_autocmd('BufReadPost', {
-	group = augroup('last_loc'),
-	callback = function(event)
-		local exclude = { 'gitcommit', 'commit', 'gitrebase' }
-		local buf = event.buf
-		if
-			vim.tbl_contains(exclude, vim.bo[buf].filetype)
-			or vim.b[buf].lazyvim_last_loc
-		then
-			return
-		end
-		vim.b[buf].lazyvim_last_loc = true
-		local mark = vim.api.nvim_buf_get_mark(buf, '"')
-		local lcount = vim.api.nvim_buf_line_count(buf)
-		if mark[1] > 0 and mark[1] <= lcount then
-			pcall(vim.api.nvim_win_set_cursor, 0, mark)
+-- General autocmds
+-- ===
+
+-- Reload the file when it changed outside Neovim
+vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
+	group = augroup('checktime'),
+	callback = function()
+		if vim.o.buftype ~= 'nofile' then
+			vim.cmd('checktime')
 		end
 	end,
 })
 
--- Close some filetypes with <q>
+-- Highlight on yank
+vim.api.nvim_create_autocmd('TextYankPost', {
+	group = augroup('highlight_yank'),
+	callback = function()
+		if vim.fn.has('nvim-0.13') == 1 then
+			vim.hl.hl_op()
+		else
+			---@diagnostic disable-next-line: deprecated
+			(vim.hl or vim.highlight).on_yank()
+		end
+	end,
+})
+
+-- Resize splits when the window is resized
+vim.api.nvim_create_autocmd({ 'VimResized' }, {
+	group = augroup('resize_splits'),
+	callback = function()
+		local current_tab = vim.fn.tabpagenr()
+		vim.cmd('tabdo wincmd =')
+		vim.cmd('tabnext ' .. current_tab)
+	end,
+})
+
+-- Close some filetypes with <q>. Includes rafi's (blame, fugitive,
+-- fugitiveblame, httpResult).
 vim.api.nvim_create_autocmd('FileType', {
 	group = augroup('close_with_q'),
 	pattern = {
+		'PlenaryTestPopup',
 		'blame',
+		'checkhealth',
+		'dap-float',
+		'dbout',
 		'fugitive',
 		'fugitiveblame',
+		'gitsigns-blame',
+		'grug-far',
+		'help',
 		'httpResult',
 		'lspinfo',
+		'neotest-output',
+		'neotest-output-panel',
+		'neotest-summary',
+		'notify',
+		'qf',
+		'spectre_panel',
+		'startuptime',
+		'tsplayground',
 	},
 	callback = function(event)
 		vim.bo[event.buf].buflisted = false
@@ -54,6 +84,71 @@ vim.api.nvim_create_autocmd('FileType', {
 				desc = 'Quit buffer',
 			})
 		end)
+	end,
+})
+
+-- Make man pages opened inline easier to close
+vim.api.nvim_create_autocmd('FileType', {
+	group = augroup('man_unlisted'),
+	pattern = { 'man' },
+	callback = function(event)
+		vim.bo[event.buf].buflisted = false
+	end,
+})
+
+-- Wrap and check spelling in text filetypes
+vim.api.nvim_create_autocmd('FileType', {
+	group = augroup('wrap_spell'),
+	pattern = { 'text', 'plaintex', 'typst', 'gitcommit', 'markdown' },
+	callback = function()
+		vim.opt_local.wrap = true
+		vim.opt_local.spell = true
+	end,
+})
+
+-- Fix conceallevel for json files
+vim.api.nvim_create_autocmd({ 'FileType' }, {
+	group = augroup('json_conceal'),
+	pattern = { 'json', 'jsonc', 'json5' },
+	callback = function()
+		vim.opt_local.conceallevel = 0
+	end,
+})
+
+-- Auto create dir when saving a file, in case some intermediate directory
+-- does not exist
+vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
+	group = augroup('auto_create_dir'),
+	callback = function(event)
+		if event.match:match('^%w%w+:[\\/][\\/]') then
+			return
+		end
+		local file = vim.uv.fs_realpath(event.match) or event.match
+		vim.fn.mkdir(vim.fn.fnamemodify(file, ':p:h'), 'p')
+	end,
+})
+
+-- Rafi's autocmds
+-- ===
+
+-- Go to last loc when opening a buffer, see ':h last-position-jump'
+vim.api.nvim_create_autocmd('BufReadPost', {
+	group = augroup('last_loc'),
+	callback = function(event)
+		local exclude = { 'gitcommit', 'commit', 'gitrebase' }
+		local buf = event.buf
+		if
+			vim.tbl_contains(exclude, vim.bo[buf].filetype)
+			or vim.b[buf].rafi_last_loc
+		then
+			return
+		end
+		vim.b[buf].rafi_last_loc = true
+		local mark = vim.api.nvim_buf_get_mark(buf, '"')
+		local lcount = vim.api.nvim_buf_line_count(buf)
+		if mark[1] > 0 and mark[1] <= lcount then
+			pcall(vim.api.nvim_win_set_cursor, 0, mark)
+		end
 	end,
 })
 
@@ -98,14 +193,16 @@ vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufReadPre' }, {
 		'/private/tmp/*',
 	},
 	callback = function()
-		vim.opt_local.undolevels = -1    -- Disables undo entirely
-		vim.opt_local.undofile = false   -- Prevents writing undo history to disk
-		vim.opt_local.swapfile = false   -- Disables swap file creation
-		vim.opt_local.backup = false     -- Disables backup file creation
-		vim.opt_local.shada = ''         -- Prevents history from being saved to ShAda
+		vim.opt_local.undolevels = -1 -- Disables undo entirely
+		vim.opt_local.undofile = false -- Prevents writing undo history to disk
+		vim.opt_local.swapfile = false -- Disables swap file creation
+		vim.opt_local.backup = false -- Disables backup file creation
+		vim.opt_local.shada = '' -- Prevents history from being saved to ShAda
 		vim.opt_local.writebackup = false
 		vim.opt_local.shelltemp = false
 		vim.opt_local.history = 0
+		-- vim.opt_global.backup = false
+		-- vim.opt_global.writebackup = false
 	end,
 })
 
@@ -131,7 +228,7 @@ vim.api.nvim_create_autocmd('MenuPopup', {
 			anoremenu PopUp.Configure\ Diagnostics  <cmd>help vim.diagnostic.config()<CR>
 			anoremenu PopUp.-2-                     <Nop>
 			anoremenu PopUp.Find\ symbol            <cmd>lua require'telescope.builtin'.lsp_workspace_symbols({default_text = vim.fn.expand('<cword>')})<CR>
-			anoremenu PopUp.Grep                    <cmd>lua LazyVim.pick('live_grep', { pattern = vim.fn.expand('<cword>') })()<CR>
+			anoremenu PopUp.Grep                    <cmd>lua require('rafi.util.pick')('live_grep', { pattern = vim.fn.expand('<cword>') })()<CR>
 			anoremenu PopUp.TODOs                   <cmd>TodoTrouble<CR>
 			anoremenu PopUp.Bookmarks               <cmd>lua require'bookmarks'.bookmark_list()<CR>
 			anoremenu PopUp.LazyGit                 <cmd>lua Snacks.lazygit()<CR>
@@ -151,38 +248,62 @@ vim.api.nvim_create_autocmd('MenuPopup', {
 		-- LSP
 		-- ===
 
-		if cword == '' or not vim.lsp.get_clients({ bufnr = 0, method = 'textDocument/definition' }) then
+		if
+			cword == ''
+			or not vim.lsp.get_clients({
+				bufnr = 0,
+				method = 'textDocument/definition',
+			})
+		then
 			vim.cmd([[amenu disable PopUp.Definition]])
 		end
-		if cword == '' or not vim.lsp.get_clients({ bufnr = 0, method = 'textDocument/references' }) then
+		if
+			cword == ''
+			or not vim.lsp.get_clients({
+				bufnr = 0,
+				method = 'textDocument/references',
+			})
+		then
 			vim.cmd([[amenu disable PopUp.References]])
 		end
-		if cword == '' or not vim.lsp.get_clients({ bufnr = 0, method = 'textDocument/implementation' }) then
+		if
+			cword == ''
+			or not vim.lsp.get_clients({
+				bufnr = 0,
+				method = 'textDocument/implementation',
+			})
+		then
 			vim.cmd([[amenu disable PopUp.Implementation]])
 		end
-		if cword == '' or not vim.lsp.get_clients({ bufnr = 0, method = 'textDocument/declaration' }) then
+		if
+			cword == ''
+			or not vim.lsp.get_clients({
+				bufnr = 0,
+				method = 'textDocument/declaration',
+			})
+		then
 			vim.cmd([[amenu disable PopUp.Declaration]])
 		end
 
 		-- Plugins
 		-- ===
 
-		if cword == '' or not LazyVim.has('telescope.nvim') then
+		if cword == '' or not require('rafi.pack').has('telescope.nvim') then
 			vim.cmd([[amenu disable PopUp.Find\ symbol]])
 		end
-		if cword == '' or not LazyVim.has_extra('editor.snacks_explorer') then
+		if cword == '' then
 			vim.cmd([[amenu disable PopUp.Grep]])
 		end
-		if not LazyVim.has('trouble.nvim') then
+		if not require('rafi.pack').has('trouble.nvim') then
 			vim.cmd([[amenu disable PopUp.Diagnostics\ (Trouble)]])
 		end
-		if not LazyVim.has('todo-comments.nvim') then
+		if not require('rafi.pack').has('todo-comments.nvim') then
 			vim.cmd([[amenu disable PopUp.TODOs]])
 		end
-		if not LazyVim.has('bookmarks.nvim') then
+		if not require('rafi.pack').has('bookmarks.nvim') then
 			vim.cmd([[amenu disable PopUp.Bookmarks]])
 		end
-		if not LazyVim.has('snacks.nvim') then
+		if not _G.Snacks then
 			vim.cmd([[
 				amenu disable PopUp.LazyGit
 				amenu disable PopUp.Open\ Git\ in\ browser

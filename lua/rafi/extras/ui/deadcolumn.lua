@@ -1,10 +1,8 @@
-return {
-	recommended = true,
+-- Show colorcolumn dynamically
+local pack = require('rafi.pack')
 
-	-- Show colorcolumn dynamically
-	'Bekaboo/deadcolumn.nvim',
-	event = { 'BufReadPre', 'BufNewFile' },
-	opts = {
-		scope = 'visible',
-	},
-}
+pack.on_event('BufReadPre,BufNewFile', function()
+	-- Its plugin/ calls setup() with defaults, so call it again with opts.
+	vim.pack.add({ 'https://github.com/Bekaboo/deadcolumn.nvim' })
+	require('deadcolumn').setup({ scope = 'visible' })
+end)

@@ -87,7 +87,8 @@ function M.apply_contrast(highlight, threshold)
 		contranst_change_step = -contranst_change_step
 	end
 
-	-- Don't waste too much time here max 25 iteration should be more than enough
+	-- Don't waste too much time here, max 25 iterations should be more than
+	-- enough
 	local iteration_count = 1
 	while
 		math.abs(M.get_color_avg(highlight.fg) - hightlight_bg_avg)
@@ -99,14 +100,30 @@ function M.apply_contrast(highlight, threshold)
 	end
 end
 
--- Change brightness of colors
--- Darken if light theme (or) Lighten if dark theme
+-- Darken colors on a light theme, lighten them on a dark one.
 function M.apply_brightness(color, base_color, brightness_modifier_parameter)
 	if base_color ~= nil then
 		if M.get_color_brightness(base_color) > 0.5 then
 			brightness_modifier_parameter = -brightness_modifier_parameter
 		end
 		return M.brightness_modifier(color, brightness_modifier_parameter)
+	end
+end
+
+-- Returns a highlight group's color as #rrggbb, e.g. its 'fg' (default) or
+-- 'bg', following links. With a list of groups, the first one that sets the
+-- property wins. Same as Snacks.util.color, so the statusline doesn't need
+-- snacks to build its theme.
+---@param group string|string[]
+---@param prop? string
+---@return string?
+function M.get(group, prop)
+	prop = prop or 'fg'
+	for _, name in ipairs(type(group) == 'table' and group or { group }) do
+		local hl = vim.api.nvim_get_hl(0, { name = name, link = false })
+		if hl[prop] then
+			return ('#%06x'):format(hl[prop])
+		end
 	end
 end
 

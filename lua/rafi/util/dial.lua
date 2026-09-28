@@ -1,0 +1,159 @@
+-- dial.nvim helpers
+-- https://github.com/rafi/vim-config
+-- Derived from LazyVim (Apache-2.0), modified for this config:
+-- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/editor/dial.lua
+
+local M = {}
+
+---@param increment boolean
+---@param g? boolean
+function M.dial(increment, g)
+	local mode = vim.fn.mode(true)
+	-- Use visual commands for VISUAL 'v', VISUAL LINE 'V' and VISUAL BLOCK '\22'
+	local is_visual = mode == 'v' or mode == 'V' or mode == '\22'
+	local func = (increment and 'inc' or 'dec')
+		.. (g and '_g' or '_')
+		.. (is_visual and 'visual' or 'normal')
+	local group = (vim.g.dials_by_ft or {})[vim.bo.filetype] or 'default'
+	return require('dial.map')[func](group)
+end
+
+---Augend groups per filetype-group, and filetype to group mapping.
+---@return { dials_by_ft: table<string, string>, groups: table<string, table> }
+function M.opts()
+	local augend = require('dial.augend')
+
+	local logical_alias = augend.constant.new({
+		elements = { '&&', '||' },
+		word = false,
+		cyclic = true,
+	})
+
+	local ordinal_numbers = augend.constant.new({
+		-- Increment goes down the list, decrement goes up.
+		elements = {
+			'first',
+			'second',
+			'third',
+			'fourth',
+			'fifth',
+			'sixth',
+			'seventh',
+			'eighth',
+			'ninth',
+			'tenth',
+		},
+		-- if true, it only matches strings with word boundary. firstDate wouldn't
+		-- work for example
+		word = false,
+		-- do we cycle back and forth (tenth to first on increment, first to tenth
+		-- on decrement). Otherwise nothing will happen when there are no further
+		-- values
+		cyclic = true,
+	})
+
+	local months = augend.constant.new({
+		elements = {
+			'January',
+			'February',
+			'March',
+			'April',
+			'May',
+			'June',
+			'July',
+			'August',
+			'September',
+			'October',
+			'November',
+			'December',
+		},
+		word = true,
+		cyclic = true,
+	})
+
+	return {
+		dials_by_ft = {
+			css = 'css',
+			vue = 'vue',
+			javascript = 'typescript',
+			typescript = 'typescript',
+			typescriptreact = 'typescript',
+			javascriptreact = 'typescript',
+			json = 'json',
+			lua = 'lua',
+			markdown = 'markdown',
+			sass = 'css',
+			scss = 'css',
+			python = 'python',
+		},
+		groups = {
+			default = {
+				augend.integer.alias.decimal, -- nonnegative decimal (0, 1, 2, ...)
+				augend.integer.alias.decimal_int, -- decimal, also negative
+				augend.integer.alias.hex, -- hex number (0x01, 0x1a1f)
+				augend.date.alias['%Y/%m/%d'], -- date (2022/02/19, etc.)
+				augend.constant.alias.en_weekday, -- Mon, Tue, ..., Sat, Sun
+				augend.constant.alias.en_weekday_full, -- Monday, ..., Sunday
+				ordinal_numbers,
+				months,
+				augend.constant.alias.bool, -- boolean value (true <-> false)
+				augend.constant.alias.Bool, -- boolean value (True <-> False)
+				logical_alias,
+			},
+			vue = {
+				augend.constant.new({ elements = { 'let', 'const' } }),
+				augend.hexcolor.new({ case = 'lower' }),
+				augend.hexcolor.new({ case = 'upper' }),
+			},
+			typescript = {
+				augend.constant.new({ elements = { 'let', 'const' } }),
+			},
+			css = {
+				augend.hexcolor.new({
+					case = 'lower',
+				}),
+				augend.hexcolor.new({
+					case = 'upper',
+				}),
+			},
+			markdown = {
+				augend.constant.new({
+					elements = { '[ ]', '[x]' },
+					word = false,
+					cyclic = true,
+				}),
+				augend.misc.alias.markdown_header,
+			},
+			json = {
+				augend.semver.alias.semver, -- versioning (v1.1.2)
+			},
+			lua = {
+				augend.constant.new({
+					elements = { 'and', 'or' },
+					word = true, -- if false, "sand" becomes "sor"
+					cyclic = true, -- "or" is incremented into "and".
+				}),
+			},
+			python = {
+				augend.constant.new({
+					elements = { 'and', 'or' },
+				}),
+			},
+		},
+	}
+end
+
+---Register augend groups and set vim.g.dials_by_ft.
+function M.setup()
+	local opts = M.opts()
+	-- copy defaults to each group
+	for name, group in pairs(opts.groups) do
+		if name ~= 'default' then
+			vim.list_extend(group, opts.groups.default)
+		end
+	end
+	require('dial.config').augends:register_group(opts.groups)
+	vim.g.dials_by_ft = opts.dials_by_ft
+end
+
+return M

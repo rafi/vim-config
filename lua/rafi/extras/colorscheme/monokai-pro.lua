@@ -1,11 +1,14 @@
-return {
+-- Monokai Pro colorscheme, with several filter variants
 
-	-- Monokai Pro theme with multiple filters: Pro, Classic, Machine, Octagon,
-	-- Ristretto, Spectrum.
-	{
-		'loctvl842/monokai-pro.nvim',
-		lazy = false,
-		opts = {
+-- Eager: only adds colors/ to runtimepath, for theme-loader to find.
+vim.pack.add({ 'https://github.com/loctvl842/monokai-pro.nvim' })
+
+-- Configure right before the colorscheme is first applied.
+vim.api.nvim_create_autocmd('ColorSchemePre', {
+	pattern = 'monokai-pro*',
+	once = true,
+	callback = function()
+		require('monokai-pro').setup({
 			filter = 'pro', -- classic | octagon | pro | machine | ristretto | spectrum
 			plugins = {
 				bufferline = {
@@ -17,6 +20,6 @@ return {
 					context_start_underline = false,
 				},
 			},
-		},
-	},
-}
+		})
+	end,
+})

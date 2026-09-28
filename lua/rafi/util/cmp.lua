@@ -30,7 +30,10 @@ local function get_snippet_client()
 			if filter and filter.direction then
 				return luasnip.locally_jumpable(filter.direction)
 			end
-			LazyVim.error('luasnip.active: opts.direction is required')
+			vim.notify(
+				'luasnip.active: opts.direction is required',
+				vim.log.levels.ERROR
+			)
 		end
 	end
 	return luasnip
