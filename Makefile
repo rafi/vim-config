@@ -70,11 +70,7 @@ check:
 
 .PHONY: test
 test:
-	$(info Testing for NVIM >= 0.11.2)
-	$(if $(shell nvim --version | egrep 'NVIM v0\.1[1-9]\.'),\
-		$(info OK),\
-		$(error   .. You need Neovim 0.11.2 or newer))
-	@echo All tests passed, hooray!
+	nvim -l tests/minit.lua --minitest $(SPEC)
 
 .PHONY: docker
 docker:
