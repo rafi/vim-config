@@ -43,14 +43,17 @@ vim.keymap.set('n', 'O', 'h?|\\S\\+|<CR>:nohlsearch<CR>', opts)
 vim.keymap.set('n', 'p', '/\\*\\S\\+\\*<CR>:nohlsearch<CR>', opts)
 vim.keymap.set('n', 'P', 'h?\\*\\S\\+\\*<CR>:nohlsearch<CR>', opts)
 
-vim.b.undo_ftplugin = (vim.b.undo_ftplugin or '') .. '\n '
-	.. 'setlocal spell< list<'
-	.. ' | sil! nunmap <buffer> <CR>'
-	.. ' | sil! nunmap <buffer> <BS>'
-	.. ' | sil! nunmap <buffer> <Leader>o'
-	.. ' | sil! nunmap <buffer> <Tab>'
-	.. ' | sil! nunmap <buffer> <S-Tab>'
-	.. ' | sil! nunmap <buffer> o'
-	.. ' | sil! nunmap <buffer> O'
-	.. ' | sil! nunmap <buffer> p'
-	.. ' | sil! nunmap <buffer> P'
+vim.b.undo_ftplugin = (vim.b.undo_ftplugin or '')
+	.. '\n'
+	.. table.concat({
+		'setlocal spell< list<',
+		'sil! nunmap <buffer> <CR>',
+		'sil! nunmap <buffer> <BS>',
+		'sil! nunmap <buffer> <Leader>o',
+		'sil! nunmap <buffer> <Tab>',
+		'sil! nunmap <buffer> <S-Tab>',
+		'sil! nunmap <buffer> o',
+		'sil! nunmap <buffer> O',
+		'sil! nunmap <buffer> p',
+		'sil! nunmap <buffer> P',
+	}, '\n')

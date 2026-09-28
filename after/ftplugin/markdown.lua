@@ -1,6 +1,8 @@
 -- Markdown utilities
 --
 
+vim.opt_local.expandtab = true
+
 -- Surround visual-selection or word under cursor with markdown link.
 local function link_surround()
 	local mode = vim.fn.mode()
@@ -48,7 +50,10 @@ end
 local opts = { noremap = true, buffer = 0 }
 vim.keymap.set({ 'n', 'x' }, '<C-Return>', link_surround, opts)
 
+-- Separate with newlines, not ` | `: `:unmap` keeps the space before `|` in
+-- its {lhs} (`:h map-trailing-white`), so it fails with E31 (hidden by
+-- `silent!`, but still sets `v:errmsg`) on a second FileType markdown.
 vim.b.undo_ftplugin = (vim.b.undo_ftplugin or '')
-	.. '\n '
+	.. '\n'
 	.. 'sil! nunmap <buffer> <C-Return>'
-	.. ' | sil! xunmap <buffer> <C-Return>'
+	.. '\nsil! xunmap <buffer> <C-Return>'
