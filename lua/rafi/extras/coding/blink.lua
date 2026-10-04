@@ -1,4 +1,6 @@
 -- Code completion with blink.cmp
+-- Derived from LazyVim (Apache-2.0), modified for this config:
+-- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/coding/blink.lua
 local pack = require('rafi.pack')
 
 pack.on_event('InsertEnter,CmdlineEnter', function()
@@ -47,7 +49,7 @@ pack.on_event('InsertEnter,CmdlineEnter', function()
 				lazydev = {
 					name = 'LazyDev',
 					module = 'lazydev.integrations.blink',
-					score_offset = 100, -- show at a higher priority than lsp
+					score_offset = 100, -- above LSP items
 				},
 			},
 		},
@@ -85,6 +87,9 @@ pack.on_event('InsertEnter,CmdlineEnter', function()
 			},
 		},
 	}
+	if vim.g.cmp_supertab then
+		opts.keymap = vim.tbl_extend('force', opts.keymap, blink.supertab())
+	end
 
 	require('blink.cmp').setup(opts)
 end)

@@ -1,5 +1,6 @@
 -- Util: blink.cmp helpers (keymap actions, native snippet expansion)
--- Based on LazyVim's lazyvim.util.cmp
+-- Derived from LazyVim (Apache-2.0), modified for this config:
+-- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/util/cmp.lua
 
 ---@class rafi.util.blink
 local M = {}
@@ -42,6 +43,50 @@ function M.map(actions, fallback)
 	end
 end
 
+-- Whether a non-blank character is right before the cursor.
+---@return boolean
+function M.has_words_before()
+	local col = vim.fn.col('.') - 1
+	return col > 0 and vim.fn.getline('.'):sub(col, col):match('%s') == nil
+end
+
+-- Runs fn only in insert mode, so select mode gets just the snippet jumps.
+---@param fn fun(cmp: blink.cmp.API): boolean?
+---@return fun(cmp: blink.cmp.API): boolean?
+local function insert_only(fn)
+	return function(cmp)
+		if vim.fn.mode():sub(1, 1) == 'i' then
+			return fn(cmp)
+		end
+	end
+end
+
+-- Supertab <Tab>/<S-Tab>: menu item, snippet jump, AI, show, fallback.
+-- Snippet commands stay strings so blink.cmp also maps them in select mode.
+---@return table<string, blink.cmp.KeymapCommand[]>
+function M.supertab()
+	return {
+		['<Tab>'] = {
+			insert_only(function(cmp)
+				return cmp.is_menu_visible() and cmp.select_next()
+			end),
+			'snippet_forward',
+			insert_only(M.map({ 'ai_nes', 'ai_accept' })),
+			insert_only(function(cmp)
+				return M.has_words_before() and cmp.show()
+			end),
+			'fallback',
+		},
+		['<S-Tab>'] = {
+			insert_only(function(cmp)
+				return cmp.is_menu_visible() and cmp.select_prev()
+			end),
+			'snippet_backward',
+			'fallback',
+		},
+	}
+end
+
 ---@alias Placeholder {n:number, text:string}
 
 ---@param snippet string
@@ -82,10 +127,7 @@ end
 -- Expand with vim.snippet, auto-fixing snippets that fail to parse.
 ---@param snippet string
 function M.expand(snippet)
-	-- Native sessions don't support nested snippet sessions.
-	-- Always use the top-level session.
-	-- Otherwise, when on the first placeholder and selecting a new completion,
-	-- the nested session will be used instead of the top-level session.
+	-- Keep the top-level session. vim.snippet can't nest sessions.
 	-- See: https://github.com/LazyVim/LazyVim/issues/3199
 	local session = vim.snippet.active() and vim.snippet._session or nil
 

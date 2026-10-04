@@ -1,12 +1,13 @@
 -- Rafi's Neovim options
 -- https://github.com/rafi/vim-config
 -- ===
+-- Derived from LazyVim (Apache-2.0), modified for this config:
+-- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 
 -- This file is automatically loaded by rafi.config.setup() (init.lua)
 
--- From LazyVim config/options.lua (folded in, LazyVim removed)
 -- ===
--- LazyVim's defaults come first; the rafi options further below override them.
+-- Rafi's options further below override these.
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = '\\'
@@ -14,17 +15,16 @@ vim.g.maplocalleader = '\\'
 -- Auto format on save (rafi.util.format)
 vim.g.autoformat = true
 
--- Snacks animations
--- Set to `false` to globally disable all snacks animations
+-- Snacks animations. Set to `false` to disable all of them.
 vim.g.snacks_animate = true
 
--- LazyVim removed: picker/completion engine selection, rafi has only one each.
--- vim.g.lazyvim_picker = 'auto'
--- vim.g.lazyvim_cmp = 'auto'
-
--- if the completion engine supports the AI source,
--- use that instead of inline suggestions
+-- Use the AI completion source instead of inline suggestions, when the
+-- completion engine supports it
 vim.g.ai_cmp = true
+
+-- <Tab> selects completion items, jumps in snippets and opens completion.
+-- false keeps <Tab> for snippet jumps and AI actions only.
+vim.g.cmp_supertab = true
 
 -- Root dir detection (rafi.util.root)
 -- Each entry can be:
@@ -33,23 +33,18 @@ vim.g.ai_cmp = true
 -- * a function with signature `function(buf) -> string|string[]`
 vim.g.root_spec = { 'lsp', { '.git', 'lua' }, 'cwd' }
 
--- LazyVim removed: terminal shell setup (pwsh/powershell), never enabled.
--- LazyVim.terminal.setup('pwsh')
-
--- Set LSP servers to be ignored when used with `util.root.detectors.lsp`
--- for detecting the LSP root
+-- LSP servers ignored by root detection
 vim.g.root_lsp_ignore = { 'copilot' }
 
 -- Hide deprecation warnings
 vim.g.deprecation_warnings = false
 
--- Show the current document symbols location from Trouble in lualine
--- You can disable this for a buffer by setting `vim.b.trouble_lualine = false`
+-- Show document symbols location from Trouble in lualine.
+-- Disable per buffer with `vim.b.trouble_lualine = false`.
 vim.g.trouble_lualine = true
 
 vim.opt.autowrite = true -- Enable auto write
--- only set clipboard if not in ssh, to make sure the OSC 52
--- integration works automatically.
+-- Skip clipboard over SSH, so the OSC 52 integration works.
 vim.opt.clipboard = vim.env.SSH_CONNECTION and '' or 'unnamedplus' -- Sync with system clipboard
 vim.opt.completeopt = 'menu,menuone,noselect'
 vim.opt.conceallevel = 2 -- Hide * markup for bold and italic, but not markers with substitutions
@@ -67,7 +62,7 @@ vim.opt.fillchars = {
 vim.opt.foldlevel = 99
 vim.opt.foldmethod = 'indent'
 vim.opt.foldtext = ''
--- vim.opt.formatexpr is set in the rafi section below.
+-- formatexpr is set in the rafi section below.
 vim.opt.formatoptions = 'jcroqlnt' -- tcqj
 vim.opt.grepformat = '%f:%l:%c:%m'
 vim.opt.grepprg = 'rg --vimgrep'
@@ -121,8 +116,7 @@ vim.opt.wrap = false -- Disable line wrap
 
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
--- Disable markdown.vim [[/]] keymaps, already set in
--- $VIMRUNTIME/ftplugin/markdown.lua
+-- Disable markdown.vim [[/]] keymaps, the built-in ftplugin sets them
 vim.g.no_markdown_maps = 1
 
 -- Rafi's options
@@ -145,7 +139,7 @@ vim.opt.formatexpr = "v:lua.require'rafi.util.format'.formatexpr()"
 -- Add user pack directory
 vim.opt.packpath:append(vim.fn.stdpath('data') .. '/site')
 
--- Builtin plugins not needed (lazy.nvim's rtp.disabled_plugins, before).
+-- Disable unused builtin plugins
 for _, name in ipairs({
 	'gzip',
 	'matchit',
@@ -311,9 +305,7 @@ vim.filetype.add({
 	},
 })
 
--- The deferred clipboard save/blank/restore (to skip pbcopy/xsel's startup
--- cost) lives in rafi.config.setup() (lua/rafi/config/init.lua), not here:
--- it must run after lua/config/options.lua loads, so a user override of
--- `clipboard` survives the restore instead of being clobbered by it.
+-- The clipboard is set after startup in rafi.config.setup(), so that a
+-- user override in lua/config/options.lua is kept.
 
 -- vim: set ts=2 sw=0 tw=80 noet :

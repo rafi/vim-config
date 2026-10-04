@@ -1,12 +1,10 @@
 -- Util: Init
 -- https://github.com/rafi/vim-config
-
--- This is part of LazyVim's code, with my modifications.
--- See: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/util/init.lua
+-- Derived from LazyVim (Apache-2.0), modified for this config:
+-- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/util/init.lua
 
 ---@class rafi.util
 ---@field color rafi.util.color
----@field cmp rafi.util.cmp
 ---@field preview rafi.util.preview
 ---@field lualine rafi.util.lualine
 local M = {}
@@ -32,7 +30,7 @@ setmetatable(M, {
 	end,
 })
 
--- Warn once that `old` was renamed to `new` (was lazy.nvim's util.warn).
+-- Warn once that `old` was renamed to `new`.
 function M.deprecate(old, new)
 	vim.notify_once(
 		('`%s` is deprecated. Please use `%s` instead'):format(old, new),
