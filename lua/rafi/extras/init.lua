@@ -57,12 +57,28 @@ end
 function M.source(path, label)
 	local chunk, err = loadfile(path)
 	local ok = chunk ~= nil
+	local ret
 	if chunk then
-		ok, err = pcall(chunk)
+		ok, ret = pcall(chunk)
+		err = ret
 	end
 	if not ok then
 		vim.notify(
-			('Failed loading %s: %s'):format(label, err),
+			('Failed loading %s: %s'):format(
+				label,
+				require('rafi.config').explain_error(err)
+			),
+			vim.log.levels.WARN
+		)
+	elseif type(ret) == 'table' then
+		-- Extras and user plugin files are plain code. A returned table is
+		-- most likely a lazy.nvim spec from before vim.pack, which would
+		-- otherwise be ignored without a word.
+		vim.notify(
+			(
+				'%s returns a table, which is ignored. It looks like a lazy.nvim '
+				.. 'spec: rewrite it with vim.pack.add() (see the README).'
+			):format(label),
 			vim.log.levels.WARN
 		)
 	end
@@ -108,7 +124,7 @@ function M.items()
 	end, M.available())
 end
 
----Picker to toggle extras; changes apply after a restart.
+---Picker to toggle extras. Changes apply after a restart.
 function M.show()
 	Snacks.picker({
 		title = 'Rafi Extras',
@@ -155,8 +171,9 @@ function M.show()
 					item.name
 				)
 			)
-			picker:close()
-			vim.schedule(M.show)
+			-- Redraw the marker in place, keeping cursor and scroll position.
+			item.enabled = enabled
+			picker.list:update({ force = true })
 		end,
 	})
 end

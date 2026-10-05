@@ -1,9 +1,15 @@
--- Collection of QoL plugins: picker, explorer, notifier, terminal, toggles
-if require('rafi.config').disabled('editor.snacks') then
+-- Collection of QoL plugins: picker, explorer, terminal, toggles
+if require('rafi.config').disabled('snacks') then
 	return
 end
+
+-- Derived from LazyVim (Apache-2.0), modified for this config:
+-- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/editor/snacks_picker.lua
+-- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/util.lua
+-- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/util/news.lua
+
 -- Required: rafi.config.keymaps, rafi.util.* and many plugin files call the
--- `Snacks` global, so rafi.config ignores 'editor.snacks' in rafi.json
+-- `Snacks` global, so rafi.config ignores 'snacks' in rafi.json
 -- `disabled` (see M.required). To use another picker or explorer, turn off
 -- that snacks feature in its opts instead, like the editor.telescope and
 -- editor.neo-tree extras do.
@@ -85,6 +91,10 @@ require('snacks').setup({
 		},
 	},
 	picker = {
+		layouts = {
+			-- Dim behind pickers, but keep the explorer (zindex 30) visible.
+			default = { layout = { backdrop = { win = { zindex = 29 } } } },
+		},
 		actions = {
 			---@param p snacks.Picker
 			toggle_cwd = function(p)
@@ -105,8 +115,16 @@ require('snacks').setup({
 			end,
 		},
 		sources = {
-			files = { hidden = true, ignored = true },
-			grep = { hidden = true, ignored = true },
+			files = {
+				hidden = true,
+				ignored = true,
+				exclude = { '.git', '.cache', '.tests' },
+			},
+			grep = {
+				hidden = true,
+				ignored = true,
+				exclude = { '.git', '.cache', '.tests' },
+			},
 			explorer = {
 				replace_netrw = true,
 				hidden = true,
@@ -174,7 +192,6 @@ require('snacks').setup({
 					['<a-t>'] = { 'trouble_open', mode = { 'n', 'i' } },
 					['jj'] = { '<esc>', expr = true, mode = 'i' },
 					['s'] = false,
-					['ss'] = 'flash',
 					['sv'] = 'edit_split',
 					['sg'] = 'edit_vsplit',
 					['st'] = 'edit_tab',
@@ -296,6 +313,7 @@ local remap = { remap = true }
 map('n', '<leader>.', function() Snacks.scratch() end, 'Toggle Scratch Buffer')
 map('n', '<leader>S', function() Snacks.scratch.select() end, 'Select Scratch Buffer')
 map('n', '<leader>dps', function() Snacks.profiler.scratch() end, 'Profiler Scratch Buffer')
+-- map('n', '<leader>n', '<cmd>messages<cr>', 'Messages (ui2 pager)')
 map('n', '<leader>n', function() Snacks.picker.notifications() end, 'Notification History')
 map('n', '<leader>un', function() Snacks.notifier.hide() end, 'Dismiss All Notifications')
 map('n', '<leader>N', news, 'Neovim News')
@@ -335,7 +353,7 @@ map('n', '<leader>fp', function() Snacks.picker.projects() end, 'Projects')
 
 -- Git
 map('n', '<leader>gd', function() Snacks.picker.git_diff() end, 'Git Diff (hunks)')
--- TODO: Conflict: diffview's <leader>gD (plugin/git/diffview.lua) wins.
+-- NOTE: Conflict: diffview's <leader>gD (git.diffview extra) wins.
 -- map('n', '<leader>gD', function() Snacks.picker.git_diff({ base = 'origin', group = true }) end, 'Git Diff (origin)')
 map('n', '<leader>gs', function() Snacks.picker.git_status() end, 'Git Status')
 map('n', '<leader>gS', function() Snacks.picker.git_stash() end, 'Git Stash')
@@ -370,7 +388,9 @@ map('n', '<leader>sk', function() Snacks.picker.keymaps() end, 'Keymaps')
 map('n', '<leader>sl', function() Snacks.picker.loclist() end, 'Location List')
 map('n', '<leader>sM', function() Snacks.picker.man() end, 'Man Pages')
 map('n', '<leader>sm', function() Snacks.picker.marks() end, 'Marks')
-map('n', '<leader>sR', function() Snacks.picker.resume() end, 'Resume')
+map('n', '<leader>sR', function()
+	Snacks.picker.resume({ exclude = { 'explorer' } })
+end, 'Resume')
 map('n', '<leader>sq', function() Snacks.picker.qflist() end, 'Quickfix List')
 map('n', '<leader>su', function() Snacks.picker.undo() end, 'Undotree')
 
