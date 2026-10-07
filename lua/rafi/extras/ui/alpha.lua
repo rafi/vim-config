@@ -1,4 +1,6 @@
 -- Fast and fully programmable greeter dashboard (alpha-nvim)
+-- Derived from LazyVim (Apache-2.0), modified for this config:
+-- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/ui/alpha.lua
 
 -- Eager: setup registers the VimEnter autocmd that opens the dashboard.
 -- It runs after auto-session's, so a restored session skips it.
@@ -18,6 +20,16 @@ local function button(sc, txt, action)
 	end
 	return el
 end
+
+-- Plugin buttons open packman.nvim (core editor.packman) when it's loaded.
+-- "Update plugins" fetches every remote first (`:Packman check`), so pending
+-- updates are listed for review and `U` applies them. Without packman they
+-- fall back to vim.pack's own confirmation buffer.
+local has_packman = vim.fn.exists(':Packman') == 2
+local update_cmd = has_packman and '<cmd> Packman check <CR>'
+	or '<cmd> lua vim.pack.update() <CR>'
+local plugins_cmd = has_packman and '<cmd> Packman <CR>'
+	or '<cmd> lua vim.pack.update(nil, { offline = true }) <CR>'
 
 -- stylua: ignore
 dashboard.section.buttons.val = {
@@ -54,9 +66,9 @@ dashboard.section.buttons.val = {
 	{ type = 'text', val = '-------', opts = { hl = 'Comment', position = 'center' } },
 	button('c', ' ' .. ' Config',          pick.config_files()),
 	button('s', ' ' .. ' Restore Session', '<cmd> AutoSession restore <CR>'),
-	button('u', ' ' .. ' Update plugins',  '<cmd> lua vim.pack.update() <CR>'),
+	button('u', ' ' .. ' Update plugins',  update_cmd),
 	button('x', ' ' .. ' Rafi Extras',     '<cmd> RafiExtras <CR>'),
-	button('l', '󰒲 ' .. ' Plugins',         '<cmd> lua vim.pack.update(nil, { offline = true }) <CR>'),
+	button('l', '󰒲 ' .. ' Plugins',         plugins_cmd),
 	button('q', ' ' .. ' Quit',            '<cmd> qa <CR>'),
 	{ type = 'padding', val = 1 },
 }

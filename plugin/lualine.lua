@@ -1,7 +1,11 @@
 -- Blazing fast and easy to configure statusline
-if require('rafi.config').disabled('ui.lualine') then
+if require('rafi.config').disabled('lualine') then
 	return
 end
+
+-- Derived from LazyVim (Apache-2.0), modified for this config:
+-- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/ui.lua
+
 if vim.g.started_by_firenvim then
 	return
 end
@@ -17,10 +21,9 @@ else
 	vim.o.laststatus = 0
 end
 
-local color = require('rafi.util.color').get
-
 ---@return table
 local function build_opts()
+	local color = require('rafi.util.color').get
 	local icons = require('rafi.util.icons')
 	local util = require('rafi.util.lualine')
 
@@ -125,14 +128,13 @@ local function build_opts()
 						return ''
 					end,
 				},
+				-- stylua: ignore
 				{
 					'branch',
 					cond = is_file_window,
 					icon = '', --  
 					padding = 1,
-					on_click = function()
-						vim.cmd([[Telescope git_branches]])
-					end,
+					on_click = function() vim.cmd([[Telescope git_branches]]) end,
 				},
 				util.root_dir(),
 				{
@@ -178,6 +180,7 @@ local function build_opts()
 					end,
 				},
 				-- Quickfix/location list title
+				-- stylua: ignore
 				{
 					separator = '',
 					function()
@@ -186,9 +189,7 @@ local function build_opts()
 						end
 						return vim.fn.getqflist({ title = 0 }).title
 					end,
-					cond = function()
-						return vim.bo.filetype == 'qf'
-					end,
+					cond = function() return vim.bo.filetype == 'qf' end,
 					padding = { left = 1, right = 0 },
 				},
 
@@ -238,23 +239,24 @@ local function build_opts()
 			},
 			lualine_c = {},
 			lualine_x = {
-				-- Snacks profiler status is prepended below.
-
-				-- {
-				-- 	'lsp_status',
-				-- 	icon = '', -- f013
-				-- 	symbols = {
-				-- 		-- Standard unicode symbols to cycle through for LSP progress:
-				-- 		spinner = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' },
-				-- 		-- Standard unicode symbol for when LSP is done:
-				-- 		done = '✓',
-				-- 		-- Delimiter inserted between LSP names:
-				-- 		separator = ' ',
-				-- 	},
-				-- 	-- List of LSP names to ignore (e.g., `null-ls`):
-				-- 	ignore_lsp = {},
-				-- },
-
+				-- LSP status
+				-- stylua: ignore
+				{
+					'lsp_status',
+					icon = '', -- f013
+					symbols = {
+						spinner = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' },
+						done = '✓',
+						separator = ' ',
+					},
+					-- List of LSP names to ignore (e.g., `null-ls`):
+					ignore_lsp = {},
+					-- Accent from the colorscheme (morrow defines LuaLineLspStatus),
+					-- Function elsewhere.
+					color = function()
+						return { fg = color({ 'LuaLineLspStatus', 'Function' }) }
+					end,
+				},
 				-- Diff (git)
 				{
 					'diff',
@@ -281,32 +283,22 @@ local function build_opts()
 						vim.cmd([[DiffviewFileHistory %]])
 					end,
 				},
-				-- showcmd
+
+				-- showcmd: pending keys, e.g. `2d` or `"a` (needs showcmd+showcmdloc)
+				-- stylua: ignore
+				-- {
+				-- 	function() return '%S' end,
+				-- 	cond = function()
+				-- 		return vim.api.nvim_eval_statusline('%S', {}).str ~= ''
+				-- 	end,
+				-- 	color = function() return { fg = color('Statement') } end,
+				-- },
+
+				-- macro recording
 				-- stylua: ignore
 				{
-					function()
-						---@diagnostic disable-next-line: undefined-field
-						return require('noice').api.status.command.get()
-					end,
-					cond = function()
-						return package.loaded['noice']
-							---@diagnostic disable-next-line: undefined-field
-							and require('noice').api.status.command.has()
-					end,
-					color = function() return { fg = color('Statement') } end,
-				},
-				-- showmode
-				-- stylua: ignore
-				{
-					function()
-						---@diagnostic disable-next-line: undefined-field
-						return require('noice').api.status.mode.get()
-					end,
-					cond = function()
-						return package.loaded['noice']
-							---@diagnostic disable-next-line: undefined-field
-							and require('noice').api.status.mode.has()
-					end,
+					function() return 'recording @' .. vim.fn.reg_recording() end,
+					cond = function() return vim.fn.reg_recording() ~= '' end,
 					color = function() return { fg = color('Constant') } end,
 				},
 				-- dap status
@@ -316,17 +308,6 @@ local function build_opts()
 					cond = function () return package.loaded['dap'] and require('dap').status() ~= '' end,
 					color = function() return { fg = color('Debug') } end,
 				},
-				-- lazy.nvim removed: no update checker with vim.pack
-				-- -- lazy.nvim updates
-				-- -- stylua: ignore
-				-- {
-				-- 	require('lazy.status').updates,
-				-- 	cond = require('lazy.status').has_updates,
-				-- 	color = function() return { fg = color('Comment') } end,
-				-- 	on_click = function()
-				-- 		vim.cmd([[Lazy]])
-				-- 	end,
-				-- },
 			},
 			lualine_y = {
 				{
@@ -386,12 +367,30 @@ local function build_opts()
 		table.insert(opts.sections.lualine_x, 1, Snacks.profiler.status())
 	end
 
+	-- Plugins with pending vim.pack updates (packcount.nvim, unless
+	-- ui.packcount is disabled). Click opens packman.nvim's picker.
+	local has_packcount, packcount = pcall(require, 'packcount')
+	if has_packcount then
+		table.insert(opts.sections.lualine_x, {
+			packcount.updates,
+			cond = packcount.has_updates,
+			color = function()
+				return { fg = color('Comment') }
+			end,
+			on_click = function()
+				if vim.fn.exists(':Packman') == 2 then
+					vim.cmd('Packman')
+				end
+			end,
+		})
+	end
+
 	-- Show code structure in statusline.
 	-- Allow it to be overriden for some buffer types (see autocmds).
 	if
 		vim.g.trouble_lualine
 		and pack.has('trouble.nvim')
-		-- No-op if plugin/editor/trouble.lua already added it.
+		-- No-op if the editor.trouble extra already added it.
 		and pcall(vim.pack.add, { 'https://github.com/folke/trouble.nvim' })
 	then
 		local trouble = require('trouble')
@@ -419,4 +418,15 @@ pack.later(function()
 	-- PERF: we don't need this lualine require madness.
 	require('lualine_require').require = require
 	require('lualine').setup(build_opts())
+
+	-- Lualine doesn't refresh when recording starts or stops. Stopping fires
+	-- before reg_recording() is cleared, so redraw on the next tick.
+	vim.api.nvim_create_autocmd({ 'RecordingEnter', 'RecordingLeave' }, {
+		group = vim.api.nvim_create_augroup('rafi_lualine_recording', {}),
+		callback = function()
+			vim.schedule(function()
+				require('lualine').refresh()
+			end)
+		end,
+	})
 end)
