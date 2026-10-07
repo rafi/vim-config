@@ -76,6 +76,18 @@ T['load() sources in order and survives failures'] = function()
 	H.expect.no_equality(joined:find('demo.b', 1, true), nil)
 end
 
+-- Leftovers from the lazy.nvim version: a returned spec table and a call
+-- to the removed LazyVim global both warn instead of passing silently.
+T['source() flags lazy.nvim leftovers'] = function()
+	write_extra('demo.spec', { "return { 'foo/bar', opts = {} }" })
+	write_extra('demo.lazyvim', { 'LazyVim.root()' })
+	H.eq(extras.source(extras.find('demo.spec'), 'demo.spec'), true)
+	H.eq(extras.source(extras.find('demo.lazyvim'), 'demo.lazyvim'), false)
+	H.eq(#notified, 2)
+	H.expect.no_equality(notified[1]:find('lazy.nvim spec', 1, true), nil)
+	H.expect.no_equality(notified[2]:find('rafi.util.root', 1, true), nil)
+end
+
 T['items() reflects toggle()'] = function()
 	vim.fn.writefile({ vim.json.encode({ extras = {} }) }, vim.g.rafi_json)
 	local function enabled()

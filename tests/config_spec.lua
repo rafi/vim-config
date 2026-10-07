@@ -56,14 +56,11 @@ T['state()']['writes defaults when rafi.json is missing'] = function()
 end
 
 T['state()']['reads extras and disabled'] = function()
-	write_json(
-		vim.g.rafi_json,
-		{ extras = { 'lang.go' }, disabled = { 'editor.todo-comments' } }
-	)
+	write_json(vim.g.rafi_json, { extras = { 'lang.go' }, disabled = { 'lint' } })
 	H.eq(config.enabled('lang.go'), true)
 	H.eq(config.enabled('lang.python'), false)
-	H.eq(config.disabled('editor.todo-comments'), true)
-	H.eq(config.disabled('editor.trouble'), false)
+	H.eq(config.disabled('lint'), true)
+	H.eq(config.disabled('conform'), false)
 end
 
 T['state()']['resolves renamed extras'] = function()
@@ -80,14 +77,11 @@ T['state()']['falls back on a bad field'] = function()
 end
 
 T['state()']['ignores required core files in disabled'] = function()
-	write_json(
-		vim.g.rafi_json,
-		{ extras = {}, disabled = { 'editor.snacks', 'editor.todo-comments' } }
-	)
-	H.eq(config.state().disabled, { 'editor.todo-comments' })
-	H.eq(config.disabled('editor.snacks'), false)
+	write_json(vim.g.rafi_json, { extras = {}, disabled = { 'snacks', 'lint' } })
+	H.eq(config.state().disabled, { 'lint' })
+	H.eq(config.disabled('snacks'), false)
 	H.eq(#notified, 1)
-	H.expect.no_equality(notified[1]:find('editor.snacks', 1, true), nil)
+	H.expect.no_equality(notified[1]:find('snacks', 1, true), nil)
 end
 
 T['state()']['falls back on malformed json'] = function()
@@ -104,10 +98,19 @@ T['state()']['migrates lazyvim.json'] = function()
 			'rafi.plugins.extras.lang.go',
 			'lazyvim.plugins.extras.lang.kubernetes',
 			'lazyvim.plugins.extras.lang.does-not-exist',
+			'plugins.extras.lang.toml',
+			'lazyvim.plugins.extras.lang.go',
 		},
 	})
-	H.eq(config.state().extras, { 'lang.go', 'editor.kubectl' })
-	H.eq(read_json(vim.g.rafi_json).extras, { 'lang.go', 'editor.kubectl' })
+	local want = { 'lang.go', 'editor.kubectl', 'lang.toml' }
+	H.eq(config.state().extras, want)
+	H.eq(read_json(vim.g.rafi_json).extras, want)
+	-- Unmatched names are reported once, by their original module name.
+	H.eq(#notified, 1)
+	H.expect.no_equality(
+		notified[1]:find('lazyvim.plugins.extras.lang.does-not-exist', 1, true),
+		nil
+	)
 end
 
 T['toggle()'] = function()
@@ -116,6 +119,18 @@ T['toggle()'] = function()
 	H.eq(read_json(vim.g.rafi_json).extras, { 'lang.go' })
 	H.eq(config.toggle('lang.go'), false)
 	H.eq(read_json(vim.g.rafi_json).extras, {})
+end
+
+-- theme-loader.nvim writes `colorscheme` into rafi.json after the state is
+-- cached; a later toggle must not drop it.
+T['toggle() keeps keys written to rafi.json since startup'] = function()
+	write_json(vim.g.rafi_json, { extras = {} })
+	config.state()
+	write_json(vim.g.rafi_json, { extras = {}, colorscheme = 'desert' })
+	config.toggle('lang.go')
+	local data = read_json(vim.g.rafi_json)
+	H.eq(data.extras, { 'lang.go' })
+	H.eq(data.colorscheme, 'desert')
 end
 
 -- An unwritable rafi.json only warns: the state is still cached, so

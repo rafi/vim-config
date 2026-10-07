@@ -6,8 +6,23 @@
 
 local M = {}
 
----Load an optional user file from lua/config/. A missing file is fine;
----errors inside an existing one are reported instead of swallowed.
+---Add porting hints to an error from a user file that still calls the
+---removed `LazyVim` global.
+---@param err unknown
+---@return string
+function M.explain_error(err)
+	err = tostring(err)
+	if err:find('LazyVim', 1, true) then
+		err = err
+			.. '\nLazyVim was removed. Use rafi.util.root, rafi.util.pick,'
+			.. ' rafi.util.format, rafi.util.lsp, rafi.util.lualine,'
+			.. ' rafi.util.icons and rafi.pack.has() instead.'
+	end
+	return err
+end
+
+---Load an optional user file from lua/config/. A missing file is fine.
+---Errors inside an existing one are reported instead of swallowed.
 ---@param mod string
 local function load_user(mod)
 	local ok, err = pcall(require, mod)
@@ -15,7 +30,25 @@ local function load_user(mod)
 		and err:find(("module '%s' not found"):format(mod), 1, true)
 	if not ok and not missing then
 		vim.notify(
-			('Failed loading %s: %s'):format(mod, tostring(err)),
+			('Failed loading %s: %s'):format(mod, M.explain_error(err)),
+			vim.log.levels.WARN
+		)
+	end
+end
+
+---Warn about user files only the lazy.nvim version read, so their settings
+---aren't silently lost. Repeats on every startup until they're removed.
+local function warn_obsolete_files()
+	local dir = vim.fn.stdpath('config') .. '/lua/config/'
+	local found = vim.tbl_filter(function(file)
+		return vim.uv.fs_stat(dir .. file) ~= nil
+	end, { 'setup.lua', 'lazy.lua' })
+	if #found > 0 then
+		vim.notify(
+			(
+				'lua/config/%s no longer read (lazy.nvim was replaced by '
+				.. 'vim.pack). Move what you need elsewhere and delete it.'
+			):format(table.concat(found, ', lua/config/')),
 			vim.log.levels.WARN
 		)
 	end
@@ -30,9 +63,10 @@ local function load_rafi(mod)
 	end)
 end
 
----Load options and autocmds now, keymaps on `later`. Each lua/config/ user
----file loads right after its rafi counterpart, so it can override it.
+---Load options and autocmds now, keymaps after startup. Each user file in
+---lua/config/ loads right after its rafi counterpart, so it can override it.
 function M.setup()
+	warn_obsolete_files()
 	load_rafi('rafi.config.options')
 	load_user('config.options')
 	-- Defer clipboard (pbcopy/xsel can be slow). Captured after the user's
@@ -51,45 +85,54 @@ function M.setup()
 	load_user('config.autocmds')
 	require('rafi.pack').later(function()
 		load_rafi('rafi.config.keymaps')
-		-- Lets plugin/ files re-apply keys rafi.config.keymaps overrides;
-		-- user keymaps load after, so they win over both.
+		-- Lets plugin/ files re-apply keys rafi.config.keymaps overrides.
+		-- User keymaps load after, so they win over both.
 		vim.api.nvim_exec_autocmds('User', { pattern = 'RafiKeymaps' })
 		load_user('config.keymaps')
 	end)
 end
 
 -- Extras and core-plugin state, stored in rafi.json:
--- { "extras": [ "lang.go", … ], "disabled": [ "editor.trouble", … ] }
+-- { "extras": [ "lang.go", … ], "disabled": [ "conform", … ] }
 
 ---Extras enabled on a fresh install (no rafi.json and no lazyvim.json).
 ---@type string[]
 M.defaults = {
-	'coding.align',
 	'coding.blink',
+	'coding.lazydev',
 	'coding.mini-ai',
 	'coding.mini-pairs',
 	'coding.mini-splitjoin',
 	'coding.mini-surround',
 	'coding.mini-trailspace',
 	'coding.ts-comments',
+	'colorscheme.tokyonight',
+	'editor.auto-session',
 	'editor.dial',
 	'editor.grug-far',
 	'editor.guess-indent',
-	'editor.leap',
 	'editor.mini-hipatterns',
 	'editor.namu',
-	'editor.outline',
-	'editor.undotree',
-	'lang.docker',
+	'editor.packman',
+	'editor.tmux-navigator',
+	'editor.todo-comments',
+	'editor.trouble',
+	'editor.window-picker',
+	'git.committia',
+	'git.diffview',
+	'git.gitsigns',
 	'lang.json',
 	'lang.markdown',
-	'lang.python',
 	'lang.toml',
-	'lang.typescript',
 	'lang.yaml',
+	'treesitter.autotag',
+	'treesitter.matchup',
 	'treesitter.nvim-treesitter',
+	'treesitter.textobjects',
 	'ui.bookmarks',
-	'ui.deadcolumn',
+	'ui.bufferline',
+	'ui.packcount',
+	'ui.which-key',
 }
 
 ---Renamed extras: old name → new name.
@@ -102,7 +145,7 @@ M.aliases = {
 ---keymaps and lualine). Listing one in rafi.json `disabled` is ignored with
 ---a warning, since startup would break without it.
 ---@type string[]
-M.required = { 'editor.snacks' }
+M.required = { 'snacks' }
 
 ---@class rafi.State
 ---@field extras string[]
@@ -121,7 +164,10 @@ local function default_state()
 	return { extras = vim.deepcopy(M.defaults), disabled = {} }
 end
 
----Migrate lazyvim.json to rafi.json extras list.
+---Migrate lazyvim.json to rafi.json extras list. Module names from all
+---three old extras sources (rafi.plugins.extras, lazyvim.plugins.extras
+---and the user's plugins.extras) become `<cat>.<name>`. Names with no
+---matching extra file are dropped and listed in one warning.
 ---@param path string
 ---@return string[]?
 local function migrate_lazyvim(path)
@@ -133,18 +179,27 @@ local function migrate_lazyvim(path)
 	if not ok or type(data) ~= 'table' then
 		return
 	end
-	local extras = {}
+	local extras, skipped = {}, {}
 	for _, mod in ipairs(data.extras or {}) do
 		local name = mod
 			:gsub('^rafi%.plugins%.extras%.', '')
 			:gsub('^lazyvim%.plugins%.extras%.', '')
+			:gsub('^plugins%.extras%.', '')
 		name = M.aliases[name] or name
-		if
-			not vim.list_contains(extras, name)
-			and require('rafi.extras').find(name)
-		then
+		if not require('rafi.extras').find(name) then
+			table.insert(skipped, mod)
+		elseif not vim.list_contains(extras, name) then
 			table.insert(extras, name)
 		end
+	end
+	if #skipped > 0 then
+		vim.notify(
+			(
+				'Migrated lazyvim.json to rafi.json, skipped extras with no '
+				.. 'vim.pack version: %s\nSee :RafiExtras for what is available.'
+			):format(table.concat(skipped, ', ')),
+			vim.log.levels.WARN
+		)
 	end
 	return extras
 end
@@ -200,8 +255,8 @@ local function drop_required(disabled)
 	end, disabled)
 end
 
----Read rafi.json once. Writes only when rafi.json is missing (migrated
----from lazyvim.json, or the defaults).
+---Read rafi.json once. Writes it only when missing (migrated from
+---lazyvim.json, or the defaults).
 ---@return rafi.State
 function M.state()
 	if M._cache then
@@ -235,13 +290,25 @@ function M.state()
 	return state
 end
 
+---Save rafi.json. Keys in rafi.json that this module doesn't own (e.g.
+---`colorscheme`, which theme-loader.nvim writes) are kept: the file is
+---re-read so a key written since startup isn't lost to the cached state.
 ---@param state rafi.State
 function M.save(state)
-	local ok, json = pcall(vim.json.encode, state, { indent = '  ' })
-	if not ok then
-		json = vim.json.encode(state)
+	local out = {}
+	local ok_read, lines = pcall(vim.fn.readfile, M.json_path())
+	if ok_read and #lines > 0 then
+		local ok, data = pcall(vim.json.decode, table.concat(lines, '\n'))
+		if ok and type(data) == 'table' then
+			out = data
+		end
 	end
-	-- writefile can raise or return -1; either only warns, so state is
+	out.extras, out.disabled = state.extras, state.disabled
+	local ok, json = pcall(vim.json.encode, out, { indent = '  ' })
+	if not ok then
+		json = vim.json.encode(out)
+	end
+	-- writefile can raise or return -1. Either only warns, so state is
 	-- still cached and guard calls don't retry the failing write.
 	local ok_write, ret =
 		pcall(vim.fn.writefile, vim.split(json, '\n'), M.json_path())
@@ -263,7 +330,7 @@ function M.enabled(name)
 	return vim.list_contains(M.state().extras, name)
 end
 
----@param name string Core plugin file as <cat>.<name>, e.g. 'editor.trouble'
+---@param name string Core plugin file name, e.g. 'mason' for plugin/mason.lua
 ---@return boolean
 function M.disabled(name)
 	return vim.list_contains(M.state().disabled, name)
