@@ -30,10 +30,19 @@ local config_dir = sandbox .. '/config/nvim'
 
 ---Build the sandbox config dir: symlinks to the repo's tracked runtime
 ---files, so edits are tested live. lua/config/ (untracked user
----overrides) and dev/ checkouts are left out on purpose.
+---overrides) is left out on purpose, and so are dev/ checkouts, except
+---the unpublished plugins core files load with rafi.pack.dev(): without
+---their checkout the sandbox would try to clone a missing repo.
 local function link_config()
 	vim.fn.mkdir(config_dir .. '/lua', 'p')
-	for _, rel in ipairs({ 'init.lua', 'after', 'plugin', 'snippets', 'lua/rafi' }) do
+	vim.fn.mkdir(config_dir .. '/dev', 'p')
+	local links = { 'init.lua', 'after', 'plugin', 'snippets', 'lua/rafi' }
+	for _, name in ipairs({ 'packcount.nvim', 'packman.nvim' }) do
+		if vim.uv.fs_stat(root .. '/dev/' .. name) then
+			table.insert(links, 'dev/' .. name)
+		end
+	end
+	for _, rel in ipairs(links) do
 		local dst = config_dir .. '/' .. rel
 		if not vim.uv.fs_lstat(dst) then
 			assert(vim.uv.fs_symlink(root .. '/' .. rel, dst))
@@ -84,15 +93,37 @@ local function sync_lockfile()
 end
 
 link_config()
+
 local changed = sync_lockfile()
 
--- Core plugins only: extras install tree-sitter parsers and mason
--- tools on `later`, which is slow and needs network. coding.blink and
--- editor.leap are the exceptions, default extras that install neither.
-write_json(
-	config_dir .. '/rafi.json',
-	{ extras = { 'coding.blink', 'editor.leap' }, disabled = { 'lsp.mason' } }
-)
+-- Former core plugins (now extras) plus two default extras: other extras
+-- install tree-sitter parsers and mason tools on `later`, which is slow
+-- and needs network. coding.blink and editor.leap install neither.
+write_json(config_dir .. '/rafi.json', {
+	extras = {
+		'coding.blink',
+		'coding.lazydev',
+		'colorscheme.tokyonight',
+		'editor.auto-session',
+		'editor.leap',
+		'editor.packman',
+		'editor.tmux-navigator',
+		'editor.todo-comments',
+		'editor.trouble',
+		'editor.window-picker',
+		'git.committia',
+		'git.diffview',
+		'git.gitsigns',
+		'git.neogit',
+		'treesitter.autotag',
+		'treesitter.matchup',
+		'treesitter.textobjects',
+		'ui.bufferline',
+		'ui.packcount',
+		'ui.which-key',
+	},
+	disabled = { 'mason' },
+})
 
 ---Replace the real config and data dirs in a path option (runtimepath,
 ---packpath) with the repo and the sandbox's site dir.

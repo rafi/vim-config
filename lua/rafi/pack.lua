@@ -3,6 +3,8 @@
 --
 -- Thin wrappers around MiniMisc.safely(), so every plugin/ file can
 -- `local pack = require('rafi.pack')` regardless of sourcing order.
+-- Derived from lazy.nvim (Apache-2.0), modified for this config:
+-- https://github.com/folke/lazy.nvim/blob/main/lua/lazy/core/handler/cmd.lua
 
 vim.pack.add({ 'https://github.com/nvim-mini/mini.misc' })
 local misc = require('mini.misc')
@@ -28,7 +30,8 @@ function M.on_event(event, f)
 	misc.safely('event:' .. event, f)
 end
 
----Run once when any of the filetypes is first set, e.g. 'lua' or 'tex,plaintex'.
+---Run once when any of the filetypes is first set, e.g. 'lua' or
+---'tex,plaintex'.
 ---@param filetypes string
 ---@param f fun()
 function M.on_filetype(filetypes, f)
@@ -36,8 +39,7 @@ function M.on_filetype(filetypes, f)
 end
 
 ---Re-fire FileType for loaded buffers, only for autocmds in `group`. For
----plugins that attach on FileType but load after it already fired (lazy.nvim
----did this for its lazy-loaded plugins).
+---plugins that attach on FileType but load after it already fired.
 ---@param group string
 function M.refire_filetype(group)
 	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
@@ -53,7 +55,7 @@ function M.refire_filetype(group)
 	end
 end
 
----Is the plugin installed via vim.pack (not necessarily loaded yet)?
+---Whether the plugin is installed via vim.pack (maybe not loaded yet).
 ---@param name string
 ---@return boolean
 function M.has(name)
@@ -118,7 +120,7 @@ end
 ---itself before loading, so a load that doesn't define the command reports
 ---an error instead of calling the stub again forever. The re-run keeps
 ---modifiers, range or count, bang and arguments. `opts` are the stub's
----command attributes (default `nargs = '*'`); `complete = true` loads the
+---command attributes (default `nargs = '*'`). `complete = true` loads the
 ---plugin on first completion and completes with the real command.
 ---@param names string|string[]
 ---@param load fun()
@@ -130,7 +132,7 @@ function M.command(names, load, opts)
 		if opts.complete == true then
 			local completing = false
 			stub_opts.complete = function(_, line)
-				-- Still the stub after load(): don't recurse into ourselves.
+				-- Still the stub after load(). Don't recurse into ourselves.
 				if completing then
 					return {}
 				end
@@ -179,16 +181,30 @@ function M.list()
 	return plugins
 end
 
----Add a plugin from a local checkout in dev/<name> if present (like lazy.nvim's
----`dev = true`), otherwise install it from `src` with vim.pack.
+---Add a plugin from a local checkout in dev/<name> if present, otherwise
+---install it from `src` with vim.pack.
 ---@param name string Directory name under dev/
 ---@param src string Fallback git URL
 function M.dev(name, src)
 	local dir = vim.fn.stdpath('config') .. '/dev/' .. name
-	if vim.uv.fs_stat(dir) then
-		vim.opt.rtp:append(dir)
-	else
+	if not vim.uv.fs_stat(dir) then
 		vim.pack.add({ src })
+		return
+	end
+	if vim.list_contains(vim.opt.rtp:get(), dir) then
+		return
+	end
+	vim.opt.rtp:append(dir)
+	local doc = dir .. '/doc'
+	if vim.uv.fs_stat(doc) and not vim.uv.fs_stat(doc .. '/tags') then
+		pcall(vim.cmd.helptags, vim.fn.fnameescape(doc))
+	end
+	for _, ext in ipairs({ 'vim', 'lua' }) do
+		local files = vim.fn.globpath(dir, 'plugin/**/*.' .. ext, false, true)
+		table.sort(files)
+		for _, file in ipairs(files) do
+			vim.cmd.source(vim.fn.fnameescape(file))
+		end
 	end
 end
 

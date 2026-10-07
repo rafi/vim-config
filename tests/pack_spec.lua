@@ -1,6 +1,7 @@
--- rafi.pack: command stubs (pack.command) and build steps (pack.build).
--- Runs in-process with fake commands and loaders; pack.build uses
--- mini.misc, which rafi.pack itself adds, as an installed plugin.
+-- rafi.pack: command stubs (pack.command), build steps (pack.build) and
+-- local checkouts (pack.dev). Runs in-process with fake commands and
+-- loaders; pack.build uses mini.misc, which rafi.pack itself adds, as an
+-- installed plugin.
 
 local H = require('helpers')
 
@@ -161,6 +162,34 @@ T['build()']['runs on its own PackChanged install/update only'] = function()
 	fire('mini.misc', 'delete')
 	fire('other.nvim', 'install')
 	H.eq(calls, 1)
+end
+
+T['dev()'] = MiniTest.new_set()
+
+-- A dev/ checkout is loaded like :packadd loads a plugin: on 'runtimepath',
+-- plugin/ files sourced (once, even when added twice) and help tags built.
+T['dev()']['loads a checkout like packadd'] = function()
+	local dir = vim.fn.stdpath('config') .. '/dev/rafi-test-dev.nvim'
+	vim.fn.mkdir(dir .. '/plugin/sub', 'p')
+	vim.fn.mkdir(dir .. '/doc', 'p')
+	vim.fn.writefile({
+		'vim.g.rafi_test_dev = (vim.g.rafi_test_dev or 0) + 1',
+	}, dir .. '/plugin/sub/a.lua')
+	vim.fn.writefile({ 'let g:rafi_test_dev_vim = 1' }, dir .. '/plugin/b.vim')
+	vim.fn.writefile({ '*rafi-test-dev*' }, dir .. '/doc/rafi-test-dev.txt')
+	local rtp = vim.o.rtp
+	local ok, err = pcall(function()
+		pack.dev('rafi-test-dev.nvim', 'https://example.invalid/never')
+		pack.dev('rafi-test-dev.nvim', 'https://example.invalid/never')
+		H.eq(vim.list_contains(vim.opt.rtp:get(), dir), true)
+		H.eq(vim.g.rafi_test_dev, 1)
+		H.eq(vim.g.rafi_test_dev_vim, 1)
+		H.eq(vim.fn.filereadable(dir .. '/doc/tags'), 1)
+	end)
+	vim.o.rtp = rtp
+	vim.g.rafi_test_dev, vim.g.rafi_test_dev_vim = nil, nil
+	vim.fn.delete(dir, 'rf')
+	assert(ok, err)
 end
 
 return T
