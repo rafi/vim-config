@@ -1,0 +1,15 @@
+rafi/vim-config
+Copyright 2014-2026 Rafael Bodill
+
+Licensed under the Apache License, Version 2.0. See LICENSE.
+
+This project includes code derived from the following projects, both
+licensed under the Apache License, Version 2.0:
+
+- LazyVim (https://github.com/LazyVim/LazyVim)
+  Copyright Folke Lemaitre and LazyVim contributors
+- lazy.nvim (https://github.com/folke/lazy.nvim)
+  Copyright Folke Lemaitre and lazy.nvim contributors
+
+Files that contain derived code say so in a header comment that names the
+upstream file. Those files were modified for this project.

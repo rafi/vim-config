@@ -72,9 +72,35 @@ check:
 test:
 	nvim -l tests/minit.lua --minitest $(SPEC)
 
+IMAGE ?= alpine-sdk:nvim
+
+# Build script with the Dockerfile as a heredoc, so the image builds from
+# stdin with no build context. It lives in a variable because each recipe
+# line runs in its own shell (.ONESHELL needs GNU make 3.82, macOS has 3.81).
+define DOCKER_BUILD
+docker build -t $(IMAGE) - <<'EOF'
+FROM alpine:edge
+RUN apk add --no-cache --update \
+  alpine-sdk shadow bash git fzf curl neovim ripgrep fd zoxide \
+  tree-sitter-cli && chsh -s /bin/bash root
+SHELL ["/bin/bash", "-c"]
+WORKDIR /root
+CMD ["/bin/bash"]
+EOF
+endef
+export DOCKER_BUILD
+
+.PHONY: docker-build
+docker-build:
+	@eval "$$DOCKER_BUILD"
+
 .PHONY: docker
-docker:
-	docker run -w /root -it --rm alpine:edge sh -uelic ' \
-		apk add git fzf curl neovim ripgrep alpine-sdk --update && \
-		git clone https://github.com/rafi/vim-config ~/.config/nvim && \
-	cd ~/.config/nvim && nvim'
+# Try the published config in a throwaway container.
+docker: docker-build
+	docker run -it --rm $(IMAGE) bash -lc \
+		'git clone https://github.com/rafi/vim-config ~/.config/nvim && nvim'
+
+.PHONY: docker-local
+# Try this working tree in a throwaway container.
+docker-local: docker-build
+	docker run -v "$(CURDIR)":/root/.config/nvim -it --rm $(IMAGE) nvim
