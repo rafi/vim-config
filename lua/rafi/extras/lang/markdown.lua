@@ -1,5 +1,5 @@
 -- Markdown: filetypes, panache, render-markdown.nvim and
--- markdown-preview.nvim (with live-server.nvim)
+-- mdkite.nvim (with kitehost.nvim)
 -- Buffer settings and the <C-Return> link key are in
 -- after/ftplugin/markdown.lua.
 -- Derived from LazyVim (Apache-2.0), modified for this config:
@@ -60,7 +60,7 @@ pack.on_filetype('markdown,norg,rmd,org,codecompanion', function()
 	}):map('<leader>um')
 end)
 
--- markdown-preview.nvim
+-- mdkite.nvim
 -------------------------------------------------------------------------------
 
 local loaded = false
@@ -71,30 +71,33 @@ local function load()
 	loaded = true
 	vim.pack.add({
 		-- Its plugin/ file requires the core eagerly.
-		'https://github.com/selimacerbas/live-server.nvim',
-		'https://github.com/selimacerbas/markdown-preview.nvim',
+		'https://github.com/selimacerbas/kitehost.nvim',
+		'https://github.com/selimacerbas/mdkite.nvim',
 	})
-	require('markdown_preview').setup({
+	require('mdkite').setup({
 		default_theme = 'light',
 		debounce_ms = 300,
+		filetypes = { 'rmd' }, -- Previewed whole, like markdown
 	})
 end
 
--- Stubs until the plugin defines the real commands.
-pack.command({
-	'MarkdownPreview',
-	'MarkdownPreviewRefresh',
-	'MarkdownPreviewStop',
-}, load, { desc = 'Markdown Preview' })
+-- Stubs until the plugins define the real commands, which complete their
+-- subcommands (MdKite: start, stop, refresh, toggle). KiteHost is the
+-- standalone live-reload server for HTML folders (`:KiteHost start`).
+pack.command(
+	{ 'MdKite', 'KiteHost' },
+	load,
+	{ desc = 'Markdown Preview', complete = true }
+)
 
 vim.api.nvim_create_autocmd('FileType', {
 	group = vim.api.nvim_create_augroup('rafi.lang.markdown', {}),
-	pattern = { 'markdown', 'mermaid' },
+	pattern = { 'markdown', 'mermaid', 'rmd' },
 	callback = function(ev)
 		vim.keymap.set(
 			'n',
 			'<leader>cp',
-			'<cmd>MarkdownPreview<cr>',
+			'<cmd>MdKite toggle<cr>',
 			{ buffer = ev.buf, desc = 'Markdown Preview' }
 		)
 	end,
