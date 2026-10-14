@@ -470,6 +470,19 @@ local function telescope_opts()
 	return opts
 end
 
+-- telescope-thesaurus.nvim: use telescope's picker, unless
+-- lua/config/options.lua picked one. dictionaryapi.com, the plugin's
+-- default provider, needs a key. Without one, use the free API.
+if vim.g.thesaurus == nil then
+	vim.g.thesaurus = {
+		picker = 'telescope',
+		provider = not vim.env.DICTIONARY_API_KEY and 'freedictionaryapi' or nil,
+	}
+elseif type(vim.g.thesaurus) == 'table' and vim.g.thesaurus.picker == nil then
+	vim.g.thesaurus =
+		vim.tbl_extend('force', vim.g.thesaurus, { picker = 'telescope' })
+end
+
 local loaded = false
 local function load()
 	if loaded then
@@ -483,7 +496,7 @@ local function load()
 		'https://github.com/jvgrootveld/telescope-zoxide',
 	})
 	-- Browse synonyms for a word. editor.thesaurus skips itself when this
-	-- extra is on, so its setup won't reset these opts.
+	-- extra is on.
 	pack.dev(
 		'telescope-thesaurus.nvim',
 		'https://github.com/rafi/telescope-thesaurus.nvim'
@@ -506,7 +519,6 @@ local function load()
 	local telescope = require('telescope')
 	telescope.setup(telescope_opts())
 	telescope.load_extension('zoxide')
-	telescope.load_extension('thesaurus')
 
 	if fzf_build then
 		vim.pack.add({
@@ -654,7 +666,8 @@ map('n', '<localleader>dr', '<cmd>Telescope lsp_references<CR>', 'References')
 -- lsp_code_actions/lsp_range_code_actions were removed from telescope.
 -- map('n', '<localleader>da', '<cmd>Telescope lsp_code_actions<CR>', 'Code Actions')
 -- map('x', '<localleader>da', ':Telescope lsp_range_code_actions<CR>', 'Code Actions')
-map('n', '<localleader>k', '<cmd>Telescope thesaurus lookup<CR>', 'Thesaurus')
+-- The <Plug> map only exists once the plugin is sourced, so load it first.
+map('n', '<localleader>k', function() load() vim.api.nvim_feedkeys(vim.keycode('<Plug>(ThesaurusLookup)'), 'm', false) end, 'Thesaurus')
 map('n', '<localleader>z', function()
 	load()
 	require('telescope').extensions.zoxide.list({
