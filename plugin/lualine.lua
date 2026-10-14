@@ -46,43 +46,46 @@ local function build_opts()
 		return vim.fn.winwidth(0) > min
 	end
 
-	local active = {
-		bg = color('StatusLine', 'bg'),
-		fg = color('StatusLine'),
-	}
-	local inactive = {
-		bg = color('StatusLineNC', 'bg'),
-		fg = color('StatusLineNC'),
-	}
-
-	local ColorUtil = require('rafi.util.color')
-	local theme = {
-		normal = {
-			a = active,
-			b = active,
-			c = active,
-			x = {
-				fg = ColorUtil.brightness_modifier(active.bg, -80),
-				bg = active.bg,
+	-- A function, so lualine reads the colors again on each ColorScheme.
+	-- A table theme is reused as-is when lualine reloads.
+	local function theme()
+		local ColorUtil = require('rafi.util.color')
+		local active = {
+			bg = color('StatusLine', 'bg'),
+			fg = color('StatusLine'),
+		}
+		local inactive = {
+			bg = color('StatusLineNC', 'bg'),
+			fg = color('StatusLineNC'),
+		}
+		return {
+			normal = {
+				a = active,
+				b = active,
+				c = active,
+				x = {
+					fg = ColorUtil.brightness_modifier(active.bg, -80),
+					bg = active.bg,
+				},
+				y = {
+					fg = active.fg,
+					bg = ColorUtil.brightness_modifier(active.bg, -20),
+				},
+				z = {
+					fg = active.fg,
+					bg = ColorUtil.brightness_modifier(active.bg, 63),
+				},
 			},
-			y = {
-				fg = active.fg,
-				bg = ColorUtil.brightness_modifier(active.bg, -20),
+			inactive = {
+				a = inactive,
+				b = inactive,
+				c = inactive,
+				x = inactive,
+				y = inactive,
+				z = inactive,
 			},
-			z = {
-				fg = active.fg,
-				bg = ColorUtil.brightness_modifier(active.bg, 63),
-			},
-		},
-		inactive = {
-			a = inactive,
-			b = inactive,
-			c = inactive,
-			x = inactive,
-			y = inactive,
-			z = inactive,
-		},
-	}
+		}
+	end
 
 	vim.o.laststatus = vim.g.lualine_laststatus
 
