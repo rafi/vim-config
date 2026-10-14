@@ -105,16 +105,16 @@ link_config()
 
 local changed = sync_lockfile()
 
--- Former core plugins (now extras) plus two default extras: other extras
--- install tree-sitter parsers and mason tools on `later`, which is slow
--- and needs network. coding.blink and editor.leap install neither.
+-- Default extras only, so the repo lockfile covers every plugin they add
+-- and no child Neovim installs one mid-test. Default extras that install
+-- tree-sitter parsers or mason tools on `later` are left out: slow, and
+-- they need network.
 write_json(config_dir .. '/rafi.json', {
 	extras = {
 		'coding.blink',
 		'coding.lazydev',
 		'colorscheme.tokyonight',
 		'editor.auto-session',
-		'editor.leap',
 		'editor.packman',
 		'editor.tmux-navigator',
 		'editor.todo-comments',
@@ -123,7 +123,6 @@ write_json(config_dir .. '/rafi.json', {
 		'git.committia',
 		'git.diffview',
 		'git.gitsigns',
-		'git.neogit',
 		'treesitter.autotag',
 		'treesitter.matchup',
 		'treesitter.textobjects',

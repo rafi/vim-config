@@ -61,7 +61,6 @@ T['sources plugin/ files once'] = function()
 	local scripts = child.cmd_capture('scriptnames')
 	for _, pattern in ipairs({
 		'vim%-tmux%-navigator/plugin/',
-		'leap%.nvim/plugin/',
 		'vim%-matchup/plugin/matchup%.vim',
 	}) do
 		local _, count = scripts:gsub(pattern, '')
@@ -72,7 +71,6 @@ T['sources plugin/ files once'] = function()
 		child.fn.maparg('<C-h>', 'n'):find('TmuxNavigateLeft'),
 		nil
 	)
-	H.expect.no_equality(child.fn.maparg('<Plug>(leap)', 'n'), '')
 	H.eq(child.g.loaded_matchup, 1)
 end
 
