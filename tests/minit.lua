@@ -18,6 +18,11 @@ for _, a in ipairs(_G.arg) do
 end
 _G.arg = files
 
+-- Specs that need the network check this.
+if offline then
+	vim.env.RAFI_OFFLINE = '1'
+end
+
 -- Real dirs, read before the XDG variables below change stdpath().
 local real = { vim.fn.stdpath('config'), vim.fn.stdpath('data') }
 
@@ -37,7 +42,11 @@ local function link_config()
 	vim.fn.mkdir(config_dir .. '/lua', 'p')
 	vim.fn.mkdir(config_dir .. '/dev', 'p')
 	local links = { 'init.lua', 'after', 'plugin', 'snippets', 'lua/rafi' }
-	for _, name in ipairs({ 'packcount.nvim', 'packman.nvim' }) do
+	for _, name in ipairs({
+		'packcount.nvim',
+		'packman.nvim',
+		'theme-loader.nvim',
+	}) do
 		if vim.uv.fs_stat(root .. '/dev/' .. name) then
 			table.insert(links, 'dev/' .. name)
 		end

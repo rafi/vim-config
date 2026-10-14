@@ -11,9 +11,9 @@ M.root = vim.uv.cwd()
 
 -- Runs in the child before init.lua via --cmd: mini.test always passes
 -- `--clean`, which drops the config and data dirs from 'runtimepath' and
--- 'packpath', so they are put back. On VimEnter every plugin/ file has
--- queued its `rafi.pack.later` callbacks, so one queued then runs last
--- and flags that the queue drained.
+-- 'packpath', so they are put back. rafi.pack.later holds its callbacks
+-- until VimEnter, so the sentinel is queued one tick after it: it then
+-- runs last and flags that the queue drained.
 local child_setup = [[lua
 	local config = vim.fn.stdpath('config')
 	vim.opt.rtp:prepend(config)
@@ -22,7 +22,9 @@ local child_setup = [[lua
 	vim.api.nvim_create_autocmd('VimEnter', {
 		once = true,
 		callback = function()
-			require('rafi.pack').later(function() vim.g.rafi_test_later = true end)
+			vim.schedule(function()
+				require('rafi.pack').later(function() vim.g.rafi_test_later = true end)
+			end)
 		end,
 	})
 ]]
@@ -37,6 +39,21 @@ function M.start_config(child)
 		return vim.wait(5000, function() return vim.g.rafi_test_later end, 20)
 	]])
 	assert(ok, 'rafi.pack.later callbacks did not run within 5s')
+end
+
+---Start `child` without init.lua, but with the sandbox paths, and run
+---`lua_cmd` before startup finishes.
+---@param child MiniTest.child
+---@param lua_cmd string
+function M.start_bare(child, lua_cmd)
+	child.start({
+		'--cmd',
+		(child_setup:gsub('\n', ' ')),
+		'--cmd',
+		'lua ' .. (lua_cmd:gsub('\n', ' ')),
+		'-u',
+		'NONE',
+	})
 end
 
 ---Lua modules from `mods` not yet loaded in the child.

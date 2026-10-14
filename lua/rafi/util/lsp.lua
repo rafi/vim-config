@@ -21,6 +21,15 @@ M.mason_opts = {
 }
 
 local mason_loaded = false
+local mason_ready = false
+
+local function setup_mason()
+	if mason_ready then
+		return
+	end
+	mason_ready = true
+	require('mason').setup(M.mason_opts)
+end
 
 -- Add and setup mason.nvim once. Must run before any LSP server is enabled,
 -- since mason's setup prepends its bin directory to $PATH.
@@ -35,12 +44,15 @@ function M.mason()
 		build = function()
 			vim.schedule(function()
 				M.mason()
+				-- On a fresh install this runs while vim.pack.add() below
+				-- still waits, before it returns and sets mason up.
+				setup_mason()
 				vim.cmd('MasonUpdate')
 			end)
 		end,
 	})
 	vim.pack.add({ 'https://github.com/mason-org/mason.nvim' })
-	require('mason').setup(M.mason_opts)
+	setup_mason()
 end
 
 -- Code actions

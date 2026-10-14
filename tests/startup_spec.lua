@@ -111,4 +111,26 @@ T['sets a colorscheme'] = function()
 	H.expect.no_equality(child.g.colors_name, vim.NIL)
 end
 
+-- vim.pack.add() waits on the event loop while it installs a plugin, which
+-- must not run `later` callbacks before startup finished.
+T['holds rafi.pack.later until VimEnter'] = function()
+	local bare = MiniTest.new_child_neovim()
+	H.start_bare(
+		bare,
+		[[require('rafi.pack').later(function()
+			vim.g.later_vim_did_enter = vim.v.vim_did_enter
+		end) vim.wait(300)]]
+	)
+	local did_enter = vim.NIL
+	for _ = 1, 50 do
+		vim.wait(100)
+		did_enter = bare.lua_get('vim.g.later_vim_did_enter')
+		if did_enter ~= vim.NIL then
+			break
+		end
+	end
+	bare.stop()
+	H.eq(did_enter, 1)
+end
+
 return T

@@ -17,10 +17,31 @@ function M.now(f)
 	misc.safely('now', f)
 end
 
----Run after startup (after the next "now" call).
+local queued = {}
+
+---Run after startup (after the next "now" call). Until VimEnter, calls are
+---held back: while vim.pack installs a missing plugin it waits on the event
+---loop, which would run MiniMisc's `later` queue before the remaining
+---plugin/ files were sourced (e.g. keymaps before snacks).
 ---@param f fun()
 function M.later(f)
-	misc.safely('later', f)
+	if vim.v.vim_did_enter == 1 then
+		misc.safely('later', f)
+		return
+	end
+	if #queued == 0 then
+		vim.api.nvim_create_autocmd('VimEnter', {
+			once = true,
+			callback = function()
+				local held = queued
+				queued = {}
+				for _, held_f in ipairs(held) do
+					misc.safely('later', held_f)
+				end
+			end,
+		})
+	end
+	table.insert(queued, f)
 end
 
 ---Run once on first event, e.g. 'InsertEnter' or 'CmdlineEnter~/'.
