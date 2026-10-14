@@ -43,6 +43,96 @@ function M.map(actions, fallback)
 	end
 end
 
+-- Sources that other extras add to blink.cmp (AI completion, dadbod).
+-- Register them at the top level of the extra file: coding.blink reads
+-- them once, when blink loads on the first InsertEnter or CmdlineEnter.
+---@class rafi.blink.Source
+---@field id string
+---@field provider blink.cmp.SourceProviderConfigPartial
+---@field filetypes? string[] Enable only for these filetypes, not by default
+---@type rafi.blink.Source[]
+M.sources = {}
+-- Filetypes per source id where that source is turned off.
+---@type table<string, string[]>
+M.disabled = {}
+
+-- Warn when an extra registers after blink loaded, so it's not lost quietly.
+---@param what string
+local function warn_if_loaded(what)
+	if package.loaded['blink.cmp'] then
+		vim.notify(
+			('%s registered after blink.cmp loaded, it has no effect'):format(what),
+			vim.log.levels.WARN
+		)
+	end
+end
+
+-- Register a completion source. Does nothing when coding.blink is off.
+---@param id string Provider id, e.g. 'copilot'
+---@param provider blink.cmp.SourceProviderConfigPartial
+---@param filetypes? string[] Enable only for these filetypes
+function M.add_source(id, provider, filetypes)
+	warn_if_loaded(('blink.cmp source %q'):format(id))
+	table.insert(M.sources, {
+		id = id,
+		provider = provider,
+		filetypes = filetypes,
+	})
+end
+
+-- Turn off a source, e.g. 'path', in some filetypes.
+---@param id string Provider id
+---@param filetypes string[]
+function M.disable_source(id, filetypes)
+	warn_if_loaded(('blink.cmp source %q filter'):format(id))
+	M.disabled[id] = vim.list_extend(M.disabled[id] or {}, filetypes)
+end
+
+-- Merge the registered sources into blink.cmp opts, before setup.
+---@param opts blink.cmp.Config
+function M.apply_sources(opts)
+	opts.sources = opts.sources or {}
+	local sources = opts.sources
+	sources.default = sources.default or {}
+	sources.providers = sources.providers or {}
+	sources.per_filetype = sources.per_filetype or {}
+	for _, source in ipairs(M.sources) do
+		sources.providers[source.id] = source.provider
+		if source.filetypes then
+			for _, ft in ipairs(source.filetypes) do
+				local list = sources.per_filetype[ft]
+				if list == nil then
+					list = { inherit_defaults = true }
+					sources.per_filetype[ft] = list
+				end
+				if type(list) == 'table' and not vim.list_contains(list, source.id) then
+					table.insert(list, source.id)
+				end
+			end
+		elseif
+			type(sources.default) == 'table'
+			and not vim.list_contains(sources.default, source.id)
+		then
+			table.insert(sources.default, source.id)
+		end
+	end
+	-- Wrap each filtered provider's `enabled`, keeping any check it had.
+	for id, filetypes in pairs(M.disabled) do
+		local provider = sources.providers[id] or {}
+		local enabled = provider.enabled
+		provider.enabled = function()
+			if vim.list_contains(filetypes, vim.bo.filetype) then
+				return false
+			end
+			if type(enabled) == 'function' then
+				return enabled()
+			end
+			return enabled ~= false
+		end
+		sources.providers[id] = provider
+	end
+end
+
 -- Whether a non-blank character is right before the cursor.
 ---@return boolean
 function M.has_words_before()

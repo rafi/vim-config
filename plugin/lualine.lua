@@ -410,6 +410,7 @@ local function build_opts()
 		})
 	end
 
+	require('rafi.util.lualine').apply(opts)
 	return opts
 end
 

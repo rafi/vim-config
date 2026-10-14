@@ -284,6 +284,71 @@ function M.root_dir(opts)
 	}
 end
 
+-- Status of a plugin as a statusline icon, colored by its state. Hidden
+-- while `status()` returns nil.
+---@param icon string
+---@param status fun(): 'ok'|'error'|'pending'|nil
+---@return table
+function M.status(icon, status)
+	local colors = {
+		ok = 'Special',
+		error = 'DiagnosticError',
+		pending = 'DiagnosticWarn',
+	}
+	return {
+		function()
+			return icon
+		end,
+		cond = function()
+			return status() ~= nil
+		end,
+		color = function()
+			return { fg = Snacks.util.color(colors[status()] or colors.ok) }
+		end,
+	}
+end
+
+-- Components that extras add to lualine sections. Register them at the top
+-- level of the extra file: plugin/lualine.lua reads them once, on `later`.
+---@class rafi.lualine.Added
+---@field section string
+---@field component table
+---@field index? integer
+---@type rafi.lualine.Added[]
+M.added = {}
+
+-- Insert a component into a lualine section, e.g. `lualine_x`. Does
+-- nothing when lualine is disabled.
+---@param section string
+---@param component table
+---@param index? integer Position in the section (default: append)
+function M.add(section, component, index)
+	if package.loaded.lualine then
+		vim.notify(
+			'lualine component registered after lualine loaded, it has no effect',
+			vim.log.levels.WARN
+		)
+	end
+	table.insert(M.added, {
+		section = section,
+		component = component,
+		index = index,
+	})
+end
+
+-- Merge the registered components into lualine opts, before setup.
+---@param opts table
+function M.apply(opts)
+	for _, added in ipairs(M.added) do
+		local list = opts.sections[added.section]
+		table.insert(
+			list,
+			math.min(added.index or #list + 1, #list + 1),
+			added.component
+		)
+	end
+end
+
 _G.neotree_get_path = function(winid)
 	winid = winid or vim.api.nvim_get_current_win()
 	local state =

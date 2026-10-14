@@ -91,5 +91,6 @@ pack.on_event('InsertEnter,CmdlineEnter', function()
 		opts.keymap = vim.tbl_extend('force', opts.keymap, blink.supertab())
 	end
 
+	blink.apply_sources(opts)
 	require('blink.cmp').setup(opts)
 end)
