@@ -6,14 +6,18 @@
 
 -- This file is automatically loaded by rafi.config.setup() (init.lua)
 
--- ===
--- Rafi's options further below override these.
-
+-- Keyboard leaders
 vim.g.mapleader = ' '
-vim.g.maplocalleader = '\\'
+vim.g.maplocalleader = ';'
+
+-- Add user pack directory
+vim.opt.packpath:append(vim.fn.stdpath('data') .. '/site')
 
 -- Auto format on save (rafi.util.format)
-vim.g.autoformat = true
+vim.g.autoformat = false
+
+-- Elite-mode (hjkl mode, arrow-keys resize window), off by default.
+vim.g.elite_mode = false
 
 -- Snacks animations. Set to `false` to disable all of them.
 vim.g.snacks_animate = true
@@ -25,6 +29,9 @@ vim.g.ai_cmp = true
 -- <Tab> selects completion items, jumps in snippets and opens completion.
 -- false keeps <Tab> for snippet jumps and AI actions only.
 vim.g.cmp_supertab = true
+
+-- External file diff program
+vim.g.diffprg = 'bcompare'
 
 -- Root dir detection (rafi.util.root)
 -- Each entry can be:
@@ -43,27 +50,17 @@ vim.g.deprecation_warnings = false
 -- Disable per buffer with `vim.b.trouble_lualine = false`.
 vim.g.trouble_lualine = true
 
-vim.opt.autowrite = true -- Enable auto write
 -- Skip clipboard over SSH, so the OSC 52 integration works.
 vim.opt.clipboard = vim.env.SSH_CONNECTION and '' or 'unnamedplus' -- Sync with system clipboard
 vim.opt.completeopt = 'menu,menuone,noselect'
 vim.opt.conceallevel = 2 -- Hide * markup for bold and italic, but not markers with substitutions
 vim.opt.confirm = true -- Confirm to save changes before exiting modified buffer
 vim.opt.cursorline = true -- Enable highlighting of the current line
-vim.opt.expandtab = true -- Use spaces instead of tabs
-vim.opt.fillchars = {
-	foldopen = '',
-	foldclose = '',
-	fold = ' ',
-	foldsep = ' ',
-	diff = '╱',
-	eob = ' ',
-}
 vim.opt.foldlevel = 99
 vim.opt.foldmethod = 'indent'
 vim.opt.foldtext = ''
--- formatexpr is set in the rafi section below.
 vim.opt.formatoptions = 'jcroqlnt' -- tcqj
+vim.opt.formatexpr = "v:lua.require'rafi.util.format'.formatexpr()"
 vim.opt.grepformat = '%f:%l:%c:%m'
 vim.opt.grepprg = 'rg --vimgrep'
 vim.opt.ignorecase = true -- Ignore case
@@ -72,15 +69,11 @@ vim.opt.jumpoptions = 'view'
 vim.opt.laststatus = 3 -- global statusline
 vim.opt.linebreak = true -- Wrap lines at convenient points
 vim.opt.list = true -- Show some invisible characters (tabs...
-vim.opt.mouse = 'a' -- Enable mouse mode
-vim.opt.number = true -- Print line number
 vim.opt.pumblend = 10 -- Popup blend
 vim.opt.pumheight = 10 -- Maximum number of entries in a popup
-vim.opt.relativenumber = true -- Relative line numbers
 vim.opt.ruler = false -- Disable the default ruler
 vim.opt.scrolloff = 4 -- Lines of context
 vim.opt.sessionoptions = {
-	'buffers',
 	'curdir',
 	'tabpages',
 	'winsize',
@@ -105,7 +98,6 @@ vim.opt.splitright = true -- Put new windows right of current
 vim.opt.statuscolumn = [[%!v:lua.require'rafi.util'.statuscolumn()]]
 vim.opt.tabstop = 2 -- Number of spaces tabs count for
 vim.opt.termguicolors = true -- True color support
-vim.opt.timeoutlen = vim.g.vscode and 1000 or 300 -- Lower than default (1000) to quickly trigger which-key
 vim.opt.undofile = true
 vim.opt.undolevels = 10000
 vim.opt.updatetime = 200 -- Save swap file and trigger CursorHold
@@ -119,25 +111,10 @@ vim.g.markdown_recommended_style = 0
 -- Disable markdown.vim [[/]] keymaps, the built-in ftplugin sets them
 vim.g.no_markdown_maps = 1
 
--- Rafi's options
--- ===
-
--- Keyboard leaders
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ';'
-
--- Elite-mode (hjkl mode, arrow-keys resize window), off by default.
-vim.g.elite_mode = false
-
--- External file diff program
-vim.g.diffprg = 'bcompare'
-
--- Disable auto format on save.
-vim.g.autoformat = false
-vim.opt.formatexpr = "v:lua.require'rafi.util.format'.formatexpr()"
-
--- Add user pack directory
-vim.opt.packpath:append(vim.fn.stdpath('data') .. '/site')
+-- Neovim built in filetype plugins settings.
+vim.g.yaml_indent_multiline_scalar = 1 -- $VIMRUNTIME/indent/yaml.vim
+vim.g.no_gitrebase_maps = 1 -- See $VIMRUNTIME/ftplugin/gitrebase.vim
+vim.g.no_man_maps = 1 -- See $VIMRUNTIME/ftplugin/man.vim
 
 -- Disable unused builtin plugins
 for _, name in ipairs({
@@ -147,6 +124,10 @@ for _, name in ipairs({
 	'tarPlugin',
 	'netrwPlugin',
 	'zipPlugin', -- plugin/zipPlugin.vim (Neovim 0.12)
+	'python3_provider',
+	'perl_provider',
+	'ruby_provider',
+	'node_provider',
 }) do
 	vim.g['loaded_' .. name] = 1
 end
@@ -172,19 +153,14 @@ vim.opt.diffopt:append({
 })
 
 if not vim.g.vscode then
-	vim.opt.timeoutlen = 500 -- Faster timeout on mapped sequence to complete.
-	vim.opt.ttimeoutlen = 10 -- Faster timeout on key code sequence to complete.
+	-- Faster timeout on mapped/key-code sequence to complete.
+	vim.opt.timeoutlen = vim.g.vscode and 1000 or 300
+	vim.opt.ttimeoutlen = 10
 end
 
 if vim.fn.has('nvim-0.11') == 1 then
 	vim.opt.tabclose:append('uselast')
 end
-
--- What to save for sessions
-vim.opt.sessionoptions:remove('blank')
-vim.opt.sessionoptions:remove('buffers')
-vim.opt.sessionoptions:remove('terminal')
--- vim.opt.sessionoptions:append({ 'localoptions' })
 
 vim.opt.breakindent = true
 vim.opt.showcmd = false -- Don't show command in status line
@@ -215,8 +191,8 @@ vim.opt.foldlevelstart = 99
 vim.opt.foldnestmax = 15
 -- vim.wo.foldcolumn = '1'
 vim.opt.fillchars = {
-	foldopen = '󰅀', --  󰅀▾
-	foldclose = '󰅂', --  󰅂▸
+	foldopen = '', --  󰅀▾
+	foldclose = '', --  󰅂▸
 	fold = ' ', -- ⸱
 	foldsep = ' ',
 	foldinner = ' ',
@@ -230,17 +206,6 @@ vim.opt.fillchars = {
 	vertright = '┣',
 	verthoriz = '╋',
 }
-
--- Disable python/perl/ruby/node providers
-vim.g.loaded_python3_provider = 0
-vim.g.loaded_perl_provider = 0
-vim.g.loaded_ruby_provider = 0
-vim.g.loaded_node_provider = 0
-
--- Neovim built in filetype plugins settings.
-vim.g.yaml_indent_multiline_scalar = 1 -- $VIMRUNTIME/indent/yaml.vim
-vim.g.no_gitrebase_maps = 1 -- See $VIMRUNTIME/ftplugin/gitrebase.vim
-vim.g.no_man_maps = 1 -- See $VIMRUNTIME/ftplugin/man.vim
 
 -- If sudo, disable vim swap/backup/undo/shada writing
 local USER = vim.env.USER or ''

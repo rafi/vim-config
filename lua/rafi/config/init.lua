@@ -26,9 +26,9 @@ end
 ---@param mod string
 local function load_user(mod)
 	local ok, err = pcall(require, mod)
-	local missing = type(err) == 'string'
+	local file_not_found = type(err) == 'string'
 		and err:find(("module '%s' not found"):format(mod), 1, true)
-	if not ok and not missing then
+	if not ok and not file_not_found then
 		vim.notify(
 			('Failed loading %s: %s'):format(mod, M.explain_error(err)),
 			vim.log.levels.WARN
@@ -164,10 +164,9 @@ local function default_state()
 	return { extras = vim.deepcopy(M.defaults), disabled = {} }
 end
 
----Migrate lazyvim.json to rafi.json extras list. Module names from all
----three old extras sources (rafi.plugins.extras, lazyvim.plugins.extras
----and the user's plugins.extras) become `<cat>.<name>`. Names with no
----matching extra file are dropped and listed in one warning.
+---Migrate lazyvim.json to rafi.json extras list. Module names from all three
+---old extras sources (rafi.plugins.extras, lazyvim.plugins.extras and the
+---user's plugins.extras) become `<category>.<name>`. Warn for unknowns.
 ---@param path string
 ---@return string[]?
 local function migrate_lazyvim(path)
@@ -204,8 +203,7 @@ local function migrate_lazyvim(path)
 	return extras
 end
 
----Return a rafi.json field if it's a list of strings, else warn and use
----`default`, so a bad hand edit can't make every guard call throw.
+---Return a rafi.json field, or default if not a list of strings.
 ---@param value unknown
 ---@param field string
 ---@param default string[]
@@ -255,8 +253,7 @@ local function drop_required(disabled)
 	end, disabled)
 end
 
----Read rafi.json once. Writes it only when missing (migrated from
----lazyvim.json, or the defaults).
+---Read rafi.json once. Writes it only when missing.
 ---@return rafi.State
 function M.state()
 	if M._cache then
@@ -290,9 +287,7 @@ function M.state()
 	return state
 end
 
----Save rafi.json. Keys in rafi.json that this module doesn't own (e.g.
----`colorscheme`, which theme-loader.nvim writes) are kept: the file is
----re-read so a key written since startup isn't lost to the cached state.
+---Save rafi.json, re-read so even unknown keys aren't lose.
 ---@param state rafi.State
 function M.save(state)
 	local out = {}
@@ -308,12 +303,13 @@ function M.save(state)
 	if not ok then
 		json = vim.json.encode(out)
 	end
-	-- writefile can raise or return -1. Either only warns, so state is
-	-- still cached and guard calls don't retry the failing write.
-	local ok_write, ret =
-		pcall(vim.fn.writefile, vim.split(json, '\n'), M.json_path())
-	local write_ok = ok_write and ret == 0
+	-- Avoid writing rafi.json in place, so another Neovim won't get corrupted.
+	local path = vim.uv.fs_realpath(M.json_path()) or M.json_path()
+	local tmp = ('%s.%d.tmp'):format(path, vim.uv.os_getpid())
+	local ok_write, ret = pcall(vim.fn.writefile, vim.split(json, '\n'), tmp)
+	local write_ok = ok_write and ret == 0 and vim.uv.fs_rename(tmp, path)
 	if not write_ok then
+		vim.uv.fs_unlink(tmp)
 		vim.notify(
 			('Could not write rafi.json, changes will not persist: %s'):format(
 				M.json_path()

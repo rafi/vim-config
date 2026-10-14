@@ -118,12 +118,12 @@ require('snacks').setup({
 			files = {
 				hidden = true,
 				ignored = true,
-				exclude = { '.git', '.cache', '.tests' },
+				exclude = { '.git', '.cache', '.tests', '.helm' },
 			},
 			grep = {
 				hidden = true,
 				ignored = true,
-				exclude = { '.git', '.cache', '.tests' },
+				exclude = { '.git', '.cache', '.tests', '.helm' },
 			},
 			explorer = {
 				replace_netrw = true,

@@ -13,7 +13,7 @@ local map = vim.keymap.set
 -- General keymaps. Rafi's keymaps further below override these.
 -- ===
 
--- better up/down
+-- better up/down (elite mode below replaces it)
 map({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { desc = 'Down', expr = true, silent = true })
 map({ 'n', 'x' }, '<Down>', "v:count == 0 ? 'gj' : 'j'", { desc = 'Down', expr = true, silent = true })
 map({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { desc = 'Up', expr = true, silent = true })
@@ -51,6 +51,12 @@ map('n', '<leader>bo', function() Snacks.bufdelete.other() end, { desc = 'Delete
 map('n', '<leader>bi', function() Snacks.bufdelete.invisible() end, { desc = 'Delete Invisible Buffers' })
 map('n', '<leader>bD', '<cmd>:bd<cr>', { desc = 'Delete Buffer and Window' })
 
+-- Clear multicursor sessions
+vim.keymap.set('n', '<C-[>', function()
+	local mc_ns = vim.api.nvim_create_namespace('nvim.multicursor')
+	vim.api.nvim_buf_clear_namespace(0, mc_ns, 0, -1)
+end)
+
 -- Clear search and stop snippet on escape
 map({ 'i', 'n', 's' }, '<esc>', function()
 	vim.cmd('noh')
@@ -70,11 +76,6 @@ map(
 		.. '<Bar>normal! <C-L><CR>',
 	{ desc = 'Redraw / Clear hlsearch / Diff Update' }
 )
-
-vim.keymap.set('n', '<C-[>', function()
-	local mc_ns = vim.api.nvim_create_namespace('nvim.multicursor')
-	vim.api.nvim_buf_clear_namespace(0, mc_ns, 0, -1)
-end)
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 map('n', 'n', "'Nn'[v:searchforward].'zv'", { expr = true, desc = 'Next Search Result' })
@@ -174,12 +175,6 @@ Snacks.toggle.profiler_highlights():map('<leader>dph')
 
 if vim.lsp.inlay_hint then
 	Snacks.toggle.inlay_hints():map('<leader>uh')
-end
-
--- lazygit
-if vim.fn.executable('lazygit') == 1 then
-	map('n', '<leader>gg', function() Snacks.lazygit( { cwd = require('rafi.util.root').git() }) end, { desc = 'Lazygit (Root Dir)' })
-	map('n', '<leader>gG', function() Snacks.lazygit() end, { desc = 'Lazygit (cwd)' })
 end
 
 map('n', '<leader>gL', function() Snacks.picker.git_log() end, { desc = 'Git Log (cwd)' })
@@ -378,28 +373,6 @@ map('n', '[a', '<cmd>lprev<CR>', { desc = 'Previous Loclist' })
 map('n', ']z', function() whitespace_jump(1) end, { desc = 'Next Whitespace' })
 map('n', '[z', function() whitespace_jump(-1) end, { desc = 'Previous Whitespace' })
 
--- Diagnostic movement
-local diagnostic_jump = function(count, severity)
-	local severity_int = severity and vim.diagnostic.severity[severity] or nil
-	if vim.fn.has('nvim-0.11') == 1 then
-		return function()
-			vim.diagnostic.jump({ severity = severity_int, count = count })
-		end
-	end
-	-- Pre 0.11
-	---@diagnostic disable-next-line: deprecated
-	local jump = count > 0 and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-	return function()
-		jump({ severity = severity_int })
-	end
-end
-map('n', ']d', diagnostic_jump(1), { desc = 'Next Diagnostic' })
-map('n', '[d', diagnostic_jump(-1), { desc = 'Prev Diagnostic' })
-map('n', ']e', diagnostic_jump(1, 'ERROR'), { desc = 'Next Error' })
-map('n', '[e', diagnostic_jump(-1, 'ERROR'), { desc = 'Prev Error' })
-map('n', ']w', diagnostic_jump(1, 'WARN'), { desc = 'Next Warning' })
-map('n', '[w', diagnostic_jump(-1, 'WARN'), { desc = 'Prev Warning' })
-
 -- }}}
 -- Clipboard {{{
 -- ===
@@ -502,7 +475,7 @@ end, { expr = true })
 -- File operations {{{
 
 -- Switch (tab) to the directory of the current opened buffer
-map('n', '<Leader>cd', function()
+map('n', '<Leader><Tab>c', function()
 	local bufdir = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':p:h')
 	if bufdir ~= nil and vim.uv.fs_stat(bufdir) then
 		vim.cmd.tcd(bufdir)
