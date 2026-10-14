@@ -100,7 +100,44 @@ docker: docker-build
 	docker run -it --rm $(IMAGE) bash -lc \
 		'git clone https://github.com/rafi/vim-config ~/.config/nvim && nvim'
 
+# Files a run would read or write, so docker-local moves them aside first:
+# the container then starts like a fresh install. lazyvim.json is listed so
+# a copy made by LAZYVIM_JSON is removed again.
+STATE_FILES := lua/config lua/plugins nvim-pack-lock.json rafi.json lazyvim.json
+
+# Copied to lazyvim.json for the run, to test the upgrade path, e.g.
+# `make docker-local LAZYVIM_JSON=tests/fixtures/lazyvim.json`.
+LAZYVIM_JSON ?=
+
+# Stash script, in a variable like DOCKER_BUILD. The trap puts the state
+# files back, also after an error or Ctrl-C, and drops what the container
+# wrote there.
+define DOCKER_LOCAL
+set -e
+cd "$(CURDIR)"
+stash="$$(mktemp -d)"
+restore() {
+  for f in $(STATE_FILES); do
+    rm -rf "$$f"
+    if [ -e "$$stash/$$f" ]; then mv "$$stash/$$f" "$$f"; fi
+  done
+  rm -rf "$$stash"
+}
+trap restore EXIT
+trap 'exit 1' INT TERM
+for f in $(STATE_FILES); do
+  if [ -e "$$f" ]; then
+    mkdir -p "$$stash/$$(dirname "$$f")"
+    mv "$$f" "$$stash/$$f"
+  fi
+done
+if [ -n "$(LAZYVIM_JSON)" ]; then cp "$(LAZYVIM_JSON)" lazyvim.json; fi
+docker run -v "$(CURDIR)":/root/.config/nvim -it --rm $(IMAGE) nvim
+endef
+export DOCKER_LOCAL
+
 .PHONY: docker-local
-# Try this working tree in a throwaway container.
+# Try this working tree in a throwaway container, with the state files
+# stashed (see STATE_FILES).
 docker-local: docker-build
-	docker run -v "$(CURDIR)":/root/.config/nvim -it --rm $(IMAGE) nvim
+	@eval "$$DOCKER_LOCAL"

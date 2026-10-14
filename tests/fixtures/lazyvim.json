@@ -1,0 +1,26 @@
+{
+  "extras": [
+    "lazyvim.plugins.extras.coding.mini-surround",
+    "lazyvim.plugins.extras.lang.docker",
+    "lazyvim.plugins.extras.lang.elixir",
+    "lazyvim.plugins.extras.lang.go",
+    "lazyvim.plugins.extras.lang.haskell",
+    "lazyvim.plugins.extras.lang.json",
+    "lazyvim.plugins.extras.lang.kubernetes",
+    "lazyvim.plugins.extras.lang.markdown",
+    "lazyvim.plugins.extras.lang.python",
+    "lazyvim.plugins.extras.lang.rust",
+    "lazyvim.plugins.extras.lang.typescript",
+    "lazyvim.plugins.extras.lang.yaml",
+    "lazyvim.plugins.extras.lang.go",
+    "plugins.extras.lang.my-custom",
+    "plugins.extras.lang.toml",
+    "rafi.plugins.extras.coding.yanky",
+    "rafi.plugins.extras.editor.telescope"
+  ],
+  "install_version": 8,
+  "news": {
+    "NEWS.md": "11866"
+  },
+  "version": 8
+}
