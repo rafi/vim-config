@@ -278,6 +278,15 @@ local function build_opts()
 								removed = gitsigns.removed,
 							}
 						end
+						-- mini.diff (editor.mini-diff) summary
+						local minidiff = vim.b.minidiff_summary
+						if minidiff then
+							return {
+								added = minidiff.add,
+								modified = minidiff.change,
+								removed = minidiff.delete,
+							}
+						end
 					end,
 					on_click = function()
 						vim.cmd([[DiffviewFileHistory %]])
