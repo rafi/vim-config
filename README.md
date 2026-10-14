@@ -239,7 +239,8 @@ The first start writes `rafi.json` from your `lazyvim.json` extras, and
 warns about any that have no vim.pack version. Then:
 
 * Plugins that used to be core (blink.cmp, mini.ai, mini.pairs,
-  mini.surround, grug-far, outline, undotree, nvim-treesitter and others)
+  mini.surround, grug-far, outline, undotree, nvim-treesitter, the
+  neo-hybrid colorscheme, now `colorscheme.morrow`, and others)
   are now extras. Pick the ones you want with `:RafiExtras`.
 * `lua/plugins/*.lua` files that return lazy.nvim specs are ignored, with
   a warning. Rewrite them as plain `vim.pack.add()` code, see
@@ -399,7 +400,6 @@ other plugins are extras, and many of them are enabled by default, see
 | `lualine`      | [nvim-lualine/lualine.nvim] | Blazing fast and easy to configure statusline |
 | `mason`        | [mason-org/mason.nvim] | Portable package manager for Neovim |
 | `mini-icons`   | [nvim-mini/mini.icons] | Icon provider |
-| `morrow`       | [rafi/neo-hybrid.vim] | `morrow` colorschemes, modern dark, hybrid improved |
 | `snacks`       | [folke/snacks.nvim] | Collection of QoL plugins: picker, explorer, terminal, toggles (required) |
 | `theme-loader` | [rafi/theme-loader.nvim] | Use last-used colorscheme |
 
@@ -414,7 +414,6 @@ other plugins are extras, and many of them are enabled by default, see
 [nvim-lualine/lualine.nvim]: https://github.com/nvim-lualine/lualine.nvim
 [mason-org/mason.nvim]: https://github.com/mason-org/mason.nvim
 [nvim-mini/mini.icons]: https://github.com/nvim-mini/mini.icons
-[rafi/neo-hybrid.vim]: https://github.com/rafi/neo-hybrid.vim
 [folke/snacks.nvim]: https://github.com/folke/snacks.nvim
 [rafi/theme-loader.nvim]: https://github.com/rafi/theme-loader.nvim
 [nvim-mini/mini.misc]: https://github.com/nvim-mini/mini.misc
@@ -523,6 +522,7 @@ Extra: `colorscheme.<name>`
 | `modus`        | [miikanissi/modus-themes.nvim] | Highly accessible themes conforming with WCAG AAA color contrast |
 | `monokai-nightasty` | [polirritmico/monokai-nightasty.nvim] | Dark/light theme based on the Monokai color palette |
 | `monokai-pro`  | [loctvl842/monokai-pro.nvim] | Monokai Pro colorscheme, with several filter variants |
+| `morrow`       | [rafi/morrow.nvim] | Modern dark colorscheme, hybrid improved, the initial colorscheme (enabled by default) |
 | `onenord`      | [rmehri01/onenord.nvim] | Theme combining the Nord and Atom One Dark color palettes |
 | `oxocarbon`    | [nyoom-engineering/oxocarbon.nvim] | Dark and light theme inspired by IBM Carbon |
 | `tokyonight`   | [folke/tokyonight.nvim] | Clean, dark Neovim theme (enabled by default) |
@@ -541,6 +541,7 @@ Extra: `colorscheme.<name>`
 [nyoom-engineering/oxocarbon.nvim]: https://github.com/nyoom-engineering/oxocarbon.nvim
 [catppuccin/nvim]: https://github.com/catppuccin/nvim
 [folke/tokyonight.nvim]: https://github.com/folke/tokyonight.nvim
+[rafi/morrow.nvim]: https://github.com/rafi/morrow.nvim
 
 ### Extra Plugins: Editor
 

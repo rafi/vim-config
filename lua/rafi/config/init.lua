@@ -106,6 +106,7 @@ M.defaults = {
 	'coding.mini-surround',
 	'coding.mini-trailspace',
 	'coding.ts-comments',
+	'colorscheme.morrow',
 	'colorscheme.tokyonight',
 	'editor.auto-session',
 	'editor.dial',
